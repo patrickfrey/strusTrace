@@ -1,0 +1,22 @@
+Source: strusshadow
+Section: libs
+Priority: optional
+Maintainer: Patrick Frey <patrickpfrey@yahoo.com>
+Build-Depends: debhelper (>= 4.1.16), cmake,
+ libboost1.53-dev, libboost-thread1.53-dev, libboost-system1.53-dev,
+ libboost-date-time1.53-dev, libleveldb-dev
+Standards-Version: 3.8.3
+Homepage: http://project-strus.net
+
+Package: strusshadow
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Library adding data introspection to a Strus search engine
+Library implementing a proxy for strus and strusanalyzer that builds an
+introspectable forest of objects besides calling the real object methods.
+
+Package: strusshadow-dev
+Architecture: any
+Depends: strus, strusanalyzer, ${shlibs:Depends}, ${misc:Depends}
+Description: strusshadow development files
+ StrusShadow development files.

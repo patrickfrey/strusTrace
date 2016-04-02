@@ -3,7 +3,7 @@
 # DEBIAN
 export DEBEMAIL="patrickpfrey@yahoo.com"
 export DEBFULLNAME="Patrick Frey"
-PACKAGEID="strusshadow-0.7"
+PACKAGEID="strustrace-0.7"
 
 rm -Rf pkg/$PACKAGEID
 mkdir pkg/$PACKAGEID
@@ -23,7 +23,7 @@ rm debian/postinst.ex
 rm debian/postrm.ex
 rm debian/preinst.ex
 rm debian/prerm.ex 
-rm debian/strusshadow.default.ex
-rm debian/strusshadow.doc-base.EX 
-rm debian/strusshadow.cron.d.ex 
+rm debian/strustrace.default.ex
+rm debian/strustrace.doc-base.EX 
+rm debian/strustrace.cron.d.ex 
 

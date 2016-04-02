@@ -1,7 +1,7 @@
 # Contributor: Patrick Frey <patrickpfrey@yahoo.com> 
 # Maintainer: Patrick Frey <patrickpfrey@yahoo.com> 
 
-pkgname=strusshadow
+pkgname=strustrace
 _mainpkgver=@STRUS_VERSION@
 pkgver=${_mainpkgver}
 pkgrel=1
@@ -30,7 +30,7 @@ package() {
   cd build
   make DESTDIR=${pkgdir} install
   
-  msg "Adding strusshadow to ld.so.conf..."
+  msg "Adding strustrace to ld.so.conf..."
   install -d ${pkgdir}/etc/ld.so.conf.d
   echo "/usr/lib/${pkgname}" > ${pkgdir}/etc/ld.so.conf.d/${pkgname}.conf  
 }

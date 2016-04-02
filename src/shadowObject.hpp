@@ -5,10 +5,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef _STRUS_SHADOW_OBJECT_HPP_INCLUDED
-#define _STRUS_SHADOW_OBJECT_HPP_INCLUDED
+#ifndef _STRUS_TRACE_OBJECT_HPP_INCLUDED
+#define _STRUS_TRACE_OBJECT_HPP_INCLUDED
 #include "internationalization.hpp"
-#include "shadowObjectMap.hpp"
+#include "traceObjectMap.hpp"
 #include <string>
 #include <map>
 
@@ -16,15 +16,15 @@ namespace strus
 {
 
 template <class Interface>
-class ShadowObject
+class TraceObject
 {
 public:
-	typedef ShadowObjectMap::ObjectId Id;
+	typedef TraceObjectMap::ObjectId Id;
 
-	ShadowObject( ShadowObjectMap* objectmap_, Interface* obj)
+	TraceObject( TraceObjectMap* objectmap_, Interface* obj)
 		:m_objectmap(objectmap),m_obj(obj),m_id(objectmap_->createObject(obj)){}
 
-	~ShadowObject(){}
+	~TraceObject(){}
 
 	Id id() const
 	{
@@ -32,9 +32,9 @@ public:
 	}
 
 private:
-	ShadowObjectMap* m_objectmap;
+	TraceObjectMap* m_objectmap;
 	Interface* m_obj;
-	ShadowObjectMap::ObjectId m_id;
+	TraceObjectMap::ObjectId m_id;
 };
 }
 #endif

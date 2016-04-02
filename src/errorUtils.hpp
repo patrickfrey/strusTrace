@@ -7,8 +7,8 @@
  */
 /// \brief Macros, classes and functions supporting error handling
 /// \file errorUtils.hpp
-#ifndef _STRUS_SHADOW_ERROR_UTILITIES_HPP_INCLUDED
-#define _STRUS_SHADOW_ERROR_UTILITIES_HPP_INCLUDED
+#ifndef _STRUS_TRACE_ERROR_UTILITIES_HPP_INCLUDED
+#define _STRUS_TRACE_ERROR_UTILITIES_HPP_INCLUDED
 #include <stdexcept>
 #include "internationalization.hpp"
 

@@ -1,4 +1,4 @@
-# StrusShadow spec file
+# Strustrace spec file
 
 # Set distribution based on some OpenSuse and distribution macros
 # this is only relevant when building on https://build.opensuse.org
@@ -113,7 +113,7 @@
 %endif
 
 Summary: Library implementing the storage of a text search engine
-Name: strusshadow
+Name: strustrace
 %define main_version @STRUS_VERSION@
 Version: %{main_version}
 Release: 0.1
@@ -222,11 +222,11 @@ Packager: Patrick Frey <patrickpfrey@yahoo.com>
 Library implementing the storage of a text search engine.
 
 %package devel
-Summary: strusshadow development files
+Summary: strustrace development files
 Group: Development/Libraries/C++
 
 %description devel
-The libraries and header files used for development with strusshadow.
+The libraries and header files used for development with strustrace.
 
 Requires: %{name} >= %{main_version}-%{release}
 
@@ -264,12 +264,12 @@ make test
 %files
 %defattr( -, root, root )
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/libstrus_shadow.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@
-%{_libdir}/%{name}/libstrus_shadow.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@.@STRUS_PATCH_VERSION@
+%{_libdir}/%{name}/libstrus_trace.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@
+%{_libdir}/%{name}/libstrus_trace.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@.@STRUS_PATCH_VERSION@
 
 %files devel
 %defattr( -, root, root )
-%{_libdir}/%{name}/libstrus_shadow.so
+%{_libdir}/%{name}/libstrus_trace.so
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/*.hpp
 %dir %{_includedir}/%{name}/lib

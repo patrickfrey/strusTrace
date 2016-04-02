@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Debian postinst script for strusshadow
+# Debian postinst script for strustrace
 
 # summary of how this script can be called:
 #        * <postinst> `configure' <most-recently-configured-version>

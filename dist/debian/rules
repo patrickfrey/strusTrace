@@ -57,13 +57,13 @@ install: build
 
 	# Add here commands to install the package
 	# The DESTDIR Has To Be Exactly  /usr/src/packages/BUILD/debian/<nameOfPackage>
-	cd build &&	$(MAKE) install DESTDIR=/usr/src/packages/BUILD/debian/strusshadow
-	mkdir -p /usr/src/packages/BUILD/debian/strusshadow-dev/usr
-	mv -f /usr/src/packages/BUILD/debian/strusshadow/usr/include \
-		/usr/src/packages/BUILD/debian/strusshadow-dev/usr/.
-	mkdir -p /usr/src/packages/BUILD/debian/strusshadow-dev/usr/lib/$(DEB_HOST_MULTIARCH)/strus
-	mv -f /usr/src/packages/BUILD/debian/strusshadow/usr/lib/$(DEB_HOST_MULTIARCH)/strus/*.so \
-		/usr/src/packages/BUILD/debian/strusshadow-dev/usr/lib/$(DEB_HOST_MULTIARCH)/strus/.
+	cd build &&	$(MAKE) install DESTDIR=/usr/src/packages/BUILD/debian/strustrace
+	mkdir -p /usr/src/packages/BUILD/debian/strustrace-dev/usr
+	mv -f /usr/src/packages/BUILD/debian/strustrace/usr/include \
+		/usr/src/packages/BUILD/debian/strustrace-dev/usr/.
+	mkdir -p /usr/src/packages/BUILD/debian/strustrace-dev/usr/lib/$(DEB_HOST_MULTIARCH)/strus
+	mv -f /usr/src/packages/BUILD/debian/strustrace/usr/lib/$(DEB_HOST_MULTIARCH)/strus/*.so \
+		/usr/src/packages/BUILD/debian/strustrace-dev/usr/lib/$(DEB_HOST_MULTIARCH)/strus/.
 	# --- end custom part for installing
 
 # Build architecture-independent files here.

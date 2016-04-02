@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Debian postrm script for strusshadow
+# Debian postrm script for strustrace
 
 # summary of how this script can be called:
 #        * <postrm> `remove'

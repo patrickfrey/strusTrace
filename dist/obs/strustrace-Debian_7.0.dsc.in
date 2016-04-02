@@ -1,7 +1,7 @@
 Format: 3.0 (quilt)
-Source: strusshadow
-Version: @STRUS_VERSION@-xUbuntu12.04
-Binary: strusshadow
+Source: strustrace
+Version: @STRUS_VERSION@-Debian7.0
+Binary: strustrace
 Maintainer: Patrick Frey <patrickpfrey@yahoo.com>
 Architecture: any
 Build-Depends: debhelper (>= 4.1.16), cmake,

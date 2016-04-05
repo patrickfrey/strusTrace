@@ -516,7 +516,6 @@ sub getClassEnumFillMapSource
 		my $interfacename = getInterfaceName($ci);
 		my $classname = interfaceImplementationClassName($interfacename);
 		my $interfaceenumname = getInterfaceEnumName($interfacename);
-		ClassId_AggregatorFunctionInstance
 		$rt .= "\n\tm_classnamemap.insert(\"$classname\", $interfaceenumname);";
 		$rt .= "\n\tm_classnamear.push_back( \"$classname\");";
 		++$ii;
@@ -1649,7 +1648,7 @@ sub getClassMethodEnumFillMapSource
 		foreach $mm( @mth)
 		{
 			$callname = getMethodName( $mm);
-			$methodid = "$interfaceenumname::" . "Method_" . $callname;
+			$methodid = "$interfaceenumname" . "::Method_" . $callname;
 			$rt .= "\n\tm_methodnamemap[ MethodNameRef( $interfaceenumname, \"$callname\"] = $methodid;";
 			$rt .= "\n\tm_methodnameinvmap[ MethodIdRef( $interfaceenumname, $methodid] = \"$callname\";";
 		}
@@ -1769,7 +1768,7 @@ my $interfacefile = "src/objectIds_gen.hpp";
 open( HDRFILE, ">$interfacefile") or die "Couldn't open file $interfacefile, $!";
 print HDRFILE <<EOF;
 /*
- * Copyright (c) 2015 Patrick P. Frey
+ * Copyright (c) 2016 Patrick P. Frey
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -1792,7 +1791,7 @@ EOF
 close HDRFILE;
 
 
-my $interfacefile = "src/traceViewer_gen.cpp";
+$interfacefile = "src/traceViewer_gen.cpp";
 open( HDRFILE, ">$interfacefile") or die "Couldn't open file $interfacefile, $!";
 print HDRFILE <<EOF;
 /*
@@ -1866,7 +1865,7 @@ open( HDRFILE, ">$interfacefile") or die "Couldn't open file $interfacefile, $!"
 
 print HDRFILE <<EOF;
 /*
- * Copyright (c) 2015 Patrick P. Frey
+ * Copyright (c) 2016 Patrick P. Frey
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -1905,7 +1904,7 @@ open( SRCFILE, ">$sourcefile") or die "Couldn't open file $sourcefile, $!";
 
 print SRCFILE <<EOF;
 /*
- * Copyright (c) 2015 Patrick P. Frey
+ * Copyright (c) 2016 Patrick P. Frey
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -1934,7 +1933,7 @@ open( SRCFILE, ">$sourcefile") or die "Couldn't open file $sourcefile, $!";
 
 print SRCFILE <<EOF;
 /*
- * Copyright (c) 2015 Patrick P. Frey
+ * Copyright (c) 2016 Patrick P. Frey
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this

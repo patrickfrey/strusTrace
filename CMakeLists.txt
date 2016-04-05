@@ -22,7 +22,7 @@ configure_file( "${PROJECT_SOURCE_DIR}/include/strus/versionTrace.hpp.in"  "${PR
 configure_file( "${PROJECT_SOURCE_DIR}/dist/obs/deploy_to_obs.sh.in"  "${PROJECT_SOURCE_DIR}/dist/obs/deploy_to_obs.sh"  @ONLY )
 configure_file( "${PROJECT_SOURCE_DIR}/dist/archlinux/PKGBUILD.in"  "${PROJECT_SOURCE_DIR}/dist/archlinux/PKGBUILD"  @ONLY )
 configure_file( "${PROJECT_SOURCE_DIR}/dist/obs/strustrace.dsc.in"  "${PROJECT_SOURCE_DIR}/dist/obs/strustrace.dsc"  @ONLY )
-configure_file( "${PROJECT_SOURCE_DIR}/dist/obs/strusthadow-Debian_7.0.dsc.in"  "${PROJECT_SOURCE_DIR}/dist/obs/strustrace-Debian_7.0.dsc"  @ONLY )
+configure_file( "${PROJECT_SOURCE_DIR}/dist/obs/strustrace-Debian_7.0.dsc.in"  "${PROJECT_SOURCE_DIR}/dist/obs/strustrace-Debian_7.0.dsc"  @ONLY )
 configure_file( "${PROJECT_SOURCE_DIR}/dist/obs/strustrace-xUbuntu_12.04.dsc.in"  "${PROJECT_SOURCE_DIR}/dist/obs/strustrace-xUbuntu_12.04.dsc"  @ONLY )
 configure_file( "${PROJECT_SOURCE_DIR}/dist/redhat/strustrace.spec.in"  "${PROJECT_SOURCE_DIR}/dist/redhat/strustrace.spec"  @ONLY )
 

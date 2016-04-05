@@ -5,6 +5,11 @@ cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 # --------------------------------------
 set( libstrus_shadow_source_files
 	internationalization.cpp
+	serialize.cpp
+	traceLogger.cpp
+	traceSerializer.cpp
+	traceViewer.cpp
+	traceViewer_gen.cpp
 )
 
 include_directories(
@@ -35,5 +40,4 @@ set_target_properties(
 # ------------------------------
 install( TARGETS strus_shadow
            LIBRARY DESTINATION ${LIB_INSTALL_DIR}/strus )
-
 

@@ -34,7 +34,6 @@ public:
 	virtual const char* getMethodName( const TraceClassId& classid, const TraceMethodId& methodid) const;
 	virtual TraceClassId getClassId( const char* classname) const;
 	virtual TraceMethodId getMethodId( const TraceClassId& id, const char* methodname) const;
-	virtual const char* getEnumName( const TraceEnumTypeId& typeId, const TraceEnumValueId& valueId) const;
 
 	virtual std::vector<TraceElement> unpackElements( const char* packedStruct, std::size_t packedStructSize) const;
 
@@ -103,8 +102,6 @@ private:
 
 	MethodNameMap m_methodnamemap;
 	MethodNameInvMap m_methodnameinvmap;
-
-	EnumNameMap m_enumnamemap;
 };
 
 }//namespace

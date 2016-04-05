@@ -514,9 +514,10 @@ sub getClassEnumFillMapSource
 	foreach $ci(@interfaceClasses)
 	{
 		my $interfacename = getInterfaceName($ci);
-		my $classname = interfaceImplementationClassName($interfacename);
+		my $classname = $interfacename;
+		$classname =~ s/Interface$//;
 		my $interfaceenumname = getInterfaceEnumName($interfacename);
-		$rt .= "\n\tm_classnamemap.insert(\"$classname\", $interfaceenumname);";
+		$rt .= "\n\tm_classnamemap[\"$classname\"] = $interfaceenumname;";
 		$rt .= "\n\tm_classnamear.push_back( \"$classname\");";
 		++$ii;
 	}
@@ -1637,20 +1638,20 @@ sub getClassMethodEnumFillMapSource
 	{
 		my $interfacename = getInterfaceName($_);
 		my $classname = interfaceConstClassName( $interfacename);
-		my $interfaceenumname = getInterfaceEnumName($_);
+		my $interfaceenumname = getInterfaceEnumName($interfacename);
 		my @mth = split('%');
 		shift( @mth);
 		my $mm;
 		my $callname = "Destructor";
 		my $methodid = "$interfaceenumname" . "::Method_Destructor";
-		$rt .= "\n\tm_methodnamemap[ MethodNameRef( $interfaceenumname, \"$callname\"] = $methodid;";
-		$rt .= "\n\tm_methodnameinvmap[ MethodIdRef( $interfaceenumname, $methodid] = \"$callname\";";
+		$rt .= "\n\tm_methodnamemap[ MethodNameRef( $interfaceenumname, \"$callname\")] = $methodid;";
+		$rt .= "\n\tm_methodnameinvmap[ MethodIdRef( $interfaceenumname, $methodid)] = \"$callname\";";
 		foreach $mm( @mth)
 		{
 			$callname = getMethodName( $mm);
 			$methodid = "$interfaceenumname" . "::Method_" . $callname;
-			$rt .= "\n\tm_methodnamemap[ MethodNameRef( $interfaceenumname, \"$callname\"] = $methodid;";
-			$rt .= "\n\tm_methodnameinvmap[ MethodIdRef( $interfaceenumname, $methodid] = \"$callname\";";
+			$rt .= "\n\tm_methodnamemap[ MethodNameRef( $interfaceenumname, \"$callname\")] = $methodid;";
+			$rt .= "\n\tm_methodnameinvmap[ MethodIdRef( $interfaceenumname, $methodid)] = \"$callname\";";
 		}
 		++$ii;
 	}
@@ -1801,8 +1802,8 @@ print HDRFILE <<EOF;
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/// \brief Generated map of identifiers for trace viewer
-/// \file traceViewer_gen.cpp
+/// \\brief Generated map of identifiers for trace viewer
+/// \\file traceViewer_gen.cpp
 
 //
 // THIS FILE IS GENERATED: DO NOT MODIFY !!!
@@ -1815,48 +1816,9 @@ using namespace strus;
 void TraceViewer::fillMaps()
 {
 EOF
-
 print HDRFILE getClassEnumFillMapSource();
 print HDRFILE getClassMethodEnumFillMapSource();
-
-print HDRFILE <<EOF;
-	m_enumnamemap[ EnumIdRef( Database_ConfigType, DatabaseInterface::CmdCreateClient)] = "CreateClient";
-	m_enumnamemap[ EnumIdRef( Database_ConfigType, DatabaseInterface::CmdCreate)] = "Create";
-	m_enumnamemap[ EnumIdRef( Database_ConfigType, DatabaseInterface::CmdDestroy)] = "Destroy";
-	m_enumnamemap[ EnumIdRef( Storage_ConfigType, StorageInterface::CmdCreateClient)] = "CreateClient";
-	m_enumnamemap[ EnumIdRef( Storage_ConfigType, StorageInterface::CmdCreate)] = "Create";
-	m_enumnamemap[ EnumIdRef( StorageClient_DocumentStatisticsType, StorageClientInterface::StatNofTerms)] = "NofTerms";
-	m_enumnamemap[ EnumIdRef( StorageClient_DocumentStatisticsType, StorageClientInterface::StatNofTermOccurrencies)] = "NofTermOccurrencies";
-	m_enumnamemap[ EnumIdRef( FunctionDescription_Parameter_Type, FunctionDescription::Parameter::Feature)] = "Feature";
-	m_enumnamemap[ EnumIdRef( FunctionDescription_Parameter_Type, FunctionDescription::Parameter::Attribute)] = "Attribute";
-	m_enumnamemap[ EnumIdRef( FunctionDescription_Parameter_Type, FunctionDescription::Parameter::Metadata)] = "Metadata";
-	m_enumnamemap[ EnumIdRef( FunctionDescription_Parameter_Type, FunctionDescription::Parameter::Numeric)] = "Numeric";
-	m_enumnamemap[ EnumIdRef( FunctionDescription_Parameter_Type, FunctionDescription::Parameter::String)] = "String";
-	m_enumnamemap[ EnumIdRef( NumericVariant_Type, NumericVariant::Null)] = "Null";
-	m_enumnamemap[ EnumIdRef( NumericVariant_Type, NumericVariant::Int)] = "Int";
-	m_enumnamemap[ EnumIdRef( NumericVariant_Type, NumericVariant::UInt)] = "UInt";
-	m_enumnamemap[ EnumIdRef( NumericVariant_Type, NumericVariant::Float)] = "Float";
-	m_enumnamemap[ EnumIdRef( MetaDataRestriction_CompareOperator, MetaDataRestrictionInterface::CompareLess)] = "Less";
-	m_enumnamemap[ EnumIdRef( MetaDataRestriction_CompareOperator, MetaDataRestrictionInterface::CompareLessEqual)] = "LessEqual";
-	m_enumnamemap[ EnumIdRef( MetaDataRestriction_CompareOperator, MetaDataRestrictionInterface::CompareEqual)] = "Equal";
-	m_enumnamemap[ EnumIdRef( MetaDataRestriction_CompareOperator, MetaDataRestrictionInterface::CompareNotEqual)] = "NotEqual";
-	m_enumnamemap[ EnumIdRef( MetaDataRestriction_CompareOperator, MetaDataRestrictionInterface::CompareGreater)] = "Greater";
-	m_enumnamemap[ EnumIdRef( MetaDataRestriction_CompareOperator, MetaDataRestrictionInterface::CompareGreaterEqual)] = "GreaterEqual";
-	m_enumnamemap[ EnumIdRef( QueryProcessor_FunctionType, QueryProcessorInterface::PostingJoinOperator)] = "PostingJoinOperator";
-	m_enumnamemap[ EnumIdRef( QueryProcessor_FunctionType, QueryProcessorInterface::WeightingFunction)] = "WeightingFunction";
-	m_enumnamemap[ EnumIdRef( QueryProcessor_FunctionType, QueryProcessorInterface::SummarizerFunction)] = "SummarizerFunction";
-	m_enumnamemap[ EnumIdRef( TextProcessor_FunctionType, TextProcessorInterface::TokenizerFunction)] = "Tokenizer";
-	m_enumnamemap[ EnumIdRef( TextProcessor_FunctionType, TextProcessorInterface::NormalizerFunction)] = "Normalizer";
-	m_enumnamemap[ EnumIdRef( TextProcessor_FunctionType, TextProcessorInterface::AggregatorFunction)] = "Aggregator";
-	m_enumnamemap[ EnumIdRef( StatisticsProcessor_BuilderOptions_Set, StatisticsProcessorInterface::BuilderOptions::None)] = "None";
-	m_enumnamemap[ EnumIdRef( StatisticsProcessor_BuilderOptions_Set, StatisticsProcessorInterface::BuilderOptions::InsertInLexicalOrder)] = "InsertInLexicalOrder";
-	m_enumnamemap[ EnumIdRef( DocumentAnalyzer_PositionBind, DocumentAnalyzerInterface::BindContent)] = "BindContent";
-	m_enumnamemap[ EnumIdRef( DocumentAnalyzer_PositionBind, DocumentAnalyzerInterface::BindSuccessor)] = "BindSuccessor";
-	m_enumnamemap[ EnumIdRef( DocumentAnalyzer_PositionBind, DocumentAnalyzerInterface::BindPredecessor)] = "BindPredecessor";
-}
-} //namespace
-#endif
-EOF
+print HDRFILE "\n}\n\n";
 close HDRFILE;
 
 

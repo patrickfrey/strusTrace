@@ -59,7 +59,6 @@ public:
 	void packScalar( const float& value)			{m_buf.push_back( (char)TypeFloat); packAtomicValue( value); }
 	void packScalar( const double& value)			{m_buf.push_back( (char)TypeDouble); packAtomicValue( value); }
 	void packBool( const bool& value)			{m_buf.push_back( (char)TypeBool); packAtomicValue( value); }
-	void packEnum( TraceEnumTypeId t, TraceEnumValueId v)	{m_buf.push_back( (char)TypeEnum); packAtomicValue( t); packAtomicValue( v); }
 	void packString( const std::string& value)		{m_buf.push_back( (char)TypeString); packAtomicValue( value.size()); packBytes( value.c_str(), value.size()); }
 	void packCharp( const char* buf)			{packString( buf);}
 	void packCharpp( const char** buf)			{std::size_t bi=0; if (!buf[bi]) packVoid(); for (;buf[bi]; ++bi) {openIndex(bi); packString(buf[bi]); close();}}

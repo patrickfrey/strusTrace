@@ -71,17 +71,6 @@ TraceMethodId TraceViewer::getMethodId( const TraceClassId& classId, const char*
 	CATCH_ERROR_MAP_RETURN( "trace viewer error getting method name", *m_errorhnd, 0)
 }
 
-const char* TraceViewer::getEnumName( const TraceEnumTypeId& typeId, const TraceEnumValueId& valueId) const
-{
-	EnumNameMap::const_iterator ei = m_enumnamemap.find( EnumIdRef( typeId, valueId));
-	if (ei == m_enumnamemap.end())
-	{
-		m_errorhnd->report(_TXT("trace viewer illegal enum name reference: %u/%u"), (unsigned int)typeId, (unsigned int)valueId);
-		return 0;
-	}
-	return ei->second.c_str();
-}
-
 std::vector<TraceElement> TraceViewer::unpackElements( const char* packedStruct, std::size_t packedStructSize) const
 {
 	try

@@ -50,11 +50,6 @@ public:
 			const TraceClassId& classid,
 			const char* methodname) const=0;
 
-	/// \brief Get the name of an enum value
-	virtual const char* getEnumName( 
-			const TraceEnumTypeId& typeId,
-			const TraceEnumValueId& valueId) const=0;
-
 	/// \brief Unpack the elements from a serialized structure
 	/// \param[in] packedStructure serialized structure as returned by TraceLoggerInterface::Record::packedParameter()
 	/// \param[in] packedStructSize size of packedStruct in bytes

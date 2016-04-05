@@ -12,7 +12,6 @@
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "serialize.hpp"
-#include "enumIdentifiers.hpp"
 #include "objectIds_gen.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/traceLoggerInterface.hpp"
@@ -81,9 +80,15 @@ void TraceSerializer::packGlobalStatistics( const GlobalStatistics& stats)
 	packScalar( stats.nofDocumentsInserted());
 }
 
+static const char* compareOperatorName( MetaDataRestrictionInterface::CompareOperator op)
+{
+	static const char* ar[] = {"<", "<=", "==", "!=", ">", ">="};
+	return ar[op];
+}
+
 void TraceSerializer::packMetaDataRestrictionCompareOperator( MetaDataRestrictionInterface::CompareOperator val)
 {
-	packEnum( (TraceEnumTypeId)MetaDataRestriction_CompareOperator, (TraceEnumValueId)val);
+	packCharp( compareOperatorName( val));
 }
 
 void TraceSerializer::packDatabaseOptions( const DatabaseOptions& val)
@@ -91,14 +96,26 @@ void TraceSerializer::packDatabaseOptions( const DatabaseOptions& val)
 	packScalar( val.opt());
 }
 
+static const char* databaseConfigTypeName( DatabaseInterface::ConfigType tp)
+{
+	static const char* ar[] = {"CreateClient", "CmdCreate", "CmdDestroy"};
+	return ar[ tp];
+}
+
 void TraceSerializer::packDatabaseConfigType( const DatabaseInterface::ConfigType& val)
 {
-	packEnum( (TraceEnumTypeId)Database_ConfigType, (TraceEnumValueId)val);
+	packCharp( databaseConfigTypeName(val));
+}
+
+static const char* storageConfigTypeName( StorageInterface::ConfigType tp)
+{
+	static const char* ar[] = {"CreateClient", "CmdCreate"};
+	return ar[ tp];
 }
 
 void TraceSerializer::packStorageConfigType( const StorageInterface::ConfigType& val)
 {
-	packEnum( (TraceEnumTypeId)Storage_ConfigType, (TraceEnumValueId)val);
+	packCharp( storageConfigTypeName(val));
 }
 
 void TraceSerializer::packFeatureOptions( const DocumentAnalyzerInterface::FeatureOptions& val)
@@ -336,9 +353,15 @@ void TraceSerializer::packPhrase( const QueryAnalyzerInterface::Phrase& val)
 	close();
 }
 
+static const char* documentStatisticsTypeName( const StorageClientInterface::DocumentStatisticsType& val)
+{
+	static const char* ar[] = {"NofTerms", "NofTermOccurrencies"};
+	return ar[val];
+}
+
 void TraceSerializer::packDocumentStatisticsType( const StorageClientInterface::DocumentStatisticsType& val)
 {
-	packEnum( (TraceEnumTypeId)StorageClient_DocumentStatisticsType, (TraceEnumValueId)val);
+	packCharp( documentStatisticsTypeName( val));
 }
 
 void TraceSerializer::packStatisticsProcessorBuilderOptions( const StatisticsProcessorInterface::BuilderOptions& val)
@@ -364,20 +387,37 @@ void TraceSerializer::packStatisticsViewerDocumentFrequencyChange( const Statist
 	close();
 }
 
+const char* queryProcessorFunctionTypeName( const QueryProcessorInterface::FunctionType& val)
+{
+	static const char* ar[] = {"PostingJoinOperator", "WeightingFunction","SummarizerFunction"};
+	return ar[val];
+}
 
 void TraceSerializer::packQueryProcessorFunctionType( const QueryProcessorInterface::FunctionType& val)
 {
-	packEnum((TraceEnumTypeId)QueryProcessor_FunctionType, (TraceEnumValueId)val);
+	packCharp( queryProcessorFunctionTypeName(val));
+}
+
+const char* textProcessorFunctionTypeName( const TextProcessorInterface::FunctionType& val)
+{
+	static const char* ar[] = {"Tokenizer", "Normalizer","Aggregator"};
+	return ar[val];
 }
 
 void TraceSerializer::packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val)
 {
-	packEnum((TraceEnumTypeId)TextProcessor_FunctionType, (TraceEnumValueId)val);
+	packCharp( textProcessorFunctionTypeName( val));
 }
 
 void TraceSerializer::packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val)
 {
 	packString( val.text());
+}
+
+static const char* functionDescriptionTypeName( const FunctionDescription::Parameter::Type& val)
+{
+	static const char* ar[] = {"Feature", "Attribute","Metadata","Numeric","String"};
+	return ar[val];
 }
 
 void TraceSerializer::packFunctionDescription( const FunctionDescription& val)
@@ -394,7 +434,7 @@ void TraceSerializer::packFunctionDescription( const FunctionDescription& val)
 	{
 		openIndex( vi-val.parameter().begin());
 		openTag("type");
-		packEnum( (TraceEnumTypeId)FunctionDescription_Parameter_Type, (TraceEnumValueId)vi->type());
+		packCharp( functionDescriptionTypeName( vi->type()));
 		close();
 		openTag("name");
 		packString( vi->name());

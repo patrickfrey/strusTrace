@@ -10,6 +10,8 @@
 #ifndef _STRUS_TRACE_ENUM_IDENTIFIERS_HPP_INCLUDED
 #define _STRUS_TRACE_ENUM_IDENTIFIERS_HPP_INCLUDED
 
+#error DEPRECATED
+
 namespace strus
 {
 	enum TraceEnumType

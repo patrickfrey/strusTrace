@@ -16,13 +16,13 @@ namespace strus
 	{
 		Database_ConfigType=0x01,
 		Storage_ConfigType=0x02,
+		StorageClient_DocumentStatisticsType=0x03,
 		FunctionDescription_Parameter_Type=0x11,
 		NumericVariant_Type=0x12,
 		MetaDataRestriction_CompareOperator=0x13,
 		QueryProcessor_FunctionType=0x21,
 		TextProcessor_FunctionType=0x22,
 		StatisticsProcessor_BuilderOptions_Set=0x31,
-		StorageClient_DocumentStatisticsType=0x32,
 		DocumentAnalyzer_PositionBind=41
 	};
 }//namespace

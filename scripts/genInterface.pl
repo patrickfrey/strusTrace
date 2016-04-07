@@ -189,11 +189,9 @@ $constResetMethodMap{"seekPrev"} = 1;
 $constResetMethodMap{"nextChunk"} = 1;
 
 # List of hacks (client code inserted at the beginning of a method call):
-my %alternativeClientImpl = ();
-$alternativeClientImpl{"createStorageClient"} = "if (p1.empty()) return new StorageClientImpl( 0, ctx(), false, errorhnd());\n";
-
-# Set debug code generation ON/OFF:
-my $doGenerateDebugCode = 0;
+my %injectCodeMap = ();
+$injectCodeMap{"createStorageClient"} = "if (p1.empty()) return new StorageClientImpl( 0, ctx(), false, errorhnd());\n";
+# ... spiecial rule for creating an instance of the default storage loaded with the startup of the RpcServer
 
 sub parseType
 {
@@ -1151,7 +1149,7 @@ sub unpackParameter
 	return $rt;
 }
 
-sub inputParameterPackFunctionCall
+sub packParameterFunctionCall
 {
 	my ($sender_code,$receiver_code) = ("","");
 	my ($classname, $methodname, $param, $idx) = @_;
@@ -1265,7 +1263,7 @@ sub outputParameterPackFunctionCall
 
 sub getMethodDeclarationSource
 {
-	my ($sender_code,$receiver_code) = ("","");
+	my $output = "";
 	my ($classname, $method) = @_;
 	my @param = split( '!', $method);
 	my $methodname = shift( @param);
@@ -1288,15 +1286,14 @@ sub getMethodDeclarationSource
 		++$pi;
 		$paramlist .= getMethodParamDeclarationSource( $classname, $pp) . " p" . $pi;
 	}
-	$sender_code = getMethodParamDeclarationSource( $classname, $retval) . " "
+	$output = getMethodParamDeclarationSource( $classname, $retval) . " "
 			. $classname . "::" . $methodname . "( "
 			. $paramlist . ")";
 	if ($isconst)
 	{
-		$sender_code .= " const";
+		$output .= " const";
 	}
-	$sender_code .= "\n{\n";
-	$receiver_code .= "RpcSerializer msg;\n";
+	$output .= "\n{\n";
 
 	my $retvalnull_decl = getMethodParamDeclarationSource( $classname, $retval);
 	my $retvalnull_return = "";
@@ -1319,36 +1316,104 @@ sub getMethodDeclarationSource
 
 	if ($notImplMethods{$methodname})
 	{
-		$sender_code .= "\terrorhnd()->report(_TXT(\"the method '%s' is not implemented for RPC\"),\"$methodname\");\n";
-		$sender_code .= "\t$retvalnull_return\n";
-
-		$receiver_code .= "\t(void)(obj);\n";
-		$receiver_code .= "\tmsg.packByte( MsgTypeError);\n";
-		$receiver_code .= "\tmsg.packString( \"the method '$methodname' is not implemented for RPC\");\n";
-		$receiver_code .= "\treturn msg.content();\n";
+		my $retvalassigner = "";
+		if ($retval ne "void")
+		{
+			$retvalassigner .= "return ";
+		}
+		$output .= "\t$retvalassigner" . "obj->" . $methodname . "(";
+		for ($pi = 0; $pi <= $#param; ++$pi)
+		{
+			if ($pi != 0)
+			{
+				$output .= ",";
+			}
+			$output .= " p"  . ($pi+1);
+		}
+		$output .= ");\n";
 	}
 	else
 	{
-		$sender_code .= "try\n";
-		$sender_code .= "{\n";
-		if ($doGenerateDebugCode)
+		if ($injectCodeMap{$methodname})
 		{
-			$sender_code .= "\tstd::cerr << \"calling method $classname" . "::" . "$methodname\" << std::endl;\n";
+			$output .= "\t$injectCodeMap{$methodname}";
 		}
-		if ($alternativeClientImpl{$methodname})
-		{
-			$sender_code .= "\t$alternativeClientImpl{$methodname}";
-		}
-		$sender_code .= "\tRpcSerializer msg;\n";
-		$sender_code .= "\tmsg.packObject( classId(), objId());\n";
-		$sender_code .= "\tmsg.packByte( Method_" . $methodname . ");\n";
-
+		$output .= "\tTraceLogRecordHandle loghnd = traceContext()->logger()->logMethodCall( classId(), Method_" . $methodname . ", objId());\n";
 		my $retvalassigner = "";
 		if ($retval ne "void")
 		{
 			my $retvaltype_decl = getMethodParamDeclarationSource( $classname, $retval);
-			$receiver_code .= "\t$retvaltype_decl p0;\n";
-			$retvalassigner = "p0 = ";
+			$retvalassigner .= "$retvaltype_decl p0 = ";
+		}
+		$output .= "\t$retvalassigner" . "obj->" . $methodname . "(";
+		for ($pi = 0; $pi <= $#param; ++$pi)
+		{
+			if ($pi != 0)
+			{
+				$output .= ",";
+			}
+			$output .= " p"  . ($pi+1);
+		}
+		$output .= ");\n";
+		$output .= "\tTraceSerializer packedParameter;\n";
+		if ($retval ne "void")
+		{
+			my ($retvaltype, $isconst, $isarray, $indirection, $passbyref, $isreference) = getParamProperties( $classname, $retval);
+			if ($retvaltype =~ m/^(.*)Interface$/)
+			{
+				# The object id's of the return type Interface are created by the client
+				my $objtype = $1;
+				if ($indirection == 1)
+				{
+					my $objimlclass = $objtype . "Impl";
+					$output .= "\ttry {\n";
+					$output .= "\tstd::auto_ptr<" . $objimlclass . "> rtobj( new " . $objimlclass . "(p0, traceContext()));\n";
+					$output .= "\t} catch (std::bad_alloc()) {\n";
+					$output .= "\t\ttraceContext()->errorbuf()->reportError(_TXT(\"memory allocation error creating calltrace\"));\n";
+					$output .= "\t\tdelete p0; return 0;\n";
+					$output .= "\t}\n";
+					$output .= "\tTraceObjectId objId_0 = rtobj()->objid();\n";
+					$output .= "\tTraceClassId classId_0 = ClassId_$objtype;\n";
+					$output .= "\tpackedParameter.packObject( classId_0, objId_0);\n";
+					$output .= "\tp0 = rtobj.release();\n";
+					$output .= "traceContext()->logger()->logObjectCreation( objId_0, loghnd);\n";
+				}
+				else
+				{
+					die "cannot handle return value type $retval";
+				}
+			}
+		}
+		else
+		{
+			$output .= "\tpackedParameter.packVoid();\n";
+		}
+		for ($pi = 0; $pi <= $#param; ++$pi)
+		{
+			if ($pi+1 <= $#param && $param[$pi] eq "const^ char" && $param[$pi+1] eq "std::size_t")
+			{
+				# ... exception for buffer( ptr, len):
+				$output .= "\tpackedParameter.packBuffer( p" . ($pi+1) . ", p" . ($pi+2) . ");\n";
+				++$pi;
+			}
+			elsif ($pi+1 <= $#param && $param[$pi] eq "const^ double" && $param[$pi+1] eq "std::size_t")
+			{
+				# ... exception for double buffer( ptr, len):
+				$output .= "\tpackedParameter.packBufferFloat( p" . ($pi+1) . ", p" . ($pi+2) . ");\n";
+				++$pi;
+			}
+			else
+			{
+				$output .= packParameterFunctionCall( $classname, $methodname, $param[$pi], $pi+1);
+			}
+		}
+		if (packedParameter.hasError())
+		{
+			$output .= "\ttraceContext()->errorbuf()->reportError(_TXT(\"memory allocation error creating calltrace\"));\n";
+		}
+		else
+		{
+			$output .= "\ttraceContext()->logger()->logMethodTermination( loghnd, packedParameter);\n";
 		}
 		my $receiver_paramlist = "";
 		for ($pi = 0; $pi <= $#param; ++$pi)
@@ -1367,75 +1432,8 @@ sub getMethodDeclarationSource
 			$receiver_paramlist .= "p" . ($pi+1);
 		}
 
-		for ($pi = 0; $pi <= $#param; ++$pi)
-		{
-			if ($pi+1 <= $#param && $param[$pi] eq "const^ char" && $param[$pi+1] eq "std::size_t")
-			{
-				# ... exception for buffer( ptr, len):
-				$sender_code .= "\tmsg.packBuffer( p" . ($pi+1) . ", p" . ($pi+2) . ");\n";
-				$receiver_code .= "\tserializedMsg.unpackBuffer( p" . ($pi+1) . ", p" . ($pi+2) . ");\n";
-				++$pi;
-			}
-			elsif ($pi+1 <= $#param && $param[$pi] eq "const^ double" && $param[$pi+1] eq "std::size_t")
-			{
-				# ... exception for double buffer( ptr, len):
-				$sender_code .= "\tmsg.packBufferFloat( p" . ($pi+1) . ", p" . ($pi+2) . ");\n";
-				$receiver_code .= "\tstd::vector<double> buf_" . ($pi+1) . " = serializedMsg.unpackBufferFloat();\n";
-				$receiver_code .= "\tp" . ($pi+1) . " = buf_" . ($pi+1) . ".data();\n";
-				$receiver_code .= "\tp" . ($pi+2) . " = buf_" . ($pi+1) . ".size();\n";
-				++$pi;
-			}
-			else
-			{
-				my ($snd,$rcv) = inputParameterPackFunctionCall( $classname, $methodname, $param[$pi], $pi+1);
-				$sender_code .= $snd;
-				$receiver_code .= $rcv;
-			}
-		}
 		if ($retval ne "void")
 		{
-			my ($retvaltype, $isconst, $isarray, $indirection, $passbyref, $isreference) = getParamProperties( $classname, $retval);
-			if ($retvaltype =~ m/^(.*)Interface$/)
-			{
-				# The object id's of the return type Interface are created by the client
-				my $objtype = $1;
-				if ($indirection == 1)
-				{
-					$sender_code .= "\tunsigned int objId_0 = ctx()->newObjId();\n";
-					$sender_code .= "\tunsigned char classId_0 = (unsigned char)ClassId_$objtype;\n";
-					$sender_code .= "\tmsg.packObject( classId_0, objId_0);\n";
-					$receiver_code .= "\tunsigned char classId_0; unsigned int objId_0;\n";
-					$receiver_code .= "\tserializedMsg.unpackObject( classId_0, objId_0);\n";
-				}
-				else
-				{
-					die "cannot handle return value type $retval";
-				}
-			}
-		}
-		$receiver_code .= "\t$retvalassigner" . "obj->" . $methodname . "(" . $receiver_paramlist . ");\n";
-		$receiver_code .= "\tconst char* err = m_errorhnd->fetchError();\n";
-		$receiver_code .= "\tif (err)\n";
-		$receiver_code .= "\t{\n";
-		if ($passOwnershipParams{$methodname})
-		{
-			$receiver_code .= "\t\tunmarkObjectsToRelease();\n";
-		}
-		$receiver_code .= "\t\tmsg.packByte( MsgTypeError);\n";
-		$receiver_code .= "\t\tmsg.packCharp( err);\n";
-		$receiver_code .= "\t\treturn msg.content();\n";
-		$receiver_code .= "\t}\n";
-		if ($passOwnershipParams{$methodname})
-		{
-			$receiver_code .= "\treleaseObjectsMarked();\n";
-		}
-		if ($syncMethods{$methodname})
-		{
-			$receiver_code .= "\tmsg.packByte( MsgTypeSynchronize);\n";
-		}
-		else
-		{
-			$receiver_code .= "\tmsg.packByte( MsgTypeAnswer);\n";
 		}
 		my ($sender_output,$receiver_output) = ("","");
 		if ($retval ne "void")
@@ -1585,20 +1583,9 @@ sub getMethodDeclarationSource
 				}
 			}
 		}
-		if ($retval ne "void")
-		{
-			$sender_code .= "\treturn p0;\n";
-		}
-		$sender_code .= "} catch (const std::bad_alloc&) {\n";
-		$sender_code .= "\terrorhnd()->report(_TXT(\"out of memory calling method '%s'\"), \"$classname" . "::$methodname\");\n";
-		$sender_code .= "\t$retvalnull_return\n";
-		$sender_code .= "} catch (const std::exception& err) {\n";
-		$sender_code .= "\terrorhnd()->report(_TXT(\"error calling method '%s': %s\"), \"$classname" . "::$methodname\", err.what());\n";
-		$sender_code .= "\t$retvalnull_return\n";
-		$sender_code .= "}\n";
 	}
-	$sender_code .= "}\n";
-	return ($sender_code,$receiver_code);
+	$output .= "}\n";
+	return $output;
 }
 
 sub getClassMethodEnumSource
@@ -1643,13 +1630,13 @@ sub getClassMethodEnumFillMapSource
 		shift( @mth);
 		my $mm;
 		my $callname = "Destructor";
-		my $methodid = "$interfaceenumname" . "::Method_Destructor";
+		my $methodid = "$classname" . "::Method_Destructor";
 		$rt .= "\n\tm_methodnamemap[ MethodNameRef( $interfaceenumname, \"$callname\")] = $methodid;";
 		$rt .= "\n\tm_methodnameinvmap[ MethodIdRef( $interfaceenumname, $methodid)] = \"$callname\";";
 		foreach $mm( @mth)
 		{
 			$callname = getMethodName( $mm);
-			$methodid = "$interfaceenumname" . "::Method_" . $callname;
+			$methodid = "$classname" . "::Method_" . $callname;
 			$rt .= "\n\tm_methodnamemap[ MethodNameRef( $interfaceenumname, \"$callname\")] = $methodid;";
 			$rt .= "\n\tm_methodnameinvmap[ MethodIdRef( $interfaceenumname, $methodid)] = \"$callname\";";
 		}
@@ -1687,16 +1674,7 @@ sub getClassHeaderSource
 
 sub getClassImplementationSource
 {
-	my ($sender_code,$receiver_code) = ("","");
-	my $ii = 0;
-
-	$receiver_code .= "\tRpcDeserializer serializedMsg( src, srcsize);\n";
-	$receiver_code .= "\tif (!serializedMsg.unpackCrc32()) throw strus::runtime_error(_TXT(\"message CRC32 check failed\"));\n";
-	$receiver_code .= "\tunsigned char classId; unsigned int objId; unsigned char methodId;\n";
-	$receiver_code .= "\tserializedMsg.unpackObject( classId, objId);\n";
-	$receiver_code .= "\tmethodId = serializedMsg.unpackByte();\n";
-	$receiver_code .= "\tswitch( (ClassId)classId)\n";
-	$receiver_code .= "\t{\n";
+	my $output = "";
 
 	foreach (@interfaceClasses)
 	{
@@ -1704,66 +1682,22 @@ sub getClassImplementationSource
 		my $classname = interfaceImplementationClassName( $interfacename);
 		my $classenumname = interfaceConstClassName( $interfacename);
 
-		$sender_code .= "\n$classname" . "::~$classname()\n";
-		$sender_code .= "{\n";
-		$sender_code .= "\tif (isConst()) return;\n";
-		if ($doGenerateDebugCode)
-		{
-			$sender_code .= "\tstd::cerr << \"calling destructor of $classname\" << std::endl;\n";
-		}
-		$sender_code .= "\tRpcSerializer msg;\n";
-		$sender_code .= "\tmsg.packObject( classId(), objId());\n";
-		$sender_code .= "\tmsg.packByte( Method_Destructor);\n";
-		$sender_code .= "\tmsg.packCrc32();\n";
-		$sender_code .= "\tctx()->rpc_sendMessage( msg.content());\n";
-		$sender_code .= "}\n";
+		$output .= "\n$classname" . "::~$classname()\n";
+		$output .= "{\n";
+		$output .= "\ttraceContext()->logMethodCall( classId(), Method_Destructor, objId());\n";
+		$output .= "}\n";
 
-		$receiver_code .= "\tcase " . getInterfaceEnumName( $interfacename) . ":\n";
-		$receiver_code .= "\t{\n";
-		$receiver_code .= "\t$interfacename* obj = getObject<$interfacename>( classId, objId);\n";
-		$receiver_code .= "\tswitch( ($classenumname" . "::MethodId)methodId)\n";
-		$receiver_code .= "\t{\n";
-		$receiver_code .= "\t\tcase $classenumname" . "::Method_Destructor:\n";
-		$receiver_code .= "\t\t{\n";
-		if ($doGenerateDebugCode)
-		{
-			$receiver_code .= "\t\t\tstd::cerr << \"called destructor of $classname\" << std::endl;\n";
-		}
-		$receiver_code .= "\t\t\tdeleteObject( classId, objId);\n";
-		$receiver_code .= "\t\t\treturn std::string();\n";
-		$receiver_code .= "\t\t}\n";
 		my @mth = split('%');
 		shift( @mth);
 		my $mm;
-		my $mi = 0;
 		foreach $mm( @mth)
 		{
-			my ($snd,$rcv) = getMethodDeclarationSource( $classname, $mm);
-			$sender_code .= "\n" . $snd;
-
-			my @param = split( '!', $mm);
-			my $methodname = shift( @param);
-			$methodname =~ s/^const //;
-			$receiver_code .= "\t\tcase $classenumname" . "::Method_" . $methodname . ":\n";
-			$receiver_code .= "\t\t{\n";
-			if ($doGenerateDebugCode)
-			{
-				$receiver_code .= "\t\t\tstd::cerr << \"called method $classname" . "::" . "$methodname [\" << serializedMsg.size() << \" bytes]\" << std::endl;\n";
-			}
-			$rcv =~ s/\n$//;
-			$rcv =~ s/\n/\n\t\t/g;
-			$receiver_code .= "\t\t\t$rcv\n";
-			$receiver_code .= "\t\t}\n";
+			$output .= "\n" . getMethodDeclarationSource( $classname, $mm);
 		}
-		++$ii;
-		$receiver_code .= "\t}\n";
-		$receiver_code .= "\tbreak;\n";
-		$receiver_code .= "\t}\n";
 	}
-	$receiver_code .= "\t}\n";
-	$receiver_code .= "\tthrow strus::runtime_error(_TXT(\"calling undefined request handler\"));\n";
-	return ($sender_code,$receiver_code);
+	return $output;
 }
+
 
 my $interfacefile = "src/objectIds_gen.hpp";
 open( HDRFILE, ">$interfacefile") or die "Couldn't open file $interfacefile, $!";
@@ -1873,7 +1807,7 @@ print SRCFILE <<EOF;
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #include "objects_gen.hpp"
-#include "rpcSerializer.hpp"
+#include "traceSerializer.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "private/errorUtils.hpp"
 #include "private/internationalization.hpp"
@@ -1881,43 +1815,11 @@ print SRCFILE <<EOF;
 using namespace strus;
 EOF
 
-my ($sender_code,$receiver_code) = getClassImplementationSource();
-print SRCFILE $sender_code;
+my $proxy_code = getClassImplementationSource();
+print SRCFILE $proxy_code;
 
 print SRCFILE <<EOF;
 
-EOF
-close SRCFILE;
-
-
-$sourcefile = "src/rpcRequestHandler_gen.cpp";
-open( SRCFILE, ">$sourcefile") or die "Couldn't open file $sourcefile, $!";
-
-print SRCFILE <<EOF;
-/*
- * Copyright (c) 2016 Patrick P. Frey
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-#include "rpcRequestHandler.hpp"
-#include "rpcSerializer.hpp"
-#include "objectIds_gen.hpp"
-#include "private/internationalization.hpp"
-#include "private/dll_tags.hpp"
-#include <string>
-
-using namespace strus;
-std::string RpcRequestHandler::handleRequest( const char* src, std::size_t srcsize)
-{
-EOF
-
-($sender_code,$receiver_code) = getClassImplementationSource();
-print SRCFILE $receiver_code;
-
-print SRCFILE <<EOF;
-}
 EOF
 close SRCFILE;
 

@@ -7,7 +7,7 @@
  */
 #ifndef _STRUS_TRACE_OBJECT_HPP_INCLUDED
 #define _STRUS_TRACE_OBJECT_HPP_INCLUDED
-#include "internationalization.hpp"
+#include "traceGlobalContext.hpp"
 #include "strus/traceLoggerInterface.hpp"
 #include <string>
 #include <map>
@@ -15,53 +15,37 @@
 namespace strus
 {
 
-class TraceObjectIdGen
-{
-public:
-	TraceObjectIdGen()
-		:m_idcnt(0){}
-
-	TraceObjectId createId()
-	{
-		return ++m_idcnt;
-	}
-
-private:
-	TraceObjectId m_idcnt;
-};
-
-
 class TraceObjectBase
 {
 public:
 	typedef void (*Deleter)( void* obj_);
 
-	TraceObjectBase( void* obj_, Deleter deleter_, TraceObjectIdGen* idgen_)
-		:m_idgen(idgen_),m_obj(obj_),m_deleter(deleter_),m_id(idgen_->createId()){}
+	TraceObjectBase( void* obj_, Deleter deleter_, TraceGlobalContext* ctx_)
+		:m_ctx(ctx_),m_obj(obj_),m_deleter(deleter_),m_id(ctx_->createId()){}
 	virtual ~TraceObjectBase()
 	{
 		m_deleter( m_obj);
 	}
 
-	TraceObjectId id() const
+	TraceObjectId objid() const
 	{
 		return m_id;
 	}
-	TraceObjectIdGen* idgen() const
+	TraceGlobalContext* traceContext() const
 	{
-		return m_idgen;
+		return m_ctx;
 	}
-	void* obj()
+	void* objptr()
 	{
 		return m_obj;
 	}
-	const void* obj() const
+	const void* objptr() const
 	{
 		return m_obj;
 	}
 
 private:
-	TraceObjectIdGen* m_idgen;
+	TraceGlobalContext* m_ctx;
 	void* m_obj;
 	Deleter m_deleter;
 	TraceObjectId m_id;
@@ -79,10 +63,18 @@ private:
 	}
 
 public:
-	TraceObject( Interface* obj_, TraceObjectIdGen* idgen_)
-		:TraceObjectBase(obj,&deleter,idgen_){}
-
+	TraceObject( Interface* obj_, TraceGlobalContext* ctx_)
+		:TraceObjectBase(obj,&deleter,ctx_){}
 	virtual ~TraceObject(){}
+
+	Interface* obj()
+	{
+		return (Interface*)objptr();
+	}
+	const Interface* obj() const
+	{
+		return (Interface*)objptr();
+	}
 };
 
 }

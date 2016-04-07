@@ -43,7 +43,6 @@ public:
 				TraceObjectId objId_,
 				TraceTimeCounter time_,
 				TraceTreeDepth depth_,
-				TraceObjectId resultObjId_,
 				const char* packedParameter_,
 				std::size_t packedParameterSize_)
 			:m_classId(classId_)
@@ -51,7 +50,6 @@ public:
 			,m_objId(objId_)
 			,m_startTime(time_)
 			,m_depth(depth_)
-			,m_resultObjId(resultObjId_)
 			,m_packedParameter(packedParameter_)
 			,m_packedParameterSize(packedParameterSize_){}
 
@@ -62,7 +60,6 @@ public:
 			,m_startTime(o.m_startTime)
 			,m_endTime(o.m_endTime)
 			,m_depth(o.m_depth)
-			,m_resultObjId(o.m_resultObjId)
 			,m_packedParameter(o.m_packedParameter){}
 
 		/// \brief Get the caller internal class id
@@ -83,9 +80,6 @@ public:
 		/// \brief Get the depht in the call dependency tree
 		/// \return the depht starting with 0
 		TraceTreeDepth depth() const		{return m_depth;}
-		/// \brief Get the internal object id of the returned value
-		/// \return the object id or 0 if not defined
-		TraceObjectId resultObjId() const	{return m_resultObjId;}
 		/// \brief Get the packed parameter structure of the call
 		/// \return the serialized parameter structure
 		const char* packedParameter()		{return m_packedParameter;}
@@ -94,9 +88,14 @@ public:
 		std::size_t packedParameterSize()	{return m_packedParameterSize;}
 
 		/// \brief Set the time of termination of the method
-		void setEndTime( const TraceTimeCounter& endTime_)
+		void setEndCall(
+			const TraceTimeCounter& endTime_,
+			const char* packedParameter_,
+			std::size_t packedParameterSize_)
 		{
 			m_endTime = endTime_;
+			m_packedParameter = packedParameter_;
+			m_packedParameterSize = packedParameterSize_;
 		}
 
 	private:
@@ -106,7 +105,6 @@ public:
 		TraceTimeCounter m_startTime;
 		TraceTimeCounter m_endTime;
 		TraceTreeDepth m_depth;
-		TraceObjectId m_resultObjId;
 		const char* m_packedParameter;
 		std::size_t m_packedParameterSize;
 	};
@@ -129,8 +127,6 @@ public:
 		void restrictTime( const TraceTimeCounter& from_, const TraceTimeCounter& to_)	{m_time_from=from_; m_time_to=to_;}
 		/// \brief Define a depth restriction
 		void restrictDepth( const TraceTreeDepth& from_, const TraceTreeDepth& to_)	{m_depth_from=from_; m_depth_to=to_;}
-		/// \brief Define a result object restriction
-		void restrictResultObjId( const TraceObjectId& objId_)	{m_resultObjId=objId_;}
 
 		bool match( const Record& rec) const;
 		TraceTimeCounter time_from() const			{return m_time_from;}
@@ -144,34 +140,41 @@ public:
 		TraceTimeCounter m_time_to;
 		TraceTreeDepth m_depth_from;
 		TraceTreeDepth m_depth_to;
-		TraceObjectId m_resultObjId;
 	};
 
 	/// \brief Writes an entry to the method call log
 	/// \param[in] classId identifier of the caller object class
 	/// \param[in] methodId identifier of the method called in the context of the class
 	/// \param[in] objId object identifier of the caller
-	/// \param[in] resultObjId identifier of the result object of the call or 0, if the result is not an object
-	/// \param[in] packedParameter packed parameter string
 	/// \return handle of the log message written. Used to reference the record in logMethodTermination
 	virtual TraceLogRecordHandle
 		logMethodCall(
-			TraceClassId classId,
-			TraceMethodId methodId,
-			TraceObjectId objId,
-			TraceObjectId resultObjId,
-			const std::string& packedParameter)=0;
+			const TraceClassId& classId,
+			const TraceMethodId& methodId,
+			const TraceObjectId& objId)=0;
+
+	/// \brief Notifies the creation of an object in the method call log
+	/// \param[in] objId object identifier of the object created. This can be queried with "getObjectCreationTime( const TraceObjectId& objId) const"
+	/// \param[in] loghnd handle returned by the logMethodCall of the method that created the object
+	virtual void logObjectCreation(
+			const TraceObjectId& objId,
+			const TraceLogRecordHandle& loghnd)=0;
 
 	/// \brief Log the termination of a method call
 	/// \param[in] loghnd handl of the record that specifies the method call, returned by logMethodCall.
+	/// \param[in] packedParameter packed return value and in/out parameter string
 	virtual void logMethodTermination(
-			TraceLogRecordHandle loghnd)=0;
+			const TraceLogRecordHandle& loghnd,
+			const std::string& packedParameter)=0;
 
 	/// \brief Open a new sub branch in the tree (depth+1)
 	virtual void logOpenBranch()=0;
 
 	/// \brief Close the current sub branch in the tree (depth-1)
 	virtual void logCloseBranch()=0;
+
+	/// \brief Log an error
+	virtual void logError( const char* msg)=0;
 
 	/// \brief Retrieves all method call logs matching to a query
 	/// \param[in] query method call log query
@@ -181,7 +184,13 @@ public:
 	virtual std::vector<Record> listMethodCalls(
 			const Query& query,
 			std::size_t startIndex,
-			std::size_t maxNofResults)=0;
+			std::size_t maxNofResults) const=0;
+
+	/// \brief Get the creation time of an object
+	/// \param[in] objId identifier of the object
+	/// \return the creation time counter
+	virtual TraceTimeCounter getObjectCreationTime(
+			const TraceObjectId& objId) const=0;
 };
 
 }//namespace

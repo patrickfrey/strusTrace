@@ -27,6 +27,7 @@
 *.exe
 *.out
 *.app
+src/parser/strusTraceCodeGen
 
 # Valgring suppression files
 *.sup
@@ -53,3 +54,4 @@ dist/obs/strustrace.dsc
 dist/obs/strustrace-Debian_7.0.dsc
 dist/obs/strustrace-xUbuntu_12.04.dsc
 dist/redhat/strustrace.spec
+

@@ -45,13 +45,33 @@ class ErrorBufferInterface;
 
 /// \brief Class for inspecting logged traces
 class TraceSerializer
-	:public Serializer
+	:protected Serializer
 {
 public:
 	/// \brief Constructor
-	TraceSerializer(){}
+	TraceSerializer()
+		:m_error(false){}
 	/// \brief Destructor
 	~TraceSerializer(){}
+
+	void packVoid();
+	void packScalar( const int8_t& value);
+	void packScalar( const int16_t& value);
+	void packScalar( const int32_t& value);
+	void packScalar( const int64_t& value);
+	void packScalar( const uint8_t& value);
+	void packScalar( const uint16_t& value);
+	void packScalar( const uint32_t& value);
+	void packScalar( const uint64_t& value);
+	void packScalar( const float& value);
+	void packScalar( const double& value);
+	void packBool( const bool& value);
+	void packString( const std::string& value);
+	void packCharp( const char* buf);
+	void packCharpp( const char** buf);
+	void openIndex( const std::size_t& value);
+	void openTag( const std::string& name);
+	void close();
 
 	void packObject( const TraceClassId& classId, const TraceObjectId& objId);
 	void packBuffer( const char* buf, std::size_t size);
@@ -89,6 +109,19 @@ public:
 	void packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val);
 	void packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val);
 	void packFunctionDescription( const FunctionDescription& val);
+
+	bool hasError() const
+	{
+		return m_error;
+	}
+
+	const std::string& content() const
+	{
+		return Serializer::content();
+	}
+
+private:
+	bool m_error;
 };
 
 }//namespace

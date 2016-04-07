@@ -14,6 +14,7 @@
 #include "errorUtils.hpp"
 #include <string>
 #include <vector>
+#include <map>
 #include <cstdlib>
 
 namespace strus
@@ -55,14 +56,17 @@ public:
 
 	virtual TraceLogRecordHandle
 		logMethodCall(
-			TraceClassId classId,
-			TraceMethodId methodId,
-			TraceObjectId objId,
-			TraceObjectId resultObjId,
-			const std::string& packedParameter);
+			const TraceClassId& classId,
+			const TraceMethodId& methodId,
+			const TraceObjectId& objId);
+
+	virtual void logObjectCreation(
+			const TraceObjectId& objId,
+			const TraceLogRecordHandle& loghnd);
 
 	virtual void logMethodTermination(
-			TraceLogRecordHandle loghnd);
+			const TraceLogRecordHandle& loghnd,
+			const std::string& packedParameter);
 
 	virtual void logOpenBranch();
 	virtual void logCloseBranch();
@@ -70,13 +74,17 @@ public:
 	virtual std::vector<Record> listMethodCalls(
 			const Query& query,
 			std::size_t startIndex,
-			std::size_t maxNofResults);
+			std::size_t maxNofResults) const;
+
+	virtual TraceTimeCounter getObjectCreationTime(
+			const TraceObjectId& objId) const;
 
 private:
 	ErrorBufferInterface* m_errorhnd;
 	std::vector<Record> m_recordar;
 	std::vector<StringBlock> m_strings;
 	TraceTreeDepth m_depth;
+	std::map<TraceObjectId,TraceTimeCounter> m_creatmap;
 };
 
 }//namespace

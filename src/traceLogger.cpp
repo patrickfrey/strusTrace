@@ -58,47 +58,64 @@ char* StringBlock::alloc( std::size_t blksize_)
 
 TraceLogRecordHandle
 	TraceLogger::logMethodCall(
-		TraceClassId classId,
-		TraceMethodId methodId,
-		TraceObjectId objId,
-		TraceObjectId resultObjId,
-		const std::string& packedParameter)
+		const TraceClassId& classId,
+		const TraceMethodId& methodId,
+		const TraceObjectId& objId)
 {
 	try
 	{
-		const char* paramptr;
-		if (m_strings.empty())
-		{
-			StringBlock blk( packedParameter.c_str(), packedParameter.size());
-			paramptr = blk.ptr();
-			m_strings.push_back( blk);
-		}
-		else
-		{
-			paramptr = m_strings.back().alloc( packedParameter.size());
-			if (paramptr == 0)
-			{
-				StringBlock blk( packedParameter.c_str(), packedParameter.size());
-				paramptr = blk.ptr();
-				m_strings.insert( m_strings.begin()+m_strings.size()-1, blk);
-			}
-		}
 		m_recordar.push_back(
-			Record( classId, methodId, objId, m_recordar.size()+1, m_depth, resultObjId, paramptr, packedParameter.size()));
+			Record( classId, methodId, objId, m_recordar.size()+1, m_depth, 0, 0));
 		return (TraceLogRecordHandle)m_recordar.size();
 	}
 	CATCH_ERROR_MAP_RETURN( "trace logger error logging method call", *m_errorhnd, 0)
 }
 
+void TraceLogger::logObjectCreation(
+		const TraceObjectId& objId,
+		const TraceLogRecordHandle& loghnd)
+{
+	try
+	{
+		if (!loghnd || loghnd > m_recordar.size())
+		{
+			m_errorhnd->report( _TXT("illegal handle passed to log object creation call"));
+			return;
+		}
+		m_creatmap[ objId] = loghnd;
+	}
+	CATCH_ERROR_MAP( "trace logger error logging object creation", *m_errorhnd)
+}
+
 void TraceLogger::logMethodTermination(
-		TraceLogRecordHandle loghnd)
+		const TraceLogRecordHandle& loghnd,
+		const std::string& packedParameter)
 {
 	if (loghnd == 0 || loghnd > m_recordar.size())
 	{
 		m_errorhnd->report(_TXT("call log method termination with illegal log handle"));
 		return;
 	}
-	m_recordar[ loghnd-1].setEndTime( m_recordar.size()+1);
+	const char* paramptr;
+	if (m_strings.empty())
+	{
+		StringBlock blk( packedParameter.c_str(), packedParameter.size());
+		paramptr = blk.ptr();
+		m_strings.push_back( blk);
+	}
+	else
+	{
+		paramptr = m_strings.back().alloc( packedParameter.size());
+		if (paramptr == 0)
+		{
+			StringBlock blk( packedParameter.c_str(), packedParameter.size());
+			paramptr = blk.ptr();
+			m_strings.insert( m_strings.begin()+m_strings.size()-1, blk);
+		}
+	}
+
+	Record& callrec = m_recordar[ loghnd-1];
+	callrec.setEndCall( m_recordar.size()+1, paramptr, packedParameter.size());
 }
 
 bool TraceLogger::Query::match( const TraceLoggerInterface::Record& rec) const
@@ -109,7 +126,6 @@ bool TraceLogger::Query::match( const TraceLoggerInterface::Record& rec) const
 	if (m_time_to && m_time_to <= rec.endTime()) return false;
 	if (m_depth_from && m_depth_from > rec.depth()) return false;
 	if (m_depth_to && m_depth_to <= rec.depth()) return false;
-	if (m_resultObjId && m_resultObjId != rec.resultObjId()) return false;
 	return true;
 }
 
@@ -136,7 +152,7 @@ void TraceLogger::logCloseBranch()
 std::vector<TraceLoggerInterface::Record> TraceLogger::listMethodCalls(
 		const Query& query,
 		std::size_t startIndex,
-		std::size_t maxNofResults)
+		std::size_t maxNofResults) const
 {
 	try
 	{
@@ -162,4 +178,13 @@ std::vector<TraceLoggerInterface::Record> TraceLogger::listMethodCalls(
 }
 
 
+TraceTimeCounter TraceLogger::getObjectCreationTime( const TraceObjectId& objId) const
+{
+	std::map<TraceObjectId,TraceTimeCounter>::const_iterator ci = m_creatmap.find( objId);
+	if (ci == m_creatmap.end())
+	{
+		return 0;
+	}
+	return ci->second;
+}
 

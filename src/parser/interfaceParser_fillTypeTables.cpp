@@ -38,6 +38,12 @@ void TypeSystem::fillTypeTables()
 	defineType( "bool")
 		("pack_msg", "msg.packBool($name);")
 	;
+	defineType( "float")
+		("pack_msg", "msg.packScalar($name);")
+	;
+	defineType( "double")
+		("pack_msg", "msg.packScalar($name);")
+	;
 	defineType( "std::string")
 		("pack_msg", "msg.packString($name);")
 	;
@@ -52,6 +58,9 @@ void TypeSystem::fillTypeTables()
 	;
 	defineType( "std::vector<std::string>")
 		("pack_msg", "msg.packStringVector($name);")
+	;
+	defineType( "const std::vector<Index>&")
+		("pack_msg", "msg.packIndexVector($name);")
 	;
 	defineType( "const char*")
 		("pack_msg", "msg.packCharp($name);")
@@ -86,6 +95,9 @@ void TypeSystem::fillTypeTables()
 	defineType( "const CompareOperator&", "MetaDataRestriction")
 		("pack_msg", "msg.packMetaDataRestrictionCompareOperator($name);")
 	;
+	defineType( "MetaDataRestrictionInterface::CompareOperator")
+		("pack_msg", "msg.packMetaDataRestrictionCompareOperator($name);")
+	;
 	defineType( "const DatabaseOptions&")
 		("pack_msg", "msg.packDatabaseOptions($name);")
 	;
@@ -101,8 +113,14 @@ void TypeSystem::fillTypeTables()
 	defineType( "const SummaryElement&")
 		("pack_msg", "msg.packSummaryElement($name);")
 	;
+	defineType( "std::vector<SummaryElement>")
+		("pack_msg", "msg.packSummaryElement($name);")
+	;
 	defineType( "const SummarizationVariable&")
 		("pack_msg", "msg.packSummarizationVariable($name);")
+	;
+	defineType( "const std::vector<SummarizationVariable>& ")
+		("pack_msg", "msg.packSummarizationVariableVector($name);")
 	;
 	defineType( "Term&", "DocumentTermIterator")
 		("pack_msg", "msg.packDocumentTermIteratorTerm($name);")
@@ -137,7 +155,7 @@ void TypeSystem::fillTypeTables()
 	defineType( "const ResultDocument&")
 		("pack_msg", "msg.packResultDocument($name);")
 	;
-	defineType( "const QueryResult&")
+	defineType( "QueryResult")
 		("pack_msg", "msg.packQueryResult($name);")
 	;
 	defineType( "const FeatureParameter&", "QueryEval")
@@ -155,7 +173,7 @@ void TypeSystem::fillTypeTables()
 	defineType( "const BuilderOptions&", "StatisticsProcessor")
 		("pack_msg", "msg.packStatisticsProcessorBuilderOptions($name);")
 	;
-	defineType( "const DocumentFrequencyChange&", "StatisticsViewer")
+	defineType( "DocumentFrequencyChange&", "StatisticsViewer")
 		("pack_msg", "msg.packStatisticsViewerDocumentFrequencyChange($name);")
 	;
 	defineType( "const FunctionType&", "QueryProcessor")

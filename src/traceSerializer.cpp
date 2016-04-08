@@ -129,6 +129,22 @@ void TraceSerializer::packStringVector( const std::vector<std::string>& ar)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packIndexVector( const std::vector<Index>& ar)
+{
+	try{
+#ifdef STRUS_LOWLEVEL_DEBUG
+	std::cerr << "packIndexVector(...)" << std::endl;
+#endif
+	std::vector<Index>::const_iterator ai = ar.begin(), ae = ar.end();
+	for (std::size_t aidx=0; ai != ae; ++ai,++aidx)
+	{
+		Serializer::openIndex( aidx);
+		Serializer::packScalar( *ai);
+		Serializer::close();
+	}
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packNumericVariant( const NumericVariant& val)
 {
 	try{
@@ -236,6 +252,22 @@ void TraceSerializer::packSummaryElement( const SummaryElement& val)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packSummaryElementVector( const std::vector<SummaryElement>& ar)
+{
+	try{
+#ifdef STRUS_LOWLEVEL_DEBUG
+	std::cerr << "packSummaryElementVector(...)" << std::endl;
+#endif
+	std::vector<SummaryElement>::const_iterator si = ar.begin(), se = ar.end();
+	for (std::size_t sidx=0; si != se; ++si,++sidx)
+	{
+		Serializer::openIndex( sidx);
+		packSummaryElement( *si);
+		Serializer::close();
+	}
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packSummarizationVariable( const SummarizationVariable& val)
 {
 	try{
@@ -247,6 +279,22 @@ void TraceSerializer::packSummarizationVariable( const SummarizationVariable& va
 	if (!so) throw strus::runtime_error( _TXT("passing non trace interface object in trace call (summarization variable)"));
 	packObject( (TraceClassId) ClassId_PostingIterator, so->objid());
 	Serializer::close();
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packSummarizationVariableVector( const std::vector<SummarizationVariable>& ar)
+{
+	try{
+#ifdef STRUS_LOWLEVEL_DEBUG
+	std::cerr << "packSummarizationVariableVector(...)" << std::endl;
+#endif
+	std::vector<SummarizationVariable>::const_iterator vi = ar.begin(), ve = ar.end();
+	for (std::size_t vidx=0; vi != ve; ++vi,++vidx)
+	{
+		Serializer::openIndex( vidx);
+		packSummarizationVariable( *vi);
+		Serializer::close();
+	}
 	}CATCH_ERROR
 }
 

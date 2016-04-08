@@ -68,6 +68,7 @@ public:
 	void packBool( const bool& value);
 	void packString( const std::string& value);
 	void packStringVector( const std::vector<std::string>& ar);
+	void packIndexVector( const std::vector<Index>& ar);
 	void packCharp( const char* buf);
 	void packCharpp( const char** buf);
 	void openIndex( const std::size_t& value);
@@ -89,7 +90,9 @@ public:
 	void packStorageConfigType( const StorageInterface::ConfigType& val);
 	void packFeatureOptions( const DocumentAnalyzerInterface::FeatureOptions& val);
 	void packSummaryElement( const SummaryElement& val);
+	void packSummaryElementVector( const std::vector<SummaryElement>& val);
 	void packSummarizationVariable( const SummarizationVariable& val);
+	void packSummarizationVariableVector( const std::vector<SummarizationVariable>& val);
 	void packDocumentTermIteratorTerm( const DocumentTermIteratorInterface::Term& term);
 	void packSlice( DatabaseCursorInterface::Slice& val);
 	void packAnalyzerDocument( const analyzer::Document& val);

@@ -801,31 +801,39 @@ void InterfacesDef::parseClass( const std::string& className, char const*& si, c
 				}
 				char const* endParams = si;
 				skipBrackets( endParams, se, '(', ')');
-				++si;
-				std::vector<VariableValue> params = parseParameters( className, si, endParams-1);
-				si = endParams;
-				skipSpacesAndComments( si, se);
-				bool isconst = false;
-				if (si != se)
+				if (m_typeSystem->isImplementedMethod( methodName))
 				{
-					if (si+5 < se && 0==std::memcmp( si, "const", 5))
+					++si;
+					std::vector<VariableValue> params = parseParameters( className, si, endParams-1);
+					si = endParams;
+					skipSpacesAndComments( si, se);
+					bool isconst = false;
+					if (si != se)
 					{
-						si+=5;
-						skipSpacesAndComments( si, se);
-						isconst = true;
-					}
-					if (si != se && *si == '=')
-					{
-						++si;
-						skipSpacesAndComments( si, se);
-						if (si == se || *si != '0')
+						if (si+5 < se && 0==std::memcmp( si, "const", 5))
 						{
-							throw std::runtime_error("expected '0' after '=' in method declaration");
+							si+=5;
+							skipSpacesAndComments( si, se);
+							isconst = true;
 						}
-						++si;
+						if (si != se && *si == '=')
+						{
+							++si;
+							skipSpacesAndComments( si, se);
+							if (si == se || *si != '0')
+							{
+								throw std::runtime_error("expected '0' after '=' in method declaration");
+							}
+							++si;
+						}
 					}
+					classDef.addMethod( MethodDef( methodName, retvaltype, params, isconst));
 				}
-				classDef.addMethod( MethodDef( methodName, retvaltype, params, isconst));
+				else
+				{
+					si = endParams;
+					skipToStr( si, se, ";");
+				}
 			}
 		}
 		else

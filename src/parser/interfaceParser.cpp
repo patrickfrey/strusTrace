@@ -15,6 +15,13 @@
 
 using namespace strus;
 
+static bool endsWith( const std::string& ident, const std::string& tail)
+{
+	if (tail.size() > ident.size()) return false;
+	std::size_t tailidx = ident.size() - tail.size();
+	return 0==std::strcmp( ident.c_str()+tailidx, tail.c_str());
+}
+
 static void skipSpaces( char const*& si, const char* se)
 {
 	while (si != se && (unsigned char)*si <= 32) ++si;
@@ -46,12 +53,16 @@ static void skipToStr( char const*& si, const char* se, const char* str)
 static bool isAlpha( char ch)
 {
 	if (ch == '_') return true;
-	if ((ch|32) >= 'a' || (ch|32) <= 'z') return true;
+	if ((ch|32) >= 'a' && (ch|32) <= 'z') return true;
 	return false;
+}
+static bool isDigit( char ch)
+{
+	return (ch >= '0' && ch <= '9');
 }
 static bool isAlnum( char ch)
 {
-	return isAlpha(ch) || (ch >= '0' && ch <= '9');
+	return isAlpha(ch) || isDigit(ch);
 }
 static std::string parseIdentifier( char const*& si, const char* se)
 {
@@ -62,9 +73,30 @@ static std::string parseIdentifier( char const*& si, const char* se)
 	}
 	return rt;
 }
+static std::string parseNumericValue( char const*& si, const char* se)
+{
+	std::string rt;
+	if (si != se && (*si == '-' || *si == '+'))
+	{
+		rt.push_back( *si++);
+	}
+	for (; si != se && isDigit(*si); ++si)
+	{
+		rt.push_back( *si);
+	}
+	if (si != se && *si == '.')
+	{
+		rt.push_back( *si++);
+	}
+	for (; si != se && isDigit(*si); ++si)
+	{
+		rt.push_back( *si);
+	}
+	return rt;
+}
 static bool isOperator( char ch)
 {
-	static const char* ar = "<>()*&::";
+	static const char* ar = "<>()*&::,";
 	return std::strchr( ar, ch) != 0;
 }
 static void skipSpacesAndComments( char const*& si, const char* se)
@@ -80,7 +112,10 @@ static void skipSpacesAndComments( char const*& si, const char* se)
 		{
 			skipToStr( si, se, "*/");
 			if (si != se) si += 2;
-			continue;
+		}
+		else
+		{
+			break;
 		}
 	}
 }
@@ -106,17 +141,51 @@ static void skipBrackets( char const*& si, const char* se, char sb, char eb)
 				return;
 			}
 		}
-		skipSpacesAndComments( si, se);
+		++si;
 	}
 	throw std::runtime_error("unbalanced brackets in source");
 }
+static void skipStructure( char const*& si, const char* se)
+{
+	skipSpacesAndComments( si, se);
+	while (si != se && isAlpha(*si))
+	{
+		parseIdentifier( si, se);
+		skipSpacesAndComments( si, se);
+	}
+	if (si == se)
+	{
+		throw std::runtime_error( "unexpected end of source in structure");
+	}
+	if (*si == '(')
+	{
+		skipBrackets( si, se, '(', ')');
+		skipSpacesAndComments( si, se);
+	}
+	if (*si == '{')
+	{
+		skipBrackets( si, se, '{', '}');
+		skipSpacesAndComments( si, se);
+	}
+	if (*si == ';')
+	{
+		++si;
+	}
+}
+
 
 enum TokenType
 {
 	TokenOperator,
 	TokenIdentifier,
-	TokenVariable
+	TokenVariable,
+	TokenSuffix
 };
+static const char* tokenTypeName( TokenType i)
+{
+	static const char* ar[] = {"Operator","Identifier","Variable","Suffix"};
+	return ar[i];
+}
 
 class TokenDef
 {
@@ -126,106 +195,12 @@ public:
 	TokenDef( const TokenType& t, const std::string& v)
 		:m_type(t),m_value(v){}
 
-	bool parse( std::map<std::string,std::string>& defmap, char const*& si, const char* se) const
-	{
-		skipSpaces( si, se);
-		const char* start = si;
-		if (si == se) return false;
-		switch (m_type)
-		{
-			case TokenOperator:
-			{
-				std::string::const_iterator ti = m_value.begin(), te = m_value.end();
-				for (; ti != te && si != se; ++ti,++si)
-				{
-					if (*si != *ti) goto FAILED;
-				}
-				if (ti != te) goto FAILED;
-				break;
-			}
-			case TokenIdentifier:
-			{
-				std::string::const_iterator ti = m_value.begin(), te = m_value.end();
-				for (; ti != te && si != se; ++ti,++si)
-				{
-					if (*si != *ti) goto FAILED;
-				}
-				if (ti != te) goto FAILED;
-				if (si != se && isAlnum(*si)) goto FAILED;
-				break;
-			}
-			case TokenVariable:
-			{
-				if (!isAlpha(*si)) goto FAILED;
-				defmap[ m_value] = parseIdentifier( si, se);
-				break;
-			}
-		}
-		return true;
-
-	FAILED:
-		si = start;
-		return false;
-	}
+	const TokenType& type() const		{return m_type;}
+	const std::string& value() const	{return m_value;}
 
 private:
 	TokenType m_type;
 	std::string m_value;
-};
-
-
-class PatternDef
-{
-public:
-	PatternDef( const PatternDef& o)
-		:m_source(o.m_source),m_tokendefs(o.m_tokendefs){}
-
-	explicit PatternDef( const std::string& src)
-		:m_source(src)
-	{
-		char const* si = src.c_str();
-		const char* se = si + src.size();
-		skipSpaces( si, se);
-
-		while (si != se)
-		{
-			if (isAlpha(*si))
-			{
-				m_tokendefs.push_back( TokenDef( TokenIdentifier, parseIdentifier( si, se)));
-			}
-			else if (isOperator(*si))
-			{
-				m_tokendefs.push_back( TokenDef( TokenOperator, std::string( si++, 1)));
-			}
-			else if (*si == '$')
-			{
-				++si;
-				if (si == se || !isAlpha(*si))
-				{
-					throw std::runtime_error("identifier expeced in pattern after '$'");
-				}
-				m_tokendefs.push_back( TokenDef( TokenVariable, parseIdentifier( si, se)));
-			}
-			else
-			{
-				throw std::runtime_error( std::string("unknown token in pattern at ") + "'" + si + "'");
-			}
-			skipSpaces( si, se);
-		}
-	}
-
-	const std::vector<TokenDef>& tokendefs() const
-	{
-		return m_tokendefs;
-	}
-	const std::string& source() const
-	{
-		return m_source;
-	}
-
-private:
-	std::string m_source;
-	std::vector<TokenDef> m_tokendefs;
 };
 
 
@@ -234,6 +209,11 @@ enum OutputType
 	OutputString,
 	OuputVariable
 };
+static const char* outputTypeName( OutputType i)
+{
+	static const char* ar[] = {"String","Variable"};
+	return ar[i];
+}
 
 class OutputDef
 {
@@ -262,6 +242,11 @@ public:
 					throw std::runtime_error("identifier expected after '$' in output definition");
 				}
 				m_chunks.push_back( Chunk( OuputVariable, parseIdentifier( oi, oe)));
+			}
+			else
+			{
+				value.push_back(*oi);
+				++oi;
 			}
 		}
 		if (!value.empty())
@@ -312,6 +297,18 @@ public:
 		}
 	}
 
+	std::string tostring() const
+	{
+		std::ostringstream out;
+		std::vector<Chunk>::const_iterator ci = m_chunks.begin(), ce = m_chunks.end();
+		for (int cidx=0; ci != ce; ++ci,++cidx)
+		{
+			if (cidx) out << ", ";
+			out << outputTypeName(ci->m_type) << " '" << ci->m_value << "'";
+		}
+		return out.str();
+	}
+
 private:
 	struct Chunk
 	{
@@ -330,25 +327,109 @@ private:
 class VariableType::Impl
 {
 public:
-	explicit Impl( const std::string& pattern)
-		:m_patterndef( pattern){}
-
-	bool parse( std::map<std::string,std::string>& defmap, char const*& si, const char* se) const
+	Impl( const Impl& o)
+		:m_source(o.m_source),m_scope(o.m_scope),m_tokendefs(o.m_tokendefs),m_output(o.m_output){}
+		
+	explicit Impl( const std::string& pattern, const std::string& scope_)
+		:m_source(pattern),m_scope(scope_)
 	{
-		std::map<std::string,std::string> defmap_tmp;
-		const char* start = si;
+		char const* si = pattern.c_str();
+		const char* se = si + pattern.size();
+		skipSpaces( si, se);
+
+		while (si != se)
+		{
+			if (isAlpha(*si))
+			{
+				m_tokendefs.push_back( TokenDef( TokenIdentifier, parseIdentifier( si, se)));
+			}
+			else if (isOperator(*si))
+			{
+				m_tokendefs.push_back( TokenDef( TokenOperator, std::string( si++, 1)));
+			}
+			else if (*si == '$')
+			{
+				++si;
+				if (si == se || !isAlpha(*si))
+				{
+					throw std::runtime_error("identifier expeced in pattern after '$'");
+				}
+				m_tokendefs.push_back( TokenDef( TokenVariable, parseIdentifier( si, se)));
+				if (*si == '~')
+				{
+					++si;
+					if (si == se || !isAlpha(*si))
+					{
+						throw std::runtime_error("identifier expeced in pattern after '~' (suffix definition)");
+					}
+					m_tokendefs.push_back( TokenDef( TokenSuffix, parseIdentifier( si, se)));
+				}
+			}
+			else
+			{
+				throw std::runtime_error( std::string("unknown token in pattern at ") + "'" + si + "'");
+			}
+			skipSpaces( si, se);
+		}
+	}
+
+	bool parse( std::map<std::string,std::string>& result_defmap, char const*& src, const char* end) const
+	{
+		std::map<std::string,std::string> defmap;
+		char const* si = src;
+		const char* se = end;
 		std::vector<TokenDef>::const_iterator
-			ti = m_patterndef.tokendefs().begin(),
-			te = m_patterndef.tokendefs().end();
+			ti = m_tokendefs.begin(),
+			te = m_tokendefs.end();
 		for (; ti != te; ++ti)
 		{
-			if (!ti->parse( defmap_tmp, si, se))
+			skipSpaces( si, se);
+			if (si == se) return false;
+			switch (ti->type())
 			{
-				si = start;
-				return false;
+				case TokenOperator:
+				{
+					std::string::const_iterator
+						vi = ti->value().begin(), ve = ti->value().end();
+					for (; vi != ve && si != se; ++vi,++si)
+					{
+						if (*si != *vi) return false;
+					}
+					if (vi != ve) return false;
+					break;
+				}
+				case TokenIdentifier:
+				{
+					std::string::const_iterator
+						vi = ti->value().begin(), ve = ti->value().end();
+					for (; vi != ve && si != se; ++vi,++si)
+					{
+						if (*si != *vi) return false;
+					}
+					if (vi != ve) return false;
+					if (si != se && isAlnum(*si)) return false;
+					break;
+				}
+				case TokenVariable:
+				{
+					if (!isAlpha(*si)) return false;
+					std::string variableid = ti->value();
+					std::string ident = parseIdentifier( si, se);
+					if (ti+1 != te && (ti+1)->type() == TokenSuffix)
+					{
+						++ti;
+						if (!endsWith( ident, ti->value())) return false;
+						ident.resize( ident.size() - ti->value().size());
+					}
+					defmap[ variableid] = ident;
+					break;
+				}
+				case TokenSuffix:
+					throw std::runtime_error("unexpected token element (TokenSuffix not after TokenVariable) in pattern definition");
 			}
 		}
-		defmap = defmap_tmp;
+		result_defmap = defmap;
+		src = si;
 		return true;
 	}
 
@@ -356,7 +437,7 @@ public:
 	{
 		if (m_output.find( eventname) != m_output.end())
 		{
-			throw std::runtime_error( std::string("duplicate definition of event '") + eventname + "' for pattern '" + m_patterndef.source() + "'");
+			throw std::runtime_error( std::string("duplicate definition of event '") + eventname + "' for pattern '" + m_source + "'");
 		}
 		m_output[ eventname] = OutputDef( output);
 	}
@@ -374,30 +455,59 @@ public:
 			}
 			catch (const std::runtime_error& err)
 			{
-				throw std::runtime_error( std::string("error in event '") + eventname + "' of pattern '" + m_patterndef.source() + "': " + err.what());
+				throw std::runtime_error( std::string("error in event '") + eventname + "' of pattern '" + m_source + "': " + err.what());
 			}
 		}
 	}
 
+	const std::vector<TokenDef>& tokendefs() const
+	{
+		return m_tokendefs;
+	}
 	const std::string& source() const
 	{
-		return m_patterndef.source();
+		return m_source;
+	}
+	const std::string& scope() const
+	{
+		return m_scope;
+	}
+
+	std::string tostring() const
+	{
+		std::ostringstream out;
+		out << m_source << " [";
+		std::vector<TokenDef>::const_iterator ti = m_tokendefs.begin(), te = m_tokendefs.end();
+		for (int tidx=0; ti != te; ++ti,++tidx)
+		{
+			if (tidx) out << ", ";
+			out << tokenTypeName(ti->type()) << " '" << ti->value() << "'";
+		}
+		out << "]:" << std::endl;
+		std::map<std::string,OutputDef>::const_iterator oi = m_output.begin(), oe = m_output.end();
+		for (;oi != oe; ++oi)
+		{
+			out << "\t" << oi->first << ": " << oi->second.tostring() << std::endl;
+		}
+		return out.str();
 	}
 
 private:
-	PatternDef m_patterndef;
+	std::string m_source;
+	std::string m_scope;
+	std::vector<TokenDef> m_tokendefs;
 	std::map<std::string,OutputDef> m_output;
 };
 
 
-VariableType::VariableType( const char* pattern_)
+VariableType::VariableType( const char* pattern_, const char* scope_)
 {
-	m_impl = new Impl( pattern_);
+	m_impl = new Impl( pattern_, scope_?scope_:"");
 }
 
 VariableType::VariableType( const VariableType& o)
 {
-	m_impl = new Impl( o.m_impl->source());
+	m_impl = new Impl( *o.m_impl);
 }
 
 VariableType::~VariableType()
@@ -408,6 +518,11 @@ VariableType::~VariableType()
 const std::string& VariableType::source() const
 {
 	return m_impl->source();
+}
+
+const std::string& VariableType::scope() const
+{
+	return m_impl->scope();
 }
 
 VariableType& VariableType::operator()( const char* eventname, const char* output)
@@ -428,13 +543,31 @@ void VariableType::print( std::string& out, const char* eventname,
 	m_impl->print( out, eventname, defmap, name, value);
 }
 
-VariableType& TypeSystem::defineType( const char* pattern)
+std::string VariableType::tostring() const
 {
-	m_variableTypes.push_back( VariableType( pattern));
+	return m_impl->tostring();
+}
+
+std::string VariableValue::tostring() const
+{
+	std::ostringstream out;
+	out << m_type->tostring();
+	std::map<std::string,std::string>::const_iterator di = m_defmap.begin(), de = m_defmap.end();
+	for (;di != de; ++di)
+	{
+		out << "\t" << di->first << " = '" << di->second << "'" << std::endl;
+	}
+	return out.str();
+	
+}
+
+VariableType& TypeSystem::defineType( const char* pattern, const char* scope)
+{
+	m_variableTypes.push_back( VariableType( pattern, scope));
 	return m_variableTypes.back();
 }
 
-VariableValue TypeSystem::parse( char const*& si, const char* se) const
+VariableValue TypeSystem::parse( const std::string& scope, char const*& si, const char* se) const
 {
 	char const* maxend = 0;
 	VariableValue rt;
@@ -443,6 +576,8 @@ VariableValue TypeSystem::parse( char const*& si, const char* se) const
 		ve = m_variableTypes.end();
 	for (; vi != ve; ++vi)
 	{
+		if (!vi->scope().empty() && vi->scope() != scope) continue;
+
 		std::map<std::string,std::string> defmap;
 		const char* enddef = si;
 		if (vi->parse( defmap, enddef, se))
@@ -456,6 +591,7 @@ VariableValue TypeSystem::parse( char const*& si, const char* se) const
 	}
 	if (maxend)
 	{
+		si = maxend;
 		return rt;
 	}
 	else
@@ -463,6 +599,18 @@ VariableValue TypeSystem::parse( char const*& si, const char* se) const
 		std::string msg( si, se-si>60?60:(se-si));
 		throw std::runtime_error(std::string("no variable type found for '") + msg + "'");
 	}
+}
+
+std::string TypeSystem::tostring() const
+{
+	std::ostringstream out;
+	std::vector<VariableType>::const_iterator
+		vi = m_variableTypes.begin(), ve = m_variableTypes.end();
+	for (; vi != ve; ++vi)
+	{
+		out << vi->tostring();
+	}
+	return out.str();
 }
 
 static unsigned int lineNumber( const char* begin, const char* at)
@@ -482,13 +630,15 @@ static unsigned int colNumber( const char* begin, const char* at)
 	unsigned int rt = 0;
 	for (; si != begin; --si,++rt)
 	{
+		if (*si == '\t') rt+=7;
 		if (*si == '\n') break;
 	}
-	return rt+1;
+	return rt?rt:1;
 }
 
 void InterfacesDef::addSource( const std::string& source)
 {
+	unsigned int brkcnt = 0;
 	char const* si = source.c_str();
 	const char* se = si + source.size();
 	try
@@ -506,13 +656,21 @@ void InterfacesDef::addSource( const std::string& source)
 				if (ident == "namespace")
 				{
 					skipToStr( si, se, "{");
-					if (si != se) si += 1;
+					if (si == se) throw std::runtime_error("unexpected end of source ('{' expected after namespace)");
+					++si;
+					++brkcnt;
+				}
+				else if (ident == "typedef" || ident == "using")
+				{
+					skipStructure( si, se);
 				}
 				else if (ident == "enum")
 				{
-					skipToStr( si, se, "{");
-					skipBrackets( si, se, '{', '}');
-					if (si != se) ++si;
+					skipStructure( si, se);
+				}
+				else if (ident == "struct")
+				{
+					skipStructure( si, se);
 				}
 				else if (ident == "class")
 				{
@@ -522,12 +680,41 @@ void InterfacesDef::addSource( const std::string& source)
 						throw std::runtime_error("class name expected after 'class'");
 					}
 					std::string className( parseIdentifier( si, se));
-					skipToStr( si, se, "{");
-					char const* endClass = si;
-					skipBrackets( endClass, se, '{', '}');
-					parseClass( className, si, endClass);
-					si = endClass+1;
+					skipSpacesAndComments( si, se);
+					if (si == se)
+					{
+						throw std::runtime_error("unexpected end of source after class name definition");
+					}
+					if (*si == ';') continue;
+					if (*si == '{')
+					{
+						char const* endClass = si++;
+						skipBrackets( endClass, se, '{', '}');
+	
+						if (endsWith( className, "Interface"))
+						{
+							std::string interfacename( className.c_str(),className.size()-9);
+							if (m_typeSystem->isImplementedInterface( interfacename))
+							{
+								parseClass( interfacename, si, endClass-1);
+							}
+						}
+						si = endClass;
+					}
 				}
+			}
+			else if (*si == '#')
+			{
+				skipToEoln( si, se);
+			}
+			else if (*si == '}' && brkcnt > 0)
+			{
+				--brkcnt;
+				++si;
+			}
+			else
+			{
+				throw std::runtime_error( std::string("unexpected character at '") + *si + "'");
 			}
 			skipSpacesAndComments( si, se);
 		}
@@ -535,7 +722,7 @@ void InterfacesDef::addSource( const std::string& source)
 	catch (const std::runtime_error& err)
 	{
 		std::ostringstream linemsg;
-		linemsg << "line " << lineNumber( source.c_str(), si) << "column " << colNumber( source.c_str(), si);
+		linemsg << "line " << lineNumber( source.c_str(), si) << " column " << colNumber( source.c_str(), si);
 		throw std::runtime_error( std::string("error in interface source at ") + linemsg.str() + ": " + err.what());
 	}
 }
@@ -543,12 +730,18 @@ void InterfacesDef::addSource( const std::string& source)
 void InterfacesDef::parseClass( const std::string& className, char const*& si, const char* se)
 {
 	ClassDef classDef( className);
-	skipSpacesAndComments( si, se);
 	while (si != se)
 	{
+		skipSpacesAndComments( si, se);
+		if (si == se) break;
 		if (*si == ';')
 		{
 			++si;
+		}
+		else if (*si == '~')
+		{
+			++si;
+			skipStructure( si, se);
 		}
 		else if (isAlpha( *si))
 		{
@@ -556,36 +749,44 @@ void InterfacesDef::parseClass( const std::string& className, char const*& si, c
 			std::string ident = parseIdentifier( si,se);
 			if (ident == "namespace")
 			{
-				skipToStr( si, se, "{");
-				if (si != se) si += 1;
+				skipStructure( si, se);
 			}
 			else if (ident == "enum")
 			{
-				skipToStr( si, se, "{");
-				skipBrackets( si, se, '{', '}');
-				if (si != se) ++si;
+				skipStructure( si, se);
 			}
-			else if (ident == "typedef")
+			else if (ident == "typedef" || ident == "using")
 			{
-				skipToStr( si, se, ";");
-				if (si != se) ++si;
+				skipStructure( si, se);
 			}
 			else if (ident == "struct")
 			{
-				skipToStr( si, se, "{");
-				skipBrackets( si, se, '{', '}');
-				if (si != se) ++si;
+				skipStructure( si, se);
 			}
 			else if (ident == "class")
 			{
-				skipToStr( si, se, "{");
-				skipBrackets( si, se, '{', '}');
-				if (si != se) ++si;
+				skipStructure( si, se);
+			}
+			else if (ident == "virtual")
+			{
+			}
+			else if (ident == "private" || ident == "public" || ident == "protected")
+			{
+				skipSpacesAndComments( si, se);
+				if (si == se)
+				{
+					throw std::runtime_error("unexpected end of source after class name definition");
+				}
+				if (*si != ':')
+				{
+					throw std::runtime_error("expected ':' after private/public/protected");
+				}
+				++si;
 			}
 			else
 			{
 				si = start;
-				VariableValue retvaltype = m_typeSystem->parse( si, se);
+				VariableValue retvaltype = m_typeSystem->parse( className, si, se);
 
 				skipSpacesAndComments( si, se);
 				if (si == se || !isAlpha( *si))
@@ -601,26 +802,69 @@ void InterfacesDef::parseClass( const std::string& className, char const*& si, c
 				char const* endParams = si;
 				skipBrackets( endParams, se, '(', ')');
 				++si;
-				std::vector<VariableValue> params = parseParameters( si, endParams);
-				classDef.addMethod( MethodDef( methodName, retvaltype, params));
-				si = endParams+1;
+				std::vector<VariableValue> params = parseParameters( className, si, endParams-1);
+				si = endParams;
+				skipSpacesAndComments( si, se);
+				bool isconst = false;
+				if (si != se)
+				{
+					if (si+5 < se && 0==std::memcmp( si, "const", 5))
+					{
+						si+=5;
+						skipSpacesAndComments( si, se);
+						isconst = true;
+					}
+					if (si != se && *si == '=')
+					{
+						++si;
+						skipSpacesAndComments( si, se);
+						if (si == se || *si != '0')
+						{
+							throw std::runtime_error("expected '0' after '=' in method declaration");
+						}
+						++si;
+					}
+				}
+				classDef.addMethod( MethodDef( methodName, retvaltype, params, isconst));
 			}
+		}
+		else
+		{
+			throw std::runtime_error( std::string("unexpected character '") + *si + "' in structure definition");
 		}
 		skipSpacesAndComments( si, se);
 	}
 	m_classdefar.push_back( classDef);
 }
 
-std::vector<VariableValue> InterfacesDef::parseParameters( char const*& si, const char* se)
+std::vector<VariableValue> InterfacesDef::parseParameters( const std::string& scope, char const*& si, const char* se)
 {
 	std::vector<VariableValue> rt;
 	while (si != se)
 	{
-		VariableValue param = m_typeSystem->parse( si, se);
+		VariableValue param = m_typeSystem->parse( scope, si, se);
 		skipSpacesAndComments( si, se);
 		if (si != se && isAlpha( *si))
 		{
 			(void)parseIdentifier(si,se);	//... name of parameter is not interesting
+			skipSpacesAndComments( si, se);
+			if (si != se && *si == '=')
+			{
+				++si;
+				skipSpacesAndComments( si, se);
+				if (si == se)
+				{
+					throw std::runtime_error("expected value after '=' in method parameter declaration");
+				}
+				if (isAlpha(*si))
+				{
+					(void)parseIdentifier( si, se);
+				}
+				else if (isDigit(*si) || *si == '-' || *si == '+')
+				{
+					(void)parseNumericValue( si, se);
+				}
+			}
 		}
 		skipSpacesAndComments( si, se);
 		if (si != se)

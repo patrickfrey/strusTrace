@@ -20,7 +20,7 @@ namespace strus
 class VariableType
 {
 public:
-	explicit VariableType( const char* pattern);
+	explicit VariableType( const char* pattern, const char* scope);
 	VariableType( const VariableType& o);
 	~VariableType();
 
@@ -35,6 +35,8 @@ public:
 			const std::string& value) const;
 
 	const std::string& source() const;
+	std::string tostring() const;
+	const std::string& scope() const;
 
 private:
 	class Impl;
@@ -54,6 +56,7 @@ public:
 
 	const VariableType* type()				{return m_type;}
 	const std::map<std::string,std::string>& defmap()	{return m_defmap;}
+	std::string tostring() const;
 
 private:
 	const VariableType* m_type;
@@ -70,8 +73,8 @@ public:
 	}
 	~TypeSystem(){}
 
-	VariableType& defineType( const char* pattern);
-	VariableValue parse( char const*& si, const char* se) const;
+	VariableType& defineType( const char* pattern, const char* scope=0);
+	VariableValue parse( const std::string& scope, char const*& si, const char* se) const;
 
 	bool isImplementedMethod( const std::string& name) const
 	{
@@ -85,6 +88,8 @@ public:
 	{
 		return m_passOwnershipMethod.find(name) != m_passOwnershipMethod.end();
 	}
+
+	std::string tostring() const;
 
 private:
 	void fillRuleTables();
@@ -101,15 +106,21 @@ private:
 class MethodDef
 {
 public:
-	MethodDef( const std::string& name_, const VariableValue& returnvalue_, const std::vector<VariableValue>& param_)
-		:m_name(name_),m_returnvalue(returnvalue_),m_param(param_){}
+	MethodDef( const std::string& name_, const VariableValue& returnvalue_, const std::vector<VariableValue>& param_, bool isconst_)
+		:m_name(name_),m_returnvalue(returnvalue_),m_param(param_),m_isconst(isconst_){}
 	MethodDef( const MethodDef& o)
-		:m_name(o.m_name),m_returnvalue(o.m_returnvalue),m_param(o.m_param){}
+		:m_name(o.m_name),m_returnvalue(o.m_returnvalue),m_param(o.m_param),m_isconst(o.m_isconst){}
+
+	const std::string& name() const			{return m_name;}
+	const VariableValue& returnValue() const	{return m_returnvalue;}
+	const std::vector<VariableValue>& parameters()	{return m_param;}
+	bool isconst() const				{return m_isconst;}
 
 private:
 	std::string m_name;
 	VariableValue m_returnvalue;
 	std::vector<VariableValue> m_param;
+	bool m_isconst;
 };
 
 class ClassDef
@@ -123,6 +134,14 @@ public:
 	void addMethod( const MethodDef& method)
 	{
 		m_methodar.push_back( method);
+	}
+	const std::string& name() const
+	{
+		return m_name;
+	}
+	const std::vector<MethodDef>& methodDefs() const
+	{
+		return m_methodar;
 	}
 
 private:
@@ -140,9 +159,14 @@ public:
 
 	void addSource( const std::string& source);
 
+	const std::vector<ClassDef>& classDefs() const
+	{
+		return m_classdefar;
+	}
+
 private:
 	void parseClass( const std::string& className, char const*& si, const char* se);
-	std::vector<VariableValue> parseParameters( char const*& si, const char* se);
+	std::vector<VariableValue> parseParameters( const std::string& scope, char const*& si, const char* se);
 
 private:
 	const TypeSystem* m_typeSystem;

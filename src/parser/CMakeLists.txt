@@ -7,6 +7,7 @@ set( source_files
 	interfaceParser.cpp
 	interfaceParser_fillRuleTables.cpp
 	interfaceParser_fillTypeTables.cpp
+	printFrame.cpp
 )
 
 include_directories(

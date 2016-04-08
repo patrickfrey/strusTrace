@@ -8,12 +8,38 @@
 /// \brief Codegeneator for strusTrace
 /// \file strusTraceCodeGen.cpp
 #include "interfaceParser.hpp"
+#include "printFrame.hpp"
 #include "strus/private/fileio.hpp"
 #include <stdexcept>
 #include <string>
+#include <vector>
 #include <cstring>
 #include <iostream>
 #include <sstream>
+
+static void print_ObjectIdsHpp( std::ostream& out, const strus::InterfacesDef& interfaceDef)
+{
+	strus::printHppFrameHeader( out, "objectIds_gen", "Identifiers for objects and methods for serialization");
+	out
+		<< "namespace strus {" << std::endl
+		<< std::endl
+		<< "enum ClassId" << std::endl
+		<< "{" << std::endl;
+
+	std::vector<strus::ClassDef>::const_iterator
+		ci = interfaceDef.classDefs().begin(),
+		ce = interfaceDef.classDefs().end();
+	for (; ci != ce; ++ci)
+	{
+		out << "\tClassId_" << ci->name();
+		if (ci+1 != ce) out << ",";
+		out << std::endl;
+	}
+	out << "};" << std::endl;
+
+	out << "}//namespace" << std::endl;
+	strus::printHppFrameTail( out);
+}
 
 int main( int argc, const char* argv[])
 {
@@ -21,6 +47,8 @@ int main( int argc, const char* argv[])
 	try
 	{
 		strus::TypeSystem typeSystem;
+		/*[-]*/std::cout << "TYPESYSTEM" << std::endl << typeSystem.tostring() << std::endl;
+
 		strus::InterfacesDef interfaceDef( &typeSystem);
 		int argi=1;
 		for (; argi < argc; ++argi)
@@ -42,6 +70,9 @@ int main( int argc, const char* argv[])
 				throw std::runtime_error( std::string( "error parsing interface file ") + argv[argi] + ": " + err.what());
 			}
 			std::cerr << "processed file " << argv[argi] << std::endl;
+
+			//Output:
+			print_ObjectIdsHpp( std::cout, interfaceDef);
 		}
 		std::cerr << "done." << std::endl;
 		return 0;

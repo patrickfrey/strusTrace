@@ -17,8 +17,8 @@ void TypeSystem::fillRuleTables()
 	m_notImplMethods.insert( "checkStorage");
 	m_notImplMethods.insert( "createResultIterator");
 
-	m_notImplInterfaces.insert( "ErrorBufferInterface");
-	m_notImplInterfaces.insert( "AnalyzerErrorBufferInterface");
+	m_notImplInterfaces.insert( "ErrorBuffer");
+	m_notImplInterfaces.insert( "AnalyzerErrorBuffer");
 	
 	m_passOwnershipMethod .insert( "definePostingJoinOperator");
 	m_passOwnershipMethod .insert( "defineWeightingFunction");

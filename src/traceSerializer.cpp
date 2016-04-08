@@ -101,13 +101,29 @@ void TraceSerializer::packBufferFloat( const double* buf, std::size_t size)
 {
 	try{
 #ifdef STRUS_LOWLEVEL_DEBUG
-	std::cerr << "packBuffer('" << std::string(buf,size) << "')" << std::endl;
+	std::cerr << "packBufferFloat(...)" << std::endl;
 #endif
 	std::size_t ii=0;
 	for (ii=0; ii<size; ++ii)
 	{
 		Serializer::openIndex( ii);
 		Serializer::packScalar( buf[ii]);
+		Serializer::close();
+	}
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packStringVector( const std::vector<std::string>& ar)
+{
+	try{
+#ifdef STRUS_LOWLEVEL_DEBUG
+	std::cerr << "packStringVector(...)" << std::endl;
+#endif
+	std::vector<std::string>::const_iterator ai = ar.begin(), ae = ar.end();
+	for (std::size_t aidx=0; ai != ae; ++ai,++aidx)
+	{
+		Serializer::openIndex( aidx);
+		Serializer::packString( *ai);
 		Serializer::close();
 	}
 	}CATCH_ERROR
@@ -447,6 +463,22 @@ void TraceSerializer::packFeatureParameter( const QueryEvalInterface::FeaturePar
 	Serializer::openTag("featset");
 	Serializer::packString( val.featureSet());
 	Serializer::close();
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar)
+{
+	try{
+#ifdef STRUS_LOWLEVEL_DEBUG
+	std::cerr << "packFeatureParameterVector(...)" << std::endl;
+#endif
+	std::vector<QueryEvalInterface::FeatureParameter>::const_iterator ai = ar.begin(), ae = ar.end();
+	for (std::size_t aidx=0; ai != ae; ++ai,++aidx)
+	{
+		Serializer::openIndex( aidx);
+		packFeatureParameter( *ai);
+		Serializer::close();
+	}
 	}CATCH_ERROR
 }
 

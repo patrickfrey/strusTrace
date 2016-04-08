@@ -67,6 +67,7 @@ public:
 	void packScalar( const double& value);
 	void packBool( const bool& value);
 	void packString( const std::string& value);
+	void packStringVector( const std::vector<std::string>& ar);
 	void packCharp( const char* buf);
 	void packCharpp( const char** buf);
 	void openIndex( const std::size_t& value);
@@ -101,6 +102,7 @@ public:
 	void packResultDocument( const ResultDocument& val);
 	void packQueryResult( const QueryResult& val);
 	void packFeatureParameter( const QueryEvalInterface::FeatureParameter& val);
+	void packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar);
 	void packPhrase( const QueryAnalyzerInterface::Phrase& val);
 	void packDocumentStatisticsType( const StorageClientInterface::DocumentStatisticsType& val);
 	void packStatisticsProcessorBuilderOptions( const StatisticsProcessorInterface::BuilderOptions& val);

@@ -49,7 +49,26 @@ static void skipToStr( char const*& si, const char* se, const char* str)
 		++si;
 	}
 }
-
+static void skipSpacesAndComments( char const*& si, const char* se)
+{
+	while (si != se)
+	{
+		skipSpaces( si, se);
+		if (si + 1 < se && si[0] == '/' && si[1] == '/')
+		{
+			skipToEoln( si, se);
+		}
+		else if (si + 1 < se && si[0] == '/' && si[1] == '*')
+		{
+			skipToStr( si, se, "*/");
+			if (si != se) si += 2;
+		}
+		else
+		{
+			break;
+		}
+	}
+}
 static bool isAlpha( char ch)
 {
 	if (ch == '_') return true;
@@ -70,6 +89,38 @@ static std::string parseIdentifier( char const*& si, const char* se)
 	for (; si != se && isAlnum(*si); ++si)
 	{
 		rt.push_back( *si);
+	}
+	return rt;
+}
+static std::string parseStructureIdentifier( char const*& si, const char* se)
+{
+	std::string rt;
+	while (si < se && isAlpha(*si))
+	{
+		rt.append( parseIdentifier( si, se));
+		skipSpacesAndComments( si, se);
+		if (si+1 < se && si[0] == ':' && si[1] == ':')
+		{
+			rt.append( "::");
+			si += 2;
+			skipSpacesAndComments( si, se);
+		}
+		else if (si+1 < se && si[0] == '-' && si[1] == '>')
+		{
+			rt.append( "->");
+			si += 2;
+			skipSpacesAndComments( si, se);
+		}
+		else if (si != se && *si == '.')
+		{
+			rt.append( ".");
+			++si;
+			skipSpacesAndComments( si, se);
+		}
+		else
+		{
+			break;
+		}
 	}
 	return rt;
 }
@@ -98,26 +149,6 @@ static bool isOperator( char ch)
 {
 	static const char* ar = "<>()*&::,";
 	return std::strchr( ar, ch) != 0;
-}
-static void skipSpacesAndComments( char const*& si, const char* se)
-{
-	while (si != se)
-	{
-		skipSpaces( si, se);
-		if (si + 1 < se && si[0] == '/' && si[1] == '/')
-		{
-			skipToEoln( si, se);
-		}
-		else if (si + 1 < se && si[0] == '/' && si[1] == '*')
-		{
-			skipToStr( si, se, "*/");
-			if (si != se) si += 2;
-		}
-		else
-		{
-			break;
-		}
-	}
 }
 static void skipBrackets( char const*& si, const char* se, char sb, char eb)
 {
@@ -242,6 +273,10 @@ public:
 					throw std::runtime_error("identifier expected after '$' in output definition");
 				}
 				m_chunks.push_back( Chunk( OuputVariable, parseIdentifier( oi, oe)));
+				if (oi != oe && *oi == '~')
+				{
+					++oi;
+				}
 			}
 			else
 			{
@@ -329,7 +364,7 @@ class VariableType::Impl
 public:
 	Impl( const Impl& o)
 		:m_source(o.m_source),m_scope(o.m_scope),m_tokendefs(o.m_tokendefs),m_output(o.m_output){}
-		
+
 	explicit Impl( const std::string& pattern, const std::string& scope_)
 		:m_source(pattern),m_scope(scope_)
 	{
@@ -371,6 +406,7 @@ public:
 			}
 			skipSpaces( si, se);
 		}
+		defineOutput( "definition", pattern.c_str());
 	}
 
 	bool parse( std::map<std::string,std::string>& result_defmap, char const*& src, const char* end) const
@@ -442,10 +478,14 @@ public:
 		m_output[ eventname] = OutputDef( output);
 	}
 
-	void print( std::string& out, const char* eventname,
+	std::string
+		expand(
+			const char* eventname,
 			const std::map<std::string,std::string>& defmap,
-			const std::string& name, const std::string& value) const
+			const std::string& name,
+			const std::string& value) const
 	{
+		std::string out;
 		std::map<std::string,OutputDef>::const_iterator oi = m_output.find( eventname);
 		if (oi != m_output.end())
 		{
@@ -458,6 +498,7 @@ public:
 				throw std::runtime_error( std::string("error in event '") + eventname + "' of pattern '" + m_source + "': " + err.what());
 			}
 		}
+		return out;
 	}
 
 	const std::vector<TokenDef>& tokendefs() const
@@ -536,11 +577,12 @@ bool VariableType::parse( std::map<std::string,std::string>& defmap, char const*
 	return m_impl->parse( defmap, si, se);
 }
 
-void VariableType::print( std::string& out, const char* eventname,
-				const std::map<std::string,std::string>& defmap,
-				const std::string& name, const std::string& value) const
+std::string VariableType::expand(
+		const char* eventname,
+		const std::map<std::string,std::string>& defmap,
+		const std::string& name, const std::string& value) const
 {
-	m_impl->print( out, eventname, defmap, name, value);
+	return m_impl->expand( eventname, defmap, name, value);
 }
 
 std::string VariableType::tostring() const
@@ -845,12 +887,36 @@ void InterfacesDef::parseClass( const std::string& className, char const*& si, c
 	m_classdefar.push_back( classDef);
 }
 
+static void skipDefaultParameterValue( char const*& si, const char* se)
+{
+	skipSpacesAndComments( si, se);
+	if (si == se)
+	{
+		throw std::runtime_error("expected value after '=' in method parameter declaration");
+	}
+	if (isAlpha(*si))
+	{
+		(void)parseStructureIdentifier( si, se);
+		if (si != se && *si == '(')
+		{
+			skipBrackets( si, se, '(', ')');
+			skipSpacesAndComments( si, se);
+		}
+	}
+	else if (isDigit(*si) || *si == '-' || *si == '+')
+	{
+		(void)parseNumericValue( si, se);
+	}
+}
+
 std::vector<VariableValue> InterfacesDef::parseParameters( const std::string& scope, char const*& si, const char* se)
 {
 	std::vector<VariableValue> rt;
 	while (si != se)
 	{
-		VariableValue param = m_typeSystem->parse( scope, si, se);
+		const char* paramstart = si;
+		rt.push_back( m_typeSystem->parse( scope, si, se));
+
 		skipSpacesAndComments( si, se);
 		if (si != se && isAlpha( *si))
 		{
@@ -859,19 +925,7 @@ std::vector<VariableValue> InterfacesDef::parseParameters( const std::string& sc
 			if (si != se && *si == '=')
 			{
 				++si;
-				skipSpacesAndComments( si, se);
-				if (si == se)
-				{
-					throw std::runtime_error("expected value after '=' in method parameter declaration");
-				}
-				if (isAlpha(*si))
-				{
-					(void)parseIdentifier( si, se);
-				}
-				else if (isDigit(*si) || *si == '-' || *si == '+')
-				{
-					(void)parseNumericValue( si, se);
-				}
+				skipDefaultParameterValue( si, se);
 			}
 		}
 		skipSpacesAndComments( si, se);
@@ -884,7 +938,9 @@ std::vector<VariableValue> InterfacesDef::parseParameters( const std::string& sc
 			}
 			else
 			{
-				throw std::runtime_error("comma expected as separator in method argument list");
+				std::string paramstr( paramstart, si - paramstart);
+				std::string paramfollow( si, se-si>20?20:(se-si));
+				throw std::runtime_error( std::string("comma expected as separator in method argument list [") + paramstr + "|>" + paramfollow + "]");
 			}
 		}
 	}

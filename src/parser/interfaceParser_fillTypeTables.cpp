@@ -26,10 +26,16 @@ void TypeSystem::fillTypeTables()
 	defineType( "Index")
 		("pack_msg", "msg.packScalar($name);")
 	;
+	defineType( "SegmenterPosition&")
+		("pack_msg", "msg.packScalar($name);")
+	;
 	defineType( "unsigned int")
 		("pack_msg", "msg.packScalar($name);")
 	;
 	defineType( "int")
+		("pack_msg", "msg.packScalar($name);")
+	;
+	defineType( "int&")
 		("pack_msg", "msg.packScalar($name);")
 	;
 	defineType( "std::size_t")
@@ -86,6 +92,9 @@ void TypeSystem::fillTypeTables()
 	defineType( "const DocumentClass&")
 		("pack_msg", "msg.packDocumentClass($name);")
 	;
+	defineType( "DocumentClass&")
+		("pack_msg", "msg.packDocumentClass($name);")
+	;
 	defineType( "const TermStatistics&")
 		("pack_msg", "msg.packTermStatistics($name);")
 	;
@@ -134,6 +143,12 @@ void TypeSystem::fillTypeTables()
 	defineType( "const analyzer::Document&")
 		("pack_msg", "msg.packAnalyzerDocument($name);")
 	;
+	defineType( "analyzer::Document&")
+		("pack_msg", "msg.packAnalyzerDocument($name);")
+	;
+	defineType( "analyzer::Document")
+		("pack_msg", "msg.packAnalyzerDocument($name);")
+	;
 	defineType( "const analyzer::Attribute&")
 		("pack_msg", "msg.packAnalyzerAttribute($name);")
 	;
@@ -143,11 +158,17 @@ void TypeSystem::fillTypeTables()
 	defineType( "const analyzer::Term&")
 		("pack_msg", "msg.packAnalyzerTerm($name);")
 	;
-	defineType( "const analyzer::TermVector&")
+	defineType( "std::vector<analyzer::Term>")
 		("pack_msg", "msg.packAnalyzerTermVector($name);")
+	;
+	defineType( "std::vector<analyzer::TermVector>")
+		("pack_msg", "msg.packAnalyzerTermVectorVector($name);")
 	;
 	defineType( "const analyzer::Token&")
 		("pack_msg", "msg.packAnalyzerToken($name);")
+	;
+	defineType( "std::vector<analyzer::Token>")
+		("pack_msg", "msg.packAnalyzerTokenVector($name);")
 	;
 	defineType( "const WeightedDocument&")
 		("pack_msg", "msg.packWeightedDocument($name);")
@@ -166,6 +187,9 @@ void TypeSystem::fillTypeTables()
 	;
 	defineType( "const Phrase&", "QueryAnalyzer")
 		("pack_msg", "msg.packPhrase($name);")
+	;
+	defineType( "const std::vector<Phrase>& phraseBulk", "QueryAnalyzer")
+		("pack_msg", "msg.packPhraseVector($name);")
 	;
 	defineType( "const DocumentStatisticsType&", "StorageClient")
 		("pack_msg", "msg.packDocumentStatisticsType($name);")
@@ -197,6 +221,12 @@ void TypeSystem::fillTypeTables()
 	defineType( "const $objid~Interface*")
 		("pack_msg", "msg.packObject($name);")
 	;
+	defineType( "const std::vector<Reference<$objid~Interface> >&")
+		("pack_msg", "std::vector<Reference<$objid~Interface> >::const_iterator i_$name = $name.begin(), e_$name = $name.end(); for (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name) {msg.openIndex( idx_$name); msg.packObject(**i_$name); msg.close();}")
+	;
+	defineType( "const std::vector<$objid~Interface*>&")
+		("pack_msg", "std::vector<$objid~Interface*>::const_iterator i_$name = $name.begin(), e_$name = $name.end(); for (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name) {msg.openIndex( idx_$name); msg.packObject(**i_$name); msg.close();}")
+	;
 	defineType( "const char*&")
 		("pack_msg", "msg.packCharp($name);")
 	;
@@ -205,6 +235,9 @@ void TypeSystem::fillTypeTables()
 	;
 	defineType( "const std::string&")
 		("pack_msg", "msg.packString($name);")
+	;
+	defineType( "std::ostream&")
+		("pack_msg", "")
 	;
 }
 

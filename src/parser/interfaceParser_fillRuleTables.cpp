@@ -14,9 +14,6 @@ using namespace strus;
 
 void TypeSystem::fillRuleTables()
 {
-	m_notImplMethods.insert( "checkStorage");
-	m_notImplMethods.insert( "createResultIterator");
-
 	m_notImplInterfaces.insert( "ErrorBuffer");
 	m_notImplInterfaces.insert( "AnalyzerErrorBuffer");
 	

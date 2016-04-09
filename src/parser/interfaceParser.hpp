@@ -28,7 +28,7 @@ public:
 
 	bool parse( std::map<std::string,std::string>& defmap, char const*& si, const char* se) const;
 
-	void print( std::string& out,
+	std::string expand( 
 			const char* eventname,
 			const std::map<std::string,std::string>& defmap,
 			const std::string& name,
@@ -54,10 +54,17 @@ public:
 		:m_type(o.m_type),m_defmap(o.m_defmap){}
 	~VariableValue(){}
 
-	const VariableType* type()				{return m_type;}
+	const VariableType& type() const			{return *m_type;}
 	const std::map<std::string,std::string>& defmap()	{return m_defmap;}
 	std::string tostring() const;
 
+	std::string expand( 
+			const char* eventname,
+			const std::string& name=std::string(),
+			const std::string& value=std::string()) const
+	{
+		return m_type->expand( eventname, m_defmap, name, value);
+	}
 private:
 	const VariableType* m_type;
 	std::map<std::string,std::string> m_defmap;
@@ -111,10 +118,10 @@ public:
 	MethodDef( const MethodDef& o)
 		:m_name(o.m_name),m_returnvalue(o.m_returnvalue),m_param(o.m_param),m_isconst(o.m_isconst){}
 
-	const std::string& name() const			{return m_name;}
-	const VariableValue& returnValue() const	{return m_returnvalue;}
-	const std::vector<VariableValue>& parameters()	{return m_param;}
-	bool isconst() const				{return m_isconst;}
+	const std::string& name() const				{return m_name;}
+	const VariableValue& returnValue() const		{return m_returnvalue;}
+	const std::vector<VariableValue>& parameters() const	{return m_param;}
+	bool isconst() const					{return m_isconst;}
 
 private:
 	std::string m_name;

@@ -78,9 +78,6 @@ DEFINE_PACK_CALL_NOARG( close)
 void TraceSerializer::packObject( const TraceClassId& classId, const TraceObjectId& objId)
 {
 	try{
-#ifdef STRUS_LOWLEVEL_DEBUG
-	std::cerr << "packObject (" << (unsigned int)classId_ << ", " << objId_ << ")" << std::endl;
-#endif
 	if (objId > std::numeric_limits<uint32_t>::max()) throw strus::runtime_error( _TXT("object id out of range"));
 	packScalar( classId);
 	packScalar( objId);
@@ -90,9 +87,6 @@ void TraceSerializer::packObject( const TraceClassId& classId, const TraceObject
 void TraceSerializer::packBuffer( const char* buf, std::size_t size)
 {
 	try{
-#ifdef STRUS_LOWLEVEL_DEBUG
-	std::cerr << "packBuffer('" << std::string(buf,size) << "')" << std::endl;
-#endif
 	Serializer::packBuffer( buf, size);
 	}CATCH_ERROR
 }
@@ -100,9 +94,6 @@ void TraceSerializer::packBuffer( const char* buf, std::size_t size)
 void TraceSerializer::packBufferFloat( const double* buf, std::size_t size)
 {
 	try{
-#ifdef STRUS_LOWLEVEL_DEBUG
-	std::cerr << "packBufferFloat(...)" << std::endl;
-#endif
 	std::size_t ii=0;
 	for (ii=0; ii<size; ++ii)
 	{
@@ -116,9 +107,6 @@ void TraceSerializer::packBufferFloat( const double* buf, std::size_t size)
 void TraceSerializer::packStringVector( const std::vector<std::string>& ar)
 {
 	try{
-#ifdef STRUS_LOWLEVEL_DEBUG
-	std::cerr << "packStringVector(...)" << std::endl;
-#endif
 	std::vector<std::string>::const_iterator ai = ar.begin(), ae = ar.end();
 	for (std::size_t aidx=0; ai != ae; ++ai,++aidx)
 	{
@@ -132,9 +120,6 @@ void TraceSerializer::packStringVector( const std::vector<std::string>& ar)
 void TraceSerializer::packIndexVector( const std::vector<Index>& ar)
 {
 	try{
-#ifdef STRUS_LOWLEVEL_DEBUG
-	std::cerr << "packIndexVector(...)" << std::endl;
-#endif
 	std::vector<Index>::const_iterator ai = ar.begin(), ae = ar.end();
 	for (std::size_t aidx=0; ai != ae; ++ai,++aidx)
 	{
@@ -255,9 +240,6 @@ void TraceSerializer::packSummaryElement( const SummaryElement& val)
 void TraceSerializer::packSummaryElementVector( const std::vector<SummaryElement>& ar)
 {
 	try{
-#ifdef STRUS_LOWLEVEL_DEBUG
-	std::cerr << "packSummaryElementVector(...)" << std::endl;
-#endif
 	std::vector<SummaryElement>::const_iterator si = ar.begin(), se = ar.end();
 	for (std::size_t sidx=0; si != se; ++si,++sidx)
 	{
@@ -285,9 +267,6 @@ void TraceSerializer::packSummarizationVariable( const SummarizationVariable& va
 void TraceSerializer::packSummarizationVariableVector( const std::vector<SummarizationVariable>& ar)
 {
 	try{
-#ifdef STRUS_LOWLEVEL_DEBUG
-	std::cerr << "packSummarizationVariableVector(...)" << std::endl;
-#endif
 	std::vector<SummarizationVariable>::const_iterator vi = ar.begin(), ve = ar.end();
 	for (std::size_t vidx=0; vi != ve; ++vi,++vidx)
 	{
@@ -432,6 +411,19 @@ void TraceSerializer::packAnalyzerTermVector( const analyzer::TermVector& val)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packAnalyzerTermVectorVector( const std::vector<analyzer::TermVector>& val)
+{
+	try{
+	std::vector<analyzer::TermVector>::const_iterator ti = val.begin(), te = val.end();
+	for (; ti != te; ++ti)
+	{
+		Serializer::openIndex( ti-val.begin());
+		packAnalyzerTermVector( *ti);
+		Serializer::close();
+	}
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packAnalyzerToken( const analyzer::Token& val)
 {
 	try{
@@ -444,6 +436,19 @@ void TraceSerializer::packAnalyzerToken( const analyzer::Token& val)
 	Serializer::openTag("strsize");
 	Serializer::packScalar( val.strsize);
 	Serializer::close();
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerTokenVector( const std::vector<analyzer::Token>& ar)
+{
+	try{
+	std::vector<analyzer::Token>::const_iterator ti = ar.begin(), te = ar.end();
+	for (; ti != te; ++ti)
+	{
+		Serializer::openIndex( ti-ar.begin());
+		packAnalyzerToken( *ti);
+		Serializer::close();
+	}
 	}CATCH_ERROR
 }
 
@@ -517,9 +522,6 @@ void TraceSerializer::packFeatureParameter( const QueryEvalInterface::FeaturePar
 void TraceSerializer::packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar)
 {
 	try{
-#ifdef STRUS_LOWLEVEL_DEBUG
-	std::cerr << "packFeatureParameterVector(...)" << std::endl;
-#endif
 	std::vector<QueryEvalInterface::FeatureParameter>::const_iterator ai = ar.begin(), ae = ar.end();
 	for (std::size_t aidx=0; ai != ae; ++ai,++aidx)
 	{
@@ -539,6 +541,19 @@ void TraceSerializer::packPhrase( const QueryAnalyzerInterface::Phrase& val)
 	Serializer::openTag("content");
 	Serializer::packString( val.content());
 	Serializer::close();
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packPhraseVector( const std::vector<QueryAnalyzerInterface::Phrase>& ar)
+{
+	try{
+	std::vector<QueryAnalyzerInterface::Phrase>::const_iterator pi = ar.begin(), pe = ar.end();
+	for (std::size_t pidx=0; pi != pe; ++pi,++pidx)
+	{
+		Serializer::openIndex( pidx);
+		packPhrase( *pi);
+		Serializer::close();
+	}
 	}CATCH_ERROR
 }
 
@@ -652,4 +667,5 @@ void TraceSerializer::packFunctionDescription( const FunctionDescription& val)
 	Serializer::close();
 	}CATCH_ERROR
 }
+
 

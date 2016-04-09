@@ -100,13 +100,16 @@ public:
 	void packAnalyzerMetaData( const analyzer::MetaData& val);
 	void packAnalyzerTerm( const analyzer::Term& val);
 	void packAnalyzerTermVector( const analyzer::TermVector& val);
+	void packAnalyzerTermVectorVector( const std::vector<analyzer::TermVector>& val);
 	void packAnalyzerToken( const analyzer::Token& val);
+	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
 	void packWeightedDocument( const WeightedDocument& val);
 	void packResultDocument( const ResultDocument& val);
 	void packQueryResult( const QueryResult& val);
 	void packFeatureParameter( const QueryEvalInterface::FeatureParameter& val);
 	void packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar);
 	void packPhrase( const QueryAnalyzerInterface::Phrase& val);
+	void packPhraseVector( const std::vector<QueryAnalyzerInterface::Phrase>& val);
 	void packDocumentStatisticsType( const StorageClientInterface::DocumentStatisticsType& val);
 	void packStatisticsProcessorBuilderOptions( const StatisticsProcessorInterface::BuilderOptions& val);
 	void packStatisticsViewerDocumentFrequencyChange( const StatisticsViewerInterface::DocumentFrequencyChange& val);

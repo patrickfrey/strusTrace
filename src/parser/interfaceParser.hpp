@@ -20,7 +20,7 @@ namespace strus
 class VariableType
 {
 public:
-	explicit VariableType( const char* pattern, const char* scope);
+	explicit VariableType( const char* pattern, const char* scope_class, const char* scope_method);
 	VariableType( const VariableType& o);
 	~VariableType();
 
@@ -36,7 +36,8 @@ public:
 
 	const std::string& source() const;
 	std::string tostring() const;
-	const std::string& scope() const;
+	const std::string& scope_class() const;
+	const std::string& scope_method() const;
 
 private:
 	class Impl;
@@ -80,8 +81,8 @@ public:
 	}
 	~TypeSystem(){}
 
-	VariableType& defineType( const char* pattern, const char* scope=0);
-	VariableValue parse( const std::string& scope, char const*& si, const char* se) const;
+	VariableType& defineType( const char* pattern, const char* scope_class=0, const char* scope_method=0);
+	VariableValue parse( const std::string& className, const std::string& methodName, char const*& si, const char* se) const;
 
 	bool isImplementedMethod( const std::string& name) const
 	{
@@ -173,7 +174,10 @@ public:
 
 private:
 	void parseClass( const std::string& className, char const*& si, const char* se);
-	std::vector<VariableValue> parseParameters( const std::string& scope, char const*& si, const char* se);
+	std::vector<VariableValue> parseParameters(
+			const std::string& scope_class,
+			const std::string& scope_method,
+			char const*& si, const char* se);
 
 private:
 	const TypeSystem* m_typeSystem;

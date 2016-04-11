@@ -37,13 +37,19 @@ void strus::printHppFrameHeader( std::ostream& out, const char* name, const char
 	printFrameFileDescription( out, name, "hpp", description);
 	out
 	<< "#ifndef _STRUS_TRACE_PARSER_" << name << "_HPP_INCLUDED" << std::endl
-	<< "#define _STRUS_TRACE_PARSER_" << name << "_HPP_INCLUDED" << std::endl
-	<< "#include <string>" << std::endl;
+	<< "#define _STRUS_TRACE_PARSER_" << name << "_HPP_INCLUDED" << std::endl;
 }
 
 void strus::printHppFrameTail( std::ostream& out)
 {
 	out << "#endif" << std::endl << std::endl;
 }
+
+void strus::printCppFrameHeader( std::ostream& out, const char* name, const char* description)
+{
+	printLicense( out);
+	printFrameFileDescription( out, name, "cpp", description);
+}
+
 
 

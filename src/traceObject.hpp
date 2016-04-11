@@ -31,7 +31,11 @@ public:
 	{
 		return m_id;
 	}
-	TraceGlobalContext* traceContext() const
+	TraceGlobalContext* traceContext()
+	{
+		return m_ctx;
+	}
+	const TraceGlobalContext* traceContext() const
 	{
 		return m_ctx;
 	}

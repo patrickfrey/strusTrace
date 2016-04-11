@@ -45,6 +45,21 @@ static void printOutput( const char* filename, PrintInterface print, const strus
 	}
 }
 
+static std::string expandIndent( const std::string& indent, const std::string& source)
+{
+	std::string rt ( indent);
+	std::string::const_iterator si = source.begin(), se = source.end();
+	for (; si != se; ++si)
+	{
+		rt.push_back( *si);
+		if (*si == '\n')
+		{
+			rt.append( indent);
+		}
+	}
+	return rt;
+}
+
 static void print_ObjectIdsHpp( std::ostream& out, const strus::InterfacesDef& interfaceDef)
 {
 	strus::printHppFrameHeader( out, "objectIds_gen", "Identifiers for objects and methods for serialization");
@@ -90,6 +105,7 @@ static void print_ObjectIdsHpp( std::ostream& out, const strus::InterfacesDef& i
 	strus::printHppFrameTail( out);
 }
 
+
 static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& interfaceDef)
 {
 	strus::printHppFrameHeader( out, "objects_gen", "Identifiers for objects and methods for serialization");
@@ -101,6 +117,8 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 	{
 		out << "#include \"strus/" << *fi << "\"" << std::endl;
 	}
+	out << "#include <string>" << std::endl;
+	out << "#include <vector>" << std::endl;
 	out
 		<< std::endl
 		<< "namespace strus {" << std::endl
@@ -135,7 +153,7 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 			for (int pidx=1; pi != pe; ++pi,++pidx)
 			{
 				if (pidx > 1) out << ", ";
-				out << std::endl << "\t\t\t" << pi->expand("definition") << " p" << pidx;
+				out << std::endl << expandIndent( "\t\t\t", pi->expand("definition")) << " p" << pidx;
 			}
 			out << ");" << std::endl;
 		}
@@ -147,6 +165,130 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 		<< "}//namespace" << std::endl;
 	strus::printHppFrameTail( out);
 }
+
+
+static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& interfaceDef)
+{
+	strus::printCppFrameHeader( out, "objects_gen", "Identifiers for objects and methods for serialization");
+	out << "#include \"objects_gen.hpp\"" << std::endl;
+	out << "#include \"traceSerializer.hpp\"" << std::endl;
+
+	out
+		<< std::endl
+		<< "using namespace strus;" << std::endl;
+
+	std::vector<strus::ClassDef>::const_iterator
+		ci = interfaceDef.classDefs().begin(),
+		ce = interfaceDef.classDefs().end();
+	for (; ci != ce; ++ci)
+	{
+		std::string implclassname( ci->name() + "Impl");
+		std::string classid( std::string("ClassId_") + ci->name());
+		out
+			<< implclassname << "::~" << implclassname << "()" << std::endl
+			<< "{" << std::endl
+			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( "
+			<< classid << ", Method_Destructor, objid());" << std::endl
+			<<"\ttraceContext()->logger().logMethodTermination( callhnd, \"\");" << std::endl
+			<< "}" << std::endl << std::endl;
+
+		std::vector<strus::MethodDef>::const_iterator
+			mi = ci->methodDefs().begin(),
+			me = ci->methodDefs().end();
+		for (; mi != me; ++mi)
+		{
+			// Function header:
+			std::string returnType( mi->returnValue().expand("definition"));
+			bool hasReturnValue = (returnType != "void");
+			out
+			<< returnType << ' ' << implclassname << "::" << mi->name() << "(";
+			std::vector<strus::VariableValue>::const_iterator
+				pi = mi->parameters().begin(),
+				pe = mi->parameters().end();
+			for (int pidx=1; pi != pe; ++pi,++pidx)
+			{
+				if (pidx > 1) out << ", ";
+				out << std::endl << expandIndent( "\t\t\t", pi->expand("definition")) << " p" << pidx;
+			}
+			out
+			<< ")" << std::endl
+
+			// Log method call:
+			<< "{" << std::endl
+			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( "
+			<< classid << ", Method_" << mi->name() << ", objid());" << std::endl;
+
+			// Call real function:
+			if (hasReturnValue)
+			{
+				out << "\t" << returnType << " p0 = ";
+			}
+			else
+			{
+				out << "\t";
+			}
+			out << "obj()->" << mi->name() << "(";
+			std::size_t ai = 0, ae = mi->parameters().size();
+			for (; ai != ae; ++ai)
+			{
+				if (ai) out << ", ";
+				out << "p" << (ai+1); 
+			}
+			out
+			<< ");" << std::endl;
+
+			// Create string with packed function in/out parameters:
+			out
+			<< "\tTraceSerializer msg;" << std::endl
+			<< expandIndent( "\t", mi->returnValue().expand( "pack_msg", "p0")) << std::endl;
+			pi = mi->parameters().begin();
+			for (int pidx=0; pi != pe; ++pi,++pidx)
+			{
+				char namebuf[ 128];
+				snprintf( namebuf, sizeof( namebuf), "p%u", pidx +1);
+				out << expandIndent( "\t", pi->expand( "pack_msg", namebuf)) << std::endl;
+			}
+	
+			// Check for error and set return value to NULL in this case:
+			out
+			<< "\tif (msg.hasError())" << std::endl
+			<< "\t{" << std::endl
+			<< "\t\ttraceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
+			std::string deleteInstr( mi->returnValue().expand( "delete", "p0"));
+			if (!deleteInstr.empty())
+			{
+				out << expandIndent( "\t\t", deleteInstr) << std::endl;
+			}
+			pi = mi->parameters().begin();
+			for (int pidx=0; pi != pe; ++pi,++pidx)
+			{
+				char namebuf[ 128];
+				snprintf( namebuf, sizeof( namebuf), "p%u", pidx +1);
+				deleteInstr = pi->expand( "delete", namebuf);
+				if (!deleteInstr.empty())
+				{
+					out << expandIndent( "\t\t", deleteInstr) << std::endl;
+				}
+			}
+			out
+			<<"\t\ttraceContext()->logger().logMethodTermination( callhnd, \"\");" << std::endl
+			<< "\t}" << std::endl
+			<< "\telse" << std::endl
+			<< "\t{" << std::endl
+			<<"\t\ttraceContext()->logger().logMethodTermination( callhnd, msg.content());" << std::endl
+			<< "\t}" << std::endl;
+
+			// Return result if there is one:
+			if (hasReturnValue)
+			{
+				out << "\treturn p0;" << std::endl;
+			}
+			out << "}" << std::endl << std::endl;
+		}
+	}
+	out << std::endl;
+}
+
 
 
 int main( int argc, const char* argv[])
@@ -189,9 +331,18 @@ int main( int argc, const char* argv[])
 #ifdef STRUS_LOWLEVEL_DEBUG
 		print_ObjectIdsHpp( std::cout, interfaceDef);
 #endif
-		printOutput( "src/objectIds_gen.hpp.test", &print_ObjectIdsHpp, interfaceDef);
+		printOutput( "src/objectIds_gen.hpp", &print_ObjectIdsHpp, interfaceDef);
 
+#ifdef STRUS_LOWLEVEL_DEBUG
 		print_ObjectsHpp( std::cout, interfaceDef);
+#endif
+
+		printOutput( "src/objects_gen.hpp", &print_ObjectsHpp, interfaceDef);
+
+#ifdef STRUS_LOWLEVEL_DEBUG
+		print_ObjectsCpp( std::cout, interfaceDef);
+#endif
+		printOutput( "src/objects_gen.cpp", &print_ObjectsCpp, interfaceDef);
 
 		std::cerr << "done." << std::endl;
 		return 0;

@@ -210,22 +210,42 @@ void TypeSystem::fillTypeTables()
 		("pack_msg", "msg.packPostingJoinOperatorDescription($name);")
 	;
 	defineType( "const std::vector<Reference<PostingIteratorInterface> >&")
-		("pack_msg", "const std::vector<Reference<PostingIteratorInterface> >::const_iterator i_$name = $name.begin(), e_$name = $name.end(); for (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name) {msg.openIndex( idx_$name); msg.packObject(**i_$name); msg.close();}")
+		("pack_msg", "const std::vector<Reference<PostingIteratorInterface> >::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tmsg.openIndex( idx_$name); \n\tmsg.packObject(**i_$name);\n\tmsg.close();\n}")
 	;
 	defineType( "FunctionDescription")
 		("pack_msg", "msg.packFunctionDescription($name);")
 	;
 	defineType( "$objid~Interface*")
 		("pack_msg", "msg.packObject($name);")
+		("delete", "delete $name;\n$name = 0;")
 	;
+	//Define explicit pass by reference exceptions:
+	static const char* interfacePassByReferenceException[7][2] = {
+		{"Database", "restoreDatabase"},
+		{"Storage", "createStorage"},
+		{"SummarizerFunctionContext", "addSummarizationFeature"},
+		{"WeightingFunctionContext", "addWeightingFeature"},
+		{"SummarizerFunctionInstance", "createFunctionContext"},
+		{"WeightingFunctionInstance", "createFunctionContext"},
+		{0,0}
+	};
+	for (std::size_t ei=0; interfacePassByReferenceException[ei][0]; ++ei)
+	{
+		const char* classname = interfacePassByReferenceException[ei][0];
+		const char* methodname = interfacePassByReferenceException[ei][1];
+		defineType( "$objid~Interface*", classname, methodname)
+			("pack_msg", "msg.packObject($name);")
+		;
+	}
 	defineType( "const $objid~Interface*")
 		("pack_msg", "msg.packObject($name);")
 	;
 	defineType( "const std::vector<Reference<$objid~Interface> >&")
-		("pack_msg", "std::vector<Reference<$objid~Interface> >::const_iterator i_$name = $name.begin(), e_$name = $name.end(); for (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name) {msg.openIndex( idx_$name); msg.packObject(**i_$name); msg.close();}")
+		("pack_msg", "std::vector<Reference<$objid~Interface> >::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tmsg.openIndex( idx_$name);\n\tmsg.packObject(**i_$name);\n\tmsg.close();\n}")
 	;
 	defineType( "const std::vector<$objid~Interface*>&")
-		("pack_msg", "std::vector<$objid~Interface*>::const_iterator i_$name = $name.begin(), e_$name = $name.end(); for (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name) {msg.openIndex( idx_$name); msg.packObject(**i_$name); msg.close();}")
+		("pack_msg", "std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tmsg.openIndex( idx_$name);\n\tmsg.packObject(**i_$name);\n\tmsg.close();\n}")
+		("delete", "std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tdelete *i_$name;\n}\n$name.clear();")
 	;
 	defineType( "const char*&")
 		("pack_msg", "msg.packCharp($name);")

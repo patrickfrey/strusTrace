@@ -29,8 +29,7 @@ void TypeSystem::fillRuleTables()
 	
 	m_passOwnershipMethod .insert( "createClient");
 	m_passOwnershipMethod .insert( "createAlterMetaDataTable");
-	m_passOwnershipMethod .insert( "createBrowsePostingIterator");
-	
+
 	m_passOwnershipMethod .insert( "definePhraseType");
 	
 	m_passOwnershipMethod .insert( "addSearchIndexFeature");

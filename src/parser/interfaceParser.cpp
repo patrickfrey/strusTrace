@@ -21,10 +21,13 @@ static bool endsWith( const std::string& ident, const std::string& tail)
 	std::size_t tailidx = ident.size() - tail.size();
 	return 0==std::strcmp( ident.c_str()+tailidx, tail.c_str());
 }
-
+static bool isSpace( char ch)
+{
+	return ((unsigned char)ch <= 32);
+}
 static void skipSpaces( char const*& si, const char* se)
 {
-	while (si != se && (unsigned char)*si <= 32) ++si;
+	while (si != se && isSpace(*si)) ++si;
 }
 static void skipToEoln( char const*& si, const char* se)
 {
@@ -363,10 +366,10 @@ class VariableType::Impl
 {
 public:
 	Impl( const Impl& o)
-		:m_source(o.m_source),m_scope(o.m_scope),m_tokendefs(o.m_tokendefs),m_output(o.m_output){}
+		:m_source(o.m_source),m_scope_class(o.m_scope_class),m_scope_method(o.m_scope_method),m_tokendefs(o.m_tokendefs),m_output(o.m_output){}
 
-	explicit Impl( const std::string& pattern, const std::string& scope_)
-		:m_source(pattern),m_scope(scope_)
+	explicit Impl( const std::string& pattern, const std::string& scope_class_, const std::string& scope_method_)
+		:m_source(pattern),m_scope_class(scope_class_),m_scope_method(scope_method_)
 	{
 		char const* si = pattern.c_str();
 		const char* se = si + pattern.size();
@@ -509,15 +512,28 @@ public:
 	{
 		return m_source;
 	}
-	const std::string& scope() const
+	const std::string& scope_class() const
 	{
-		return m_scope;
+		return m_scope_class;
+	}
+	const std::string& scope_method() const
+	{
+		return m_scope_method;
 	}
 
 	std::string tostring() const
 	{
 		std::ostringstream out;
-		out << m_source << " [";
+		if (!m_scope_class.empty())
+		{
+			out << m_source << " {scope " << m_scope_class;
+			if (!m_scope_method.empty())
+			{
+				out << "::" << m_scope_method;
+			}
+			out << "}";
+		}
+		out << " [";
 		std::vector<TokenDef>::const_iterator ti = m_tokendefs.begin(), te = m_tokendefs.end();
 		for (int tidx=0; ti != te; ++ti,++tidx)
 		{
@@ -535,15 +551,16 @@ public:
 
 private:
 	std::string m_source;
-	std::string m_scope;
+	std::string m_scope_class;
+	std::string m_scope_method;
 	std::vector<TokenDef> m_tokendefs;
 	std::map<std::string,OutputDef> m_output;
 };
 
 
-VariableType::VariableType( const char* pattern_, const char* scope_)
+VariableType::VariableType( const char* pattern_, const char* scope_class_, const char* scope_method_)
 {
-	m_impl = new Impl( pattern_, scope_?scope_:"");
+	m_impl = new Impl( pattern_, scope_class_?scope_class_:"", scope_method_?scope_method_:"");
 }
 
 VariableType::VariableType( const VariableType& o)
@@ -561,9 +578,14 @@ const std::string& VariableType::source() const
 	return m_impl->source();
 }
 
-const std::string& VariableType::scope() const
+const std::string& VariableType::scope_class() const
 {
-	return m_impl->scope();
+	return m_impl->scope_class();
+}
+
+const std::string& VariableType::scope_method() const
+{
+	return m_impl->scope_method();
 }
 
 VariableType& VariableType::operator()( const char* eventname, const char* output)
@@ -603,31 +625,48 @@ std::string VariableValue::tostring() const
 	
 }
 
-VariableType& TypeSystem::defineType( const char* pattern, const char* scope)
+VariableType& TypeSystem::defineType( const char* pattern, const char* scope_class, const char* scope_method)
 {
-	m_variableTypes.push_back( VariableType( pattern, scope));
+	m_variableTypes.push_back( VariableType( pattern, scope_class, scope_method));
 	return m_variableTypes.back();
 }
 
-VariableValue TypeSystem::parse( const std::string& scope, char const*& si, const char* se) const
+VariableValue TypeSystem::parse( const std::string& scope_class, const std::string& scope_method, char const*& si, const char* se) const
 {
-	char const* maxend = 0;
-	VariableValue rt;
+	char const* maxend = 0;		//< maximum length (end pos) of types parsed == winning type
+	int maxpkt = 0;			//< maximum points in scope match of == winning type in case of equal length
+	VariableValue rt;		//< Variable definition found
 	std::vector<VariableType>::const_iterator
 		vi = m_variableTypes.begin(),
 		ve = m_variableTypes.end();
 	for (; vi != ve; ++vi)
 	{
-		if (!vi->scope().empty() && vi->scope() != scope) continue;
-
+		// Evaluate scope match points:
+		int pkt = 0;
+		if (!vi->scope_class().empty() && vi->scope_class() == scope_class)
+		{
+			if (vi->scope_method().empty())
+			{
+				pkt = 1;
+			}
+			else if (vi->scope_method() == scope_method)
+			{
+				pkt = 2;
+			}
+		}
+		// Parse variable type and check if it is better than the current best match:
 		std::map<std::string,std::string> defmap;
 		const char* enddef = si;
 		if (vi->parse( defmap, enddef, se))
 		{
-			if (maxend < enddef)
+			if (maxend <= enddef)
 			{
-				rt = VariableValue( &*vi, defmap);
-				maxend = enddef;
+				if (maxend < enddef || maxpkt < pkt)
+				{
+					rt = VariableValue( &*vi, defmap);
+					maxend = enddef;
+					maxpkt = pkt;
+				}
 			}
 		}
 	}
@@ -769,6 +808,18 @@ void InterfacesDef::addSource( const std::string& source)
 	}
 }
 
+static std::string guessMethodName( const char* si, const char* se)
+{
+	char const* xi = (char const*)std::memchr( si, '(', se-si);
+	if (!xi) return std::string();
+
+	for (--xi; xi > si && isSpace(*xi); --xi){}
+	if (!isAlnum(*xi)) return std::string();
+	for (;xi > si && isAlnum(*xi); --xi){}
+	++xi;
+	return parseIdentifier( xi, se);
+}
+
 void InterfacesDef::parseClass( const std::string& className, char const*& si, const char* se)
 {
 	ClassDef classDef( className);
@@ -827,15 +878,20 @@ void InterfacesDef::parseClass( const std::string& className, char const*& si, c
 			}
 			else
 			{
+				std::string methodName( className.empty()?std::string():guessMethodName( si, se));
 				si = start;
-				VariableValue retvaltype = m_typeSystem->parse( className, si, se);
+				VariableValue retvaltype = m_typeSystem->parse( className, methodName, si, se);
 
 				skipSpacesAndComments( si, se);
 				if (si == se || !isAlpha( *si))
 				{
 					throw std::runtime_error("method name expected after type definition");
 				}
-				std::string methodName( parseIdentifier( si, se));
+				if (methodName != parseIdentifier( si, se))
+				{
+					si = start;
+					throw std::runtime_error("could not parse return type (method name expected after type)");
+				}
 				skipSpacesAndComments( si, se);
 				if (si == se || *si != '(')
 				{
@@ -846,7 +902,8 @@ void InterfacesDef::parseClass( const std::string& className, char const*& si, c
 				if (m_typeSystem->isImplementedMethod( methodName))
 				{
 					++si;
-					std::vector<VariableValue> params = parseParameters( className, si, endParams-1);
+					std::vector<VariableValue>
+						params = parseParameters( className, methodName, si, endParams-1);
 					si = endParams;
 					skipSpacesAndComments( si, se);
 					bool isconst = false;
@@ -909,13 +966,16 @@ static void skipDefaultParameterValue( char const*& si, const char* se)
 	}
 }
 
-std::vector<VariableValue> InterfacesDef::parseParameters( const std::string& scope, char const*& si, const char* se)
+std::vector<VariableValue> InterfacesDef::parseParameters(
+		const std::string& scope_class,
+		const std::string& scope_method,
+		char const*& si, const char* se)
 {
 	std::vector<VariableValue> rt;
 	while (si != se)
 	{
 		const char* paramstart = si;
-		rt.push_back( m_typeSystem->parse( scope, si, se));
+		rt.push_back( m_typeSystem->parse( scope_class, scope_method, si, se));
 
 		skipSpacesAndComments( si, se);
 		if (si != se && isAlpha( *si))

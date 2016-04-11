@@ -26,9 +26,9 @@ double AggregatorFunctionInstanceImpl::evaluate(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packAnalyzerDocument(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -52,9 +52,9 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packStringVector(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -72,9 +72,9 @@ const char* AggregatorFunctionImpl::getDescription()
 	const char* p0 = obj()->getDescription();
 	TraceSerializer msg;
 	msg.packCharp(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -96,9 +96,9 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor()
 	const TextProcessorInterface* p0 = obj()->getTextProcessor();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -116,9 +116,9 @@ SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -138,9 +138,9 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -158,9 +158,9 @@ QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer()
 	QueryAnalyzerInterface* p0 = obj()->createQueryAnalyzer();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -186,9 +186,9 @@ Index AttributeReaderImpl::elementHandle(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packCharp(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -206,9 +206,9 @@ void AttributeReaderImpl::skipDoc(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -225,9 +225,9 @@ std::string AttributeReaderImpl::getValue(
 	TraceSerializer msg;
 	msg.packString(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -243,9 +243,9 @@ std::vector<std::string> AttributeReaderImpl::getAttributeNames()
 	std::vector<std::string> p0 = obj()->getAttributeNames();
 	TraceSerializer msg;
 	msg.packStringVector(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -271,9 +271,9 @@ bool DatabaseBackupCursorImpl::fetch(
 	msg.packBool(p0);
 	msg.packBuffer( key, p1);
 	msg.packBuffer( blk, p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -295,9 +295,9 @@ DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 	DatabaseTransactionInterface* p0 = obj()->createTransaction();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -317,9 +317,9 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packDatabaseOptions(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -337,9 +337,9 @@ DatabaseBackupCursorInterface* DatabaseClientImpl::createBackupCursor()
 	DatabaseBackupCursorInterface* p0 = obj()->createBackupCursor();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -361,9 +361,9 @@ void DatabaseClientImpl::writeImm(
 	msg.packVoid();
 	msg.packBuffer( key, p1);
 	msg.packBuffer( value, p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -380,9 +380,9 @@ void DatabaseClientImpl::removeImm(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( key, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -403,9 +403,9 @@ bool DatabaseClientImpl::readValue(
 	msg.packBuffer( key, p1);
 	msg.packString(p2);
 	msg.packDatabaseOptions(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -431,9 +431,9 @@ Slice DatabaseCursorImpl::seekUpperBound(
 	msg.packSlice(p0);
 	msg.packBuffer( key, p1);
 	msg.packScalar(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -453,9 +453,9 @@ Slice DatabaseCursorImpl::seekUpperBoundRestricted(
 	msg.packSlice(p0);
 	msg.packBuffer( key, p1);
 	msg.packBuffer( upkey, p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -473,9 +473,9 @@ Slice DatabaseCursorImpl::seekFirst(
 	TraceSerializer msg;
 	msg.packSlice(p0);
 	msg.packBuffer( domainkey, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -493,9 +493,9 @@ Slice DatabaseCursorImpl::seekLast(
 	TraceSerializer msg;
 	msg.packSlice(p0);
 	msg.packBuffer( domainkey, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -511,9 +511,9 @@ Slice DatabaseCursorImpl::seekNext()
 	Slice p0 = obj()->seekNext();
 	TraceSerializer msg;
 	msg.packSlice(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -529,9 +529,9 @@ Slice DatabaseCursorImpl::seekPrev()
 	Slice p0 = obj()->seekPrev();
 	TraceSerializer msg;
 	msg.packSlice(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -547,9 +547,9 @@ Slice DatabaseCursorImpl::key()
 	Slice p0 = obj()->key();
 	TraceSerializer msg;
 	msg.packSlice(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -565,9 +565,9 @@ Slice DatabaseCursorImpl::value()
 	Slice p0 = obj()->value();
 	TraceSerializer msg;
 	msg.packSlice(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -591,9 +591,9 @@ bool DatabaseImpl::exists(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -611,9 +611,9 @@ DatabaseClientInterface* DatabaseImpl::createClient(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -633,9 +633,9 @@ bool DatabaseImpl::createDatabase(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -655,9 +655,9 @@ bool DatabaseImpl::restoreDatabase(
 	msg.packBool(p0);
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -675,9 +675,9 @@ bool DatabaseImpl::destroyDatabase(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -695,9 +695,9 @@ const char* DatabaseImpl::getConfigDescription(
 	TraceSerializer msg;
 	msg.packCharp(p0);
 	msg.packDatabaseConfigType(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -715,9 +715,9 @@ const char** DatabaseImpl::getConfigParameters(
 	TraceSerializer msg;
 	msg.packCharpp(p0);
 	msg.packDatabaseConfigType(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -741,9 +741,9 @@ DatabaseCursorInterface* DatabaseTransactionImpl::createCursor(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packDatabaseOptions(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -765,9 +765,9 @@ void DatabaseTransactionImpl::write(
 	msg.packVoid();
 	msg.packBuffer( key, p1);
 	msg.packBuffer( value, p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -784,9 +784,9 @@ void DatabaseTransactionImpl::remove(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( key, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -803,9 +803,9 @@ void DatabaseTransactionImpl::removeSubTree(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( domainkey, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -820,9 +820,9 @@ bool DatabaseTransactionImpl::commit()
 	bool p0 = obj()->commit();
 	TraceSerializer msg;
 	msg.packBool(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -838,9 +838,9 @@ void DatabaseTransactionImpl::rollback()
 	obj()->rollback();
 	TraceSerializer msg;
 	msg.packVoid();
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -865,9 +865,9 @@ void DocumentAnalyzerContextImpl::putInput(
 	msg.packVoid();
 	msg.packBuffer( chunk, p1);
 	msg.packBool(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -884,9 +884,9 @@ bool DocumentAnalyzerContextImpl::analyzeNext(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packAnalyzerDocument(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -925,9 +925,9 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 		msg.close();
 	}
 	msg.packFeatureOptions(p5);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p3;
 		p3 = 0;
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
@@ -968,9 +968,9 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 		msg.close();
 	}
 	msg.packFeatureOptions(p5);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p3;
 		p3 = 0;
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
@@ -1009,9 +1009,9 @@ void DocumentAnalyzerImpl::defineMetaData(
 		msg.packObject(**i_p4);
 		msg.close();
 	}
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p3;
 		p3 = 0;
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
@@ -1039,9 +1039,9 @@ void DocumentAnalyzerImpl::defineAggregatedMetaData(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -1073,9 +1073,9 @@ void DocumentAnalyzerImpl::defineAttribute(
 		msg.packObject(**i_p4);
 		msg.close();
 	}
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p3;
 		p3 = 0;
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
@@ -1103,9 +1103,9 @@ void DocumentAnalyzerImpl::defineSubDocument(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1124,9 +1124,9 @@ analyzer::Document DocumentAnalyzerImpl::analyze(
 	msg.packAnalyzerDocument(p0);
 	msg.packString(p1);
 	msg.packDocumentClass(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1144,9 +1144,9 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packDocumentClass(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -1174,9 +1174,9 @@ bool DocumentClassDetectorImpl::detect(
 	msg.packBool(p0);
 	msg.packDocumentClass(p1);
 	msg.packBuffer( contentBegin, p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1200,9 +1200,9 @@ Index DocumentTermIteratorImpl::skipDoc(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1220,9 +1220,9 @@ bool DocumentTermIteratorImpl::nextTerm(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packDocumentTermIteratorTerm(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1240,9 +1240,9 @@ unsigned int DocumentTermIteratorImpl::termDocumentFrequency(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1260,9 +1260,9 @@ std::string DocumentTermIteratorImpl::termValue(
 	TraceSerializer msg;
 	msg.packString(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1286,9 +1286,9 @@ void ForwardIteratorImpl::skipDoc(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1305,9 +1305,9 @@ Index ForwardIteratorImpl::skipPos(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1323,9 +1323,9 @@ std::string ForwardIteratorImpl::fetch()
 	std::string p0 = obj()->fetch();
 	TraceSerializer msg;
 	msg.packString(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1349,9 +1349,9 @@ Index InvAclIteratorImpl::skipDoc(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1375,9 +1375,9 @@ bool MetaDataReaderImpl::hasElement(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1395,9 +1395,9 @@ Index MetaDataReaderImpl::elementHandle(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1413,9 +1413,9 @@ Index MetaDataReaderImpl::nofElements()
 	Index p0 = obj()->nofElements();
 	TraceSerializer msg;
 	msg.packScalar(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1433,9 +1433,9 @@ void MetaDataReaderImpl::skipDoc(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1452,9 +1452,9 @@ NumericVariant MetaDataReaderImpl::getValue(
 	TraceSerializer msg;
 	msg.packNumericVariant(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1472,9 +1472,9 @@ const char* MetaDataReaderImpl::getType(
 	TraceSerializer msg;
 	msg.packCharp(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1492,9 +1492,9 @@ const char* MetaDataReaderImpl::getName(
 	TraceSerializer msg;
 	msg.packCharp(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1518,9 +1518,9 @@ bool MetaDataRestrictionInstanceImpl::match(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1550,9 +1550,9 @@ void MetaDataRestrictionImpl::addCondition(
 	msg.packString(p2);
 	msg.packNumericVariant(p3);
 	msg.packBool(p4);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1567,9 +1567,9 @@ MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance()
 	MetaDataRestrictionInstanceInterface* p0 = obj()->createInstance();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -1587,9 +1587,9 @@ std::string MetaDataRestrictionImpl::tostring()
 	std::string p0 = obj()->tostring();
 	TraceSerializer msg;
 	msg.packString(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1613,9 +1613,9 @@ std::string NormalizerFunctionContextImpl::normalize(
 	TraceSerializer msg;
 	msg.packString(p0);
 	msg.packBuffer( src, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1637,9 +1637,9 @@ NormalizerFunctionContextInterface* NormalizerFunctionInstanceImpl::createFuncti
 	NormalizerFunctionContextInterface* p0 = obj()->createFunctionContext();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -1667,9 +1667,9 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 	msg.packObject(p0);
 	msg.packStringVector(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -1687,9 +1687,9 @@ const char* NormalizerFunctionImpl::getDescription()
 	const char* p0 = obj()->getDescription();
 	TraceSerializer msg;
 	msg.packCharp(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1713,9 +1713,9 @@ Index PostingIteratorImpl::skipDoc(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1733,9 +1733,9 @@ Index PostingIteratorImpl::skipDocCandidate(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1753,9 +1753,9 @@ Index PostingIteratorImpl::skipPos(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1771,9 +1771,9 @@ const char* PostingIteratorImpl::featureid()
 	const char* p0 = obj()->featureid();
 	TraceSerializer msg;
 	msg.packCharp(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1789,9 +1789,9 @@ Index PostingIteratorImpl::documentFrequency()
 	Index p0 = obj()->documentFrequency();
 	TraceSerializer msg;
 	msg.packScalar(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1807,9 +1807,9 @@ unsigned int PostingIteratorImpl::frequency()
 	unsigned int p0 = obj()->frequency();
 	TraceSerializer msg;
 	msg.packScalar(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1825,9 +1825,9 @@ Index PostingIteratorImpl::docno()
 	Index p0 = obj()->docno();
 	TraceSerializer msg;
 	msg.packScalar(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1843,9 +1843,9 @@ Index PostingIteratorImpl::posno()
 	Index p0 = obj()->posno();
 	TraceSerializer msg;
 	msg.packScalar(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1880,9 +1880,9 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 	}
 	msg.packScalar(p2);
 	msg.packScalar(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -1900,9 +1900,9 @@ Description PostingJoinOperatorImpl::getDescription()
 	Description p0 = obj()->getDescription();
 	TraceSerializer msg;
 	msg.packPostingJoinOperatorDescription(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1939,9 +1939,9 @@ void QueryAnalyzerImpl::definePhraseType(
 		msg.packObject(**i_p4);
 		msg.close();
 	}
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p3;
 		p3 = 0;
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
@@ -1969,9 +1969,9 @@ std::vector<analyzer::Term> QueryAnalyzerImpl::analyzePhrase(
 	msg.packAnalyzerTermVector(p0);
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1989,9 +1989,9 @@ std::vector<analyzer::TermVector> QueryAnalyzerImpl::analyzePhraseBulk(
 	TraceSerializer msg;
 	msg.packAnalyzerTermVectorVector(p0);
 	msg.packPhraseVector(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2019,9 +2019,9 @@ void QueryEvalImpl::addTerm(
 	msg.packString(p1);
 	msg.packString(p2);
 	msg.packString(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2038,9 +2038,9 @@ void QueryEvalImpl::addSelectionFeature(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2057,9 +2057,9 @@ void QueryEvalImpl::addRestrictionFeature(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2076,9 +2076,9 @@ void QueryEvalImpl::addExclusionFeature(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2099,9 +2099,9 @@ void QueryEvalImpl::addSummarizerFunction(
 	msg.packString(p1);
 	msg.packObject(p2);
 	msg.packFeatureParameterVector(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2124,9 +2124,9 @@ void QueryEvalImpl::addWeightingFunction(
 	msg.packString(p1);
 	msg.packObject(p2);
 	msg.packFeatureParameterVector(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2145,9 +2145,9 @@ void QueryEvalImpl::defineWeightingFormula(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packObject(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p1;
 		p1 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2166,9 +2166,9 @@ QueryInterface* QueryEvalImpl::createQuery(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packObject(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2196,9 +2196,9 @@ void QueryImpl::pushTerm(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2221,9 +2221,9 @@ void QueryImpl::pushExpression(
 	msg.packScalar(p2);
 	msg.packScalar(p3);
 	msg.packScalar(p4);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2240,9 +2240,9 @@ void QueryImpl::attachVariable(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2261,9 +2261,9 @@ void QueryImpl::defineFeature(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packScalar(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2284,9 +2284,9 @@ void QueryImpl::defineTermStatistics(
 	msg.packString(p1);
 	msg.packString(p2);
 	msg.packTermStatistics(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2303,9 +2303,9 @@ void QueryImpl::defineGlobalStatistics(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packGlobalStatistics(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2328,9 +2328,9 @@ void QueryImpl::addMetaDataRestrictionCondition(
 	msg.packString(p2);
 	msg.packNumericVariant(p3);
 	msg.packBool(p4);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2347,9 +2347,9 @@ void QueryImpl::addDocumentEvaluationSet(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packIndexVector(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2366,9 +2366,9 @@ void QueryImpl::setMaxNofRanks(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2385,9 +2385,9 @@ void QueryImpl::setMinRank(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2404,9 +2404,9 @@ void QueryImpl::addUserName(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2425,9 +2425,9 @@ void QueryImpl::setWeightingVariableValue(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packScalar(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2442,9 +2442,9 @@ QueryResult QueryImpl::evaluate()
 	QueryResult p0 = obj()->evaluate();
 	TraceSerializer msg;
 	msg.packQueryResult(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2470,9 +2470,9 @@ void QueryProcessorImpl::definePostingJoinOperator(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2491,9 +2491,9 @@ const PostingJoinOperatorInterface* QueryProcessorImpl::getPostingJoinOperator(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2513,9 +2513,9 @@ void QueryProcessorImpl::defineWeightingFunction(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2534,9 +2534,9 @@ const WeightingFunctionInterface* QueryProcessorImpl::getWeightingFunction(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2556,9 +2556,9 @@ void QueryProcessorImpl::defineSummarizerFunction(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2577,9 +2577,9 @@ const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2597,9 +2597,9 @@ std::vector<std::string> QueryProcessorImpl::getFunctionList(
 	TraceSerializer msg;
 	msg.packStringVector(p0);
 	msg.packQueryProcessorFunctionType(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2619,9 +2619,9 @@ void QueryProcessorImpl::defineScalarFunctionParser(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2640,9 +2640,9 @@ const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2668,9 +2668,9 @@ void ScalarFunctionInstanceImpl::setVariableValue(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packScalar(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2687,9 +2687,9 @@ double ScalarFunctionInstanceImpl::call(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packBufferFloat( args, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2705,9 +2705,9 @@ std::string ScalarFunctionInstanceImpl::tostring()
 	std::string p0 = obj()->tostring();
 	TraceSerializer msg;
 	msg.packString(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2729,9 +2729,9 @@ std::vector<std::string> ScalarFunctionImpl::getVariables()
 	std::vector<std::string> p0 = obj()->getVariables();
 	TraceSerializer msg;
 	msg.packStringVector(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2747,9 +2747,9 @@ std::size_t ScalarFunctionImpl::getNofArguments()
 	std::size_t p0 = obj()->getNofArguments();
 	TraceSerializer msg;
 	msg.packScalar(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2769,9 +2769,9 @@ void ScalarFunctionImpl::setDefaultVariableValue(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packScalar(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2786,9 +2786,9 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance()
 	ScalarFunctionInstanceInterface* p0 = obj()->createInstance();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2806,9 +2806,9 @@ std::string ScalarFunctionImpl::tostring()
 	std::string p0 = obj()->tostring();
 	TraceSerializer msg;
 	msg.packString(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2834,9 +2834,9 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	msg.packObject(p0);
 	msg.packString(p1);
 	msg.packStringVector(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2864,9 +2864,9 @@ void SegmenterContextImpl::putInput(
 	msg.packVoid();
 	msg.packBuffer( chunk, p1);
 	msg.packBool(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2887,9 +2887,9 @@ bool SegmenterContextImpl::getNext(
 	msg.packScalar(p1);
 	msg.packScalar(p2);
 	msg.packBuffer( segment, p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2915,9 +2915,9 @@ void SegmenterInstanceImpl::defineSelectorExpression(
 	msg.packVoid();
 	msg.packScalar(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2938,9 +2938,9 @@ void SegmenterInstanceImpl::defineSubSection(
 	msg.packScalar(p1);
 	msg.packScalar(p2);
 	msg.packString(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2957,9 +2957,9 @@ SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packDocumentClass(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -2983,9 +2983,9 @@ const char* SegmenterImpl::mimeType()
 	const char* p0 = obj()->mimeType();
 	TraceSerializer msg;
 	msg.packCharp(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3001,9 +3001,9 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance()
 	SegmenterInstanceInterface* p0 = obj()->createInstance();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3029,9 +3029,9 @@ void StatisticsBuilderImpl::setNofDocumentsInsertedChange(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3052,9 +3052,9 @@ void StatisticsBuilderImpl::addDfChange(
 	msg.packCharp(p1);
 	msg.packCharp(p2);
 	msg.packScalar(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3069,9 +3069,9 @@ void StatisticsBuilderImpl::start()
 	obj()->start();
 	TraceSerializer msg;
 	msg.packVoid();
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3086,9 +3086,9 @@ void StatisticsBuilderImpl::rollback()
 	obj()->rollback();
 	TraceSerializer msg;
 	msg.packVoid();
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3105,9 +3105,9 @@ bool StatisticsBuilderImpl::fetchMessage(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packBuffer( blk, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3131,9 +3131,9 @@ bool StatisticsIteratorImpl::getNext(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packBuffer( msg, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3157,9 +3157,9 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packBuffer( msgptr, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3179,9 +3179,9 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packStatisticsProcessorBuilderOptions(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3205,9 +3205,9 @@ int StatisticsViewerImpl::nofDocumentsInsertedChange()
 	int p0 = obj()->nofDocumentsInsertedChange();
 	TraceSerializer msg;
 	msg.packScalar(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3225,9 +3225,9 @@ bool StatisticsViewerImpl::nextDfChange(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packStatisticsViewerDocumentFrequencyChange(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3253,9 +3253,9 @@ void StorageAlterMetaDataTableImpl::addElement(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3276,9 +3276,9 @@ void StorageAlterMetaDataTableImpl::alterElement(
 	msg.packString(p1);
 	msg.packString(p2);
 	msg.packString(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3297,9 +3297,9 @@ void StorageAlterMetaDataTableImpl::renameElement(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3316,9 +3316,9 @@ void StorageAlterMetaDataTableImpl::deleteElement(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3335,9 +3335,9 @@ void StorageAlterMetaDataTableImpl::clearElement(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3352,9 +3352,9 @@ bool StorageAlterMetaDataTableImpl::commit()
 	bool p0 = obj()->commit();
 	TraceSerializer msg;
 	msg.packBool(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3370,9 +3370,9 @@ void StorageAlterMetaDataTableImpl::rollback()
 	obj()->rollback();
 	TraceSerializer msg;
 	msg.packVoid();
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3397,9 +3397,9 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 	msg.packObject(p0);
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3421,9 +3421,9 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 	msg.packObject(p0);
 	msg.packObject(p1);
 	msg.packScalar(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3443,9 +3443,9 @@ ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3465,9 +3465,9 @@ DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3487,9 +3487,9 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3507,9 +3507,9 @@ Index StorageClientImpl::nofDocumentsInserted()
 	Index p0 = obj()->nofDocumentsInserted();
 	TraceSerializer msg;
 	msg.packScalar(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3529,9 +3529,9 @@ Index StorageClientImpl::documentFrequency(
 	msg.packScalar(p0);
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3547,9 +3547,9 @@ Index StorageClientImpl::maxDocumentNumber()
 	Index p0 = obj()->maxDocumentNumber();
 	TraceSerializer msg;
 	msg.packScalar(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3567,9 +3567,9 @@ Index StorageClientImpl::documentNumber(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3585,9 +3585,9 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator()
 	ValueIteratorInterface* p0 = obj()->createTermTypeIterator();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3605,9 +3605,9 @@ ValueIteratorInterface* StorageClientImpl::createTermValueIterator()
 	ValueIteratorInterface* p0 = obj()->createTermValueIterator();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3625,9 +3625,9 @@ ValueIteratorInterface* StorageClientImpl::createDocIdIterator()
 	ValueIteratorInterface* p0 = obj()->createDocIdIterator();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3645,9 +3645,9 @@ ValueIteratorInterface* StorageClientImpl::createUserNameIterator()
 	ValueIteratorInterface* p0 = obj()->createUserNameIterator();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3671,9 +3671,9 @@ Index StorageClientImpl::documentStatistics(
 	msg.packScalar(p1);
 	msg.packDocumentStatisticsType(p2);
 	msg.packString(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3689,9 +3689,9 @@ MetaDataReaderInterface* StorageClientImpl::createMetaDataReader()
 	MetaDataReaderInterface* p0 = obj()->createMetaDataReader();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3709,9 +3709,9 @@ MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction()
 	MetaDataRestrictionInterface* p0 = obj()->createMetaDataRestriction();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3729,9 +3729,9 @@ AttributeReaderInterface* StorageClientImpl::createAttributeReader()
 	AttributeReaderInterface* p0 = obj()->createAttributeReader();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3749,9 +3749,9 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	StorageTransactionInterface* p0 = obj()->createTransaction();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3771,9 +3771,9 @@ StatisticsIteratorInterface* StorageClientImpl::createInitStatisticsIterator(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packBool(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3791,9 +3791,9 @@ StatisticsIteratorInterface* StorageClientImpl::createUpdateStatisticsIterator()
 	StatisticsIteratorInterface* p0 = obj()->createUpdateStatisticsIterator();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3811,9 +3811,9 @@ const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor()
 	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3833,9 +3833,9 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 	msg.packObject(p0);
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3855,9 +3855,9 @@ bool StorageClientImpl::checkStorage(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3875,9 +3875,9 @@ StorageDumpInterface* StorageClientImpl::createDump(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -3907,9 +3907,9 @@ void StorageDocumentImpl::addSearchIndexTerm(
 	msg.packString(p1);
 	msg.packString(p2);
 	msg.packScalar(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3930,9 +3930,9 @@ void StorageDocumentImpl::addForwardIndexTerm(
 	msg.packString(p1);
 	msg.packString(p2);
 	msg.packScalar(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3951,9 +3951,9 @@ void StorageDocumentImpl::setMetaData(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packNumericVariant(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3972,9 +3972,9 @@ void StorageDocumentImpl::setAttribute(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3991,9 +3991,9 @@ void StorageDocumentImpl::setUserAccessRight(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4008,9 +4008,9 @@ void StorageDocumentImpl::done()
 	obj()->done();
 	TraceSerializer msg;
 	msg.packVoid();
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4035,9 +4035,9 @@ void StorageDocumentUpdateImpl::setMetaData(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packNumericVariant(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4056,9 +4056,9 @@ void StorageDocumentUpdateImpl::setAttribute(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4075,9 +4075,9 @@ void StorageDocumentUpdateImpl::clearAttribute(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4094,9 +4094,9 @@ void StorageDocumentUpdateImpl::setUserAccessRight(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4113,9 +4113,9 @@ void StorageDocumentUpdateImpl::clearUserAccessRight(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4130,9 +4130,9 @@ void StorageDocumentUpdateImpl::clearUserAccessRights()
 	obj()->clearUserAccessRights();
 	TraceSerializer msg;
 	msg.packVoid();
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4147,9 +4147,9 @@ void StorageDocumentUpdateImpl::done()
 	obj()->done();
 	TraceSerializer msg;
 	msg.packVoid();
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4172,9 +4172,9 @@ bool StorageDumpImpl::nextChunk(
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packBuffer( chunk, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4202,9 +4202,9 @@ StorageClientInterface* StorageImpl::createClient(
 	msg.packString(p1);
 	msg.packObject(p2);
 	msg.packObject(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		delete p2;
@@ -4228,9 +4228,9 @@ bool StorageImpl::createStorage(
 	msg.packBool(p0);
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4248,9 +4248,9 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packObject(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		delete p1;
@@ -4272,9 +4272,9 @@ const char* StorageImpl::getConfigDescription(
 	TraceSerializer msg;
 	msg.packCharp(p0);
 	msg.packStorageConfigType(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4292,9 +4292,9 @@ const char** StorageImpl::getConfigParameters(
 	TraceSerializer msg;
 	msg.packCharpp(p0);
 	msg.packStorageConfigType(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4316,9 +4316,9 @@ const StorageInterface* StorageObjectBuilderImpl::getStorage()
 	const StorageInterface* p0 = obj()->getStorage();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4336,9 +4336,9 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4354,9 +4354,9 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor()
 	const QueryProcessorInterface* p0 = obj()->getQueryProcessor();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4372,9 +4372,9 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4392,9 +4392,9 @@ StorageClientInterface* StorageObjectBuilderImpl::createStorageClient(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -4414,9 +4414,9 @@ StorageAlterMetaDataTableInterface* StorageObjectBuilderImpl::createAlterMetaDat
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -4434,9 +4434,9 @@ QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval()
 	QueryEvalInterface* p0 = obj()->createQueryEval();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -4462,9 +4462,9 @@ StorageDocumentInterface* StorageTransactionImpl::createDocument(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -4484,9 +4484,9 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -4506,9 +4506,9 @@ void StorageTransactionImpl::deleteDocument(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4525,9 +4525,9 @@ void StorageTransactionImpl::deleteUserAccessRights(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4548,9 +4548,9 @@ void StorageTransactionImpl::updateMetaData(
 	msg.packScalar(p1);
 	msg.packString(p2);
 	msg.packNumericVariant(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4565,9 +4565,9 @@ bool StorageTransactionImpl::commit()
 	bool p0 = obj()->commit();
 	TraceSerializer msg;
 	msg.packBool(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4583,9 +4583,9 @@ void StorageTransactionImpl::rollback()
 	obj()->rollback();
 	TraceSerializer msg;
 	msg.packVoid();
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4616,9 +4616,9 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 	msg.packSummarizationVariableVector(p3);
 	msg.packScalar(p4);
 	msg.packTermStatistics(p5);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4635,9 +4635,9 @@ std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 	TraceSerializer msg;
 	msg.packSummaryElement(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4663,9 +4663,9 @@ void SummarizerFunctionInstanceImpl::addStringParameter(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4684,9 +4684,9 @@ void SummarizerFunctionInstanceImpl::addNumericParameter(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packNumericVariant(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4707,9 +4707,9 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 	msg.packObject(p1);
 	msg.packObject(p2);
 	msg.packGlobalStatistics(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4725,9 +4725,9 @@ std::string SummarizerFunctionInstanceImpl::tostring()
 	std::string p0 = obj()->tostring();
 	TraceSerializer msg;
 	msg.packString(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4751,9 +4751,9 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packObject(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -4771,9 +4771,9 @@ FunctionDescription SummarizerFunctionImpl::getDescription()
 	FunctionDescription p0 = obj()->getDescription();
 	TraceSerializer msg;
 	msg.packFunctionDescription(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4797,9 +4797,9 @@ void TextProcessorImpl::addResourcePath(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4816,9 +4816,9 @@ std::string TextProcessorImpl::getResourcePath(
 	TraceSerializer msg;
 	msg.packString(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4836,9 +4836,9 @@ const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4856,9 +4856,9 @@ const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4876,9 +4876,9 @@ const AggregatorFunctionInterface* TextProcessorImpl::getAggregator(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packString(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4898,9 +4898,9 @@ bool TextProcessorImpl::detectDocumentClass(
 	msg.packBool(p0);
 	msg.packDocumentClass(p1);
 	msg.packBuffer( contentBegin, p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4918,9 +4918,9 @@ void TextProcessorImpl::defineDocumentClassDetector(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packObject(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p1;
 		p1 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -4941,9 +4941,9 @@ void TextProcessorImpl::defineTokenizer(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -4964,9 +4964,9 @@ void TextProcessorImpl::defineNormalizer(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -4987,9 +4987,9 @@ void TextProcessorImpl::defineAggregator(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p2;
 		p2 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -5008,9 +5008,9 @@ std::vector<std::string> TextProcessorImpl::getFunctionList(
 	TraceSerializer msg;
 	msg.packStringVector(p0);
 	msg.packTextProcessorFunctionType(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5034,9 +5034,9 @@ std::vector<analyzer::Token> TokenizerFunctionContextImpl::tokenize(
 	TraceSerializer msg;
 	msg.packAnalyzerTokenVector(p0);
 	msg.packBuffer( src, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5058,9 +5058,9 @@ bool TokenizerFunctionInstanceImpl::concatBeforeTokenize()
 	bool p0 = obj()->concatBeforeTokenize();
 	TraceSerializer msg;
 	msg.packBool(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5076,9 +5076,9 @@ TokenizerFunctionContextInterface* TokenizerFunctionInstanceImpl::createFunction
 	TokenizerFunctionContextInterface* p0 = obj()->createFunctionContext();
 	TraceSerializer msg;
 	msg.packObject(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -5106,9 +5106,9 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 	msg.packObject(p0);
 	msg.packStringVector(p1);
 	msg.packObject(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -5126,9 +5126,9 @@ const char* TokenizerFunctionImpl::getDescription()
 	const char* p0 = obj()->getDescription();
 	TraceSerializer msg;
 	msg.packCharp(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5152,9 +5152,9 @@ void ValueIteratorImpl::skip(
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( value, p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5171,9 +5171,9 @@ std::vector<std::string> ValueIteratorImpl::fetchValues(
 	TraceSerializer msg;
 	msg.packStringVector(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5203,9 +5203,9 @@ void WeightingFunctionContextImpl::addWeightingFeature(
 	msg.packObject(p2);
 	msg.packScalar(p3);
 	msg.packTermStatistics(p4);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5222,9 +5222,9 @@ double WeightingFunctionContextImpl::call(
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packScalar(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5250,9 +5250,9 @@ void WeightingFunctionInstanceImpl::addStringParameter(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packString(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5271,9 +5271,9 @@ void WeightingFunctionInstanceImpl::addNumericParameter(
 	msg.packVoid();
 	msg.packString(p1);
 	msg.packNumericVariant(p2);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5294,9 +5294,9 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 	msg.packObject(p1);
 	msg.packObject(p2);
 	msg.packGlobalStatistics(p3);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5312,9 +5312,9 @@ std::string WeightingFunctionInstanceImpl::tostring()
 	std::string p0 = obj()->tostring();
 	TraceSerializer msg;
 	msg.packString(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5338,9 +5338,9 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packObject(p1);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		delete p0;
 		p0 = 0;
 		traceContext()->logger().logMethodTermination( callhnd, "");
@@ -5358,9 +5358,9 @@ FunctionDescription WeightingFunctionImpl::getDescription()
 	FunctionDescription p0 = obj()->getDescription();
 	TraceSerializer msg;
 	msg.packFunctionDescription(p0);
-	if (msg.hasError())
+	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else

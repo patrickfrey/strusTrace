@@ -76,7 +76,6 @@ class TypeSystem
 public:
 	TypeSystem()
 	{
-		fillRuleTables();
 		fillTypeTables();
 	}
 	~TypeSystem(){}
@@ -84,31 +83,13 @@ public:
 	VariableType& defineType( const char* pattern, const char* scope_class=0, const char* scope_method=0);
 	VariableValue parse( const std::string& className, const std::string& methodName, char const*& si, const char* se) const;
 
-	bool isImplementedMethod( const std::string& name) const
-	{
-		return m_notImplMethods.find(name) == m_notImplMethods.end();
-	}
-	bool isImplementedInterface( const std::string& name) const
-	{
-		return m_notImplInterfaces.find(name) == m_notImplInterfaces.end();
-	}
-	bool isPassOwnershipMethod( const std::string& name) const
-	{
-		return m_passOwnershipMethod.find(name) != m_passOwnershipMethod.end();
-	}
-
 	std::string tostring() const;
 
 private:
-	void fillRuleTables();
 	void fillTypeTables();
 
 private:
 	std::vector<VariableType> m_variableTypes;
-
-	std::set<std::string> m_notImplMethods;
-	std::set<std::string> m_notImplInterfaces;
-	std::set<std::string> m_passOwnershipMethod;
 };
 
 class MethodDef

@@ -25,7 +25,6 @@
 #include "strus/documentAnalyzerInterface.hpp"
 #include "strus/documentClassDetectorInterface.hpp"
 #include "strus/documentTermIteratorInterface.hpp"
-#include "strus/errorBufferInterface.hpp"
 #include "strus/forwardIteratorInterface.hpp"
 #include "strus/invAclIteratorInterface.hpp"
 #include "strus/metaDataReaderInterface.hpp"

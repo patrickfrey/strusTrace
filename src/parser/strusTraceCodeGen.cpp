@@ -255,9 +255,9 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 	
 			// Check for error and set return value to NULL in this case:
 			out
-			<< "\tif (msg.hasError())" << std::endl
+			<< "\tif (msg.hasError() || traceContext()->errorbuf()->hasError())" << std::endl
 			<< "\t{" << std::endl
-			<< "\t\ttraceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
+			<< "\t\tif (msg.hasError()) traceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
 			std::string deleteInstr( mi->returnValue().expand( "delete", "p0"));
 			if (!deleteInstr.empty())
 			{

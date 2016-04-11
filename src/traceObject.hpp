@@ -7,35 +7,32 @@
  */
 #ifndef _STRUS_TRACE_OBJECT_HPP_INCLUDED
 #define _STRUS_TRACE_OBJECT_HPP_INCLUDED
-#include "traceGlobalContext.hpp"
 #include "strus/traceLoggerInterface.hpp"
 #include <string>
 #include <map>
 
 namespace strus
 {
+/// \brief Forward declaration
+class TraceGlobalContext;
 
 class TraceObjectBase
 {
 public:
 	typedef void (*Deleter)( void* obj_);
 
-	TraceObjectBase( void* obj_, Deleter deleter_, TraceGlobalContext* ctx_)
-		:m_ctx(ctx_),m_obj(obj_),m_deleter(deleter_),m_id(ctx_->createId()){}
+	TraceObjectBase( void* obj_, Deleter deleter_, TraceGlobalContext* ctx_);
+	TraceObjectBase( const void* obj_, const TraceGlobalContext* ctx_);
 	virtual ~TraceObjectBase()
 	{
-		m_deleter( m_obj);
+		if (m_deleter) m_deleter( m_obj);
 	}
 
 	TraceObjectId objid() const
 	{
 		return m_id;
 	}
-	TraceGlobalContext* traceContext()
-	{
-		return m_ctx;
-	}
-	const TraceGlobalContext* traceContext() const
+	TraceGlobalContext* traceContext() const
 	{
 		return m_ctx;
 	}
@@ -49,7 +46,7 @@ public:
 	}
 
 private:
-	TraceGlobalContext* m_ctx;
+	mutable TraceGlobalContext* m_ctx;
 	void* m_obj;
 	Deleter m_deleter;
 	TraceObjectId m_id;
@@ -68,7 +65,9 @@ private:
 
 public:
 	TraceObject( Interface* obj_, TraceGlobalContext* ctx_)
-		:TraceObjectBase(obj,&deleter,ctx_){}
+		:TraceObjectBase(obj_,&deleter,ctx_){}
+	TraceObject( const Interface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObjectBase(obj_,ctx_){}
 	virtual ~TraceObject(){}
 
 	Interface* obj()

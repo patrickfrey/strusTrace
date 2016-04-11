@@ -134,9 +134,12 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 			<< "class " << ci->name() << "Impl" << std::endl
 			<< "\t\t:public TraceObject<" << ci->name() << "Interface>" << std::endl
 			<< "\t\t,public "  << ci->name() << "Interface" << std::endl
+			<< "\t\t,public "  << ci->name() << "Const" << std::endl
 			<< "{" << std::endl
 			<< "public:" << std::endl
 			<< "\t" << ci->name() << "Impl( " << ci->name() << "Interface* obj_, TraceGlobalContext* ctx_)" << std::endl
+			<< "\t\t:TraceObject<" << ci->name() << "Interface>(obj_,ctx_)" << "{}" << std::endl
+			<< "\t" << ci->name() << "Impl( const " << ci->name() << "Interface* obj_, const TraceGlobalContext* ctx_)" << std::endl
 			<< "\t\t:TraceObject<" << ci->name() << "Interface>(obj_,ctx_)" << "{}" << std::endl
 			<< std::endl
 			<< "\tvirtual ~" << ci->name() << "Impl();" << std::endl
@@ -147,16 +150,16 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 		for (; mi != me; ++mi)
 		{
 			out 
-			<< "\tvirtual " << mi->returnValue().expand("definition") << ' ' << mi->name() << "(";
+			<< "\tvirtual " << mi->returnValue().expand("type") << ' ' << mi->name() << "(";
 			std::vector<strus::VariableValue>::const_iterator
 				pi = mi->parameters().begin(),
 				pe = mi->parameters().end();
 			for (int pidx=1; pi != pe; ++pi,++pidx)
 			{
 				if (pidx > 1) out << ", ";
-				out << std::endl << expandIndent( "\t\t\t", pi->expand("definition")) << " p" << pidx;
+				out << std::endl << expandIndent( "\t\t\t", pi->expand("type")) << " p" << pidx;
 			}
-			out << ");" << std::endl;
+			out << (mi->isconst()?") const;":");") << std::endl;
 		}
 		out
 			<< "};" << std::endl << std::endl;
@@ -172,6 +175,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 {
 	strus::printCppFrameHeader( out, "objects_gen", "Identifiers for objects and methods for serialization");
 	out << "#include \"objects_gen.hpp\"" << std::endl;
+	out << "#include \"traceGlobalContext.hpp\"" << std::endl;
 	out << "#include \"traceSerializer.hpp\"" << std::endl;
 
 	out
@@ -188,9 +192,9 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 		out
 			<< implclassname << "::~" << implclassname << "()" << std::endl
 			<< "{" << std::endl
-			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( "
+			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( "
 			<< classid << ", Method_Destructor, objid());" << std::endl
-			<<"\ttraceContext()->logger().logMethodTermination( callhnd, \"\");" << std::endl
+			<<"\ttraceContext()->logger()->logMethodTermination( callhnd, \"\");" << std::endl
 			<< "}" << std::endl << std::endl;
 
 		std::vector<strus::MethodDef>::const_iterator
@@ -199,7 +203,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 		for (; mi != me; ++mi)
 		{
 			// Function header:
-			std::string returnType( mi->returnValue().expand("definition"));
+			std::string returnType( mi->returnValue().expand("scopedtype"));
 			bool hasReturnValue = (returnType != "void");
 			out
 			<< returnType << ' ' << implclassname << "::" << mi->name() << "(";
@@ -209,14 +213,14 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			for (int pidx=1; pi != pe; ++pi,++pidx)
 			{
 				if (pidx > 1) out << ", ";
-				out << std::endl << expandIndent( "\t\t\t", pi->expand("definition")) << " p" << pidx;
+				out << std::endl << expandIndent( "\t\t\t", pi->expand("type")) << " p" << pidx;
 			}
-			out
-			<< ")" << std::endl
+			out << (mi->isconst()?") const":")") << std::endl;
 
 			// Log method call:
+			out
 			<< "{" << std::endl
-			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( "
+			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( "
 			<< classid << ", Method_" << mi->name() << ", objid());" << std::endl;
 
 			// Call real function:
@@ -242,7 +246,16 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			out
 			<< ");" << std::endl;
 
-			out << "\tTraceSerializer msg;" << std::endl;
+			// Wrap returned interface objects:
+			if (hasReturnValue)
+			{
+				std::string wrapInterface( mi->returnValue().expand("wrap_return", "p0"));
+				if (!wrapInterface.empty())
+				{
+					out << expandIndent( "\t", wrapInterface) << std::endl;
+				}
+			}
+			out << "\tTraceSerializer parambuf;" << std::endl;
 
 			// Create string with packed function in/out parameters:
 			std::string source_packparam;
@@ -265,7 +278,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 					out
 					<< expandIndent( "\t", std::string("if (") + test_null + ")") << std::endl
 					<< "\t{" << std::endl
-					<< "\t\ttraceContext()->errorbuf()->report(_TXT(\"method call '%s' failed: %s\"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());" << std::endl
+					<< "\t\ttraceContext()->errorbuf()->report(_TXT(\"method call '%s' failed: %s\"), \"" << mi->name() << "\", traceContext()->errorbuf()->fetchError());" << std::endl
 					<< "\t}" << std::endl
 					<< "\telse" << std::endl
 					<< "\t{" << std::endl
@@ -283,9 +296,9 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			}
 			// Check for error and set return value to NULL in this case:
 			out
-			<< "\tif (msg.hasError() || traceContext()->errorbuf()->hasError())" << std::endl
+			<< "\tif (parambuf.hasError() || traceContext()->errorbuf()->hasError())" << std::endl
 			<< "\t{" << std::endl
-			<< "\t\tif (msg.hasError()) traceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
+			<< "\t\tif (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
 			std::string deleteInstr( mi->returnValue().expand( "delete", "p0"));
 			if (!deleteInstr.empty())
 			{
@@ -303,11 +316,11 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 				}
 			}
 			out
-			<<"\t\ttraceContext()->logger().logMethodTermination( callhnd, \"\");" << std::endl
+			<<"\t\ttraceContext()->logger()->logMethodTermination( callhnd, \"\");" << std::endl
 			<< "\t}" << std::endl
 			<< "\telse" << std::endl
 			<< "\t{" << std::endl
-			<<"\t\ttraceContext()->logger().logMethodTermination( callhnd, msg.content());" << std::endl
+			<<"\t\ttraceContext()->logger()->logMethodTermination( callhnd, parambuf.content());" << std::endl
 			<< "\t}" << std::endl;
 
 			// Return result if there is one:

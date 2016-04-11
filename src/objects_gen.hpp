@@ -76,71 +76,86 @@ namespace strus {
 class AggregatorFunctionInstanceImpl
 		:public TraceObject<AggregatorFunctionInstanceInterface>
 		,public AggregatorFunctionInstanceInterface
+		,public AggregatorFunctionInstanceConst
 {
 public:
 	AggregatorFunctionInstanceImpl( AggregatorFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AggregatorFunctionInstanceInterface>(obj_,ctx_){}
+	AggregatorFunctionInstanceImpl( const AggregatorFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<AggregatorFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~AggregatorFunctionInstanceImpl();
 	virtual double evaluate(
-			const analyzer::Document& p1);
+			const analyzer::Document& p1) const;
 };
 
 class AggregatorFunctionImpl
 		:public TraceObject<AggregatorFunctionInterface>
 		,public AggregatorFunctionInterface
+		,public AggregatorFunctionConst
 {
 public:
 	AggregatorFunctionImpl( AggregatorFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AggregatorFunctionInterface>(obj_,ctx_){}
+	AggregatorFunctionImpl( const AggregatorFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<AggregatorFunctionInterface>(obj_,ctx_){}
 
 	virtual ~AggregatorFunctionImpl();
 	virtual AggregatorFunctionInstanceInterface* createInstance(
-			const std::vector<std::string>& p1);
-	virtual const char* getDescription();
+			const std::vector<std::string>& p1) const;
+	virtual const char* getDescription() const;
 };
 
 class AnalyzerObjectBuilderImpl
 		:public TraceObject<AnalyzerObjectBuilderInterface>
 		,public AnalyzerObjectBuilderInterface
+		,public AnalyzerObjectBuilderConst
 {
 public:
 	AnalyzerObjectBuilderImpl( AnalyzerObjectBuilderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AnalyzerObjectBuilderInterface>(obj_,ctx_){}
+	AnalyzerObjectBuilderImpl( const AnalyzerObjectBuilderInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<AnalyzerObjectBuilderInterface>(obj_,ctx_){}
 
 	virtual ~AnalyzerObjectBuilderImpl();
-	virtual const TextProcessorInterface* getTextProcessor();
+	virtual const TextProcessorInterface* getTextProcessor() const;
 	virtual SegmenterInterface* createSegmenter(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual DocumentAnalyzerInterface* createDocumentAnalyzer(
-			const std::string& p1);
-	virtual QueryAnalyzerInterface* createQueryAnalyzer();
+			const std::string& p1) const;
+	virtual QueryAnalyzerInterface* createQueryAnalyzer() const;
 };
 
 class AttributeReaderImpl
 		:public TraceObject<AttributeReaderInterface>
 		,public AttributeReaderInterface
+		,public AttributeReaderConst
 {
 public:
 	AttributeReaderImpl( AttributeReaderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AttributeReaderInterface>(obj_,ctx_){}
+	AttributeReaderImpl( const AttributeReaderInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<AttributeReaderInterface>(obj_,ctx_){}
 
 	virtual ~AttributeReaderImpl();
 	virtual Index elementHandle(
-			const char* p1);
+			const char* p1) const;
 	virtual void skipDoc(
 			const Index& p1);
 	virtual std::string getValue(
-			const Index& p1);
-	virtual std::vector<std::string> getAttributeNames();
+			const Index& p1) const;
+	virtual std::vector<std::string> getAttributeNames() const;
 };
 
 class DatabaseBackupCursorImpl
 		:public TraceObject<DatabaseBackupCursorInterface>
 		,public DatabaseBackupCursorInterface
+		,public DatabaseBackupCursorConst
 {
 public:
 	DatabaseBackupCursorImpl( DatabaseBackupCursorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DatabaseBackupCursorInterface>(obj_,ctx_){}
+	DatabaseBackupCursorImpl( const DatabaseBackupCursorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseBackupCursorInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseBackupCursorImpl();
@@ -152,16 +167,19 @@ public:
 class DatabaseClientImpl
 		:public TraceObject<DatabaseClientInterface>
 		,public DatabaseClientInterface
+		,public DatabaseClientConst
 {
 public:
 	DatabaseClientImpl( DatabaseClientInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DatabaseClientInterface>(obj_,ctx_){}
+	DatabaseClientImpl( const DatabaseClientInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseClientInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseClientImpl();
 	virtual DatabaseTransactionInterface* createTransaction();
 	virtual DatabaseCursorInterface* createCursor(
-			const DatabaseOptions& p1);
-	virtual DatabaseBackupCursorInterface* createBackupCursor();
+			const DatabaseOptions& p1) const;
+	virtual DatabaseBackupCursorInterface* createBackupCursor() const;
 	virtual void writeImm(
 			const char* key, std::size_t p1, 
 			const char* value, std::size_t p2);
@@ -170,15 +188,18 @@ public:
 	virtual bool readValue(
 			const char* key, std::size_t p1, 
 			std::string& p2, 
-			const DatabaseOptions& p3);
+			const DatabaseOptions& p3) const;
 };
 
 class DatabaseCursorImpl
 		:public TraceObject<DatabaseCursorInterface>
 		,public DatabaseCursorInterface
+		,public DatabaseCursorConst
 {
 public:
 	DatabaseCursorImpl( DatabaseCursorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DatabaseCursorInterface>(obj_,ctx_){}
+	DatabaseCursorImpl( const DatabaseCursorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseCursorInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseCursorImpl();
@@ -194,47 +215,53 @@ public:
 			const char* domainkey, std::size_t p1);
 	virtual Slice seekNext();
 	virtual Slice seekPrev();
-	virtual Slice key();
-	virtual Slice value();
+	virtual Slice key() const;
+	virtual Slice value() const;
 };
 
 class DatabaseImpl
 		:public TraceObject<DatabaseInterface>
 		,public DatabaseInterface
+		,public DatabaseConst
 {
 public:
 	DatabaseImpl( DatabaseInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseInterface>(obj_,ctx_){}
+	DatabaseImpl( const DatabaseInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<DatabaseInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseImpl();
 	virtual bool exists(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual DatabaseClientInterface* createClient(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual bool createDatabase(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual bool restoreDatabase(
 			const std::string& p1, 
-			DatabaseBackupCursorInterface* p2);
+			DatabaseBackupCursorInterface* p2) const;
 	virtual bool destroyDatabase(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual const char* getConfigDescription(
-			const ConfigType& p1);
+			const ConfigType& p1) const;
 	virtual const char** getConfigParameters(
-			const ConfigType& p1);
+			const ConfigType& p1) const;
 };
 
 class DatabaseTransactionImpl
 		:public TraceObject<DatabaseTransactionInterface>
 		,public DatabaseTransactionInterface
+		,public DatabaseTransactionConst
 {
 public:
 	DatabaseTransactionImpl( DatabaseTransactionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseTransactionInterface>(obj_,ctx_){}
+	DatabaseTransactionImpl( const DatabaseTransactionInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<DatabaseTransactionInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseTransactionImpl();
 	virtual DatabaseCursorInterface* createCursor(
-			const DatabaseOptions& p1);
+			const DatabaseOptions& p1) const;
 	virtual void write(
 			const char* key, std::size_t p1, 
 			const char* value, std::size_t p2);
@@ -249,9 +276,12 @@ public:
 class DocumentAnalyzerContextImpl
 		:public TraceObject<DocumentAnalyzerContextInterface>
 		,public DocumentAnalyzerContextInterface
+		,public DocumentAnalyzerContextConst
 {
 public:
 	DocumentAnalyzerContextImpl( DocumentAnalyzerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentAnalyzerContextInterface>(obj_,ctx_){}
+	DocumentAnalyzerContextImpl( const DocumentAnalyzerContextInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<DocumentAnalyzerContextInterface>(obj_,ctx_){}
 
 	virtual ~DocumentAnalyzerContextImpl();
@@ -265,9 +295,12 @@ public:
 class DocumentAnalyzerImpl
 		:public TraceObject<DocumentAnalyzerInterface>
 		,public DocumentAnalyzerInterface
+		,public DocumentAnalyzerConst
 {
 public:
 	DocumentAnalyzerImpl( DocumentAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentAnalyzerInterface>(obj_,ctx_){}
+	DocumentAnalyzerImpl( const DocumentAnalyzerInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<DocumentAnalyzerInterface>(obj_,ctx_){}
 
 	virtual ~DocumentAnalyzerImpl();
@@ -301,31 +334,37 @@ public:
 			const std::string& p2);
 	virtual analyzer::Document analyze(
 			const std::string& p1, 
-			const DocumentClass& p2);
+			const DocumentClass& p2) const;
 	virtual DocumentAnalyzerContextInterface* createContext(
-			const DocumentClass& p1);
+			const DocumentClass& p1) const;
 };
 
 class DocumentClassDetectorImpl
 		:public TraceObject<DocumentClassDetectorInterface>
 		,public DocumentClassDetectorInterface
+		,public DocumentClassDetectorConst
 {
 public:
 	DocumentClassDetectorImpl( DocumentClassDetectorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentClassDetectorInterface>(obj_,ctx_){}
+	DocumentClassDetectorImpl( const DocumentClassDetectorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<DocumentClassDetectorInterface>(obj_,ctx_){}
 
 	virtual ~DocumentClassDetectorImpl();
 	virtual bool detect(
 			DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2);
+			const char* contentBegin, std::size_t p2) const;
 };
 
 class DocumentTermIteratorImpl
 		:public TraceObject<DocumentTermIteratorInterface>
 		,public DocumentTermIteratorInterface
+		,public DocumentTermIteratorConst
 {
 public:
 	DocumentTermIteratorImpl( DocumentTermIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentTermIteratorInterface>(obj_,ctx_){}
+	DocumentTermIteratorImpl( const DocumentTermIteratorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<DocumentTermIteratorInterface>(obj_,ctx_){}
 
 	virtual ~DocumentTermIteratorImpl();
@@ -334,17 +373,20 @@ public:
 	virtual bool nextTerm(
 			Term& p1);
 	virtual unsigned int termDocumentFrequency(
-			const Index& p1);
+			const Index& p1) const;
 	virtual std::string termValue(
-			const Index& p1);
+			const Index& p1) const;
 };
 
 class ForwardIteratorImpl
 		:public TraceObject<ForwardIteratorInterface>
 		,public ForwardIteratorInterface
+		,public ForwardIteratorConst
 {
 public:
 	ForwardIteratorImpl( ForwardIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ForwardIteratorInterface>(obj_,ctx_){}
+	ForwardIteratorImpl( const ForwardIteratorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<ForwardIteratorInterface>(obj_,ctx_){}
 
 	virtual ~ForwardIteratorImpl();
@@ -358,9 +400,12 @@ public:
 class InvAclIteratorImpl
 		:public TraceObject<InvAclIteratorInterface>
 		,public InvAclIteratorInterface
+		,public InvAclIteratorConst
 {
 public:
 	InvAclIteratorImpl( InvAclIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<InvAclIteratorInterface>(obj_,ctx_){}
+	InvAclIteratorImpl( const InvAclIteratorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<InvAclIteratorInterface>(obj_,ctx_){}
 
 	virtual ~InvAclIteratorImpl();
@@ -371,46 +416,55 @@ public:
 class MetaDataReaderImpl
 		:public TraceObject<MetaDataReaderInterface>
 		,public MetaDataReaderInterface
+		,public MetaDataReaderConst
 {
 public:
 	MetaDataReaderImpl( MetaDataReaderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<MetaDataReaderInterface>(obj_,ctx_){}
+	MetaDataReaderImpl( const MetaDataReaderInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<MetaDataReaderInterface>(obj_,ctx_){}
 
 	virtual ~MetaDataReaderImpl();
 	virtual bool hasElement(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual Index elementHandle(
-			const std::string& p1);
-	virtual Index nofElements();
+			const std::string& p1) const;
+	virtual Index nofElements() const;
 	virtual void skipDoc(
 			const Index& p1);
 	virtual NumericVariant getValue(
-			const Index& p1);
+			const Index& p1) const;
 	virtual const char* getType(
-			const Index& p1);
+			const Index& p1) const;
 	virtual const char* getName(
-			const Index& p1);
+			const Index& p1) const;
 };
 
 class MetaDataRestrictionInstanceImpl
 		:public TraceObject<MetaDataRestrictionInstanceInterface>
 		,public MetaDataRestrictionInstanceInterface
+		,public MetaDataRestrictionInstanceConst
 {
 public:
 	MetaDataRestrictionInstanceImpl( MetaDataRestrictionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<MetaDataRestrictionInstanceInterface>(obj_,ctx_){}
+	MetaDataRestrictionInstanceImpl( const MetaDataRestrictionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<MetaDataRestrictionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~MetaDataRestrictionInstanceImpl();
 	virtual bool match(
-			const Index& p1);
+			const Index& p1) const;
 };
 
 class MetaDataRestrictionImpl
 		:public TraceObject<MetaDataRestrictionInterface>
 		,public MetaDataRestrictionInterface
+		,public MetaDataRestrictionConst
 {
 public:
 	MetaDataRestrictionImpl( MetaDataRestrictionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<MetaDataRestrictionInterface>(obj_,ctx_){}
+	MetaDataRestrictionImpl( const MetaDataRestrictionInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<MetaDataRestrictionInterface>(obj_,ctx_){}
 
 	virtual ~MetaDataRestrictionImpl();
@@ -419,16 +473,19 @@ public:
 			const std::string& p2, 
 			const NumericVariant& p3, 
 			bool p4);
-	virtual MetaDataRestrictionInstanceInterface* createInstance();
-	virtual std::string tostring();
+	virtual MetaDataRestrictionInstanceInterface* createInstance() const;
+	virtual std::string tostring() const;
 };
 
 class NormalizerFunctionContextImpl
 		:public TraceObject<NormalizerFunctionContextInterface>
 		,public NormalizerFunctionContextInterface
+		,public NormalizerFunctionContextConst
 {
 public:
 	NormalizerFunctionContextImpl( NormalizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<NormalizerFunctionContextInterface>(obj_,ctx_){}
+	NormalizerFunctionContextImpl( const NormalizerFunctionContextInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<NormalizerFunctionContextInterface>(obj_,ctx_){}
 
 	virtual ~NormalizerFunctionContextImpl();
@@ -439,36 +496,45 @@ public:
 class NormalizerFunctionInstanceImpl
 		:public TraceObject<NormalizerFunctionInstanceInterface>
 		,public NormalizerFunctionInstanceInterface
+		,public NormalizerFunctionInstanceConst
 {
 public:
 	NormalizerFunctionInstanceImpl( NormalizerFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<NormalizerFunctionInstanceInterface>(obj_,ctx_){}
+	NormalizerFunctionInstanceImpl( const NormalizerFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<NormalizerFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~NormalizerFunctionInstanceImpl();
-	virtual NormalizerFunctionContextInterface* createFunctionContext();
+	virtual NormalizerFunctionContextInterface* createFunctionContext() const;
 };
 
 class NormalizerFunctionImpl
 		:public TraceObject<NormalizerFunctionInterface>
 		,public NormalizerFunctionInterface
+		,public NormalizerFunctionConst
 {
 public:
 	NormalizerFunctionImpl( NormalizerFunctionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<NormalizerFunctionInterface>(obj_,ctx_){}
+	NormalizerFunctionImpl( const NormalizerFunctionInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<NormalizerFunctionInterface>(obj_,ctx_){}
 
 	virtual ~NormalizerFunctionImpl();
 	virtual NormalizerFunctionInstanceInterface* createInstance(
 			const std::vector<std::string>& p1, 
-			const TextProcessorInterface* p2);
-	virtual const char* getDescription();
+			const TextProcessorInterface* p2) const;
+	virtual const char* getDescription() const;
 };
 
 class PostingIteratorImpl
 		:public TraceObject<PostingIteratorInterface>
 		,public PostingIteratorInterface
+		,public PostingIteratorConst
 {
 public:
 	PostingIteratorImpl( PostingIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PostingIteratorInterface>(obj_,ctx_){}
+	PostingIteratorImpl( const PostingIteratorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<PostingIteratorInterface>(obj_,ctx_){}
 
 	virtual ~PostingIteratorImpl();
@@ -478,35 +544,41 @@ public:
 			const Index& p1);
 	virtual Index skipPos(
 			const Index& p1);
-	virtual const char* featureid();
-	virtual Index documentFrequency();
+	virtual const char* featureid() const;
+	virtual Index documentFrequency() const;
 	virtual unsigned int frequency();
-	virtual Index docno();
-	virtual Index posno();
+	virtual Index docno() const;
+	virtual Index posno() const;
 };
 
 class PostingJoinOperatorImpl
 		:public TraceObject<PostingJoinOperatorInterface>
 		,public PostingJoinOperatorInterface
+		,public PostingJoinOperatorConst
 {
 public:
 	PostingJoinOperatorImpl( PostingJoinOperatorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PostingJoinOperatorInterface>(obj_,ctx_){}
+	PostingJoinOperatorImpl( const PostingJoinOperatorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<PostingJoinOperatorInterface>(obj_,ctx_){}
 
 	virtual ~PostingJoinOperatorImpl();
 	virtual PostingIteratorInterface* createResultIterator(
 			const std::vector<Reference<PostingIteratorInterface> >& p1, 
 			int p2, 
-			unsigned int p3);
-	virtual Description getDescription();
+			unsigned int p3) const;
+	virtual Description getDescription() const;
 };
 
 class QueryAnalyzerImpl
 		:public TraceObject<QueryAnalyzerInterface>
 		,public QueryAnalyzerInterface
+		,public QueryAnalyzerConst
 {
 public:
 	QueryAnalyzerImpl( QueryAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
+	QueryAnalyzerImpl( const QueryAnalyzerInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
 
 	virtual ~QueryAnalyzerImpl();
@@ -517,17 +589,20 @@ public:
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
 	virtual std::vector<analyzer::Term> analyzePhrase(
 			const std::string& p1, 
-			const std::string& p2);
+			const std::string& p2) const;
 	virtual std::vector<analyzer::TermVector> analyzePhraseBulk(
-			const std::vector<Phrase>& phraseBulk p1);
+			const std::vector<Phrase>& p1) const;
 };
 
 class QueryEvalImpl
 		:public TraceObject<QueryEvalInterface>
 		,public QueryEvalInterface
+		,public QueryEvalConst
 {
 public:
 	QueryEvalImpl( QueryEvalInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryEvalInterface>(obj_,ctx_){}
+	QueryEvalImpl( const QueryEvalInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<QueryEvalInterface>(obj_,ctx_){}
 
 	virtual ~QueryEvalImpl();
@@ -552,15 +627,18 @@ public:
 	virtual void defineWeightingFormula(
 			ScalarFunctionInterface* p1);
 	virtual QueryInterface* createQuery(
-			const StorageClientInterface* p1);
+			const StorageClientInterface* p1) const;
 };
 
 class QueryImpl
 		:public TraceObject<QueryInterface>
 		,public QueryInterface
+		,public QueryConst
 {
 public:
 	QueryImpl( QueryInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryInterface>(obj_,ctx_){}
+	QueryImpl( const QueryInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<QueryInterface>(obj_,ctx_){}
 
 	virtual ~QueryImpl();
@@ -605,9 +683,12 @@ public:
 class QueryProcessorImpl
 		:public TraceObject<QueryProcessorInterface>
 		,public QueryProcessorInterface
+		,public QueryProcessorConst
 {
 public:
 	QueryProcessorImpl( QueryProcessorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryProcessorInterface>(obj_,ctx_){}
+	QueryProcessorImpl( const QueryProcessorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<QueryProcessorInterface>(obj_,ctx_){}
 
 	virtual ~QueryProcessorImpl();
@@ -615,32 +696,35 @@ public:
 			const std::string& p1, 
 			PostingJoinOperatorInterface* p2);
 	virtual const PostingJoinOperatorInterface* getPostingJoinOperator(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual void defineWeightingFunction(
 			const std::string& p1, 
 			WeightingFunctionInterface* p2);
 	virtual const WeightingFunctionInterface* getWeightingFunction(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual void defineSummarizerFunction(
 			const std::string& p1, 
 			SummarizerFunctionInterface* p2);
 	virtual const SummarizerFunctionInterface* getSummarizerFunction(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual std::vector<std::string> getFunctionList(
-			const FunctionType& p1);
+			const FunctionType& p1) const;
 	virtual void defineScalarFunctionParser(
 			const std::string& p1, 
 			ScalarFunctionParserInterface* p2);
 	virtual const ScalarFunctionParserInterface* getScalarFunctionParser(
-			const std::string& p1);
+			const std::string& p1) const;
 };
 
 class ScalarFunctionInstanceImpl
 		:public TraceObject<ScalarFunctionInstanceInterface>
 		,public ScalarFunctionInstanceInterface
+		,public ScalarFunctionInstanceConst
 {
 public:
 	ScalarFunctionInstanceImpl( ScalarFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ScalarFunctionInstanceInterface>(obj_,ctx_){}
+	ScalarFunctionInstanceImpl( const ScalarFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<ScalarFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~ScalarFunctionInstanceImpl();
@@ -648,48 +732,57 @@ public:
 			const std::string& p1, 
 			double p2);
 	virtual double call(
-			const double* args, std::size_t p1);
-	virtual std::string tostring();
+			const double* args, std::size_t p1) const;
+	virtual std::string tostring() const;
 };
 
 class ScalarFunctionImpl
 		:public TraceObject<ScalarFunctionInterface>
 		,public ScalarFunctionInterface
+		,public ScalarFunctionConst
 {
 public:
 	ScalarFunctionImpl( ScalarFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ScalarFunctionInterface>(obj_,ctx_){}
+	ScalarFunctionImpl( const ScalarFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<ScalarFunctionInterface>(obj_,ctx_){}
 
 	virtual ~ScalarFunctionImpl();
-	virtual std::vector<std::string> getVariables();
-	virtual std::size_t getNofArguments();
+	virtual std::vector<std::string> getVariables() const;
+	virtual std::size_t getNofArguments() const;
 	virtual void setDefaultVariableValue(
 			const std::string& p1, 
 			double p2);
-	virtual ScalarFunctionInstanceInterface* createInstance();
-	virtual std::string tostring();
+	virtual ScalarFunctionInstanceInterface* createInstance() const;
+	virtual std::string tostring() const;
 };
 
 class ScalarFunctionParserImpl
 		:public TraceObject<ScalarFunctionParserInterface>
 		,public ScalarFunctionParserInterface
+		,public ScalarFunctionParserConst
 {
 public:
 	ScalarFunctionParserImpl( ScalarFunctionParserInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ScalarFunctionParserInterface>(obj_,ctx_){}
+	ScalarFunctionParserImpl( const ScalarFunctionParserInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<ScalarFunctionParserInterface>(obj_,ctx_){}
 
 	virtual ~ScalarFunctionParserImpl();
 	virtual ScalarFunctionInterface* createFunction(
 			const std::string& p1, 
-			const std::vector<std::string>& p2);
+			const std::vector<std::string>& p2) const;
 };
 
 class SegmenterContextImpl
 		:public TraceObject<SegmenterContextInterface>
 		,public SegmenterContextInterface
+		,public SegmenterContextConst
 {
 public:
 	SegmenterContextImpl( SegmenterContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SegmenterContextInterface>(obj_,ctx_){}
+	SegmenterContextImpl( const SegmenterContextInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<SegmenterContextInterface>(obj_,ctx_){}
 
 	virtual ~SegmenterContextImpl();
@@ -705,9 +798,12 @@ public:
 class SegmenterInstanceImpl
 		:public TraceObject<SegmenterInstanceInterface>
 		,public SegmenterInstanceInterface
+		,public SegmenterInstanceConst
 {
 public:
 	SegmenterInstanceImpl( SegmenterInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SegmenterInstanceInterface>(obj_,ctx_){}
+	SegmenterInstanceImpl( const SegmenterInstanceInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<SegmenterInstanceInterface>(obj_,ctx_){}
 
 	virtual ~SegmenterInstanceImpl();
@@ -719,28 +815,34 @@ public:
 			int p2, 
 			const std::string& p3);
 	virtual SegmenterContextInterface* createContext(
-			const DocumentClass& p1);
+			const DocumentClass& p1) const;
 };
 
 class SegmenterImpl
 		:public TraceObject<SegmenterInterface>
 		,public SegmenterInterface
+		,public SegmenterConst
 {
 public:
 	SegmenterImpl( SegmenterInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SegmenterInterface>(obj_,ctx_){}
+	SegmenterImpl( const SegmenterInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<SegmenterInterface>(obj_,ctx_){}
 
 	virtual ~SegmenterImpl();
-	virtual const char* mimeType();
-	virtual SegmenterInstanceInterface* createInstance();
+	virtual const char* mimeType() const;
+	virtual SegmenterInstanceInterface* createInstance() const;
 };
 
 class StatisticsBuilderImpl
 		:public TraceObject<StatisticsBuilderInterface>
 		,public StatisticsBuilderInterface
+		,public StatisticsBuilderConst
 {
 public:
 	StatisticsBuilderImpl( StatisticsBuilderInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsBuilderInterface>(obj_,ctx_){}
+	StatisticsBuilderImpl( const StatisticsBuilderInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsBuilderInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsBuilderImpl();
@@ -759,9 +861,12 @@ public:
 class StatisticsIteratorImpl
 		:public TraceObject<StatisticsIteratorInterface>
 		,public StatisticsIteratorInterface
+		,public StatisticsIteratorConst
 {
 public:
 	StatisticsIteratorImpl( StatisticsIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsIteratorInterface>(obj_,ctx_){}
+	StatisticsIteratorImpl( const StatisticsIteratorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsIteratorInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsIteratorImpl();
@@ -772,24 +877,30 @@ public:
 class StatisticsProcessorImpl
 		:public TraceObject<StatisticsProcessorInterface>
 		,public StatisticsProcessorInterface
+		,public StatisticsProcessorConst
 {
 public:
 	StatisticsProcessorImpl( StatisticsProcessorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsProcessorInterface>(obj_,ctx_){}
+	StatisticsProcessorImpl( const StatisticsProcessorInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsProcessorInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsProcessorImpl();
 	virtual StatisticsViewerInterface* createViewer(
-			const char* msgptr, std::size_t p1);
+			const char* msgptr, std::size_t p1) const;
 	virtual StatisticsBuilderInterface* createBuilder(
-			const BuilderOptions& p1);
+			const BuilderOptions& p1) const;
 };
 
 class StatisticsViewerImpl
 		:public TraceObject<StatisticsViewerInterface>
 		,public StatisticsViewerInterface
+		,public StatisticsViewerConst
 {
 public:
 	StatisticsViewerImpl( StatisticsViewerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsViewerInterface>(obj_,ctx_){}
+	StatisticsViewerImpl( const StatisticsViewerInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsViewerInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsViewerImpl();
@@ -801,9 +912,12 @@ public:
 class StorageAlterMetaDataTableImpl
 		:public TraceObject<StorageAlterMetaDataTableInterface>
 		,public StorageAlterMetaDataTableInterface
+		,public StorageAlterMetaDataTableConst
 {
 public:
 	StorageAlterMetaDataTableImpl( StorageAlterMetaDataTableInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageAlterMetaDataTableInterface>(obj_,ctx_){}
+	StorageAlterMetaDataTableImpl( const StorageAlterMetaDataTableInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StorageAlterMetaDataTableInterface>(obj_,ctx_){}
 
 	virtual ~StorageAlterMetaDataTableImpl();
@@ -828,62 +942,68 @@ public:
 class StorageClientImpl
 		:public TraceObject<StorageClientInterface>
 		,public StorageClientInterface
+		,public StorageClientConst
 {
 public:
 	StorageClientImpl( StorageClientInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageClientInterface>(obj_,ctx_){}
+	StorageClientImpl( const StorageClientInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StorageClientInterface>(obj_,ctx_){}
 
 	virtual ~StorageClientImpl();
 	virtual PostingIteratorInterface* createTermPostingIterator(
 			const std::string& p1, 
-			const std::string& p2);
+			const std::string& p2) const;
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
-			const Index& p2);
+			const Index& p2) const;
 	virtual ForwardIteratorInterface* createForwardIterator(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual DocumentTermIteratorInterface* createDocumentTermIterator(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual InvAclIteratorInterface* createInvAclIterator(
-			const std::string& p1);
-	virtual Index nofDocumentsInserted();
+			const std::string& p1) const;
+	virtual Index nofDocumentsInserted() const;
 	virtual Index documentFrequency(
 			const std::string& p1, 
-			const std::string& p2);
-	virtual Index maxDocumentNumber();
+			const std::string& p2) const;
+	virtual Index maxDocumentNumber() const;
 	virtual Index documentNumber(
-			const std::string& p1);
-	virtual ValueIteratorInterface* createTermTypeIterator();
-	virtual ValueIteratorInterface* createTermValueIterator();
-	virtual ValueIteratorInterface* createDocIdIterator();
-	virtual ValueIteratorInterface* createUserNameIterator();
+			const std::string& p1) const;
+	virtual ValueIteratorInterface* createTermTypeIterator() const;
+	virtual ValueIteratorInterface* createTermValueIterator() const;
+	virtual ValueIteratorInterface* createDocIdIterator() const;
+	virtual ValueIteratorInterface* createUserNameIterator() const;
 	virtual Index documentStatistics(
 			const Index& p1, 
 			const DocumentStatisticsType& p2, 
-			const std::string& p3);
-	virtual MetaDataReaderInterface* createMetaDataReader();
-	virtual MetaDataRestrictionInterface* createMetaDataRestriction();
-	virtual AttributeReaderInterface* createAttributeReader();
+			const std::string& p3) const;
+	virtual MetaDataReaderInterface* createMetaDataReader() const;
+	virtual MetaDataRestrictionInterface* createMetaDataRestriction() const;
+	virtual AttributeReaderInterface* createAttributeReader() const;
 	virtual StorageTransactionInterface* createTransaction();
 	virtual StatisticsIteratorInterface* createInitStatisticsIterator(
 			bool p1);
 	virtual StatisticsIteratorInterface* createUpdateStatisticsIterator();
-	virtual const StatisticsProcessorInterface* getStatisticsProcessor();
+	virtual const StatisticsProcessorInterface* getStatisticsProcessor() const;
 	virtual StorageDocumentInterface* createDocumentChecker(
 			const std::string& p1, 
-			const std::string& p2);
+			const std::string& p2) const;
 	virtual bool checkStorage(
-			std::ostream& p1);
+			std::ostream& p1) const;
 	virtual StorageDumpInterface* createDump(
-			const std::string& p1);
+			const std::string& p1) const;
 };
 
 class StorageDocumentImpl
 		:public TraceObject<StorageDocumentInterface>
 		,public StorageDocumentInterface
+		,public StorageDocumentConst
 {
 public:
 	StorageDocumentImpl( StorageDocumentInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageDocumentInterface>(obj_,ctx_){}
+	StorageDocumentImpl( const StorageDocumentInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StorageDocumentInterface>(obj_,ctx_){}
 
 	virtual ~StorageDocumentImpl();
@@ -909,9 +1029,12 @@ public:
 class StorageDocumentUpdateImpl
 		:public TraceObject<StorageDocumentUpdateInterface>
 		,public StorageDocumentUpdateInterface
+		,public StorageDocumentUpdateConst
 {
 public:
 	StorageDocumentUpdateImpl( StorageDocumentUpdateInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageDocumentUpdateInterface>(obj_,ctx_){}
+	StorageDocumentUpdateImpl( const StorageDocumentUpdateInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StorageDocumentUpdateInterface>(obj_,ctx_){}
 
 	virtual ~StorageDocumentUpdateImpl();
@@ -934,9 +1057,12 @@ public:
 class StorageDumpImpl
 		:public TraceObject<StorageDumpInterface>
 		,public StorageDumpInterface
+		,public StorageDumpConst
 {
 public:
 	StorageDumpImpl( StorageDumpInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageDumpInterface>(obj_,ctx_){}
+	StorageDumpImpl( const StorageDumpInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StorageDumpInterface>(obj_,ctx_){}
 
 	virtual ~StorageDumpImpl();
@@ -947,54 +1073,63 @@ public:
 class StorageImpl
 		:public TraceObject<StorageInterface>
 		,public StorageInterface
+		,public StorageConst
 {
 public:
 	StorageImpl( StorageInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageInterface>(obj_,ctx_){}
+	StorageImpl( const StorageInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StorageInterface>(obj_,ctx_){}
 
 	virtual ~StorageImpl();
 	virtual StorageClientInterface* createClient(
 			const std::string& p1, 
 			DatabaseClientInterface* p2, 
-			const StatisticsProcessorInterface* p3);
+			const StatisticsProcessorInterface* p3) const;
 	virtual bool createStorage(
 			const std::string& p1, 
-			DatabaseClientInterface* p2);
+			DatabaseClientInterface* p2) const;
 	virtual StorageAlterMetaDataTableInterface* createAlterMetaDataTable(
-			DatabaseClientInterface* p1);
+			DatabaseClientInterface* p1) const;
 	virtual const char* getConfigDescription(
-			const ConfigType& p1);
+			const ConfigType& p1) const;
 	virtual const char** getConfigParameters(
-			const ConfigType& p1);
+			const ConfigType& p1) const;
 };
 
 class StorageObjectBuilderImpl
 		:public TraceObject<StorageObjectBuilderInterface>
 		,public StorageObjectBuilderInterface
+		,public StorageObjectBuilderConst
 {
 public:
 	StorageObjectBuilderImpl( StorageObjectBuilderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageObjectBuilderInterface>(obj_,ctx_){}
+	StorageObjectBuilderImpl( const StorageObjectBuilderInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<StorageObjectBuilderInterface>(obj_,ctx_){}
 
 	virtual ~StorageObjectBuilderImpl();
-	virtual const StorageInterface* getStorage();
+	virtual const StorageInterface* getStorage() const;
 	virtual const DatabaseInterface* getDatabase(
-			const std::string& p1);
-	virtual const QueryProcessorInterface* getQueryProcessor();
-	virtual const StatisticsProcessorInterface* getStatisticsProcessor();
+			const std::string& p1) const;
+	virtual const QueryProcessorInterface* getQueryProcessor() const;
+	virtual const StatisticsProcessorInterface* getStatisticsProcessor() const;
 	virtual StorageClientInterface* createStorageClient(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual StorageAlterMetaDataTableInterface* createAlterMetaDataTable(
-			const std::string& p1);
-	virtual QueryEvalInterface* createQueryEval();
+			const std::string& p1) const;
+	virtual QueryEvalInterface* createQueryEval() const;
 };
 
 class StorageTransactionImpl
 		:public TraceObject<StorageTransactionInterface>
 		,public StorageTransactionInterface
+		,public StorageTransactionConst
 {
 public:
 	StorageTransactionImpl( StorageTransactionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageTransactionInterface>(obj_,ctx_){}
+	StorageTransactionImpl( const StorageTransactionInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<StorageTransactionInterface>(obj_,ctx_){}
 
 	virtual ~StorageTransactionImpl();
@@ -1017,9 +1152,12 @@ public:
 class SummarizerFunctionContextImpl
 		:public TraceObject<SummarizerFunctionContextInterface>
 		,public SummarizerFunctionContextInterface
+		,public SummarizerFunctionContextConst
 {
 public:
 	SummarizerFunctionContextImpl( SummarizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SummarizerFunctionContextInterface>(obj_,ctx_){}
+	SummarizerFunctionContextImpl( const SummarizerFunctionContextInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<SummarizerFunctionContextInterface>(obj_,ctx_){}
 
 	virtual ~SummarizerFunctionContextImpl();
@@ -1036,9 +1174,12 @@ public:
 class SummarizerFunctionInstanceImpl
 		:public TraceObject<SummarizerFunctionInstanceInterface>
 		,public SummarizerFunctionInstanceInterface
+		,public SummarizerFunctionInstanceConst
 {
 public:
 	SummarizerFunctionInstanceImpl( SummarizerFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SummarizerFunctionInstanceInterface>(obj_,ctx_){}
+	SummarizerFunctionInstanceImpl( const SummarizerFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<SummarizerFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~SummarizerFunctionInstanceImpl();
@@ -1051,46 +1192,52 @@ public:
 	virtual SummarizerFunctionContextInterface* createFunctionContext(
 			const StorageClientInterface* p1, 
 			MetaDataReaderInterface* p2, 
-			const GlobalStatistics& p3);
-	virtual std::string tostring();
+			const GlobalStatistics& p3) const;
+	virtual std::string tostring() const;
 };
 
 class SummarizerFunctionImpl
 		:public TraceObject<SummarizerFunctionInterface>
 		,public SummarizerFunctionInterface
+		,public SummarizerFunctionConst
 {
 public:
 	SummarizerFunctionImpl( SummarizerFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SummarizerFunctionInterface>(obj_,ctx_){}
+	SummarizerFunctionImpl( const SummarizerFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<SummarizerFunctionInterface>(obj_,ctx_){}
 
 	virtual ~SummarizerFunctionImpl();
 	virtual SummarizerFunctionInstanceInterface* createInstance(
-			const QueryProcessorInterface* p1);
-	virtual FunctionDescription getDescription();
+			const QueryProcessorInterface* p1) const;
+	virtual FunctionDescription getDescription() const;
 };
 
 class TextProcessorImpl
 		:public TraceObject<TextProcessorInterface>
 		,public TextProcessorInterface
+		,public TextProcessorConst
 {
 public:
 	TextProcessorImpl( TextProcessorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TextProcessorInterface>(obj_,ctx_){}
+	TextProcessorImpl( const TextProcessorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<TextProcessorInterface>(obj_,ctx_){}
 
 	virtual ~TextProcessorImpl();
 	virtual void addResourcePath(
 			const std::string& p1);
 	virtual std::string getResourcePath(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual const TokenizerFunctionInterface* getTokenizer(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual const NormalizerFunctionInterface* getNormalizer(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual const AggregatorFunctionInterface* getAggregator(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual bool detectDocumentClass(
 			DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2);
+			const char* contentBegin, std::size_t p2) const;
 	virtual void defineDocumentClassDetector(
 			DocumentClassDetectorInterface* p1);
 	virtual void defineTokenizer(
@@ -1103,15 +1250,18 @@ public:
 			const std::string& p1, 
 			AggregatorFunctionInterface* p2);
 	virtual std::vector<std::string> getFunctionList(
-			const FunctionType& p1);
+			const FunctionType& p1) const;
 };
 
 class TokenizerFunctionContextImpl
 		:public TraceObject<TokenizerFunctionContextInterface>
 		,public TokenizerFunctionContextInterface
+		,public TokenizerFunctionContextConst
 {
 public:
 	TokenizerFunctionContextImpl( TokenizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenizerFunctionContextInterface>(obj_,ctx_){}
+	TokenizerFunctionContextImpl( const TokenizerFunctionContextInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<TokenizerFunctionContextInterface>(obj_,ctx_){}
 
 	virtual ~TokenizerFunctionContextImpl();
@@ -1122,37 +1272,46 @@ public:
 class TokenizerFunctionInstanceImpl
 		:public TraceObject<TokenizerFunctionInstanceInterface>
 		,public TokenizerFunctionInstanceInterface
+		,public TokenizerFunctionInstanceConst
 {
 public:
 	TokenizerFunctionInstanceImpl( TokenizerFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<TokenizerFunctionInstanceInterface>(obj_,ctx_){}
+	TokenizerFunctionInstanceImpl( const TokenizerFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<TokenizerFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~TokenizerFunctionInstanceImpl();
-	virtual bool concatBeforeTokenize();
-	virtual TokenizerFunctionContextInterface* createFunctionContext();
+	virtual bool concatBeforeTokenize() const;
+	virtual TokenizerFunctionContextInterface* createFunctionContext() const;
 };
 
 class TokenizerFunctionImpl
 		:public TraceObject<TokenizerFunctionInterface>
 		,public TokenizerFunctionInterface
+		,public TokenizerFunctionConst
 {
 public:
 	TokenizerFunctionImpl( TokenizerFunctionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenizerFunctionInterface>(obj_,ctx_){}
+	TokenizerFunctionImpl( const TokenizerFunctionInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<TokenizerFunctionInterface>(obj_,ctx_){}
 
 	virtual ~TokenizerFunctionImpl();
 	virtual TokenizerFunctionInstanceInterface* createInstance(
 			const std::vector<std::string>& p1, 
-			const TextProcessorInterface* p2);
-	virtual const char* getDescription();
+			const TextProcessorInterface* p2) const;
+	virtual const char* getDescription() const;
 };
 
 class ValueIteratorImpl
 		:public TraceObject<ValueIteratorInterface>
 		,public ValueIteratorInterface
+		,public ValueIteratorConst
 {
 public:
 	ValueIteratorImpl( ValueIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ValueIteratorInterface>(obj_,ctx_){}
+	ValueIteratorImpl( const ValueIteratorInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<ValueIteratorInterface>(obj_,ctx_){}
 
 	virtual ~ValueIteratorImpl();
@@ -1165,9 +1324,12 @@ public:
 class WeightingFunctionContextImpl
 		:public TraceObject<WeightingFunctionContextInterface>
 		,public WeightingFunctionContextInterface
+		,public WeightingFunctionContextConst
 {
 public:
 	WeightingFunctionContextImpl( WeightingFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<WeightingFunctionContextInterface>(obj_,ctx_){}
+	WeightingFunctionContextImpl( const WeightingFunctionContextInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<WeightingFunctionContextInterface>(obj_,ctx_){}
 
 	virtual ~WeightingFunctionContextImpl();
@@ -1183,9 +1345,12 @@ public:
 class WeightingFunctionInstanceImpl
 		:public TraceObject<WeightingFunctionInstanceInterface>
 		,public WeightingFunctionInstanceInterface
+		,public WeightingFunctionInstanceConst
 {
 public:
 	WeightingFunctionInstanceImpl( WeightingFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<WeightingFunctionInstanceInterface>(obj_,ctx_){}
+	WeightingFunctionInstanceImpl( const WeightingFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
 		:TraceObject<WeightingFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~WeightingFunctionInstanceImpl();
@@ -1198,22 +1363,25 @@ public:
 	virtual WeightingFunctionContextInterface* createFunctionContext(
 			const StorageClientInterface* p1, 
 			MetaDataReaderInterface* p2, 
-			const GlobalStatistics& p3);
-	virtual std::string tostring();
+			const GlobalStatistics& p3) const;
+	virtual std::string tostring() const;
 };
 
 class WeightingFunctionImpl
 		:public TraceObject<WeightingFunctionInterface>
 		,public WeightingFunctionInterface
+		,public WeightingFunctionConst
 {
 public:
 	WeightingFunctionImpl( WeightingFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<WeightingFunctionInterface>(obj_,ctx_){}
+	WeightingFunctionImpl( const WeightingFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+		:TraceObject<WeightingFunctionInterface>(obj_,ctx_){}
 
 	virtual ~WeightingFunctionImpl();
 	virtual WeightingFunctionInstanceInterface* createInstance(
-			const QueryProcessorInterface* p1);
-	virtual FunctionDescription getDescription();
+			const QueryProcessorInterface* p1) const;
+	virtual FunctionDescription getDescription() const;
 };
 
 

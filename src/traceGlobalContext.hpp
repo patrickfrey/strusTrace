@@ -8,7 +8,11 @@
 /// \brief Global context of the Strus trace
 #ifndef _STRUS_TRACE_GLOBAL_CONTEXT_HPP_INCLUDED
 #define _STRUS_TRACE_GLOBAL_CONTEXT_HPP_INCLUDED
+#include "traceObject.hpp"
+#include "strus/reference.hpp"
+#include "strus/errorBufferInterface.hpp"
 #include "strus/traceLoggerInterface.hpp"
+#include "internationalization.hpp"
 
 namespace strus
 {
@@ -39,6 +43,37 @@ public:
 	{
 		return m_errhnd;
 	}
+	template <class Interface, class InterfaceImpl>
+	const Interface* createInterfaceImpl_const( const Interface* wrapped) const
+	{
+		try
+		{
+			InterfaceImpl* rt = new InterfaceImpl( wrapped, this);
+			m_const_objects.push_back( Reference<TraceObjectBase>( rt));
+			return rt;
+		}
+		catch (const std::bad_alloc&)
+		{
+			m_errhnd->report(_TXT("memory allocation error"));
+			delete wrapped;
+			return 0;
+		}
+	}
+	template <class Interface, class InterfaceImpl>
+	Interface* createInterfaceImpl( Interface* wrapped)
+	{
+		try
+		{
+			InterfaceImpl* rt = new InterfaceImpl( wrapped, this);
+			return rt;
+		}
+		catch (const std::bad_alloc&)
+		{
+			m_errhnd->report(_TXT("memory allocation error"));
+			delete wrapped;
+			return 0;
+		}
+	}
 
 private:
 	TraceGlobalContext( const TraceGlobalContext&){}	///< non copyable
@@ -48,6 +83,7 @@ private:
 	ErrorBufferInterface* m_errhnd;
 	TraceObjectId m_idcnt;
 	TraceLoggerInterface* m_logger;
+	mutable std::vector<Reference<TraceObjectBase> > m_const_objects;
 };
 
 } //namespace

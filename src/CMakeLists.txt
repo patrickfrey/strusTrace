@@ -9,10 +9,12 @@ add_subdirectory( parser )
 set( libstrus_trace_source_files
 	internationalization.cpp
 	serialize.cpp
+	traceObject.cpp
 	traceLogger.cpp
 	traceSerializer.cpp
 	traceViewer.cpp
 	traceViewer_gen.cpp
+	objects_gen.cpp
 )
 
 include_directories(

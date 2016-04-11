@@ -409,7 +409,8 @@ public:
 			}
 			skipSpaces( si, se);
 		}
-		defineOutput( "definition", pattern.c_str());
+		defineOutput( "scopedtype", pattern.c_str());
+		defineOutput( "type", pattern.c_str());
 	}
 
 	bool parse( std::map<std::string,std::string>& result_defmap, char const*& src, const char* end) const
@@ -474,10 +475,6 @@ public:
 
 	void defineOutput( const char* eventname, const char* output)
 	{
-		if (m_output.find( eventname) != m_output.end())
-		{
-			throw std::runtime_error( std::string("duplicate definition of event '") + eventname + "' for pattern '" + m_source + "'");
-		}
 		m_output[ eventname] = OutputDef( output);
 	}
 

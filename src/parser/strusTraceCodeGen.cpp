@@ -8,6 +8,7 @@
 /// \brief Codegeneator for strusTrace
 /// \file strusTraceCodeGen.cpp
 #include "interfaceParser.hpp"
+#include "fillTypeTables.hpp"
 #include "printFrame.hpp"
 #include "strus/private/fileio.hpp"
 #include <stdexcept>
@@ -301,6 +302,8 @@ int main( int argc, const char* argv[])
 	try
 	{
 		strus::TypeSystem typeSystem;
+		strus::fillTypeTables( typeSystem);
+
 #ifdef STRUS_LOWLEVEL_DEBUG
 		std::cout << "TypeSystem:" << std::endl << typeSystem.tostring() << std::endl;
 #endif

@@ -74,19 +74,13 @@ private:
 class TypeSystem
 {
 public:
-	TypeSystem()
-	{
-		fillTypeTables();
-	}
+	TypeSystem(){}
 	~TypeSystem(){}
 
 	VariableType& defineType( const char* pattern, const char* scope_class=0, const char* scope_method=0);
 	VariableValue parse( const std::string& className, const std::string& methodName, char const*& si, const char* se) const;
 
 	std::string tostring() const;
-
-private:
-	void fillTypeTables();
 
 private:
 	std::vector<VariableType> m_variableTypes;

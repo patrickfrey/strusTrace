@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 # --------------------------------------
 set( source_files
 	interfaceParser.cpp
-	interfaceParser_fillTypeTables.cpp
 	printFrame.cpp
+	fillTypeTables.cpp
 )
 
 include_directories(

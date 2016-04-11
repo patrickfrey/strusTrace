@@ -22,9 +22,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "msg.packScalar($name);")
 	;
 	typesystem.defineType( "const GlobalCounter&")
+		("test_null", "$name < 0")
 		("pack_msg", "msg.packScalar($name);")
 	;
 	typesystem.defineType( "Index")
+		("test_null", "$name < 0")
 		("pack_msg", "msg.packScalar($name);")
 	;
 	typesystem.defineType( "SegmenterPosition&")
@@ -40,6 +42,7 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "msg.packScalar($name);")
 	;
 	typesystem.defineType( "std::size_t")
+		("test_null", "$name < 0")
 		("pack_msg", "msg.packScalar($name);")
 	;
 	typesystem.defineType( "bool")
@@ -70,9 +73,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "msg.packIndexVector($name);")
 	;
 	typesystem.defineType( "const char*")
+		("test_null", "$name == 0")
 		("pack_msg", "msg.packCharp($name);")
 	;
 	typesystem.defineType( "const char**")
+		("test_null", "$name == 0")
 		("pack_msg", "msg.packCharpp($name);")
 	;
 	typesystem.defineType( "const char* $bufname, std::size_t")
@@ -80,10 +85,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "msg.packBuffer( $bufname, $name);")
 	;
 	typesystem.defineType( "const char*& $bufname, std::size_t&")
+		("test_null", "$bufname == 0")
 		("pass_param", "$bufname, $name")
 		("pack_msg", "msg.packBuffer( $bufname, $name);")
 	;
 	typesystem.defineType( "const double* $bufname, std::size_t")
+		("test_null", "$bufname == 0")
 		("pass_param", "$bufname, $name")
 		("pack_msg", "msg.packBufferFloat( $bufname, $name);")
 	;
@@ -91,6 +98,7 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "msg.packNumericVariant($name);")
 	;
 	typesystem.defineType( "NumericVariant")
+		("test_null", "!$name.defined()")
 		("pack_msg", "msg.packNumericVariant($name);")
 	;
 	typesystem.defineType( "const DocumentClass&")
@@ -220,8 +228,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "msg.packFunctionDescription($name);")
 	;
 	typesystem.defineType( "$objid~Interface*")
+		("test_null", "$name == 0")
 		("pack_msg", "msg.packObject($name);")
-		("delete", "delete $name;\n$name = 0;")
+		("delete", "if ($name) {delete $name; $name = 0;}")
 	;
 	//Define explicit pass by reference exceptions:
 	static const char* interfacePassByReferenceException[7][2] = {
@@ -238,10 +247,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		const char* classname = interfacePassByReferenceException[ei][0];
 		const char* methodname = interfacePassByReferenceException[ei][1];
 		typesystem.defineType( "$objid~Interface*", classname, methodname)
+			("test_null", "$name == 0")
 			("pack_msg", "msg.packObject($name);")
 		;
 	}
 	typesystem.defineType( "const $objid~Interface*")
+		("test_null", "$name == 0")
 		("pack_msg", "msg.packObject($name);")
 	;
 	typesystem.defineType( "const std::vector<Reference<$objid~Interface> >&")
@@ -252,9 +263,7 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("delete", "std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tdelete *i_$name;\n}\n$name.clear();")
 	;
 	typesystem.defineType( "const char*&")
-		("pack_msg", "msg.packCharp($name);")
-	;
-	typesystem.defineType( "const char*&")
+		("test_null", "$name == 0")
 		("pack_msg", "msg.packCharp($name);")
 	;
 	typesystem.defineType( "const std::string&")

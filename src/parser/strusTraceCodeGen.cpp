@@ -242,18 +242,45 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			out
 			<< ");" << std::endl;
 
+			out << "\tTraceSerializer msg;" << std::endl;
+
 			// Create string with packed function in/out parameters:
-			out
-			<< "\tTraceSerializer msg;" << std::endl
-			<< expandIndent( "\t", mi->returnValue().expand( "pack_msg", "p0")) << std::endl;
+			std::string source_packparam;
+			source_packparam.append( mi->returnValue().expand( "pack_msg", "p0"));
 			pi = mi->parameters().begin();
 			for (int pidx=0; pi != pe; ++pi,++pidx)
 			{
 				char namebuf[ 128];
 				snprintf( namebuf, sizeof( namebuf), "p%d", pidx +1);
-				out << expandIndent( "\t", pi->expand( "pack_msg", namebuf)) << std::endl;
+				source_packparam.append( "\n");
+				source_packparam.append( pi->expand( "pack_msg", namebuf));
 			}
-	
+
+			// Check result:
+			if (hasReturnValue)
+			{
+				std::string test_null( mi->returnValue().expand( "test_null", "p0"));
+				if (!test_null.empty())
+				{
+					out
+					<< expandIndent( "\t", std::string("if (") + test_null + ")") << std::endl
+					<< "\t{" << std::endl
+					<< "\t\ttraceContext()->errorbuf()->report(_TXT(\"method call '%s' failed: %s\"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());" << std::endl
+					<< "\t}" << std::endl
+					<< "\telse" << std::endl
+					<< "\t{" << std::endl
+					<< expandIndent( "\t\t", source_packparam) << std::endl
+					<< "\t}" << std::endl;
+				}
+				else
+				{
+					out << expandIndent( "\t", source_packparam) << std::endl;
+				}
+			}
+			else
+			{
+				out << expandIndent( "\t", source_packparam) << std::endl;
+			}
 			// Check for error and set return value to NULL in this case:
 			out
 			<< "\tif (msg.hasError() || traceContext()->errorbuf()->hasError())" << std::endl

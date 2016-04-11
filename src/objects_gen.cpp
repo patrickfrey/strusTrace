@@ -50,13 +50,19 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_AggregatorFunction, Method_createInstance, objid());
 	AggregatorFunctionInstanceInterface* p0 = obj()->createInstance(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packStringVector(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packStringVector(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -71,7 +77,14 @@ const char* AggregatorFunctionImpl::getDescription()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_AggregatorFunction, Method_getDescription, objid());
 	const char* p0 = obj()->getDescription();
 	TraceSerializer msg;
-	msg.packCharp(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharp(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -95,7 +108,14 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_AnalyzerObjectBuilder, Method_getTextProcessor, objid());
 	const TextProcessorInterface* p0 = obj()->getTextProcessor();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -114,13 +134,19 @@ SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_AnalyzerObjectBuilder, Method_createSegmenter, objid());
 	SegmenterInterface* p0 = obj()->createSegmenter(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -136,13 +162,19 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_AnalyzerObjectBuilder, Method_createDocumentAnalyzer, objid());
 	DocumentAnalyzerInterface* p0 = obj()->createDocumentAnalyzer(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -157,12 +189,18 @@ QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_AnalyzerObjectBuilder, Method_createQueryAnalyzer, objid());
 	QueryAnalyzerInterface* p0 = obj()->createQueryAnalyzer();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -184,8 +222,15 @@ Index AttributeReaderImpl::elementHandle(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_AttributeReader, Method_elementHandle, objid());
 	Index p0 = obj()->elementHandle(p1);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packCharp(p1);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packCharp(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -294,12 +339,18 @@ DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseClient, Method_createTransaction, objid());
 	DatabaseTransactionInterface* p0 = obj()->createTransaction();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -315,13 +366,19 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseClient, Method_createCursor, objid());
 	DatabaseCursorInterface* p0 = obj()->createCursor(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packDatabaseOptions(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packDatabaseOptions(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -336,12 +393,18 @@ DatabaseBackupCursorInterface* DatabaseClientImpl::createBackupCursor()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseClient, Method_createBackupCursor, objid());
 	DatabaseBackupCursorInterface* p0 = obj()->createBackupCursor();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -609,13 +672,19 @@ DatabaseClientInterface* DatabaseImpl::createClient(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_Database, Method_createClient, objid());
 	DatabaseClientInterface* p0 = obj()->createClient(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -693,8 +762,15 @@ const char* DatabaseImpl::getConfigDescription(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_Database, Method_getConfigDescription, objid());
 	const char* p0 = obj()->getConfigDescription(p1);
 	TraceSerializer msg;
-	msg.packCharp(p0);
-	msg.packDatabaseConfigType(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharp(p0);
+		msg.packDatabaseConfigType(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -713,8 +789,15 @@ const char** DatabaseImpl::getConfigParameters(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_Database, Method_getConfigParameters, objid());
 	const char** p0 = obj()->getConfigParameters(p1);
 	TraceSerializer msg;
-	msg.packCharpp(p0);
-	msg.packDatabaseConfigType(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharpp(p0);
+		msg.packDatabaseConfigType(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -739,13 +822,19 @@ DatabaseCursorInterface* DatabaseTransactionImpl::createCursor(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseTransaction, Method_createCursor, objid());
 	DatabaseCursorInterface* p0 = obj()->createCursor(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packDatabaseOptions(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packDatabaseOptions(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -928,8 +1017,7 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p3;
-		p3 = 0;
+		if (p3) {delete p3; p3 = 0;}
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
@@ -971,8 +1059,7 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p3;
-		p3 = 0;
+		if (p3) {delete p3; p3 = 0;}
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
@@ -1012,8 +1099,7 @@ void DocumentAnalyzerImpl::defineMetaData(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p3;
-		p3 = 0;
+		if (p3) {delete p3; p3 = 0;}
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
@@ -1042,8 +1128,7 @@ void DocumentAnalyzerImpl::defineAggregatedMetaData(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1076,8 +1161,7 @@ void DocumentAnalyzerImpl::defineAttribute(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p3;
-		p3 = 0;
+		if (p3) {delete p3; p3 = 0;}
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
@@ -1142,13 +1226,19 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DocumentAnalyzer, Method_createContext, objid());
 	DocumentAnalyzerContextInterface* p0 = obj()->createContext(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packDocumentClass(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packDocumentClass(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1198,8 +1288,15 @@ Index DocumentTermIteratorImpl::skipDoc(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DocumentTermIterator, Method_skipDoc, objid());
 	Index p0 = obj()->skipDoc(p1);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packScalar(p1);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1303,8 +1400,15 @@ Index ForwardIteratorImpl::skipPos(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_ForwardIterator, Method_skipPos, objid());
 	Index p0 = obj()->skipPos(p1);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packScalar(p1);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1347,8 +1451,15 @@ Index InvAclIteratorImpl::skipDoc(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_InvAclIterator, Method_skipDoc, objid());
 	Index p0 = obj()->skipDoc(p1);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packScalar(p1);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1393,8 +1504,15 @@ Index MetaDataReaderImpl::elementHandle(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_MetaDataReader, Method_elementHandle, objid());
 	Index p0 = obj()->elementHandle(p1);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packString(p1);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1412,7 +1530,14 @@ Index MetaDataReaderImpl::nofElements()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_MetaDataReader, Method_nofElements, objid());
 	Index p0 = obj()->nofElements();
 	TraceSerializer msg;
-	msg.packScalar(p0);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1450,8 +1575,15 @@ NumericVariant MetaDataReaderImpl::getValue(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_MetaDataReader, Method_getValue, objid());
 	NumericVariant p0 = obj()->getValue(p1);
 	TraceSerializer msg;
-	msg.packNumericVariant(p0);
-	msg.packScalar(p1);
+	if (!p0.defined())
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packNumericVariant(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1470,8 +1602,15 @@ const char* MetaDataReaderImpl::getType(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_MetaDataReader, Method_getType, objid());
 	const char* p0 = obj()->getType(p1);
 	TraceSerializer msg;
-	msg.packCharp(p0);
-	msg.packScalar(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharp(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1490,8 +1629,15 @@ const char* MetaDataReaderImpl::getName(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_MetaDataReader, Method_getName, objid());
 	const char* p0 = obj()->getName(p1);
 	TraceSerializer msg;
-	msg.packCharp(p0);
-	msg.packScalar(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharp(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1566,12 +1712,18 @@ MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_MetaDataRestriction, Method_createInstance, objid());
 	MetaDataRestrictionInstanceInterface* p0 = obj()->createInstance();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1636,12 +1788,18 @@ NormalizerFunctionContextInterface* NormalizerFunctionInstanceImpl::createFuncti
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_NormalizerFunctionInstance, Method_createFunctionContext, objid());
 	NormalizerFunctionContextInterface* p0 = obj()->createFunctionContext();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1664,14 +1822,20 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_NormalizerFunction, Method_createInstance, objid());
 	NormalizerFunctionInstanceInterface* p0 = obj()->createInstance(p1, p2);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packStringVector(p1);
-	msg.packObject(p2);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packStringVector(p1);
+		msg.packObject(p2);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1686,7 +1850,14 @@ const char* NormalizerFunctionImpl::getDescription()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_NormalizerFunction, Method_getDescription, objid());
 	const char* p0 = obj()->getDescription();
 	TraceSerializer msg;
-	msg.packCharp(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharp(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1711,8 +1882,15 @@ Index PostingIteratorImpl::skipDoc(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_PostingIterator, Method_skipDoc, objid());
 	Index p0 = obj()->skipDoc(p1);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packScalar(p1);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1731,8 +1909,15 @@ Index PostingIteratorImpl::skipDocCandidate(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_PostingIterator, Method_skipDocCandidate, objid());
 	Index p0 = obj()->skipDocCandidate(p1);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packScalar(p1);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1751,8 +1936,15 @@ Index PostingIteratorImpl::skipPos(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_PostingIterator, Method_skipPos, objid());
 	Index p0 = obj()->skipPos(p1);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packScalar(p1);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1770,7 +1962,14 @@ const char* PostingIteratorImpl::featureid()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_PostingIterator, Method_featureid, objid());
 	const char* p0 = obj()->featureid();
 	TraceSerializer msg;
-	msg.packCharp(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharp(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1788,7 +1987,14 @@ Index PostingIteratorImpl::documentFrequency()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_PostingIterator, Method_documentFrequency, objid());
 	Index p0 = obj()->documentFrequency();
 	TraceSerializer msg;
-	msg.packScalar(p0);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1824,7 +2030,14 @@ Index PostingIteratorImpl::docno()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_PostingIterator, Method_docno, objid());
 	Index p0 = obj()->docno();
 	TraceSerializer msg;
-	msg.packScalar(p0);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1842,7 +2055,14 @@ Index PostingIteratorImpl::posno()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_PostingIterator, Method_posno, objid());
 	Index p0 = obj()->posno();
 	TraceSerializer msg;
-	msg.packScalar(p0);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1869,22 +2089,28 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_PostingJoinOperator, Method_createResultIterator, objid());
 	PostingIteratorInterface* p0 = obj()->createResultIterator(p1, p2, p3);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	const std::vector<Reference<PostingIteratorInterface> >::const_iterator
-		i_p1 = p1.begin(), e_p1 = p1.end();
-	for (std::size_t idx_p1=0; i_p1 != e_p1; ++i_p1,++idx_p1)
+	if (p0 == 0)
 	{
-		msg.openIndex( idx_p1); 
-		msg.packObject(**i_p1);
-		msg.close();
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
 	}
-	msg.packScalar(p2);
-	msg.packScalar(p3);
+	else
+	{
+		msg.packObject(p0);
+		const std::vector<Reference<PostingIteratorInterface> >::const_iterator
+			i_p1 = p1.begin(), e_p1 = p1.end();
+		for (std::size_t idx_p1=0; i_p1 != e_p1; ++i_p1,++idx_p1)
+		{
+			msg.openIndex( idx_p1); 
+			msg.packObject(**i_p1);
+			msg.close();
+		}
+		msg.packScalar(p2);
+		msg.packScalar(p3);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -1942,8 +2168,7 @@ void QueryAnalyzerImpl::definePhraseType(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p3;
-		p3 = 0;
+		if (p3) {delete p3; p3 = 0;}
 		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
@@ -2102,8 +2327,7 @@ void QueryEvalImpl::addSummarizerFunction(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2127,8 +2351,7 @@ void QueryEvalImpl::addWeightingFunction(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2148,8 +2371,7 @@ void QueryEvalImpl::defineWeightingFormula(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p1;
-		p1 = 0;
+		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2164,13 +2386,19 @@ QueryInterface* QueryEvalImpl::createQuery(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_QueryEval, Method_createQuery, objid());
 	QueryInterface* p0 = obj()->createQuery(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packObject(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packObject(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2473,8 +2701,7 @@ void QueryProcessorImpl::definePostingJoinOperator(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2489,8 +2716,15 @@ const PostingJoinOperatorInterface* QueryProcessorImpl::getPostingJoinOperator(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_QueryProcessor, Method_getPostingJoinOperator, objid());
 	const PostingJoinOperatorInterface* p0 = obj()->getPostingJoinOperator(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2516,8 +2750,7 @@ void QueryProcessorImpl::defineWeightingFunction(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2532,8 +2765,15 @@ const WeightingFunctionInterface* QueryProcessorImpl::getWeightingFunction(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_QueryProcessor, Method_getWeightingFunction, objid());
 	const WeightingFunctionInterface* p0 = obj()->getWeightingFunction(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2559,8 +2799,7 @@ void QueryProcessorImpl::defineSummarizerFunction(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2575,8 +2814,15 @@ const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_QueryProcessor, Method_getSummarizerFunction, objid());
 	const SummarizerFunctionInterface* p0 = obj()->getSummarizerFunction(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2622,8 +2868,7 @@ void QueryProcessorImpl::defineScalarFunctionParser(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2638,8 +2883,15 @@ const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_QueryProcessor, Method_getScalarFunctionParser, objid());
 	const ScalarFunctionParserInterface* p0 = obj()->getScalarFunctionParser(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2746,7 +2998,14 @@ std::size_t ScalarFunctionImpl::getNofArguments()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_ScalarFunction, Method_getNofArguments, objid());
 	std::size_t p0 = obj()->getNofArguments();
 	TraceSerializer msg;
-	msg.packScalar(p0);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2785,12 +3044,18 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_ScalarFunction, Method_createInstance, objid());
 	ScalarFunctionInstanceInterface* p0 = obj()->createInstance();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2831,14 +3096,20 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_ScalarFunctionParser, Method_createFunction, objid());
 	ScalarFunctionInterface* p0 = obj()->createFunction(p1, p2);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
-	msg.packStringVector(p2);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+		msg.packStringVector(p2);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2955,13 +3226,19 @@ SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_SegmenterInstance, Method_createContext, objid());
 	SegmenterContextInterface* p0 = obj()->createContext(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packDocumentClass(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packDocumentClass(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -2982,7 +3259,14 @@ const char* SegmenterImpl::mimeType()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_Segmenter, Method_mimeType, objid());
 	const char* p0 = obj()->mimeType();
 	TraceSerializer msg;
-	msg.packCharp(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharp(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3000,12 +3284,18 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_Segmenter, Method_createInstance, objid());
 	SegmenterInstanceInterface* p0 = obj()->createInstance();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3155,13 +3445,19 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StatisticsProcessor, Method_createViewer, objid());
 	StatisticsViewerInterface* p0 = obj()->createViewer(msgptr, p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packBuffer( msgptr, p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packBuffer( msgptr, p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3177,13 +3473,19 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StatisticsProcessor, Method_createBuilder, objid());
 	StatisticsBuilderInterface* p0 = obj()->createBuilder(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packStatisticsProcessorBuilderOptions(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packStatisticsProcessorBuilderOptions(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3394,14 +3696,20 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createTermPostingIterator, objid());
 	PostingIteratorInterface* p0 = obj()->createTermPostingIterator(p1, p2);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
-	msg.packString(p2);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+		msg.packString(p2);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3418,14 +3726,20 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createBrowsePostingIterator, objid());
 	PostingIteratorInterface* p0 = obj()->createBrowsePostingIterator(p1, p2);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packObject(p1);
-	msg.packScalar(p2);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packObject(p1);
+		msg.packScalar(p2);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3441,13 +3755,19 @@ ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createForwardIterator, objid());
 	ForwardIteratorInterface* p0 = obj()->createForwardIterator(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3463,13 +3783,19 @@ DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createDocumentTermIterator, objid());
 	DocumentTermIteratorInterface* p0 = obj()->createDocumentTermIterator(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3485,13 +3811,19 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createInvAclIterator, objid());
 	InvAclIteratorInterface* p0 = obj()->createInvAclIterator(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3506,7 +3838,14 @@ Index StorageClientImpl::nofDocumentsInserted()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_nofDocumentsInserted, objid());
 	Index p0 = obj()->nofDocumentsInserted();
 	TraceSerializer msg;
-	msg.packScalar(p0);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3526,9 +3865,16 @@ Index StorageClientImpl::documentFrequency(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_documentFrequency, objid());
 	Index p0 = obj()->documentFrequency(p1, p2);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packString(p1);
-	msg.packString(p2);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packString(p1);
+		msg.packString(p2);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3546,7 +3892,14 @@ Index StorageClientImpl::maxDocumentNumber()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_maxDocumentNumber, objid());
 	Index p0 = obj()->maxDocumentNumber();
 	TraceSerializer msg;
-	msg.packScalar(p0);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3565,8 +3918,15 @@ Index StorageClientImpl::documentNumber(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_documentNumber, objid());
 	Index p0 = obj()->documentNumber(p1);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packString(p1);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3584,12 +3944,18 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createTermTypeIterator, objid());
 	ValueIteratorInterface* p0 = obj()->createTermTypeIterator();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3604,12 +3970,18 @@ ValueIteratorInterface* StorageClientImpl::createTermValueIterator()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createTermValueIterator, objid());
 	ValueIteratorInterface* p0 = obj()->createTermValueIterator();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3624,12 +3996,18 @@ ValueIteratorInterface* StorageClientImpl::createDocIdIterator()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createDocIdIterator, objid());
 	ValueIteratorInterface* p0 = obj()->createDocIdIterator();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3644,12 +4022,18 @@ ValueIteratorInterface* StorageClientImpl::createUserNameIterator()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createUserNameIterator, objid());
 	ValueIteratorInterface* p0 = obj()->createUserNameIterator();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3667,10 +4051,17 @@ Index StorageClientImpl::documentStatistics(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_documentStatistics, objid());
 	Index p0 = obj()->documentStatistics(p1, p2, p3);
 	TraceSerializer msg;
-	msg.packScalar(p0);
-	msg.packScalar(p1);
-	msg.packDocumentStatisticsType(p2);
-	msg.packString(p3);
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packScalar(p0);
+		msg.packScalar(p1);
+		msg.packDocumentStatisticsType(p2);
+		msg.packString(p3);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3688,12 +4079,18 @@ MetaDataReaderInterface* StorageClientImpl::createMetaDataReader()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createMetaDataReader, objid());
 	MetaDataReaderInterface* p0 = obj()->createMetaDataReader();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3708,12 +4105,18 @@ MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createMetaDataRestriction, objid());
 	MetaDataRestrictionInterface* p0 = obj()->createMetaDataRestriction();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3728,12 +4131,18 @@ AttributeReaderInterface* StorageClientImpl::createAttributeReader()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createAttributeReader, objid());
 	AttributeReaderInterface* p0 = obj()->createAttributeReader();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3748,12 +4157,18 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createTransaction, objid());
 	StorageTransactionInterface* p0 = obj()->createTransaction();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3769,13 +4184,19 @@ StatisticsIteratorInterface* StorageClientImpl::createInitStatisticsIterator(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createInitStatisticsIterator, objid());
 	StatisticsIteratorInterface* p0 = obj()->createInitStatisticsIterator(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packBool(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packBool(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3790,12 +4211,18 @@ StatisticsIteratorInterface* StorageClientImpl::createUpdateStatisticsIterator()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createUpdateStatisticsIterator, objid());
 	StatisticsIteratorInterface* p0 = obj()->createUpdateStatisticsIterator();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3810,7 +4237,14 @@ const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_getStatisticsProcessor, objid());
 	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3830,14 +4264,20 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createDocumentChecker, objid());
 	StorageDocumentInterface* p0 = obj()->createDocumentChecker(p1, p2);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
-	msg.packString(p2);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+		msg.packString(p2);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -3873,13 +4313,19 @@ StorageDumpInterface* StorageClientImpl::createDump(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageClient, Method_createDump, objid());
 	StorageDumpInterface* p0 = obj()->createDump(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4198,17 +4644,22 @@ StorageClientInterface* StorageImpl::createClient(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_Storage, Method_createClient, objid());
 	StorageClientInterface* p0 = obj()->createClient(p1, p2, p3);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
-	msg.packObject(p2);
-	msg.packObject(p3);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+		msg.packObject(p2);
+		msg.packObject(p3);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
-		delete p2;
-		p2 = 0;
+		if (p0) {delete p0; p0 = 0;}
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4246,15 +4697,20 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_Storage, Method_createAlterMetaDataTable, objid());
 	StorageAlterMetaDataTableInterface* p0 = obj()->createAlterMetaDataTable(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packObject(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packObject(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
-		delete p1;
-		p1 = 0;
+		if (p0) {delete p0; p0 = 0;}
+		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4270,8 +4726,15 @@ const char* StorageImpl::getConfigDescription(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_Storage, Method_getConfigDescription, objid());
 	const char* p0 = obj()->getConfigDescription(p1);
 	TraceSerializer msg;
-	msg.packCharp(p0);
-	msg.packStorageConfigType(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharp(p0);
+		msg.packStorageConfigType(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4290,8 +4753,15 @@ const char** StorageImpl::getConfigParameters(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_Storage, Method_getConfigParameters, objid());
 	const char** p0 = obj()->getConfigParameters(p1);
 	TraceSerializer msg;
-	msg.packCharpp(p0);
-	msg.packStorageConfigType(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharpp(p0);
+		msg.packStorageConfigType(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4315,7 +4785,14 @@ const StorageInterface* StorageObjectBuilderImpl::getStorage()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageObjectBuilder, Method_getStorage, objid());
 	const StorageInterface* p0 = obj()->getStorage();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4334,8 +4811,15 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageObjectBuilder, Method_getDatabase, objid());
 	const DatabaseInterface* p0 = obj()->getDatabase(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4353,7 +4837,14 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageObjectBuilder, Method_getQueryProcessor, objid());
 	const QueryProcessorInterface* p0 = obj()->getQueryProcessor();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4371,7 +4862,14 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageObjectBuilder, Method_getStatisticsProcessor, objid());
 	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4390,13 +4888,19 @@ StorageClientInterface* StorageObjectBuilderImpl::createStorageClient(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageObjectBuilder, Method_createStorageClient, objid());
 	StorageClientInterface* p0 = obj()->createStorageClient(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4412,13 +4916,19 @@ StorageAlterMetaDataTableInterface* StorageObjectBuilderImpl::createAlterMetaDat
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageObjectBuilder, Method_createAlterMetaDataTable, objid());
 	StorageAlterMetaDataTableInterface* p0 = obj()->createAlterMetaDataTable(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4433,12 +4943,18 @@ QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageObjectBuilder, Method_createQueryEval, objid());
 	QueryEvalInterface* p0 = obj()->createQueryEval();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4460,13 +4976,19 @@ StorageDocumentInterface* StorageTransactionImpl::createDocument(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageTransaction, Method_createDocument, objid());
 	StorageDocumentInterface* p0 = obj()->createDocument(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4482,13 +5004,19 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageTransaction, Method_createDocumentUpdate, objid());
 	StorageDocumentUpdateInterface* p0 = obj()->createDocumentUpdate(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packScalar(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packScalar(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4703,10 +5231,17 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_SummarizerFunctionInstance, Method_createFunctionContext, objid());
 	SummarizerFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2, p3);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packObject(p1);
-	msg.packObject(p2);
-	msg.packGlobalStatistics(p3);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packObject(p1);
+		msg.packObject(p2);
+		msg.packGlobalStatistics(p3);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4749,13 +5284,19 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_SummarizerFunction, Method_createInstance, objid());
 	SummarizerFunctionInstanceInterface* p0 = obj()->createInstance(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packObject(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packObject(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4834,8 +5375,15 @@ const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_TextProcessor, Method_getTokenizer, objid());
 	const TokenizerFunctionInterface* p0 = obj()->getTokenizer(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4854,8 +5402,15 @@ const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_TextProcessor, Method_getNormalizer, objid());
 	const NormalizerFunctionInterface* p0 = obj()->getNormalizer(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4874,8 +5429,15 @@ const AggregatorFunctionInterface* TextProcessorImpl::getAggregator(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_TextProcessor, Method_getAggregator, objid());
 	const AggregatorFunctionInterface* p0 = obj()->getAggregator(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packString(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packString(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4921,8 +5483,7 @@ void TextProcessorImpl::defineDocumentClassDetector(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p1;
-		p1 = 0;
+		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4944,8 +5505,7 @@ void TextProcessorImpl::defineTokenizer(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4967,8 +5527,7 @@ void TextProcessorImpl::defineNormalizer(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -4990,8 +5549,7 @@ void TextProcessorImpl::defineAggregator(
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p2;
-		p2 = 0;
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5075,12 +5633,18 @@ TokenizerFunctionContextInterface* TokenizerFunctionInstanceImpl::createFunction
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_TokenizerFunctionInstance, Method_createFunctionContext, objid());
 	TokenizerFunctionContextInterface* p0 = obj()->createFunctionContext();
 	TraceSerializer msg;
-	msg.packObject(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5103,14 +5667,20 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_TokenizerFunction, Method_createInstance, objid());
 	TokenizerFunctionInstanceInterface* p0 = obj()->createInstance(p1, p2);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packStringVector(p1);
-	msg.packObject(p2);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packStringVector(p1);
+		msg.packObject(p2);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else
@@ -5125,7 +5695,14 @@ const char* TokenizerFunctionImpl::getDescription()
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_TokenizerFunction, Method_getDescription, objid());
 	const char* p0 = obj()->getDescription();
 	TraceSerializer msg;
-	msg.packCharp(p0);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packCharp(p0);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -5290,10 +5867,17 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_WeightingFunctionInstance, Method_createFunctionContext, objid());
 	WeightingFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2, p3);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packObject(p1);
-	msg.packObject(p2);
-	msg.packGlobalStatistics(p3);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packObject(p1);
+		msg.packObject(p2);
+		msg.packGlobalStatistics(p3);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -5336,13 +5920,19 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_WeightingFunction, Method_createInstance, objid());
 	WeightingFunctionInstanceInterface* p0 = obj()->createInstance(p1);
 	TraceSerializer msg;
-	msg.packObject(p0);
-	msg.packObject(p1);
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), mi->name().c_str(), traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		msg.packObject(p0);
+		msg.packObject(p1);
+	}
 	if (msg.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (msg.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		delete p0;
-		p0 = 0;
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger().logMethodTermination( callhnd, "");
 	}
 	else

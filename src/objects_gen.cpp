@@ -266,7 +266,7 @@ bool DatabaseBackupCursorImpl::fetch(
 			const char*& blk, std::size_t& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseBackupCursor, Method_fetch, objid());
-	bool p0 = obj()->fetch(p1, p2);
+	bool p0 = obj()->fetch(key, p1, blk, p2);
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packBuffer( key, p1);
@@ -356,7 +356,7 @@ void DatabaseClientImpl::writeImm(
 			const char* value, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseClient, Method_writeImm, objid());
-	obj()->writeImm(p1, p2);
+	obj()->writeImm(key, p1, value, p2);
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( key, p1);
@@ -376,7 +376,7 @@ void DatabaseClientImpl::removeImm(
 			const char* key, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseClient, Method_removeImm, objid());
-	obj()->removeImm(p1);
+	obj()->removeImm(key, p1);
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( key, p1);
@@ -397,7 +397,7 @@ bool DatabaseClientImpl::readValue(
 			const DatabaseOptions& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseClient, Method_readValue, objid());
-	bool p0 = obj()->readValue(p1, p2, p3);
+	bool p0 = obj()->readValue(key, p1, p2, p3);
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packBuffer( key, p1);
@@ -426,7 +426,7 @@ Slice DatabaseCursorImpl::seekUpperBound(
 			std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseCursor, Method_seekUpperBound, objid());
-	Slice p0 = obj()->seekUpperBound(p1, p2);
+	Slice p0 = obj()->seekUpperBound(key, p1, p2);
 	TraceSerializer msg;
 	msg.packSlice(p0);
 	msg.packBuffer( key, p1);
@@ -448,7 +448,7 @@ Slice DatabaseCursorImpl::seekUpperBoundRestricted(
 			const char* upkey, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseCursor, Method_seekUpperBoundRestricted, objid());
-	Slice p0 = obj()->seekUpperBoundRestricted(p1, p2);
+	Slice p0 = obj()->seekUpperBoundRestricted(key, p1, upkey, p2);
 	TraceSerializer msg;
 	msg.packSlice(p0);
 	msg.packBuffer( key, p1);
@@ -469,7 +469,7 @@ Slice DatabaseCursorImpl::seekFirst(
 			const char* domainkey, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseCursor, Method_seekFirst, objid());
-	Slice p0 = obj()->seekFirst(p1);
+	Slice p0 = obj()->seekFirst(domainkey, p1);
 	TraceSerializer msg;
 	msg.packSlice(p0);
 	msg.packBuffer( domainkey, p1);
@@ -489,7 +489,7 @@ Slice DatabaseCursorImpl::seekLast(
 			const char* domainkey, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseCursor, Method_seekLast, objid());
-	Slice p0 = obj()->seekLast(p1);
+	Slice p0 = obj()->seekLast(domainkey, p1);
 	TraceSerializer msg;
 	msg.packSlice(p0);
 	msg.packBuffer( domainkey, p1);
@@ -760,7 +760,7 @@ void DatabaseTransactionImpl::write(
 			const char* value, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseTransaction, Method_write, objid());
-	obj()->write(p1, p2);
+	obj()->write(key, p1, value, p2);
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( key, p1);
@@ -780,7 +780,7 @@ void DatabaseTransactionImpl::remove(
 			const char* key, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseTransaction, Method_remove, objid());
-	obj()->remove(p1);
+	obj()->remove(key, p1);
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( key, p1);
@@ -799,7 +799,7 @@ void DatabaseTransactionImpl::removeSubTree(
 			const char* domainkey, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DatabaseTransaction, Method_removeSubTree, objid());
-	obj()->removeSubTree(p1);
+	obj()->removeSubTree(domainkey, p1);
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( domainkey, p1);
@@ -860,7 +860,7 @@ void DocumentAnalyzerContextImpl::putInput(
 			bool p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DocumentAnalyzerContext, Method_putInput, objid());
-	obj()->putInput(p1, p2);
+	obj()->putInput(chunk, p1, p2);
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( chunk, p1);
@@ -1169,7 +1169,7 @@ bool DocumentClassDetectorImpl::detect(
 			const char* contentBegin, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_DocumentClassDetector, Method_detect, objid());
-	bool p0 = obj()->detect(p1, p2);
+	bool p0 = obj()->detect(p1, contentBegin, p2);
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packDocumentClass(p1);
@@ -1609,7 +1609,7 @@ std::string NormalizerFunctionContextImpl::normalize(
 			const char* src, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_NormalizerFunctionContext, Method_normalize, objid());
-	std::string p0 = obj()->normalize(p1);
+	std::string p0 = obj()->normalize(src, p1);
 	TraceSerializer msg;
 	msg.packString(p0);
 	msg.packBuffer( src, p1);
@@ -2683,7 +2683,7 @@ double ScalarFunctionInstanceImpl::call(
 			const double* args, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_ScalarFunctionInstance, Method_call, objid());
-	double p0 = obj()->call(p1);
+	double p0 = obj()->call(args, p1);
 	TraceSerializer msg;
 	msg.packScalar(p0);
 	msg.packBufferFloat( args, p1);
@@ -2859,7 +2859,7 @@ void SegmenterContextImpl::putInput(
 			bool p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_SegmenterContext, Method_putInput, objid());
-	obj()->putInput(p1, p2);
+	obj()->putInput(chunk, p1, p2);
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( chunk, p1);
@@ -2881,7 +2881,7 @@ bool SegmenterContextImpl::getNext(
 			const char*& segment, std::size_t& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_SegmenterContext, Method_getNext, objid());
-	bool p0 = obj()->getNext(p1, p2, p3);
+	bool p0 = obj()->getNext(p1, p2, segment, p3);
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packScalar(p1);
@@ -3101,7 +3101,7 @@ bool StatisticsBuilderImpl::fetchMessage(
 			const char*& blk, std::size_t& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StatisticsBuilder, Method_fetchMessage, objid());
-	bool p0 = obj()->fetchMessage(p1);
+	bool p0 = obj()->fetchMessage(blk, p1);
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packBuffer( blk, p1);
@@ -3127,7 +3127,7 @@ bool StatisticsIteratorImpl::getNext(
 			const char*& msg, std::size_t& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StatisticsIterator, Method_getNext, objid());
-	bool p0 = obj()->getNext(p1);
+	bool p0 = obj()->getNext(msg, p1);
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packBuffer( msg, p1);
@@ -3153,7 +3153,7 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 			const char* msgptr, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StatisticsProcessor, Method_createViewer, objid());
-	StatisticsViewerInterface* p0 = obj()->createViewer(p1);
+	StatisticsViewerInterface* p0 = obj()->createViewer(msgptr, p1);
 	TraceSerializer msg;
 	msg.packObject(p0);
 	msg.packBuffer( msgptr, p1);
@@ -4168,7 +4168,7 @@ bool StorageDumpImpl::nextChunk(
 			const char*& chunk, std::size_t& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_StorageDump, Method_nextChunk, objid());
-	bool p0 = obj()->nextChunk(p1);
+	bool p0 = obj()->nextChunk(chunk, p1);
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packBuffer( chunk, p1);
@@ -4893,7 +4893,7 @@ bool TextProcessorImpl::detectDocumentClass(
 			const char* contentBegin, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_TextProcessor, Method_detectDocumentClass, objid());
-	bool p0 = obj()->detectDocumentClass(p1, p2);
+	bool p0 = obj()->detectDocumentClass(p1, contentBegin, p2);
 	TraceSerializer msg;
 	msg.packBool(p0);
 	msg.packDocumentClass(p1);
@@ -5030,7 +5030,7 @@ std::vector<analyzer::Token> TokenizerFunctionContextImpl::tokenize(
 			const char* src, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_TokenizerFunctionContext, Method_tokenize, objid());
-	std::vector<analyzer::Token> p0 = obj()->tokenize(p1);
+	std::vector<analyzer::Token> p0 = obj()->tokenize(src, p1);
 	TraceSerializer msg;
 	msg.packAnalyzerTokenVector(p0);
 	msg.packBuffer( src, p1);
@@ -5148,7 +5148,7 @@ void ValueIteratorImpl::skip(
 			const char* value, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger().logMethodCall( ClassId_ValueIterator, Method_skip, objid());
-	obj()->skip(p1);
+	obj()->skip(value, p1);
 	TraceSerializer msg;
 	msg.packVoid();
 	msg.packBuffer( value, p1);

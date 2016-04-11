@@ -228,11 +228,15 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 				out << "\t";
 			}
 			out << "obj()->" << mi->name() << "(";
-			std::size_t ai = 0, ae = mi->parameters().size();
-			for (; ai != ae; ++ai)
+			pi = mi->parameters().begin();
+			for (int pidx=0; pi != pe; ++pi,++pidx)
 			{
-				if (ai) out << ", ";
-				out << "p" << (ai+1); 
+				char namebuf[ 128];
+				snprintf( namebuf, sizeof( namebuf), "p%d", pidx +1);
+				std::string passparam( pi->expand( "pass_param", namebuf));
+				if (passparam.empty()) passparam.append( namebuf);
+				if (pidx) out << ", ";
+				out << passparam;
 			}
 			out
 			<< ");" << std::endl;
@@ -245,7 +249,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			for (int pidx=0; pi != pe; ++pi,++pidx)
 			{
 				char namebuf[ 128];
-				snprintf( namebuf, sizeof( namebuf), "p%u", pidx +1);
+				snprintf( namebuf, sizeof( namebuf), "p%d", pidx +1);
 				out << expandIndent( "\t", pi->expand( "pack_msg", namebuf)) << std::endl;
 			}
 	
@@ -263,7 +267,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			for (int pidx=0; pi != pe; ++pi,++pidx)
 			{
 				char namebuf[ 128];
-				snprintf( namebuf, sizeof( namebuf), "p%u", pidx +1);
+				snprintf( namebuf, sizeof( namebuf), "p%d", pidx +1);
 				deleteInstr = pi->expand( "delete", namebuf);
 				if (!deleteInstr.empty())
 				{

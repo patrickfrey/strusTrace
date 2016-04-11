@@ -75,12 +75,15 @@ void TypeSystem::fillTypeTables()
 		("pack_msg", "msg.packCharpp($name);")
 	;
 	defineType( "const char* $bufname, std::size_t")
+		("pass_param", "$bufname, $name")
 		("pack_msg", "msg.packBuffer( $bufname, $name);")
 	;
 	defineType( "const char*& $bufname, std::size_t&")
+		("pass_param", "$bufname, $name")
 		("pack_msg", "msg.packBuffer( $bufname, $name);")
 	;
 	defineType( "const double* $bufname, std::size_t")
+		("pass_param", "$bufname, $name")
 		("pack_msg", "msg.packBufferFloat( $bufname, $name);")
 	;
 	defineType( "const NumericVariant&")

@@ -158,7 +158,7 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 			out << ");" << std::endl;
 		}
 		out
-			<< "};" << std::endl;
+			<< "};" << std::endl << std::endl;
 	}
 	out
 		<< std::endl

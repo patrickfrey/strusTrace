@@ -1,13 +1,15 @@
 /*
- * Copyright (c) 2016 Patrick P. Frey
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-#ifndef _STRUS_TRACE_OBJECT_IDS_HPP_INCLUDED
-#define _STRUS_TRACE_OBJECT_IDS_HPP_INCLUDED
-
+* Copyright (c) 2016 Patrick P. Frey
+*
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+/// \brief Identifiers for objects and methods for serialization
+/// \note PROGRAM (strusTraceCodeGen) GENERATED FILE! DO NOT MODIFY!!!
+/// \file objectIds_gen.hpp
+#ifndef _STRUS_TRACE_PARSER_objectIds_gen_HPP_INCLUDED
+#define _STRUS_TRACE_PARSER_objectIds_gen_HPP_INCLUDED
 namespace strus {
 
 enum ClassId
@@ -813,5 +815,8 @@ public:
 		Method_getDescription
 	};
 };
-} //namespace
+
+
+}//namespace
 #endif
+

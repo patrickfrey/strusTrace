@@ -36,7 +36,6 @@ public:
 		TypeFloat,
 		TypeDouble,
 		TypeBool,
-		TypeEnum,
 		TypeString,
 		TypeOpenIndex,
 		TypeOpenTag,

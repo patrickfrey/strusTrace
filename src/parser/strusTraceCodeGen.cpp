@@ -335,6 +335,53 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 }
 
 
+static void print_IdMapCpp( std::ostream& out, const strus::InterfacesDef& interfaceDef)
+{
+	strus::printCppFrameHeader( out, "traceIdMap_gen", "Fill map of strings to identifiers and back for objects and methods for serialization");
+	out << "#include \"traceIdMap.hpp\"" << std::endl;
+	out << "#include \"objectIds_gen.hpp\"" << std::endl;
+
+	out
+	<< std::endl
+	<< "using namespace strus;" << std::endl << std::endl;
+
+	out
+	<< "void TraceIdMap::fillMaps()" << std::endl
+	<< "{" << std::endl;
+	std::vector<strus::ClassDef>::const_iterator
+		ci = interfaceDef.classDefs().begin(),
+		ce = interfaceDef.classDefs().end();
+	for (; ci != ce; ++ci)
+	{
+		std::string implclassname( ci->name() + "Impl");
+		std::string classid( std::string("ClassId_") + ci->name());
+
+		out
+		<< "\tm_classnamemap[\"" << ci->name() << "\"] = ClassId_" << ci->name() << ";" << std::endl
+		<< "\tm_classnamear.push_back( \"" << ci->name() << "\");" << std::endl;
+	}
+	ci = interfaceDef.classDefs().begin();
+	for (; ci != ce; ++ci)
+	{
+		out
+		<< "\tm_methodnamemap[ MethodNameRef( ClassId_" << ci->name() << ", \"Destructor\")] = " << ci->name() << "Const::Method_Destructor;" << std::endl
+		<< "\tm_methodnameinvmap[ MethodIdRef( ClassId_" << ci->name() << ", " << ci->name() << "Const::Method_Destructor)] = \"Destructor\";" << std::endl;
+
+		std::vector<strus::MethodDef>::const_iterator
+			mi = ci->methodDefs().begin(),
+			me = ci->methodDefs().end();
+		for (; mi != me; ++mi)
+		{
+			out
+			<< "\tm_methodnamemap[ MethodNameRef( ClassId_" << ci->name() << ", \"" << mi->name() << "\")] = " << ci->name() << "Const::Method_" << mi->name() << ";" << std::endl
+			<< "\tm_methodnameinvmap[ MethodIdRef( ClassId_" << ci->name() << ", " << ci->name() << "Const::Method_" << mi->name() << ")] = \"" << mi->name() << "\";" << std::endl;
+		}
+	}
+	out
+	<< "}" << std::endl;
+}
+	
+
 
 int main( int argc, const char* argv[])
 {
@@ -390,6 +437,11 @@ int main( int argc, const char* argv[])
 		print_ObjectsCpp( std::cout, interfaceDef);
 #endif
 		printOutput( "src/objects_gen.cpp", &print_ObjectsCpp, interfaceDef);
+
+#ifdef STRUS_LOWLEVEL_DEBUG
+		print_ObjectsCpp( std::cout, interfaceDef);
+#endif
+		printOutput( "src/traceIdMap_gen.cpp", &print_IdMapCpp, interfaceDef);
 
 		std::cerr << "done." << std::endl;
 		return 0;

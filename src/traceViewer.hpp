@@ -10,6 +10,7 @@
 #ifndef _STRUS_TRACE_VIEWER_IMPLEMENTATION_HPP_INCLUDED
 #define _STRUS_TRACE_VIEWER_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceViewerInterface.hpp"
+#include "strus/reference.hpp"
 #include <map>
 #include <cstring>
 
@@ -17,6 +18,8 @@ namespace strus
 {
 /// \brief Forward declaration
 class ErrorBufferInterface;
+/// \brief Forward declaration
+class TraceLogger;
 
 /// \brief Class for inspecting logged traces
 class TraceViewer
@@ -24,84 +27,25 @@ class TraceViewer
 {
 public:
 	/// \brief Constructor
-	explicit TraceViewer( ErrorBufferInterface* errorhnd_)
-		:m_errorhnd(errorhnd_){}
+	/// \param[in] errorhnd_ error buffer interface
+	/// \param[in] logger_ logging interface (ownership passed to this) for inspecting values
+	explicit TraceViewer( ErrorBufferInterface* errorhnd_, const TraceLogger* logger_)
+		:m_errorhnd(errorhnd_),m_logger(logger_){}
 
 	/// \brief Destructor
 	virtual ~TraceViewer(){}
 
-	virtual const char* getClassName( const TraceClassId& classid) const;
-	virtual const char* getMethodName( const TraceClassId& classid, const TraceMethodId& methodid) const;
-	virtual TraceClassId getClassId( const char* classname) const;
-	virtual TraceMethodId getMethodId( const TraceClassId& id, const char* methodname) const;
+	virtual std::vector<TraceRecord> listMethodCalls(
+			const TraceQuery& query,
+			std::size_t startIndex,
+			std::size_t maxNofResults) const;
 
-	virtual std::vector<TraceElement> unpackElements( const char* packedStruct, std::size_t packedStructSize) const;
+	virtual TraceTimeCounter getObjectCreationTime(
+			const TraceObjectId& objId) const;
 
 private:
-	void fillMaps();
-
-	struct MethodNameRef
-	{
-		MethodNameRef( const TraceClassId& classid_, const std::string& methodname_)
-			:classid(classid_),methodname(methodname_){}
-		MethodNameRef( const MethodNameRef& o)
-			:classid(o.classid),methodname(o.methodname){}
-
-		bool operator < (const MethodNameRef& o) const
-		{
-			if (classid == o.classid) return std::strcmp(methodname.c_str(), o.methodname.c_str()) < 0;
-			return classid < o.classid;
-		}
-
-		TraceClassId classid;
-		std::string methodname;
-	};
-
-	struct MethodIdRef
-	{
-		MethodIdRef( const TraceClassId& classid_, const TraceMethodId& methodid_)
-			:classid(classid_),methodid(methodid_){}
-		MethodIdRef( const MethodIdRef& o)
-			:classid(o.classid),methodid(o.methodid){}
-
-		bool operator < (const MethodIdRef& o) const
-		{
-			if (classid == o.classid) return methodid < o.methodid;
-			return classid < o.classid;
-		}
-
-		TraceClassId classid;
-		TraceMethodId methodid;
-	};
-
-	struct EnumIdRef
-	{
-		EnumIdRef( const TraceEnumTypeId& typeId_, const TraceEnumValueId& valueId_)
-			:typeId(typeId_),valueId(valueId_){}
-		EnumIdRef( const EnumIdRef& o)
-			:typeId(o.typeId),valueId(o.valueId){}
-
-		bool operator < (const EnumIdRef& o) const
-		{
-			if (typeId == o.typeId) return valueId < o.valueId;
-			return typeId < o.typeId;
-		}
-
-		TraceEnumTypeId typeId;
-		TraceEnumValueId valueId;
-	};
-
 	ErrorBufferInterface* m_errorhnd;
-	typedef std::map<std::string,TraceClassId> ClassNameMap; 
-	typedef std::map<MethodNameRef,TraceMethodId> MethodNameMap; 
-	typedef std::map<MethodIdRef,std::string> MethodNameInvMap; 
-	typedef std::map<EnumIdRef,std::string> EnumNameMap; 
-
-	ClassNameMap m_classnamemap;
-	std::vector<std::string> m_classnamear;
-
-	MethodNameMap m_methodnamemap;
-	MethodNameInvMap m_methodnameinvmap;
+	const TraceLogger* m_logger;
 };
 
 }//namespace

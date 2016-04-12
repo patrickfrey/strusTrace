@@ -1,24 +1,20 @@
 /*
- * Copyright (c) 2016 Patrick P. Frey
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-/// \brief Generated map of identifiers for trace viewer
-/// \file traceViewer_gen.cpp
-
-//
-// THIS FILE IS GENERATED: DO NOT MODIFY !!!
-// 
-#include "traceViewer.hpp"
+* Copyright (c) 2016 Patrick P. Frey
+*
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+/// \brief Fill map of strings to identifiers and back for objects and methods for serialization
+/// \note PROGRAM (strusTraceCodeGen) GENERATED FILE! DO NOT MODIFY!!!
+/// \file traceIdMap_gen.cpp
+#include "traceIdMap.hpp"
 #include "objectIds_gen.hpp"
 
 using namespace strus;
 
-void TraceViewer::fillMaps()
+void TraceIdMap::fillMaps()
 {
-
 	m_classnamemap["AggregatorFunctionInstance"] = ClassId_AggregatorFunctionInstance;
 	m_classnamear.push_back( "AggregatorFunctionInstance");
 	m_classnamemap["AggregatorFunction"] = ClassId_AggregatorFunction;
@@ -724,4 +720,3 @@ void TraceViewer::fillMaps()
 	m_methodnamemap[ MethodNameRef( ClassId_WeightingFunction, "getDescription")] = WeightingFunctionConst::Method_getDescription;
 	m_methodnameinvmap[ MethodIdRef( ClassId_WeightingFunction, WeightingFunctionConst::Method_getDescription)] = "getDescription";
 }
-

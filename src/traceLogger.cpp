@@ -8,6 +8,7 @@
 /// \brief Implementation of logging and querying call traces
 /// \file traceLogger.cpp
 #include "traceLogger.hpp"
+#include "traceViewer.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "strus/errorBufferInterface.hpp"
@@ -65,7 +66,7 @@ TraceLogRecordHandle
 	try
 	{
 		m_recordar.push_back(
-			Record( classId, methodId, objId, m_recordar.size()+1, m_depth, 0, 0));
+			TraceRecord( classId, methodId, objId, m_recordar.size()+1, m_depth, 0, 0));
 		return (TraceLogRecordHandle)m_recordar.size();
 	}
 	CATCH_ERROR_MAP_RETURN( "trace logger error logging method call", *m_errorhnd, 0)
@@ -114,18 +115,18 @@ void TraceLogger::logMethodTermination(
 		}
 	}
 
-	Record& callrec = m_recordar[ loghnd-1];
+	TraceRecord& callrec = m_recordar[ loghnd-1];
 	callrec.setEndCall( m_recordar.size()+1, paramptr, packedParameter.size());
 }
 
-bool TraceLogger::Query::match( const TraceLoggerInterface::Record& rec) const
+static bool match_query( const TraceQuery& query, const TraceRecord& rec)
 {
-	if (m_classId && m_classId != rec.classId()) return false;
-	if (m_methodId && m_methodId != rec.methodId()) return false;
-	if (m_time_from && m_time_from > rec.startTime()) return false;
-	if (m_time_to && m_time_to <= rec.endTime()) return false;
-	if (m_depth_from && m_depth_from > rec.depth()) return false;
-	if (m_depth_to && m_depth_to <= rec.depth()) return false;
+	if (query.classId() && query.classId() != rec.classId()) return false;
+	if (query.methodId() && query.methodId() != rec.methodId()) return false;
+	if (query.time_from() && query.time_from() > rec.startTime()) return false;
+	if (query.time_to() && query.time_to() <= rec.endTime()) return false;
+	if (query.depth_from() && query.depth_from() > rec.depth()) return false;
+	if (query.depth_to() && query.depth_to() <= rec.depth()) return false;
 	return true;
 }
 
@@ -149,22 +150,22 @@ void TraceLogger::logCloseBranch()
 	m_depth -= 1;
 }
 
-std::vector<TraceLoggerInterface::Record> TraceLogger::listMethodCalls(
-		const Query& query,
+std::vector<TraceRecord> TraceLogger::listMethodCalls(
+		const TraceQuery& query,
 		std::size_t startIndex,
 		std::size_t maxNofResults) const
 {
 	try
 	{
-		std::vector<Record> rt;
-		std::vector<Record>::const_iterator ri = m_recordar.begin(), re = m_recordar.end();
+		std::vector<TraceRecord> rt;
+		std::vector<TraceRecord>::const_iterator ri = m_recordar.begin(), re = m_recordar.end();
 
 		if (query.time_from()) ri += query.time_from()-1;
 		if (query.time_to()) re = m_recordar.begin() + query.time_to()-1;
 
 		for (std::size_t residx=0; ri != re && rt.size() < maxNofResults; ++ri)
 		{
-			if (query.match( *ri))
+			if (match_query( query, *ri))
 			{
 				if (residx++ >= startIndex)
 				{
@@ -174,7 +175,7 @@ std::vector<TraceLoggerInterface::Record> TraceLogger::listMethodCalls(
 		}
 		return rt;
 	}
-	CATCH_ERROR_MAP_RETURN( "trace logger error listing method calls", *m_errorhnd, std::vector<TraceLoggerInterface::Record>())
+	CATCH_ERROR_MAP_RETURN( "trace logger error listing method calls", *m_errorhnd, std::vector<TraceRecord>())
 }
 
 
@@ -186,5 +187,14 @@ TraceTimeCounter TraceLogger::getObjectCreationTime( const TraceObjectId& objId)
 		return 0;
 	}
 	return ci->second;
+}
+
+TraceViewerInterface* TraceLogger::createViewer() const
+{
+	try
+	{
+		return new TraceViewer( m_errorhnd, this);
+	}
+	CATCH_ERROR_MAP_RETURN( "error creating trace viewer for inspecting the trace logs in memory", *m_errorhnd, 0)
 }
 

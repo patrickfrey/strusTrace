@@ -5,12 +5,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/// \brief Interface for inspecting elements of logged traces
+/// \brief Interface for inspecting call traces
 /// \file traceViewerInterface.hpp
 #ifndef _STRUS_TRACE_VIEWER_INTERFACE_HPP_INCLUDED
 #define _STRUS_TRACE_VIEWER_INTERFACE_HPP_INCLUDED
 #include "strus/traceElement.hpp"
-#include "strus/traceLoggerInterface.hpp"
+#include "strus/traceRecord.hpp"
+#include "strus/traceQuery.hpp"
 #include <string>
 #include <vector>
 
@@ -24,39 +25,21 @@ public:
 	/// \brief Destructor
 	virtual ~TraceViewerInterface(){}
 
-	/// \brief Get the name of the interface (without "Interface" suffix) associated with the class id specified
-	/// \param[in] id internal identifier of the class
-	/// \return the name of the class (without "Interface" suffix) 
-	virtual const char* getClassName(
-			const TraceClassId& id) const=0;
+	/// \brief Retrieves all method call logs matching to a query
+	/// \param[in] query method call log query
+	/// \param[in] startIndex index (starting with 0) of first result
+	/// \param[in] maxNofResults maximum number of records to retrieve
+	/// \return the list of matching records
+	virtual std::vector<TraceRecord> listMethodCalls(
+			const TraceQuery& query,
+			std::size_t startIndex,
+			std::size_t maxNofResults) const=0;
 
-	/// \brief Get the name of the method associated with the method id specified
-	/// \param[in] id internal identifier of the method in the context of the interface
-	/// \return the name of the method
-	virtual const char* getMethodName(
-			const TraceClassId& classid,
-			const TraceMethodId& id) const=0;
-
-	/// \brief Get the internal identifier of the interface given by name
-	/// \param[in] classname name of the class (without "Interface" suffix)
-	/// \return the internal id of the class
-	virtual TraceClassId getClassId(
-			const char* classname) const=0;
-
-	/// \brief Get the internal identifier of the method given by name
-	/// \param[in] methodname name of the method
-	/// \return the internal id of the method
-	virtual TraceMethodId getMethodId( 
-			const TraceClassId& classid,
-			const char* methodname) const=0;
-
-	/// \brief Unpack the elements from a serialized structure
-	/// \param[in] packedStructure serialized structure as returned by TraceLoggerInterface::Record::packedParameter()
-	/// \param[in] packedStructSize size of packedStruct in bytes
-	/// \return the list of unpacked elements
-	virtual std::vector<TraceElement> unpackElements(
-			const char* packedStruct,
-			std::size_t packedStructSize)=0;
+	/// \brief Get the creation time of an object
+	/// \param[in] objId identifier of the object
+	/// \return the creation time counter
+	virtual TraceTimeCounter getObjectCreationTime(
+			const TraceObjectId& objId) const=0;
 };
 
 }//namespace

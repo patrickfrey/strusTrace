@@ -6,15 +6,19 @@ add_subdirectory( parser )
 # --------------------------------------
 # SOURCES AND INCLUDES
 # --------------------------------------
-set( libstrus_trace_source_files
+set( source_files
 	internationalization.cpp
 	serialize.cpp
 	traceObject.cpp
 	traceLogger.cpp
+	traceLogger_textfile.cpp
 	traceSerializer.cpp
 	traceViewer.cpp
-	traceViewer_gen.cpp
+	traceIdMap.cpp
+	traceIdMap_gen.cpp
 	objects_gen.cpp
+	traceProcessor.cpp
+	traceObjectBuilder.cpp
 )
 
 include_directories(
@@ -30,13 +34,13 @@ link_directories(
 
 
 # -------------------------------------------
-# STRUS TRACE LIBRARY
-# Library for data introspection of strus runs
+# STRUS TRACELOG LIBRARY
+# Library for generate method call traces and introspection of strus runs
 # -------------------------------------------
-add_library( strus_trace SHARED ${libstrus_trace_source_files} )
-target_link_libraries( strus_trace ${Boost_LIBRARIES} )
+add_library( strus_tracelog SHARED libstrus_tracelog.cpp ${source_files} )
+target_link_libraries( strus_tracelog ${Boost_LIBRARIES} )
 set_target_properties(
-    strus_trace
+    strus_tracelog
     PROPERTIES
     DEBUG_POSTFIX "_d"
     SOVERSION "${STRUS_MAJOR_VERSION}.${STRUS_MINOR_VERSION}"
@@ -46,6 +50,6 @@ set_target_properties(
 # ------------------------------
 # INSTALLATION
 # ------------------------------
-install( TARGETS strus_trace
+install( TARGETS strus_tracelog
            LIBRARY DESTINATION ${LIB_INSTALL_DIR}/strus )
 

@@ -9,12 +9,18 @@
 /// \file traceElement.hpp
 #ifndef _STRUS_TRACE_ELEMENT_HPP_INCLUDED
 #define _STRUS_TRACE_ELEMENT_HPP_INCLUDED
-#include "strus/traceLoggerInterface.hpp"
 #include <string>
 #include <stdint.h>
 
 namespace strus
 {
+
+typedef unsigned char TraceClassId;		///< Id of an interface class subject to logging (enum)
+typedef unsigned char TraceMethodId;		///< Id of a method of an interface class subject to logging (enum)
+typedef unsigned int TraceObjectId;		///< Unique object identifier
+typedef unsigned int TraceTimeCounter;		///< Unique timestamp of logged events
+typedef unsigned int TraceTreeDepth;		///< Counter value of the depth in the call tree
+typedef std::size_t TraceLogRecordHandle;	///< Handle of a trace log entry
 
 /// \brief Element type used to describe traced structures. Any atomic value or structure is described as sequence of trace elements
 struct TraceElement
@@ -30,7 +36,6 @@ struct TraceElement
 		TypeFloat,
 		TypeDouble,
 		TypeBool,
-		TypeEnum,
 		TypeString,
 		TypeOpenIndex,
 		TypeOpenTag,
@@ -44,7 +49,6 @@ struct TraceElement
 		float Float;
 		double Double;
 		bool Bool;
-		unsigned char Enum[2];
 		std::size_t Index;
 		const char* String;
 	};
@@ -68,9 +72,6 @@ struct TraceElement
 	TraceElement( double value_) :m_type(TypeDouble),m_size(0)	{m_value.Double = value_;}
 	/// \brief Constructor
 	TraceElement( bool value_) :m_type(TypeBool),m_size(0)		{m_value.Bool = value_;}
-	/// \brief Constructor
-	TraceElement( TraceEnumTypeId enumType_, TraceEnumValueId enumValue_)
-		:m_type(TypeEnum),m_size(0)				{m_value.Enum[0] = enumType_; m_value.Enum[1] = enumValue_; }
 	/// \brief Constructor
 	TraceElement( Type type_, std::size_t index_)
 		:m_type(type_),m_size(0) {m_value.Index = index_;}

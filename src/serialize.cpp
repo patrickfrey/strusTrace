@@ -96,9 +96,6 @@ std::vector<TraceElement> Deserializer::deserialize( const char* struct_, std::s
 			case Serializer::TypeBool:
 				rt.push_back( TraceElement( (bool)unpackAtomicValue<bool>( si, se)));
 				break;
-			case Serializer::TypeEnum:
-				rt.push_back( TraceElement( (TraceEnumTypeId)unpackAtomicValue<TraceEnumTypeId>( si, se), (TraceEnumValueId)unpackAtomicValue<TraceEnumValueId>( si, se)));
-				break;
 			case Serializer::TypeString:
 				unpackBytes( si, se, strptr, strsize);
 				rt.push_back( TraceElement( TraceElement::TypeString, strptr, strsize));

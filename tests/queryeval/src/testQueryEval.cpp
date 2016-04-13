@@ -17,7 +17,7 @@
 #include "strus/lib/textproc.hpp"
 #include "strus/lib/segmenter_textwolf.hpp"
 #include "strus/lib/analyzer.hpp"
-#include "strus/private/fileio.hpp"
+#include "strus/base/fileio.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/analyzerErrorBufferInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"

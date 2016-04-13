@@ -26,7 +26,7 @@ link_directories(
 # Code generator that maps the strus interfaces to a tracing proxy implementation
 # -------------------------------------------
 add_executable( strusTraceCodeGen strusTraceCodeGen.cpp ${source_files} )
-target_link_libraries( strusTraceCodeGen strus_utils ${CMAKE_DL_LIBS} ${Intl_LIBRARIES} )
+target_link_libraries( strusTraceCodeGen strus_base ${CMAKE_DL_LIBS} ${Intl_LIBRARIES} )
 
 
 # ------------------------------

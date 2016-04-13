@@ -8,7 +8,7 @@
 #ifndef _STRUS_TRACE_SERIALIZE_DESERIALIZE_HPP_INCLUDED
 #define _STRUS_TRACE_SERIALIZE_DESERIALIZE_HPP_INCLUDED
 #include "internationalization.hpp"
-#include "strus/private/hton.hpp"
+#include "strus/base/hton.hpp"
 #include "strus/traceElement.hpp"
 #include "strus/traceLoggerInterface.hpp"
 #include <string>

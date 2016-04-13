@@ -10,7 +10,7 @@
 #include "interfaceParser.hpp"
 #include "fillTypeTables.hpp"
 #include "printFrame.hpp"
-#include "strus/private/fileio.hpp"
+#include "strus/base/fileio.hpp"
 #include <stdexcept>
 #include <string>
 #include <vector>

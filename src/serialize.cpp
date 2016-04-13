@@ -7,7 +7,7 @@
  */
 #include "serialize.hpp"
 #include "internationalization.hpp"
-#include "strus/private/hton.hpp"
+#include "strus/base/hton.hpp"
 
 using namespace strus;
 

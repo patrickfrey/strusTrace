@@ -19,7 +19,6 @@
 #include "strus/lib/analyzer.hpp"
 #include "strus/base/fileio.hpp"
 #include "strus/errorBufferInterface.hpp"
-#include "strus/analyzerErrorBufferInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
@@ -43,49 +42,6 @@
 #include <memory>
 
 static strus::ErrorBufferInterface* g_errorhnd = 0;
-static strus::AnalyzerErrorBufferInterface* g_analyzer_errorhnd = 0;
-
-class AnalyzerErrorBuffer
-	:public strus::AnalyzerErrorBufferInterface
-{
-public:
-	explicit AnalyzerErrorBuffer( strus::ErrorBufferInterface* errorhnd_)
-		:m_errorhnd(errorhnd_)
-	{}
-
-	virtual void report( const char* format, ...) const
-	{
-		va_list ap;
-		va_start(ap, format);
-		char msgbuf[ 2048];
-		unsigned int nn = vsnprintf( msgbuf, sizeof(msgbuf), format, ap);
-		if (nn >= sizeof(msgbuf))
-		{
-			msgbuf[ sizeof(msgbuf)-1] = '\0';
-		}
-		va_end(ap);
-		m_errorhnd->report( "%s", msgbuf);
-	}
-
-	virtual void explain( const char* format) const
-	{
-		m_errorhnd->explain( format);
-	}
-
-	virtual const char* fetchError()
-	{
-		return m_errorhnd->fetchError();
-	}
-
-	virtual bool hasError() const
-	{
-		return m_errorhnd->hasError();
-	}
-
-private:
-	strus::ErrorBufferInterface* m_errorhnd;
-};
-
 
 class StorageObjectBuilder
 	:public strus::StorageObjectBuilderInterface
@@ -179,7 +135,7 @@ class AnalyzerObjectBuilder
 {
 public:
 	AnalyzerObjectBuilder()
-		:m_tpi(strus::createTextProcessor( g_analyzer_errorhnd))
+		:m_tpi(strus::createTextProcessor( g_errorhnd))
 	{
 		if (!m_tpi.get()) throw std::runtime_error( std::string("failed to create text processor: ") + g_errorhnd->fetchError());
 	}
@@ -193,10 +149,10 @@ public:
 
 	virtual strus::SegmenterInterface* createSegmenter( const std::string& segmenterName=std::string()) const
 	{
-		strus::SegmenterInterface* rt = strus::createSegmenter_textwolf( g_analyzer_errorhnd);
+		strus::SegmenterInterface* rt = strus::createSegmenter_textwolf( g_errorhnd);
 		if (!rt)
 		{
-			g_analyzer_errorhnd->explain( "failed to create document segmenter: %s");
+			g_errorhnd->explain( "failed to create document segmenter: %s");
 			return 0;
 		}
 		return rt;
@@ -204,16 +160,16 @@ public:
 
 	virtual strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const std::string& segmenterName=std::string()) const
 	{
-		std::auto_ptr<strus::SegmenterInterface> segmenter( strus::createSegmenter_textwolf( g_analyzer_errorhnd));
+		std::auto_ptr<strus::SegmenterInterface> segmenter( strus::createSegmenter_textwolf( g_errorhnd));
 		if (!segmenter.get()) 
 		{
-			g_analyzer_errorhnd->explain( "failed to create segmenter: %s");
+			g_errorhnd->explain( "failed to create segmenter: %s");
 			return 0;
 		}
-		strus::DocumentAnalyzerInterface* rt = strus::createDocumentAnalyzer( segmenter.get(), g_analyzer_errorhnd);
+		strus::DocumentAnalyzerInterface* rt = strus::createDocumentAnalyzer( segmenter.get(), g_errorhnd);
 		if (!rt)
 		{
-			g_analyzer_errorhnd->explain( "failed to create document analyzer: %s");
+			g_errorhnd->explain( "failed to create document analyzer: %s");
 			return 0;
 		}
 		segmenter.release();
@@ -222,8 +178,8 @@ public:
 
 	virtual strus::QueryAnalyzerInterface* createQueryAnalyzer() const
 	{
-		strus::QueryAnalyzerInterface* rt = strus::createQueryAnalyzer( g_analyzer_errorhnd);
-		if (!rt) g_analyzer_errorhnd->explain( "failed to create query analyzer: %s");
+		strus::QueryAnalyzerInterface* rt = strus::createQueryAnalyzer( g_errorhnd);
+		if (!rt) g_errorhnd->explain( "failed to create query analyzer: %s");
 		return rt;
 	}
 
@@ -256,12 +212,6 @@ int main( int argc, const char* argv[])
 	}
 	g_errorhnd = strus::createErrorBuffer_standard( stderr, 1);
 	if (!g_errorhnd)
-	{
-		std::cerr << "error allocating error buffer";
-		return -1;
-	}
-	g_analyzer_errorhnd = new(std::nothrow) AnalyzerErrorBuffer( g_errorhnd);
-	if (!g_analyzer_errorhnd)
 	{
 		std::cerr << "error allocating error buffer";
 		return -1;

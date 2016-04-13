@@ -17,6 +17,6 @@ introspectable forest of objects besides calling the real object methods.
 
 Package: strustrace-dev
 Architecture: any
-Depends: strus, strusanalyzer, ${shlibs:Depends}, ${misc:Depends}
+Depends: strusbase, strus, strusanalyzer, ${shlibs:Depends}, ${misc:Depends}
 Description: strustrace development files
  Strustrace development files.

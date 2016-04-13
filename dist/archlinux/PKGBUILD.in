@@ -5,11 +5,11 @@ pkgname=strustrace
 _mainpkgver=@STRUS_VERSION@
 pkgver=${_mainpkgver}
 pkgrel=1
-pkgdesc='Library implementing the storage of a text search engine.'
+pkgdesc='Library implementing a proxy object fro each interface that enables logging the trace of all method calls.'
 license=('MPL2')
 arch=('i686' 'x86_64')
 url="http://project-strus.net"
-depends=('boost>=1.53' 'boost-libs>=1.53' 'leveldb')
+depends=('boost>=1.53' 'boost-libs>=1.53' 'leveldb' "strusbase>=${_deppkgver}" "strus>=${_deppkgver}" "strusanalyzer>=${_deppkgver}")
 makedepends=('cmake')
 source=("${pkgname}-${_mainpkgver}.tar.gz")
 

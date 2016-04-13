@@ -54,11 +54,20 @@ struct TraceElement
 	};
 
 	/// \brief Get the element type
-	Type type() const;
+	Type type() const
+	{
+		return m_type;
+	}
 	/// \brief Get the element value
-	Value value() const;
+	Value value() const
+	{
+		return m_value;
+	}
 	/// \brief Get the element size in bytes (for strings)
-	std::size_t size() const;
+	std::size_t size() const
+	{
+		return m_size;
+	}
 
 	/// \brief Default constructor
 	TraceElement() :m_type(TypeVoid),m_size(0)			{}

@@ -28,6 +28,7 @@
 *.out
 *.app
 src/parser/strusTraceCodeGen
+tests/queryeval/src/testQueryEval
 
 # Valgring suppression files
 *.sup

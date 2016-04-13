@@ -5,4 +5,5 @@ mkdir -p tmp
 cp `find ../strus{,Analyzer}/include/strus -name "*Interface.hpp" | grep -v rrorBufferInterface | sort` tmp/
 # Generate the proxy classes and interfaces:
 src/parser/strusTraceCodeGen tmp/*.hpp
+rm -Rf tmp
 

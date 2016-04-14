@@ -27,6 +27,9 @@ class TraceIdMapInterface;
 class TraceProcessorInterface
 {
 public:
+	/// \brief Destructor
+	virtual ~TraceProcessorInterface(){}
+
 	/// \brief Create and interface for logging call traces
 	/// \param[in] config configuration string of the logger built
 	/// \return the logger

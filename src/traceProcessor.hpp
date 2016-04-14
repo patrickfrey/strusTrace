@@ -30,6 +30,7 @@ class TraceProcessor
 public:
 	explicit TraceProcessor( ErrorBufferInterface* errorhnd_)
 		:m_errorhnd(errorhnd_){}
+	virtual ~TraceProcessor(){}
 
 	virtual TraceLoggerInterface* createLogger( const std::string& config);
 	virtual TraceViewerInterface* createViewer( const std::string& config);
@@ -45,6 +46,7 @@ class TraceProcessor_textfile
 public:
 	explicit TraceProcessor_textfile( ErrorBufferInterface* errorhnd_)
 		:m_errorhnd(errorhnd_){}
+	virtual ~TraceProcessor_textfile(){}
 
 	virtual TraceLoggerInterface* createLogger( const std::string& config);
 	virtual TraceViewerInterface* createViewer( const std::string& config);

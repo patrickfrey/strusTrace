@@ -32,6 +32,7 @@ public:
 		,m_methodId(methodId_)
 		,m_objId(objId_)
 		,m_startTime(time_)
+		,m_endTime(0)
 		,m_depth(depth_)
 		,m_packedParameter(packedParameter_)
 		,m_packedParameterSize(packedParameterSize_){}
@@ -44,7 +45,8 @@ public:
 		,m_startTime(o.m_startTime)
 		,m_endTime(o.m_endTime)
 		,m_depth(o.m_depth)
-		,m_packedParameter(o.m_packedParameter){}
+		,m_packedParameter(o.m_packedParameter)
+		,m_packedParameterSize(o.m_packedParameterSize){}
 
 	/// \brief Get the caller internal class id
 	/// \return the internal interface identifier starting with 1

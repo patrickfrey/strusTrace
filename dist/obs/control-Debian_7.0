@@ -12,8 +12,8 @@ Package: strustrace
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Library adding data introspection to a Strus search engine
-Library implementing a proxy for strus and strusanalyzer that builds an
-introspectable forest of objects besides calling the real object methods.
+ Library implementing a proxy for strus and strusanalyzer that builds an
+ introspectable forest of objects besides calling the real object methods.
 
 Package: strustrace-dev
 Architecture: any

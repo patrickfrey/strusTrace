@@ -1,6 +1,10 @@
+strusTrace (0.8.2)
+  * added missing INSTALL file
+ -- Patrick Frey <patrickpfrey@yahoo.com>  Fri, 15 Apr 2016 00:55:00 +0100
+
 strusTrace (0.8.1)
   * fixed some bugs in new code
- -- Patrick Frey <patrickpfrey@yahoo.com>  Thu, 16 Apr 2016 16:55:00 +0100
+ -- Patrick Frey <patrickpfrey@yahoo.com>  Thu, 14 Apr 2016 16:55:00 +0100
 
 strusTrace (0.8.0)
   * initial revision

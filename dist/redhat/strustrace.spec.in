@@ -277,6 +277,7 @@ make test
 %dir %{_libdir}/strus
 %{_libdir}/strus/libstrus_tracelog.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@
 %{_libdir}/strus/libstrus_tracelog.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@.@STRUS_PATCH_VERSION@
+%{_bindir}/strusTraceCodeGen
 
 %files devel
 %defattr( -, root, root )

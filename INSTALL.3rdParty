@@ -1,4 +1,4 @@
-Library dependencies of strus:
+Library dependencies of strusTrace:
 	- boost (headers and -lboost_system)
 
 Ubuntu:

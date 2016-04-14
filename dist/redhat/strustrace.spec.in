@@ -286,6 +286,9 @@ make test
 %{_includedir}/strus/lib/*.hpp
 
 %changelog
+* Thu Apr 14 2016 Patrick Frey <patrickpfrey@yahoo.com> 0.8.1-0.1
+- fixed some bugs in new code
+
 * Wed Apr 13 2016 Patrick Frey <patrickpfrey@yahoo.com> 0.8.0-0.1
 - initial revision
 

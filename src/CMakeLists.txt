@@ -38,7 +38,7 @@ link_directories(
 # Library for generate method call traces and introspection of strus runs
 # -------------------------------------------
 add_library( strus_tracelog SHARED libstrus_tracelog.cpp ${source_files} )
-target_link_libraries( strus_tracelog ${Boost_LIBRARIES} )
+target_link_libraries( strus_tracelog ${Boost_LIBRARIES} ${Intl_LIBRARIES} )
 set_target_properties(
     strus_tracelog
     PROPERTIES

@@ -19,40 +19,40 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "parambuf.packVoid();")
 	;
 	typesystem.defineType( "const Index&")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packIndex($name);")
 	;
 	typesystem.defineType( "const GlobalCounter&")
 		("test_null", "$name < 0")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packGlobalCounter($name);")
 	;
 	typesystem.defineType( "Index")
 		("test_null", "$name < 0")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packIndex($name);")
 	;
 	typesystem.defineType( "SegmenterPosition&")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packGlobalCounter($name);")
 	;
 	typesystem.defineType( "unsigned int")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packUInt($name);")
 	;
 	typesystem.defineType( "int")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packInt($name);")
 	;
 	typesystem.defineType( "int&")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packInt($name);")
 	;
 	typesystem.defineType( "std::size_t")
 		("test_null", "$name < 0")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packSize( $name);")
 	;
 	typesystem.defineType( "bool")
 		("pack_msg", "parambuf.packBool($name);")
 	;
 	typesystem.defineType( "float")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packFloat($name);")
 	;
 	typesystem.defineType( "double")
-		("pack_msg", "parambuf.packScalar($name);")
+		("pack_msg", "parambuf.packDouble($name);")
 	;
 	typesystem.defineType( "std::string")
 		("pack_msg", "parambuf.packString($name);")

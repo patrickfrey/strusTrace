@@ -10,7 +10,7 @@
 #ifndef _STRUS_TRACE_ELEMENT_HPP_INCLUDED
 #define _STRUS_TRACE_ELEMENT_HPP_INCLUDED
 #include <string>
-#include <stdint.h>
+#include "strus/base/stdint.h"
 
 namespace strus
 {

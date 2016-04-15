@@ -10,7 +10,6 @@
 #ifndef _STRUS_TRACE_RECORD_HPP_INCLUDED
 #define _STRUS_TRACE_RECORD_HPP_INCLUDED
 #include "strus/traceElement.hpp"
-#include <stdint.h>
 
 namespace strus
 {

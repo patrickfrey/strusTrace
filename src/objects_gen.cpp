@@ -510,7 +510,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	parambuf.packBuffer( key, p1);
-	parambuf.packScalar(p2);
+	parambuf.packScalar((unsigned int)p2);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2493,7 +2493,7 @@ void QueryImpl::pushExpression(
 	parambuf.packVoid();
 	const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingJoinOperator, objbase_p1->objid());
-	parambuf.packScalar(p2);
+	parambuf.packScalar((unsigned int)p2);
 	parambuf.packScalar(p3);
 	parambuf.packScalar(p4);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
@@ -2640,7 +2640,7 @@ void QueryImpl::setMaxNofRanks(
 	obj()->setMaxNofRanks(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar(p1);
+	parambuf.packScalar((unsigned int)p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2659,7 +2659,7 @@ void QueryImpl::setMinRank(
 	obj()->setMinRank(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar(p1);
+	parambuf.packScalar((unsigned int)p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3063,7 +3063,7 @@ std::size_t ScalarFunctionImpl::getNofArguments() const
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packScalar((unsigned int)p0);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -5904,7 +5904,7 @@ std::vector<std::string> ValueIteratorImpl::fetchValues(
 	std::vector<std::string> p0 = obj()->fetchValues(p1);
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
-	parambuf.packScalar(p1);
+	parambuf.packScalar((unsigned int)p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

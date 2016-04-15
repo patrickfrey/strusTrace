@@ -383,7 +383,7 @@ void TraceSerializer::packAnalyzerMetaData( const analyzer::MetaData& val)
 	Serializer::packString( val.name());
 	Serializer::close();
 	Serializer::openTag("value");
-	Serializer::packDouble( val.value());
+	packNumericVariant( val.value());
 	Serializer::close();
 	}CATCH_ERROR
 }

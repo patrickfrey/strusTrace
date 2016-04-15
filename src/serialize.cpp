@@ -37,9 +37,9 @@ static Serializer::ValueType unpackMarker( char const*& si, const char* se)
 	return (Serializer::ValueType)*si++;
 }
 
-static void unpackBytes( char const*& si, const char* se, const char*& out_ptr, std::size_t& out_size)
+static void unpackBytesWithSize( char const*& si, const char* se, const char*& out_ptr, std::size_t& out_size)
 {
-	out_size = unpackAtomicValue<std::size_t>( si, se);
+	out_size = unpackAtomicValue<SizeType>( si, se);
 	if (si+out_size > se)
 	{
 		throw strus::runtime_error(_TXT("deserializer read at end of buffer"));
@@ -97,14 +97,14 @@ std::vector<TraceElement> Deserializer::deserialize( const char* struct_, std::s
 				rt.push_back( TraceElement( (bool)unpackAtomicValue<bool>( si, se)));
 				break;
 			case Serializer::TypeString:
-				unpackBytes( si, se, strptr, strsize);
+				unpackBytesWithSize( si, se, strptr, strsize);
 				rt.push_back( TraceElement( TraceElement::TypeString, strptr, strsize));
 				break;
 			case Serializer::TypeOpenIndex:
-				rt.push_back( TraceElement( TraceElement::TypeOpenIndex, (std::size_t)unpackAtomicValue<std::size_t>( si, se)));
+				rt.push_back( TraceElement( TraceElement::TypeOpenIndex, (SizeType)unpackAtomicValue<SizeType>( si, se)));
 				break;
 			case Serializer::TypeOpenTag:
-				unpackBytes( si, se, strptr, strsize);
+				unpackBytesWithSize( si, se, strptr, strsize);
 				rt.push_back( TraceElement( TraceElement::TypeOpenTag, strptr, strsize));
 				break;
 			case Serializer::TypeClose:

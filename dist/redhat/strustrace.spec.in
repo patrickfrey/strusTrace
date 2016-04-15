@@ -283,6 +283,9 @@ make test
 %{_includedir}/strus/lib/*.hpp
 
 %changelog
+* Fri Apr 15 2016 Patrick Frey <patrickpfrey@yahoo.com> 0.8.4-0.1
+- use numeric variant in analyzer document metadata instead of double
+
 * Fri Apr 15 2016 Patrick Frey <patrickpfrey@yahoo.com> 0.8.3-0.1
 - fixed pack size_t problem on OSX
 

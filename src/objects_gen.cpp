@@ -25,7 +25,7 @@ double AggregatorFunctionInstanceImpl::evaluate(
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AggregatorFunctionInstance, Method_evaluate, objid());
 	double p0 = obj()->evaluate(p1);
 	TraceSerializer parambuf;
-	parambuf.packScalar(p0);
+	parambuf.packDouble(p0);
 	parambuf.packAnalyzerDocument(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -239,7 +239,7 @@ Index AttributeReaderImpl::elementHandle(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 		parambuf.packCharp(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
@@ -261,7 +261,7 @@ void AttributeReaderImpl::skipDoc(
 	obj()->skipDoc(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar(p1);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -280,7 +280,7 @@ std::string AttributeReaderImpl::getValue(
 	std::string p0 = obj()->getValue(p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
-	parambuf.packScalar(p1);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -510,7 +510,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	parambuf.packBuffer( key, p1);
-	parambuf.packScalar((unsigned int)p2);
+	parambuf.packSize( p2);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1323,8 +1323,8 @@ Index DocumentTermIteratorImpl::skipDoc(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p0);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -1364,8 +1364,8 @@ unsigned int DocumentTermIteratorImpl::termDocumentFrequency(
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentTermIterator, Method_termDocumentFrequency, objid());
 	unsigned int p0 = obj()->termDocumentFrequency(p1);
 	TraceSerializer parambuf;
-	parambuf.packScalar(p0);
-	parambuf.packScalar(p1);
+	parambuf.packUInt(p0);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1385,7 +1385,7 @@ std::string DocumentTermIteratorImpl::termValue(
 	std::string p0 = obj()->termValue(p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
-	parambuf.packScalar(p1);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1411,7 +1411,7 @@ void ForwardIteratorImpl::skipDoc(
 	obj()->skipDoc(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar(p1);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1435,8 +1435,8 @@ Index ForwardIteratorImpl::skipPos(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p0);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -1486,8 +1486,8 @@ Index InvAclIteratorImpl::skipDoc(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p0);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -1539,7 +1539,7 @@ Index MetaDataReaderImpl::elementHandle(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
@@ -1565,7 +1565,7 @@ Index MetaDataReaderImpl::nofElements() const
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -1586,7 +1586,7 @@ void MetaDataReaderImpl::skipDoc(
 	obj()->skipDoc(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar(p1);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1611,7 +1611,7 @@ NumericVariant MetaDataReaderImpl::getValue(
 	else
 	{
 		parambuf.packNumericVariant(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -1638,7 +1638,7 @@ const char* MetaDataReaderImpl::getType(
 	else
 	{
 		parambuf.packCharp(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -1665,7 +1665,7 @@ const char* MetaDataReaderImpl::getName(
 	else
 	{
 		parambuf.packCharp(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -1692,7 +1692,7 @@ bool MetaDataRestrictionInstanceImpl::match(
 	bool p0 = obj()->match(p1);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
-	parambuf.packScalar(p1);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -1924,8 +1924,8 @@ Index PostingIteratorImpl::skipDoc(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p0);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -1951,8 +1951,8 @@ Index PostingIteratorImpl::skipDocCandidate(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p0);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -1978,8 +1978,8 @@ Index PostingIteratorImpl::skipPos(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p0);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -2029,7 +2029,7 @@ Index PostingIteratorImpl::documentFrequency() const
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -2048,7 +2048,7 @@ unsigned int PostingIteratorImpl::frequency()
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_frequency, objid());
 	unsigned int p0 = obj()->frequency();
 	TraceSerializer parambuf;
-	parambuf.packScalar(p0);
+	parambuf.packUInt(p0);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2072,7 +2072,7 @@ Index PostingIteratorImpl::docno() const
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -2097,7 +2097,7 @@ Index PostingIteratorImpl::posno() const
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -2143,8 +2143,8 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 			if (!objbase) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase->objid());
 			parambuf.close();
 		}
-		parambuf.packScalar(p2);
-		parambuf.packScalar(p3);
+		parambuf.packInt(p2);
+		parambuf.packUInt(p3);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -2493,9 +2493,9 @@ void QueryImpl::pushExpression(
 	parambuf.packVoid();
 	const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingJoinOperator, objbase_p1->objid());
-	parambuf.packScalar((unsigned int)p2);
-	parambuf.packScalar(p3);
-	parambuf.packScalar(p4);
+	parambuf.packSize( p2);
+	parambuf.packInt(p3);
+	parambuf.packUInt(p4);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2535,7 +2535,7 @@ void QueryImpl::defineFeature(
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packScalar(p2);
+	parambuf.packDouble(p2);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2640,7 +2640,7 @@ void QueryImpl::setMaxNofRanks(
 	obj()->setMaxNofRanks(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar((unsigned int)p1);
+	parambuf.packSize( p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2659,7 +2659,7 @@ void QueryImpl::setMinRank(
 	obj()->setMinRank(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar((unsigned int)p1);
+	parambuf.packSize( p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2699,7 +2699,7 @@ void QueryImpl::setWeightingVariableValue(
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packScalar(p2);
+	parambuf.packDouble(p2);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2978,7 +2978,7 @@ void ScalarFunctionInstanceImpl::setVariableValue(
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packScalar(p2);
+	parambuf.packDouble(p2);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -2996,7 +2996,7 @@ double ScalarFunctionInstanceImpl::call(
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunctionInstance, Method_call, objid());
 	double p0 = obj()->call(args, p1);
 	TraceSerializer parambuf;
-	parambuf.packScalar(p0);
+	parambuf.packDouble(p0);
 	parambuf.packBufferFloat( args, p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -3063,7 +3063,7 @@ std::size_t ScalarFunctionImpl::getNofArguments() const
 	}
 	else
 	{
-		parambuf.packScalar((unsigned int)p0);
+		parambuf.packSize( p0);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -3086,7 +3086,7 @@ void ScalarFunctionImpl::setDefaultVariableValue(
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packScalar(p2);
+	parambuf.packDouble(p2);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3218,8 +3218,8 @@ bool SegmenterContextImpl::getNext(
 	bool p0 = obj()->getNext(p1, p2, segment, p3);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
-	parambuf.packScalar(p1);
-	parambuf.packScalar(p2);
+	parambuf.packInt(p1);
+	parambuf.packGlobalCounter(p2);
 	parambuf.packBuffer( segment, p3);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -3247,7 +3247,7 @@ void SegmenterInstanceImpl::defineSelectorExpression(
 	obj()->defineSelectorExpression(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar(p1);
+	parambuf.packInt(p1);
 	parambuf.packString(p2);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -3269,8 +3269,8 @@ void SegmenterInstanceImpl::defineSubSection(
 	obj()->defineSubSection(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar(p1);
-	parambuf.packScalar(p2);
+	parambuf.packInt(p1);
+	parambuf.packInt(p2);
 	parambuf.packString(p3);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -3385,7 +3385,7 @@ void StatisticsBuilderImpl::setNofDocumentsInsertedChange(
 	obj()->setNofDocumentsInsertedChange(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar(p1);
+	parambuf.packInt(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3408,7 +3408,7 @@ void StatisticsBuilderImpl::addDfChange(
 	parambuf.packVoid();
 	parambuf.packCharp(p1);
 	parambuf.packCharp(p2);
-	parambuf.packScalar(p3);
+	parambuf.packInt(p3);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3577,7 +3577,7 @@ int StatisticsViewerImpl::nofDocumentsInsertedChange()
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsViewer, Method_nofDocumentsInsertedChange, objid());
 	int p0 = obj()->nofDocumentsInsertedChange();
 	TraceSerializer parambuf;
-	parambuf.packScalar(p0);
+	parambuf.packInt(p0);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3810,7 +3810,7 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 			if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 			if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_MetaDataRestriction, objbase_p1->objid());
-		parambuf.packScalar(p2);
+		parambuf.packIndex(p2);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -3926,7 +3926,7 @@ Index StorageClientImpl::nofDocumentsInserted() const
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -3953,7 +3953,7 @@ Index StorageClientImpl::documentFrequency(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 		parambuf.packString(p1);
 		parambuf.packString(p2);
 	}
@@ -3980,7 +3980,7 @@ Index StorageClientImpl::maxDocumentNumber() const
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -4006,7 +4006,7 @@ Index StorageClientImpl::documentNumber(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
+		parambuf.packIndex(p0);
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
@@ -4147,8 +4147,8 @@ Index StorageClientImpl::documentStatistics(
 	}
 	else
 	{
-		parambuf.packScalar(p0);
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p0);
+		parambuf.packIndex(p1);
 		parambuf.packDocumentStatisticsType(p2);
 		parambuf.packString(p3);
 	}
@@ -4460,7 +4460,7 @@ void StorageDocumentImpl::addSearchIndexTerm(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	parambuf.packScalar(p3);
+	parambuf.packIndex(p3);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4483,7 +4483,7 @@ void StorageDocumentImpl::addForwardIndexTerm(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	parambuf.packScalar(p3);
+	parambuf.packIndex(p3);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -5145,7 +5145,7 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 			if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageDocumentUpdate, objbase_p0->objid());
-		parambuf.packScalar(p1);
+		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -5207,7 +5207,7 @@ void StorageTransactionImpl::updateMetaData(
 	obj()->updateMetaData(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packScalar(p1);
+	parambuf.packIndex(p1);
 	parambuf.packString(p2);
 	parambuf.packNumericVariant(p3);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
@@ -5277,7 +5277,7 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase_p2->objid());
 	parambuf.packSummarizationVariableVector(p3);
-	parambuf.packScalar(p4);
+	parambuf.packDouble(p4);
 	parambuf.packTermStatistics(p5);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -5297,7 +5297,7 @@ std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 	std::vector<SummaryElement> p0 = obj()->getSummary(p1);
 	TraceSerializer parambuf;
 	parambuf.packSummaryElementVector(p0);
-	parambuf.packScalar(p1);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -5904,7 +5904,7 @@ std::vector<std::string> ValueIteratorImpl::fetchValues(
 	std::vector<std::string> p0 = obj()->fetchValues(p1);
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
-	parambuf.packScalar((unsigned int)p1);
+	parambuf.packSize( p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -5936,7 +5936,7 @@ void WeightingFunctionContextImpl::addWeightingFeature(
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase_p2->objid());
-	parambuf.packScalar(p3);
+	parambuf.packDouble(p3);
 	parambuf.packTermStatistics(p4);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
@@ -5955,8 +5955,8 @@ double WeightingFunctionContextImpl::call(
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunctionContext, Method_call, objid());
 	double p0 = obj()->call(p1);
 	TraceSerializer parambuf;
-	parambuf.packScalar(p0);
-	parambuf.packScalar(p1);
+	parambuf.packDouble(p0);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError() || traceContext()->errorbuf()->hasError())
 	{
 		if (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

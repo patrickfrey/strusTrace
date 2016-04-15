@@ -54,16 +54,21 @@ void TraceSerializer::FUNC( const TYPE value)\
 	}\
 }
 DEFINE_PACK_CALL_NOARG( packVoid)
-DEFINE_PACK_CALL( packScalar, int8_t)
-DEFINE_PACK_CALL( packScalar, int16_t)
-DEFINE_PACK_CALL( packScalar, int32_t)
-DEFINE_PACK_CALL( packScalar, int64_t)
-DEFINE_PACK_CALL( packScalar, uint8_t)
-DEFINE_PACK_CALL( packScalar, uint16_t)
-DEFINE_PACK_CALL( packScalar, uint32_t)
-DEFINE_PACK_CALL( packScalar, uint64_t)
-DEFINE_PACK_CALL( packScalar, float)
-DEFINE_PACK_CALL( packScalar, double)
+DEFINE_PACK_CALL( packInt, int32_t)
+DEFINE_PACK_CALL( packInt8, int8_t)
+DEFINE_PACK_CALL( packInt16, int16_t)
+DEFINE_PACK_CALL( packInt32, int32_t)
+DEFINE_PACK_CALL( packInt64, int64_t)
+DEFINE_PACK_CALL( packUInt, uint32_t)
+DEFINE_PACK_CALL( packUInt8, uint8_t)
+DEFINE_PACK_CALL( packUInt16, uint16_t)
+DEFINE_PACK_CALL( packUInt32, uint32_t)
+DEFINE_PACK_CALL( packUInt64, uint64_t)
+DEFINE_PACK_CALL( packIndex, Index)
+DEFINE_PACK_CALL( packGlobalCounter, GlobalCounter)
+DEFINE_PACK_CALL( packSize, std::size_t)
+DEFINE_PACK_CALL( packFloat, float)
+DEFINE_PACK_CALL( packDouble, double)
 DEFINE_PACK_CALL( packBool, bool)
 DEFINE_PACK_CALL( packString, std::string)
 DEFINE_PACK_CALL_PTR( packCharp, char*)
@@ -79,8 +84,8 @@ void TraceSerializer::packObject( const TraceClassId& classId, const TraceObject
 {
 	try{
 	if (objId > std::numeric_limits<uint32_t>::max()) throw strus::runtime_error( _TXT("object id out of range"));
-	packScalar( classId);
-	packScalar( objId);
+	packUInt8( classId);
+	packUInt32( objId);
 	}CATCH_ERROR
 }
 
@@ -98,7 +103,7 @@ void TraceSerializer::packBufferFloat( const double* buf, std::size_t size)
 	for (ii=0; ii<size; ++ii)
 	{
 		Serializer::openIndex( ii);
-		Serializer::packScalar( buf[ii]);
+		Serializer::packDouble( buf[ii]);
 		Serializer::close();
 	}
 	}CATCH_ERROR
@@ -124,7 +129,7 @@ void TraceSerializer::packIndexVector( const std::vector<Index>& ar)
 	for (std::size_t aidx=0; ai != ae; ++ai,++aidx)
 	{
 		Serializer::openIndex( aidx);
-		Serializer::packScalar( *ai);
+		Serializer::packIndex( *ai);
 		Serializer::close();
 	}
 	}CATCH_ERROR
@@ -136,9 +141,9 @@ void TraceSerializer::packNumericVariant( const NumericVariant& val)
 	switch (val.type)
 	{
 		case NumericVariant::Null: Serializer::packVoid();
-		case NumericVariant::Int: Serializer::packScalar( val.variant.Int); break;
-		case NumericVariant::UInt: Serializer::packScalar( val.variant.UInt); break;
-		case NumericVariant::Float: Serializer::packScalar( val.variant.Float); break;
+		case NumericVariant::Int: Serializer::packInt64( val.variant.Int); break;
+		case NumericVariant::UInt: Serializer::packUInt64( val.variant.UInt); break;
+		case NumericVariant::Float: Serializer::packDouble( val.variant.Float); break;
 	}
 	}CATCH_ERROR
 }
@@ -155,14 +160,14 @@ void TraceSerializer::packDocumentClass( const DocumentClass& dclass)
 void TraceSerializer::packTermStatistics( const TermStatistics& stats)
 {
 	try{
-	Serializer::packScalar( stats.documentFrequency());
+	Serializer::packGlobalCounter( stats.documentFrequency());
 	}CATCH_ERROR
 }
 
 void TraceSerializer::packGlobalStatistics( const GlobalStatistics& stats)
 {
 	try{
-	Serializer::packScalar( stats.nofDocumentsInserted());
+	Serializer::packGlobalCounter( stats.nofDocumentsInserted());
 	}CATCH_ERROR
 }
 
@@ -182,7 +187,7 @@ void TraceSerializer::packMetaDataRestrictionCompareOperator( MetaDataRestrictio
 void TraceSerializer::packDatabaseOptions( const DatabaseOptions& val)
 {
 	try{
-	Serializer::packScalar( val.opt());
+	Serializer::packUInt32( val.opt());
 	}CATCH_ERROR
 }
 
@@ -215,7 +220,7 @@ void TraceSerializer::packStorageConfigType( const StorageInterface::ConfigType&
 void TraceSerializer::packFeatureOptions( const DocumentAnalyzerInterface::FeatureOptions& val)
 {
 	try{
-	Serializer::packScalar( val.opt());
+	Serializer::packUInt32( val.opt());
 	}CATCH_ERROR
 }
 
@@ -229,10 +234,10 @@ void TraceSerializer::packSummaryElement( const SummaryElement& val)
 	Serializer::packString( val.value());
 	Serializer::close();
 	Serializer::openTag( "weight");
-	Serializer::packScalar( val.weight());
+	Serializer::packDouble( val.weight());
 	Serializer::close();
 	Serializer::openTag( "index");
-	Serializer::packScalar( val.index());
+	Serializer::packIndex( val.index());
 	Serializer::close();
 	}CATCH_ERROR
 }
@@ -281,13 +286,13 @@ void TraceSerializer::packDocumentTermIteratorTerm( const DocumentTermIteratorIn
 {
 	try{
 	Serializer::openTag( "tf");
-	Serializer::packScalar( (Index)val.tf);
+	Serializer::packIndex( (Index)val.tf);
 	Serializer::close();
 	Serializer::openTag( "firstpos");
-	Serializer::packScalar( (Index)val.firstpos);
+	Serializer::packIndex( (Index)val.firstpos);
 	Serializer::close();
 	Serializer::openTag( "termno");
-	Serializer::packScalar( val.termno);
+	Serializer::packIndex( val.termno);
 	Serializer::close();
 	}CATCH_ERROR
 }
@@ -378,7 +383,7 @@ void TraceSerializer::packAnalyzerMetaData( const analyzer::MetaData& val)
 	Serializer::packString( val.name());
 	Serializer::close();
 	Serializer::openTag("value");
-	Serializer::packScalar( val.value());
+	Serializer::packDouble( val.value());
 	Serializer::close();
 	}CATCH_ERROR
 }
@@ -393,7 +398,7 @@ void TraceSerializer::packAnalyzerTerm( const analyzer::Term& val)
 	Serializer::packString( val.value());
 	Serializer::close();
 	Serializer::openTag("pos");
-	Serializer::packScalar( val.pos());
+	Serializer::packIndex( val.pos());
 	Serializer::close();
 	}CATCH_ERROR
 }
@@ -428,13 +433,13 @@ void TraceSerializer::packAnalyzerToken( const analyzer::Token& val)
 {
 	try{
 	Serializer::openTag("docpos");
-	Serializer::packScalar( val.docpos);
+	Serializer::packIndex( val.docpos);
 	Serializer::close();
 	Serializer::openTag("strpos");
-	Serializer::packScalar( val.strpos);
+	Serializer::packUInt( val.strpos);
 	Serializer::close();
 	Serializer::openTag("strsize");
-	Serializer::packScalar( val.strsize);
+	Serializer::packUInt( val.strsize);
 	Serializer::close();
 	}CATCH_ERROR
 }
@@ -456,10 +461,10 @@ void TraceSerializer::packWeightedDocument( const WeightedDocument& val)
 {
 	try{
 	Serializer::openTag("docno");
-	Serializer::packScalar( val.docno());
+	Serializer::packIndex( val.docno());
 	Serializer::close();
 	Serializer::openTag("weight");
-	Serializer::packScalar( val.weight());
+	Serializer::packDouble( val.weight());
 	Serializer::close();
 	}CATCH_ERROR
 }
@@ -485,13 +490,13 @@ void TraceSerializer::packQueryResult( const QueryResult& val)
 {
 	try{
 	Serializer::openTag("pass");
-	Serializer::packScalar( val.evaluationPass());
+	Serializer::packUInt8( val.evaluationPass());
 	Serializer::close();
 	Serializer::openTag("nofranked");
-	Serializer::packScalar( val.nofDocumentsRanked());
+	Serializer::packIndex( val.nofDocumentsRanked());
 	Serializer::close();
 	Serializer::openTag("nofvisited");
-	Serializer::packScalar( val.nofDocumentsVisited());
+	Serializer::packIndex( val.nofDocumentsVisited());
 	Serializer::close();
 
 	std::vector<ResultDocument>::const_iterator
@@ -574,10 +579,10 @@ void TraceSerializer::packStatisticsProcessorBuilderOptions( const StatisticsPro
 {
 	try{
 	Serializer::openTag("blksize");
-	Serializer::packScalar( val.maxBlockSize);
+	Serializer::packUInt32( val.maxBlockSize);
 	Serializer::close();
 	Serializer::openTag("options");
-	Serializer::packScalar( val.set);
+	Serializer::packUInt32( val.set);
 	Serializer::close();
 	}CATCH_ERROR
 }
@@ -592,7 +597,7 @@ void TraceSerializer::packStatisticsViewerDocumentFrequencyChange( const Statist
 	Serializer::packCharp( val.value);
 	Serializer::close();
 	Serializer::openTag("incr");
-	Serializer::packScalar( val.increment);
+	Serializer::packIndex( val.increment);
 	Serializer::close();
 	}CATCH_ERROR
 }
@@ -643,7 +648,7 @@ void TraceSerializer::packFunctionDescription( const FunctionDescription& val)
 	Serializer::packString( val.text());
 	Serializer::close();
 	Serializer::openTag("size");
-	Serializer::packScalar( val.parameter().size());
+	Serializer::packSize( val.parameter().size());
 	Serializer::close();
 	Serializer::openTag("param");
 	std::vector<FunctionDescription::Parameter>::const_iterator vi = val.parameter().begin(), ve = val.parameter().end();

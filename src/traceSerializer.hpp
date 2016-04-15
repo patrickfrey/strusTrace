@@ -55,16 +55,21 @@ public:
 	~TraceSerializer(){}
 
 	void packVoid();
-	void packScalar( const int8_t& value);
-	void packScalar( const int16_t& value);
-	void packScalar( const int32_t& value);
-	void packScalar( const int64_t& value);
-	void packScalar( const uint8_t& value);
-	void packScalar( const uint16_t& value);
-	void packScalar( const uint32_t& value);
-	void packScalar( const uint64_t& value);
-	void packScalar( const float& value);
-	void packScalar( const double& value);
+	void packInt( const int& value);
+	void packInt8( const int8_t& value);
+	void packInt16( const int16_t& value);
+	void packInt32( const int32_t& value);
+	void packInt64( const int64_t& value);
+	void packUInt( const unsigned int& value);
+	void packUInt8( const uint8_t& value);
+	void packUInt16( const uint16_t& value);
+	void packUInt32( const uint32_t& value);
+	void packUInt64( const uint64_t& value);
+	void packSize( const std::size_t& value);
+	void packIndex( const Index& value);
+	void packGlobalCounter( const GlobalCounter& value);
+	void packFloat( const float& value);
+	void packDouble( const double& value);
 	void packBool( const bool& value);
 	void packString( const std::string& value);
 	void packStringVector( const std::vector<std::string>& ar);

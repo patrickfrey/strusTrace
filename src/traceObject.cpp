@@ -7,6 +7,7 @@
  */
 #include "traceObject.hpp"
 #include "traceGlobalContext.hpp"
+#include <iostream>
 
 using namespace strus;
 
@@ -20,5 +21,10 @@ TraceObjectBase::TraceObjectBase( const void* obj_, const TraceGlobalContext* ct
 	m_ctx = const_cast<TraceGlobalContext*>(ctx_);
 	m_obj = const_cast<void*>(obj_);
 	m_id = m_ctx->createId();
+}
+
+TraceObjectBase::~TraceObjectBase()
+{
+	if (m_deleter) m_deleter( m_obj);
 }
 

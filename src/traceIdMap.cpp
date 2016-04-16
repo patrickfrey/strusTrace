@@ -15,6 +15,12 @@
 
 using namespace strus;
 
+TraceIdMap::TraceIdMap( ErrorBufferInterface* errorhnd_)
+	:m_errorhnd(errorhnd_)
+{
+	fillMaps();
+}
+
 const char* TraceIdMap::getClassName( const TraceClassId& classId) const
 {
 	if (!classId) return 0;

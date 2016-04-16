@@ -45,7 +45,7 @@ int main( int argc, const char* argv[])
 	{
 		if (std::strcmp( argv[argi], "-h") == 0)
 		{
-			std::cerr << "usage: testStorageOp [options]" << std::endl;
+			std::cerr << "usage: testQueryEval [options]" << std::endl;
 			std::cerr << "options:" << std::endl;
 			std::cerr << "  -h      :print usage" << std::endl;
 		}
@@ -68,17 +68,19 @@ int main( int argc, const char* argv[])
 	}
 	try
 	{
-		std::auto_ptr<strus::AnalyzerObjectBuilderInterface> analyzerObjectBuilder( new strus::AnalyzerObjectBuilder( g_errorhnd));
-		std::auto_ptr<strus::StorageObjectBuilderInterface> storageObjectBuilder( new strus::StorageObjectBuilder( g_errorhnd));
-		std::auto_ptr<strus::TraceProcessorInterface> traceproc( strus::createTraceProcessor_textfile( g_errorhnd));
-		if (!traceproc.get())
-		{
-			throw std::runtime_error("failed to create trace processor");
-		}
+		std::auto_ptr<strus::TraceProcessorInterface>
+			traceproc( strus::createTraceProcessor_textfile( g_errorhnd));
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder(
 				strus::traceCreateObjectBuilder(
 					traceproc->createLogger( "stdout"), g_errorhnd));
+
+		std::auto_ptr<strus::AnalyzerObjectBuilderInterface> analyzerObjectBuilder( new strus::AnalyzerObjectBuilder( g_errorhnd));
+		std::auto_ptr<strus::StorageObjectBuilderInterface> storageObjectBuilder( new strus::StorageObjectBuilder( g_errorhnd));
+		if (!traceproc.get())
+		{
+			throw std::runtime_error("failed to create trace processor");
+		}
 		strus::AnalyzerObjectBuilderInterface*
 			ao = traceObjectBuilder->createAnalyzerObjectBuilder( analyzerObjectBuilder.get());
 		if (ao)

@@ -73,9 +73,9 @@ static void print_ObjectIdsHpp( std::ostream& out, const strus::InterfacesDef& i
 	std::vector<strus::ClassDef>::const_iterator
 		ci = interfaceDef.classDefs().begin(),
 		ce = interfaceDef.classDefs().end();
-	for (; ci != ce; ++ci)
+	for (int cidx=1; ci != ce; ++ci,++cidx)
 	{
-		out << "\tClassId_" << ci->name();
+		out << "\tClassId_" << ci->name() << "=" << cidx;
 		if (ci+1 != ce) out << ",";
 		out << std::endl;
 	}
@@ -89,13 +89,13 @@ static void print_ObjectIdsHpp( std::ostream& out, const strus::InterfacesDef& i
 		out << "public:" << std::endl;
 		out << "\tenum MethodId" << std::endl;
 		out << "\t{" << std::endl;
-		out << "\t\tMethod_Destructor";
+		out << "\t\tMethod_Destructor=0";
 		std::vector<strus::MethodDef>::const_iterator
 			mi = ci->methodDefs().begin(),
 			me = ci->methodDefs().end();
-		for (; mi != me; ++mi)
+		for (int midx=1; mi != me; ++mi,++midx)
 		{
-			out << ","  << std::endl << "\t\tMethod_" << mi->name();
+			out << ","  << std::endl << "\t\tMethod_" << mi->name() << "=" << midx;
 		}
 		out << std::endl << "\t};" << std::endl;
 		out << "};" << std::endl << std::endl;

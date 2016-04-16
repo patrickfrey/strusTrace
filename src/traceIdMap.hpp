@@ -27,8 +27,7 @@ public:
 	/// \brief Constructor
 	/// \param[in] errorhnd_ error buffer interface
 	/// \param[in] logger_ logging interface (ownership passed to this) for inspecting values
-	explicit TraceIdMap( ErrorBufferInterface* errorhnd_)
-		:m_errorhnd(errorhnd_){}
+	explicit TraceIdMap( ErrorBufferInterface* errorhnd_);
 
 	/// \brief Destructor
 	virtual ~TraceIdMap(){}

@@ -14,62 +14,62 @@ namespace strus {
 
 enum ClassId
 {
-	ClassId_AggregatorFunctionInstance,
-	ClassId_AggregatorFunction,
-	ClassId_AnalyzerObjectBuilder,
-	ClassId_AttributeReader,
-	ClassId_DatabaseBackupCursor,
-	ClassId_DatabaseClient,
-	ClassId_DatabaseCursor,
-	ClassId_Database,
-	ClassId_DatabaseTransaction,
-	ClassId_DocumentAnalyzerContext,
-	ClassId_DocumentAnalyzer,
-	ClassId_DocumentClassDetector,
-	ClassId_DocumentTermIterator,
-	ClassId_ForwardIterator,
-	ClassId_InvAclIterator,
-	ClassId_MetaDataReader,
-	ClassId_MetaDataRestrictionInstance,
-	ClassId_MetaDataRestriction,
-	ClassId_NormalizerFunctionContext,
-	ClassId_NormalizerFunctionInstance,
-	ClassId_NormalizerFunction,
-	ClassId_PostingIterator,
-	ClassId_PostingJoinOperator,
-	ClassId_QueryAnalyzer,
-	ClassId_QueryEval,
-	ClassId_Query,
-	ClassId_QueryProcessor,
-	ClassId_ScalarFunctionInstance,
-	ClassId_ScalarFunction,
-	ClassId_ScalarFunctionParser,
-	ClassId_SegmenterContext,
-	ClassId_SegmenterInstance,
-	ClassId_Segmenter,
-	ClassId_StatisticsBuilder,
-	ClassId_StatisticsIterator,
-	ClassId_StatisticsProcessor,
-	ClassId_StatisticsViewer,
-	ClassId_StorageAlterMetaDataTable,
-	ClassId_StorageClient,
-	ClassId_StorageDocument,
-	ClassId_StorageDocumentUpdate,
-	ClassId_StorageDump,
-	ClassId_Storage,
-	ClassId_StorageObjectBuilder,
-	ClassId_StorageTransaction,
-	ClassId_SummarizerFunctionContext,
-	ClassId_SummarizerFunctionInstance,
-	ClassId_SummarizerFunction,
-	ClassId_TextProcessor,
-	ClassId_TokenizerFunctionContext,
-	ClassId_TokenizerFunctionInstance,
-	ClassId_TokenizerFunction,
-	ClassId_ValueIterator,
-	ClassId_WeightingFunctionContext,
-	ClassId_WeightingFunctionInstance,
-	ClassId_WeightingFunction
+	ClassId_AggregatorFunctionInstance=1,
+	ClassId_AggregatorFunction=2,
+	ClassId_AnalyzerObjectBuilder=3,
+	ClassId_AttributeReader=4,
+	ClassId_DatabaseBackupCursor=5,
+	ClassId_DatabaseClient=6,
+	ClassId_DatabaseCursor=7,
+	ClassId_Database=8,
+	ClassId_DatabaseTransaction=9,
+	ClassId_DocumentAnalyzerContext=10,
+	ClassId_DocumentAnalyzer=11,
+	ClassId_DocumentClassDetector=12,
+	ClassId_DocumentTermIterator=13,
+	ClassId_ForwardIterator=14,
+	ClassId_InvAclIterator=15,
+	ClassId_MetaDataReader=16,
+	ClassId_MetaDataRestrictionInstance=17,
+	ClassId_MetaDataRestriction=18,
+	ClassId_NormalizerFunctionContext=19,
+	ClassId_NormalizerFunctionInstance=20,
+	ClassId_NormalizerFunction=21,
+	ClassId_PostingIterator=22,
+	ClassId_PostingJoinOperator=23,
+	ClassId_QueryAnalyzer=24,
+	ClassId_QueryEval=25,
+	ClassId_Query=26,
+	ClassId_QueryProcessor=27,
+	ClassId_ScalarFunctionInstance=28,
+	ClassId_ScalarFunction=29,
+	ClassId_ScalarFunctionParser=30,
+	ClassId_SegmenterContext=31,
+	ClassId_SegmenterInstance=32,
+	ClassId_Segmenter=33,
+	ClassId_StatisticsBuilder=34,
+	ClassId_StatisticsIterator=35,
+	ClassId_StatisticsProcessor=36,
+	ClassId_StatisticsViewer=37,
+	ClassId_StorageAlterMetaDataTable=38,
+	ClassId_StorageClient=39,
+	ClassId_StorageDocument=40,
+	ClassId_StorageDocumentUpdate=41,
+	ClassId_StorageDump=42,
+	ClassId_Storage=43,
+	ClassId_StorageObjectBuilder=44,
+	ClassId_StorageTransaction=45,
+	ClassId_SummarizerFunctionContext=46,
+	ClassId_SummarizerFunctionInstance=47,
+	ClassId_SummarizerFunction=48,
+	ClassId_TextProcessor=49,
+	ClassId_TokenizerFunctionContext=50,
+	ClassId_TokenizerFunctionInstance=51,
+	ClassId_TokenizerFunction=52,
+	ClassId_ValueIterator=53,
+	ClassId_WeightingFunctionContext=54,
+	ClassId_WeightingFunctionInstance=55,
+	ClassId_WeightingFunction=56
 };
 
 class AggregatorFunctionInstanceConst
@@ -77,8 +77,8 @@ class AggregatorFunctionInstanceConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_evaluate
+		Method_Destructor=0,
+		Method_evaluate=1
 	};
 };
 
@@ -87,9 +87,9 @@ class AggregatorFunctionConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createInstance,
-		Method_getDescription
+		Method_Destructor=0,
+		Method_createInstance=1,
+		Method_getDescription=2
 	};
 };
 
@@ -98,11 +98,11 @@ class AnalyzerObjectBuilderConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_getTextProcessor,
-		Method_createSegmenter,
-		Method_createDocumentAnalyzer,
-		Method_createQueryAnalyzer
+		Method_Destructor=0,
+		Method_getTextProcessor=1,
+		Method_createSegmenter=2,
+		Method_createDocumentAnalyzer=3,
+		Method_createQueryAnalyzer=4
 	};
 };
 
@@ -111,11 +111,11 @@ class AttributeReaderConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_elementHandle,
-		Method_skipDoc,
-		Method_getValue,
-		Method_getAttributeNames
+		Method_Destructor=0,
+		Method_elementHandle=1,
+		Method_skipDoc=2,
+		Method_getValue=3,
+		Method_getAttributeNames=4
 	};
 };
 
@@ -124,8 +124,8 @@ class DatabaseBackupCursorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_fetch
+		Method_Destructor=0,
+		Method_fetch=1
 	};
 };
 
@@ -134,13 +134,13 @@ class DatabaseClientConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createTransaction,
-		Method_createCursor,
-		Method_createBackupCursor,
-		Method_writeImm,
-		Method_removeImm,
-		Method_readValue
+		Method_Destructor=0,
+		Method_createTransaction=1,
+		Method_createCursor=2,
+		Method_createBackupCursor=3,
+		Method_writeImm=4,
+		Method_removeImm=5,
+		Method_readValue=6
 	};
 };
 
@@ -149,15 +149,15 @@ class DatabaseCursorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_seekUpperBound,
-		Method_seekUpperBoundRestricted,
-		Method_seekFirst,
-		Method_seekLast,
-		Method_seekNext,
-		Method_seekPrev,
-		Method_key,
-		Method_value
+		Method_Destructor=0,
+		Method_seekUpperBound=1,
+		Method_seekUpperBoundRestricted=2,
+		Method_seekFirst=3,
+		Method_seekLast=4,
+		Method_seekNext=5,
+		Method_seekPrev=6,
+		Method_key=7,
+		Method_value=8
 	};
 };
 
@@ -166,14 +166,14 @@ class DatabaseConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_exists,
-		Method_createClient,
-		Method_createDatabase,
-		Method_restoreDatabase,
-		Method_destroyDatabase,
-		Method_getConfigDescription,
-		Method_getConfigParameters
+		Method_Destructor=0,
+		Method_exists=1,
+		Method_createClient=2,
+		Method_createDatabase=3,
+		Method_restoreDatabase=4,
+		Method_destroyDatabase=5,
+		Method_getConfigDescription=6,
+		Method_getConfigParameters=7
 	};
 };
 
@@ -182,13 +182,13 @@ class DatabaseTransactionConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createCursor,
-		Method_write,
-		Method_remove,
-		Method_removeSubTree,
-		Method_commit,
-		Method_rollback
+		Method_Destructor=0,
+		Method_createCursor=1,
+		Method_write=2,
+		Method_remove=3,
+		Method_removeSubTree=4,
+		Method_commit=5,
+		Method_rollback=6
 	};
 };
 
@@ -197,9 +197,9 @@ class DocumentAnalyzerContextConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_putInput,
-		Method_analyzeNext
+		Method_Destructor=0,
+		Method_putInput=1,
+		Method_analyzeNext=2
 	};
 };
 
@@ -208,15 +208,15 @@ class DocumentAnalyzerConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addSearchIndexFeature,
-		Method_addForwardIndexFeature,
-		Method_defineMetaData,
-		Method_defineAggregatedMetaData,
-		Method_defineAttribute,
-		Method_defineSubDocument,
-		Method_analyze,
-		Method_createContext
+		Method_Destructor=0,
+		Method_addSearchIndexFeature=1,
+		Method_addForwardIndexFeature=2,
+		Method_defineMetaData=3,
+		Method_defineAggregatedMetaData=4,
+		Method_defineAttribute=5,
+		Method_defineSubDocument=6,
+		Method_analyze=7,
+		Method_createContext=8
 	};
 };
 
@@ -225,8 +225,8 @@ class DocumentClassDetectorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_detect
+		Method_Destructor=0,
+		Method_detect=1
 	};
 };
 
@@ -235,11 +235,11 @@ class DocumentTermIteratorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_skipDoc,
-		Method_nextTerm,
-		Method_termDocumentFrequency,
-		Method_termValue
+		Method_Destructor=0,
+		Method_skipDoc=1,
+		Method_nextTerm=2,
+		Method_termDocumentFrequency=3,
+		Method_termValue=4
 	};
 };
 
@@ -248,10 +248,10 @@ class ForwardIteratorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_skipDoc,
-		Method_skipPos,
-		Method_fetch
+		Method_Destructor=0,
+		Method_skipDoc=1,
+		Method_skipPos=2,
+		Method_fetch=3
 	};
 };
 
@@ -260,8 +260,8 @@ class InvAclIteratorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_skipDoc
+		Method_Destructor=0,
+		Method_skipDoc=1
 	};
 };
 
@@ -270,14 +270,14 @@ class MetaDataReaderConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_hasElement,
-		Method_elementHandle,
-		Method_nofElements,
-		Method_skipDoc,
-		Method_getValue,
-		Method_getType,
-		Method_getName
+		Method_Destructor=0,
+		Method_hasElement=1,
+		Method_elementHandle=2,
+		Method_nofElements=3,
+		Method_skipDoc=4,
+		Method_getValue=5,
+		Method_getType=6,
+		Method_getName=7
 	};
 };
 
@@ -286,8 +286,8 @@ class MetaDataRestrictionInstanceConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_match
+		Method_Destructor=0,
+		Method_match=1
 	};
 };
 
@@ -296,10 +296,10 @@ class MetaDataRestrictionConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addCondition,
-		Method_createInstance,
-		Method_tostring
+		Method_Destructor=0,
+		Method_addCondition=1,
+		Method_createInstance=2,
+		Method_tostring=3
 	};
 };
 
@@ -308,8 +308,8 @@ class NormalizerFunctionContextConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_normalize
+		Method_Destructor=0,
+		Method_normalize=1
 	};
 };
 
@@ -318,8 +318,8 @@ class NormalizerFunctionInstanceConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createFunctionContext
+		Method_Destructor=0,
+		Method_createFunctionContext=1
 	};
 };
 
@@ -328,9 +328,9 @@ class NormalizerFunctionConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createInstance,
-		Method_getDescription
+		Method_Destructor=0,
+		Method_createInstance=1,
+		Method_getDescription=2
 	};
 };
 
@@ -339,15 +339,15 @@ class PostingIteratorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_skipDoc,
-		Method_skipDocCandidate,
-		Method_skipPos,
-		Method_featureid,
-		Method_documentFrequency,
-		Method_frequency,
-		Method_docno,
-		Method_posno
+		Method_Destructor=0,
+		Method_skipDoc=1,
+		Method_skipDocCandidate=2,
+		Method_skipPos=3,
+		Method_featureid=4,
+		Method_documentFrequency=5,
+		Method_frequency=6,
+		Method_docno=7,
+		Method_posno=8
 	};
 };
 
@@ -356,9 +356,9 @@ class PostingJoinOperatorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createResultIterator,
-		Method_getDescription
+		Method_Destructor=0,
+		Method_createResultIterator=1,
+		Method_getDescription=2
 	};
 };
 
@@ -367,10 +367,10 @@ class QueryAnalyzerConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_definePhraseType,
-		Method_analyzePhrase,
-		Method_analyzePhraseBulk
+		Method_Destructor=0,
+		Method_definePhraseType=1,
+		Method_analyzePhrase=2,
+		Method_analyzePhraseBulk=3
 	};
 };
 
@@ -379,15 +379,15 @@ class QueryEvalConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addTerm,
-		Method_addSelectionFeature,
-		Method_addRestrictionFeature,
-		Method_addExclusionFeature,
-		Method_addSummarizerFunction,
-		Method_addWeightingFunction,
-		Method_defineWeightingFormula,
-		Method_createQuery
+		Method_Destructor=0,
+		Method_addTerm=1,
+		Method_addSelectionFeature=2,
+		Method_addRestrictionFeature=3,
+		Method_addExclusionFeature=4,
+		Method_addSummarizerFunction=5,
+		Method_addWeightingFunction=6,
+		Method_defineWeightingFormula=7,
+		Method_createQuery=8
 	};
 };
 
@@ -396,20 +396,20 @@ class QueryConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_pushTerm,
-		Method_pushExpression,
-		Method_attachVariable,
-		Method_defineFeature,
-		Method_defineTermStatistics,
-		Method_defineGlobalStatistics,
-		Method_addMetaDataRestrictionCondition,
-		Method_addDocumentEvaluationSet,
-		Method_setMaxNofRanks,
-		Method_setMinRank,
-		Method_addUserName,
-		Method_setWeightingVariableValue,
-		Method_evaluate
+		Method_Destructor=0,
+		Method_pushTerm=1,
+		Method_pushExpression=2,
+		Method_attachVariable=3,
+		Method_defineFeature=4,
+		Method_defineTermStatistics=5,
+		Method_defineGlobalStatistics=6,
+		Method_addMetaDataRestrictionCondition=7,
+		Method_addDocumentEvaluationSet=8,
+		Method_setMaxNofRanks=9,
+		Method_setMinRank=10,
+		Method_addUserName=11,
+		Method_setWeightingVariableValue=12,
+		Method_evaluate=13
 	};
 };
 
@@ -418,16 +418,16 @@ class QueryProcessorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_definePostingJoinOperator,
-		Method_getPostingJoinOperator,
-		Method_defineWeightingFunction,
-		Method_getWeightingFunction,
-		Method_defineSummarizerFunction,
-		Method_getSummarizerFunction,
-		Method_getFunctionList,
-		Method_defineScalarFunctionParser,
-		Method_getScalarFunctionParser
+		Method_Destructor=0,
+		Method_definePostingJoinOperator=1,
+		Method_getPostingJoinOperator=2,
+		Method_defineWeightingFunction=3,
+		Method_getWeightingFunction=4,
+		Method_defineSummarizerFunction=5,
+		Method_getSummarizerFunction=6,
+		Method_getFunctionList=7,
+		Method_defineScalarFunctionParser=8,
+		Method_getScalarFunctionParser=9
 	};
 };
 
@@ -436,10 +436,10 @@ class ScalarFunctionInstanceConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_setVariableValue,
-		Method_call,
-		Method_tostring
+		Method_Destructor=0,
+		Method_setVariableValue=1,
+		Method_call=2,
+		Method_tostring=3
 	};
 };
 
@@ -448,12 +448,12 @@ class ScalarFunctionConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_getVariables,
-		Method_getNofArguments,
-		Method_setDefaultVariableValue,
-		Method_createInstance,
-		Method_tostring
+		Method_Destructor=0,
+		Method_getVariables=1,
+		Method_getNofArguments=2,
+		Method_setDefaultVariableValue=3,
+		Method_createInstance=4,
+		Method_tostring=5
 	};
 };
 
@@ -462,8 +462,8 @@ class ScalarFunctionParserConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createFunction
+		Method_Destructor=0,
+		Method_createFunction=1
 	};
 };
 
@@ -472,9 +472,9 @@ class SegmenterContextConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_putInput,
-		Method_getNext
+		Method_Destructor=0,
+		Method_putInput=1,
+		Method_getNext=2
 	};
 };
 
@@ -483,10 +483,10 @@ class SegmenterInstanceConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_defineSelectorExpression,
-		Method_defineSubSection,
-		Method_createContext
+		Method_Destructor=0,
+		Method_defineSelectorExpression=1,
+		Method_defineSubSection=2,
+		Method_createContext=3
 	};
 };
 
@@ -495,9 +495,9 @@ class SegmenterConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_mimeType,
-		Method_createInstance
+		Method_Destructor=0,
+		Method_mimeType=1,
+		Method_createInstance=2
 	};
 };
 
@@ -506,12 +506,12 @@ class StatisticsBuilderConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_setNofDocumentsInsertedChange,
-		Method_addDfChange,
-		Method_start,
-		Method_rollback,
-		Method_fetchMessage
+		Method_Destructor=0,
+		Method_setNofDocumentsInsertedChange=1,
+		Method_addDfChange=2,
+		Method_start=3,
+		Method_rollback=4,
+		Method_fetchMessage=5
 	};
 };
 
@@ -520,8 +520,8 @@ class StatisticsIteratorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_getNext
+		Method_Destructor=0,
+		Method_getNext=1
 	};
 };
 
@@ -530,9 +530,9 @@ class StatisticsProcessorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createViewer,
-		Method_createBuilder
+		Method_Destructor=0,
+		Method_createViewer=1,
+		Method_createBuilder=2
 	};
 };
 
@@ -541,9 +541,9 @@ class StatisticsViewerConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_nofDocumentsInsertedChange,
-		Method_nextDfChange
+		Method_Destructor=0,
+		Method_nofDocumentsInsertedChange=1,
+		Method_nextDfChange=2
 	};
 };
 
@@ -552,14 +552,14 @@ class StorageAlterMetaDataTableConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addElement,
-		Method_alterElement,
-		Method_renameElement,
-		Method_deleteElement,
-		Method_clearElement,
-		Method_commit,
-		Method_rollback
+		Method_Destructor=0,
+		Method_addElement=1,
+		Method_alterElement=2,
+		Method_renameElement=3,
+		Method_deleteElement=4,
+		Method_clearElement=5,
+		Method_commit=6,
+		Method_rollback=7
 	};
 };
 
@@ -568,31 +568,31 @@ class StorageClientConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createTermPostingIterator,
-		Method_createBrowsePostingIterator,
-		Method_createForwardIterator,
-		Method_createDocumentTermIterator,
-		Method_createInvAclIterator,
-		Method_nofDocumentsInserted,
-		Method_documentFrequency,
-		Method_maxDocumentNumber,
-		Method_documentNumber,
-		Method_createTermTypeIterator,
-		Method_createTermValueIterator,
-		Method_createDocIdIterator,
-		Method_createUserNameIterator,
-		Method_documentStatistics,
-		Method_createMetaDataReader,
-		Method_createMetaDataRestriction,
-		Method_createAttributeReader,
-		Method_createTransaction,
-		Method_createInitStatisticsIterator,
-		Method_createUpdateStatisticsIterator,
-		Method_getStatisticsProcessor,
-		Method_createDocumentChecker,
-		Method_checkStorage,
-		Method_createDump
+		Method_Destructor=0,
+		Method_createTermPostingIterator=1,
+		Method_createBrowsePostingIterator=2,
+		Method_createForwardIterator=3,
+		Method_createDocumentTermIterator=4,
+		Method_createInvAclIterator=5,
+		Method_nofDocumentsInserted=6,
+		Method_documentFrequency=7,
+		Method_maxDocumentNumber=8,
+		Method_documentNumber=9,
+		Method_createTermTypeIterator=10,
+		Method_createTermValueIterator=11,
+		Method_createDocIdIterator=12,
+		Method_createUserNameIterator=13,
+		Method_documentStatistics=14,
+		Method_createMetaDataReader=15,
+		Method_createMetaDataRestriction=16,
+		Method_createAttributeReader=17,
+		Method_createTransaction=18,
+		Method_createInitStatisticsIterator=19,
+		Method_createUpdateStatisticsIterator=20,
+		Method_getStatisticsProcessor=21,
+		Method_createDocumentChecker=22,
+		Method_checkStorage=23,
+		Method_createDump=24
 	};
 };
 
@@ -601,13 +601,13 @@ class StorageDocumentConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addSearchIndexTerm,
-		Method_addForwardIndexTerm,
-		Method_setMetaData,
-		Method_setAttribute,
-		Method_setUserAccessRight,
-		Method_done
+		Method_Destructor=0,
+		Method_addSearchIndexTerm=1,
+		Method_addForwardIndexTerm=2,
+		Method_setMetaData=3,
+		Method_setAttribute=4,
+		Method_setUserAccessRight=5,
+		Method_done=6
 	};
 };
 
@@ -616,14 +616,14 @@ class StorageDocumentUpdateConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_setMetaData,
-		Method_setAttribute,
-		Method_clearAttribute,
-		Method_setUserAccessRight,
-		Method_clearUserAccessRight,
-		Method_clearUserAccessRights,
-		Method_done
+		Method_Destructor=0,
+		Method_setMetaData=1,
+		Method_setAttribute=2,
+		Method_clearAttribute=3,
+		Method_setUserAccessRight=4,
+		Method_clearUserAccessRight=5,
+		Method_clearUserAccessRights=6,
+		Method_done=7
 	};
 };
 
@@ -632,8 +632,8 @@ class StorageDumpConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_nextChunk
+		Method_Destructor=0,
+		Method_nextChunk=1
 	};
 };
 
@@ -642,12 +642,12 @@ class StorageConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createClient,
-		Method_createStorage,
-		Method_createAlterMetaDataTable,
-		Method_getConfigDescription,
-		Method_getConfigParameters
+		Method_Destructor=0,
+		Method_createClient=1,
+		Method_createStorage=2,
+		Method_createAlterMetaDataTable=3,
+		Method_getConfigDescription=4,
+		Method_getConfigParameters=5
 	};
 };
 
@@ -656,14 +656,14 @@ class StorageObjectBuilderConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_getStorage,
-		Method_getDatabase,
-		Method_getQueryProcessor,
-		Method_getStatisticsProcessor,
-		Method_createStorageClient,
-		Method_createAlterMetaDataTable,
-		Method_createQueryEval
+		Method_Destructor=0,
+		Method_getStorage=1,
+		Method_getDatabase=2,
+		Method_getQueryProcessor=3,
+		Method_getStatisticsProcessor=4,
+		Method_createStorageClient=5,
+		Method_createAlterMetaDataTable=6,
+		Method_createQueryEval=7
 	};
 };
 
@@ -672,14 +672,14 @@ class StorageTransactionConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createDocument,
-		Method_createDocumentUpdate,
-		Method_deleteDocument,
-		Method_deleteUserAccessRights,
-		Method_updateMetaData,
-		Method_commit,
-		Method_rollback
+		Method_Destructor=0,
+		Method_createDocument=1,
+		Method_createDocumentUpdate=2,
+		Method_deleteDocument=3,
+		Method_deleteUserAccessRights=4,
+		Method_updateMetaData=5,
+		Method_commit=6,
+		Method_rollback=7
 	};
 };
 
@@ -688,9 +688,9 @@ class SummarizerFunctionContextConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addSummarizationFeature,
-		Method_getSummary
+		Method_Destructor=0,
+		Method_addSummarizationFeature=1,
+		Method_getSummary=2
 	};
 };
 
@@ -699,11 +699,11 @@ class SummarizerFunctionInstanceConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addStringParameter,
-		Method_addNumericParameter,
-		Method_createFunctionContext,
-		Method_tostring
+		Method_Destructor=0,
+		Method_addStringParameter=1,
+		Method_addNumericParameter=2,
+		Method_createFunctionContext=3,
+		Method_tostring=4
 	};
 };
 
@@ -712,9 +712,9 @@ class SummarizerFunctionConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createInstance,
-		Method_getDescription
+		Method_Destructor=0,
+		Method_createInstance=1,
+		Method_getDescription=2
 	};
 };
 
@@ -723,18 +723,18 @@ class TextProcessorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addResourcePath,
-		Method_getResourcePath,
-		Method_getTokenizer,
-		Method_getNormalizer,
-		Method_getAggregator,
-		Method_detectDocumentClass,
-		Method_defineDocumentClassDetector,
-		Method_defineTokenizer,
-		Method_defineNormalizer,
-		Method_defineAggregator,
-		Method_getFunctionList
+		Method_Destructor=0,
+		Method_addResourcePath=1,
+		Method_getResourcePath=2,
+		Method_getTokenizer=3,
+		Method_getNormalizer=4,
+		Method_getAggregator=5,
+		Method_detectDocumentClass=6,
+		Method_defineDocumentClassDetector=7,
+		Method_defineTokenizer=8,
+		Method_defineNormalizer=9,
+		Method_defineAggregator=10,
+		Method_getFunctionList=11
 	};
 };
 
@@ -743,8 +743,8 @@ class TokenizerFunctionContextConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_tokenize
+		Method_Destructor=0,
+		Method_tokenize=1
 	};
 };
 
@@ -753,9 +753,9 @@ class TokenizerFunctionInstanceConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_concatBeforeTokenize,
-		Method_createFunctionContext
+		Method_Destructor=0,
+		Method_concatBeforeTokenize=1,
+		Method_createFunctionContext=2
 	};
 };
 
@@ -764,9 +764,9 @@ class TokenizerFunctionConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createInstance,
-		Method_getDescription
+		Method_Destructor=0,
+		Method_createInstance=1,
+		Method_getDescription=2
 	};
 };
 
@@ -775,9 +775,9 @@ class ValueIteratorConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_skip,
-		Method_fetchValues
+		Method_Destructor=0,
+		Method_skip=1,
+		Method_fetchValues=2
 	};
 };
 
@@ -786,9 +786,9 @@ class WeightingFunctionContextConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addWeightingFeature,
-		Method_call
+		Method_Destructor=0,
+		Method_addWeightingFeature=1,
+		Method_call=2
 	};
 };
 
@@ -797,11 +797,11 @@ class WeightingFunctionInstanceConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_addStringParameter,
-		Method_addNumericParameter,
-		Method_createFunctionContext,
-		Method_tostring
+		Method_Destructor=0,
+		Method_addStringParameter=1,
+		Method_addNumericParameter=2,
+		Method_createFunctionContext=3,
+		Method_tostring=4
 	};
 };
 
@@ -810,9 +810,9 @@ class WeightingFunctionConst
 public:
 	enum MethodId
 	{
-		Method_Destructor,
-		Method_createInstance,
-		Method_getDescription
+		Method_Destructor=0,
+		Method_createInstance=1,
+		Method_getDescription=2
 	};
 };
 

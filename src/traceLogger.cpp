@@ -67,6 +67,10 @@ TraceLogRecordHandle
 	{
 		m_recordar.push_back(
 			TraceRecord( classId, methodId, objId, m_recordar.size()+1, m_depth, 0, 0));
+		if (m_recordar.size() > std::numeric_limits<TraceLogRecordHandle>::max())
+		{
+			throw strus::runtime_error(_TXT("number of logs out of log handle range"));
+		}
 		return (TraceLogRecordHandle)m_recordar.size();
 	}
 	CATCH_ERROR_MAP_RETURN( "trace logger error logging method call", *m_errorhnd, 0)

@@ -34,6 +34,9 @@ TraceProcessorInterface* createTraceProcessor_memory( ErrorBufferInterface* erro
 /// \brief Create an interface to the trace logger writing a trace directly to stdout.
 TraceProcessorInterface* createTraceProcessor_textfile( ErrorBufferInterface* errorhnd);
 
+/// \brief Create an interface to the trace logger than enables you to set debugger breakpoints on specific events.
+TraceProcessorInterface* createTraceProcessor_breakpoint( ErrorBufferInterface* errorhnd);
+
 /// \brief Create a proxy object to wrap storage and analyzer object builder and all descendant objects to log all methods called besides calling them
 /// \param[in] tracelog trace logger interface to use
 /// \param[in] errorhnd error buffer for error messages and exceptions

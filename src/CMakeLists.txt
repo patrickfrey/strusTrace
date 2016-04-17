@@ -12,6 +12,7 @@ set( source_files
 	traceObject.cpp
 	traceLogger.cpp
 	traceLogger_textfile.cpp
+	traceLogger_breakpoint.cpp
 	traceSerializer.cpp
 	traceViewer.cpp
 	traceIdMap.cpp

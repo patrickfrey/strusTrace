@@ -19,33 +19,31 @@
 #include "errorUtils.hpp"
 
 using namespace strus;
+static bool g_intl_initialized = false;
 
-/// \brief Get the map of identifiers used in call trace logs
-/// \return the map
 DLL_PUBLIC TraceIdMapInterface* strus::createTraceIdMap( ErrorBufferInterface* errorhnd)
 {
 	try
 	{
-		static bool intl_initialized = false;
-		if (!intl_initialized)
+		if (!g_intl_initialized)
 		{
 			strus::initMessageTextDomain();
-			intl_initialized = true;
+			g_intl_initialized = true;
 		}
 		return new TraceIdMap( errorhnd);
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("error creating trace id map: %s"), *errorhnd, 0);
 }
 
+
 DLL_PUBLIC TraceProcessorInterface* strus::createTraceProcessor_memory( ErrorBufferInterface* errorhnd)
 {
 	try
 	{
-		static bool intl_initialized = false;
-		if (!intl_initialized)
+		if (!g_intl_initialized)
 		{
 			strus::initMessageTextDomain();
-			intl_initialized = true;
+			g_intl_initialized = true;
 		}
 		return new TraceProcessor( errorhnd);
 	}
@@ -57,16 +55,31 @@ DLL_PUBLIC TraceProcessorInterface* strus::createTraceProcessor_textfile( ErrorB
 {
 	try
 	{
-		static bool intl_initialized = false;
-		if (!intl_initialized)
+		if (!g_intl_initialized)
 		{
 			strus::initMessageTextDomain();
-			intl_initialized = true;
+			g_intl_initialized = true;
 		}
 		return new TraceProcessor_textfile( errorhnd);
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("error creating trace processor (textfile): %s"), *errorhnd, 0);
 }
+
+
+DLL_PUBLIC TraceProcessorInterface* strus::createTraceProcessor_breakpoint( ErrorBufferInterface* errorhnd)
+{
+	try
+	{
+		if (!g_intl_initialized)
+		{
+			strus::initMessageTextDomain();
+			g_intl_initialized = true;
+		}
+		return new TraceProcessor_breakpoint( errorhnd);
+	}
+	CATCH_ERROR_MAP_RETURN( _TXT("error creating trace processor (breakpoint): %s"), *errorhnd, 0);
+}
+
 
 DLL_PUBLIC TraceObjectBuilderInterface*
 	strus::traceCreateObjectBuilder(
@@ -75,11 +88,10 @@ DLL_PUBLIC TraceObjectBuilderInterface*
 {
 	try
 	{
-		static bool intl_initialized = false;
-		if (!intl_initialized)
+		if (!g_intl_initialized)
 		{
 			strus::initMessageTextDomain();
-			intl_initialized = true;
+			g_intl_initialized = true;
 		}
 		return new TraceObjectBuilder( tracelog, errorhnd);
 	}

@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/// \brief Implementation of logging and querying call traces
-/// \file traceLogger.cpp
+/// \brief Implementation of logging and querying call traces to textfile or stdout
+/// \file traceLogger_textfile.cpp
 #include "traceLogger_textfile.hpp"
 #include "strus/lib/tracelog.hpp"
 #include "internationalization.hpp"
@@ -63,6 +63,10 @@ TraceLogRecordHandle
 {
 	try
 	{
+		if (m_logcnt >= std::numeric_limits<TraceLogRecordHandle>::max())
+		{
+			throw strus::runtime_error(_TXT("number of logs out of log handle range"));
+		}
 		++m_logcnt;
 		const char* className = m_traceIdMap->getClassName( classId);
 		const char* methodName = m_traceIdMap->getMethodName( classId, methodId);

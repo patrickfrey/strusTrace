@@ -5,13 +5,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/// \brief Implementation of logging and querying call traces to textfile or stdout
-/// \file traceLogger_textfile.hpp
-#ifndef _STRUS_TRACE_LOGGER_TEXTFILE_IMPLEMENTATION_HPP_INCLUDED
-#define _STRUS_TRACE_LOGGER_TEXTFILE_IMPLEMENTATION_HPP_INCLUDED
+/// \brief Implementation of a traceLogger that enables to set breakpoints on defined method call events
+/// \file traceLogger_breakpoint.hpp
+#ifndef _STRUS_TRACE_LOGGER_BREAKPOINT_IMPLEMENTATION_HPP_INCLUDED
+#define _STRUS_TRACE_LOGGER_BREAKPOINT_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/traceElement.hpp"
 #include <string>
+#include <vector>
+#include <set>
 #include <cstdlib>
 
 namespace strus
@@ -24,15 +26,15 @@ class TraceViewerInterface;
 class TraceIdMapInterface;
 
 /// \brief Strus standard call trace logger implementation
-class TraceLogger_textfile
+class TraceLogger_breakpoint
 	:public TraceLoggerInterface
 {
 public:
 	/// \brief Constructor
-	TraceLogger_textfile( ErrorBufferInterface* errorhnd_, const std::string& filename);
+	TraceLogger_breakpoint( ErrorBufferInterface* errorhnd_, const std::vector<TraceTimeCounter>& breakpoints);
 
 	/// \brief Destructor
-	virtual ~TraceLogger_textfile();
+	virtual ~TraceLogger_breakpoint();
 
 	virtual TraceLogRecordHandle
 		logMethodCall(
@@ -54,12 +56,10 @@ public:
 	virtual TraceViewerInterface* createViewer() const;
 
 private:
-	FILE* m_output;
+	std::set<TraceTimeCounter> m_breakpoints;
 	ErrorBufferInterface* m_errorhnd;
 	TraceTreeDepth m_depth;
-	std::string m_indentstr;
 	TraceLogRecordHandle m_logcnt;
-	TraceIdMapInterface* m_traceIdMap;
 };
 
 }//namespace

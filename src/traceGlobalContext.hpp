@@ -13,6 +13,7 @@
 #include "strus/errorBufferInterface.hpp"
 #include "strus/traceLoggerInterface.hpp"
 #include "internationalization.hpp"
+#include <limits>
 
 namespace strus
 {
@@ -32,6 +33,10 @@ public:
 	/// \brief Create a new object id (unique for this trace context)
 	TraceObjectId createId()
 	{
+		if (m_idcnt >= std::numeric_limits<TraceObjectId>::max())
+		{
+			throw strus::runtime_error(_TXT("number of objects created out of range"));
+		}
 		return ++m_idcnt;
 	}
 	/// \brief Get the logger to log traces of method calls

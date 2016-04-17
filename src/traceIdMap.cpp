@@ -59,7 +59,7 @@ TraceClassId TraceIdMap::getClassId( const char* className) const
 		}
 		return ci->second;
 	}
-	CATCH_ERROR_MAP_RETURN( "trace viewer error getting method name", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( "trace viewer error getting class id", *m_errorhnd, 0)
 }
 
 TraceMethodId TraceIdMap::getMethodId( const TraceClassId& classId, const char* methodName) const
@@ -74,7 +74,7 @@ TraceMethodId TraceIdMap::getMethodId( const TraceClassId& classId, const char* 
 		}
 		return mi->second;
 	}
-	CATCH_ERROR_MAP_RETURN( "trace viewer error getting method name", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( "trace viewer error getting method id", *m_errorhnd, 0)
 }
 
 std::vector<TraceElement> TraceIdMap::unpackElements(
@@ -85,6 +85,6 @@ std::vector<TraceElement> TraceIdMap::unpackElements(
 	{
 		return Deserializer::deserialize( packedStruct, packedStructSize);
 	}
-	CATCH_ERROR_MAP_RETURN( "trace viewer error getting method name", *m_errorhnd, std::vector<TraceElement>())
+	CATCH_ERROR_MAP_RETURN( "trace viewer error unpacking method arguments", *m_errorhnd, std::vector<TraceElement>())
 }
 

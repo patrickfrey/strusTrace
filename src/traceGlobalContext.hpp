@@ -53,6 +53,7 @@ public:
 	{
 		try
 		{
+			if (!wrapped) return 0;
 			InterfaceImpl* rt = new InterfaceImpl( wrapped, this);
 			m_const_objects.push_back( Reference<TraceObjectBase>( rt));
 			return rt;
@@ -69,6 +70,7 @@ public:
 	{
 		try
 		{
+			if (!wrapped) return 0;
 			InterfaceImpl* rt = new InterfaceImpl( wrapped, this);
 			return rt;
 		}

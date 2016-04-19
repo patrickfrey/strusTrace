@@ -55,22 +55,21 @@
 #include <memory>
 
 static strus::ErrorBufferInterface* g_errorhnd = 0;
-static const char* g_storageconfig = "path=storage; metadata=doclen UINT16";
 
-static strus::StorageClientInterface* createStorage( const strus::StorageObjectBuilderInterface* sob)
+static strus::StorageClientInterface* createStorage( const strus::StorageObjectBuilderInterface* sob, const char* storageconfig)
 {
-	const strus::DatabaseInterface* dbi = sob->getDatabase( g_storageconfig);
+	const strus::DatabaseInterface* dbi = sob->getDatabase( storageconfig);
 	if (!dbi) throw std::runtime_error( "failed to get database interface");
 	if (g_errorhnd->hasError()) throw std::runtime_error( g_errorhnd->fetchError());
-	(void) dbi->destroyDatabase( g_storageconfig);
+	(void) dbi->destroyDatabase( storageconfig);
 	(void) g_errorhnd->fetchError();
-	if (!dbi->createDatabase( g_storageconfig)) throw std::runtime_error("failed to create database");
-	std::auto_ptr<strus::DatabaseClientInterface> database( dbi->createClient( g_storageconfig));
+	if (!dbi->createDatabase( storageconfig)) throw std::runtime_error("failed to create database");
+	std::auto_ptr<strus::DatabaseClientInterface> database( dbi->createClient( storageconfig));
 	if (!database.get()) throw std::runtime_error( "failed to create database client");
 	const strus::StorageInterface* sti = sob->getStorage();
 	if (!sti) throw std::runtime_error( "failed to get storage interface");
-	if (!sti->createStorage( g_storageconfig, database.get())) throw std::runtime_error( "failed to create storage");
-	std::auto_ptr<strus::StorageClientInterface> storage( sti->createClient( g_storageconfig, database.get()));
+	if (!sti->createStorage( storageconfig, database.get())) throw std::runtime_error( "failed to create storage");
+	std::auto_ptr<strus::StorageClientInterface> storage( sti->createClient( storageconfig, database.get()));
 	database.release();
 	if (!storage.get()) throw std::runtime_error( "failed to get create storage client");
 	return storage.release();
@@ -255,12 +254,13 @@ struct TestDocument
 };
 
 static void insertDocuments(
-	const strus::AnalyzerObjectBuilderInterface* aob,
 	const strus::StorageObjectBuilderInterface* sob,
+	const char* storageconfig,
+	const strus::AnalyzerObjectBuilderInterface* aob,
 	const DocumentAnalyzerConfig* anaconfig,
 	const TestDocument* testdocs)
 {
-	std::auto_ptr<strus::StorageClientInterface> storage( createStorage( sob));
+	std::auto_ptr<strus::StorageClientInterface> storage( createStorage( sob, storageconfig));
 	std::auto_ptr<strus::DocumentAnalyzerInterface> analyzer( createDocumentAnalyzer( aob, anaconfig));
 	if (g_errorhnd->hasError()) throw std::runtime_error( std::string( "create document analyzer failed: ") + g_errorhnd->fetchError());
 
@@ -301,10 +301,11 @@ static void insertDocuments(
 		{
 			stodoc->setMetaData( mi->name(), mi->value());
 		}
+		stodoc->setAttribute( "docid", testdocs[di].docid);
 		stodoc->done();
 	}
 	if (!transaction->commit()) throw std::runtime_error( "storage transaction failed");
-	if (g_errorhnd->hasError()) throw std::runtime_error( "uncaught expcetion in transaction");
+	if (g_errorhnd->hasError()) throw std::runtime_error( "error inserting documents");
 }
 
 static const DocumentAnalyzerConfig g_anaconfig[] =
@@ -396,46 +397,88 @@ static strus::QueryInterface* createQuery(
 	}
 	const strus::PostingJoinOperatorInterface* contains = qproc->getPostingJoinOperator("contains");
 	query->pushExpression( contains, qterms.size(), 0, 1/*cardinality*/);
-	query->defineFeature( "setfeat");
+	query->defineFeature( "selfeat");
 	return query.release();
 }
 
 
-static void testEvaluateQuery( const strus::AnalyzerObjectBuilderInterface* aob, const strus::StorageObjectBuilderInterface* sob)
+static void testEvaluateQuery( const strus::AnalyzerObjectBuilderInterface* aob, const strus::StorageObjectBuilderInterface* sob, const char* storageconfig)
 {
 	const strus::QueryProcessorInterface* qproc = sob->getQueryProcessor();
 	if (!qproc) throw std::runtime_error("failed to get query processor");
 
-	insertDocuments( aob, sob, g_anaconfig, g_testdocs);
+	insertDocuments( sob, storageconfig, aob, g_anaconfig, g_testdocs);
 
-	std::auto_ptr<strus::StorageClientInterface> storage( sob->createStorageClient( g_storageconfig));
+	std::auto_ptr<strus::StorageClientInterface> storage( sob->createStorageClient( storageconfig));
 	std::auto_ptr<strus::QueryEvalInterface> qeval( createQueryEval( sob));
 	std::auto_ptr<strus::QueryInterface> query( createQuery( sob, aob, storage.get(), qeval.get(), g_anaconfig, g_querystr));
+
+	strus::QueryResult result = query->evaluate();
+	if (g_errorhnd->hasError()) throw std::runtime_error( "failed to evaluate query");
+
+	std::vector<strus::ResultDocument>::const_iterator ri = result.ranks().begin(), re = result.ranks().end();
+	for (; ri != re; ++ri)
+	{
+		std::cout << ri->docno() << " " << ri->weight() << std::endl;
+		std::vector<strus::SummaryElement>::const_iterator
+			si = ri->summaryElements().begin(), se = ri->summaryElements().end();
+		for (; si != se; ++si)
+		{
+			std::cout << "\t" << si->name() << " '" << si->value() << "'" << std::endl;
+		}
+	}
 }
 
+static bool diffFiles( const char* file1, const char* file2)
+{
+	std::string content1;
+	unsigned int ec = strus::readFile( file1, content1);
+	if (ec) throw std::runtime_error( std::string("could not read file ") + file1 + ": " + ::strerror(ec));
+	std::string content2;
+	ec = strus::readFile( file2, content2);
+	if (ec) throw std::runtime_error( std::string("could not read file ") + file2 + ": " + ::strerror(ec));
+	std::string::const_iterator ci1 = content1.begin(), ce1 = content1.end();
+	std::string::const_iterator ci2 = content2.begin(), ce2 = content2.end();
+	while (ci1 != ce1 && ci2 != ce2)
+	{
+		bool eoln1 = false;
+		while (ci1 != ce1 && (*ci1 == '\n' || *ci1 == '\r'))
+		{
+			eoln1 = true;
+			++ci1;
+		}
+		bool eoln2 = false;
+		while (ci2 != ce2 && (*ci2 == '\n' || *ci2 == '\r'))
+		{
+			eoln2 = true;
+			++ci2;
+		}
+		char ch1 = (!eoln1 && ci1 != ce1)?(*ci1++):'\0';
+		char ch2 = (!eoln2 && ci2 != ce2)?(*ci2++):'\0';
+		if (eoln1 != eoln2 || ch1 != ch2) return false;
+	}
+	return ci1 == ce1 && ci2 == ce2;
+}
 
 int main( int argc, const char* argv[])
 {
-	unsigned int argi = 1;
-	for (; argc > (int)argi; ++argi)
+	if (argc < 4)
 	{
-		if (std::strcmp( argv[argi], "-h") == 0)
-		{
-			std::cerr << "usage: testQueryEval [options]" << std::endl;
-			std::cerr << "options:" << std::endl;
-			std::cerr << "  -h      :print usage" << std::endl;
-		}
-		else if (argv[argi][0] == '-')
-		{
-			std::cerr << "unknown option " << argv[argi] << std::endl;
-			return -1;
-		}
-		else
-		{
-			std::cerr << "unexpected argument" << std::endl;
-			return -1;
-		}
+		std::cerr << "too few arguments" << std::endl;
+		std::cerr << "usage: " << argv[0] << " <config> <outfile> <expfile>" << std::endl;
+		return -1;
 	}
+	if (argc > 4)
+	{
+		std::cerr << "too many arguments" << std::endl;
+		std::cerr << "usage: " << argv[0] << " <config> <outfile> <expfile>" << std::endl;
+		return -1;
+	}
+	char storagecfg[ 1024];
+	snprintf( storagecfg, sizeof(storagecfg), "%s; metadata=doclen UINT16", argv[1]);
+	const char* outfile = argv[2];
+	const char* expfile = argv[3];
+
 	g_errorhnd = strus::createErrorBuffer_standard( stderr, 1);
 	if (!g_errorhnd)
 	{
@@ -444,12 +487,13 @@ int main( int argc, const char* argv[])
 	}
 	try
 	{
+		{
 		std::auto_ptr<strus::TraceProcessorInterface>
 			traceproc( strus::createTraceProcessor_textfile( g_errorhnd));
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder(
 				strus::traceCreateObjectBuilder(
-					traceproc->createLogger( "stdout"), g_errorhnd));
+					traceproc->createLogger( outfile), g_errorhnd));
 
 		std::auto_ptr<strus::AnalyzerObjectBuilderInterface> analyzerObjectBuilder( new strus::AnalyzerObjectBuilder( g_errorhnd));
 		std::auto_ptr<strus::StorageObjectBuilderInterface> storageObjectBuilder( new strus::StorageObjectBuilder( g_errorhnd));
@@ -480,10 +524,16 @@ int main( int argc, const char* argv[])
 			throw std::runtime_error("failed to storage object builder proxy");
 		}
 
-		testEvaluateQuery( analyzerObjectBuilder.get(), storageObjectBuilder.get());
+		testEvaluateQuery( analyzerObjectBuilder.get(), storageObjectBuilder.get(), storagecfg);
 		if (g_errorhnd->hasError())
 		{
 			throw std::runtime_error(std::string("unhandled error: ") + g_errorhnd->fetchError());
+		}
+		}
+
+		if (!diffFiles( outfile, expfile))
+		{
+			throw std::runtime_error( "input file and expected output file differ"); 
 		}
 	}
 

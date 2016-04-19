@@ -85,7 +85,7 @@ public:
 		:TraceObject<AggregatorFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~AggregatorFunctionInstanceImpl();
-	virtual double evaluate(
+	virtual NumericVariant evaluate(
 			const analyzer::Document& p1) const;
 };
 

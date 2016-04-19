@@ -71,6 +71,7 @@ TraceLogRecordHandle
 		const char* className = m_traceIdMap->getClassName( classId);
 		const char* methodName = m_traceIdMap->getMethodName( classId, methodId);
 		::fprintf( m_output, "[%u] %s%s<%u>::%s\n", (unsigned int)m_logcnt, m_indentstr.c_str(), className, (unsigned int)objId, methodName);
+		::fflush( m_output);
 		return m_logcnt;
 	}
 	CATCH_ERROR_MAP_RETURN( "trace logger error logging method call", *m_errorhnd, 0)
@@ -210,6 +211,7 @@ void TraceLogger_textfile::logMethodTermination(
 		}
 		std::string params( buf.str());
 		::fprintf( m_output, "[%u] %s<-- %s\n", (unsigned int)loghnd, m_indentstr.c_str(), params.c_str());
+		::fflush( m_output);
 	}
 	CATCH_ERROR_MAP( "trace logger error logging method termination", *m_errorhnd)
 }

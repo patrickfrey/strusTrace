@@ -19,16 +19,23 @@ AggregatorFunctionInstanceImpl::~AggregatorFunctionInstanceImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, "");
 }
 
-double AggregatorFunctionInstanceImpl::evaluate(
+NumericVariant AggregatorFunctionInstanceImpl::evaluate(
 			const analyzer::Document& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AggregatorFunctionInstance, Method_evaluate, objid());
 	traceContext()->logger()->logOpenBranch();
-	double p0 = obj()->evaluate(p1);
+	NumericVariant p0 = obj()->evaluate(p1);
 	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
-	parambuf.packDouble(p0);
-	parambuf.packAnalyzerDocument(p1);
+	if (!p0.defined())
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "evaluate", traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		parambuf.packNumericVariant(p0);
+		parambuf.packAnalyzerDocument(p1);
+	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

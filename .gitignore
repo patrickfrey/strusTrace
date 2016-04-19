@@ -33,6 +33,9 @@ tests/queryeval/src/testQueryEval
 # Valgring suppression files
 *.sup
 
+# Strus storage of tests
+tests/queryeval/storage
+
 # CMake generated files
 CMakeCache.txt
 CMakeFiles

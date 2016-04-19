@@ -24,7 +24,7 @@ TraceIdMap::TraceIdMap( ErrorBufferInterface* errorhnd_)
 const char* TraceIdMap::getClassName( const TraceClassId& classId) const
 {
 	if (!classId) return 0;
-	if (classId >= m_classnamear.size())
+	if (classId > m_classnamear.size())
 	{
 		m_errorhnd->report(_TXT("trace viewer illegal class id: %u"), (unsigned int)classId);
 		return 0;

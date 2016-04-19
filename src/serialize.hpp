@@ -38,6 +38,7 @@ public:
 		TypeFloat,
 		TypeDouble,
 		TypeBool,
+		TypeObject,
 		TypeString,
 		TypeOpenIndex,
 		TypeOpenTag,
@@ -65,6 +66,8 @@ public:
 	void packFloat( const float& value)			{m_buf.push_back( (char)TypeFloat); packAtomicValue( value);}
 	void packDouble( const double& value)			{m_buf.push_back( (char)TypeDouble); packAtomicValue( value);}
 	void packBool( const bool& value)			{m_buf.push_back( (char)TypeBool); packAtomicValue( value);}
+	void packObject( const TraceClassId& ci,
+			 const TraceObjectId& oi)		{m_buf.push_back( (char)TypeObject); packAtomicValue( ci); packAtomicValue( oi);}
 	void packString( const std::string& value)		{m_buf.push_back( (char)TypeString); packAtomicValue( (SizeType)value.size()); packBytes( value.c_str(), value.size());}
 	void packBuffer( const char* buf, std::size_t size)	{m_buf.push_back( (char)TypeString); packAtomicValue( (SizeType)size); packBytes( buf, size);}
 	void packCharp( const char* buf)			{packString( buf);}

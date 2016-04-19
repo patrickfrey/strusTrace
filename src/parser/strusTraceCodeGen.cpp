@@ -221,7 +221,8 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			out
 			<< "{" << std::endl
 			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( "
-			<< classid << ", Method_" << mi->name() << ", objid());" << std::endl;
+			<< classid << ", Method_" << mi->name() << ", objid());" << std::endl
+			<< "\ttraceContext()->logger()->logOpenBranch();" << std::endl;
 
 			// Call real function:
 			if (hasReturnValue)
@@ -244,7 +245,8 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 				out << passparam;
 			}
 			out
-			<< ");" << std::endl;
+			<< ");" << std::endl
+			<< "\ttraceContext()->logger()->logCloseBranch();" << std::endl;
 
 			// Wrap returned interface objects:
 			if (hasReturnValue)
@@ -296,9 +298,9 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			}
 			// Check for error and set return value to NULL in this case:
 			out
-			<< "\tif (parambuf.hasError() || traceContext()->errorbuf()->hasError())" << std::endl
+			<< "\tif (parambuf.hasError())" << std::endl
 			<< "\t{" << std::endl
-			<< "\t\tif (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
+			<< "\t\ttraceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
 			std::string deleteInstr( mi->returnValue().expand( "delete", "p0"));
 			if (!deleteInstr.empty())
 			{

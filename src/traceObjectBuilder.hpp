@@ -36,11 +36,11 @@ public:
 
 	virtual AnalyzerObjectBuilderInterface*
 		createAnalyzerObjectBuilder(
-			AnalyzerObjectBuilderInterface* builder);
+			AnalyzerObjectBuilderInterface* builder) const;
 	
 	virtual StorageObjectBuilderInterface*
 		createStorageObjectBuilder(
-			StorageObjectBuilderInterface* builder);
+			StorageObjectBuilderInterface* builder) const;
 
 	virtual const TraceIdMapInterface* getIdMap() const;
 

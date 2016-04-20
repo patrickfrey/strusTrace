@@ -308,24 +308,6 @@ static void insertDocuments(
 	if (g_errorhnd->hasError()) throw std::runtime_error( "error inserting documents");
 }
 
-static const DocumentAnalyzerConfig g_anaconfig[] =
-{
-	{SearchIndex,"stem","convdia(en):stem(en):lc","word","//text()"},
-	{ForwardIndex,"orig","text","split","//text()"},
-	{SearchIndex,0,0,0,0}
-};
-static const TestDocument g_testdocs[] =
-{
-	{"Doc1", "<doc><text>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.</text></doc>"},
-	{"Doc2", "<doc><text>He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.</text></doc>"},
-	{"Doc3", "<doc><text>The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked.</text></doc>"},
-	{"Doc4", "<doc><text>\"What's happened to me?\" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls.</text></doc>"},
-	{"Doc5", "<doc><text>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</text></doc>"},
-	{"Doc6", "<doc><text>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.</text></doc>"},
-	{0,0}
-};
-static const char* g_querystr = "dream transformed vermin";
-
 static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBuilderInterface* sob)
 {
 	std::auto_ptr<strus::QueryEvalInterface> qeval( sob->createQueryEval());
@@ -402,16 +384,22 @@ static strus::QueryInterface* createQuery(
 }
 
 
-static void testEvaluateQuery( const strus::AnalyzerObjectBuilderInterface* aob, const strus::StorageObjectBuilderInterface* sob, const char* storageconfig)
+static void testEvaluateQuery(
+		const strus::StorageObjectBuilderInterface* sob,
+		const strus::AnalyzerObjectBuilderInterface* aob,
+		const char* storageconfig,
+		const DocumentAnalyzerConfig* analyzerconfig,
+		const TestDocument* testdocs,
+		const char* querystr)
 {
 	const strus::QueryProcessorInterface* qproc = sob->getQueryProcessor();
 	if (!qproc) throw std::runtime_error("failed to get query processor");
 
-	insertDocuments( sob, storageconfig, aob, g_anaconfig, g_testdocs);
+	insertDocuments( sob, storageconfig, aob, analyzerconfig, testdocs);
 
 	std::auto_ptr<strus::StorageClientInterface> storage( sob->createStorageClient( storageconfig));
 	std::auto_ptr<strus::QueryEvalInterface> qeval( createQueryEval( sob));
-	std::auto_ptr<strus::QueryInterface> query( createQuery( sob, aob, storage.get(), qeval.get(), g_anaconfig, g_querystr));
+	std::auto_ptr<strus::QueryInterface> query( createQuery( sob, aob, storage.get(), qeval.get(), analyzerconfig, querystr));
 
 	strus::QueryResult result = query->evaluate();
 	if (g_errorhnd->hasError()) throw std::runtime_error( "failed to evaluate query");
@@ -460,6 +448,61 @@ static bool diffFiles( const char* file1, const char* file2)
 	return ci1 == ce1 && ci2 == ce2;
 }
 
+
+static void envelope(
+		std::auto_ptr<strus::StorageObjectBuilderInterface>& sob,
+		const strus::TraceObjectBuilderInterface* tob)
+{
+	strus::StorageObjectBuilderInterface*
+		sob_envelope = tob->createStorageObjectBuilder( sob.get());
+	if (sob_envelope)
+	{
+		sob.release();
+		sob = std::auto_ptr<strus::StorageObjectBuilderInterface>( sob_envelope);
+	}
+	else
+	{
+		throw std::runtime_error("failed to storage object builder proxy");
+	}
+}
+
+static void envelope(
+		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>& aob,
+		const strus::TraceObjectBuilderInterface* tob)
+{
+	strus::AnalyzerObjectBuilderInterface*
+		aob_envelope = tob->createAnalyzerObjectBuilder( aob.get());
+	if (aob_envelope)
+	{
+		aob.release();
+		aob = std::auto_ptr<strus::AnalyzerObjectBuilderInterface>( aob_envelope);
+	}
+	else
+	{
+		throw std::runtime_error("failed to analyzer object builder proxy");
+	}
+}
+
+static const DocumentAnalyzerConfig g_analyzerconfig[] =
+{
+	{SearchIndex,"stem","convdia(en):stem(en):lc","word","//text()"},
+	{ForwardIndex,"orig","text","split","//text()"},
+	{SearchIndex,0,0,0,0}
+};
+static const TestDocument g_testdocs[] =
+{
+	{"Doc1", "<doc><text>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.</text></doc>"},
+	{"Doc2", "<doc><text>He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.</text></doc>"},
+	{"Doc3", "<doc><text>The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked.</text></doc>"},
+	{"Doc4", "<doc><text>\"What's happened to me?\" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls.</text></doc>"},
+	{"Doc5", "<doc><text>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</text></doc>"},
+	{"Doc6", "<doc><text>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.</text></doc>"},
+	{0,0}
+};
+static const char* g_querystring = "dream transformed vermin";
+
+
+
 int main( int argc, const char* argv[])
 {
 	if (argc < 4)
@@ -487,49 +530,53 @@ int main( int argc, const char* argv[])
 	}
 	try
 	{
-		{
+		{//begin scope trace processor:
 		std::auto_ptr<strus::TraceProcessorInterface>
-			traceproc( strus::createTraceProcessor_textfile( g_errorhnd));
+			traceproc_textfile( strus::createTraceProcessor_textfile( g_errorhnd));
+		if (!traceproc_textfile.get())
+		{
+			throw std::runtime_error("failed to create trace processor (textfile)");
+		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
-			traceObjectBuilder(
+			traceObjectBuilder_logtext(
 				strus::traceCreateObjectBuilder(
-					traceproc->createLogger( outfile), g_errorhnd));
-
-		std::auto_ptr<strus::AnalyzerObjectBuilderInterface> analyzerObjectBuilder( new strus::AnalyzerObjectBuilder( g_errorhnd));
-		std::auto_ptr<strus::StorageObjectBuilderInterface> storageObjectBuilder( new strus::StorageObjectBuilder( g_errorhnd));
-		if (!traceproc.get())
+					traceproc_textfile->createLogger( outfile), g_errorhnd));
+		if (!traceObjectBuilder_logtext.get())
 		{
-			throw std::runtime_error("failed to create trace processor");
-		}
-		strus::AnalyzerObjectBuilderInterface*
-			ao = traceObjectBuilder->createAnalyzerObjectBuilder( analyzerObjectBuilder.get());
-		if (ao)
-		{
-			analyzerObjectBuilder.release();
-			analyzerObjectBuilder = std::auto_ptr<strus::AnalyzerObjectBuilderInterface>( ao);
-		}
-		else
-		{
-			throw std::runtime_error("failed to analyzer object builder proxy");
-		}
-		strus::StorageObjectBuilderInterface*
-			so = traceObjectBuilder->createStorageObjectBuilder( storageObjectBuilder.get());
-		if (so)
-		{
-			storageObjectBuilder.release();
-			storageObjectBuilder = std::auto_ptr<strus::StorageObjectBuilderInterface>( so);
-		}
-		else
-		{
-			throw std::runtime_error("failed to storage object builder proxy");
+			throw std::runtime_error("failed to create trace logger (textfile)");
 		}
 
-		testEvaluateQuery( analyzerObjectBuilder.get(), storageObjectBuilder.get(), storagecfg);
+		std::auto_ptr<strus::TraceProcessorInterface>
+			traceproc_memory( strus::createTraceProcessor_memory( g_errorhnd));
+		if (!traceproc_memory.get())
+		{
+			throw std::runtime_error("failed to create trace processor (memory)");
+		}
+		std::auto_ptr<strus::TraceObjectBuilderInterface>
+			traceObjectBuilder_memory(
+				strus::traceCreateObjectBuilder(
+					traceproc_memory->createLogger( outfile), g_errorhnd));
+		if (!traceObjectBuilder_logtext.get())
+		{
+			throw std::runtime_error("failed to create trace logger (textfile)");
+		}
+
+		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>
+			aob( new strus::AnalyzerObjectBuilder( g_errorhnd));
+		std::auto_ptr<strus::StorageObjectBuilderInterface>
+			sob( new strus::StorageObjectBuilder( g_errorhnd));
+
+		envelope( aob, traceObjectBuilder_logtext.get());
+		envelope( sob, traceObjectBuilder_logtext.get());
+
+		testEvaluateQuery(
+			sob.get(), aob.get(), storagecfg, 
+			g_analyzerconfig, g_testdocs, g_querystring);
 		if (g_errorhnd->hasError())
 		{
 			throw std::runtime_error(std::string("unhandled error: ") + g_errorhnd->fetchError());
 		}
-		}
+		}//end scope trace processor
 
 		if (!diffFiles( outfile, expfile))
 		{

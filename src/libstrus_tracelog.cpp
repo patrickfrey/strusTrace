@@ -45,7 +45,7 @@ DLL_PUBLIC TraceProcessorInterface* strus::createTraceProcessor_memory( ErrorBuf
 			strus::initMessageTextDomain();
 			g_intl_initialized = true;
 		}
-		return new TraceProcessor( errorhnd);
+		return new TraceProcessor_memory( errorhnd);
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("error creating trace processor (memory): %s"), *errorhnd, 0);
 }

@@ -12,25 +12,25 @@
 #include "errorUtils.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/base/configParser.hpp"
-#include "traceLogger.hpp"
+#include "traceViewer_memory.hpp"
+#include "traceLogger_memory.hpp"
 #include "traceLogger_textfile.hpp"
 #include "traceLogger_breakpoint.hpp"
-#include "traceViewer.hpp"
 #include <string>
 #include <cstring>
 
 using namespace strus;
 
-TraceLoggerInterface* TraceProcessor::createLogger( const std::string& /*config (not needed)*/)
+TraceLoggerInterface* TraceProcessor_memory::createLogger( const std::string& /*config (not needed)*/)
 {
 	try
 	{
-		return new TraceLogger( m_errorhnd);
+		return new TraceLogger_memory( m_errorhnd);
 	}
 	CATCH_ERROR_MAP_RETURN( "failed to create trace logger (memory)", *m_errorhnd, 0)
 }
 
-TraceViewerInterface* TraceProcessor::createViewer( const std::string& /*config (not needed)*/)
+TraceViewerInterface* TraceProcessor_memory::createViewer( const std::string& /*config (not needed)*/)
 {
 	m_errorhnd->report(_TXT("not implemented (in memory trace logger cannot be created from a configuration because nothing is persistently stored)"));
 	return 0;

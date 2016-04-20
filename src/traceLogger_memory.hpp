@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /// \brief Implementation of logging and querying call traces
-/// \file traceLogger.hpp
+/// \file TraceLogger_memory.hpp
 #ifndef _STRUS_TRACE_LOGGER_IMPLEMENTATION_HPP_INCLUDED
 #define _STRUS_TRACE_LOGGER_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"
@@ -43,16 +43,16 @@ private:
 
 
 /// \brief Strus standard call trace logger implementation
-class TraceLogger
+class TraceLogger_memory
 	:public TraceLoggerInterface
 {
 public:
 	/// \brief Constructor
-	explicit TraceLogger( ErrorBufferInterface* errorhnd_)
+	explicit TraceLogger_memory( ErrorBufferInterface* errorhnd_)
 		:m_errorhnd(errorhnd_),m_depth(0){}
 
 	/// \brief Destructor
-	virtual ~TraceLogger(){}
+	virtual ~TraceLogger_memory(){}
 
 	virtual TraceLogRecordHandle
 		logMethodCall(

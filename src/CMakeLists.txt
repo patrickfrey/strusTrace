@@ -10,11 +10,11 @@ set( source_files
 	internationalization.cpp
 	serialize.cpp
 	traceObject.cpp
-	traceLogger.cpp
+	traceViewer_memory.cpp
+	traceLogger_memory.cpp
 	traceLogger_textfile.cpp
 	traceLogger_breakpoint.cpp
 	traceSerializer.cpp
-	traceViewer.cpp
 	traceIdMap.cpp
 	traceIdMap_gen.cpp
 	objects_gen.cpp

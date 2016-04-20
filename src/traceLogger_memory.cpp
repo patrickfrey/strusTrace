@@ -5,10 +5,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/// \brief Implementation of logging and querying call traces
-/// \file traceLogger.cpp
-#include "traceLogger.hpp"
-#include "traceViewer.hpp"
+/// \brief Implementation of logging and querying call traces in memory
+/// \file traceLogger_memory.cpp
+#include "traceLogger_memory.hpp"
+#include "traceViewer_memory.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "strus/errorBufferInterface.hpp"
@@ -58,7 +58,7 @@ char* StringBlock::alloc( std::size_t blksize_)
 
 
 TraceLogRecordHandle
-	TraceLogger::logMethodCall(
+	TraceLogger_memory::logMethodCall(
 		const TraceClassId& classId,
 		const TraceMethodId& methodId,
 		const TraceObjectId& objId)
@@ -76,7 +76,7 @@ TraceLogRecordHandle
 	CATCH_ERROR_MAP_RETURN( "trace logger error logging method call", *m_errorhnd, 0)
 }
 
-void TraceLogger::logObjectCreation(
+void TraceLogger_memory::logObjectCreation(
 		const TraceObjectId& objId,
 		const TraceLogRecordHandle& loghnd)
 {
@@ -92,7 +92,7 @@ void TraceLogger::logObjectCreation(
 	CATCH_ERROR_MAP( "trace logger error logging object creation", *m_errorhnd)
 }
 
-void TraceLogger::logMethodTermination(
+void TraceLogger_memory::logMethodTermination(
 		const TraceLogRecordHandle& loghnd,
 		const std::string& packedParameter)
 {
@@ -134,7 +134,7 @@ static bool match_query( const TraceQuery& query, const TraceRecord& rec)
 	return true;
 }
 
-void TraceLogger::logOpenBranch()
+void TraceLogger_memory::logOpenBranch()
 {
 	if (m_depth >= std::numeric_limits<TraceTreeDepth>::max())
 	{
@@ -144,7 +144,7 @@ void TraceLogger::logOpenBranch()
 	m_depth += 1;
 }
 
-void TraceLogger::logCloseBranch()
+void TraceLogger_memory::logCloseBranch()
 {
 	if (m_depth == 0)
 	{
@@ -154,7 +154,7 @@ void TraceLogger::logCloseBranch()
 	m_depth -= 1;
 }
 
-std::vector<TraceRecord> TraceLogger::listMethodCalls(
+std::vector<TraceRecord> TraceLogger_memory::listMethodCalls(
 		const TraceQuery& query,
 		std::size_t startIndex,
 		std::size_t maxNofResults) const
@@ -183,7 +183,7 @@ std::vector<TraceRecord> TraceLogger::listMethodCalls(
 }
 
 
-TraceTimeCounter TraceLogger::getObjectCreationTime( const TraceObjectId& objId) const
+TraceTimeCounter TraceLogger_memory::getObjectCreationTime( const TraceObjectId& objId) const
 {
 	std::map<TraceObjectId,TraceTimeCounter>::const_iterator ci = m_creatmap.find( objId);
 	if (ci == m_creatmap.end())
@@ -193,11 +193,11 @@ TraceTimeCounter TraceLogger::getObjectCreationTime( const TraceObjectId& objId)
 	return ci->second;
 }
 
-TraceViewerInterface* TraceLogger::createViewer() const
+TraceViewerInterface* TraceLogger_memory::createViewer() const
 {
 	try
 	{
-		return new TraceViewer( m_errorhnd, this);
+		return new TraceViewer_memory( m_errorhnd, this);
 	}
 	CATCH_ERROR_MAP_RETURN( "error creating trace viewer for inspecting the trace logs in memory", *m_errorhnd, 0)
 }

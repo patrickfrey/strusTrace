@@ -24,13 +24,13 @@ class TraceViewerInterface;
 class TraceIdMapInterface;
 
 /// \brief Implementation of the trace processor interface for logging and querying traces in memory
-class TraceProcessor
+class TraceProcessor_memory
 	:public TraceProcessorInterface
 {
 public:
-	explicit TraceProcessor( ErrorBufferInterface* errorhnd_)
+	explicit TraceProcessor_memory( ErrorBufferInterface* errorhnd_)
 		:m_errorhnd(errorhnd_){}
-	virtual ~TraceProcessor(){}
+	virtual ~TraceProcessor_memory(){}
 
 	virtual TraceLoggerInterface* createLogger( const std::string& config);
 	virtual TraceViewerInterface* createViewer( const std::string& config);

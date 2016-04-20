@@ -27,13 +27,16 @@ class StringBlock
 {
 public:
 	~StringBlock();
-	StringBlock( const StringBlock& o);
-
 	StringBlock( const char* blk_, std::size_t blksize_);
+
 	const char* ptr() const;
 	std::size_t size() const;
 
 	char* alloc( std::size_t blksize_);
+
+private:
+	StringBlock( const StringBlock& );	//< non copyable
+	void operator=( const StringBlock& );	//< non copyable
 
 private:
 	char* m_blk;
@@ -52,7 +55,7 @@ public:
 		:m_errorhnd(errorhnd_),m_depth(0){}
 
 	/// \brief Destructor
-	virtual ~TraceLogger_memory(){}
+	virtual ~TraceLogger_memory();
 
 	virtual TraceLogRecordHandle
 		logMethodCall(
@@ -85,7 +88,7 @@ public://TraceViewer:
 private:
 	ErrorBufferInterface* m_errorhnd;
 	std::vector<TraceRecord> m_recordar;
-	std::vector<StringBlock> m_strings;
+	std::vector<StringBlock*> m_strings;
 	TraceTreeDepth m_depth;
 	std::map<TraceObjectId,TraceTimeCounter> m_creatmap;
 };

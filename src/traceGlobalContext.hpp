@@ -49,7 +49,7 @@ public:
 		return m_errhnd;
 	}
 	template <class Interface, class InterfaceImpl>
-	const Interface* createInterfaceImpl_const( const Interface* wrapped) const
+	const Interface* createInterfaceImpl_const( const Interface* wrapped)
 	{
 		try
 		{

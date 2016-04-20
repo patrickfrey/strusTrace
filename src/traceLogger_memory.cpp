@@ -25,10 +25,6 @@ StringBlock::~StringBlock()
 	std::free( m_blk);
 }
 
-StringBlock::StringBlock( const StringBlock& o)
-	:m_blk(o.m_blk),m_size(o.m_size),m_allocsize(o.m_allocsize)
-{}
-
 StringBlock::StringBlock( const char* blk_, std::size_t blksize_)
 {
 	m_allocsize = (blksize_ > MaxBlockSize) ? blksize_:MaxBlockSize;
@@ -56,6 +52,14 @@ char* StringBlock::alloc( std::size_t blksize_)
 	return rt;
 }
 
+TraceLogger_memory::~TraceLogger_memory()
+{
+	std::vector<StringBlock*>::iterator si = m_strings.begin(), se = m_strings.end();
+	for (; si != se; ++si)
+	{
+		delete *si;
+	}
+}
 
 TraceLogRecordHandle
 	TraceLogger_memory::logMethodCall(
@@ -104,17 +108,19 @@ void TraceLogger_memory::logMethodTermination(
 	const char* paramptr;
 	if (m_strings.empty())
 	{
-		StringBlock blk( packedParameter.c_str(), packedParameter.size());
-		paramptr = blk.ptr();
+		m_strings.reserve( m_strings.size()+1);//... no bad_alloc on following push_back()
+		StringBlock* blk = new StringBlock( packedParameter.c_str(), packedParameter.size());
+		paramptr = blk->ptr();
 		m_strings.push_back( blk);
 	}
 	else
 	{
-		paramptr = m_strings.back().alloc( packedParameter.size());
+		paramptr = m_strings.back()->alloc( packedParameter.size());
 		if (paramptr == 0)
 		{
-			StringBlock blk( packedParameter.c_str(), packedParameter.size());
-			paramptr = blk.ptr();
+			m_strings.reserve( m_strings.size()+1);//... no bad_alloc on following insert()
+			StringBlock* blk = new StringBlock( packedParameter.c_str(), packedParameter.size());
+			paramptr = blk->ptr();
 			m_strings.insert( m_strings.begin()+m_strings.size()-1, blk);
 		}
 	}

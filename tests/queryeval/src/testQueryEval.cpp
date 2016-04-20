@@ -511,7 +511,7 @@ int main( int argc, const char* argv[])
 		std::cerr << "usage: " << argv[0] << " <config> <outfile> <expfile>" << std::endl;
 		return -1;
 	}
-	if (argc > 4)
+	if (argc > 5)
 	{
 		std::cerr << "too many arguments" << std::endl;
 		std::cerr << "usage: " << argv[0] << " <config> <outfile> <expfile>" << std::endl;
@@ -521,6 +521,7 @@ int main( int argc, const char* argv[])
 	snprintf( storagecfg, sizeof(storagecfg), "%s; metadata=doclen UINT16", argv[1]);
 	const char* outfile = argv[2];
 	const char* expfile = argv[3];
+	const char* breakpoints = argc>4?argv[4]:(const char*)0;
 
 	g_errorhnd = strus::createErrorBuffer_standard( stderr, 1);
 	if (!g_errorhnd)
@@ -531,6 +532,26 @@ int main( int argc, const char* argv[])
 	try
 	{
 		{//begin scope trace processor:
+		std::auto_ptr<strus::TraceProcessorInterface> traceproc_breakpoint;
+		std::auto_ptr<strus::TraceObjectBuilderInterface> traceObjectBuilder_breakpoint;
+		if (breakpoints)
+		{
+			traceproc_breakpoint =
+				std::auto_ptr<strus::TraceProcessorInterface>(
+					strus::createTraceProcessor_breakpoint( g_errorhnd));
+			if (!traceproc_breakpoint.get())
+			{
+				throw std::runtime_error("failed to create trace processor (textfile)");
+			}
+			traceObjectBuilder_breakpoint =
+				std::auto_ptr<strus::TraceObjectBuilderInterface>(
+					strus::traceCreateObjectBuilder(
+						traceproc_breakpoint->createLogger( breakpoints), g_errorhnd));
+			if (!traceObjectBuilder_breakpoint.get())
+			{
+				throw std::runtime_error("failed to create trace logger (breakpoint)");
+			}
+		}
 		std::auto_ptr<strus::TraceProcessorInterface>
 			traceproc_textfile( strus::createTraceProcessor_textfile( g_errorhnd));
 		if (!traceproc_textfile.get())
@@ -555,8 +576,8 @@ int main( int argc, const char* argv[])
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder_memory(
 				strus::traceCreateObjectBuilder(
-					traceproc_memory->createLogger( outfile), g_errorhnd));
-		if (!traceObjectBuilder_logtext.get())
+					traceproc_memory->createLogger( ""), g_errorhnd));
+		if (!traceObjectBuilder_memory.get())
 		{
 			throw std::runtime_error("failed to create trace logger (textfile)");
 		}
@@ -566,8 +587,15 @@ int main( int argc, const char* argv[])
 		std::auto_ptr<strus::StorageObjectBuilderInterface>
 			sob( new strus::StorageObjectBuilder( g_errorhnd));
 
+		if (traceObjectBuilder_breakpoint.get())
+		{
+			envelope( aob, traceObjectBuilder_breakpoint.get());
+			envelope( sob, traceObjectBuilder_breakpoint.get());
+		}
 		envelope( aob, traceObjectBuilder_logtext.get());
+		envelope( aob, traceObjectBuilder_memory.get());
 		envelope( sob, traceObjectBuilder_logtext.get());
+		envelope( sob, traceObjectBuilder_memory.get());
 
 		testEvaluateQuery(
 			sob.get(), aob.get(), storagecfg, 

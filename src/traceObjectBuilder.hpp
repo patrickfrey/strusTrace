@@ -48,7 +48,7 @@ private:
 	ErrorBufferInterface* m_errorhnd;
 	Reference<TraceIdMapInterface> m_idmap;
 	Reference<TraceLoggerInterface> m_logger;
-	TraceGlobalContext m_ctx;
+	mutable TraceGlobalContext m_ctx;
 };
 
 }//namespace

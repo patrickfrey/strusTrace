@@ -187,7 +187,7 @@ void TraceLogger_textfile::logMethodTermination(
 				case TraceElement::TypeString:
 					if (delim) buf << " ";
 					delim = true;
-					buf << "'" << encodeText( ei->value().String.Ptr, ei->value().String.Size) << "'";
+					buf << encodeText( ei->value().String.Ptr, ei->value().String.Size);
 					break;
 				case TraceElement::TypeOpenIndex:
 					if (delim) buf << " ";

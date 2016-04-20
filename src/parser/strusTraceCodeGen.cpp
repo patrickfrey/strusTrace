@@ -139,7 +139,7 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 			<< "public:" << std::endl
 			<< "\t" << ci->name() << "Impl( " << ci->name() << "Interface* obj_, TraceGlobalContext* ctx_)" << std::endl
 			<< "\t\t:TraceObject<" << ci->name() << "Interface>(obj_,ctx_)" << "{}" << std::endl
-			<< "\t" << ci->name() << "Impl( const " << ci->name() << "Interface* obj_, const TraceGlobalContext* ctx_)" << std::endl
+			<< "\t" << ci->name() << "Impl( const " << ci->name() << "Interface* obj_, TraceGlobalContext* ctx_)" << std::endl
 			<< "\t\t:TraceObject<" << ci->name() << "Interface>(obj_,ctx_)" << "{}" << std::endl
 			<< std::endl
 			<< "\tvirtual ~" << ci->name() << "Impl();" << std::endl

@@ -38,6 +38,7 @@ public:
 		TypeFloat,
 		TypeDouble,
 		TypeBool,
+		TypeObject,
 		TypeString,
 		TypeOpenIndex,
 		TypeOpenTag,
@@ -65,12 +66,14 @@ public:
 	void packFloat( const float& value)			{m_buf.push_back( (char)TypeFloat); packAtomicValue( value);}
 	void packDouble( const double& value)			{m_buf.push_back( (char)TypeDouble); packAtomicValue( value);}
 	void packBool( const bool& value)			{m_buf.push_back( (char)TypeBool); packAtomicValue( value);}
-	void packString( const std::string& value)		{m_buf.push_back( (char)TypeString); packSize( value.size()); packBytes( value.c_str(), value.size());}
-	void packBuffer( const char* buf, std::size_t size)	{m_buf.push_back( (char)TypeString); packSize( size); packBytes( buf, size);}
+	void packObject( const TraceClassId& ci,
+			 const TraceObjectId& oi)		{m_buf.push_back( (char)TypeObject); packAtomicValue( ci); packAtomicValue( oi);}
+	void packString( const std::string& value)		{m_buf.push_back( (char)TypeString); packAtomicValue( (SizeType)value.size()); packBytes( value.c_str(), value.size());}
+	void packBuffer( const char* buf, std::size_t size)	{m_buf.push_back( (char)TypeString); packAtomicValue( (SizeType)size); packBytes( buf, size);}
 	void packCharp( const char* buf)			{packString( buf);}
 	void packCharpp( const char** buf)			{std::size_t bi=0; if (!buf[bi]) packVoid(); for (;buf[bi]; ++bi) {openIndex(bi); packString(buf[bi]); close();}}
-	void openIndex( const std::size_t& value)		{m_buf.push_back( (char)TypeOpenIndex); packSize( value);}
-	void openTag( const std::string& name)			{m_buf.push_back( (char)TypeOpenTag); packSize( name.size()); packBytes( name.c_str(), name.size());}
+	void openIndex( const std::size_t& value)		{m_buf.push_back( (char)TypeOpenIndex); packAtomicValue( (SizeType)value);}
+	void openTag( const std::string& name)			{m_buf.push_back( (char)TypeOpenTag); packAtomicValue( (SizeType)name.size()); packBytes( name.c_str(), name.size());}
 	void close()						{m_buf.push_back( (char)TypeClose);}
 
 	const std::string& content() const

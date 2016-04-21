@@ -36,11 +36,11 @@ public:
 
 	virtual AnalyzerObjectBuilderInterface*
 		createAnalyzerObjectBuilder(
-			AnalyzerObjectBuilderInterface* builder);
+			AnalyzerObjectBuilderInterface* builder) const;
 	
 	virtual StorageObjectBuilderInterface*
 		createStorageObjectBuilder(
-			StorageObjectBuilderInterface* builder);
+			StorageObjectBuilderInterface* builder) const;
 
 	virtual const TraceIdMapInterface* getIdMap() const;
 
@@ -48,7 +48,7 @@ private:
 	ErrorBufferInterface* m_errorhnd;
 	Reference<TraceIdMapInterface> m_idmap;
 	Reference<TraceLoggerInterface> m_logger;
-	TraceGlobalContext m_ctx;
+	mutable TraceGlobalContext m_ctx;
 };
 
 }//namespace

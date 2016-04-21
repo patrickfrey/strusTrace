@@ -33,14 +33,14 @@ public:
 	/// \param[in] builder builder object to build a proxy universe of
 	virtual AnalyzerObjectBuilderInterface*
 		createAnalyzerObjectBuilder(
-			AnalyzerObjectBuilderInterface* builder)=0;
+			AnalyzerObjectBuilderInterface* builder) const=0;
 	
 	/// \brief Create a proxy of an storage object builder that prints a trace log before and after every method call before executing the method itself
 	/// \param[in] errorhnd error buffer for error messages and exceptions
 	/// \param[in] builder builder object to build a proxy universe of
 	virtual StorageObjectBuilderInterface*
 		createStorageObjectBuilder(
-			StorageObjectBuilderInterface* builder)=0;
+			StorageObjectBuilderInterface* builder) const=0;
 
 	/// \brief Get the map of identifiers (class names, method names) used
 	/// \return a read only reference to the identifier map

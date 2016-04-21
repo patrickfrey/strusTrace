@@ -6,9 +6,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /// \brief Implementation of inspecting elements of logged traces
-/// \file traceViewer.hpp
-#ifndef _STRUS_TRACE_VIEWER_IMPLEMENTATION_HPP_INCLUDED
-#define _STRUS_TRACE_VIEWER_IMPLEMENTATION_HPP_INCLUDED
+/// \file traceViewer_memory.hpp
+#ifndef _STRUS_TRACE_VIEWER_MEMORY_IMPLEMENTATION_HPP_INCLUDED
+#define _STRUS_TRACE_VIEWER_MEMORY_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceViewerInterface.hpp"
 #include "strus/reference.hpp"
 #include <map>
@@ -19,21 +19,21 @@ namespace strus
 /// \brief Forward declaration
 class ErrorBufferInterface;
 /// \brief Forward declaration
-class TraceLogger;
+class TraceLogger_memory;
 
 /// \brief Class for inspecting logged traces
-class TraceViewer
+class TraceViewer_memory
 	:public TraceViewerInterface
 {
 public:
 	/// \brief Constructor
 	/// \param[in] errorhnd_ error buffer interface
 	/// \param[in] logger_ logging interface (ownership passed to this) for inspecting values
-	explicit TraceViewer( ErrorBufferInterface* errorhnd_, const TraceLogger* logger_)
+	explicit TraceViewer_memory( ErrorBufferInterface* errorhnd_, const TraceLogger_memory* logger_)
 		:m_errorhnd(errorhnd_),m_logger(logger_){}
 
 	/// \brief Destructor
-	virtual ~TraceViewer(){}
+	virtual ~TraceViewer_memory(){}
 
 	virtual std::vector<TraceRecord> listMethodCalls(
 			const TraceQuery& query,
@@ -45,7 +45,7 @@ public:
 
 private:
 	ErrorBufferInterface* m_errorhnd;
-	const TraceLogger* m_logger;
+	const TraceLogger_memory* m_logger;
 };
 
 }//namespace

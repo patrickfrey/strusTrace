@@ -35,7 +35,6 @@ public:
 	explicit StorageObjectBuilder( ErrorBufferInterface* errorhnd_)
 		:m_errorhnd(errorhnd_)
 	{
-		m_config = "path=storage";
 		m_dbi.reset( strus::createDatabase_leveldb( m_errorhnd));
 		if (!m_dbi.get())
 		{
@@ -46,22 +45,15 @@ public:
 		{
 			throw std::runtime_error( std::string("failed to create storage: ") + m_errorhnd->fetchError());
 		}
-		try
+		m_qpi.reset( strus::createQueryProcessor( m_errorhnd));
+		if (!m_qpi.get())
 		{
-			m_dbi->destroyDatabase( m_config);
-		}
-		catch(...){}
-	
-		if (!m_dbi->createDatabase( m_config))
-		{
-			throw std::runtime_error( std::string("failed to create database: ") + m_errorhnd->fetchError());
+			throw std::runtime_error( std::string("failed to create query processor: ") + m_errorhnd->fetchError());
 		}
 	}
 
 	virtual ~StorageObjectBuilder()
-	{
-		m_dbi->destroyDatabase( m_config);
-	}
+	{}
 
 	virtual const strus::StorageInterface* getStorage() const
 	{
@@ -85,14 +77,13 @@ public:
 
 	virtual strus::StorageClientInterface* createStorageClient( const std::string& config) const
 	{
-		std::string cfg = config.empty()?m_config:config;
-		std::auto_ptr<strus::DatabaseClientInterface> dci( m_dbi->createClient( cfg));
+		std::auto_ptr<strus::DatabaseClientInterface> dci( m_dbi->createClient( config));
 		if (!dci.get())
 		{
 			m_errorhnd->explain( "failed to create database client: %s");
 			return 0;
 		}
-		strus::StorageClientInterface* rt = m_sti->createClient( cfg, dci.get());
+		strus::StorageClientInterface* rt = m_sti->createClient( config, dci.get());
 		if (!rt)
 		{
 			m_errorhnd->explain( "failed to create database client: %s");

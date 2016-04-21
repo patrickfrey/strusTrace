@@ -36,6 +36,7 @@ struct TraceElement
 		TypeFloat,
 		TypeDouble,
 		TypeBool,
+		TypeObject,
 		TypeString,
 		TypeOpenIndex,
 		TypeOpenTag,
@@ -50,7 +51,8 @@ struct TraceElement
 		double Double;
 		bool Bool;
 		std::size_t Index;
-		const char* String;
+		struct { TraceObjectId Id; TraceClassId Class; } Obj;
+		struct { const char* Ptr; std::size_t Size; } String;
 	};
 
 	/// \brief Get the element type
@@ -63,41 +65,37 @@ struct TraceElement
 	{
 		return m_value;
 	}
-	/// \brief Get the element size in bytes (for strings)
-	std::size_t size() const
-	{
-		return m_size;
-	}
 
 	/// \brief Default constructor
-	TraceElement() :m_type(TypeVoid),m_size(0)			{}
+	TraceElement() :m_type(TypeVoid)				{}
 	/// \brief Constructor
-	TraceElement( IntType value_) :m_type(TypeInt),m_size(0)	{m_value.Int = value_;}
+	TraceElement( IntType value_) :m_type(TypeInt)			{m_value.Int = value_;}
 	/// \brief Constructor
-	TraceElement( UIntType value_) :m_type(TypeUInt),m_size(0)	{m_value.UInt = value_;}
+	TraceElement( UIntType value_) :m_type(TypeUInt)		{m_value.UInt = value_;}
 	/// \brief Constructor
-	TraceElement( float value_) :m_type(TypeFloat),m_size(0)	{m_value.Float = value_;}
+	TraceElement( float value_) :m_type(TypeFloat)			{m_value.Float = value_;}
 	/// \brief Constructor
-	TraceElement( double value_) :m_type(TypeDouble),m_size(0)	{m_value.Double = value_;}
+	TraceElement( double value_) :m_type(TypeDouble)		{m_value.Double = value_;}
 	/// \brief Constructor
-	TraceElement( bool value_) :m_type(TypeBool),m_size(0)		{m_value.Bool = value_;}
+	TraceElement( bool value_) :m_type(TypeBool)			{m_value.Bool = value_;}
 	/// \brief Constructor
 	TraceElement( Type type_, std::size_t index_)
-		:m_type(type_),m_size(0) {m_value.Index = index_;}
+		:m_type(type_) {m_value.Index = index_;}
+	TraceElement( Type type_, TraceClassId cid_, TraceObjectId oid_)
+		:m_type(type_) {m_value.Obj.Class = cid_; m_value.Obj.Id = oid_;}
 	/// \brief Constructor
 	TraceElement( Type type_, const char* ptr_, std::size_t size_)
-		:m_type(type_),m_size(size_) {m_value.String = ptr_;}
+		:m_type(type_) {m_value.String.Ptr = ptr_; m_value.String.Size = size_;}
 	TraceElement( Type type_)
-		:m_type(type_),m_size(0) {}
+		:m_type(type_) {}
 
 	/// \brief Copy constructor
 	TraceElement( const TraceElement& o)
-		:m_type(o.m_type),m_value(o.m_value),m_size(o.m_size){}
+		:m_type(o.m_type),m_value(o.m_value){}
 
 private:
 	Type m_type;
 	Value m_value;
-	std::size_t m_size;
 };
 
 } //namespace

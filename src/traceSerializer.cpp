@@ -83,9 +83,7 @@ DEFINE_PACK_CALL_NOARG( close)
 void TraceSerializer::packObject( const TraceClassId& classId, const TraceObjectId& objId)
 {
 	try{
-	if (objId > std::numeric_limits<uint32_t>::max()) throw strus::runtime_error( _TXT("object id out of range"));
-	packUInt8( classId);
-	packUInt32( objId);
+	Serializer::packObject( classId, objId);
 	}CATCH_ERROR
 }
 
@@ -383,7 +381,7 @@ void TraceSerializer::packAnalyzerMetaData( const analyzer::MetaData& val)
 	Serializer::packString( val.name());
 	Serializer::close();
 	Serializer::openTag("value");
-	Serializer::packDouble( val.value());
+	packNumericVariant( val.value());
 	Serializer::close();
 	}CATCH_ERROR
 }

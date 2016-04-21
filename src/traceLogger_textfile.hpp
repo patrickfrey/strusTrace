@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /// \brief Implementation of logging and querying call traces to textfile or stdout
-/// \file traceLogger.hpp
+/// \file traceLogger_textfile.hpp
 #ifndef _STRUS_TRACE_LOGGER_TEXTFILE_IMPLEMENTATION_HPP_INCLUDED
 #define _STRUS_TRACE_LOGGER_TEXTFILE_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"

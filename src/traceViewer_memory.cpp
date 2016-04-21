@@ -6,16 +6,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /// \brief Implementation of inspecting elements of logged traces
-/// \file traceViewer.cpp
-#include "traceViewer.hpp"
-#include "traceLogger.hpp"
+/// \file traceViewer_memory.cpp
+#include "traceViewer_memory.hpp"
+#include "traceLogger_memory.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "strus/errorBufferInterface.hpp"
 
 using namespace strus;
 
-std::vector<TraceRecord> TraceViewer::listMethodCalls(
+std::vector<TraceRecord> TraceViewer_memory::listMethodCalls(
 		const TraceQuery& query,
 		std::size_t startIndex,
 		std::size_t maxNofResults) const
@@ -23,7 +23,7 @@ std::vector<TraceRecord> TraceViewer::listMethodCalls(
 	return m_logger->listMethodCalls( query, startIndex, maxNofResults);
 }
 
-TraceTimeCounter TraceViewer::getObjectCreationTime(
+TraceTimeCounter TraceViewer_memory::getObjectCreationTime(
 		const TraceObjectId& objId) const
 {
 	return m_logger->getObjectCreationTime( objId);

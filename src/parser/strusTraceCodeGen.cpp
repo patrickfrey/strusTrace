@@ -73,9 +73,9 @@ static void print_ObjectIdsHpp( std::ostream& out, const strus::InterfacesDef& i
 	std::vector<strus::ClassDef>::const_iterator
 		ci = interfaceDef.classDefs().begin(),
 		ce = interfaceDef.classDefs().end();
-	for (; ci != ce; ++ci)
+	for (int cidx=1; ci != ce; ++ci,++cidx)
 	{
-		out << "\tClassId_" << ci->name();
+		out << "\tClassId_" << ci->name() << "=" << cidx;
 		if (ci+1 != ce) out << ",";
 		out << std::endl;
 	}
@@ -89,13 +89,13 @@ static void print_ObjectIdsHpp( std::ostream& out, const strus::InterfacesDef& i
 		out << "public:" << std::endl;
 		out << "\tenum MethodId" << std::endl;
 		out << "\t{" << std::endl;
-		out << "\t\tMethod_Destructor";
+		out << "\t\tMethod_Destructor=0";
 		std::vector<strus::MethodDef>::const_iterator
 			mi = ci->methodDefs().begin(),
 			me = ci->methodDefs().end();
-		for (; mi != me; ++mi)
+		for (int midx=1; mi != me; ++mi,++midx)
 		{
-			out << ","  << std::endl << "\t\tMethod_" << mi->name();
+			out << ","  << std::endl << "\t\tMethod_" << mi->name() << "=" << midx;
 		}
 		out << std::endl << "\t};" << std::endl;
 		out << "};" << std::endl << std::endl;
@@ -139,7 +139,7 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 			<< "public:" << std::endl
 			<< "\t" << ci->name() << "Impl( " << ci->name() << "Interface* obj_, TraceGlobalContext* ctx_)" << std::endl
 			<< "\t\t:TraceObject<" << ci->name() << "Interface>(obj_,ctx_)" << "{}" << std::endl
-			<< "\t" << ci->name() << "Impl( const " << ci->name() << "Interface* obj_, const TraceGlobalContext* ctx_)" << std::endl
+			<< "\t" << ci->name() << "Impl( const " << ci->name() << "Interface* obj_, TraceGlobalContext* ctx_)" << std::endl
 			<< "\t\t:TraceObject<" << ci->name() << "Interface>(obj_,ctx_)" << "{}" << std::endl
 			<< std::endl
 			<< "\tvirtual ~" << ci->name() << "Impl();" << std::endl
@@ -221,7 +221,8 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			out
 			<< "{" << std::endl
 			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( "
-			<< classid << ", Method_" << mi->name() << ", objid());" << std::endl;
+			<< classid << ", Method_" << mi->name() << ", objid());" << std::endl
+			<< "\ttraceContext()->logger()->logOpenBranch();" << std::endl;
 
 			// Call real function:
 			if (hasReturnValue)
@@ -244,7 +245,8 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 				out << passparam;
 			}
 			out
-			<< ");" << std::endl;
+			<< ");" << std::endl
+			<< "\ttraceContext()->logger()->logCloseBranch();" << std::endl;
 
 			// Wrap returned interface objects:
 			if (hasReturnValue)
@@ -296,9 +298,9 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			}
 			// Check for error and set return value to NULL in this case:
 			out
-			<< "\tif (parambuf.hasError() || traceContext()->errorbuf()->hasError())" << std::endl
+			<< "\tif (parambuf.hasError())" << std::endl
 			<< "\t{" << std::endl
-			<< "\t\tif (parambuf.hasError()) traceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
+			<< "\t\ttraceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
 			std::string deleteInstr( mi->returnValue().expand( "delete", "p0"));
 			if (!deleteInstr.empty())
 			{

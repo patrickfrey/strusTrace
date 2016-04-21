@@ -7,6 +7,7 @@
  */
 #include "analyzerObjectBuilder.hpp"
 #include "storageObjectBuilder.hpp"
+#include "strus/base/configParser.hpp"
 #include "strus/reference.hpp"
 #include "strus/databaseInterface.hpp"
 #include "strus/databaseClientInterface.hpp"
@@ -15,6 +16,8 @@
 #include "strus/base/fileio.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"
+#include "strus/queryEvalInterface.hpp"
+#include "strus/queryInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/storageInterface.hpp"
@@ -22,7 +25,22 @@
 #include "strus/storageTransactionInterface.hpp"
 #include "strus/storageDocumentInterface.hpp"
 #include "strus/storageObjectBuilderInterface.hpp"
+#include "strus/weightingFunctionInterface.hpp"
+#include "strus/weightingFunctionInstanceInterface.hpp"
+#include "strus/summarizerFunctionInterface.hpp"
+#include "strus/summarizerFunctionInstanceInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
+#include "strus/textProcessorInterface.hpp"
+#include "strus/documentAnalyzerInterface.hpp"
+#include "strus/queryAnalyzerInterface.hpp"
+#include "strus/normalizerFunctionInterface.hpp"
+#include "strus/normalizerFunctionInstanceInterface.hpp"
+#include "strus/normalizerFunctionContextInterface.hpp"
+#include "strus/tokenizerFunctionInterface.hpp"
+#include "strus/tokenizerFunctionInstanceInterface.hpp"
+#include "strus/tokenizerFunctionContextInterface.hpp"
+#include "strus/aggregatorFunctionInterface.hpp"
+#include "strus/aggregatorFunctionInstanceInterface.hpp"
 #include "strus/valueIteratorInterface.hpp"
 #include "strus/traceObjectBuilderInterface.hpp"
 #include "strus/traceProcessorInterface.hpp"
@@ -38,28 +56,473 @@
 
 static strus::ErrorBufferInterface* g_errorhnd = 0;
 
-int main( int argc, const char* argv[])
+static strus::StorageClientInterface* createStorage( const strus::StorageObjectBuilderInterface* sob, const char* storageconfig)
 {
-	unsigned int argi = 1;
-	for (; argc > (int)argi; ++argi)
+	const strus::DatabaseInterface* dbi = sob->getDatabase( storageconfig);
+	if (!dbi) throw std::runtime_error( "failed to get database interface");
+	if (g_errorhnd->hasError()) throw std::runtime_error( g_errorhnd->fetchError());
+	(void) dbi->destroyDatabase( storageconfig);
+	(void) g_errorhnd->fetchError();
+	if (!dbi->createDatabase( storageconfig)) throw std::runtime_error("failed to create database");
+	std::auto_ptr<strus::DatabaseClientInterface> database( dbi->createClient( storageconfig));
+	if (!database.get()) throw std::runtime_error( "failed to create database client");
+	const strus::StorageInterface* sti = sob->getStorage();
+	if (!sti) throw std::runtime_error( "failed to get storage interface");
+	if (!sti->createStorage( storageconfig, database.get())) throw std::runtime_error( "failed to create storage");
+	std::auto_ptr<strus::StorageClientInterface> storage( sti->createClient( storageconfig, database.get()));
+	database.release();
+	if (!storage.get()) throw std::runtime_error( "failed to get create storage client");
+	return storage.release();
+}
+
+static std::vector<std::string> split( const char* cfg, const char chr)
+{
+	std::vector<std::string> rt;
+	char const* si = cfg;
+	char const* se = std::strchr( si, chr);
+	while (se)
 	{
-		if (std::strcmp( argv[argi], "-h") == 0)
+		rt.push_back( std::string( si, se-si));
+		se = std::strchr( si = se+1, chr);
+	}
+	rt.push_back( std::string( si, std::strchr( si, '\0')-si));
+	return rt;
+}
+
+static void parseFunction( std::string& name, std::vector<std::string>& arg, const std::string& src)
+{
+	arg.clear();
+	const char* argstr = std::strchr( src.c_str(), '(');
+	if (argstr)
+	{
+		const char* argend = std::strchr( argstr, ')');
+		if (!argend || *(argend+1) != '\0') throw std::runtime_error( "syntax error in function arguments");
+		std::string argstrbuf( argstr+1, argend-argstr-1);
+		arg = split( argstrbuf.c_str(),',');
+		name = std::string( src.c_str(), argstr - src.c_str());
+	}
+	else
+	{
+		name = src;
+	}
+}
+
+enum IndexType
+{
+	SearchIndex,
+	ForwardIndex,
+	MetaData,
+	Attribute
+};
+
+struct DocumentAnalyzerConfig
+{
+	IndexType indextype;
+	const char* type;
+	const char* normalizer;
+	const char* tokenizer;
+	const char* path;
+};
+
+struct AnalyzerFunctionDef
+{
+	AnalyzerFunctionDef( const strus::TextProcessorInterface* textproc, const char* normalizersrc, const char* tokenizersrc)
+		:tokenizer(0)
+	{
+		try
 		{
-			std::cerr << "usage: testStorageOp [options]" << std::endl;
-			std::cerr << "options:" << std::endl;
-			std::cerr << "  -h      :print usage" << std::endl;
+			std::string funcname;
+			std::vector<std::string> funcarg;
+
+			std::vector<std::string> nar( split( normalizersrc, ':'));
+			std::vector<std::string>::const_iterator ni = nar.begin(), ne = nar.end();
+			for (; ni != ne; ++ni)
+			{
+				parseFunction( funcname, funcarg, *ni); 
+				const strus::NormalizerFunctionInterface* normalizer = textproc->getNormalizer( funcname);
+				if (!normalizer) throw std::runtime_error( std::string("unknown normalizer '") + *ni + "'");
+	
+				normalizers.push_back( normalizer->createInstance( funcarg, textproc));
+				if (!normalizers.back()) throw std::runtime_error( std::string( "failed to create normalizer '") + *ni + "'");
+			}
+			{
+				parseFunction( funcname, funcarg, tokenizersrc); 
+				const strus::TokenizerFunctionInterface* tk = textproc->getTokenizer( funcname);
+				if (!tk) throw std::runtime_error( std::string("unknown tokenizer '") + funcname + "'");
+	
+				tokenizer = tk->createInstance( funcarg, textproc);
+				if (!tokenizer) throw std::runtime_error( std::string("failed to create tokenizer '") + funcname + "'");
+			}
 		}
-		else if (argv[argi][0] == '-')
+		catch (const std::bad_alloc&)
 		{
-			std::cerr << "unknown option " << argv[argi] << std::endl;
-			return -1;
+			clear();
+			throw std::bad_alloc();
 		}
-		else
+		catch (const std::runtime_error& err)
 		{
-			std::cerr << "unexpected argument" << std::endl;
-			return -1;
+			clear();
+			throw std::runtime_error( err.what());
 		}
 	}
+
+	void clear()
+	{
+		std::vector<strus::NormalizerFunctionInstanceInterface*>::const_iterator
+			ni = normalizers.begin(), ne = normalizers.end();
+		for (; ni != ne; ++ni)
+		{
+			delete *ni;
+		}
+		normalizers.clear();
+		if (tokenizer)
+		{
+			delete tokenizer;
+			tokenizer = 0;
+		}
+	}
+
+	std::vector<strus::NormalizerFunctionInstanceInterface*> normalizers;
+	strus::TokenizerFunctionInstanceInterface* tokenizer;
+};
+
+static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
+{
+	std::auto_ptr<strus::DocumentAnalyzerInterface> analyzer( aob->createDocumentAnalyzer());
+	if (!analyzer.get()) throw std::runtime_error( "failed to get create document analyzer");
+	const strus::TextProcessorInterface* textproc = aob->getTextProcessor();
+	const char* countfeatname = 0;
+
+	std::size_t ai = 0;
+	for (; config[ai].type; ++ai)
+	{
+		AnalyzerFunctionDef anafundef( textproc, config[ai].normalizer, config[ai].tokenizer);
+		switch (config[ai].indextype)
+		{
+			case SearchIndex:
+				if (!countfeatname) countfeatname = config[ai].type;
+				analyzer->addSearchIndexFeature(
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers);
+				break;
+			case ForwardIndex:
+				analyzer->addForwardIndexFeature(
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers);
+				break;
+			case MetaData:
+				analyzer->defineMetaData(
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers);
+				break;
+			case Attribute:
+				analyzer->defineAttribute(
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers);
+				break;
+		}
+	}
+	if (countfeatname)
+	{
+		std::string funcname = "count";
+		std::vector<std::string> funcarg;
+		funcarg.push_back( countfeatname);
+		const strus::AggregatorFunctionInterface* agf = textproc->getAggregator( funcname);
+		if (!agf) throw std::runtime_error( std::string("unknown aggregator '") + funcname + "'");
+		strus::AggregatorFunctionInstanceInterface* aggregator = agf->createInstance( funcarg);
+		if (!aggregator) throw std::runtime_error( std::string("failed to create aggregator '") + funcname + "'");
+		analyzer->defineAggregatedMetaData( "doclen", aggregator);
+	}
+	return analyzer.release();
+}
+
+static strus::QueryAnalyzerInterface* createQueryAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
+{
+	std::auto_ptr<strus::QueryAnalyzerInterface> analyzer( aob->createQueryAnalyzer());
+	if (!analyzer.get()) throw std::runtime_error( "failed to get create query analyzer");
+	const strus::TextProcessorInterface* textproc = aob->getTextProcessor();
+
+	std::size_t ai = 0;
+	for (; config[ai].type && config[ai].indextype != SearchIndex; ++ai){}
+	if (!config[ai].type) throw std::runtime_error( "no search index feature defined in analyzer configuration");
+	
+	AnalyzerFunctionDef anafundef( textproc, config[ai].normalizer, config[ai].tokenizer);
+	analyzer->definePhraseType( "querystring", config[ai].type, anafundef.tokenizer, anafundef.normalizers);
+	return analyzer.release();
+}
+
+struct TestDocument
+{
+	const char* docid;
+	const char* content;
+};
+
+static void insertDocuments(
+	const strus::StorageObjectBuilderInterface* sob,
+	const char* storageconfig,
+	const strus::AnalyzerObjectBuilderInterface* aob,
+	const DocumentAnalyzerConfig* anaconfig,
+	const TestDocument* testdocs)
+{
+	std::auto_ptr<strus::StorageClientInterface> storage( createStorage( sob, storageconfig));
+	std::auto_ptr<strus::DocumentAnalyzerInterface> analyzer( createDocumentAnalyzer( aob, anaconfig));
+	if (g_errorhnd->hasError()) throw std::runtime_error( std::string( "create document analyzer failed: ") + g_errorhnd->fetchError());
+
+	std::auto_ptr<strus::StorageTransactionInterface> transaction( storage->createTransaction());
+	if (!transaction.get()) throw std::runtime_error("create insert transaction failed");
+	strus::DocumentClass dclass( "xml", "UTF-8");
+
+	std::size_t di = 0;
+	for (; testdocs[di].docid; ++di)
+	{
+		std::auto_ptr<strus::StorageDocumentInterface>
+			stodoc( transaction->createDocument( testdocs[di].docid));
+
+		strus::analyzer::Document 
+			anadoc = analyzer->analyze( testdocs[di].content, dclass);
+		if (g_errorhnd->hasError()) throw std::runtime_error( std::string( "analyze of document '") + testdocs[di].docid + "' failed: " + g_errorhnd->fetchError());
+
+		std::vector<strus::analyzer::Term>::const_iterator
+			ti = anadoc.searchIndexTerms().begin(), te = anadoc.searchIndexTerms().end();
+		for (; ti != te; ++ti)
+		{
+			stodoc->addSearchIndexTerm( ti->type(), ti->value(), ti->pos());
+		}
+		ti = anadoc.forwardIndexTerms().begin(), te = anadoc.forwardIndexTerms().end();
+		for (; ti != te; ++ti)
+		{
+			stodoc->addForwardIndexTerm( ti->type(), ti->value(), ti->pos());
+		}
+		std::vector<strus::analyzer::Attribute>::const_iterator
+			ai = anadoc.attributes().begin(), ae = anadoc.attributes().end();
+		for (; ai != ae; ++ai)
+		{
+			stodoc->setAttribute( ai->name(), ai->value());
+		}
+		std::vector<strus::analyzer::MetaData>::const_iterator
+			mi = anadoc.metadata().begin(), me = anadoc.metadata().end();
+		for (; mi != me; ++mi)
+		{
+			stodoc->setMetaData( mi->name(), mi->value());
+		}
+		stodoc->setAttribute( "docid", testdocs[di].docid);
+		stodoc->done();
+	}
+	if (!transaction->commit()) throw std::runtime_error( "storage transaction failed");
+	if (g_errorhnd->hasError()) throw std::runtime_error( "error inserting documents");
+}
+
+static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBuilderInterface* sob)
+{
+	std::auto_ptr<strus::QueryEvalInterface> qeval( sob->createQueryEval());
+	if (!qeval.get()) throw std::runtime_error("failed to create query evaluation");
+	const strus::QueryProcessorInterface* qproc = sob->getQueryProcessor();
+	if (!qproc) throw std::runtime_error("failed to get query processor");
+	qeval->addSelectionFeature( "selfeat");
+
+	const strus::WeightingFunctionInterface* wfunc = qproc->getWeightingFunction( "BM25");
+	if (!wfunc) throw std::runtime_error( std::string("undefined weigthing function ") + "BM25");
+	std::auto_ptr<strus::WeightingFunctionInstanceInterface> wfuncinst( wfunc->createInstance( qproc));
+	if (!wfuncinst.get()) throw std::runtime_error("failed to create weighting function instance");
+	wfuncinst->addNumericParameter( "k1", 1.2);
+	wfuncinst->addNumericParameter( "b", 0.75);
+	wfuncinst->addNumericParameter( "avgdoclen", 15);
+	typedef strus::QueryEvalInterface::FeatureParameter FeatureParameter;
+	std::vector<FeatureParameter> featureParameters;
+	featureParameters.push_back( FeatureParameter( "match", "docfeat"));
+	qeval->addWeightingFunction( "BM25", wfuncinst.release(), featureParameters);
+
+	const strus::SummarizerFunctionInterface* sfunc = qproc->getSummarizerFunction( "Attribute");
+	if (!sfunc) throw std::runtime_error( std::string("undefined summarizer function ") + "Attribute");
+	std::auto_ptr<strus::SummarizerFunctionInstanceInterface> sfuncinst( sfunc->createInstance( qproc));
+	if (!sfuncinst.get()) throw std::runtime_error(std::string("failed to create summarizer function instance ") + "Attribute");
+	sfuncinst->addStringParameter( "name", "docid");
+	qeval->addSummarizerFunction( "attribute", sfuncinst.release(), std::vector<FeatureParameter>());
+
+	sfunc = qproc->getSummarizerFunction( "MatchPos");
+	if (!sfunc) throw std::runtime_error( std::string("undefined summarizer function ") + "MatchPos");
+	sfuncinst.reset( sfunc->createInstance( qproc));
+	if (!sfuncinst.get()) throw std::runtime_error( std::string("failed to create summarizer function instance ") + "MatchPos");
+	featureParameters.clear();
+	featureParameters.push_back( FeatureParameter( "match", "docfeat"));
+	qeval->addSummarizerFunction( "matchpos", sfuncinst.release(), featureParameters);
+	return qeval.release();
+}
+
+static std::vector<strus::analyzer::Term> analyzeQuery( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* anaconfig, const char* querystr)
+{
+	std::auto_ptr<strus::QueryAnalyzerInterface> qana( createQueryAnalyzer( aob, anaconfig));
+	if (!qana.get()) throw std::runtime_error("failed to create query analyzer");
+	return qana->analyzePhrase( "querystring", querystr);
+}
+
+static strus::QueryInterface* createQuery(
+		const strus::StorageObjectBuilderInterface* sob,
+		const strus::AnalyzerObjectBuilderInterface* aob,
+		const strus::StorageClientInterface* storage,
+		const strus::QueryEvalInterface* qeval,
+		const DocumentAnalyzerConfig* anaconfig,
+		const char* querystr)
+{
+	const strus::QueryProcessorInterface* qproc = sob->getQueryProcessor();
+	if (!qproc) throw std::runtime_error("failed to get query processor");
+
+	std::vector<strus::analyzer::Term> qterms = analyzeQuery( aob, anaconfig, querystr);
+	if (qterms.empty()) throw std::runtime_error("no query terms in query");
+
+	std::auto_ptr<strus::QueryInterface> query( qeval->createQuery( storage));
+	std::vector<strus::analyzer::Term>::const_iterator qi = qterms.begin(), qe = qterms.end();
+	for (; qi != qe; ++qi)
+	{
+		query->pushTerm( qi->type(), qi->value());
+		query->defineFeature( "docfeat");
+	}
+	for (qi = qterms.begin(); qi != qe; ++qi)
+	{
+		query->pushTerm( qi->type(), qi->value());
+	}
+	const strus::PostingJoinOperatorInterface* contains = qproc->getPostingJoinOperator("contains");
+	query->pushExpression( contains, qterms.size(), 0, 1/*cardinality*/);
+	query->defineFeature( "selfeat");
+	return query.release();
+}
+
+
+static void testEvaluateQuery(
+		const strus::StorageObjectBuilderInterface* sob,
+		const strus::AnalyzerObjectBuilderInterface* aob,
+		const char* storageconfig,
+		const DocumentAnalyzerConfig* analyzerconfig,
+		const TestDocument* testdocs,
+		const char* querystr)
+{
+	const strus::QueryProcessorInterface* qproc = sob->getQueryProcessor();
+	if (!qproc) throw std::runtime_error("failed to get query processor");
+
+	insertDocuments( sob, storageconfig, aob, analyzerconfig, testdocs);
+
+	std::auto_ptr<strus::StorageClientInterface> storage( sob->createStorageClient( storageconfig));
+	std::auto_ptr<strus::QueryEvalInterface> qeval( createQueryEval( sob));
+	std::auto_ptr<strus::QueryInterface> query( createQuery( sob, aob, storage.get(), qeval.get(), analyzerconfig, querystr));
+
+	strus::QueryResult result = query->evaluate();
+	if (g_errorhnd->hasError()) throw std::runtime_error( "failed to evaluate query");
+
+	std::vector<strus::ResultDocument>::const_iterator ri = result.ranks().begin(), re = result.ranks().end();
+	for (; ri != re; ++ri)
+	{
+		std::cout << ri->docno() << " " << ri->weight() << std::endl;
+		std::vector<strus::SummaryElement>::const_iterator
+			si = ri->summaryElements().begin(), se = ri->summaryElements().end();
+		for (; si != se; ++si)
+		{
+			std::cout << "\t" << si->name() << " '" << si->value() << "'" << std::endl;
+		}
+	}
+}
+
+static bool diffFiles( const char* file1, const char* file2)
+{
+	std::string content1;
+	unsigned int ec = strus::readFile( file1, content1);
+	if (ec) throw std::runtime_error( std::string("could not read file ") + file1 + ": " + ::strerror(ec));
+	std::string content2;
+	ec = strus::readFile( file2, content2);
+	if (ec) throw std::runtime_error( std::string("could not read file ") + file2 + ": " + ::strerror(ec));
+	std::string::const_iterator ci1 = content1.begin(), ce1 = content1.end();
+	std::string::const_iterator ci2 = content2.begin(), ce2 = content2.end();
+	while (ci1 != ce1 && ci2 != ce2)
+	{
+		bool eoln1 = false;
+		while (ci1 != ce1 && (*ci1 == '\n' || *ci1 == '\r'))
+		{
+			eoln1 = true;
+			++ci1;
+		}
+		bool eoln2 = false;
+		while (ci2 != ce2 && (*ci2 == '\n' || *ci2 == '\r'))
+		{
+			eoln2 = true;
+			++ci2;
+		}
+		char ch1 = (!eoln1 && ci1 != ce1)?(*ci1++):'\0';
+		char ch2 = (!eoln2 && ci2 != ce2)?(*ci2++):'\0';
+		if (eoln1 != eoln2 || ch1 != ch2) return false;
+	}
+	return ci1 == ce1 && ci2 == ce2;
+}
+
+
+static void envelope(
+		std::auto_ptr<strus::StorageObjectBuilderInterface>& sob,
+		const strus::TraceObjectBuilderInterface* tob)
+{
+	strus::StorageObjectBuilderInterface*
+		sob_envelope = tob->createStorageObjectBuilder( sob.get());
+	if (sob_envelope)
+	{
+		sob.release();
+		sob = std::auto_ptr<strus::StorageObjectBuilderInterface>( sob_envelope);
+	}
+	else
+	{
+		throw std::runtime_error("failed to storage object builder proxy");
+	}
+}
+
+static void envelope(
+		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>& aob,
+		const strus::TraceObjectBuilderInterface* tob)
+{
+	strus::AnalyzerObjectBuilderInterface*
+		aob_envelope = tob->createAnalyzerObjectBuilder( aob.get());
+	if (aob_envelope)
+	{
+		aob.release();
+		aob = std::auto_ptr<strus::AnalyzerObjectBuilderInterface>( aob_envelope);
+	}
+	else
+	{
+		throw std::runtime_error("failed to analyzer object builder proxy");
+	}
+}
+
+static const DocumentAnalyzerConfig g_analyzerconfig[] =
+{
+	{SearchIndex,"stem","convdia(en):stem(en):lc","word","//text()"},
+	{ForwardIndex,"orig","text","split","//text()"},
+	{SearchIndex,0,0,0,0}
+};
+static const TestDocument g_testdocs[] =
+{
+	{"Doc1", "<doc><text>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.</text></doc>"},
+	{"Doc2", "<doc><text>He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.</text></doc>"},
+	{"Doc3", "<doc><text>The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked.</text></doc>"},
+	{"Doc4", "<doc><text>\"What's happened to me?\" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls.</text></doc>"},
+	{"Doc5", "<doc><text>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</text></doc>"},
+	{"Doc6", "<doc><text>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.</text></doc>"},
+	{0,0}
+};
+static const char* g_querystring = "dream transformed vermin";
+
+
+
+int main( int argc, const char* argv[])
+{
+	if (argc < 4)
+	{
+		std::cerr << "too few arguments" << std::endl;
+		std::cerr << "usage: " << argv[0] << " <config> <outfile> <expfile>" << std::endl;
+		return -1;
+	}
+	if (argc > 5)
+	{
+		std::cerr << "too many arguments" << std::endl;
+		std::cerr << "usage: " << argv[0] << " <config> <outfile> <expfile>" << std::endl;
+		return -1;
+	}
+	char storagecfg[ 1024];
+	snprintf( storagecfg, sizeof(storagecfg), "%s; metadata=doclen UINT16", argv[1]);
+	const char* outfile = argv[2];
+	const char* expfile = argv[3];
+	const char* breakpoints = argc>4?argv[4]:(const char*)0;
+
 	g_errorhnd = strus::createErrorBuffer_standard( stderr, 1);
 	if (!g_errorhnd)
 	{
@@ -68,38 +531,84 @@ int main( int argc, const char* argv[])
 	}
 	try
 	{
-		std::auto_ptr<strus::AnalyzerObjectBuilderInterface> analyzerObjectBuilder( new strus::AnalyzerObjectBuilder( g_errorhnd));
-		std::auto_ptr<strus::StorageObjectBuilderInterface> storageObjectBuilder( new strus::StorageObjectBuilder( g_errorhnd));
-		std::auto_ptr<strus::TraceProcessorInterface> traceproc( strus::createTraceProcessor_textfile( g_errorhnd));
-		if (!traceproc.get())
+		{//begin scope trace processor:
+		std::auto_ptr<strus::TraceProcessorInterface> traceproc_breakpoint;
+		std::auto_ptr<strus::TraceObjectBuilderInterface> traceObjectBuilder_breakpoint;
+		if (breakpoints)
 		{
-			throw std::runtime_error("failed to create trace processor");
+			traceproc_breakpoint =
+				std::auto_ptr<strus::TraceProcessorInterface>(
+					strus::createTraceProcessor_breakpoint( g_errorhnd));
+			if (!traceproc_breakpoint.get())
+			{
+				throw std::runtime_error("failed to create trace processor (textfile)");
+			}
+			traceObjectBuilder_breakpoint =
+				std::auto_ptr<strus::TraceObjectBuilderInterface>(
+					strus::traceCreateObjectBuilder(
+						traceproc_breakpoint->createLogger( breakpoints), g_errorhnd));
+			if (!traceObjectBuilder_breakpoint.get())
+			{
+				throw std::runtime_error("failed to create trace logger (breakpoint)");
+			}
+		}
+		std::auto_ptr<strus::TraceProcessorInterface>
+			traceproc_textfile( strus::createTraceProcessor_textfile( g_errorhnd));
+		if (!traceproc_textfile.get())
+		{
+			throw std::runtime_error("failed to create trace processor (textfile)");
 		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
-			traceObjectBuilder(
+			traceObjectBuilder_logtext(
 				strus::traceCreateObjectBuilder(
-					traceproc->createLogger( "stdout"), g_errorhnd));
-		strus::AnalyzerObjectBuilderInterface*
-			ao = traceObjectBuilder->createAnalyzerObjectBuilder( analyzerObjectBuilder.get());
-		if (ao)
+					traceproc_textfile->createLogger( outfile), g_errorhnd));
+		if (!traceObjectBuilder_logtext.get())
 		{
-			analyzerObjectBuilder.release();
-			analyzerObjectBuilder = std::auto_ptr<strus::AnalyzerObjectBuilderInterface>( ao);
+			throw std::runtime_error("failed to create trace logger (textfile)");
 		}
-		else
+
+		std::auto_ptr<strus::TraceProcessorInterface>
+			traceproc_memory( strus::createTraceProcessor_memory( g_errorhnd));
+		if (!traceproc_memory.get())
 		{
-			throw std::runtime_error("failed to analyzer object builder proxy");
+			throw std::runtime_error("failed to create trace processor (memory)");
 		}
-		strus::StorageObjectBuilderInterface*
-			so = traceObjectBuilder->createStorageObjectBuilder( storageObjectBuilder.get());
-		if (so)
+		std::auto_ptr<strus::TraceObjectBuilderInterface>
+			traceObjectBuilder_memory(
+				strus::traceCreateObjectBuilder(
+					traceproc_memory->createLogger( ""), g_errorhnd));
+		if (!traceObjectBuilder_memory.get())
 		{
-			storageObjectBuilder.release();
-			storageObjectBuilder = std::auto_ptr<strus::StorageObjectBuilderInterface>( so);
+			throw std::runtime_error("failed to create trace logger (textfile)");
 		}
-		else
+
+		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>
+			aob( new strus::AnalyzerObjectBuilder( g_errorhnd));
+		std::auto_ptr<strus::StorageObjectBuilderInterface>
+			sob( new strus::StorageObjectBuilder( g_errorhnd));
+
+		if (traceObjectBuilder_breakpoint.get())
 		{
-			throw std::runtime_error("failed to storage object builder proxy");
+			envelope( aob, traceObjectBuilder_breakpoint.get());
+			envelope( sob, traceObjectBuilder_breakpoint.get());
+		}
+		envelope( aob, traceObjectBuilder_logtext.get());
+		envelope( aob, traceObjectBuilder_memory.get());
+		envelope( sob, traceObjectBuilder_logtext.get());
+		envelope( sob, traceObjectBuilder_memory.get());
+
+		testEvaluateQuery(
+			sob.get(), aob.get(), storagecfg, 
+			g_analyzerconfig, g_testdocs, g_querystring);
+		if (g_errorhnd->hasError())
+		{
+			throw std::runtime_error(std::string("unhandled error: ") + g_errorhnd->fetchError());
+		}
+		}//end scope trace processor
+
+		if (!diffFiles( outfile, expfile))
+		{
+			throw std::runtime_error( "input file and expected output file differ"); 
 		}
 	}
 
@@ -110,7 +619,14 @@ int main( int argc, const char* argv[])
 	}
 	catch (const std::runtime_error& err)
 	{
-		std::cerr << "ERROR " << err.what() << std::endl;
+		if (g_errorhnd && g_errorhnd->hasError())
+		{
+			std::cerr << "ERROR " << err.what() << ": " << g_errorhnd->fetchError() << std::endl;
+		}
+		else
+		{
+			std::cerr << "ERROR " << err.what() << std::endl;
+		}
 		return -1;
 	}
 	return 0;

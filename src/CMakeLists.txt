@@ -10,10 +10,11 @@ set( source_files
 	internationalization.cpp
 	serialize.cpp
 	traceObject.cpp
-	traceLogger.cpp
+	traceViewer_memory.cpp
+	traceLogger_memory.cpp
 	traceLogger_textfile.cpp
+	traceLogger_breakpoint.cpp
 	traceSerializer.cpp
-	traceViewer.cpp
 	traceIdMap.cpp
 	traceIdMap_gen.cpp
 	objects_gen.cpp
@@ -38,7 +39,7 @@ link_directories(
 # Library for generate method call traces and introspection of strus runs
 # -------------------------------------------
 add_library( strus_tracelog SHARED libstrus_tracelog.cpp ${source_files} )
-target_link_libraries( strus_tracelog ${Boost_LIBRARIES} )
+target_link_libraries( strus_tracelog ${Boost_LIBRARIES} ${Intl_LIBRARIES} )
 set_target_properties(
     strus_tracelog
     PROPERTIES

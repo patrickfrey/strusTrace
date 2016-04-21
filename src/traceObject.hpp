@@ -23,10 +23,7 @@ public:
 
 	TraceObjectBase( void* obj_, Deleter deleter_, TraceGlobalContext* ctx_);
 	TraceObjectBase( const void* obj_, const TraceGlobalContext* ctx_);
-	virtual ~TraceObjectBase()
-	{
-		if (m_deleter) m_deleter( m_obj);
-	}
+	virtual ~TraceObjectBase();
 
 	TraceObjectId objid() const
 	{
@@ -66,7 +63,7 @@ private:
 public:
 	TraceObject( Interface* obj_, TraceGlobalContext* ctx_)
 		:TraceObjectBase(obj_,&deleter,ctx_){}
-	TraceObject( const Interface* obj_, const TraceGlobalContext* ctx_)
+	TraceObject( const Interface* obj_, TraceGlobalContext* ctx_)
 		:TraceObjectBase(obj_,ctx_){}
 	virtual ~TraceObject(){}
 

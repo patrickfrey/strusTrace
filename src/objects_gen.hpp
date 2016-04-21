@@ -81,11 +81,11 @@ class AggregatorFunctionInstanceImpl
 public:
 	AggregatorFunctionInstanceImpl( AggregatorFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AggregatorFunctionInstanceInterface>(obj_,ctx_){}
-	AggregatorFunctionInstanceImpl( const AggregatorFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+	AggregatorFunctionInstanceImpl( const AggregatorFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AggregatorFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~AggregatorFunctionInstanceImpl();
-	virtual double evaluate(
+	virtual NumericVariant evaluate(
 			const analyzer::Document& p1) const;
 };
 
@@ -97,7 +97,7 @@ class AggregatorFunctionImpl
 public:
 	AggregatorFunctionImpl( AggregatorFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AggregatorFunctionInterface>(obj_,ctx_){}
-	AggregatorFunctionImpl( const AggregatorFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+	AggregatorFunctionImpl( const AggregatorFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AggregatorFunctionInterface>(obj_,ctx_){}
 
 	virtual ~AggregatorFunctionImpl();
@@ -114,7 +114,7 @@ class AnalyzerObjectBuilderImpl
 public:
 	AnalyzerObjectBuilderImpl( AnalyzerObjectBuilderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AnalyzerObjectBuilderInterface>(obj_,ctx_){}
-	AnalyzerObjectBuilderImpl( const AnalyzerObjectBuilderInterface* obj_, const TraceGlobalContext* ctx_)
+	AnalyzerObjectBuilderImpl( const AnalyzerObjectBuilderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AnalyzerObjectBuilderInterface>(obj_,ctx_){}
 
 	virtual ~AnalyzerObjectBuilderImpl();
@@ -134,7 +134,7 @@ class AttributeReaderImpl
 public:
 	AttributeReaderImpl( AttributeReaderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AttributeReaderInterface>(obj_,ctx_){}
-	AttributeReaderImpl( const AttributeReaderInterface* obj_, const TraceGlobalContext* ctx_)
+	AttributeReaderImpl( const AttributeReaderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<AttributeReaderInterface>(obj_,ctx_){}
 
 	virtual ~AttributeReaderImpl();
@@ -155,7 +155,7 @@ class DatabaseBackupCursorImpl
 public:
 	DatabaseBackupCursorImpl( DatabaseBackupCursorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseBackupCursorInterface>(obj_,ctx_){}
-	DatabaseBackupCursorImpl( const DatabaseBackupCursorInterface* obj_, const TraceGlobalContext* ctx_)
+	DatabaseBackupCursorImpl( const DatabaseBackupCursorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseBackupCursorInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseBackupCursorImpl();
@@ -172,7 +172,7 @@ class DatabaseClientImpl
 public:
 	DatabaseClientImpl( DatabaseClientInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseClientInterface>(obj_,ctx_){}
-	DatabaseClientImpl( const DatabaseClientInterface* obj_, const TraceGlobalContext* ctx_)
+	DatabaseClientImpl( const DatabaseClientInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseClientInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseClientImpl();
@@ -199,7 +199,7 @@ class DatabaseCursorImpl
 public:
 	DatabaseCursorImpl( DatabaseCursorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseCursorInterface>(obj_,ctx_){}
-	DatabaseCursorImpl( const DatabaseCursorInterface* obj_, const TraceGlobalContext* ctx_)
+	DatabaseCursorImpl( const DatabaseCursorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseCursorInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseCursorImpl();
@@ -227,7 +227,7 @@ class DatabaseImpl
 public:
 	DatabaseImpl( DatabaseInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseInterface>(obj_,ctx_){}
-	DatabaseImpl( const DatabaseInterface* obj_, const TraceGlobalContext* ctx_)
+	DatabaseImpl( const DatabaseInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseImpl();
@@ -256,7 +256,7 @@ class DatabaseTransactionImpl
 public:
 	DatabaseTransactionImpl( DatabaseTransactionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseTransactionInterface>(obj_,ctx_){}
-	DatabaseTransactionImpl( const DatabaseTransactionInterface* obj_, const TraceGlobalContext* ctx_)
+	DatabaseTransactionImpl( const DatabaseTransactionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DatabaseTransactionInterface>(obj_,ctx_){}
 
 	virtual ~DatabaseTransactionImpl();
@@ -281,7 +281,7 @@ class DocumentAnalyzerContextImpl
 public:
 	DocumentAnalyzerContextImpl( DocumentAnalyzerContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DocumentAnalyzerContextInterface>(obj_,ctx_){}
-	DocumentAnalyzerContextImpl( const DocumentAnalyzerContextInterface* obj_, const TraceGlobalContext* ctx_)
+	DocumentAnalyzerContextImpl( const DocumentAnalyzerContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DocumentAnalyzerContextInterface>(obj_,ctx_){}
 
 	virtual ~DocumentAnalyzerContextImpl();
@@ -300,7 +300,7 @@ class DocumentAnalyzerImpl
 public:
 	DocumentAnalyzerImpl( DocumentAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DocumentAnalyzerInterface>(obj_,ctx_){}
-	DocumentAnalyzerImpl( const DocumentAnalyzerInterface* obj_, const TraceGlobalContext* ctx_)
+	DocumentAnalyzerImpl( const DocumentAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DocumentAnalyzerInterface>(obj_,ctx_){}
 
 	virtual ~DocumentAnalyzerImpl();
@@ -347,7 +347,7 @@ class DocumentClassDetectorImpl
 public:
 	DocumentClassDetectorImpl( DocumentClassDetectorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DocumentClassDetectorInterface>(obj_,ctx_){}
-	DocumentClassDetectorImpl( const DocumentClassDetectorInterface* obj_, const TraceGlobalContext* ctx_)
+	DocumentClassDetectorImpl( const DocumentClassDetectorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DocumentClassDetectorInterface>(obj_,ctx_){}
 
 	virtual ~DocumentClassDetectorImpl();
@@ -364,7 +364,7 @@ class DocumentTermIteratorImpl
 public:
 	DocumentTermIteratorImpl( DocumentTermIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DocumentTermIteratorInterface>(obj_,ctx_){}
-	DocumentTermIteratorImpl( const DocumentTermIteratorInterface* obj_, const TraceGlobalContext* ctx_)
+	DocumentTermIteratorImpl( const DocumentTermIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<DocumentTermIteratorInterface>(obj_,ctx_){}
 
 	virtual ~DocumentTermIteratorImpl();
@@ -386,7 +386,7 @@ class ForwardIteratorImpl
 public:
 	ForwardIteratorImpl( ForwardIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ForwardIteratorInterface>(obj_,ctx_){}
-	ForwardIteratorImpl( const ForwardIteratorInterface* obj_, const TraceGlobalContext* ctx_)
+	ForwardIteratorImpl( const ForwardIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ForwardIteratorInterface>(obj_,ctx_){}
 
 	virtual ~ForwardIteratorImpl();
@@ -405,7 +405,7 @@ class InvAclIteratorImpl
 public:
 	InvAclIteratorImpl( InvAclIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<InvAclIteratorInterface>(obj_,ctx_){}
-	InvAclIteratorImpl( const InvAclIteratorInterface* obj_, const TraceGlobalContext* ctx_)
+	InvAclIteratorImpl( const InvAclIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<InvAclIteratorInterface>(obj_,ctx_){}
 
 	virtual ~InvAclIteratorImpl();
@@ -421,7 +421,7 @@ class MetaDataReaderImpl
 public:
 	MetaDataReaderImpl( MetaDataReaderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<MetaDataReaderInterface>(obj_,ctx_){}
-	MetaDataReaderImpl( const MetaDataReaderInterface* obj_, const TraceGlobalContext* ctx_)
+	MetaDataReaderImpl( const MetaDataReaderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<MetaDataReaderInterface>(obj_,ctx_){}
 
 	virtual ~MetaDataReaderImpl();
@@ -448,7 +448,7 @@ class MetaDataRestrictionInstanceImpl
 public:
 	MetaDataRestrictionInstanceImpl( MetaDataRestrictionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<MetaDataRestrictionInstanceInterface>(obj_,ctx_){}
-	MetaDataRestrictionInstanceImpl( const MetaDataRestrictionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+	MetaDataRestrictionInstanceImpl( const MetaDataRestrictionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<MetaDataRestrictionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~MetaDataRestrictionInstanceImpl();
@@ -464,7 +464,7 @@ class MetaDataRestrictionImpl
 public:
 	MetaDataRestrictionImpl( MetaDataRestrictionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<MetaDataRestrictionInterface>(obj_,ctx_){}
-	MetaDataRestrictionImpl( const MetaDataRestrictionInterface* obj_, const TraceGlobalContext* ctx_)
+	MetaDataRestrictionImpl( const MetaDataRestrictionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<MetaDataRestrictionInterface>(obj_,ctx_){}
 
 	virtual ~MetaDataRestrictionImpl();
@@ -485,7 +485,7 @@ class NormalizerFunctionContextImpl
 public:
 	NormalizerFunctionContextImpl( NormalizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<NormalizerFunctionContextInterface>(obj_,ctx_){}
-	NormalizerFunctionContextImpl( const NormalizerFunctionContextInterface* obj_, const TraceGlobalContext* ctx_)
+	NormalizerFunctionContextImpl( const NormalizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<NormalizerFunctionContextInterface>(obj_,ctx_){}
 
 	virtual ~NormalizerFunctionContextImpl();
@@ -501,7 +501,7 @@ class NormalizerFunctionInstanceImpl
 public:
 	NormalizerFunctionInstanceImpl( NormalizerFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<NormalizerFunctionInstanceInterface>(obj_,ctx_){}
-	NormalizerFunctionInstanceImpl( const NormalizerFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+	NormalizerFunctionInstanceImpl( const NormalizerFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<NormalizerFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~NormalizerFunctionInstanceImpl();
@@ -516,7 +516,7 @@ class NormalizerFunctionImpl
 public:
 	NormalizerFunctionImpl( NormalizerFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<NormalizerFunctionInterface>(obj_,ctx_){}
-	NormalizerFunctionImpl( const NormalizerFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+	NormalizerFunctionImpl( const NormalizerFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<NormalizerFunctionInterface>(obj_,ctx_){}
 
 	virtual ~NormalizerFunctionImpl();
@@ -534,7 +534,7 @@ class PostingIteratorImpl
 public:
 	PostingIteratorImpl( PostingIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<PostingIteratorInterface>(obj_,ctx_){}
-	PostingIteratorImpl( const PostingIteratorInterface* obj_, const TraceGlobalContext* ctx_)
+	PostingIteratorImpl( const PostingIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<PostingIteratorInterface>(obj_,ctx_){}
 
 	virtual ~PostingIteratorImpl();
@@ -559,7 +559,7 @@ class PostingJoinOperatorImpl
 public:
 	PostingJoinOperatorImpl( PostingJoinOperatorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<PostingJoinOperatorInterface>(obj_,ctx_){}
-	PostingJoinOperatorImpl( const PostingJoinOperatorInterface* obj_, const TraceGlobalContext* ctx_)
+	PostingJoinOperatorImpl( const PostingJoinOperatorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<PostingJoinOperatorInterface>(obj_,ctx_){}
 
 	virtual ~PostingJoinOperatorImpl();
@@ -578,7 +578,7 @@ class QueryAnalyzerImpl
 public:
 	QueryAnalyzerImpl( QueryAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
-	QueryAnalyzerImpl( const QueryAnalyzerInterface* obj_, const TraceGlobalContext* ctx_)
+	QueryAnalyzerImpl( const QueryAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
 
 	virtual ~QueryAnalyzerImpl();
@@ -602,7 +602,7 @@ class QueryEvalImpl
 public:
 	QueryEvalImpl( QueryEvalInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<QueryEvalInterface>(obj_,ctx_){}
-	QueryEvalImpl( const QueryEvalInterface* obj_, const TraceGlobalContext* ctx_)
+	QueryEvalImpl( const QueryEvalInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<QueryEvalInterface>(obj_,ctx_){}
 
 	virtual ~QueryEvalImpl();
@@ -638,7 +638,7 @@ class QueryImpl
 public:
 	QueryImpl( QueryInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<QueryInterface>(obj_,ctx_){}
-	QueryImpl( const QueryInterface* obj_, const TraceGlobalContext* ctx_)
+	QueryImpl( const QueryInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<QueryInterface>(obj_,ctx_){}
 
 	virtual ~QueryImpl();
@@ -688,7 +688,7 @@ class QueryProcessorImpl
 public:
 	QueryProcessorImpl( QueryProcessorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<QueryProcessorInterface>(obj_,ctx_){}
-	QueryProcessorImpl( const QueryProcessorInterface* obj_, const TraceGlobalContext* ctx_)
+	QueryProcessorImpl( const QueryProcessorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<QueryProcessorInterface>(obj_,ctx_){}
 
 	virtual ~QueryProcessorImpl();
@@ -724,7 +724,7 @@ class ScalarFunctionInstanceImpl
 public:
 	ScalarFunctionInstanceImpl( ScalarFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ScalarFunctionInstanceInterface>(obj_,ctx_){}
-	ScalarFunctionInstanceImpl( const ScalarFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+	ScalarFunctionInstanceImpl( const ScalarFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ScalarFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~ScalarFunctionInstanceImpl();
@@ -744,7 +744,7 @@ class ScalarFunctionImpl
 public:
 	ScalarFunctionImpl( ScalarFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ScalarFunctionInterface>(obj_,ctx_){}
-	ScalarFunctionImpl( const ScalarFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+	ScalarFunctionImpl( const ScalarFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ScalarFunctionInterface>(obj_,ctx_){}
 
 	virtual ~ScalarFunctionImpl();
@@ -765,7 +765,7 @@ class ScalarFunctionParserImpl
 public:
 	ScalarFunctionParserImpl( ScalarFunctionParserInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ScalarFunctionParserInterface>(obj_,ctx_){}
-	ScalarFunctionParserImpl( const ScalarFunctionParserInterface* obj_, const TraceGlobalContext* ctx_)
+	ScalarFunctionParserImpl( const ScalarFunctionParserInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ScalarFunctionParserInterface>(obj_,ctx_){}
 
 	virtual ~ScalarFunctionParserImpl();
@@ -782,7 +782,7 @@ class SegmenterContextImpl
 public:
 	SegmenterContextImpl( SegmenterContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SegmenterContextInterface>(obj_,ctx_){}
-	SegmenterContextImpl( const SegmenterContextInterface* obj_, const TraceGlobalContext* ctx_)
+	SegmenterContextImpl( const SegmenterContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SegmenterContextInterface>(obj_,ctx_){}
 
 	virtual ~SegmenterContextImpl();
@@ -803,7 +803,7 @@ class SegmenterInstanceImpl
 public:
 	SegmenterInstanceImpl( SegmenterInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SegmenterInstanceInterface>(obj_,ctx_){}
-	SegmenterInstanceImpl( const SegmenterInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+	SegmenterInstanceImpl( const SegmenterInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SegmenterInstanceInterface>(obj_,ctx_){}
 
 	virtual ~SegmenterInstanceImpl();
@@ -826,7 +826,7 @@ class SegmenterImpl
 public:
 	SegmenterImpl( SegmenterInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SegmenterInterface>(obj_,ctx_){}
-	SegmenterImpl( const SegmenterInterface* obj_, const TraceGlobalContext* ctx_)
+	SegmenterImpl( const SegmenterInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SegmenterInterface>(obj_,ctx_){}
 
 	virtual ~SegmenterImpl();
@@ -842,7 +842,7 @@ class StatisticsBuilderImpl
 public:
 	StatisticsBuilderImpl( StatisticsBuilderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsBuilderInterface>(obj_,ctx_){}
-	StatisticsBuilderImpl( const StatisticsBuilderInterface* obj_, const TraceGlobalContext* ctx_)
+	StatisticsBuilderImpl( const StatisticsBuilderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsBuilderInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsBuilderImpl();
@@ -866,7 +866,7 @@ class StatisticsIteratorImpl
 public:
 	StatisticsIteratorImpl( StatisticsIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsIteratorInterface>(obj_,ctx_){}
-	StatisticsIteratorImpl( const StatisticsIteratorInterface* obj_, const TraceGlobalContext* ctx_)
+	StatisticsIteratorImpl( const StatisticsIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsIteratorInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsIteratorImpl();
@@ -882,7 +882,7 @@ class StatisticsProcessorImpl
 public:
 	StatisticsProcessorImpl( StatisticsProcessorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsProcessorInterface>(obj_,ctx_){}
-	StatisticsProcessorImpl( const StatisticsProcessorInterface* obj_, const TraceGlobalContext* ctx_)
+	StatisticsProcessorImpl( const StatisticsProcessorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsProcessorInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsProcessorImpl();
@@ -900,7 +900,7 @@ class StatisticsViewerImpl
 public:
 	StatisticsViewerImpl( StatisticsViewerInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsViewerInterface>(obj_,ctx_){}
-	StatisticsViewerImpl( const StatisticsViewerInterface* obj_, const TraceGlobalContext* ctx_)
+	StatisticsViewerImpl( const StatisticsViewerInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StatisticsViewerInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsViewerImpl();
@@ -917,7 +917,7 @@ class StorageAlterMetaDataTableImpl
 public:
 	StorageAlterMetaDataTableImpl( StorageAlterMetaDataTableInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageAlterMetaDataTableInterface>(obj_,ctx_){}
-	StorageAlterMetaDataTableImpl( const StorageAlterMetaDataTableInterface* obj_, const TraceGlobalContext* ctx_)
+	StorageAlterMetaDataTableImpl( const StorageAlterMetaDataTableInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageAlterMetaDataTableInterface>(obj_,ctx_){}
 
 	virtual ~StorageAlterMetaDataTableImpl();
@@ -947,7 +947,7 @@ class StorageClientImpl
 public:
 	StorageClientImpl( StorageClientInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageClientInterface>(obj_,ctx_){}
-	StorageClientImpl( const StorageClientInterface* obj_, const TraceGlobalContext* ctx_)
+	StorageClientImpl( const StorageClientInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageClientInterface>(obj_,ctx_){}
 
 	virtual ~StorageClientImpl();
@@ -1003,7 +1003,7 @@ class StorageDocumentImpl
 public:
 	StorageDocumentImpl( StorageDocumentInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageDocumentInterface>(obj_,ctx_){}
-	StorageDocumentImpl( const StorageDocumentInterface* obj_, const TraceGlobalContext* ctx_)
+	StorageDocumentImpl( const StorageDocumentInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageDocumentInterface>(obj_,ctx_){}
 
 	virtual ~StorageDocumentImpl();
@@ -1034,7 +1034,7 @@ class StorageDocumentUpdateImpl
 public:
 	StorageDocumentUpdateImpl( StorageDocumentUpdateInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageDocumentUpdateInterface>(obj_,ctx_){}
-	StorageDocumentUpdateImpl( const StorageDocumentUpdateInterface* obj_, const TraceGlobalContext* ctx_)
+	StorageDocumentUpdateImpl( const StorageDocumentUpdateInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageDocumentUpdateInterface>(obj_,ctx_){}
 
 	virtual ~StorageDocumentUpdateImpl();
@@ -1062,7 +1062,7 @@ class StorageDumpImpl
 public:
 	StorageDumpImpl( StorageDumpInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageDumpInterface>(obj_,ctx_){}
-	StorageDumpImpl( const StorageDumpInterface* obj_, const TraceGlobalContext* ctx_)
+	StorageDumpImpl( const StorageDumpInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageDumpInterface>(obj_,ctx_){}
 
 	virtual ~StorageDumpImpl();
@@ -1078,7 +1078,7 @@ class StorageImpl
 public:
 	StorageImpl( StorageInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageInterface>(obj_,ctx_){}
-	StorageImpl( const StorageInterface* obj_, const TraceGlobalContext* ctx_)
+	StorageImpl( const StorageInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageInterface>(obj_,ctx_){}
 
 	virtual ~StorageImpl();
@@ -1105,7 +1105,7 @@ class StorageObjectBuilderImpl
 public:
 	StorageObjectBuilderImpl( StorageObjectBuilderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageObjectBuilderInterface>(obj_,ctx_){}
-	StorageObjectBuilderImpl( const StorageObjectBuilderInterface* obj_, const TraceGlobalContext* ctx_)
+	StorageObjectBuilderImpl( const StorageObjectBuilderInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageObjectBuilderInterface>(obj_,ctx_){}
 
 	virtual ~StorageObjectBuilderImpl();
@@ -1129,7 +1129,7 @@ class StorageTransactionImpl
 public:
 	StorageTransactionImpl( StorageTransactionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageTransactionInterface>(obj_,ctx_){}
-	StorageTransactionImpl( const StorageTransactionInterface* obj_, const TraceGlobalContext* ctx_)
+	StorageTransactionImpl( const StorageTransactionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<StorageTransactionInterface>(obj_,ctx_){}
 
 	virtual ~StorageTransactionImpl();
@@ -1157,7 +1157,7 @@ class SummarizerFunctionContextImpl
 public:
 	SummarizerFunctionContextImpl( SummarizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SummarizerFunctionContextInterface>(obj_,ctx_){}
-	SummarizerFunctionContextImpl( const SummarizerFunctionContextInterface* obj_, const TraceGlobalContext* ctx_)
+	SummarizerFunctionContextImpl( const SummarizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SummarizerFunctionContextInterface>(obj_,ctx_){}
 
 	virtual ~SummarizerFunctionContextImpl();
@@ -1179,7 +1179,7 @@ class SummarizerFunctionInstanceImpl
 public:
 	SummarizerFunctionInstanceImpl( SummarizerFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SummarizerFunctionInstanceInterface>(obj_,ctx_){}
-	SummarizerFunctionInstanceImpl( const SummarizerFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+	SummarizerFunctionInstanceImpl( const SummarizerFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SummarizerFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~SummarizerFunctionInstanceImpl();
@@ -1204,7 +1204,7 @@ class SummarizerFunctionImpl
 public:
 	SummarizerFunctionImpl( SummarizerFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SummarizerFunctionInterface>(obj_,ctx_){}
-	SummarizerFunctionImpl( const SummarizerFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+	SummarizerFunctionImpl( const SummarizerFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<SummarizerFunctionInterface>(obj_,ctx_){}
 
 	virtual ~SummarizerFunctionImpl();
@@ -1221,7 +1221,7 @@ class TextProcessorImpl
 public:
 	TextProcessorImpl( TextProcessorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<TextProcessorInterface>(obj_,ctx_){}
-	TextProcessorImpl( const TextProcessorInterface* obj_, const TraceGlobalContext* ctx_)
+	TextProcessorImpl( const TextProcessorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<TextProcessorInterface>(obj_,ctx_){}
 
 	virtual ~TextProcessorImpl();
@@ -1261,7 +1261,7 @@ class TokenizerFunctionContextImpl
 public:
 	TokenizerFunctionContextImpl( TokenizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<TokenizerFunctionContextInterface>(obj_,ctx_){}
-	TokenizerFunctionContextImpl( const TokenizerFunctionContextInterface* obj_, const TraceGlobalContext* ctx_)
+	TokenizerFunctionContextImpl( const TokenizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<TokenizerFunctionContextInterface>(obj_,ctx_){}
 
 	virtual ~TokenizerFunctionContextImpl();
@@ -1277,7 +1277,7 @@ class TokenizerFunctionInstanceImpl
 public:
 	TokenizerFunctionInstanceImpl( TokenizerFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<TokenizerFunctionInstanceInterface>(obj_,ctx_){}
-	TokenizerFunctionInstanceImpl( const TokenizerFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+	TokenizerFunctionInstanceImpl( const TokenizerFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<TokenizerFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~TokenizerFunctionInstanceImpl();
@@ -1293,7 +1293,7 @@ class TokenizerFunctionImpl
 public:
 	TokenizerFunctionImpl( TokenizerFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<TokenizerFunctionInterface>(obj_,ctx_){}
-	TokenizerFunctionImpl( const TokenizerFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+	TokenizerFunctionImpl( const TokenizerFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<TokenizerFunctionInterface>(obj_,ctx_){}
 
 	virtual ~TokenizerFunctionImpl();
@@ -1311,7 +1311,7 @@ class ValueIteratorImpl
 public:
 	ValueIteratorImpl( ValueIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ValueIteratorInterface>(obj_,ctx_){}
-	ValueIteratorImpl( const ValueIteratorInterface* obj_, const TraceGlobalContext* ctx_)
+	ValueIteratorImpl( const ValueIteratorInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<ValueIteratorInterface>(obj_,ctx_){}
 
 	virtual ~ValueIteratorImpl();
@@ -1329,7 +1329,7 @@ class WeightingFunctionContextImpl
 public:
 	WeightingFunctionContextImpl( WeightingFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<WeightingFunctionContextInterface>(obj_,ctx_){}
-	WeightingFunctionContextImpl( const WeightingFunctionContextInterface* obj_, const TraceGlobalContext* ctx_)
+	WeightingFunctionContextImpl( const WeightingFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<WeightingFunctionContextInterface>(obj_,ctx_){}
 
 	virtual ~WeightingFunctionContextImpl();
@@ -1350,7 +1350,7 @@ class WeightingFunctionInstanceImpl
 public:
 	WeightingFunctionInstanceImpl( WeightingFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<WeightingFunctionInstanceInterface>(obj_,ctx_){}
-	WeightingFunctionInstanceImpl( const WeightingFunctionInstanceInterface* obj_, const TraceGlobalContext* ctx_)
+	WeightingFunctionInstanceImpl( const WeightingFunctionInstanceInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<WeightingFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~WeightingFunctionInstanceImpl();
@@ -1375,7 +1375,7 @@ class WeightingFunctionImpl
 public:
 	WeightingFunctionImpl( WeightingFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<WeightingFunctionInterface>(obj_,ctx_){}
-	WeightingFunctionImpl( const WeightingFunctionInterface* obj_, const TraceGlobalContext* ctx_)
+	WeightingFunctionImpl( const WeightingFunctionInterface* obj_, TraceGlobalContext* ctx_)
 		:TraceObject<WeightingFunctionInterface>(obj_,ctx_){}
 
 	virtual ~WeightingFunctionImpl();

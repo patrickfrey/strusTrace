@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/// \brief Implementation of logging and querying call traces
-/// \file traceLogger.cpp
+/// \brief Implementation of logging and querying call traces to textfile or stdout
+/// \file traceLogger_textfile.cpp
 #include "traceLogger_textfile.hpp"
 #include "strus/lib/tracelog.hpp"
 #include "internationalization.hpp"
@@ -63,10 +63,15 @@ TraceLogRecordHandle
 {
 	try
 	{
+		if (m_logcnt >= std::numeric_limits<TraceLogRecordHandle>::max())
+		{
+			throw strus::runtime_error(_TXT("number of logs out of log handle range"));
+		}
 		++m_logcnt;
 		const char* className = m_traceIdMap->getClassName( classId);
 		const char* methodName = m_traceIdMap->getMethodName( classId, methodId);
-		::fprintf( m_output, "[%9u]%s%s<%u>::%s\n", (unsigned int)m_logcnt, m_indentstr.c_str(), className, (unsigned int)objId, methodName);
+		::fprintf( m_output, "[%u] %s%s<%u>::%s\n", (unsigned int)m_logcnt, m_indentstr.c_str(), className, (unsigned int)objId, methodName);
+		::fflush( m_output);
 		return m_logcnt;
 	}
 	CATCH_ERROR_MAP_RETURN( "trace logger error logging method call", *m_errorhnd, 0)
@@ -78,10 +83,52 @@ void TraceLogger_textfile::logObjectCreation(
 {
 	try
 	{
-		::fprintf( m_output, "[%9u] * <%u>\n", (unsigned int)rechnd, (unsigned int)objid);
+		::fprintf( m_output, "[%u] * <%u>\n", (unsigned int)rechnd, (unsigned int)objid);
 	}
 	CATCH_ERROR_MAP( "trace logger error logging object creation", *m_errorhnd)
 }
+
+static std::string encodeText( const char* buf, std::size_t bufsize)
+{
+	static const char* cntrlchrs = "\n\t\r\b";
+	static const char* cntrlsubs = "ntrb0";
+	std::string rt;
+	std::size_t bi = 0;
+	for (; bi < bufsize; ++bi)
+	{
+		if ((unsigned char)buf[bi] < 32)
+		{
+			char const* ci = std::strchr( cntrlchrs, buf[bi]);
+			if (ci)
+			{
+				rt.push_back( '\\');
+				rt.push_back( cntrlsubs[ ci-cntrlchrs]);
+			}
+			else
+			{
+				rt.push_back( '.');
+			}
+		}
+		else if (buf[bi] == '\'')
+		{
+			rt.push_back( '\\');
+			rt.push_back( buf[bi]);
+		}
+		else
+		{
+			rt.push_back( buf[bi]);
+		}
+	}
+	return rt;
+}
+
+static std::string encodeNumber( unsigned int num)
+{
+	std::ostringstream buf;
+	buf << num;
+	return buf.str();
+}
+
 
 void TraceLogger_textfile::logMethodTermination(
 		const TraceLogRecordHandle& loghnd,
@@ -91,51 +138,80 @@ void TraceLogger_textfile::logMethodTermination(
 	{
 		std::ostringstream buf;
 		std::vector<std::string> m_stack;
+		bool delim = false;
+		const char* name;
 		std::vector<TraceElement> elements
 			= m_traceIdMap->unpackElements( packedParameter.c_str(), packedParameter.size());
 		std::vector<TraceElement>::const_iterator ei = elements.begin(), ee = elements.end();
 		for (int eidx=0; ei != ee; ++ei,++eidx)
 		{
-			if (eidx) buf << ", ";
 			switch (ei->type())
 			{
 				case TraceElement::TypeVoid:
+					if (delim) buf << " ";
+					delim = true;
 					buf << "()";
 					break;
 				case TraceElement::TypeInt:
+					if (delim) buf << " ";
+					delim = true;
 					buf << ei->value().Int;
 					break;
 				case TraceElement::TypeUInt:
+					if (delim) buf << " ";
+					delim = true;
 					buf << ei->value().UInt;
 					break;
 				case TraceElement::TypeFloat:
+					if (delim) buf << " ";
+					delim = true;
 					buf << std::fixed << std::setprecision(3) << ei->value().Float;
 					break;
 				case TraceElement::TypeDouble:
+					if (delim) buf << " ";
+					delim = true;
 					buf << std::fixed << std::setprecision(6) << ei->value().Double;
 					break;
 				case TraceElement::TypeBool:
+					if (delim) buf << " ";
+					delim = true;
 					buf << (ei->value().Bool?"true":"false");
 					break;
+				case TraceElement::TypeObject:
+					if (delim) buf << " ";
+					delim = true;
+					name = m_traceIdMap->getClassName( ei->value().Obj.Class);
+					if (name) buf << name; else throw std::runtime_error("unknown class id");
+					buf << "<" << ei->value().Obj.Id << ">";
+					break;
 				case TraceElement::TypeString:
-					buf << ei->value().String;
+					if (delim) buf << " ";
+					delim = true;
+					buf << encodeText( ei->value().String.Ptr, ei->value().String.Size);
 					break;
 				case TraceElement::TypeOpenIndex:
-					buf << ei->value().Index << ":";
+					if (delim) buf << " ";
+					delim = false;
+					m_stack.push_back( encodeNumber( ei->value().Index));
+					buf << "<" << m_stack.back() << ">";
 					break;
 				case TraceElement::TypeOpenTag:
-					buf << "<" << ei->value().String << ">";
-					m_stack.push_back( ei->value().String);
+					if (delim) buf << " ";
+					delim = false;
+					m_stack.push_back( encodeText( ei->value().String.Ptr, ei->value().String.Size));
+					buf << "<" << m_stack.back() << ">";
 					break;
 				case TraceElement::TypeClose:
+					delim = true;
 					if (m_stack.empty()) throw strus::runtime_error(_TXT("illegal close tag in trace parameter string"));
 					buf << "</" << m_stack.back().c_str() << ">";
 					m_stack.pop_back();
 					break;
 			}
-			std::string params( buf.str());
-			::fprintf( m_output, "[%9u]%s <-- %s\n", (unsigned int)loghnd, m_indentstr.c_str(), params.c_str());
 		}
+		std::string params( buf.str());
+		::fprintf( m_output, "[%u] %s<-- %s\n", (unsigned int)loghnd, m_indentstr.c_str(), params.c_str());
+		::fflush( m_output);
 	}
 	CATCH_ERROR_MAP( "trace logger error logging method termination", *m_errorhnd)
 }

@@ -11,23 +11,26 @@
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "strus/errorBufferInterface.hpp"
-#include "traceLogger.hpp"
+#include "strus/base/configParser.hpp"
+#include "traceViewer_memory.hpp"
+#include "traceLogger_memory.hpp"
 #include "traceLogger_textfile.hpp"
-#include "traceViewer.hpp"
+#include "traceLogger_breakpoint.hpp"
 #include <string>
+#include <cstring>
 
 using namespace strus;
 
-TraceLoggerInterface* TraceProcessor::createLogger( const std::string& /*config (not needed)*/)
+TraceLoggerInterface* TraceProcessor_memory::createLogger( const std::string& /*config (not needed)*/)
 {
 	try
 	{
-		return new TraceLogger( m_errorhnd);
+		return new TraceLogger_memory( m_errorhnd);
 	}
 	CATCH_ERROR_MAP_RETURN( "failed to create trace logger (memory)", *m_errorhnd, 0)
 }
 
-TraceViewerInterface* TraceProcessor::createViewer( const std::string& /*config (not needed)*/)
+TraceViewerInterface* TraceProcessor_memory::createViewer( const std::string& /*config (not needed)*/)
 {
 	m_errorhnd->report(_TXT("not implemented (in memory trace logger cannot be created from a configuration because nothing is persistently stored)"));
 	return 0;
@@ -48,4 +51,46 @@ TraceViewerInterface* TraceProcessor_textfile::createViewer( const std::string& 
 	return 0;
 }
 
+static TraceTimeCounter parseTimeCounter( char const* si, const char* se)
+{
+	TraceTimeCounter rt = 0;
+	for (; si != se && *si >= '0' && *si <= '9'; ++si)
+	{
+		rt = rt * 10 + (*si - '0');
+	}
+	if (si != se || rt == 0)
+	{
+		throw strus::runtime_error( "illegal breakpoint index in configuration string");
+	}
+	return rt;
+}
+
+TraceLoggerInterface* TraceProcessor_breakpoint::createLogger( const std::string& config_)
+{
+	try
+	{
+		std::vector<TraceTimeCounter> breakpoints;
+		std::string valstr;
+		std::string config = config_;
+		if (extractStringFromConfigString( valstr, config, "call", m_errorhnd))
+		{
+			char const* si = valstr.c_str();
+			char const* se = std::strchr( si, ',');
+			while (se)
+			{
+				breakpoints.push_back( parseTimeCounter( si, se));
+				se = std::strchr( si = se+1, ',');
+			}
+			breakpoints.push_back( parseTimeCounter( si, std::strchr( si, '\0')));
+		}
+		return new TraceLogger_breakpoint( m_errorhnd, breakpoints);
+	}
+	CATCH_ERROR_MAP_RETURN( "failed to create trace logger (breakpoint)", *m_errorhnd, 0)
+}
+
+TraceViewerInterface* TraceProcessor_breakpoint::createViewer( const std::string& config)
+{
+	m_errorhnd->report(_TXT("not implemented (viewer on break points in a tracelog)"));
+	return 0;
+}
 

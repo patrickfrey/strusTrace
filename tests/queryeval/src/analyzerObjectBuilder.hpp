@@ -39,6 +39,11 @@ public:
 
 	virtual strus::SegmenterInterface* createSegmenter( const std::string& segmenterName=std::string()) const
 	{
+		if (!segmenterName.empty())
+		{
+			m_errorhnd->report( "unknown document segmenter: %s", segmenterName.c_str());
+			return 0;
+		}
 		strus::SegmenterInterface* rt = strus::createSegmenter_textwolf( m_errorhnd);
 		if (!rt)
 		{
@@ -50,7 +55,7 @@ public:
 
 	virtual strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const std::string& segmenterName=std::string()) const
 	{
-		std::auto_ptr<strus::SegmenterInterface> segmenter( strus::createSegmenter_textwolf( m_errorhnd));
+		std::auto_ptr<strus::SegmenterInterface> segmenter( createSegmenter( segmenterName));
 		if (!segmenter.get()) 
 		{
 			m_errorhnd->explain( "failed to create segmenter: %s");

@@ -24,7 +24,7 @@ TraceObjectBuilder::TraceObjectBuilder( TraceLoggerInterface* logger_, ErrorBuff
 
 AnalyzerObjectBuilderInterface*
 	TraceObjectBuilder::createAnalyzerObjectBuilder(
-		AnalyzerObjectBuilderInterface* builder)
+		AnalyzerObjectBuilderInterface* builder) const
 {
 	try
 	{
@@ -35,7 +35,7 @@ AnalyzerObjectBuilderInterface*
 	
 StorageObjectBuilderInterface*
 	TraceObjectBuilder::createStorageObjectBuilder(
-		StorageObjectBuilderInterface* builder)
+		StorageObjectBuilderInterface* builder) const
 {
 	try
 	{

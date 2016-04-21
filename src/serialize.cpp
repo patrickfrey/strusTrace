@@ -88,14 +88,21 @@ std::vector<TraceElement> Deserializer::deserialize( const char* struct_, std::s
 				rt.push_back( TraceElement( (TraceElement::UIntType)unpackAtomicValue<uint64_t>( si, se)));
 				break;
 			case Serializer::TypeFloat:
-				rt.push_back( TraceElement( (float)unpackAtomicValue<float>( si, se)));
+				rt.push_back( TraceElement( unpackAtomicValue<float>( si, se)));
 				break;
 			case Serializer::TypeDouble:
-				rt.push_back( TraceElement( (double)unpackAtomicValue<double>( si, se)));
+				rt.push_back( TraceElement( unpackAtomicValue<double>( si, se)));
 				break;
 			case Serializer::TypeBool:
-				rt.push_back( TraceElement( (bool)unpackAtomicValue<bool>( si, se)));
+				rt.push_back( TraceElement( unpackAtomicValue<bool>( si, se)));
 				break;
+			case Serializer::TypeObject:
+			{
+				TraceClassId cid = unpackAtomicValue<TraceClassId>( si, se);
+				TraceObjectId oid = unpackAtomicValue<TraceObjectId>( si, se);
+				rt.push_back( TraceElement( TraceElement::TypeObject, cid, oid));
+				break;
+			}
 			case Serializer::TypeString:
 				unpackBytesWithSize( si, se, strptr, strsize);
 				rt.push_back( TraceElement( TraceElement::TypeString, strptr, strsize));

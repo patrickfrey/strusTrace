@@ -26,7 +26,7 @@ const char* TraceIdMap::getClassName( const TraceClassId& classId) const
 	if (!classId) return 0;
 	if (classId > m_classnamear.size())
 	{
-		m_errorhnd->report(_TXT("trace viewer illegal class id: %u"), (unsigned int)classId);
+		m_errorhnd->report(_TXT("trace idmap illegal class id: %u"), (unsigned int)classId);
 		return 0;
 	}
 	return m_classnamear[ classId-1].c_str();
@@ -39,12 +39,12 @@ const char* TraceIdMap::getMethodName( const TraceClassId& classId, const TraceM
 		MethodNameInvMap::const_iterator mi = m_methodnameinvmap.find( MethodIdRef( classId, methodId));
 		if (mi == m_methodnameinvmap.end())
 		{
-			m_errorhnd->report(_TXT("trace viewer illegal method id: %u/%u"), (unsigned int)classId, (unsigned int)methodId);
+			m_errorhnd->report(_TXT("trace idmap illegal method id: %u/%u"), (unsigned int)classId, (unsigned int)methodId);
 			return 0;
 		}
 		return mi->second.c_str();
 	}
-	CATCH_ERROR_MAP_RETURN( "trace viewer error getting method name", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace idmap error getting method name"), *m_errorhnd, 0)
 }
 
 TraceClassId TraceIdMap::getClassId( const char* className) const
@@ -54,12 +54,12 @@ TraceClassId TraceIdMap::getClassId( const char* className) const
 		ClassNameMap::const_iterator ci = m_classnamemap.find( className);
 		if (ci == m_classnamemap.end())
 		{
-			m_errorhnd->report(_TXT("trace viewer illegal class name: %s"), className);
+			m_errorhnd->report(_TXT("trace idmap illegal class name: %s"), className);
 			return 0;
 		}
 		return ci->second;
 	}
-	CATCH_ERROR_MAP_RETURN( "trace viewer error getting class id", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace idmap error getting class id"), *m_errorhnd, 0)
 }
 
 TraceMethodId TraceIdMap::getMethodId( const TraceClassId& classId, const char* methodName) const
@@ -69,12 +69,12 @@ TraceMethodId TraceIdMap::getMethodId( const TraceClassId& classId, const char* 
 		MethodNameMap::const_iterator mi = m_methodnamemap.find( MethodNameRef( classId, methodName));
 		if (mi == m_methodnamemap.end())
 		{
-			m_errorhnd->report(_TXT("trace viewer illegal method name reference: %u/%s"), (unsigned int)classId, methodName);
+			m_errorhnd->report(_TXT("trace idmap illegal method name reference: %u/%s"), (unsigned int)classId, methodName);
 			return 0;
 		}
 		return mi->second;
 	}
-	CATCH_ERROR_MAP_RETURN( "trace viewer error getting method id", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace idmap error getting method id"), *m_errorhnd, 0)
 }
 
 std::vector<TraceElement> TraceIdMap::unpackElements(
@@ -85,6 +85,6 @@ std::vector<TraceElement> TraceIdMap::unpackElements(
 	{
 		return Deserializer::deserialize( packedStruct, packedStructSize);
 	}
-	CATCH_ERROR_MAP_RETURN( "trace viewer error unpacking method arguments", *m_errorhnd, std::vector<TraceElement>())
+	CATCH_ERROR_MAP_RETURN( _TXT("trace idmap error unpacking method arguments"), *m_errorhnd, std::vector<TraceElement>())
 }
 

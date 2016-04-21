@@ -44,10 +44,11 @@ std::size_t StringBlock::size() const
 	return m_size;
 }
 
-char* StringBlock::alloc( std::size_t blksize_)
+const char* StringBlock::alloc( const char* blk_, std::size_t blksize_)
 {
 	if (m_size + blksize_ > m_allocsize || blksize_ > m_allocsize) return 0;
 	char* rt = m_blk + m_size;
+	std::memcpy( rt, blk_, blksize_);
 	m_size += blksize_;
 	return rt;
 }
@@ -77,7 +78,7 @@ TraceLogRecordHandle
 		}
 		return (TraceLogRecordHandle)m_recordar.size();
 	}
-	CATCH_ERROR_MAP_RETURN( "trace logger error logging method call", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call"), *m_errorhnd, 0)
 }
 
 void TraceLogger_memory::logObjectCreation(
@@ -93,7 +94,7 @@ void TraceLogger_memory::logObjectCreation(
 		}
 		m_creatmap[ objId] = loghnd;
 	}
-	CATCH_ERROR_MAP( "trace logger error logging object creation", *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging object creation"), *m_errorhnd)
 }
 
 void TraceLogger_memory::logMethodTermination(
@@ -115,7 +116,7 @@ void TraceLogger_memory::logMethodTermination(
 	}
 	else
 	{
-		paramptr = m_strings.back()->alloc( packedParameter.size());
+		paramptr = m_strings.back()->alloc( packedParameter.c_str(), packedParameter.size());
 		if (paramptr == 0)
 		{
 			m_strings.reserve( m_strings.size()+1);//... no bad_alloc on following insert()
@@ -133,8 +134,9 @@ static bool match_query( const TraceQuery& query, const TraceRecord& rec)
 {
 	if (query.classId() && query.classId() != rec.classId()) return false;
 	if (query.methodId() && query.methodId() != rec.methodId()) return false;
+	if (query.objId() && query.objId() != rec.objId()) return false;
 	if (query.time_from() && query.time_from() > rec.startTime()) return false;
-	if (query.time_to() && query.time_to() <= rec.endTime()) return false;
+	if (query.time_to() && query.time_to() < rec.endTime()) return false;
 	if (query.depth_from() && query.depth_from() > rec.depth()) return false;
 	if (query.depth_to() && query.depth_to() <= rec.depth()) return false;
 	return true;
@@ -185,7 +187,7 @@ std::vector<TraceRecord> TraceLogger_memory::listMethodCalls(
 		}
 		return rt;
 	}
-	CATCH_ERROR_MAP_RETURN( "trace logger error listing method calls", *m_errorhnd, std::vector<TraceRecord>())
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error listing method calls"), *m_errorhnd, std::vector<TraceRecord>())
 }
 
 
@@ -205,6 +207,6 @@ TraceViewerInterface* TraceLogger_memory::createViewer() const
 	{
 		return new TraceViewer_memory( m_errorhnd, this);
 	}
-	CATCH_ERROR_MAP_RETURN( "error creating trace viewer for inspecting the trace logs in memory", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("error creating trace viewer for inspecting the trace logs in memory"), *m_errorhnd, 0)
 }
 

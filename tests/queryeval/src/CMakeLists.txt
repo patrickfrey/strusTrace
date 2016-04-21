@@ -4,6 +4,7 @@ include_directories(
    "${Boost_INCLUDE_DIRS}"
    "${Intl_INCLUDE_DIRS}"
    "${PROJECT_SOURCE_DIR}/include" 
+   "${PROJECT_SOURCE_DIR}/src"
    "${strus_INCLUDE_DIRS}"
    "${strusanalyzer_INCLUDE_DIRS}"
 )

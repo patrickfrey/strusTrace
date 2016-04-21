@@ -30,7 +30,7 @@ AnalyzerObjectBuilderInterface*
 	{
 		return new AnalyzerObjectBuilderImpl( builder, &m_ctx);
 	}
-	CATCH_ERROR_MAP_RETURN( "failed to create analyzer object builder builder proxy for generating call traces", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces"), *m_errorhnd, 0)
 }
 	
 StorageObjectBuilderInterface*
@@ -41,7 +41,7 @@ StorageObjectBuilderInterface*
 	{
 		return new StorageObjectBuilderImpl( builder, &m_ctx);
 	}
-	CATCH_ERROR_MAP_RETURN( "failed to create analyzer object builder builder proxy for generating call traces", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces"), *m_errorhnd, 0)
 }
 
 const TraceIdMapInterface* TraceObjectBuilder::getIdMap() const

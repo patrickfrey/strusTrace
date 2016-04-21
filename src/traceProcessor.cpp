@@ -27,7 +27,7 @@ TraceLoggerInterface* TraceProcessor_memory::createLogger( const std::string& /*
 	{
 		return new TraceLogger_memory( m_errorhnd);
 	}
-	CATCH_ERROR_MAP_RETURN( "failed to create trace logger (memory)", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (memory)"), *m_errorhnd, 0)
 }
 
 TraceViewerInterface* TraceProcessor_memory::createViewer( const std::string& /*config (not needed)*/)
@@ -36,13 +36,19 @@ TraceViewerInterface* TraceProcessor_memory::createViewer( const std::string& /*
 	return 0;
 }
 
-TraceLoggerInterface* TraceProcessor_textfile::createLogger( const std::string& config)
+TraceLoggerInterface* TraceProcessor_textfile::createLogger( const std::string& config_)
 {
 	try
 	{
-		return new TraceLogger_textfile( m_errorhnd, config);
+		std::string filename;
+		std::string config = config_;
+		if (!extractStringFromConfigString( filename, config, "file", m_errorhnd))
+		{
+			throw strus::runtime_error( _TXT("configuration variable '%s' undefined"), "file");
+		}
+		return new TraceLogger_textfile( filename, m_errorhnd);
 	}
-	CATCH_ERROR_MAP_RETURN( "failed to create trace logger (textfile)", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (textfile)"), *m_errorhnd, 0)
 }
 
 TraceViewerInterface* TraceProcessor_textfile::createViewer( const std::string& /*config (not needed)*/)
@@ -60,7 +66,7 @@ static TraceTimeCounter parseTimeCounter( char const* si, const char* se)
 	}
 	if (si != se || rt == 0)
 	{
-		throw strus::runtime_error( "illegal breakpoint index in configuration string");
+		throw strus::runtime_error( _TXT("illegal breakpoint index in configuration string"));
 	}
 	return rt;
 }
@@ -83,9 +89,9 @@ TraceLoggerInterface* TraceProcessor_breakpoint::createLogger( const std::string
 			}
 			breakpoints.push_back( parseTimeCounter( si, std::strchr( si, '\0')));
 		}
-		return new TraceLogger_breakpoint( m_errorhnd, breakpoints);
+		return new TraceLogger_breakpoint( breakpoints, m_errorhnd);
 	}
-	CATCH_ERROR_MAP_RETURN( "failed to create trace logger (breakpoint)", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (breakpoint)"), *m_errorhnd, 0)
 }
 
 TraceViewerInterface* TraceProcessor_breakpoint::createViewer( const std::string& config)

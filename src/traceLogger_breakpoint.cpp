@@ -20,7 +20,7 @@ using namespace strus;
 
 static void strus_breakpoint(){}
 
-TraceLogger_breakpoint::TraceLogger_breakpoint( ErrorBufferInterface* errorhnd_, const std::vector<TraceTimeCounter>& breakpoints_)
+TraceLogger_breakpoint::TraceLogger_breakpoint( const std::vector<TraceTimeCounter>& breakpoints_, ErrorBufferInterface* errorhnd_)
 	:m_errorhnd(errorhnd_),m_depth(0),m_logcnt(0)
 {
 	std::vector<TraceTimeCounter>::const_iterator bi = breakpoints_.begin(), be = breakpoints_.end();
@@ -53,7 +53,7 @@ TraceLogRecordHandle
 		}
 		return m_logcnt;
 	}
-	CATCH_ERROR_MAP_RETURN( "trace logger error logging method call", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call"), *m_errorhnd, 0)
 }
 
 void TraceLogger_breakpoint::logObjectCreation(
@@ -77,7 +77,7 @@ void TraceLogger_breakpoint::logOpenBranch()
 		}
 		m_depth += 1;
 	}
-	CATCH_ERROR_MAP( "trace logger error logging open call tree branch", *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch"), *m_errorhnd)
 }
 
 void TraceLogger_breakpoint::logCloseBranch()
@@ -91,7 +91,7 @@ void TraceLogger_breakpoint::logCloseBranch()
 		}
 		m_depth -= 1;
 	}
-	CATCH_ERROR_MAP( "trace logger error logging close call tree branch", *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch"), *m_errorhnd)
 }
 
 TraceViewerInterface* TraceLogger_breakpoint::createViewer() const

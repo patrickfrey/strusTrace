@@ -25,8 +25,8 @@
 
 using namespace strus;
 
-TraceLogger_textfile::TraceLogger_textfile( ErrorBufferInterface* errorhnd_, const std::string& filename)
-	:m_output(0),m_errorhnd(errorhnd_),m_depth(0),m_logcnt(0),m_traceIdMap(createTraceIdMap(errorhnd_))
+TraceLogger_textfile::TraceLogger_textfile( const std::string& filename, ErrorBufferInterface* errorhnd_)
+	:m_errorhnd(errorhnd_),m_output(0),m_depth(0),m_logcnt(0),m_traceIdMap(createTraceIdMap(errorhnd_))
 {
 	if (filename == "-" || filename == "stdout")
 	{
@@ -74,7 +74,7 @@ TraceLogRecordHandle
 		::fflush( m_output);
 		return m_logcnt;
 	}
-	CATCH_ERROR_MAP_RETURN( "trace logger error logging method call", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call"), *m_errorhnd, 0)
 }
 
 void TraceLogger_textfile::logObjectCreation(
@@ -85,7 +85,7 @@ void TraceLogger_textfile::logObjectCreation(
 	{
 		::fprintf( m_output, "[%u] * <%u>\n", (unsigned int)rechnd, (unsigned int)objid);
 	}
-	CATCH_ERROR_MAP( "trace logger error logging object creation", *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging object creation"), *m_errorhnd)
 }
 
 static std::string encodeText( const char* buf, std::size_t bufsize)
@@ -137,7 +137,7 @@ void TraceLogger_textfile::logMethodTermination(
 	try
 	{
 		std::ostringstream buf;
-		std::vector<std::string> m_stack;
+		std::vector<std::string> stack;
 		bool delim = false;
 		const char* name;
 		std::vector<TraceElement> elements
@@ -192,20 +192,20 @@ void TraceLogger_textfile::logMethodTermination(
 				case TraceElement::TypeOpenIndex:
 					if (delim) buf << " ";
 					delim = false;
-					m_stack.push_back( encodeNumber( ei->value().Index));
-					buf << "<" << m_stack.back() << ">";
+					stack.push_back( encodeNumber( ei->value().Index));
+					buf << "<" << stack.back() << ">";
 					break;
 				case TraceElement::TypeOpenTag:
 					if (delim) buf << " ";
 					delim = false;
-					m_stack.push_back( encodeText( ei->value().String.Ptr, ei->value().String.Size));
-					buf << "<" << m_stack.back() << ">";
+					stack.push_back( encodeText( ei->value().String.Ptr, ei->value().String.Size));
+					buf << "<" << stack.back() << ">";
 					break;
 				case TraceElement::TypeClose:
 					delim = true;
-					if (m_stack.empty()) throw strus::runtime_error(_TXT("illegal close tag in trace parameter string"));
-					buf << "</" << m_stack.back().c_str() << ">";
-					m_stack.pop_back();
+					if (stack.empty()) throw strus::runtime_error(_TXT("illegal close tag in trace parameter string"));
+					buf << "</" << stack.back().c_str() << ">";
+					stack.pop_back();
 					break;
 			}
 		}
@@ -213,7 +213,7 @@ void TraceLogger_textfile::logMethodTermination(
 		::fprintf( m_output, "[%u] %s<-- %s\n", (unsigned int)loghnd, m_indentstr.c_str(), params.c_str());
 		::fflush( m_output);
 	}
-	CATCH_ERROR_MAP( "trace logger error logging method termination", *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging method termination"), *m_errorhnd)
 }
 
 void TraceLogger_textfile::logOpenBranch()
@@ -228,7 +228,7 @@ void TraceLogger_textfile::logOpenBranch()
 		m_depth += 1;
 		m_indentstr.append("  ");
 	}
-	CATCH_ERROR_MAP( "trace logger error logging open call tree branch", *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch"), *m_errorhnd)
 }
 
 void TraceLogger_textfile::logCloseBranch()
@@ -243,7 +243,7 @@ void TraceLogger_textfile::logCloseBranch()
 		m_indentstr.resize(m_indentstr.size() -2);
 		m_depth -= 1;
 	}
-	CATCH_ERROR_MAP( "trace logger error logging close call tree branch", *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch"), *m_errorhnd)
 }
 
 TraceViewerInterface* TraceLogger_textfile::createViewer() const

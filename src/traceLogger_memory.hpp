@@ -32,7 +32,7 @@ public:
 	const char* ptr() const;
 	std::size_t size() const;
 
-	char* alloc( std::size_t blksize_);
+	const char* alloc( const char* blk_, std::size_t blksize_);
 
 private:
 	StringBlock( const StringBlock& );	//< non copyable

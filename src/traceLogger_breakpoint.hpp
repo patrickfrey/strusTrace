@@ -31,7 +31,7 @@ class TraceLogger_breakpoint
 {
 public:
 	/// \brief Constructor
-	TraceLogger_breakpoint( ErrorBufferInterface* errorhnd_, const std::vector<TraceTimeCounter>& breakpoints);
+	TraceLogger_breakpoint( const std::vector<TraceTimeCounter>& breakpoints, ErrorBufferInterface* errorhnd_);
 
 	/// \brief Destructor
 	virtual ~TraceLogger_breakpoint();

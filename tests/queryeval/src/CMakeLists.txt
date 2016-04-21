@@ -18,4 +18,4 @@ link_directories(
 )
 
 add_executable( testQueryEval testQueryEval.cpp)
-target_link_libraries( testQueryEval strus_tracelog strus_error strus_storage strus_database_leveldb strus_textproc strus_analyzer strus_segmenter_textwolf strus_queryeval strus_queryproc strus_base ${Boost_LIBRARIES} ${Intl_LIBRARIES})
+target_link_libraries( testQueryEval strus_base strus_tracelog strus_error strus_storage strus_database_leveldb strus_textproc strus_analyzer strus_segmenter_textwolf strus_queryeval strus_queryproc strus_base ${Boost_LIBRARIES} ${Intl_LIBRARIES})

@@ -52,7 +52,7 @@ class TraceLogger_memory
 public:
 	/// \brief Constructor
 	explicit TraceLogger_memory( ErrorBufferInterface* errorhnd_)
-		:m_errorhnd(errorhnd_),m_depth(0){}
+		:m_errorhnd(errorhnd_),m_depth(1){}
 
 	/// \brief Destructor
 	virtual ~TraceLogger_memory();

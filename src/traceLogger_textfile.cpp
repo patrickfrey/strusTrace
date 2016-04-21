@@ -26,7 +26,7 @@
 using namespace strus;
 
 TraceLogger_textfile::TraceLogger_textfile( const std::string& filename, ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_output(0),m_depth(0),m_logcnt(0),m_traceIdMap(createTraceIdMap(errorhnd_))
+	:m_errorhnd(errorhnd_),m_output(0),m_depth(1),m_indentstr(),m_logcnt(0),m_traceIdMap(createTraceIdMap(errorhnd_))
 {
 	if (filename == "-" || filename == "stdout")
 	{
@@ -235,7 +235,7 @@ void TraceLogger_textfile::logCloseBranch()
 {
 	try
 	{
-		if (m_depth == 0)
+		if (m_depth == 1)
 		{
 			m_errorhnd->report(_TXT("illegal call of log close branch (no open branch)"));
 			return;

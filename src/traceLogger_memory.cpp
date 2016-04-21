@@ -138,7 +138,7 @@ static bool match_query( const TraceQuery& query, const TraceRecord& rec)
 	if (query.time_from() && query.time_from() > rec.startTime()) return false;
 	if (query.time_to() && query.time_to() < rec.endTime()) return false;
 	if (query.depth_from() && query.depth_from() > rec.depth()) return false;
-	if (query.depth_to() && query.depth_to() <= rec.depth()) return false;
+	if (query.depth_to() && query.depth_to() < rec.depth()) return false;
 	return true;
 }
 
@@ -154,7 +154,7 @@ void TraceLogger_memory::logOpenBranch()
 
 void TraceLogger_memory::logCloseBranch()
 {
-	if (m_depth == 0)
+	if (m_depth == 1)
 	{
 		m_errorhnd->report(_TXT("illegal call of log close branch (no open branch)"));
 		return;

@@ -680,7 +680,9 @@ static const TestQuery g_testQueries[] =
 {
 	//{description,classId,methodId,objId,time_from,time_to,depth_from,depth_to, I,N}
 	{"analyze document (restrict time to 52-150)", 0,0,0,52,150,0,0,0,300},
+	{"analyze document (restrict time to 52-150 and depth 1)", 0,0,0,52,150,1,1,0,300},
 	{"storage add document (restrict to StorageDocument<26>)", strus::ClassId_StorageDocument,0,26,0,0,0,0,0,300},
+	{"database cursor (restrict to StorageDocument<26>)", strus::ClassId_DatabaseCursor,strus::DatabaseCursorConst::Method_seekUpperBound,298,0,0,0,0,0,300},
 	{0,0,0,0,0,0,0,0,0,0}
 };
 

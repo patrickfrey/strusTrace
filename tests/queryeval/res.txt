@@ -7320,3 +7320,155 @@
 [3660] <-- 
 [3661] PostingJoinOperator<364>::Destructor
 [3661] <-- 
+QUERY analyze document (restrict time to 52-150)
+class=DocumentAnalyzer<9>::analyze start=52 end=150 depth=1 param:<metadata><0><name>doclen</name> <value>20.000000</value></></metadata> <searchindex><0><type>stem</type> <value>one</value> <pos>1</pos></> <1><type>stem</type> <value>morn</value> <pos>2</pos></> <2><type>stem</type> <value>when</value> <pos>3</pos></> <3><type>stem</type> <value>gregor</value> <pos>4</pos></> <4><type>stem</type> <value>samsa</value> <pos>5</pos></> <5><type>stem</type> <value>woke</value> <pos>6</pos></> <6><type>stem</type> <value>from</value> <pos>7</pos></> <7><type>stem</type> <value>troubl</value> <pos>8</pos></> <8><type>stem</type> <value>dream</value> <pos>9</pos></> <9><type>stem</type> <value>he</value> <pos>10</pos></> <10><type>stem</type> <value>found</value> <pos>11</pos></> <11><type>stem</type> <value>himself</value> <pos>12</pos></> <12><type>stem</type> <value>transform</value> <pos>13</pos></> <13><type>stem</type> <value>in</value> <pos>14</pos></> <14><type>stem</type> <value>his</value> <pos>15</pos></> <15><type>stem</type> <value>bed</value> <pos>16</pos></> <16><type>stem</type> <value>into</value> <pos>17</pos></> <17><type>stem</type> <value>a</value> <pos>18</pos></> <18><type>stem</type> <value>horribl</value> <pos>19</pos></> <19><type>stem</type> <value>vermin</value> <pos>20</pos></></searchindex> <forwardindex><0><type>orig</type> <value>One</value> <pos>1</pos></> <1><type>orig</type> <value>morning,</value> <pos>2</pos></> <2><type>orig</type> <value>when</value> <pos>3</pos></> <3><type>orig</type> <value>Gregor</value> <pos>4</pos></> <4><type>orig</type> <value>Samsa</value> <pos>5</pos></> <5><type>orig</type> <value>woke</value> <pos>6</pos></> <6><type>orig</type> <value>from</value> <pos>7</pos></> <7><type>orig</type> <value>troubled</value> <pos>8</pos></> <8><type>orig</type> <value>dreams,</value> <pos>9</pos></> <9><type>orig</type> <value>he</value> <pos>10</pos></> <10><type>orig</type> <value>found</value> <pos>11</pos></> <11><type>orig</type> <value>himself</value> <pos>12</pos></> <12><type>orig</type> <value>transformed</value> <pos>13</pos></> <13><type>orig</type> <value>in</value> <pos>14</pos></> <14><type>orig</type> <value>his</value> <pos>15</pos></> <15><type>orig</type> <value>bed</value> <pos>16</pos></> <16><type>orig</type> <value>into</value> <pos>17</pos></> <17><type>orig</type> <value>a</value> <pos>18</pos></> <18><type>orig</type> <value>horrible</value> <pos>19</pos></> <19><type>orig</type> <value>vermin.</value> <pos>20</pos></></forwardindex> <doc><text>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.</text></doc> xml  UTF-8
+class=TokenizerFunctionInstance<18>::createFunctionContext start=53 end=54 depth=2 param:TokenizerFunctionContext<27>
+class=NormalizerFunctionInstance<12>::createFunctionContext start=54 end=55 depth=2 param:NormalizerFunctionContext<28>
+class=NormalizerFunctionInstance<14>::createFunctionContext start=55 end=56 depth=2 param:NormalizerFunctionContext<29>
+class=NormalizerFunctionInstance<16>::createFunctionContext start=56 end=57 depth=2 param:NormalizerFunctionContext<30>
+class=TokenizerFunctionInstance<22>::createFunctionContext start=57 end=58 depth=2 param:TokenizerFunctionContext<31>
+class=NormalizerFunctionInstance<20>::createFunctionContext start=58 end=59 depth=2 param:NormalizerFunctionContext<32>
+class=TokenizerFunctionInstance<18>::concatBeforeTokenize start=59 end=60 depth=2 param:false
+class=TokenizerFunctionContext<27>::tokenize start=60 end=61 depth=2 param:<0><docpos>0</docpos> <strpos>0</strpos> <strsize>3</strsize></> <1><docpos>4</docpos> <strpos>4</strpos> <strsize>7</strsize></> <2><docpos>13</docpos> <strpos>13</strpos> <strsize>4</strsize></> <3><docpos>18</docpos> <strpos>18</strpos> <strsize>6</strsize></> <4><docpos>25</docpos> <strpos>25</strpos> <strsize>5</strsize></> <5><docpos>31</docpos> <strpos>31</strpos> <strsize>4</strsize></> <6><docpos>36</docpos> <strpos>36</strpos> <strsize>4</strsize></> <7><docpos>41</docpos> <strpos>41</strpos> <strsize>8</strsize></> <8><docpos>50</docpos> <strpos>50</strpos> <strsize>6</strsize></> <9><docpos>58</docpos> <strpos>58</strpos> <strsize>2</strsize></> <10><docpos>61</docpos> <strpos>61</strpos> <strsize>5</strsize></> <11><docpos>67</docpos> <strpos>67</strpos> <strsize>7</strsize></> <12><docpos>75</docpos> <strpos>75</strpos> <strsize>11</strsize></> <13><docpos>87</docpos> <strpos>87</strpos> <strsize>2</strsize></> <14><docpos>90</docpos> <strpos>90</strpos> <strsize>3</strsize></> <15><docpos>94</docpos> <strpos>94</strpos> <strsize>3</strsize></> <16><docpos>98</docpos> <strpos>98</strpos> <strsize>4</strsize></> <17><docpos>103</docpos> <strpos>103</strpos> <strsize>1</strsize></> <18><docpos>105</docpos> <strpos>105</strpos> <strsize>8</strsize></> <19><docpos>114</docpos> <strpos>114</strpos> <strsize>6</strsize></> One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.
+class=NormalizerFunctionContext<28>::normalize start=61 end=62 depth=2 param:One One
+class=NormalizerFunctionContext<29>::normalize start=62 end=63 depth=2 param:One One
+class=NormalizerFunctionContext<30>::normalize start=63 end=64 depth=2 param:one One
+class=NormalizerFunctionContext<28>::normalize start=64 end=65 depth=2 param:morning morning
+class=NormalizerFunctionContext<29>::normalize start=65 end=66 depth=2 param:morn morning
+class=NormalizerFunctionContext<30>::normalize start=66 end=67 depth=2 param:morn morn
+class=NormalizerFunctionContext<28>::normalize start=67 end=68 depth=2 param:when when
+class=NormalizerFunctionContext<29>::normalize start=68 end=69 depth=2 param:when when
+class=NormalizerFunctionContext<30>::normalize start=69 end=70 depth=2 param:when when
+class=NormalizerFunctionContext<28>::normalize start=70 end=71 depth=2 param:Gregor Gregor
+class=NormalizerFunctionContext<29>::normalize start=71 end=72 depth=2 param:Gregor Gregor
+class=NormalizerFunctionContext<30>::normalize start=72 end=73 depth=2 param:gregor Gregor
+class=NormalizerFunctionContext<28>::normalize start=73 end=74 depth=2 param:Samsa Samsa
+class=NormalizerFunctionContext<29>::normalize start=74 end=75 depth=2 param:Samsa Samsa
+class=NormalizerFunctionContext<30>::normalize start=75 end=76 depth=2 param:samsa Samsa
+class=NormalizerFunctionContext<28>::normalize start=76 end=77 depth=2 param:woke woke
+class=NormalizerFunctionContext<29>::normalize start=77 end=78 depth=2 param:woke woke
+class=NormalizerFunctionContext<30>::normalize start=78 end=79 depth=2 param:woke woke
+class=NormalizerFunctionContext<28>::normalize start=79 end=80 depth=2 param:from from
+class=NormalizerFunctionContext<29>::normalize start=80 end=81 depth=2 param:from from
+class=NormalizerFunctionContext<30>::normalize start=81 end=82 depth=2 param:from from
+class=NormalizerFunctionContext<28>::normalize start=82 end=83 depth=2 param:troubled troubled
+class=NormalizerFunctionContext<29>::normalize start=83 end=84 depth=2 param:troubl troubled
+class=NormalizerFunctionContext<30>::normalize start=84 end=85 depth=2 param:troubl troubl
+class=NormalizerFunctionContext<28>::normalize start=85 end=86 depth=2 param:dreams dreams
+class=NormalizerFunctionContext<29>::normalize start=86 end=87 depth=2 param:dream dreams
+class=NormalizerFunctionContext<30>::normalize start=87 end=88 depth=2 param:dream dream
+class=NormalizerFunctionContext<28>::normalize start=88 end=89 depth=2 param:he he
+class=NormalizerFunctionContext<29>::normalize start=89 end=90 depth=2 param:he he
+class=NormalizerFunctionContext<30>::normalize start=90 end=91 depth=2 param:he he
+class=NormalizerFunctionContext<28>::normalize start=91 end=92 depth=2 param:found found
+class=NormalizerFunctionContext<29>::normalize start=92 end=93 depth=2 param:found found
+class=NormalizerFunctionContext<30>::normalize start=93 end=94 depth=2 param:found found
+class=NormalizerFunctionContext<28>::normalize start=94 end=95 depth=2 param:himself himself
+class=NormalizerFunctionContext<29>::normalize start=95 end=96 depth=2 param:himself himself
+class=NormalizerFunctionContext<30>::normalize start=96 end=97 depth=2 param:himself himself
+class=NormalizerFunctionContext<28>::normalize start=97 end=98 depth=2 param:transformed transformed
+class=NormalizerFunctionContext<29>::normalize start=98 end=99 depth=2 param:transform transformed
+class=NormalizerFunctionContext<30>::normalize start=99 end=100 depth=2 param:transform transform
+class=NormalizerFunctionContext<28>::normalize start=100 end=101 depth=2 param:in in
+class=NormalizerFunctionContext<29>::normalize start=101 end=102 depth=2 param:in in
+class=NormalizerFunctionContext<30>::normalize start=102 end=103 depth=2 param:in in
+class=NormalizerFunctionContext<28>::normalize start=103 end=104 depth=2 param:his his
+class=NormalizerFunctionContext<29>::normalize start=104 end=105 depth=2 param:his his
+class=NormalizerFunctionContext<30>::normalize start=105 end=106 depth=2 param:his his
+class=NormalizerFunctionContext<28>::normalize start=106 end=107 depth=2 param:bed bed
+class=NormalizerFunctionContext<29>::normalize start=107 end=108 depth=2 param:bed bed
+class=NormalizerFunctionContext<30>::normalize start=108 end=109 depth=2 param:bed bed
+class=NormalizerFunctionContext<28>::normalize start=109 end=110 depth=2 param:into into
+class=NormalizerFunctionContext<29>::normalize start=110 end=111 depth=2 param:into into
+class=NormalizerFunctionContext<30>::normalize start=111 end=112 depth=2 param:into into
+class=NormalizerFunctionContext<28>::normalize start=112 end=113 depth=2 param:a a
+class=NormalizerFunctionContext<29>::normalize start=113 end=114 depth=2 param:a a
+class=NormalizerFunctionContext<30>::normalize start=114 end=115 depth=2 param:a a
+class=NormalizerFunctionContext<28>::normalize start=115 end=116 depth=2 param:horrible horrible
+class=NormalizerFunctionContext<29>::normalize start=116 end=117 depth=2 param:horribl horrible
+class=NormalizerFunctionContext<30>::normalize start=117 end=118 depth=2 param:horribl horribl
+class=NormalizerFunctionContext<28>::normalize start=118 end=119 depth=2 param:vermin vermin
+class=NormalizerFunctionContext<29>::normalize start=119 end=120 depth=2 param:vermin vermin
+class=NormalizerFunctionContext<30>::normalize start=120 end=121 depth=2 param:vermin vermin
+class=TokenizerFunctionInstance<22>::concatBeforeTokenize start=121 end=122 depth=2 param:false
+class=TokenizerFunctionContext<31>::tokenize start=122 end=123 depth=2 param:<0><docpos>0</docpos> <strpos>0</strpos> <strsize>3</strsize></> <1><docpos>4</docpos> <strpos>4</strpos> <strsize>8</strsize></> <2><docpos>13</docpos> <strpos>13</strpos> <strsize>4</strsize></> <3><docpos>18</docpos> <strpos>18</strpos> <strsize>6</strsize></> <4><docpos>25</docpos> <strpos>25</strpos> <strsize>5</strsize></> <5><docpos>31</docpos> <strpos>31</strpos> <strsize>4</strsize></> <6><docpos>36</docpos> <strpos>36</strpos> <strsize>4</strsize></> <7><docpos>41</docpos> <strpos>41</strpos> <strsize>8</strsize></> <8><docpos>50</docpos> <strpos>50</strpos> <strsize>7</strsize></> <9><docpos>58</docpos> <strpos>58</strpos> <strsize>2</strsize></> <10><docpos>61</docpos> <strpos>61</strpos> <strsize>5</strsize></> <11><docpos>67</docpos> <strpos>67</strpos> <strsize>7</strsize></> <12><docpos>75</docpos> <strpos>75</strpos> <strsize>11</strsize></> <13><docpos>87</docpos> <strpos>87</strpos> <strsize>2</strsize></> <14><docpos>90</docpos> <strpos>90</strpos> <strsize>3</strsize></> <15><docpos>94</docpos> <strpos>94</strpos> <strsize>3</strsize></> <16><docpos>98</docpos> <strpos>98</strpos> <strsize>4</strsize></> <17><docpos>103</docpos> <strpos>103</strpos> <strsize>1</strsize></> <18><docpos>105</docpos> <strpos>105</strpos> <strsize>8</strsize></> <19><docpos>114</docpos> <strpos>114</strpos> <strsize>7</strsize></> One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.
+class=NormalizerFunctionContext<32>::normalize start=123 end=124 depth=2 param:One One
+class=NormalizerFunctionContext<32>::normalize start=124 end=125 depth=2 param:morning, morning,
+class=NormalizerFunctionContext<32>::normalize start=125 end=126 depth=2 param:when when
+class=NormalizerFunctionContext<32>::normalize start=126 end=127 depth=2 param:Gregor Gregor
+class=NormalizerFunctionContext<32>::normalize start=127 end=128 depth=2 param:Samsa Samsa
+class=NormalizerFunctionContext<32>::normalize start=128 end=129 depth=2 param:woke woke
+class=NormalizerFunctionContext<32>::normalize start=129 end=130 depth=2 param:from from
+class=NormalizerFunctionContext<32>::normalize start=130 end=131 depth=2 param:troubled troubled
+class=NormalizerFunctionContext<32>::normalize start=131 end=132 depth=2 param:dreams, dreams,
+class=NormalizerFunctionContext<32>::normalize start=132 end=133 depth=2 param:he he
+class=NormalizerFunctionContext<32>::normalize start=133 end=134 depth=2 param:found found
+class=NormalizerFunctionContext<32>::normalize start=134 end=135 depth=2 param:himself himself
+class=NormalizerFunctionContext<32>::normalize start=135 end=136 depth=2 param:transformed transformed
+class=NormalizerFunctionContext<32>::normalize start=136 end=137 depth=2 param:in in
+class=NormalizerFunctionContext<32>::normalize start=137 end=138 depth=2 param:his his
+class=NormalizerFunctionContext<32>::normalize start=138 end=139 depth=2 param:bed bed
+class=NormalizerFunctionContext<32>::normalize start=139 end=140 depth=2 param:into into
+class=NormalizerFunctionContext<32>::normalize start=140 end=141 depth=2 param:a a
+class=NormalizerFunctionContext<32>::normalize start=141 end=142 depth=2 param:horrible horrible
+class=NormalizerFunctionContext<32>::normalize start=142 end=143 depth=2 param:vermin. vermin.
+class=AggregatorFunctionInstance<24>::evaluate start=143 end=144 depth=2 param:20 <searchindex><0><type>stem</type> <value>one</value> <pos>1</pos></> <1><type>stem</type> <value>morn</value> <pos>2</pos></> <2><type>stem</type> <value>when</value> <pos>3</pos></> <3><type>stem</type> <value>gregor</value> <pos>4</pos></> <4><type>stem</type> <value>samsa</value> <pos>5</pos></> <5><type>stem</type> <value>woke</value> <pos>6</pos></> <6><type>stem</type> <value>from</value> <pos>7</pos></> <7><type>stem</type> <value>troubl</value> <pos>8</pos></> <8><type>stem</type> <value>dream</value> <pos>9</pos></> <9><type>stem</type> <value>he</value> <pos>10</pos></> <10><type>stem</type> <value>found</value> <pos>11</pos></> <11><type>stem</type> <value>himself</value> <pos>12</pos></> <12><type>stem</type> <value>transform</value> <pos>13</pos></> <13><type>stem</type> <value>in</value> <pos>14</pos></> <14><type>stem</type> <value>his</value> <pos>15</pos></> <15><type>stem</type> <value>bed</value> <pos>16</pos></> <16><type>stem</type> <value>into</value> <pos>17</pos></> <17><type>stem</type> <value>a</value> <pos>18</pos></> <18><type>stem</type> <value>horribl</value> <pos>19</pos></> <19><type>stem</type> <value>vermin</value> <pos>20</pos></></searchindex> <forwardindex><0><type>orig</type> <value>One</value> <pos>1</pos></> <1><type>orig</type> <value>morning,</value> <pos>2</pos></> <2><type>orig</type> <value>when</value> <pos>3</pos></> <3><type>orig</type> <value>Gregor</value> <pos>4</pos></> <4><type>orig</type> <value>Samsa</value> <pos>5</pos></> <5><type>orig</type> <value>woke</value> <pos>6</pos></> <6><type>orig</type> <value>from</value> <pos>7</pos></> <7><type>orig</type> <value>troubled</value> <pos>8</pos></> <8><type>orig</type> <value>dreams,</value> <pos>9</pos></> <9><type>orig</type> <value>he</value> <pos>10</pos></> <10><type>orig</type> <value>found</value> <pos>11</pos></> <11><type>orig</type> <value>himself</value> <pos>12</pos></> <12><type>orig</type> <value>transformed</value> <pos>13</pos></> <13><type>orig</type> <value>in</value> <pos>14</pos></> <14><type>orig</type> <value>his</value> <pos>15</pos></> <15><type>orig</type> <value>bed</value> <pos>16</pos></> <16><type>orig</type> <value>into</value> <pos>17</pos></> <17><type>orig</type> <value>a</value> <pos>18</pos></> <18><type>orig</type> <value>horrible</value> <pos>19</pos></> <19><type>orig</type> <value>vermin.</value> <pos>20</pos></></forwardindex>
+class=TokenizerFunctionContext<27>::Destructor start=144 end=145 depth=2 param:
+class=NormalizerFunctionContext<28>::Destructor start=145 end=146 depth=2 param:
+class=NormalizerFunctionContext<29>::Destructor start=146 end=147 depth=2 param:
+class=NormalizerFunctionContext<30>::Destructor start=147 end=148 depth=2 param:
+class=TokenizerFunctionContext<31>::Destructor start=148 end=149 depth=2 param:
+class=NormalizerFunctionContext<32>::Destructor start=149 end=150 depth=2 param:
+
+QUERY analyze document (restrict time to 52-150 and depth 1)
+class=DocumentAnalyzer<9>::analyze start=52 end=150 depth=1 param:<metadata><0><name>doclen</name> <value>20.000000</value></></metadata> <searchindex><0><type>stem</type> <value>one</value> <pos>1</pos></> <1><type>stem</type> <value>morn</value> <pos>2</pos></> <2><type>stem</type> <value>when</value> <pos>3</pos></> <3><type>stem</type> <value>gregor</value> <pos>4</pos></> <4><type>stem</type> <value>samsa</value> <pos>5</pos></> <5><type>stem</type> <value>woke</value> <pos>6</pos></> <6><type>stem</type> <value>from</value> <pos>7</pos></> <7><type>stem</type> <value>troubl</value> <pos>8</pos></> <8><type>stem</type> <value>dream</value> <pos>9</pos></> <9><type>stem</type> <value>he</value> <pos>10</pos></> <10><type>stem</type> <value>found</value> <pos>11</pos></> <11><type>stem</type> <value>himself</value> <pos>12</pos></> <12><type>stem</type> <value>transform</value> <pos>13</pos></> <13><type>stem</type> <value>in</value> <pos>14</pos></> <14><type>stem</type> <value>his</value> <pos>15</pos></> <15><type>stem</type> <value>bed</value> <pos>16</pos></> <16><type>stem</type> <value>into</value> <pos>17</pos></> <17><type>stem</type> <value>a</value> <pos>18</pos></> <18><type>stem</type> <value>horribl</value> <pos>19</pos></> <19><type>stem</type> <value>vermin</value> <pos>20</pos></></searchindex> <forwardindex><0><type>orig</type> <value>One</value> <pos>1</pos></> <1><type>orig</type> <value>morning,</value> <pos>2</pos></> <2><type>orig</type> <value>when</value> <pos>3</pos></> <3><type>orig</type> <value>Gregor</value> <pos>4</pos></> <4><type>orig</type> <value>Samsa</value> <pos>5</pos></> <5><type>orig</type> <value>woke</value> <pos>6</pos></> <6><type>orig</type> <value>from</value> <pos>7</pos></> <7><type>orig</type> <value>troubled</value> <pos>8</pos></> <8><type>orig</type> <value>dreams,</value> <pos>9</pos></> <9><type>orig</type> <value>he</value> <pos>10</pos></> <10><type>orig</type> <value>found</value> <pos>11</pos></> <11><type>orig</type> <value>himself</value> <pos>12</pos></> <12><type>orig</type> <value>transformed</value> <pos>13</pos></> <13><type>orig</type> <value>in</value> <pos>14</pos></> <14><type>orig</type> <value>his</value> <pos>15</pos></> <15><type>orig</type> <value>bed</value> <pos>16</pos></> <16><type>orig</type> <value>into</value> <pos>17</pos></> <17><type>orig</type> <value>a</value> <pos>18</pos></> <18><type>orig</type> <value>horrible</value> <pos>19</pos></> <19><type>orig</type> <value>vermin.</value> <pos>20</pos></></forwardindex> <doc><text>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.</text></doc> xml  UTF-8
+
+QUERY storage add document (restrict to StorageDocument<26>)
+class=StorageDocument<26>::addSearchIndexTerm start=150 end=154 depth=1 param:() stem one 1
+class=StorageDocument<26>::addSearchIndexTerm start=154 end=155 depth=1 param:() stem morn 2
+class=StorageDocument<26>::addSearchIndexTerm start=155 end=156 depth=1 param:() stem when 3
+class=StorageDocument<26>::addSearchIndexTerm start=156 end=157 depth=1 param:() stem gregor 4
+class=StorageDocument<26>::addSearchIndexTerm start=157 end=158 depth=1 param:() stem samsa 5
+class=StorageDocument<26>::addSearchIndexTerm start=158 end=159 depth=1 param:() stem woke 6
+class=StorageDocument<26>::addSearchIndexTerm start=159 end=160 depth=1 param:() stem from 7
+class=StorageDocument<26>::addSearchIndexTerm start=160 end=161 depth=1 param:() stem troubl 8
+class=StorageDocument<26>::addSearchIndexTerm start=161 end=162 depth=1 param:() stem dream 9
+class=StorageDocument<26>::addSearchIndexTerm start=162 end=163 depth=1 param:() stem he 10
+class=StorageDocument<26>::addSearchIndexTerm start=163 end=164 depth=1 param:() stem found 11
+class=StorageDocument<26>::addSearchIndexTerm start=164 end=165 depth=1 param:() stem himself 12
+class=StorageDocument<26>::addSearchIndexTerm start=165 end=166 depth=1 param:() stem transform 13
+class=StorageDocument<26>::addSearchIndexTerm start=166 end=167 depth=1 param:() stem in 14
+class=StorageDocument<26>::addSearchIndexTerm start=167 end=168 depth=1 param:() stem his 15
+class=StorageDocument<26>::addSearchIndexTerm start=168 end=169 depth=1 param:() stem bed 16
+class=StorageDocument<26>::addSearchIndexTerm start=169 end=170 depth=1 param:() stem into 17
+class=StorageDocument<26>::addSearchIndexTerm start=170 end=171 depth=1 param:() stem a 18
+class=StorageDocument<26>::addSearchIndexTerm start=171 end=172 depth=1 param:() stem horribl 19
+class=StorageDocument<26>::addSearchIndexTerm start=172 end=173 depth=1 param:() stem vermin 20
+class=StorageDocument<26>::addForwardIndexTerm start=173 end=177 depth=1 param:() orig One 1
+class=StorageDocument<26>::addForwardIndexTerm start=177 end=178 depth=1 param:() orig morning, 2
+class=StorageDocument<26>::addForwardIndexTerm start=178 end=179 depth=1 param:() orig when 3
+class=StorageDocument<26>::addForwardIndexTerm start=179 end=180 depth=1 param:() orig Gregor 4
+class=StorageDocument<26>::addForwardIndexTerm start=180 end=181 depth=1 param:() orig Samsa 5
+class=StorageDocument<26>::addForwardIndexTerm start=181 end=182 depth=1 param:() orig woke 6
+class=StorageDocument<26>::addForwardIndexTerm start=182 end=183 depth=1 param:() orig from 7
+class=StorageDocument<26>::addForwardIndexTerm start=183 end=184 depth=1 param:() orig troubled 8
+class=StorageDocument<26>::addForwardIndexTerm start=184 end=185 depth=1 param:() orig dreams, 9
+class=StorageDocument<26>::addForwardIndexTerm start=185 end=186 depth=1 param:() orig he 10
+class=StorageDocument<26>::addForwardIndexTerm start=186 end=187 depth=1 param:() orig found 11
+class=StorageDocument<26>::addForwardIndexTerm start=187 end=188 depth=1 param:() orig himself 12
+class=StorageDocument<26>::addForwardIndexTerm start=188 end=189 depth=1 param:() orig transformed 13
+class=StorageDocument<26>::addForwardIndexTerm start=189 end=190 depth=1 param:() orig in 14
+class=StorageDocument<26>::addForwardIndexTerm start=190 end=191 depth=1 param:() orig his 15
+class=StorageDocument<26>::addForwardIndexTerm start=191 end=192 depth=1 param:() orig bed 16
+class=StorageDocument<26>::addForwardIndexTerm start=192 end=193 depth=1 param:() orig into 17
+class=StorageDocument<26>::addForwardIndexTerm start=193 end=194 depth=1 param:() orig a 18
+class=StorageDocument<26>::addForwardIndexTerm start=194 end=195 depth=1 param:() orig horrible 19
+class=StorageDocument<26>::addForwardIndexTerm start=195 end=196 depth=1 param:() orig vermin. 20
+class=StorageDocument<26>::setMetaData start=196 end=197 depth=1 param:() doclen 20.000000
+class=StorageDocument<26>::setAttribute start=197 end=198 depth=1 param:() docid Doc1
+class=StorageDocument<26>::done start=198 end=201 depth=1 param:()
+class=StorageDocument<26>::Destructor start=201 end=202 depth=1 param:
+
+QUERY database cursor (restrict to StorageDocument<26>)
+class=DatabaseCursor<298>::seekUpperBound start=2970 end=2971 depth=2 param: d.s. 3
+

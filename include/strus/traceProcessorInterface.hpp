@@ -33,18 +33,10 @@ public:
 	/// \brief Create an interface for logging call traces
 	/// \param[in] idmap trace identifier map
 	/// \param[in] config configuration string of the logger built
-	/// \return the logger
+	/// \return the logger (with ownership)
 	virtual TraceLoggerInterface*
 		createLogger(
 			const strus::TraceIdMapInterface* idmap,
-			const std::string& config) const=0;
-
-	/// \brief Create an interface for recovering and inspecting persistently logged call traces
-	/// \param[in] idmap trace identifier map
-	/// \param[in] config configuration string of the call trace to inspect
-	/// \return the viewer
-	virtual TraceViewerInterface*
-		createViewer(
 			const std::string& config) const=0;
 };
 

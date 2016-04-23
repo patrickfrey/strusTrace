@@ -19,7 +19,7 @@ static bool g_intl_initialized = false;
 
 DLL_PUBLIC TraceObjectBuilderInterface*
 	strus::traceCreateObjectBuilder(
-		const TraceProcessorInterface* traceproc,
+		TraceProcessorInterface* traceproc,
 		const std::string& loggerConfig,
 		ErrorBufferInterface* errorhnd)
 {

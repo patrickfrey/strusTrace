@@ -21,12 +21,12 @@
 using namespace strus;
 
 TraceObjectBuilder::TraceObjectBuilder(
-		const TraceProcessorInterface* traceproc,
+		TraceProcessorInterface* traceproc_,
 		const std::string& loggerConfig,
 		ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_idmap(errorhnd_),m_logger(),m_ctx()
+	:m_errorhnd(errorhnd_),m_traceproc(traceproc_),m_idmap(errorhnd_),m_logger(),m_ctx()
 {
-	m_logger.reset( traceproc->createLogger( &m_idmap, loggerConfig));
+	m_logger.reset( traceproc_->createLogger( &m_idmap, loggerConfig));
 	if (!m_logger.get()) throw std::runtime_error( "failed to create trace logger");
 	m_ctx.reset( new TraceGlobalContext( m_logger.get(), m_errorhnd)); 
 	if (!m_ctx.get()) throw std::runtime_error( "failed to create trace global context");

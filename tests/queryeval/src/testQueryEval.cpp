@@ -722,58 +722,59 @@ int main( int argc, const char* argv[])
 		{//begin scope trace processor:
 
 		const strus::TraceIdMapInterface* idmap = 0;
-		std::auto_ptr<strus::TraceProcessorInterface> traceproc_breakpoint;
 		std::auto_ptr<strus::TraceObjectBuilderInterface> traceObjectBuilder_breakpoint;
 
 		// If breakpoints configured, create trace processor 'breakpoints':
 		if (breakpoints)
 		{
-			traceproc_breakpoint =
-				std::auto_ptr<strus::TraceProcessorInterface>(
-					strus::createTraceProcessor_breakpoint( g_errorhnd));
-			if (!traceproc_breakpoint.get())
+			strus::TraceProcessorInterface*
+				traceproc_breakpoint = strus::createTraceProcessor_breakpoint( g_errorhnd);
+			if (!traceproc_breakpoint)
 			{
 				throw std::runtime_error("failed to create trace processor (textfile)");
 			}
 			traceObjectBuilder_breakpoint =
 				std::auto_ptr<strus::TraceObjectBuilderInterface>(
 					strus::traceCreateObjectBuilder(
-						traceproc_breakpoint.get(), breakpoints, g_errorhnd));
+						traceproc_breakpoint, breakpoints, g_errorhnd));
 			if (!traceObjectBuilder_breakpoint.get())
 			{
+				delete traceproc_breakpoint;
 				throw std::runtime_error("failed to create trace object builder (breakpoint)");
 			}
 		}
 
 		// Create trace processor 'textfile':
-		std::auto_ptr<strus::TraceProcessorInterface>
-			traceproc_textfile( strus::createTraceProcessor_textfile( g_errorhnd));
-		if (!traceproc_textfile.get())
+		strus::TraceProcessorInterface* 
+			traceproc_textfile = strus::createTraceProcessor_textfile( g_errorhnd);
+		if (!traceproc_textfile)
 		{
 			throw std::runtime_error("failed to create trace processor (textfile)");
 		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder_logtext(
 				strus::traceCreateObjectBuilder(
-					traceproc_textfile.get(), outcfg, g_errorhnd));
+					traceproc_textfile, outcfg, g_errorhnd));
 		if (!traceObjectBuilder_logtext.get())
 		{
+			delete traceproc_textfile;
 			throw std::runtime_error("failed to create trace processor (textfile)");
 		}
 
 		// Create trace processor 'memory':
-		std::auto_ptr<strus::TraceProcessorInterface>
-			traceproc_memory( strus::createTraceProcessor_memory( g_errorhnd));
-		if (!traceproc_memory.get())
+		strus::TraceProcessorInterface*
+			traceproc_memory = strus::createTraceProcessor_memory( g_errorhnd);
+		if (!traceproc_memory)
 		{
 			throw std::runtime_error("failed to create trace processor (memory)");
 		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder_memory(
 				strus::traceCreateObjectBuilder(
-					traceproc_memory.get(), "", g_errorhnd));
+					traceproc_memory, "", g_errorhnd));
 		if (!traceObjectBuilder_memory.get())
 		{
+			delete traceproc_memory;
 			throw std::runtime_error("failed to create trace object builder (memory)");
 		}
 		std::auto_ptr<strus::TraceViewerInterface> viewer( traceObjectBuilder_memory->createViewer());

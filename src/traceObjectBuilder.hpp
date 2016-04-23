@@ -31,11 +31,11 @@ class TraceObjectBuilder
 {
 public:
 	/// \brief Constructor
-	/// \param[in] traceproc trace processor interface to use
+	/// \param[in] traceproc_ trace processor interface to use (ownership passed to this)
 	/// \param[in] loggerConfig trace logger configuration
 	/// \param[in] errorhnd_ error buffer for error messages and exceptions
 	TraceObjectBuilder(
-			const TraceProcessorInterface* traceproc,
+			TraceProcessorInterface* traceproc_,
 			const std::string& loggerConfig,
 			ErrorBufferInterface* errorhnd_);
 
@@ -55,6 +55,7 @@ public:
 
 private:
 	ErrorBufferInterface* m_errorhnd;
+	Reference<TraceProcessorInterface> m_traceproc;
 	TraceIdMap m_idmap;
 	Reference<TraceLoggerInterface> m_logger;
 	mutable Reference<TraceGlobalContext> m_ctx;

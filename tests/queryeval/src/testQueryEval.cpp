@@ -826,6 +826,12 @@ int main( int argc, const char* argv[])
 		executeViewerQueries( out, idmap, viewer, g_testQueries);
 		outputstr.append( out.str());
 
+		// Test object creation time:
+		unsigned int creatTime = viewer->getObjectCreationTime( 298);
+		if (creatTime != 2969)
+		{
+			throw std::runtime_error( "error in reported creation time of object");
+		}
 		}//end scope trace processor
 
 		// Concat output of all tests together:

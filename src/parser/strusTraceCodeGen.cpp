@@ -260,8 +260,18 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			out << "\tTraceSerializer parambuf;" << std::endl;
 
 			// Create string with packed function in/out parameters:
+			// Return value:
 			std::string source_packparam;
-			source_packparam.append( mi->returnValue().expand( "pack_msg", "p0"));
+			std::string source_packret( mi->returnValue().expand( "pack_ret", "p0"));
+			if (source_packret.empty())
+			{
+				source_packparam.append( mi->returnValue().expand( "pack_msg", "p0"));
+			}
+			else
+			{
+				source_packparam.append( source_packret);
+			}
+			// Parameter:
 			pi = mi->parameters().begin();
 			for (int pidx=0; pi != pe; ++pi,++pidx)
 			{

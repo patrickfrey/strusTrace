@@ -230,6 +230,8 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("wrap_return", "$name = traceContext()->createInterfaceImpl<$objid~Interface,$objid~Impl>( $name);")
 		("test_null", "$name == 0")
 		("pack_msg", "TraceObjectBase* objbase_$name = dynamic_cast<TraceObjectBase*>( $name);\nif (!objbase_$name) parambuf.packVoid(); else parambuf.packObject( ClassId_$objid, objbase_$name->objid());")
+		("pack_ret", "TraceObjectBase* objbase_$name = dynamic_cast<TraceObjectBase*>( $name);\nif (!objbase_$name)\n{\n\tparambuf.packVoid();\n}\nelse\n{\n\tparambuf.packObject( ClassId_$objid, objbase_$name->objid());\n\ttraceContext()->logger()->logObjectCreation( objbase_$name->objid(), callhnd);\n}")
+		("objid", "objbase_$name->objid()")
 		("delete", "if ($name) {delete $name; $name = 0;}")
 	;
 	//Define explicit pass by reference exceptions:
@@ -256,6 +258,8 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("wrap_return", "$name = traceContext()->createInterfaceImpl_const<$objid~Interface,$objid~Impl>( $name);")
 		("test_null", "$name == 0")
 		("pack_msg", "const TraceObjectBase* objbase_$name = dynamic_cast<const TraceObjectBase*>( $name);\nif (!objbase_$name) parambuf.packVoid(); else parambuf.packObject( ClassId_$objid, objbase_$name->objid());")
+		("pack_ret", "const TraceObjectBase* objbase_$name = dynamic_cast<const TraceObjectBase*>( $name);\nif (!objbase_$name)\n{\n\tparambuf.packVoid();\n}\nelse\n{\n\tparambuf.packObject( ClassId_$objid, objbase_$name->objid());\n\ttraceContext()->logger()->logObjectCreation( objbase_$name->objid(), callhnd);\n}")
+		("objid", "objbase_$name->objid()")
 	;
 	typesystem.defineType( "const std::vector<Reference<$objid~Interface> >&")
 		("pack_msg", "std::vector<Reference<$objid~Interface> >::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tparambuf.openIndex( idx_$name); \n\tconst TraceObjectBase* objbase = dynamic_cast<const TraceObjectBase*>( i_$name->get());\n\tif (!objbase) parambuf.packVoid(); else parambuf.packObject( ClassId_$objid, objbase->objid());\n\tparambuf.close();\n}")

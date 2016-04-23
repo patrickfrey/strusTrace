@@ -70,7 +70,15 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_AggregatorFunctionInstance, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_AggregatorFunctionInstance, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packStringVector(p1);
 	}
 	if (parambuf.hasError())
@@ -134,7 +142,15 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_TextProcessor, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_TextProcessor, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -164,7 +180,15 @@ SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_Segmenter, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_Segmenter, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -196,7 +220,15 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_DocumentAnalyzer, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_DocumentAnalyzer, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -227,7 +259,15 @@ QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_QueryAnalyzer, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_QueryAnalyzer, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -391,7 +431,15 @@ DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseTransaction, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_DatabaseTransaction, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -422,7 +470,15 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseCursor, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_DatabaseCursor, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packDatabaseOptions(p1);
 	}
 	if (parambuf.hasError())
@@ -453,7 +509,15 @@ DatabaseBackupCursorInterface* DatabaseClientImpl::createBackupCursor() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseBackupCursor, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_DatabaseBackupCursor, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -760,7 +824,15 @@ DatabaseClientInterface* DatabaseImpl::createClient(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseClient, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_DatabaseClient, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -925,7 +997,15 @@ DatabaseCursorInterface* DatabaseTransactionImpl::createCursor(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseCursor, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_DatabaseCursor, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packDatabaseOptions(p1);
 	}
 	if (parambuf.hasError())
@@ -1366,7 +1446,15 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_DocumentAnalyzerContext, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_DocumentAnalyzerContext, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packDocumentClass(p1);
 	}
 	if (parambuf.hasError())
@@ -1892,7 +1980,15 @@ MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance() 
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_MetaDataRestrictionInstance, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_MetaDataRestrictionInstance, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -1976,7 +2072,15 @@ NormalizerFunctionContextInterface* NormalizerFunctionInstanceImpl::createFuncti
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_NormalizerFunctionContext, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_NormalizerFunctionContext, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -2014,7 +2118,15 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_NormalizerFunctionInstance, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_NormalizerFunctionInstance, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packStringVector(p1);
 		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_TextProcessor, objbase_p2->objid());
@@ -2304,7 +2416,15 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		std::vector<Reference<PostingIteratorInterface> >::const_iterator
 			i_p1 = p1.begin(), e_p1 = p1.end();
 		for (std::size_t idx_p1=0; i_p1 != e_p1; ++i_p1,++idx_p1)
@@ -2632,7 +2752,15 @@ QueryInterface* QueryEvalImpl::createQuery(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_Query, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_Query, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageClient, objbase_p1->objid());
 	}
@@ -2997,7 +3125,15 @@ const PostingJoinOperatorInterface* QueryProcessorImpl::getPostingJoinOperator(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingJoinOperator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_PostingJoinOperator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -3053,7 +3189,15 @@ const WeightingFunctionInterface* QueryProcessorImpl::getWeightingFunction(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_WeightingFunction, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_WeightingFunction, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -3109,7 +3253,15 @@ const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_SummarizerFunction, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_SummarizerFunction, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -3187,7 +3339,15 @@ const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_ScalarFunctionParser, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_ScalarFunctionParser, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -3364,7 +3524,15 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_ScalarFunctionInstance, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_ScalarFunctionInstance, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -3422,7 +3590,15 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_ScalarFunction, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_ScalarFunction, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 		parambuf.packStringVector(p2);
 	}
@@ -3564,7 +3740,15 @@ SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_SegmenterContext, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_SegmenterContext, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packDocumentClass(p1);
 	}
 	if (parambuf.hasError())
@@ -3628,7 +3812,15 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_SegmenterInstance, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_SegmenterInstance, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -3805,7 +3997,15 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StatisticsViewer, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StatisticsViewer, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packBuffer( msgptr, p1);
 	}
 	if (parambuf.hasError())
@@ -3837,7 +4037,15 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StatisticsBuilder, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StatisticsBuilder, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packStatisticsProcessorBuilderOptions(p1);
 	}
 	if (parambuf.hasError())
@@ -4082,7 +4290,15 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 		parambuf.packString(p2);
 	}
@@ -4116,7 +4332,15 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_MetaDataRestriction, objbase_p1->objid());
 		parambuf.packIndex(p2);
@@ -4150,7 +4374,15 @@ ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_ForwardIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_ForwardIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -4182,7 +4414,15 @@ DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_DocumentTermIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_DocumentTermIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -4214,7 +4454,15 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_InvAclIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_InvAclIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -4359,7 +4607,15 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4389,7 +4645,15 @@ ValueIteratorInterface* StorageClientImpl::createTermValueIterator() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4419,7 +4683,15 @@ ValueIteratorInterface* StorageClientImpl::createDocIdIterator() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4449,7 +4721,15 @@ ValueIteratorInterface* StorageClientImpl::createUserNameIterator() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4512,7 +4792,15 @@ MetaDataReaderInterface* StorageClientImpl::createMetaDataReader() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_MetaDataReader, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_MetaDataReader, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4542,7 +4830,15 @@ MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction() con
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_MetaDataRestriction, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_MetaDataRestriction, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4572,7 +4868,15 @@ AttributeReaderInterface* StorageClientImpl::createAttributeReader() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_AttributeReader, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_AttributeReader, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4602,7 +4906,15 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageTransaction, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StorageTransaction, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4633,7 +4945,15 @@ StatisticsIteratorInterface* StorageClientImpl::createInitStatisticsIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StatisticsIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StatisticsIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packBool(p1);
 	}
 	if (parambuf.hasError())
@@ -4664,7 +4984,15 @@ StatisticsIteratorInterface* StorageClientImpl::createUpdateStatisticsIterator()
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StatisticsIterator, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StatisticsIterator, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4694,7 +5022,15 @@ const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor() 
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StatisticsProcessor, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StatisticsProcessor, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -4725,7 +5061,15 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageDocument, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StorageDocument, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 		parambuf.packString(p2);
 	}
@@ -4780,7 +5124,15 @@ StorageDumpInterface* StorageClientImpl::createDump(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageDump, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StorageDump, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -5143,7 +5495,15 @@ StorageClientInterface* StorageImpl::createClient(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageClient, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StorageClient, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 		TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseClient, objbase_p2->objid());
@@ -5205,7 +5565,15 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageAlterMetaDataTable, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StorageAlterMetaDataTable, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseClient, objbase_p1->objid());
 	}
@@ -5302,7 +5670,15 @@ const StorageInterface* StorageObjectBuilderImpl::getStorage() const
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_Storage, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_Storage, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -5332,7 +5708,15 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_Database, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_Database, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -5362,7 +5746,15 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() con
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_QueryProcessor, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_QueryProcessor, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -5391,7 +5783,15 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StatisticsProcessor, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StatisticsProcessor, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -5421,7 +5821,15 @@ StorageClientInterface* StorageObjectBuilderImpl::createStorageClient(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageClient, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StorageClient, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -5453,7 +5861,15 @@ StorageAlterMetaDataTableInterface* StorageObjectBuilderImpl::createAlterMetaDat
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageAlterMetaDataTable, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StorageAlterMetaDataTable, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -5484,7 +5900,15 @@ QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_QueryEval, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_QueryEval, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -5521,7 +5945,15 @@ StorageDocumentInterface* StorageTransactionImpl::createDocument(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageDocument, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StorageDocument, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -5553,7 +5985,15 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageDocumentUpdate, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_StorageDocumentUpdate, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError())
@@ -5864,7 +6304,15 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_SummarizerFunctionInstance, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_SummarizerFunctionInstance, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_QueryProcessor, objbase_p1->objid());
 	}
@@ -5966,7 +6414,15 @@ const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_TokenizerFunction, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_TokenizerFunction, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -5997,7 +6453,15 @@ const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_NormalizerFunction, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_NormalizerFunction, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -6028,7 +6492,15 @@ const AggregatorFunctionInterface* TextProcessorImpl::getAggregator(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_AggregatorFunction, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_AggregatorFunction, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -6256,7 +6728,15 @@ TokenizerFunctionContextInterface* TokenizerFunctionInstanceImpl::createFunction
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_TokenizerFunctionContext, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_TokenizerFunctionContext, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 	}
 	if (parambuf.hasError())
 	{
@@ -6294,7 +6774,15 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_TokenizerFunctionInstance, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_TokenizerFunctionInstance, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		parambuf.packStringVector(p1);
 		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_TextProcessor, objbase_p2->objid());
@@ -6575,7 +7063,15 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_WeightingFunctionInstance, objbase_p0->objid());
+		if (!objbase_p0)
+		{
+			parambuf.packVoid();
+		}
+		else
+		{
+			parambuf.packObject( ClassId_WeightingFunctionInstance, objbase_p0->objid());
+			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
+		}
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_QueryProcessor, objbase_p1->objid());
 	}

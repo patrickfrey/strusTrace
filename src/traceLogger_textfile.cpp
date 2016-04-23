@@ -78,15 +78,9 @@ TraceLogRecordHandle
 }
 
 void TraceLogger_textfile::logObjectCreation(
-		const TraceObjectId& objid,
-		const TraceLogRecordHandle& rechnd)
-{
-	try
-	{
-		::fprintf( m_output, "[%u] * <%u>\n", (unsigned int)rechnd, (unsigned int)objid);
-	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging object creation"), *m_errorhnd)
-}
+		const TraceObjectId&,
+		const TraceLogRecordHandle&)
+{}
 
 static std::string encodeText( const char* buf, std::size_t bufsize)
 {

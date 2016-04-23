@@ -12,6 +12,7 @@
 #include "objects_gen.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
+#include "strus/traceProcessorInterface.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/storageObjectBuilderInterface.hpp"
@@ -19,8 +20,17 @@
 
 using namespace strus;
 
-TraceObjectBuilder::TraceObjectBuilder( TraceLoggerInterface* logger_, ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_idmap(new TraceIdMap(errorhnd_)),m_logger(logger_),m_ctx(logger_,errorhnd_){}
+TraceObjectBuilder::TraceObjectBuilder(
+		const TraceProcessorInterface* traceproc,
+		const std::string& loggerConfig,
+		ErrorBufferInterface* errorhnd_)
+	:m_errorhnd(errorhnd_),m_idmap(errorhnd_),m_logger(),m_ctx()
+{
+	m_logger.reset( traceproc->createLogger( &m_idmap, loggerConfig));
+	if (!m_logger.get()) throw std::runtime_error( "failed to create trace logger");
+	m_ctx.reset( new TraceGlobalContext( m_logger.get(), m_errorhnd)); 
+	if (!m_ctx.get()) throw std::runtime_error( "failed to create trace global context");
+}
 
 AnalyzerObjectBuilderInterface*
 	TraceObjectBuilder::createAnalyzerObjectBuilder(
@@ -28,7 +38,7 @@ AnalyzerObjectBuilderInterface*
 {
 	try
 	{
-		return new AnalyzerObjectBuilderImpl( builder, &m_ctx);
+		return new AnalyzerObjectBuilderImpl( builder, m_ctx.get());
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces"), *m_errorhnd, 0)
 }
@@ -39,14 +49,18 @@ StorageObjectBuilderInterface*
 {
 	try
 	{
-		return new StorageObjectBuilderImpl( builder, &m_ctx);
+		return new StorageObjectBuilderImpl( builder, m_ctx.get());
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces"), *m_errorhnd, 0)
 }
 
 const TraceIdMapInterface* TraceObjectBuilder::getIdMap() const
 {
-	return m_idmap.get();
+	return &m_idmap;
 }
 
+TraceViewerInterface* TraceObjectBuilder::createViewer() const
+{
+	return m_logger->createViewer();
+}
 

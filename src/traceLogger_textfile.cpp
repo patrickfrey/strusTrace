@@ -8,7 +8,6 @@
 /// \brief Implementation of logging and querying call traces to textfile or stdout
 /// \file traceLogger_textfile.cpp
 #include "traceLogger_textfile.hpp"
-#include "strus/lib/tracelog.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "strus/errorBufferInterface.hpp"

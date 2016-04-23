@@ -5,15 +5,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/// \brief Exported functions of the strus tracelog library
-/// \file libstrus_tracelog.cpp
-#include "strus/lib/tracelog.hpp"
+/// \brief Exported functions of the strus standard trace processor library
+/// \file libstrus_traceproc_std.cpp
+#include "strus/lib/traceproc_std.hpp"
 #include "traceProcessor.hpp"
 #include "traceIdMap.hpp"
-#include "traceObjectBuilder.hpp"
 #include "strus/errorBufferInterface.hpp"
-#include "strus/analyzerObjectBuilderInterface.hpp"
-#include "strus/storageObjectBuilderInterface.hpp"
 #include "strus/base/dll_tags.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
@@ -65,21 +62,4 @@ DLL_PUBLIC TraceProcessorInterface* strus::createTraceProcessor_breakpoint( Erro
 	CATCH_ERROR_MAP_RETURN( _TXT("error creating trace processor (breakpoint): %s"), *errorhnd, 0);
 }
 
-
-DLL_PUBLIC TraceObjectBuilderInterface*
-	strus::traceCreateObjectBuilder(
-		TraceLoggerInterface* tracelog,
-		ErrorBufferInterface* errorhnd)
-{
-	try
-	{
-		if (!g_intl_initialized)
-		{
-			strus::initMessageTextDomain();
-			g_intl_initialized = true;
-		}
-		return new TraceObjectBuilder( tracelog, errorhnd);
-	}
-	CATCH_ERROR_MAP_RETURN( _TXT("error creating trace object builder: %s"), *errorhnd, 0);
-}
 

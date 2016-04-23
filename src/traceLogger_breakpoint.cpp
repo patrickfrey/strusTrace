@@ -8,7 +8,6 @@
 /// \brief Implementation of a traceLogger that enables to set breakpoints on defined method call events
 /// \file traceLogger_breakpoint.cpp
 #include "traceLogger_breakpoint.hpp"
-#include "strus/lib/tracelog.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "strus/errorBufferInterface.hpp"

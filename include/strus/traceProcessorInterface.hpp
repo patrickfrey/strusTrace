@@ -31,18 +31,21 @@ public:
 	virtual ~TraceProcessorInterface(){}
 
 	/// \brief Create an interface for logging call traces
+	/// \param[in] idmap trace identifier map
 	/// \param[in] config configuration string of the logger built
 	/// \return the logger
-	virtual TraceLoggerInterface* createLogger( const std::string& config) const=0;
+	virtual TraceLoggerInterface*
+		createLogger(
+			const strus::TraceIdMapInterface* idmap,
+			const std::string& config) const=0;
 
 	/// \brief Create an interface for recovering and inspecting persistently logged call traces
+	/// \param[in] idmap trace identifier map
 	/// \param[in] config configuration string of the call trace to inspect
 	/// \return the viewer
-	virtual TraceViewerInterface* createViewer( const std::string& config) const=0;
-
-	/// \brief Create the interface for mapping inernal object identifiers to name strings and back
-	/// \return the viewer
-	virtual const TraceIdMapInterface* getIdMap() const=0;
+	virtual TraceViewerInterface*
+		createViewer(
+			const std::string& config) const=0;
 };
 
 }//namespace

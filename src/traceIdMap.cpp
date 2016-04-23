@@ -11,7 +11,7 @@
 #include "strus/errorBufferInterface.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
-#include "serialize.hpp"
+#include "deserialize.hpp"
 
 using namespace strus;
 

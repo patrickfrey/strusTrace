@@ -11,7 +11,6 @@ include_directories(
 
 link_directories(
    "${Boost_LIBRARY_DIRS}"
-   "${Intl_LIBRARY_DIRS}"
    "${PROJECT_SOURCE_DIR}/src"
    "${strusanalyzer_LIBRARY_DIRS}"
    "${strus_LIBRARY_DIRS}"

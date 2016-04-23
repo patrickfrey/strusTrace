@@ -13,6 +13,7 @@
 #include "strus/lib/analyzer.hpp"
 #include "strus/reference.hpp"
 #include "strus/errorBufferInterface.hpp"
+#include "strus/segmenterInterface.hpp"
 #include <string>
 #include <stdexcept>
 #include <memory>
@@ -55,19 +56,19 @@ public:
 
 	virtual strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const std::string& segmenterName=std::string()) const
 	{
-		std::auto_ptr<strus::SegmenterInterface> segmenter( createSegmenter( segmenterName));
-		if (!segmenter.get()) 
+		strus::SegmenterInterface* segmenter = createSegmenter( segmenterName);
+		if (!segmenter) 
 		{
 			m_errorhnd->explain( "failed to create segmenter: %s");
 			return 0;
 		}
-		strus::DocumentAnalyzerInterface* rt = strus::createDocumentAnalyzer( segmenter.get(), m_errorhnd);
+		strus::DocumentAnalyzerInterface* rt = strus::createDocumentAnalyzer( segmenter, m_errorhnd);
+		delete segmenter;
 		if (!rt)
 		{
 			m_errorhnd->explain( "failed to create document analyzer: %s");
 			return 0;
 		}
-		segmenter.release();
 		return rt;
 	}
 

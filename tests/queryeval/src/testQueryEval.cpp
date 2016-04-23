@@ -720,7 +720,6 @@ int main( int argc, const char* argv[])
 	{
 		{//begin scope trace processor:
 
-		strus::TraceViewerInterface* viewer = 0;
 		const strus::TraceIdMapInterface* idmap = 0;
 		std::auto_ptr<strus::TraceProcessorInterface> traceproc_breakpoint;
 		std::auto_ptr<strus::TraceObjectBuilderInterface> traceObjectBuilder_breakpoint;
@@ -785,7 +784,7 @@ int main( int argc, const char* argv[])
 			= traceproc_memory->createLogger( "");
 		if (!traceLogger_memory)
 		{
-			throw std::runtime_error("failed to create trace logger (textfile)");
+			throw std::runtime_error("failed to create trace logger (memory)");
 		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder_memory(
@@ -793,9 +792,13 @@ int main( int argc, const char* argv[])
 					traceLogger_memory, g_errorhnd));
 		if (!traceObjectBuilder_memory.get())
 		{
-			throw std::runtime_error("failed to create trace object builder (textfile)");
+			throw std::runtime_error("failed to create trace object builder (memory)");
 		}
-		viewer = traceLogger_memory->createViewer();
+		std::auto_ptr<strus::TraceViewerInterface> viewer( traceLogger_memory->createViewer());
+		if (!viewer.get())
+		{
+			throw std::runtime_error("failed to create trace viewer (memory)");
+		}
 
 		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>
 			aob( new strus::AnalyzerObjectBuilder( g_errorhnd));
@@ -823,7 +826,7 @@ int main( int argc, const char* argv[])
 
 		// Test selective view of output:
 		std::ostringstream out;
-		executeViewerQueries( out, idmap, viewer, g_testQueries);
+		executeViewerQueries( out, idmap, viewer.get(), g_testQueries);
 		outputstr.append( out.str());
 
 		// Test object creation time:

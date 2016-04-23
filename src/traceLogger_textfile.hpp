@@ -29,7 +29,7 @@ class TraceLogger_textfile
 {
 public:
 	/// \brief Constructor
-	TraceLogger_textfile( const std::string& filename, ErrorBufferInterface* errorhnd_);
+	TraceLogger_textfile( const std::string& filename, const TraceIdMapInterface* idmap_, ErrorBufferInterface* errorhnd_);
 
 	/// \brief Destructor
 	virtual ~TraceLogger_textfile();
@@ -55,11 +55,11 @@ public:
 
 private:
 	ErrorBufferInterface* m_errorhnd;
+	const TraceIdMapInterface* m_traceIdMap;
 	FILE* m_output;
 	TraceTreeDepth m_depth;
 	std::string m_indentstr;
 	TraceLogRecordHandle m_logcnt;
-	TraceIdMapInterface* m_traceIdMap;
 };
 
 }//namespace

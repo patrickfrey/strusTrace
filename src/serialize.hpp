@@ -7,15 +7,10 @@
  */
 #ifndef _STRUS_TRACE_SERIALIZE_DESERIALIZE_HPP_INCLUDED
 #define _STRUS_TRACE_SERIALIZE_DESERIALIZE_HPP_INCLUDED
-#include "internationalization.hpp"
 #include "strus/base/hton.hpp"
-#include "strus/index.hpp"
 #include "strus/traceElement.hpp"
-#include "strus/traceLoggerInterface.hpp"
+#include "strus/index.hpp"
 #include <string>
-#include <vector>
-#include <cstring>
-#include <map>
 
 namespace strus
 {
@@ -99,12 +94,6 @@ private:
 	std::string m_buf;
 };
 
-
-class Deserializer
-{
-public:
-	static std::vector<TraceElement> deserialize( const char* struct_, std::size_t structSize_);
-};
-}
+}//namespace
 #endif
 

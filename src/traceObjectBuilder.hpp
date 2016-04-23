@@ -12,6 +12,7 @@
 #include "strus/traceObjectBuilderInterface.hpp"
 #include "strus/reference.hpp"
 #include "traceGlobalContext.hpp"
+#include "traceIdMap.hpp"
 
 namespace strus
 {
@@ -20,7 +21,9 @@ class ErrorBufferInterface;
 /// \brief Forward declaration
 class TraceLoggerInterface;
 /// \brief Forward declaration
-class TraceIdMapInterface;
+class TraceProcessorInterface;
+/// \brief Forward declaration
+class TraceViewerInterface;
 
 /// \brief Standard implementation of the interface creating proxies for Strus objects that log methods called besides calling them
 class TraceObjectBuilder
@@ -28,9 +31,13 @@ class TraceObjectBuilder
 {
 public:
 	/// \brief Constructor
-	/// \param[in] logger_ logger interface (ownership passed to this) to use for logging
+	/// \param[in] traceproc trace processor interface to use
+	/// \param[in] loggerConfig trace logger configuration
 	/// \param[in] errorhnd_ error buffer for error messages and exceptions
-	TraceObjectBuilder( TraceLoggerInterface* logger_, ErrorBufferInterface* errorhnd_);
+	TraceObjectBuilder(
+			const TraceProcessorInterface* traceproc,
+			const std::string& loggerConfig,
+			ErrorBufferInterface* errorhnd_);
 
 	virtual ~TraceObjectBuilder(){}
 
@@ -44,11 +51,13 @@ public:
 
 	virtual const TraceIdMapInterface* getIdMap() const;
 
+	virtual TraceViewerInterface* createViewer() const;
+
 private:
 	ErrorBufferInterface* m_errorhnd;
-	Reference<TraceIdMapInterface> m_idmap;
+	TraceIdMap m_idmap;
 	Reference<TraceLoggerInterface> m_logger;
-	mutable TraceGlobalContext m_ctx;
+	mutable Reference<TraceGlobalContext> m_ctx;
 };
 
 }//namespace

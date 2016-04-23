@@ -20,6 +20,8 @@ class StorageObjectBuilderInterface;
 class AnalyzerObjectBuilderInterface;
 /// \brief Forward declaration
 class TraceIdMapInterface;
+/// \brief Forward declaration
+class TraceViewerInterface;
 
 /// \brief Interface for creating proxies for Strus objects that log methods called besides calling them
 class TraceObjectBuilderInterface
@@ -45,6 +47,10 @@ public:
 	/// \brief Get the map of identifiers (class names, method names) used
 	/// \return a read only reference to the identifier map
 	virtual const TraceIdMapInterface* getIdMap() const=0;
+
+	/// \brief Create a viewer for inspecting the method call traces of this object builder
+	/// \return the viewer interface
+	virtual TraceViewerInterface* createViewer() const=0;
 };
 
 }//namespace

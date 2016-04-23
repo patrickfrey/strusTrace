@@ -11,7 +11,8 @@
 #include "strus/reference.hpp"
 #include "strus/databaseInterface.hpp"
 #include "strus/databaseClientInterface.hpp"
-#include "strus/lib/tracelog.hpp"
+#include "strus/lib/traceproc_std.hpp"
+#include "strus/lib/traceobj.hpp"
 #include "strus/lib/error.hpp"
 #include "strus/base/fileio.hpp"
 #include "strus/errorBufferInterface.hpp"
@@ -734,16 +735,10 @@ int main( int argc, const char* argv[])
 			{
 				throw std::runtime_error("failed to create trace processor (textfile)");
 			}
-			strus::TraceLoggerInterface* traceLogger_breakpoint
-				= traceproc_breakpoint->createLogger( breakpoints);
-			if (!traceLogger_breakpoint)
-			{
-				throw std::runtime_error("failed to create trace logger (breakpoint)");
-			}
 			traceObjectBuilder_breakpoint =
 				std::auto_ptr<strus::TraceObjectBuilderInterface>(
 					strus::traceCreateObjectBuilder(
-						traceLogger_breakpoint, g_errorhnd));
+						traceproc_breakpoint.get(), breakpoints, g_errorhnd));
 			if (!traceObjectBuilder_breakpoint.get())
 			{
 				throw std::runtime_error("failed to create trace object builder (breakpoint)");
@@ -757,21 +752,14 @@ int main( int argc, const char* argv[])
 		{
 			throw std::runtime_error("failed to create trace processor (textfile)");
 		}
-		strus::TraceLoggerInterface* traceLogger_textfile
-			= traceproc_textfile->createLogger( outcfg);
-		if (!traceLogger_textfile)
-		{
-			throw std::runtime_error("failed to create trace logger (textfile)");
-		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder_logtext(
 				strus::traceCreateObjectBuilder(
-					traceLogger_textfile, g_errorhnd));
+					traceproc_textfile.get(), outcfg, g_errorhnd));
 		if (!traceObjectBuilder_logtext.get())
 		{
 			throw std::runtime_error("failed to create trace processor (textfile)");
 		}
-		idmap = traceObjectBuilder_logtext->getIdMap();
 
 		// Create trace processor 'memory':
 		std::auto_ptr<strus::TraceProcessorInterface>
@@ -780,25 +768,20 @@ int main( int argc, const char* argv[])
 		{
 			throw std::runtime_error("failed to create trace processor (memory)");
 		}
-		strus::TraceLoggerInterface* traceLogger_memory
-			= traceproc_memory->createLogger( "");
-		if (!traceLogger_memory)
-		{
-			throw std::runtime_error("failed to create trace logger (memory)");
-		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder_memory(
 				strus::traceCreateObjectBuilder(
-					traceLogger_memory, g_errorhnd));
+					traceproc_memory.get(), "", g_errorhnd));
 		if (!traceObjectBuilder_memory.get())
 		{
 			throw std::runtime_error("failed to create trace object builder (memory)");
 		}
-		std::auto_ptr<strus::TraceViewerInterface> viewer( traceLogger_memory->createViewer());
+		std::auto_ptr<strus::TraceViewerInterface> viewer( traceObjectBuilder_memory->createViewer());
 		if (!viewer.get())
 		{
 			throw std::runtime_error("failed to create trace viewer (memory)");
 		}
+		idmap = traceObjectBuilder_memory->getIdMap();
 
 		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>
 			aob( new strus::AnalyzerObjectBuilder( g_errorhnd));

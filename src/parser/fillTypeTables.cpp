@@ -42,7 +42,6 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "parambuf.packInt($name);")
 	;
 	typesystem.defineType( "std::size_t")
-		("test_null", "$name < 0")
 		("pack_msg", "parambuf.packSize( $name);")
 	;
 	typesystem.defineType( "bool")

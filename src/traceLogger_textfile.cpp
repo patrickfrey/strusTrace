@@ -25,8 +25,8 @@
 
 using namespace strus;
 
-TraceLogger_textfile::TraceLogger_textfile( const std::string& filename, ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_output(0),m_depth(1),m_indentstr(),m_logcnt(0),m_traceIdMap(createTraceIdMap(errorhnd_))
+TraceLogger_textfile::TraceLogger_textfile( const std::string& filename, const TraceIdMapInterface* idmap_, ErrorBufferInterface* errorhnd_)
+	:m_errorhnd(errorhnd_),m_traceIdMap(idmap_),m_output(0),m_depth(1),m_indentstr(),m_logcnt(0)
 {
 	if (filename == "-" || filename == "stdout")
 	{
@@ -52,7 +52,6 @@ TraceLogger_textfile::~TraceLogger_textfile()
 	{
 		::fclose( m_output);
 	}
-	delete m_traceIdMap;
 }
 
 TraceLogRecordHandle

@@ -10,6 +10,7 @@
 #ifndef _STRUS_TRACE_PROCESSOR_IMPLEMENTATION_HPP_INCLUDED
 #define _STRUS_TRACE_PROCESSOR_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceProcessorInterface.hpp"
+#include "traceIdMap.hpp"
 #include <string>
 
 namespace strus
@@ -29,14 +30,16 @@ class TraceProcessor_memory
 {
 public:
 	explicit TraceProcessor_memory( ErrorBufferInterface* errorhnd_)
-		:m_errorhnd(errorhnd_){}
+		:m_errorhnd(errorhnd_),m_idmap(errorhnd_){}
 	virtual ~TraceProcessor_memory(){}
 
-	virtual TraceLoggerInterface* createLogger( const std::string& config);
-	virtual TraceViewerInterface* createViewer( const std::string& config);
+	virtual TraceLoggerInterface* createLogger( const std::string& config) const;
+	virtual TraceViewerInterface* createViewer( const std::string& config) const;
+	virtual const TraceIdMapInterface* getIdMap() const;
 
 private:
 	ErrorBufferInterface* m_errorhnd;
+	TraceIdMap m_idmap;
 };
 
 /// \brief Implementation of the trace processor interface for logging and querying traces in readable to a textfile or stdout
@@ -45,15 +48,16 @@ class TraceProcessor_textfile
 {
 public:
 	explicit TraceProcessor_textfile( ErrorBufferInterface* errorhnd_)
-		:m_errorhnd(errorhnd_){}
+		:m_errorhnd(errorhnd_),m_idmap(errorhnd_){}
 	virtual ~TraceProcessor_textfile(){}
 
-	virtual TraceLoggerInterface* createLogger( const std::string& config);
-	virtual TraceViewerInterface* createViewer( const std::string& config);
+	virtual TraceLoggerInterface* createLogger( const std::string& config) const;
+	virtual TraceViewerInterface* createViewer( const std::string& config) const;
+	virtual const TraceIdMapInterface* getIdMap() const;
 
 private:
 	ErrorBufferInterface* m_errorhnd;
-	
+	TraceIdMap m_idmap;
 };
 
 /// \brief Implementation of the trace processor interface for setting breakpoints to specific events (method calls) in a call trace
@@ -62,15 +66,16 @@ class TraceProcessor_breakpoint
 {
 public:
 	explicit TraceProcessor_breakpoint( ErrorBufferInterface* errorhnd_)
-		:m_errorhnd(errorhnd_){}
+		:m_errorhnd(errorhnd_),m_idmap(errorhnd_){}
 	virtual ~TraceProcessor_breakpoint(){}
 
-	virtual TraceLoggerInterface* createLogger( const std::string& config);
-	virtual TraceViewerInterface* createViewer( const std::string& config);
+	virtual TraceLoggerInterface* createLogger( const std::string& config) const;
+	virtual TraceViewerInterface* createViewer( const std::string& config) const;
+	virtual const TraceIdMapInterface* getIdMap() const;
 
 private:
 	ErrorBufferInterface* m_errorhnd;
-	
+	TraceIdMap m_idmap;
 };
 
 }//namespace

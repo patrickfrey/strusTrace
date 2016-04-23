@@ -24,10 +24,6 @@ class TraceIdMapInterface;
 /// \brief Forward declaration
 class TraceObjectBuilderInterface;
 
-/// \brief Create a map of identifiers used in call trace logs
-/// \return the map
-TraceIdMapInterface* createTraceIdMap( ErrorBufferInterface* errorhnd);
-
 /// \brief Create an interface to the trace logger creating a trace in memory that can be queried in the same session (no recovery of previous sessions) with a viewer. 
 TraceProcessorInterface* createTraceProcessor_memory( ErrorBufferInterface* errorhnd);
 

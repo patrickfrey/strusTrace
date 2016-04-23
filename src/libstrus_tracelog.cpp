@@ -21,21 +21,6 @@
 using namespace strus;
 static bool g_intl_initialized = false;
 
-DLL_PUBLIC TraceIdMapInterface* strus::createTraceIdMap( ErrorBufferInterface* errorhnd)
-{
-	try
-	{
-		if (!g_intl_initialized)
-		{
-			strus::initMessageTextDomain();
-			g_intl_initialized = true;
-		}
-		return new TraceIdMap( errorhnd);
-	}
-	CATCH_ERROR_MAP_RETURN( _TXT("error creating trace id map: %s"), *errorhnd, 0);
-}
-
-
 DLL_PUBLIC TraceProcessorInterface* strus::createTraceProcessor_memory( ErrorBufferInterface* errorhnd)
 {
 	try

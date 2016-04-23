@@ -8,6 +8,7 @@
 /// \brief Implementation of the trace processor interface for logging and querying traces in memory and readable logging to stdout
 /// \file traceProcesor.cpp
 #include "traceProcessor.hpp"
+#include "traceIdMap.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "strus/errorBufferInterface.hpp"
@@ -21,7 +22,7 @@
 
 using namespace strus;
 
-TraceLoggerInterface* TraceProcessor_memory::createLogger( const std::string& /*config (not needed)*/)
+TraceLoggerInterface* TraceProcessor_memory::createLogger( const std::string& /*config (not needed)*/) const
 {
 	try
 	{
@@ -30,13 +31,18 @@ TraceLoggerInterface* TraceProcessor_memory::createLogger( const std::string& /*
 	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (memory)"), *m_errorhnd, 0)
 }
 
-TraceViewerInterface* TraceProcessor_memory::createViewer( const std::string& /*config (not needed)*/)
+TraceViewerInterface* TraceProcessor_memory::createViewer( const std::string& /*config (not needed)*/) const
 {
 	m_errorhnd->report(_TXT("not implemented (in memory trace logger cannot be created from a configuration because nothing is persistently stored)"));
 	return 0;
 }
 
-TraceLoggerInterface* TraceProcessor_textfile::createLogger( const std::string& config_)
+const TraceIdMapInterface* TraceProcessor_memory::getIdMap() const
+{
+	return &m_idmap;
+}
+
+TraceLoggerInterface* TraceProcessor_textfile::createLogger( const std::string& config_) const
 {
 	try
 	{
@@ -46,15 +52,20 @@ TraceLoggerInterface* TraceProcessor_textfile::createLogger( const std::string& 
 		{
 			throw strus::runtime_error( _TXT("configuration variable '%s' undefined"), "file");
 		}
-		return new TraceLogger_textfile( filename, m_errorhnd);
+		return new TraceLogger_textfile( filename, &m_idmap, m_errorhnd);
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (textfile)"), *m_errorhnd, 0)
 }
 
-TraceViewerInterface* TraceProcessor_textfile::createViewer( const std::string& /*config (not needed)*/)
+TraceViewerInterface* TraceProcessor_textfile::createViewer( const std::string& /*config (not needed)*/) const
 {
 	m_errorhnd->report(_TXT("not implemented (stdout trace logger cannot be created from a configuration because nothing is persistently stored)"));
 	return 0;
+}
+
+const TraceIdMapInterface* TraceProcessor_textfile::getIdMap() const
+{
+	return &m_idmap;
 }
 
 static TraceTimeCounter parseTimeCounter( char const* si, const char* se)
@@ -71,7 +82,7 @@ static TraceTimeCounter parseTimeCounter( char const* si, const char* se)
 	return rt;
 }
 
-TraceLoggerInterface* TraceProcessor_breakpoint::createLogger( const std::string& config_)
+TraceLoggerInterface* TraceProcessor_breakpoint::createLogger( const std::string& config_) const
 {
 	try
 	{
@@ -94,9 +105,14 @@ TraceLoggerInterface* TraceProcessor_breakpoint::createLogger( const std::string
 	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (breakpoint)"), *m_errorhnd, 0)
 }
 
-TraceViewerInterface* TraceProcessor_breakpoint::createViewer( const std::string& config)
+TraceViewerInterface* TraceProcessor_breakpoint::createViewer( const std::string& config) const
 {
 	m_errorhnd->report(_TXT("not implemented (viewer on break points in a tracelog)"));
 	return 0;
+}
+
+const TraceIdMapInterface* TraceProcessor_breakpoint::getIdMap() const
+{
+	return &m_idmap;
 }
 

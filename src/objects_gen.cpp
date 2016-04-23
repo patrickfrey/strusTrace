@@ -3466,14 +3466,7 @@ std::size_t ScalarFunctionImpl::getNofArguments() const
 	std::size_t p0 = obj()->getNofArguments();
 	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
-	if (p0 < 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getNofArguments", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		parambuf.packSize( p0);
-	}
+	parambuf.packSize( p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

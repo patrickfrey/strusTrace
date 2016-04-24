@@ -1,3 +1,7 @@
+strusTrace (0.8.6)
+  * disabled trace test because of undeterministic output behaviour (due too STL implementation most likely. have to think about it first)
+ -- Patrick Frey <patrickpfrey@yahoo.com>  Sun, 24 Apr 2016 15:00:00 +0100
+
 strusTrace (0.8.5)
   * adapted interface changes from core
   * some tests fixed

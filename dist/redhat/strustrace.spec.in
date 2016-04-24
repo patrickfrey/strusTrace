@@ -283,6 +283,9 @@ make test
 %{_includedir}/strus/lib/*.hpp
 
 %changelog
+* Sun Apr 24 2016 Patrick Frey <patrickpfrey@yahoo.com> 0.8.6-0.1
+- disabled trace test because of undeterministic output behaviour (due too STL implementation most likely. have to think about it first)
+
 * Sun Apr 24 2016 Patrick Frey <patrickpfrey@yahoo.com> 0.8.5-0.1
 - adapted interface changes from core
 - some tests fixed

@@ -270,13 +270,16 @@ make test
 %files
 %defattr( -, root, root )
 %dir %{_libdir}/strus
-%{_libdir}/strus/libstrus_tracelog.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@
-%{_libdir}/strus/libstrus_tracelog.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@.@STRUS_PATCH_VERSION@
+%{_libdir}/strus/libstrus_traceobj.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@
+%{_libdir}/strus/libstrus_traceobj.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@.@STRUS_PATCH_VERSION@
+%{_libdir}/strus/libstrus_traceproc_std.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@
+%{_libdir}/strus/libstrus_traceproc_std.so.@STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@.@STRUS_PATCH_VERSION@
 %{_bindir}/strusTraceCodeGen
 
 %files devel
 %defattr( -, root, root )
-%{_libdir}/strus/libstrus_tracelog.so
+%{_libdir}/strus/libstrus_traceobj.so
+%{_libdir}/strus/libstrus_traceproc_std.so
 %dir %{_includedir}/strus
 %{_includedir}/strus/*.hpp
 %dir %{_includedir}/strus/lib

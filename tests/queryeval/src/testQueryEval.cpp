@@ -425,29 +425,6 @@ static void testEvaluateQuery(
 	}
 }
 
-// The order of destructors called is different (reversed) on OSX.
-static const char* skipDestructor( char const* si, const char* se)
-{
-	char const* xi = (const char*)std::memchr( si, '<', se - si);
-	char const* eoln = (const char*)std::memchr( si, '\n', se - si);
-	if (!eoln) eoln = (const char*)std::memchr( si, '\0', se - si);
-	if (xi && xi < eoln)
-	{
-		++xi;
-		for (;*xi >= '0' && *xi <= '9'; ++xi){}
-		if (*xi == '>')
-		{
-			++xi;
-			if (std::memcmp( xi, "::Destructor", 12) == 0)
-			{
-				xi += 12;
-				if (*xi == '\n' || *xi == '\r') return xi;
-			}
-		}
-	}
-	return 0;
-}
-
 static bool diffFiles( const char* file1, const char* file2)
 {
 	std::string content1;
@@ -477,16 +454,6 @@ static bool diffFiles( const char* file1, const char* file2)
 		char ch1 = (!eoln1 && ci1 != ce1)?(*ci1++):'\0';
 		char ch2 = (!eoln2 && ci2 != ce2)?(*ci2++):'\0';
 		if (eoln1 != eoln2 || ch1 != ch2) return false;
-		if (eoln1)
-		{
-			const char* f1 = skipDestructor( ci1, ce1);
-			const char* f2 = skipDestructor( ci2, ce2);
-			if (f1 && f2)
-			{
-				ci1 = f1;
-				ci2 = f2;
-			}
-		}
 	}
 	return ci1 == ce1 && ci2 == ce2;
 }

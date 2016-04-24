@@ -34,7 +34,6 @@ public:
 	virtual ~TraceProcessor_memory(){}
 
 	virtual TraceLoggerInterface* createLogger( const strus::TraceIdMapInterface* idmap, const std::string& config) const;
-	virtual TraceViewerInterface* createViewer( const std::string& config) const;
 
 private:
 	ErrorBufferInterface* m_errorhnd;
@@ -50,7 +49,6 @@ public:
 	virtual ~TraceProcessor_textfile(){}
 
 	virtual TraceLoggerInterface* createLogger( const strus::TraceIdMapInterface* idmap, const std::string& config) const;
-	virtual TraceViewerInterface* createViewer( const std::string& config) const;
 
 private:
 	ErrorBufferInterface* m_errorhnd;
@@ -66,7 +64,6 @@ public:
 	virtual ~TraceProcessor_breakpoint(){}
 
 	virtual TraceLoggerInterface* createLogger( const strus::TraceIdMapInterface* idmap, const std::string& config) const;
-	virtual TraceViewerInterface* createViewer( const std::string& config) const;
 
 private:
 	ErrorBufferInterface* m_errorhnd;

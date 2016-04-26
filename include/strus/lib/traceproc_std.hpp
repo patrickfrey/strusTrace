@@ -9,6 +9,7 @@
 /// \file "traceproc_std.hpp"
 #ifndef _STRUS_TRACE_PROC_STANDARD_LIB_HPP_INCLUDED
 #define _STRUS_TRACE_PROC_STANDARD_LIB_HPP_INCLUDED
+#include <string>
 
 /// \brief strus toplevel namespace
 namespace strus {
@@ -16,16 +17,22 @@ namespace strus {
 /// \brief Forward declaration
 class ErrorBufferInterface;
 /// \brief Forward declaration
-class TraceProcessorInterface;
+class TraceLoggerInterface;
 
-/// \brief Create an interface to the trace logger creating a trace in memory that can be queried in the same session (no recovery of previous sessions) with a viewer. 
-TraceProcessorInterface* createTraceProcessor_memory( ErrorBufferInterface* errorhnd);
+/// \brief Create an interface to the trace logger creating a trace in memory
+/// \param[in] config configuration string of the logger
+/// \return the logger interface
+TraceLoggerInterface* createTraceLogger_json( const std::string& config, ErrorBufferInterface* errorhnd);
 
-/// \brief Create an interface to the trace logger writing a trace directly to stdout.
-TraceProcessorInterface* createTraceProcessor_textfile( ErrorBufferInterface* errorhnd);
+/// \brief Create an interface to the trace logger writing a trace directly to stdout
+/// \param[in] config configuration string of the logger
+/// \return the logger interface
+TraceLoggerInterface* createTraceLogger_dump( const std::string& config, ErrorBufferInterface* errorhnd);
 
-/// \brief Create an interface to the trace logger than enables you to set debugger breakpoints on specific events.
-TraceProcessorInterface* createTraceProcessor_breakpoint( ErrorBufferInterface* errorhnd);
+/// \brief Create an interface to the trace logger than enables you to set debugger breakpoints on specific method calls
+/// \param[in] config configuration string of the logger
+/// \return the logger interface
+TraceLoggerInterface* createTraceLogger_breakpoint( const std::string& config, ErrorBufferInterface* errorhnd);
 
 }//namespace
 #endif

@@ -11,7 +11,6 @@
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "strus/errorBufferInterface.hpp"
-#include "strus/traceIdMapInterface.hpp"
 #include <stdexcept>
 #include <limits>
 
@@ -35,8 +34,8 @@ TraceLogger_breakpoint::~TraceLogger_breakpoint()
 
 TraceLogRecordHandle
 	TraceLogger_breakpoint::logMethodCall(
-		const TraceClassId& classId,
-		const TraceMethodId& methodId,
+		const char*,
+		const char*,
 		const TraceObjectId& objId)
 {
 	try
@@ -52,31 +51,26 @@ TraceLogRecordHandle
 		}
 		return m_logcnt;
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call"), *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call: %s"), *m_errorhnd, 0)
 }
-
-void TraceLogger_breakpoint::logObjectCreation(
-		const TraceObjectId&,
-		const TraceLogRecordHandle&)
-{}
 
 void TraceLogger_breakpoint::logMethodTermination(
 		const TraceLogRecordHandle&,
-		const std::string&)
+		const std::vector<TraceElement>&)
 {}
 
 void TraceLogger_breakpoint::logOpenBranch()
 {
 	try
 	{
-		if (m_depth >= std::numeric_limits<TraceTreeDepth>::max())
+		if (m_depth >= std::numeric_limits<unsigned int>::max())
 		{
 			m_errorhnd->report(_TXT("illegal call of log open branch (too deep)"));
 			return;
 		}
 		m_depth += 1;
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch: %s"), *m_errorhnd)
 }
 
 void TraceLogger_breakpoint::logCloseBranch()
@@ -90,12 +84,12 @@ void TraceLogger_breakpoint::logCloseBranch()
 		}
 		m_depth -= 1;
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch: %s"), *m_errorhnd)
 }
 
-TraceViewerInterface* TraceLogger_breakpoint::createViewer() const
+bool TraceLogger_breakpoint::close()
 {
-	m_errorhnd->report(_TXT("not implemented (textfile trace logger cannot be created for this logger instance because previous output is not accessible)"));
-	return 0;
+	return true;
 }
+
 

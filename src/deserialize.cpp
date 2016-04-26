@@ -13,6 +13,8 @@
 #include <vector>
 #include <cstring>
 
+#error DEPRECATED
+
 using namespace strus;
 
 template <typename Scalar>

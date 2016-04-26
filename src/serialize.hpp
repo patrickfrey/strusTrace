@@ -12,6 +12,8 @@
 #include "strus/index.hpp"
 #include <string>
 
+#error DEPRECATED
+
 namespace strus
 {
 typedef uint32_t SizeType;

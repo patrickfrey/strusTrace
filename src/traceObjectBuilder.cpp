@@ -8,11 +8,10 @@
 /// \brief Toplevel object for logging and querying call traces
 /// \file traceObjectBuilder.cpp
 #include "traceObjectBuilder.hpp"
-#include "traceIdMap.hpp"
 #include "objects_gen.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
-#include "strus/traceProcessorInterface.hpp"
+#include "strus/traceLoggerInterface.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/storageObjectBuilderInterface.hpp"
@@ -21,46 +20,31 @@
 using namespace strus;
 
 TraceObjectBuilder::TraceObjectBuilder(
-		TraceProcessorInterface* traceproc_,
-		const std::string& loggerConfig,
+		TraceLoggerInterface* tracelog_,
 		ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_traceproc(traceproc_),m_idmap(errorhnd_),m_logger(),m_ctx()
-{
-	m_logger.reset( traceproc_->createLogger( &m_idmap, loggerConfig));
-	if (!m_logger.get()) throw std::runtime_error( "failed to create trace logger");
-	m_ctx.reset( new TraceGlobalContext( m_logger.get(), m_errorhnd)); 
-	if (!m_ctx.get()) throw std::runtime_error( "failed to create trace global context");
-}
+	:m_errorhnd(errorhnd_),m_logger(tracelog_),m_ctx( tracelog_, errorhnd_)
+{}
 
 AnalyzerObjectBuilderInterface*
 	TraceObjectBuilder::createAnalyzerObjectBuilder(
-		AnalyzerObjectBuilderInterface* builder) const
+		AnalyzerObjectBuilderInterface* builder)
 {
 	try
 	{
-		return new AnalyzerObjectBuilderImpl( builder, m_ctx.get());
+		return new AnalyzerObjectBuilderImpl( builder, &m_ctx);
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces"), *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces: %s"), *m_errorhnd, 0)
 }
 	
 StorageObjectBuilderInterface*
 	TraceObjectBuilder::createStorageObjectBuilder(
-		StorageObjectBuilderInterface* builder) const
+		StorageObjectBuilderInterface* builder)
 {
 	try
 	{
-		return new StorageObjectBuilderImpl( builder, m_ctx.get());
+		return new StorageObjectBuilderImpl( builder, &m_ctx);
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces"), *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces: %s"), *m_errorhnd, 0)
 }
 
-const TraceIdMapInterface* TraceObjectBuilder::getIdMap() const
-{
-	return &m_idmap;
-}
-
-TraceViewerInterface* TraceObjectBuilder::createViewer() const
-{
-	return m_logger->createViewer();
-}
 

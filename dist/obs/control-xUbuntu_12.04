@@ -18,6 +18,6 @@ Description: Library adding data introspection to a Strus search engine
 
 Package: strustrace-dev
 Architecture: any
-Depends: strus, strusanalyzer, ${shlibs:Depends}, ${misc:Depends}
+Depends: strustrace, ${shlibs:Depends}, ${misc:Depends}
 Description: strustrace development files
  Strustrace development files.

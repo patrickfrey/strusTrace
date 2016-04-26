@@ -15,14 +15,14 @@
 using namespace strus;
 AggregatorFunctionInstanceImpl::~AggregatorFunctionInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AggregatorFunctionInstance, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AggregatorFunctionInstance), AggregatorFunctionInstanceConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 NumericVariant AggregatorFunctionInstanceImpl::evaluate(
 			const analyzer::Document& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AggregatorFunctionInstance, Method_evaluate, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AggregatorFunctionInstance), AggregatorFunctionInstanceConst::methodName( Method_evaluate), objid());
 	traceContext()->logger()->logOpenBranch();
 	NumericVariant p0 = obj()->evaluate(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -39,7 +39,7 @@ NumericVariant AggregatorFunctionInstanceImpl::evaluate(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -50,14 +50,14 @@ NumericVariant AggregatorFunctionInstanceImpl::evaluate(
 
 AggregatorFunctionImpl::~AggregatorFunctionImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AggregatorFunction, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AggregatorFunction), AggregatorFunctionConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 			const std::vector<std::string>& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AggregatorFunction, Method_createInstance, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AggregatorFunction), AggregatorFunctionConst::methodName( Method_createInstance), objid());
 	traceContext()->logger()->logOpenBranch();
 	AggregatorFunctionInstanceInterface* p0 = obj()->createInstance(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -70,22 +70,14 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_AggregatorFunctionInstance, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_AggregatorFunctionInstance), objbase_p0->objid());
 		parambuf.packStringVector(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -96,7 +88,7 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 
 const char* AggregatorFunctionImpl::getDescription() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AggregatorFunction, Method_getDescription, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AggregatorFunction), AggregatorFunctionConst::methodName( Method_getDescription), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getDescription();
 	traceContext()->logger()->logCloseBranch();
@@ -112,7 +104,7 @@ const char* AggregatorFunctionImpl::getDescription() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -123,13 +115,13 @@ const char* AggregatorFunctionImpl::getDescription() const
 
 AnalyzerObjectBuilderImpl::~AnalyzerObjectBuilderImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AnalyzerObjectBuilder, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AnalyzerObjectBuilder, Method_getTextProcessor, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_getTextProcessor), objid());
 	traceContext()->logger()->logOpenBranch();
 	const TextProcessorInterface* p0 = obj()->getTextProcessor();
 	traceContext()->logger()->logCloseBranch();
@@ -142,20 +134,12 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_TextProcessor, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TextProcessor), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -167,7 +151,7 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AnalyzerObjectBuilder, Method_createSegmenter, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createSegmenter), objid());
 	traceContext()->logger()->logOpenBranch();
 	SegmenterInterface* p0 = obj()->createSegmenter(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -180,22 +164,14 @@ SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_Segmenter, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -207,7 +183,7 @@ SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
 DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AnalyzerObjectBuilder, Method_createDocumentAnalyzer, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createDocumentAnalyzer), objid());
 	traceContext()->logger()->logOpenBranch();
 	DocumentAnalyzerInterface* p0 = obj()->createDocumentAnalyzer(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -220,22 +196,14 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_DocumentAnalyzer, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzer), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -246,7 +214,7 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 
 QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AnalyzerObjectBuilder, Method_createQueryAnalyzer, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createQueryAnalyzer), objid());
 	traceContext()->logger()->logOpenBranch();
 	QueryAnalyzerInterface* p0 = obj()->createQueryAnalyzer();
 	traceContext()->logger()->logCloseBranch();
@@ -259,21 +227,13 @@ QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_QueryAnalyzer, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_QueryAnalyzer), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -284,14 +244,14 @@ QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
 
 AttributeReaderImpl::~AttributeReaderImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AttributeReader, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 Index AttributeReaderImpl::elementHandle(
 			const char* p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AttributeReader, Method_elementHandle, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_elementHandle), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->elementHandle(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -308,7 +268,7 @@ Index AttributeReaderImpl::elementHandle(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -320,7 +280,7 @@ Index AttributeReaderImpl::elementHandle(
 void AttributeReaderImpl::skipDoc(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AttributeReader, Method_skipDoc, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_skipDoc), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->skipDoc(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -330,7 +290,7 @@ void AttributeReaderImpl::skipDoc(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -341,7 +301,7 @@ void AttributeReaderImpl::skipDoc(
 std::string AttributeReaderImpl::getValue(
 			const Index& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AttributeReader, Method_getValue, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_getValue), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->getValue(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -351,7 +311,7 @@ std::string AttributeReaderImpl::getValue(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -362,7 +322,7 @@ std::string AttributeReaderImpl::getValue(
 
 std::vector<std::string> AttributeReaderImpl::getAttributeNames() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_AttributeReader, Method_getAttributeNames, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_getAttributeNames), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->getAttributeNames();
 	traceContext()->logger()->logCloseBranch();
@@ -371,7 +331,7 @@ std::vector<std::string> AttributeReaderImpl::getAttributeNames() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -382,15 +342,15 @@ std::vector<std::string> AttributeReaderImpl::getAttributeNames() const
 
 DatabaseBackupCursorImpl::~DatabaseBackupCursorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseBackupCursor, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseBackupCursor), DatabaseBackupCursorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 bool DatabaseBackupCursorImpl::fetch(
 			const char*& key, std::size_t& p1, 
 			const char*& blk, std::size_t& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseBackupCursor, Method_fetch, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseBackupCursor), DatabaseBackupCursorConst::methodName( Method_fetch), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->fetch(key, p1, blk, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -401,7 +361,7 @@ bool DatabaseBackupCursorImpl::fetch(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -412,13 +372,13 @@ bool DatabaseBackupCursorImpl::fetch(
 
 DatabaseClientImpl::~DatabaseClientImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseClient, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseClient, Method_createTransaction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_createTransaction), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseTransactionInterface* p0 = obj()->createTransaction();
 	traceContext()->logger()->logCloseBranch();
@@ -431,21 +391,13 @@ DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_DatabaseTransaction, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseTransaction), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -457,7 +409,7 @@ DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 			const DatabaseOptions& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseClient, Method_createCursor, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_createCursor), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface* p0 = obj()->createCursor(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -470,22 +422,14 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_DatabaseCursor, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseCursor), objbase_p0->objid());
 		parambuf.packDatabaseOptions(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -496,7 +440,7 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 
 DatabaseBackupCursorInterface* DatabaseClientImpl::createBackupCursor() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseClient, Method_createBackupCursor, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_createBackupCursor), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseBackupCursorInterface* p0 = obj()->createBackupCursor();
 	traceContext()->logger()->logCloseBranch();
@@ -509,21 +453,13 @@ DatabaseBackupCursorInterface* DatabaseClientImpl::createBackupCursor() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_DatabaseBackupCursor, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseBackupCursor), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -536,7 +472,7 @@ void DatabaseClientImpl::writeImm(
 			const char* key, std::size_t p1, 
 			const char* value, std::size_t p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseClient, Method_writeImm, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_writeImm), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->writeImm(key, p1, value, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -547,7 +483,7 @@ void DatabaseClientImpl::writeImm(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -558,7 +494,7 @@ void DatabaseClientImpl::writeImm(
 void DatabaseClientImpl::removeImm(
 			const char* key, std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseClient, Method_removeImm, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_removeImm), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->removeImm(key, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -568,7 +504,7 @@ void DatabaseClientImpl::removeImm(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -581,7 +517,7 @@ bool DatabaseClientImpl::readValue(
 			std::string& p2, 
 			const DatabaseOptions& p3) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseClient, Method_readValue, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_readValue), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->readValue(key, p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -593,7 +529,7 @@ bool DatabaseClientImpl::readValue(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -604,15 +540,15 @@ bool DatabaseClientImpl::readValue(
 
 DatabaseCursorImpl::~DatabaseCursorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseCursor, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
 			const char* key, std::size_t p1, 
 			std::size_t p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseCursor, Method_seekUpperBound, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekUpperBound), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBound(key, p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -623,7 +559,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -636,7 +572,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBoundRestricted(
 			const char* key, std::size_t p1, 
 			const char* upkey, std::size_t p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseCursor, Method_seekUpperBoundRestricted, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekUpperBoundRestricted), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBoundRestricted(key, p1, upkey, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -647,7 +583,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBoundRestricted(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -659,7 +595,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBoundRestricted(
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekFirst(
 			const char* domainkey, std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseCursor, Method_seekFirst, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekFirst), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekFirst(domainkey, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -669,7 +605,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekFirst(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -681,7 +617,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekFirst(
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekLast(
 			const char* domainkey, std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseCursor, Method_seekLast, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekLast), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekLast(domainkey, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -691,7 +627,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekLast(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -702,7 +638,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekLast(
 
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekNext()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseCursor, Method_seekNext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekNext), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekNext();
 	traceContext()->logger()->logCloseBranch();
@@ -711,7 +647,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekNext()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -722,7 +658,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekNext()
 
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekPrev()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseCursor, Method_seekPrev, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekPrev), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekPrev();
 	traceContext()->logger()->logCloseBranch();
@@ -731,7 +667,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekPrev()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -742,7 +678,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekPrev()
 
 DatabaseCursorInterface::Slice DatabaseCursorImpl::key() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseCursor, Method_key, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_key), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->key();
 	traceContext()->logger()->logCloseBranch();
@@ -751,7 +687,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::key() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -762,7 +698,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::key() const
 
 DatabaseCursorInterface::Slice DatabaseCursorImpl::value() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseCursor, Method_value, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_value), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->value();
 	traceContext()->logger()->logCloseBranch();
@@ -771,7 +707,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::value() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -782,14 +718,14 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::value() const
 
 DatabaseImpl::~DatabaseImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Database, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 bool DatabaseImpl::exists(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Database, Method_exists, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_exists), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->exists(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -799,7 +735,7 @@ bool DatabaseImpl::exists(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -811,7 +747,7 @@ bool DatabaseImpl::exists(
 DatabaseClientInterface* DatabaseImpl::createClient(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Database, Method_createClient, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_createClient), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseClientInterface* p0 = obj()->createClient(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -824,22 +760,14 @@ DatabaseClientInterface* DatabaseImpl::createClient(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_DatabaseClient, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseClient), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -851,7 +779,7 @@ DatabaseClientInterface* DatabaseImpl::createClient(
 bool DatabaseImpl::createDatabase(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Database, Method_createDatabase, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_createDatabase), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->createDatabase(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -861,7 +789,7 @@ bool DatabaseImpl::createDatabase(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -874,7 +802,7 @@ bool DatabaseImpl::restoreDatabase(
 			const std::string& p1, 
 			DatabaseBackupCursorInterface* p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Database, Method_restoreDatabase, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_restoreDatabase), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->restoreDatabase(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -882,11 +810,11 @@ bool DatabaseImpl::restoreDatabase(
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseBackupCursor, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseBackupCursor), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -898,7 +826,7 @@ bool DatabaseImpl::restoreDatabase(
 bool DatabaseImpl::destroyDatabase(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Database, Method_destroyDatabase, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_destroyDatabase), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->destroyDatabase(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -908,7 +836,7 @@ bool DatabaseImpl::destroyDatabase(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -920,7 +848,7 @@ bool DatabaseImpl::destroyDatabase(
 const char* DatabaseImpl::getConfigDescription(
 			const ConfigType& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Database, Method_getConfigDescription, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_getConfigDescription), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getConfigDescription(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -937,7 +865,7 @@ const char* DatabaseImpl::getConfigDescription(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -949,7 +877,7 @@ const char* DatabaseImpl::getConfigDescription(
 const char** DatabaseImpl::getConfigParameters(
 			const ConfigType& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Database, Method_getConfigParameters, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_getConfigParameters), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char** p0 = obj()->getConfigParameters(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -966,7 +894,7 @@ const char** DatabaseImpl::getConfigParameters(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -977,14 +905,14 @@ const char** DatabaseImpl::getConfigParameters(
 
 DatabaseTransactionImpl::~DatabaseTransactionImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseTransaction, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 DatabaseCursorInterface* DatabaseTransactionImpl::createCursor(
 			const DatabaseOptions& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseTransaction, Method_createCursor, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_createCursor), objid());
 	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface* p0 = obj()->createCursor(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -997,22 +925,14 @@ DatabaseCursorInterface* DatabaseTransactionImpl::createCursor(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_DatabaseCursor, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseCursor), objbase_p0->objid());
 		parambuf.packDatabaseOptions(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1025,7 +945,7 @@ void DatabaseTransactionImpl::write(
 			const char* key, std::size_t p1, 
 			const char* value, std::size_t p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseTransaction, Method_write, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_write), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->write(key, p1, value, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -1036,7 +956,7 @@ void DatabaseTransactionImpl::write(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1047,7 +967,7 @@ void DatabaseTransactionImpl::write(
 void DatabaseTransactionImpl::remove(
 			const char* key, std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseTransaction, Method_remove, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_remove), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->remove(key, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1057,7 +977,7 @@ void DatabaseTransactionImpl::remove(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1068,7 +988,7 @@ void DatabaseTransactionImpl::remove(
 void DatabaseTransactionImpl::removeSubTree(
 			const char* domainkey, std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseTransaction, Method_removeSubTree, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_removeSubTree), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->removeSubTree(domainkey, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1078,7 +998,7 @@ void DatabaseTransactionImpl::removeSubTree(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1088,7 +1008,7 @@ void DatabaseTransactionImpl::removeSubTree(
 
 bool DatabaseTransactionImpl::commit()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseTransaction, Method_commit, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_commit), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->commit();
 	traceContext()->logger()->logCloseBranch();
@@ -1097,7 +1017,7 @@ bool DatabaseTransactionImpl::commit()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1108,7 +1028,7 @@ bool DatabaseTransactionImpl::commit()
 
 void DatabaseTransactionImpl::rollback()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DatabaseTransaction, Method_rollback, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_rollback), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->rollback();
 	traceContext()->logger()->logCloseBranch();
@@ -1117,7 +1037,7 @@ void DatabaseTransactionImpl::rollback()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1127,15 +1047,15 @@ void DatabaseTransactionImpl::rollback()
 
 DocumentAnalyzerContextImpl::~DocumentAnalyzerContextImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzerContext, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerContext), DocumentAnalyzerContextConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void DocumentAnalyzerContextImpl::putInput(
 			const char* chunk, std::size_t p1, 
 			bool p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzerContext, Method_putInput, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerContext), DocumentAnalyzerContextConst::methodName( Method_putInput), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->putInput(chunk, p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -1146,7 +1066,7 @@ void DocumentAnalyzerContextImpl::putInput(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1157,7 +1077,7 @@ void DocumentAnalyzerContextImpl::putInput(
 bool DocumentAnalyzerContextImpl::analyzeNext(
 			analyzer::Document& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzerContext, Method_analyzeNext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerContext), DocumentAnalyzerContextConst::methodName( Method_analyzeNext), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->analyzeNext(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1167,7 +1087,7 @@ bool DocumentAnalyzerContextImpl::analyzeNext(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1178,8 +1098,8 @@ bool DocumentAnalyzerContextImpl::analyzeNext(
 
 DocumentAnalyzerImpl::~DocumentAnalyzerImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzer, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void DocumentAnalyzerImpl::addSearchIndexFeature(
@@ -1189,7 +1109,7 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
 			const FeatureOptions& p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzer, Method_addSearchIndexFeature, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addSearchIndexFeature), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addSearchIndexFeature(p1, p2, p3, p4, p5);
 	traceContext()->logger()->logCloseBranch();
@@ -1198,14 +1118,14 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
-	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( ClassId_TokenizerFunctionInstance, objbase_p3->objid());
+	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
 	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
 		parambuf.openIndex( idx_p4); 
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
-		if (!objbase) parambuf.packVoid(); else parambuf.packObject( ClassId_NormalizerFunctionInstance, objbase->objid());
+		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}
 	parambuf.packFeatureOptions(p5);
@@ -1219,7 +1139,7 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 		{
 			delete *i_p4;
 		}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1234,7 +1154,7 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
 			const FeatureOptions& p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzer, Method_addForwardIndexFeature, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addForwardIndexFeature), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addForwardIndexFeature(p1, p2, p3, p4, p5);
 	traceContext()->logger()->logCloseBranch();
@@ -1243,14 +1163,14 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
-	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( ClassId_TokenizerFunctionInstance, objbase_p3->objid());
+	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
 	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
 		parambuf.openIndex( idx_p4); 
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
-		if (!objbase) parambuf.packVoid(); else parambuf.packObject( ClassId_NormalizerFunctionInstance, objbase->objid());
+		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}
 	parambuf.packFeatureOptions(p5);
@@ -1264,7 +1184,7 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 		{
 			delete *i_p4;
 		}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1278,7 +1198,7 @@ void DocumentAnalyzerImpl::defineMetaData(
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzer, Method_defineMetaData, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineMetaData), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineMetaData(p1, p2, p3, p4);
 	traceContext()->logger()->logCloseBranch();
@@ -1287,14 +1207,14 @@ void DocumentAnalyzerImpl::defineMetaData(
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
-	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( ClassId_TokenizerFunctionInstance, objbase_p3->objid());
+	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
 	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
 		parambuf.openIndex( idx_p4); 
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
-		if (!objbase) parambuf.packVoid(); else parambuf.packObject( ClassId_NormalizerFunctionInstance, objbase->objid());
+		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}
 	if (parambuf.hasError())
@@ -1307,7 +1227,7 @@ void DocumentAnalyzerImpl::defineMetaData(
 		{
 			delete *i_p4;
 		}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1319,7 +1239,7 @@ void DocumentAnalyzerImpl::defineAggregatedMetaData(
 			const std::string& p1, 
 			AggregatorFunctionInstanceInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzer, Method_defineAggregatedMetaData, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAggregatedMetaData), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineAggregatedMetaData(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -1327,12 +1247,12 @@ void DocumentAnalyzerImpl::defineAggregatedMetaData(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_AggregatorFunctionInstance, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_AggregatorFunctionInstance), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1346,7 +1266,7 @@ void DocumentAnalyzerImpl::defineAttribute(
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzer, Method_defineAttribute, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAttribute), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineAttribute(p1, p2, p3, p4);
 	traceContext()->logger()->logCloseBranch();
@@ -1355,14 +1275,14 @@ void DocumentAnalyzerImpl::defineAttribute(
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
-	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( ClassId_TokenizerFunctionInstance, objbase_p3->objid());
+	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
 	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
 		parambuf.openIndex( idx_p4); 
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
-		if (!objbase) parambuf.packVoid(); else parambuf.packObject( ClassId_NormalizerFunctionInstance, objbase->objid());
+		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}
 	if (parambuf.hasError())
@@ -1375,7 +1295,7 @@ void DocumentAnalyzerImpl::defineAttribute(
 		{
 			delete *i_p4;
 		}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1387,7 +1307,7 @@ void DocumentAnalyzerImpl::defineSubDocument(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzer, Method_defineSubDocument, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineSubDocument), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineSubDocument(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -1398,7 +1318,7 @@ void DocumentAnalyzerImpl::defineSubDocument(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1410,7 +1330,7 @@ analyzer::Document DocumentAnalyzerImpl::analyze(
 			const std::string& p1, 
 			const DocumentClass& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzer, Method_analyze, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_analyze), objid());
 	traceContext()->logger()->logOpenBranch();
 	analyzer::Document p0 = obj()->analyze(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -1421,7 +1341,7 @@ analyzer::Document DocumentAnalyzerImpl::analyze(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1433,7 +1353,7 @@ analyzer::Document DocumentAnalyzerImpl::analyze(
 DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 			const DocumentClass& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentAnalyzer, Method_createContext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_createContext), objid());
 	traceContext()->logger()->logOpenBranch();
 	DocumentAnalyzerContextInterface* p0 = obj()->createContext(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1446,22 +1366,14 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_DocumentAnalyzerContext, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerContext), objbase_p0->objid());
 		parambuf.packDocumentClass(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1472,15 +1384,15 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 
 DocumentClassDetectorImpl::~DocumentClassDetectorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentClassDetector, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 bool DocumentClassDetectorImpl::detect(
 			DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentClassDetector, Method_detect, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_detect), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->detect(p1, contentBegin, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -1491,7 +1403,7 @@ bool DocumentClassDetectorImpl::detect(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1502,14 +1414,14 @@ bool DocumentClassDetectorImpl::detect(
 
 DocumentTermIteratorImpl::~DocumentTermIteratorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentTermIterator, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 Index DocumentTermIteratorImpl::skipDoc(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentTermIterator, Method_skipDoc, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_skipDoc), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipDoc(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1526,7 +1438,7 @@ Index DocumentTermIteratorImpl::skipDoc(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1538,7 +1450,7 @@ Index DocumentTermIteratorImpl::skipDoc(
 bool DocumentTermIteratorImpl::nextTerm(
 			Term& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentTermIterator, Method_nextTerm, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_nextTerm), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->nextTerm(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1548,7 +1460,7 @@ bool DocumentTermIteratorImpl::nextTerm(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1560,7 +1472,7 @@ bool DocumentTermIteratorImpl::nextTerm(
 unsigned int DocumentTermIteratorImpl::termDocumentFrequency(
 			const Index& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentTermIterator, Method_termDocumentFrequency, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_termDocumentFrequency), objid());
 	traceContext()->logger()->logOpenBranch();
 	unsigned int p0 = obj()->termDocumentFrequency(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1570,7 +1482,7 @@ unsigned int DocumentTermIteratorImpl::termDocumentFrequency(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1582,7 +1494,7 @@ unsigned int DocumentTermIteratorImpl::termDocumentFrequency(
 std::string DocumentTermIteratorImpl::termValue(
 			const Index& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_DocumentTermIterator, Method_termValue, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_termValue), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->termValue(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1592,7 +1504,7 @@ std::string DocumentTermIteratorImpl::termValue(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1603,14 +1515,14 @@ std::string DocumentTermIteratorImpl::termValue(
 
 ForwardIteratorImpl::~ForwardIteratorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ForwardIterator, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ForwardIterator), ForwardIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void ForwardIteratorImpl::skipDoc(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ForwardIterator, Method_skipDoc, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ForwardIterator), ForwardIteratorConst::methodName( Method_skipDoc), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->skipDoc(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1620,7 +1532,7 @@ void ForwardIteratorImpl::skipDoc(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1631,7 +1543,7 @@ void ForwardIteratorImpl::skipDoc(
 Index ForwardIteratorImpl::skipPos(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ForwardIterator, Method_skipPos, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ForwardIterator), ForwardIteratorConst::methodName( Method_skipPos), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipPos(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1648,7 +1560,7 @@ Index ForwardIteratorImpl::skipPos(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1659,7 +1571,7 @@ Index ForwardIteratorImpl::skipPos(
 
 std::string ForwardIteratorImpl::fetch()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ForwardIterator, Method_fetch, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ForwardIterator), ForwardIteratorConst::methodName( Method_fetch), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->fetch();
 	traceContext()->logger()->logCloseBranch();
@@ -1668,7 +1580,7 @@ std::string ForwardIteratorImpl::fetch()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1679,14 +1591,14 @@ std::string ForwardIteratorImpl::fetch()
 
 InvAclIteratorImpl::~InvAclIteratorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_InvAclIterator, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_InvAclIterator), InvAclIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 Index InvAclIteratorImpl::skipDoc(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_InvAclIterator, Method_skipDoc, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_InvAclIterator), InvAclIteratorConst::methodName( Method_skipDoc), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipDoc(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1703,7 +1615,7 @@ Index InvAclIteratorImpl::skipDoc(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1714,14 +1626,14 @@ Index InvAclIteratorImpl::skipDoc(
 
 MetaDataReaderImpl::~MetaDataReaderImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataReader, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 bool MetaDataReaderImpl::hasElement(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataReader, Method_hasElement, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_hasElement), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->hasElement(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1731,7 +1643,7 @@ bool MetaDataReaderImpl::hasElement(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1743,7 +1655,7 @@ bool MetaDataReaderImpl::hasElement(
 Index MetaDataReaderImpl::elementHandle(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataReader, Method_elementHandle, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_elementHandle), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->elementHandle(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1760,7 +1672,7 @@ Index MetaDataReaderImpl::elementHandle(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1771,7 +1683,7 @@ Index MetaDataReaderImpl::elementHandle(
 
 Index MetaDataReaderImpl::nofElements() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataReader, Method_nofElements, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_nofElements), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->nofElements();
 	traceContext()->logger()->logCloseBranch();
@@ -1787,7 +1699,7 @@ Index MetaDataReaderImpl::nofElements() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1799,7 +1711,7 @@ Index MetaDataReaderImpl::nofElements() const
 void MetaDataReaderImpl::skipDoc(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataReader, Method_skipDoc, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_skipDoc), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->skipDoc(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1809,7 +1721,7 @@ void MetaDataReaderImpl::skipDoc(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1820,7 +1732,7 @@ void MetaDataReaderImpl::skipDoc(
 NumericVariant MetaDataReaderImpl::getValue(
 			const Index& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataReader, Method_getValue, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_getValue), objid());
 	traceContext()->logger()->logOpenBranch();
 	NumericVariant p0 = obj()->getValue(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1837,7 +1749,7 @@ NumericVariant MetaDataReaderImpl::getValue(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1849,7 +1761,7 @@ NumericVariant MetaDataReaderImpl::getValue(
 const char* MetaDataReaderImpl::getType(
 			const Index& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataReader, Method_getType, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_getType), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getType(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1866,7 +1778,7 @@ const char* MetaDataReaderImpl::getType(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1878,7 +1790,7 @@ const char* MetaDataReaderImpl::getType(
 const char* MetaDataReaderImpl::getName(
 			const Index& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataReader, Method_getName, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_getName), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getName(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1895,7 +1807,7 @@ const char* MetaDataReaderImpl::getName(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1906,14 +1818,14 @@ const char* MetaDataReaderImpl::getName(
 
 MetaDataRestrictionInstanceImpl::~MetaDataRestrictionInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataRestrictionInstance, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestrictionInstance), MetaDataRestrictionInstanceConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 bool MetaDataRestrictionInstanceImpl::match(
 			const Index& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataRestrictionInstance, Method_match, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestrictionInstance), MetaDataRestrictionInstanceConst::methodName( Method_match), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->match(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -1923,7 +1835,7 @@ bool MetaDataRestrictionInstanceImpl::match(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1934,8 +1846,8 @@ bool MetaDataRestrictionInstanceImpl::match(
 
 MetaDataRestrictionImpl::~MetaDataRestrictionImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataRestriction, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestriction), MetaDataRestrictionConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void MetaDataRestrictionImpl::addCondition(
@@ -1944,7 +1856,7 @@ void MetaDataRestrictionImpl::addCondition(
 			const NumericVariant& p3, 
 			bool p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataRestriction, Method_addCondition, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestriction), MetaDataRestrictionConst::methodName( Method_addCondition), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addCondition(p1, p2, p3, p4);
 	traceContext()->logger()->logCloseBranch();
@@ -1957,7 +1869,7 @@ void MetaDataRestrictionImpl::addCondition(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -1967,7 +1879,7 @@ void MetaDataRestrictionImpl::addCondition(
 
 MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataRestriction, Method_createInstance, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestriction), MetaDataRestrictionConst::methodName( Method_createInstance), objid());
 	traceContext()->logger()->logOpenBranch();
 	MetaDataRestrictionInstanceInterface* p0 = obj()->createInstance();
 	traceContext()->logger()->logCloseBranch();
@@ -1980,21 +1892,13 @@ MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance() 
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_MetaDataRestrictionInstance, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataRestrictionInstance), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2005,7 +1909,7 @@ MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance() 
 
 std::string MetaDataRestrictionImpl::tostring() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_MetaDataRestriction, Method_tostring, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestriction), MetaDataRestrictionConst::methodName( Method_tostring), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
 	traceContext()->logger()->logCloseBranch();
@@ -2014,7 +1918,7 @@ std::string MetaDataRestrictionImpl::tostring() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2025,14 +1929,14 @@ std::string MetaDataRestrictionImpl::tostring() const
 
 NormalizerFunctionContextImpl::~NormalizerFunctionContextImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_NormalizerFunctionContext, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionContext), NormalizerFunctionContextConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 std::string NormalizerFunctionContextImpl::normalize(
 			const char* src, std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_NormalizerFunctionContext, Method_normalize, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionContext), NormalizerFunctionContextConst::methodName( Method_normalize), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->normalize(src, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2042,7 +1946,7 @@ std::string NormalizerFunctionContextImpl::normalize(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2053,13 +1957,13 @@ std::string NormalizerFunctionContextImpl::normalize(
 
 NormalizerFunctionInstanceImpl::~NormalizerFunctionInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_NormalizerFunctionInstance, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), NormalizerFunctionInstanceConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 NormalizerFunctionContextInterface* NormalizerFunctionInstanceImpl::createFunctionContext() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_NormalizerFunctionInstance, Method_createFunctionContext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), NormalizerFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
 	traceContext()->logger()->logOpenBranch();
 	NormalizerFunctionContextInterface* p0 = obj()->createFunctionContext();
 	traceContext()->logger()->logCloseBranch();
@@ -2072,21 +1976,13 @@ NormalizerFunctionContextInterface* NormalizerFunctionInstanceImpl::createFuncti
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_NormalizerFunctionContext, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionContext), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2097,15 +1993,15 @@ NormalizerFunctionContextInterface* NormalizerFunctionInstanceImpl::createFuncti
 
 NormalizerFunctionImpl::~NormalizerFunctionImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_NormalizerFunction, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunction), NormalizerFunctionConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 			const std::vector<std::string>& p1, 
 			const TextProcessorInterface* p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_NormalizerFunction, Method_createInstance, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunction), NormalizerFunctionConst::methodName( Method_createInstance), objid());
 	traceContext()->logger()->logOpenBranch();
 	NormalizerFunctionInstanceInterface* p0 = obj()->createInstance(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -2118,24 +2014,16 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_NormalizerFunctionInstance, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase_p0->objid());
 		parambuf.packStringVector(p1);
 		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
-		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_TextProcessor, objbase_p2->objid());
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TextProcessor), objbase_p2->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2146,7 +2034,7 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 
 const char* NormalizerFunctionImpl::getDescription() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_NormalizerFunction, Method_getDescription, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunction), NormalizerFunctionConst::methodName( Method_getDescription), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getDescription();
 	traceContext()->logger()->logCloseBranch();
@@ -2162,7 +2050,7 @@ const char* NormalizerFunctionImpl::getDescription() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2173,14 +2061,14 @@ const char* NormalizerFunctionImpl::getDescription() const
 
 PostingIteratorImpl::~PostingIteratorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 Index PostingIteratorImpl::skipDoc(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_skipDoc, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_skipDoc), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipDoc(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2197,7 +2085,7 @@ Index PostingIteratorImpl::skipDoc(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2209,7 +2097,7 @@ Index PostingIteratorImpl::skipDoc(
 Index PostingIteratorImpl::skipDocCandidate(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_skipDocCandidate, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_skipDocCandidate), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipDocCandidate(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2226,7 +2114,7 @@ Index PostingIteratorImpl::skipDocCandidate(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2238,7 +2126,7 @@ Index PostingIteratorImpl::skipDocCandidate(
 Index PostingIteratorImpl::skipPos(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_skipPos, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_skipPos), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipPos(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2255,7 +2143,7 @@ Index PostingIteratorImpl::skipPos(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2266,7 +2154,7 @@ Index PostingIteratorImpl::skipPos(
 
 const char* PostingIteratorImpl::featureid() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_featureid, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_featureid), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->featureid();
 	traceContext()->logger()->logCloseBranch();
@@ -2282,7 +2170,7 @@ const char* PostingIteratorImpl::featureid() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2293,7 +2181,7 @@ const char* PostingIteratorImpl::featureid() const
 
 Index PostingIteratorImpl::documentFrequency() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_documentFrequency, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_documentFrequency), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->documentFrequency();
 	traceContext()->logger()->logCloseBranch();
@@ -2309,7 +2197,7 @@ Index PostingIteratorImpl::documentFrequency() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2320,7 +2208,7 @@ Index PostingIteratorImpl::documentFrequency() const
 
 unsigned int PostingIteratorImpl::frequency()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_frequency, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_frequency), objid());
 	traceContext()->logger()->logOpenBranch();
 	unsigned int p0 = obj()->frequency();
 	traceContext()->logger()->logCloseBranch();
@@ -2329,7 +2217,7 @@ unsigned int PostingIteratorImpl::frequency()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2340,7 +2228,7 @@ unsigned int PostingIteratorImpl::frequency()
 
 Index PostingIteratorImpl::docno() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_docno, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_docno), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->docno();
 	traceContext()->logger()->logCloseBranch();
@@ -2356,7 +2244,7 @@ Index PostingIteratorImpl::docno() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2367,7 +2255,7 @@ Index PostingIteratorImpl::docno() const
 
 Index PostingIteratorImpl::posno() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingIterator, Method_posno, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_posno), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->posno();
 	traceContext()->logger()->logCloseBranch();
@@ -2383,7 +2271,7 @@ Index PostingIteratorImpl::posno() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2394,8 +2282,8 @@ Index PostingIteratorImpl::posno() const
 
 PostingJoinOperatorImpl::~PostingJoinOperatorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingJoinOperator, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingJoinOperator), PostingJoinOperatorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
@@ -2403,7 +2291,7 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 			int p2, 
 			unsigned int p3) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingJoinOperator, Method_createResultIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingJoinOperator), PostingJoinOperatorConst::methodName( Method_createResultIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	PostingIteratorInterface* p0 = obj()->createResultIterator(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -2416,22 +2304,14 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p0->objid());
 		std::vector<Reference<PostingIteratorInterface> >::const_iterator
 			i_p1 = p1.begin(), e_p1 = p1.end();
 		for (std::size_t idx_p1=0; i_p1 != e_p1; ++i_p1,++idx_p1)
 		{
 			parambuf.openIndex( idx_p1); 
 			const TraceObjectBase* objbase = dynamic_cast<const TraceObjectBase*>( i_p1->get());
-			if (!objbase) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase->objid());
+			if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase->objid());
 			parambuf.close();
 		}
 		parambuf.packInt(p2);
@@ -2441,7 +2321,7 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2452,7 +2332,7 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 
 PostingJoinOperatorInterface::Description PostingJoinOperatorImpl::getDescription() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_PostingJoinOperator, Method_getDescription, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingJoinOperator), PostingJoinOperatorConst::methodName( Method_getDescription), objid());
 	traceContext()->logger()->logOpenBranch();
 	PostingJoinOperatorInterface::Description p0 = obj()->getDescription();
 	traceContext()->logger()->logCloseBranch();
@@ -2461,7 +2341,7 @@ PostingJoinOperatorInterface::Description PostingJoinOperatorImpl::getDescriptio
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2472,8 +2352,8 @@ PostingJoinOperatorInterface::Description PostingJoinOperatorImpl::getDescriptio
 
 QueryAnalyzerImpl::~QueryAnalyzerImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryAnalyzer, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void QueryAnalyzerImpl::definePhraseType(
@@ -2482,7 +2362,7 @@ void QueryAnalyzerImpl::definePhraseType(
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryAnalyzer, Method_definePhraseType, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_definePhraseType), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->definePhraseType(p1, p2, p3, p4);
 	traceContext()->logger()->logCloseBranch();
@@ -2491,14 +2371,14 @@ void QueryAnalyzerImpl::definePhraseType(
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
-	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( ClassId_TokenizerFunctionInstance, objbase_p3->objid());
+	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
 	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
 		parambuf.openIndex( idx_p4); 
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
-		if (!objbase) parambuf.packVoid(); else parambuf.packObject( ClassId_NormalizerFunctionInstance, objbase->objid());
+		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}
 	if (parambuf.hasError())
@@ -2511,7 +2391,7 @@ void QueryAnalyzerImpl::definePhraseType(
 		{
 			delete *i_p4;
 		}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2523,7 +2403,7 @@ std::vector<analyzer::Term> QueryAnalyzerImpl::analyzePhrase(
 			const std::string& p1, 
 			const std::string& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryAnalyzer, Method_analyzePhrase, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_analyzePhrase), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::vector<analyzer::Term> p0 = obj()->analyzePhrase(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -2534,7 +2414,7 @@ std::vector<analyzer::Term> QueryAnalyzerImpl::analyzePhrase(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2546,7 +2426,7 @@ std::vector<analyzer::Term> QueryAnalyzerImpl::analyzePhrase(
 std::vector<analyzer::TermVector> QueryAnalyzerImpl::analyzePhraseBulk(
 			const std::vector<Phrase>& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryAnalyzer, Method_analyzePhraseBulk, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_analyzePhraseBulk), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::vector<analyzer::TermVector> p0 = obj()->analyzePhraseBulk(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2556,7 +2436,7 @@ std::vector<analyzer::TermVector> QueryAnalyzerImpl::analyzePhraseBulk(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2567,8 +2447,8 @@ std::vector<analyzer::TermVector> QueryAnalyzerImpl::analyzePhraseBulk(
 
 QueryEvalImpl::~QueryEvalImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryEval, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void QueryEvalImpl::addTerm(
@@ -2576,7 +2456,7 @@ void QueryEvalImpl::addTerm(
 			const std::string& p2, 
 			const std::string& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryEval, Method_addTerm, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addTerm), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addTerm(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -2588,7 +2468,7 @@ void QueryEvalImpl::addTerm(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2599,7 +2479,7 @@ void QueryEvalImpl::addTerm(
 void QueryEvalImpl::addSelectionFeature(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryEval, Method_addSelectionFeature, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addSelectionFeature), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addSelectionFeature(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2609,7 +2489,7 @@ void QueryEvalImpl::addSelectionFeature(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2620,7 +2500,7 @@ void QueryEvalImpl::addSelectionFeature(
 void QueryEvalImpl::addRestrictionFeature(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryEval, Method_addRestrictionFeature, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addRestrictionFeature), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addRestrictionFeature(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2630,7 +2510,7 @@ void QueryEvalImpl::addRestrictionFeature(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2641,7 +2521,7 @@ void QueryEvalImpl::addRestrictionFeature(
 void QueryEvalImpl::addExclusionFeature(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryEval, Method_addExclusionFeature, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addExclusionFeature), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addExclusionFeature(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2651,7 +2531,7 @@ void QueryEvalImpl::addExclusionFeature(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2664,7 +2544,7 @@ void QueryEvalImpl::addSummarizerFunction(
 			SummarizerFunctionInstanceInterface* p2, 
 			const std::vector<FeatureParameter>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryEval, Method_addSummarizerFunction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addSummarizerFunction), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addSummarizerFunction(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -2672,13 +2552,13 @@ void QueryEvalImpl::addSummarizerFunction(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_SummarizerFunctionInstance, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), objbase_p2->objid());
 	parambuf.packFeatureParameterVector(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2691,7 +2571,7 @@ void QueryEvalImpl::addWeightingFunction(
 			WeightingFunctionInstanceInterface* p2, 
 			const std::vector<FeatureParameter>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryEval, Method_addWeightingFunction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addWeightingFunction), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addWeightingFunction(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -2699,13 +2579,13 @@ void QueryEvalImpl::addWeightingFunction(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_WeightingFunctionInstance, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), objbase_p2->objid());
 	parambuf.packFeatureParameterVector(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2716,19 +2596,19 @@ void QueryEvalImpl::addWeightingFunction(
 void QueryEvalImpl::defineWeightingFormula(
 			ScalarFunctionInterface* p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryEval, Method_defineWeightingFormula, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_defineWeightingFormula), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineWeightingFormula(p1);
 	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
-	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_ScalarFunction, objbase_p1->objid());
+	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ScalarFunction), objbase_p1->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p1) {delete p1; p1 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2739,7 +2619,7 @@ void QueryEvalImpl::defineWeightingFormula(
 QueryInterface* QueryEvalImpl::createQuery(
 			const StorageClientInterface* p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryEval, Method_createQuery, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_createQuery), objid());
 	traceContext()->logger()->logOpenBranch();
 	QueryInterface* p0 = obj()->createQuery(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2752,23 +2632,15 @@ QueryInterface* QueryEvalImpl::createQuery(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_Query, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Query), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageClient, objbase_p1->objid());
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p1->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2779,15 +2651,15 @@ QueryInterface* QueryEvalImpl::createQuery(
 
 QueryImpl::~QueryImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void QueryImpl::pushTerm(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_pushTerm, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_pushTerm), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->pushTerm(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -2798,7 +2670,7 @@ void QueryImpl::pushTerm(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2812,21 +2684,21 @@ void QueryImpl::pushExpression(
 			int p3, 
 			unsigned int p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_pushExpression, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_pushExpression), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->pushExpression(p1, p2, p3, p4);
 	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingJoinOperator, objbase_p1->objid());
+	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingJoinOperator), objbase_p1->objid());
 	parambuf.packSize( p2);
 	parambuf.packInt(p3);
 	parambuf.packUInt(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2837,7 +2709,7 @@ void QueryImpl::pushExpression(
 void QueryImpl::attachVariable(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_attachVariable, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_attachVariable), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->attachVariable(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2847,7 +2719,7 @@ void QueryImpl::attachVariable(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2859,7 +2731,7 @@ void QueryImpl::defineFeature(
 			const std::string& p1, 
 			double p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_defineFeature, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineFeature), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineFeature(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -2870,7 +2742,7 @@ void QueryImpl::defineFeature(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2883,7 +2755,7 @@ void QueryImpl::defineTermStatistics(
 			const std::string& p2, 
 			const TermStatistics& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_defineTermStatistics, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineTermStatistics), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineTermStatistics(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -2895,7 +2767,7 @@ void QueryImpl::defineTermStatistics(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2906,7 +2778,7 @@ void QueryImpl::defineTermStatistics(
 void QueryImpl::defineGlobalStatistics(
 			const GlobalStatistics& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_defineGlobalStatistics, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineGlobalStatistics), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineGlobalStatistics(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2916,7 +2788,7 @@ void QueryImpl::defineGlobalStatistics(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2930,7 +2802,7 @@ void QueryImpl::addMetaDataRestrictionCondition(
 			const NumericVariant& p3, 
 			bool p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_addMetaDataRestrictionCondition, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addMetaDataRestrictionCondition), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addMetaDataRestrictionCondition(p1, p2, p3, p4);
 	traceContext()->logger()->logCloseBranch();
@@ -2943,7 +2815,7 @@ void QueryImpl::addMetaDataRestrictionCondition(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2954,7 +2826,7 @@ void QueryImpl::addMetaDataRestrictionCondition(
 void QueryImpl::addDocumentEvaluationSet(
 			const std::vector<Index>& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_addDocumentEvaluationSet, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addDocumentEvaluationSet), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addDocumentEvaluationSet(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2964,7 +2836,7 @@ void QueryImpl::addDocumentEvaluationSet(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2975,7 +2847,7 @@ void QueryImpl::addDocumentEvaluationSet(
 void QueryImpl::setMaxNofRanks(
 			std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_setMaxNofRanks, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setMaxNofRanks), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setMaxNofRanks(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -2985,7 +2857,7 @@ void QueryImpl::setMaxNofRanks(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -2996,7 +2868,7 @@ void QueryImpl::setMaxNofRanks(
 void QueryImpl::setMinRank(
 			std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_setMinRank, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setMinRank), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setMinRank(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3006,7 +2878,7 @@ void QueryImpl::setMinRank(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3017,7 +2889,7 @@ void QueryImpl::setMinRank(
 void QueryImpl::addUserName(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_addUserName, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addUserName), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addUserName(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3027,7 +2899,7 @@ void QueryImpl::addUserName(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3039,7 +2911,7 @@ void QueryImpl::setWeightingVariableValue(
 			const std::string& p1, 
 			double p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_setWeightingVariableValue, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setWeightingVariableValue), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setWeightingVariableValue(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3050,7 +2922,7 @@ void QueryImpl::setWeightingVariableValue(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3060,7 +2932,7 @@ void QueryImpl::setWeightingVariableValue(
 
 QueryResult QueryImpl::evaluate()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Query, Method_evaluate, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_evaluate), objid());
 	traceContext()->logger()->logOpenBranch();
 	QueryResult p0 = obj()->evaluate();
 	traceContext()->logger()->logCloseBranch();
@@ -3069,7 +2941,7 @@ QueryResult QueryImpl::evaluate()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3080,15 +2952,15 @@ QueryResult QueryImpl::evaluate()
 
 QueryProcessorImpl::~QueryProcessorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void QueryProcessorImpl::definePostingJoinOperator(
 			const std::string& p1, 
 			PostingJoinOperatorInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_definePostingJoinOperator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_definePostingJoinOperator), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->definePostingJoinOperator(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3096,12 +2968,12 @@ void QueryProcessorImpl::definePostingJoinOperator(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingJoinOperator, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingJoinOperator), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3112,7 +2984,7 @@ void QueryProcessorImpl::definePostingJoinOperator(
 const PostingJoinOperatorInterface* QueryProcessorImpl::getPostingJoinOperator(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_getPostingJoinOperator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getPostingJoinOperator), objid());
 	traceContext()->logger()->logOpenBranch();
 	const PostingJoinOperatorInterface* p0 = obj()->getPostingJoinOperator(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3125,21 +2997,13 @@ const PostingJoinOperatorInterface* QueryProcessorImpl::getPostingJoinOperator(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_PostingJoinOperator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingJoinOperator), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3152,7 +3016,7 @@ void QueryProcessorImpl::defineWeightingFunction(
 			const std::string& p1, 
 			WeightingFunctionInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_defineWeightingFunction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_defineWeightingFunction), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineWeightingFunction(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3160,12 +3024,12 @@ void QueryProcessorImpl::defineWeightingFunction(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_WeightingFunction, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3176,7 +3040,7 @@ void QueryProcessorImpl::defineWeightingFunction(
 const WeightingFunctionInterface* QueryProcessorImpl::getWeightingFunction(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_getWeightingFunction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getWeightingFunction), objid());
 	traceContext()->logger()->logOpenBranch();
 	const WeightingFunctionInterface* p0 = obj()->getWeightingFunction(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3189,21 +3053,13 @@ const WeightingFunctionInterface* QueryProcessorImpl::getWeightingFunction(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_WeightingFunction, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunction), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3216,7 +3072,7 @@ void QueryProcessorImpl::defineSummarizerFunction(
 			const std::string& p1, 
 			SummarizerFunctionInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_defineSummarizerFunction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_defineSummarizerFunction), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineSummarizerFunction(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3224,12 +3080,12 @@ void QueryProcessorImpl::defineSummarizerFunction(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_SummarizerFunction, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3240,7 +3096,7 @@ void QueryProcessorImpl::defineSummarizerFunction(
 const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_getSummarizerFunction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getSummarizerFunction), objid());
 	traceContext()->logger()->logOpenBranch();
 	const SummarizerFunctionInterface* p0 = obj()->getSummarizerFunction(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3253,21 +3109,13 @@ const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_SummarizerFunction, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunction), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3279,7 +3127,7 @@ const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 std::vector<std::string> QueryProcessorImpl::getFunctionList(
 			const FunctionType& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_getFunctionList, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getFunctionList), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->getFunctionList(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3289,7 +3137,7 @@ std::vector<std::string> QueryProcessorImpl::getFunctionList(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3302,7 +3150,7 @@ void QueryProcessorImpl::defineScalarFunctionParser(
 			const std::string& p1, 
 			ScalarFunctionParserInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_defineScalarFunctionParser, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_defineScalarFunctionParser), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineScalarFunctionParser(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3310,12 +3158,12 @@ void QueryProcessorImpl::defineScalarFunctionParser(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_ScalarFunctionParser, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ScalarFunctionParser), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3326,7 +3174,7 @@ void QueryProcessorImpl::defineScalarFunctionParser(
 const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_QueryProcessor, Method_getScalarFunctionParser, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getScalarFunctionParser), objid());
 	traceContext()->logger()->logOpenBranch();
 	const ScalarFunctionParserInterface* p0 = obj()->getScalarFunctionParser(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3339,21 +3187,13 @@ const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_ScalarFunctionParser, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ScalarFunctionParser), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3364,15 +3204,15 @@ const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser
 
 ScalarFunctionInstanceImpl::~ScalarFunctionInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunctionInstance, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), ScalarFunctionInstanceConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void ScalarFunctionInstanceImpl::setVariableValue(
 			const std::string& p1, 
 			double p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunctionInstance, Method_setVariableValue, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), ScalarFunctionInstanceConst::methodName( Method_setVariableValue), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setVariableValue(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3383,7 +3223,7 @@ void ScalarFunctionInstanceImpl::setVariableValue(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3394,7 +3234,7 @@ void ScalarFunctionInstanceImpl::setVariableValue(
 double ScalarFunctionInstanceImpl::call(
 			const double* args, std::size_t p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunctionInstance, Method_call, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), ScalarFunctionInstanceConst::methodName( Method_call), objid());
 	traceContext()->logger()->logOpenBranch();
 	double p0 = obj()->call(args, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3404,7 +3244,7 @@ double ScalarFunctionInstanceImpl::call(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3415,7 +3255,7 @@ double ScalarFunctionInstanceImpl::call(
 
 std::string ScalarFunctionInstanceImpl::tostring() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunctionInstance, Method_tostring, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), ScalarFunctionInstanceConst::methodName( Method_tostring), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
 	traceContext()->logger()->logCloseBranch();
@@ -3424,7 +3264,7 @@ std::string ScalarFunctionInstanceImpl::tostring() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3435,13 +3275,13 @@ std::string ScalarFunctionInstanceImpl::tostring() const
 
 ScalarFunctionImpl::~ScalarFunctionImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunction, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 std::vector<std::string> ScalarFunctionImpl::getVariables() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunction, Method_getVariables, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_getVariables), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->getVariables();
 	traceContext()->logger()->logCloseBranch();
@@ -3450,7 +3290,7 @@ std::vector<std::string> ScalarFunctionImpl::getVariables() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3461,7 +3301,7 @@ std::vector<std::string> ScalarFunctionImpl::getVariables() const
 
 std::size_t ScalarFunctionImpl::getNofArguments() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunction, Method_getNofArguments, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_getNofArguments), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::size_t p0 = obj()->getNofArguments();
 	traceContext()->logger()->logCloseBranch();
@@ -3470,7 +3310,7 @@ std::size_t ScalarFunctionImpl::getNofArguments() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3483,7 +3323,7 @@ void ScalarFunctionImpl::setDefaultVariableValue(
 			const std::string& p1, 
 			double p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunction, Method_setDefaultVariableValue, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_setDefaultVariableValue), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setDefaultVariableValue(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3494,7 +3334,7 @@ void ScalarFunctionImpl::setDefaultVariableValue(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3504,7 +3344,7 @@ void ScalarFunctionImpl::setDefaultVariableValue(
 
 ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunction, Method_createInstance, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_createInstance), objid());
 	traceContext()->logger()->logOpenBranch();
 	ScalarFunctionInstanceInterface* p0 = obj()->createInstance();
 	traceContext()->logger()->logCloseBranch();
@@ -3517,21 +3357,13 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_ScalarFunctionInstance, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3542,7 +3374,7 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 
 std::string ScalarFunctionImpl::tostring() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunction, Method_tostring, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_tostring), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
 	traceContext()->logger()->logCloseBranch();
@@ -3551,7 +3383,7 @@ std::string ScalarFunctionImpl::tostring() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3562,15 +3394,15 @@ std::string ScalarFunctionImpl::tostring() const
 
 ScalarFunctionParserImpl::~ScalarFunctionParserImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunctionParser, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionParser), ScalarFunctionParserConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 			const std::string& p1, 
 			const std::vector<std::string>& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ScalarFunctionParser, Method_createFunction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionParser), ScalarFunctionParserConst::methodName( Method_createFunction), objid());
 	traceContext()->logger()->logOpenBranch();
 	ScalarFunctionInterface* p0 = obj()->createFunction(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3583,15 +3415,7 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_ScalarFunction, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ScalarFunction), objbase_p0->objid());
 		parambuf.packString(p1);
 		parambuf.packStringVector(p2);
 	}
@@ -3599,7 +3423,7 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3610,15 +3434,15 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 
 SegmenterContextImpl::~SegmenterContextImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SegmenterContext, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterContext), SegmenterContextConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void SegmenterContextImpl::putInput(
 			const char* chunk, std::size_t p1, 
 			bool p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SegmenterContext, Method_putInput, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterContext), SegmenterContextConst::methodName( Method_putInput), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->putInput(chunk, p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3629,7 +3453,7 @@ void SegmenterContextImpl::putInput(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3642,7 +3466,7 @@ bool SegmenterContextImpl::getNext(
 			SegmenterPosition& p2, 
 			const char*& segment, std::size_t& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SegmenterContext, Method_getNext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterContext), SegmenterContextConst::methodName( Method_getNext), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->getNext(p1, p2, segment, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -3654,7 +3478,7 @@ bool SegmenterContextImpl::getNext(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3665,15 +3489,15 @@ bool SegmenterContextImpl::getNext(
 
 SegmenterInstanceImpl::~SegmenterInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SegmenterInstance, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterInstance), SegmenterInstanceConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void SegmenterInstanceImpl::defineSelectorExpression(
 			int p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SegmenterInstance, Method_defineSelectorExpression, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterInstance), SegmenterInstanceConst::methodName( Method_defineSelectorExpression), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineSelectorExpression(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -3684,7 +3508,7 @@ void SegmenterInstanceImpl::defineSelectorExpression(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3697,7 +3521,7 @@ void SegmenterInstanceImpl::defineSubSection(
 			int p2, 
 			const std::string& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SegmenterInstance, Method_defineSubSection, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterInstance), SegmenterInstanceConst::methodName( Method_defineSubSection), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineSubSection(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -3709,7 +3533,7 @@ void SegmenterInstanceImpl::defineSubSection(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3720,7 +3544,7 @@ void SegmenterInstanceImpl::defineSubSection(
 SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 			const DocumentClass& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SegmenterInstance, Method_createContext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterInstance), SegmenterInstanceConst::methodName( Method_createContext), objid());
 	traceContext()->logger()->logOpenBranch();
 	SegmenterContextInterface* p0 = obj()->createContext(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3733,22 +3557,14 @@ SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_SegmenterContext, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SegmenterContext), objbase_p0->objid());
 		parambuf.packDocumentClass(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3759,13 +3575,13 @@ SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 
 SegmenterImpl::~SegmenterImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Segmenter, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Segmenter), SegmenterConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 const char* SegmenterImpl::mimeType() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Segmenter, Method_mimeType, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Segmenter), SegmenterConst::methodName( Method_mimeType), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->mimeType();
 	traceContext()->logger()->logCloseBranch();
@@ -3781,7 +3597,7 @@ const char* SegmenterImpl::mimeType() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3792,7 +3608,7 @@ const char* SegmenterImpl::mimeType() const
 
 SegmenterInstanceInterface* SegmenterImpl::createInstance() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Segmenter, Method_createInstance, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Segmenter), SegmenterConst::methodName( Method_createInstance), objid());
 	traceContext()->logger()->logOpenBranch();
 	SegmenterInstanceInterface* p0 = obj()->createInstance();
 	traceContext()->logger()->logCloseBranch();
@@ -3805,21 +3621,13 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_SegmenterInstance, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SegmenterInstance), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3830,14 +3638,14 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance() const
 
 StatisticsBuilderImpl::~StatisticsBuilderImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsBuilder, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void StatisticsBuilderImpl::setNofDocumentsInsertedChange(
 			int p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsBuilder, Method_setNofDocumentsInsertedChange, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_setNofDocumentsInsertedChange), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setNofDocumentsInsertedChange(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3847,7 +3655,7 @@ void StatisticsBuilderImpl::setNofDocumentsInsertedChange(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3860,7 +3668,7 @@ void StatisticsBuilderImpl::addDfChange(
 			const char* p2, 
 			int p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsBuilder, Method_addDfChange, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_addDfChange), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addDfChange(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -3872,7 +3680,7 @@ void StatisticsBuilderImpl::addDfChange(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3882,7 +3690,7 @@ void StatisticsBuilderImpl::addDfChange(
 
 void StatisticsBuilderImpl::start()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsBuilder, Method_start, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_start), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->start();
 	traceContext()->logger()->logCloseBranch();
@@ -3891,7 +3699,7 @@ void StatisticsBuilderImpl::start()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3901,7 +3709,7 @@ void StatisticsBuilderImpl::start()
 
 void StatisticsBuilderImpl::rollback()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsBuilder, Method_rollback, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_rollback), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->rollback();
 	traceContext()->logger()->logCloseBranch();
@@ -3910,7 +3718,7 @@ void StatisticsBuilderImpl::rollback()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3921,7 +3729,7 @@ void StatisticsBuilderImpl::rollback()
 bool StatisticsBuilderImpl::fetchMessage(
 			const char*& blk, std::size_t& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsBuilder, Method_fetchMessage, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_fetchMessage), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->fetchMessage(blk, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3931,7 +3739,7 @@ bool StatisticsBuilderImpl::fetchMessage(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3942,14 +3750,14 @@ bool StatisticsBuilderImpl::fetchMessage(
 
 StatisticsIteratorImpl::~StatisticsIteratorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsIterator, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsIterator), StatisticsIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 bool StatisticsIteratorImpl::getNext(
 			const char*& msg, std::size_t& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsIterator, Method_getNext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsIterator), StatisticsIteratorConst::methodName( Method_getNext), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->getNext(msg, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3959,7 +3767,7 @@ bool StatisticsIteratorImpl::getNext(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -3970,14 +3778,14 @@ bool StatisticsIteratorImpl::getNext(
 
 StatisticsProcessorImpl::~StatisticsProcessorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsProcessor, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 			const char* msgptr, std::size_t p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsProcessor, Method_createViewer, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_createViewer), objid());
 	traceContext()->logger()->logOpenBranch();
 	StatisticsViewerInterface* p0 = obj()->createViewer(msgptr, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -3990,22 +3798,14 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StatisticsViewer, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsViewer), objbase_p0->objid());
 		parambuf.packBuffer( msgptr, p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4017,7 +3817,7 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 			const BuilderOptions& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsProcessor, Method_createBuilder, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_createBuilder), objid());
 	traceContext()->logger()->logOpenBranch();
 	StatisticsBuilderInterface* p0 = obj()->createBuilder(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -4030,22 +3830,14 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StatisticsBuilder, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsBuilder), objbase_p0->objid());
 		parambuf.packStatisticsProcessorBuilderOptions(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4056,13 +3848,13 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 
 StatisticsViewerImpl::~StatisticsViewerImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsViewer, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsViewer), StatisticsViewerConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 int StatisticsViewerImpl::nofDocumentsInsertedChange()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsViewer, Method_nofDocumentsInsertedChange, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsViewer), StatisticsViewerConst::methodName( Method_nofDocumentsInsertedChange), objid());
 	traceContext()->logger()->logOpenBranch();
 	int p0 = obj()->nofDocumentsInsertedChange();
 	traceContext()->logger()->logCloseBranch();
@@ -4071,7 +3863,7 @@ int StatisticsViewerImpl::nofDocumentsInsertedChange()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4083,7 +3875,7 @@ int StatisticsViewerImpl::nofDocumentsInsertedChange()
 bool StatisticsViewerImpl::nextDfChange(
 			DocumentFrequencyChange& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StatisticsViewer, Method_nextDfChange, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsViewer), StatisticsViewerConst::methodName( Method_nextDfChange), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->nextDfChange(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -4093,7 +3885,7 @@ bool StatisticsViewerImpl::nextDfChange(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4104,15 +3896,15 @@ bool StatisticsViewerImpl::nextDfChange(
 
 StorageAlterMetaDataTableImpl::~StorageAlterMetaDataTableImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageAlterMetaDataTable, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void StorageAlterMetaDataTableImpl::addElement(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageAlterMetaDataTable, Method_addElement, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_addElement), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addElement(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -4123,7 +3915,7 @@ void StorageAlterMetaDataTableImpl::addElement(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4136,7 +3928,7 @@ void StorageAlterMetaDataTableImpl::alterElement(
 			const std::string& p2, 
 			const std::string& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageAlterMetaDataTable, Method_alterElement, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_alterElement), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->alterElement(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -4148,7 +3940,7 @@ void StorageAlterMetaDataTableImpl::alterElement(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4160,7 +3952,7 @@ void StorageAlterMetaDataTableImpl::renameElement(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageAlterMetaDataTable, Method_renameElement, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_renameElement), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->renameElement(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -4171,7 +3963,7 @@ void StorageAlterMetaDataTableImpl::renameElement(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4182,7 +3974,7 @@ void StorageAlterMetaDataTableImpl::renameElement(
 void StorageAlterMetaDataTableImpl::deleteElement(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageAlterMetaDataTable, Method_deleteElement, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_deleteElement), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->deleteElement(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -4192,7 +3984,7 @@ void StorageAlterMetaDataTableImpl::deleteElement(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4203,7 +3995,7 @@ void StorageAlterMetaDataTableImpl::deleteElement(
 void StorageAlterMetaDataTableImpl::clearElement(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageAlterMetaDataTable, Method_clearElement, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_clearElement), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->clearElement(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -4213,7 +4005,7 @@ void StorageAlterMetaDataTableImpl::clearElement(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4223,7 +4015,7 @@ void StorageAlterMetaDataTableImpl::clearElement(
 
 bool StorageAlterMetaDataTableImpl::commit()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageAlterMetaDataTable, Method_commit, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_commit), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->commit();
 	traceContext()->logger()->logCloseBranch();
@@ -4232,7 +4024,7 @@ bool StorageAlterMetaDataTableImpl::commit()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4243,7 +4035,7 @@ bool StorageAlterMetaDataTableImpl::commit()
 
 void StorageAlterMetaDataTableImpl::rollback()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageAlterMetaDataTable, Method_rollback, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_rollback), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->rollback();
 	traceContext()->logger()->logCloseBranch();
@@ -4252,7 +4044,7 @@ void StorageAlterMetaDataTableImpl::rollback()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4262,15 +4054,15 @@ void StorageAlterMetaDataTableImpl::rollback()
 
 StorageClientImpl::~StorageClientImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 			const std::string& p1, 
 			const std::string& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createTermPostingIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermPostingIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	PostingIteratorInterface* p0 = obj()->createTermPostingIterator(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -4283,15 +4075,7 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p0->objid());
 		parambuf.packString(p1);
 		parambuf.packString(p2);
 	}
@@ -4299,7 +4083,7 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4312,7 +4096,7 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createBrowsePostingIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createBrowsePostingIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	PostingIteratorInterface* p0 = obj()->createBrowsePostingIterator(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -4325,24 +4109,16 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_PostingIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_MetaDataRestriction, objbase_p1->objid());
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataRestriction), objbase_p1->objid());
 		parambuf.packIndex(p2);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4354,7 +4130,7 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createForwardIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createForwardIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	ForwardIteratorInterface* p0 = obj()->createForwardIterator(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -4367,22 +4143,14 @@ ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_ForwardIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ForwardIterator), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4394,7 +4162,7 @@ ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createDocumentTermIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createDocumentTermIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	DocumentTermIteratorInterface* p0 = obj()->createDocumentTermIterator(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -4407,22 +4175,14 @@ DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_DocumentTermIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentTermIterator), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4434,7 +4194,7 @@ DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createInvAclIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createInvAclIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	InvAclIteratorInterface* p0 = obj()->createInvAclIterator(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -4447,22 +4207,14 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_InvAclIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_InvAclIterator), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4473,7 +4225,7 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 
 Index StorageClientImpl::nofDocumentsInserted() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_nofDocumentsInserted, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_nofDocumentsInserted), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->nofDocumentsInserted();
 	traceContext()->logger()->logCloseBranch();
@@ -4489,7 +4241,7 @@ Index StorageClientImpl::nofDocumentsInserted() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4502,7 +4254,7 @@ Index StorageClientImpl::documentFrequency(
 			const std::string& p1, 
 			const std::string& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_documentFrequency, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_documentFrequency), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->documentFrequency(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -4520,7 +4272,7 @@ Index StorageClientImpl::documentFrequency(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4531,7 +4283,7 @@ Index StorageClientImpl::documentFrequency(
 
 Index StorageClientImpl::maxDocumentNumber() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_maxDocumentNumber, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_maxDocumentNumber), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->maxDocumentNumber();
 	traceContext()->logger()->logCloseBranch();
@@ -4547,7 +4299,7 @@ Index StorageClientImpl::maxDocumentNumber() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4559,7 +4311,7 @@ Index StorageClientImpl::maxDocumentNumber() const
 Index StorageClientImpl::documentNumber(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_documentNumber, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_documentNumber), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->documentNumber(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -4576,7 +4328,7 @@ Index StorageClientImpl::documentNumber(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4587,7 +4339,7 @@ Index StorageClientImpl::documentNumber(
 
 ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createTermTypeIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermTypeIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	ValueIteratorInterface* p0 = obj()->createTermTypeIterator();
 	traceContext()->logger()->logCloseBranch();
@@ -4600,21 +4352,13 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ValueIterator), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4625,7 +4369,7 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 
 ValueIteratorInterface* StorageClientImpl::createTermValueIterator() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createTermValueIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermValueIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	ValueIteratorInterface* p0 = obj()->createTermValueIterator();
 	traceContext()->logger()->logCloseBranch();
@@ -4638,21 +4382,13 @@ ValueIteratorInterface* StorageClientImpl::createTermValueIterator() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ValueIterator), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4663,7 +4399,7 @@ ValueIteratorInterface* StorageClientImpl::createTermValueIterator() const
 
 ValueIteratorInterface* StorageClientImpl::createDocIdIterator() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createDocIdIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createDocIdIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	ValueIteratorInterface* p0 = obj()->createDocIdIterator();
 	traceContext()->logger()->logCloseBranch();
@@ -4676,21 +4412,13 @@ ValueIteratorInterface* StorageClientImpl::createDocIdIterator() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ValueIterator), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4701,7 +4429,7 @@ ValueIteratorInterface* StorageClientImpl::createDocIdIterator() const
 
 ValueIteratorInterface* StorageClientImpl::createUserNameIterator() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createUserNameIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createUserNameIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	ValueIteratorInterface* p0 = obj()->createUserNameIterator();
 	traceContext()->logger()->logCloseBranch();
@@ -4714,21 +4442,13 @@ ValueIteratorInterface* StorageClientImpl::createUserNameIterator() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_ValueIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ValueIterator), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4742,7 +4462,7 @@ Index StorageClientImpl::documentStatistics(
 			const DocumentStatisticsType& p2, 
 			const std::string& p3) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_documentStatistics, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_documentStatistics), objid());
 	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->documentStatistics(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -4761,7 +4481,7 @@ Index StorageClientImpl::documentStatistics(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4772,7 +4492,7 @@ Index StorageClientImpl::documentStatistics(
 
 MetaDataReaderInterface* StorageClientImpl::createMetaDataReader() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createMetaDataReader, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createMetaDataReader), objid());
 	traceContext()->logger()->logOpenBranch();
 	MetaDataReaderInterface* p0 = obj()->createMetaDataReader();
 	traceContext()->logger()->logCloseBranch();
@@ -4785,21 +4505,13 @@ MetaDataReaderInterface* StorageClientImpl::createMetaDataReader() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_MetaDataReader, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataReader), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4810,7 +4522,7 @@ MetaDataReaderInterface* StorageClientImpl::createMetaDataReader() const
 
 MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createMetaDataRestriction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createMetaDataRestriction), objid());
 	traceContext()->logger()->logOpenBranch();
 	MetaDataRestrictionInterface* p0 = obj()->createMetaDataRestriction();
 	traceContext()->logger()->logCloseBranch();
@@ -4823,21 +4535,13 @@ MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction() con
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_MetaDataRestriction, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataRestriction), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4848,7 +4552,7 @@ MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction() con
 
 AttributeReaderInterface* StorageClientImpl::createAttributeReader() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createAttributeReader, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createAttributeReader), objid());
 	traceContext()->logger()->logOpenBranch();
 	AttributeReaderInterface* p0 = obj()->createAttributeReader();
 	traceContext()->logger()->logCloseBranch();
@@ -4861,21 +4565,13 @@ AttributeReaderInterface* StorageClientImpl::createAttributeReader() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_AttributeReader, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_AttributeReader), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4886,7 +4582,7 @@ AttributeReaderInterface* StorageClientImpl::createAttributeReader() const
 
 StorageTransactionInterface* StorageClientImpl::createTransaction()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createTransaction, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTransaction), objid());
 	traceContext()->logger()->logOpenBranch();
 	StorageTransactionInterface* p0 = obj()->createTransaction();
 	traceContext()->logger()->logCloseBranch();
@@ -4899,21 +4595,13 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StorageTransaction, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageTransaction), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4925,7 +4613,7 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 StatisticsIteratorInterface* StorageClientImpl::createInitStatisticsIterator(
 			bool p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createInitStatisticsIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createInitStatisticsIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	StatisticsIteratorInterface* p0 = obj()->createInitStatisticsIterator(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -4938,22 +4626,14 @@ StatisticsIteratorInterface* StorageClientImpl::createInitStatisticsIterator(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StatisticsIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsIterator), objbase_p0->objid());
 		parambuf.packBool(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -4964,7 +4644,7 @@ StatisticsIteratorInterface* StorageClientImpl::createInitStatisticsIterator(
 
 StatisticsIteratorInterface* StorageClientImpl::createUpdateStatisticsIterator()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createUpdateStatisticsIterator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createUpdateStatisticsIterator), objid());
 	traceContext()->logger()->logOpenBranch();
 	StatisticsIteratorInterface* p0 = obj()->createUpdateStatisticsIterator();
 	traceContext()->logger()->logCloseBranch();
@@ -4977,21 +4657,13 @@ StatisticsIteratorInterface* StorageClientImpl::createUpdateStatisticsIterator()
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StatisticsIterator, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsIterator), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5002,7 +4674,7 @@ StatisticsIteratorInterface* StorageClientImpl::createUpdateStatisticsIterator()
 
 const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_getStatisticsProcessor, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_getStatisticsProcessor), objid());
 	traceContext()->logger()->logOpenBranch();
 	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor();
 	traceContext()->logger()->logCloseBranch();
@@ -5015,20 +4687,12 @@ const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor() 
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StatisticsProcessor, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsProcessor), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5041,7 +4705,7 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 			const std::string& p1, 
 			const std::string& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createDocumentChecker, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createDocumentChecker), objid());
 	traceContext()->logger()->logOpenBranch();
 	StorageDocumentInterface* p0 = obj()->createDocumentChecker(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -5054,15 +4718,7 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StorageDocument, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageDocument), objbase_p0->objid());
 		parambuf.packString(p1);
 		parambuf.packString(p2);
 	}
@@ -5070,7 +4726,7 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5082,7 +4738,7 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 bool StorageClientImpl::checkStorage(
 			std::ostream& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_checkStorage, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_checkStorage), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->checkStorage(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5092,7 +4748,7 @@ bool StorageClientImpl::checkStorage(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5104,7 +4760,7 @@ bool StorageClientImpl::checkStorage(
 StorageDumpInterface* StorageClientImpl::createDump(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageClient, Method_createDump, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createDump), objid());
 	traceContext()->logger()->logOpenBranch();
 	StorageDumpInterface* p0 = obj()->createDump(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5117,22 +4773,14 @@ StorageDumpInterface* StorageClientImpl::createDump(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StorageDump, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageDump), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5143,8 +4791,8 @@ StorageDumpInterface* StorageClientImpl::createDump(
 
 StorageDocumentImpl::~StorageDocumentImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocument, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void StorageDocumentImpl::addSearchIndexTerm(
@@ -5152,7 +4800,7 @@ void StorageDocumentImpl::addSearchIndexTerm(
 			const std::string& p2, 
 			const Index& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocument, Method_addSearchIndexTerm, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_addSearchIndexTerm), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addSearchIndexTerm(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -5164,7 +4812,7 @@ void StorageDocumentImpl::addSearchIndexTerm(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5177,7 +4825,7 @@ void StorageDocumentImpl::addForwardIndexTerm(
 			const std::string& p2, 
 			const Index& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocument, Method_addForwardIndexTerm, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_addForwardIndexTerm), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addForwardIndexTerm(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -5189,7 +4837,7 @@ void StorageDocumentImpl::addForwardIndexTerm(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5201,7 +4849,7 @@ void StorageDocumentImpl::setMetaData(
 			const std::string& p1, 
 			const NumericVariant& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocument, Method_setMetaData, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_setMetaData), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setMetaData(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -5212,7 +4860,7 @@ void StorageDocumentImpl::setMetaData(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5224,7 +4872,7 @@ void StorageDocumentImpl::setAttribute(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocument, Method_setAttribute, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_setAttribute), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setAttribute(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -5235,7 +4883,7 @@ void StorageDocumentImpl::setAttribute(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5246,7 +4894,7 @@ void StorageDocumentImpl::setAttribute(
 void StorageDocumentImpl::setUserAccessRight(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocument, Method_setUserAccessRight, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_setUserAccessRight), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setUserAccessRight(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5256,7 +4904,7 @@ void StorageDocumentImpl::setUserAccessRight(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5266,7 +4914,7 @@ void StorageDocumentImpl::setUserAccessRight(
 
 void StorageDocumentImpl::done()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocument, Method_done, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_done), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->done();
 	traceContext()->logger()->logCloseBranch();
@@ -5275,7 +4923,7 @@ void StorageDocumentImpl::done()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5285,15 +4933,15 @@ void StorageDocumentImpl::done()
 
 StorageDocumentUpdateImpl::~StorageDocumentUpdateImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocumentUpdate, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void StorageDocumentUpdateImpl::setMetaData(
 			const std::string& p1, 
 			const NumericVariant& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocumentUpdate, Method_setMetaData, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_setMetaData), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setMetaData(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -5304,7 +4952,7 @@ void StorageDocumentUpdateImpl::setMetaData(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5316,7 +4964,7 @@ void StorageDocumentUpdateImpl::setAttribute(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocumentUpdate, Method_setAttribute, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_setAttribute), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setAttribute(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -5327,7 +4975,7 @@ void StorageDocumentUpdateImpl::setAttribute(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5338,7 +4986,7 @@ void StorageDocumentUpdateImpl::setAttribute(
 void StorageDocumentUpdateImpl::clearAttribute(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocumentUpdate, Method_clearAttribute, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearAttribute), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->clearAttribute(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5348,7 +4996,7 @@ void StorageDocumentUpdateImpl::clearAttribute(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5359,7 +5007,7 @@ void StorageDocumentUpdateImpl::clearAttribute(
 void StorageDocumentUpdateImpl::setUserAccessRight(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocumentUpdate, Method_setUserAccessRight, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_setUserAccessRight), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->setUserAccessRight(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5369,7 +5017,7 @@ void StorageDocumentUpdateImpl::setUserAccessRight(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5380,7 +5028,7 @@ void StorageDocumentUpdateImpl::setUserAccessRight(
 void StorageDocumentUpdateImpl::clearUserAccessRight(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocumentUpdate, Method_clearUserAccessRight, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearUserAccessRight), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->clearUserAccessRight(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5390,7 +5038,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRight(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5400,7 +5048,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRight(
 
 void StorageDocumentUpdateImpl::clearUserAccessRights()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocumentUpdate, Method_clearUserAccessRights, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearUserAccessRights), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->clearUserAccessRights();
 	traceContext()->logger()->logCloseBranch();
@@ -5409,7 +5057,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRights()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5419,7 +5067,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRights()
 
 void StorageDocumentUpdateImpl::done()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDocumentUpdate, Method_done, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_done), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->done();
 	traceContext()->logger()->logCloseBranch();
@@ -5428,7 +5076,7 @@ void StorageDocumentUpdateImpl::done()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5438,14 +5086,14 @@ void StorageDocumentUpdateImpl::done()
 
 StorageDumpImpl::~StorageDumpImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDump, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDump), StorageDumpConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 bool StorageDumpImpl::nextChunk(
 			const char*& chunk, std::size_t& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageDump, Method_nextChunk, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDump), StorageDumpConst::methodName( Method_nextChunk), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->nextChunk(chunk, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5455,7 +5103,7 @@ bool StorageDumpImpl::nextChunk(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5466,8 +5114,8 @@ bool StorageDumpImpl::nextChunk(
 
 StorageImpl::~StorageImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Storage, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 StorageClientInterface* StorageImpl::createClient(
@@ -5475,7 +5123,7 @@ StorageClientInterface* StorageImpl::createClient(
 			DatabaseClientInterface* p2, 
 			const StatisticsProcessorInterface* p3) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Storage, Method_createClient, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createClient), objid());
 	traceContext()->logger()->logOpenBranch();
 	StorageClientInterface* p0 = obj()->createClient(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -5488,27 +5136,19 @@ StorageClientInterface* StorageImpl::createClient(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StorageClient, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p0->objid());
 		parambuf.packString(p1);
 		TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseClient, objbase_p2->objid());
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseClient), objbase_p2->objid());
 		const TraceObjectBase* objbase_p3 = dynamic_cast<const TraceObjectBase*>( p3);
-		if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( ClassId_StatisticsProcessor, objbase_p3->objid());
+		if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsProcessor), objbase_p3->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5521,7 +5161,7 @@ bool StorageImpl::createStorage(
 			const std::string& p1, 
 			DatabaseClientInterface* p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Storage, Method_createStorage, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createStorage), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->createStorage(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -5529,11 +5169,11 @@ bool StorageImpl::createStorage(
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseClient, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseClient), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5545,7 +5185,7 @@ bool StorageImpl::createStorage(
 StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 			DatabaseClientInterface* p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Storage, Method_createAlterMetaDataTable, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createAlterMetaDataTable), objid());
 	traceContext()->logger()->logOpenBranch();
 	StorageAlterMetaDataTableInterface* p0 = obj()->createAlterMetaDataTable(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5558,24 +5198,16 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StorageAlterMetaDataTable, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), objbase_p0->objid());
 		TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_DatabaseClient, objbase_p1->objid());
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseClient), objbase_p1->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		if (p1) {delete p1; p1 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5587,7 +5219,7 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 const char* StorageImpl::getConfigDescription(
 			const ConfigType& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Storage, Method_getConfigDescription, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_getConfigDescription), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getConfigDescription(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5604,7 +5236,7 @@ const char* StorageImpl::getConfigDescription(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5616,7 +5248,7 @@ const char* StorageImpl::getConfigDescription(
 const char** StorageImpl::getConfigParameters(
 			const ConfigType& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_Storage, Method_getConfigParameters, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_getConfigParameters), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char** p0 = obj()->getConfigParameters(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5633,7 +5265,7 @@ const char** StorageImpl::getConfigParameters(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5644,13 +5276,13 @@ const char** StorageImpl::getConfigParameters(
 
 StorageObjectBuilderImpl::~StorageObjectBuilderImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageObjectBuilder, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 const StorageInterface* StorageObjectBuilderImpl::getStorage() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageObjectBuilder, Method_getStorage, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getStorage), objid());
 	traceContext()->logger()->logOpenBranch();
 	const StorageInterface* p0 = obj()->getStorage();
 	traceContext()->logger()->logCloseBranch();
@@ -5663,20 +5295,12 @@ const StorageInterface* StorageObjectBuilderImpl::getStorage() const
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_Storage, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Storage), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5688,7 +5312,7 @@ const StorageInterface* StorageObjectBuilderImpl::getStorage() const
 const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageObjectBuilder, Method_getDatabase, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getDatabase), objid());
 	traceContext()->logger()->logOpenBranch();
 	const DatabaseInterface* p0 = obj()->getDatabase(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5701,21 +5325,13 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_Database, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5726,7 +5342,7 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 
 const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageObjectBuilder, Method_getQueryProcessor, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getQueryProcessor), objid());
 	traceContext()->logger()->logOpenBranch();
 	const QueryProcessorInterface* p0 = obj()->getQueryProcessor();
 	traceContext()->logger()->logCloseBranch();
@@ -5739,20 +5355,12 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() con
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_QueryProcessor, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_QueryProcessor), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5763,7 +5371,7 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() con
 
 const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProcessor() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageObjectBuilder, Method_getStatisticsProcessor, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getStatisticsProcessor), objid());
 	traceContext()->logger()->logOpenBranch();
 	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor();
 	traceContext()->logger()->logCloseBranch();
@@ -5776,20 +5384,12 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StatisticsProcessor, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsProcessor), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5801,7 +5401,7 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 StorageClientInterface* StorageObjectBuilderImpl::createStorageClient(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageObjectBuilder, Method_createStorageClient, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_createStorageClient), objid());
 	traceContext()->logger()->logOpenBranch();
 	StorageClientInterface* p0 = obj()->createStorageClient(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5814,22 +5414,14 @@ StorageClientInterface* StorageObjectBuilderImpl::createStorageClient(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StorageClient, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5841,7 +5433,7 @@ StorageClientInterface* StorageObjectBuilderImpl::createStorageClient(
 StorageAlterMetaDataTableInterface* StorageObjectBuilderImpl::createAlterMetaDataTable(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageObjectBuilder, Method_createAlterMetaDataTable, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_createAlterMetaDataTable), objid());
 	traceContext()->logger()->logOpenBranch();
 	StorageAlterMetaDataTableInterface* p0 = obj()->createAlterMetaDataTable(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5854,22 +5446,14 @@ StorageAlterMetaDataTableInterface* StorageObjectBuilderImpl::createAlterMetaDat
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StorageAlterMetaDataTable, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5880,7 +5464,7 @@ StorageAlterMetaDataTableInterface* StorageObjectBuilderImpl::createAlterMetaDat
 
 QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageObjectBuilder, Method_createQueryEval, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_createQueryEval), objid());
 	traceContext()->logger()->logOpenBranch();
 	QueryEvalInterface* p0 = obj()->createQueryEval();
 	traceContext()->logger()->logCloseBranch();
@@ -5893,21 +5477,13 @@ QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_QueryEval, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_QueryEval), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5918,14 +5494,14 @@ QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval() const
 
 StorageTransactionImpl::~StorageTransactionImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageTransaction, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 StorageDocumentInterface* StorageTransactionImpl::createDocument(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageTransaction, Method_createDocument, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_createDocument), objid());
 	traceContext()->logger()->logOpenBranch();
 	StorageDocumentInterface* p0 = obj()->createDocument(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5938,22 +5514,14 @@ StorageDocumentInterface* StorageTransactionImpl::createDocument(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StorageDocument, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageDocument), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -5965,7 +5533,7 @@ StorageDocumentInterface* StorageTransactionImpl::createDocument(
 StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageTransaction, Method_createDocumentUpdate, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_createDocumentUpdate), objid());
 	traceContext()->logger()->logOpenBranch();
 	StorageDocumentUpdateInterface* p0 = obj()->createDocumentUpdate(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -5978,22 +5546,14 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_StorageDocumentUpdate, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), objbase_p0->objid());
 		parambuf.packIndex(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6005,7 +5565,7 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 void StorageTransactionImpl::deleteDocument(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageTransaction, Method_deleteDocument, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_deleteDocument), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->deleteDocument(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6015,7 +5575,7 @@ void StorageTransactionImpl::deleteDocument(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6026,7 +5586,7 @@ void StorageTransactionImpl::deleteDocument(
 void StorageTransactionImpl::deleteUserAccessRights(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageTransaction, Method_deleteUserAccessRights, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_deleteUserAccessRights), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->deleteUserAccessRights(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6036,7 +5596,7 @@ void StorageTransactionImpl::deleteUserAccessRights(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6049,7 +5609,7 @@ void StorageTransactionImpl::updateMetaData(
 			const std::string& p2, 
 			const NumericVariant& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageTransaction, Method_updateMetaData, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_updateMetaData), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->updateMetaData(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -6061,7 +5621,7 @@ void StorageTransactionImpl::updateMetaData(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6071,7 +5631,7 @@ void StorageTransactionImpl::updateMetaData(
 
 bool StorageTransactionImpl::commit()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageTransaction, Method_commit, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_commit), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->commit();
 	traceContext()->logger()->logCloseBranch();
@@ -6080,7 +5640,7 @@ bool StorageTransactionImpl::commit()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6091,7 +5651,7 @@ bool StorageTransactionImpl::commit()
 
 void StorageTransactionImpl::rollback()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_StorageTransaction, Method_rollback, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_rollback), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->rollback();
 	traceContext()->logger()->logCloseBranch();
@@ -6100,7 +5660,7 @@ void StorageTransactionImpl::rollback()
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6110,8 +5670,8 @@ void StorageTransactionImpl::rollback()
 
 SummarizerFunctionContextImpl::~SummarizerFunctionContextImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunctionContext, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void SummarizerFunctionContextImpl::addSummarizationFeature(
@@ -6121,7 +5681,7 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 			double p4, 
 			const TermStatistics& p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunctionContext, Method_addSummarizationFeature, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_addSummarizationFeature), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addSummarizationFeature(p1, p2, p3, p4, p5);
 	traceContext()->logger()->logCloseBranch();
@@ -6129,14 +5689,14 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p2->objid());
 	parambuf.packSummarizationVariableVector(p3);
 	parambuf.packDouble(p4);
 	parambuf.packTermStatistics(p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6147,7 +5707,7 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunctionContext, Method_getSummary, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_getSummary), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::vector<SummaryElement> p0 = obj()->getSummary(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6157,7 +5717,7 @@ std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6168,15 +5728,15 @@ std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 
 SummarizerFunctionInstanceImpl::~SummarizerFunctionInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunctionInstance, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void SummarizerFunctionInstanceImpl::addStringParameter(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunctionInstance, Method_addStringParameter, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_addStringParameter), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addStringParameter(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -6187,7 +5747,7 @@ void SummarizerFunctionInstanceImpl::addStringParameter(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6199,7 +5759,7 @@ void SummarizerFunctionInstanceImpl::addNumericParameter(
 			const std::string& p1, 
 			const NumericVariant& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunctionInstance, Method_addNumericParameter, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_addNumericParameter), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addNumericParameter(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -6210,7 +5770,7 @@ void SummarizerFunctionInstanceImpl::addNumericParameter(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6223,7 +5783,7 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 			MetaDataReaderInterface* p2, 
 			const GlobalStatistics& p3) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunctionInstance, Method_createFunctionContext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
 	traceContext()->logger()->logOpenBranch();
 	SummarizerFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -6236,17 +5796,17 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_SummarizerFunctionContext, objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageClient, objbase_p1->objid());
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p1->objid());
 		TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_MetaDataReader, objbase_p2->objid());
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataReader), objbase_p2->objid());
 		parambuf.packGlobalStatistics(p3);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6257,7 +5817,7 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 
 std::string SummarizerFunctionInstanceImpl::tostring() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunctionInstance, Method_tostring, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_tostring), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
 	traceContext()->logger()->logCloseBranch();
@@ -6266,7 +5826,7 @@ std::string SummarizerFunctionInstanceImpl::tostring() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6277,14 +5837,14 @@ std::string SummarizerFunctionInstanceImpl::tostring() const
 
 SummarizerFunctionImpl::~SummarizerFunctionImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunction, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunction), SummarizerFunctionConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 			const QueryProcessorInterface* p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunction, Method_createInstance, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunction), SummarizerFunctionConst::methodName( Method_createInstance), objid());
 	traceContext()->logger()->logOpenBranch();
 	SummarizerFunctionInstanceInterface* p0 = obj()->createInstance(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6297,23 +5857,15 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_SummarizerFunctionInstance, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_QueryProcessor, objbase_p1->objid());
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_QueryProcessor), objbase_p1->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6324,7 +5876,7 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 
 FunctionDescription SummarizerFunctionImpl::getDescription() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_SummarizerFunction, Method_getDescription, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunction), SummarizerFunctionConst::methodName( Method_getDescription), objid());
 	traceContext()->logger()->logOpenBranch();
 	FunctionDescription p0 = obj()->getDescription();
 	traceContext()->logger()->logCloseBranch();
@@ -6333,7 +5885,7 @@ FunctionDescription SummarizerFunctionImpl::getDescription() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6344,14 +5896,14 @@ FunctionDescription SummarizerFunctionImpl::getDescription() const
 
 TextProcessorImpl::~TextProcessorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void TextProcessorImpl::addResourcePath(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_addResourcePath, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_addResourcePath), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addResourcePath(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6361,7 +5913,7 @@ void TextProcessorImpl::addResourcePath(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6372,7 +5924,7 @@ void TextProcessorImpl::addResourcePath(
 std::string TextProcessorImpl::getResourcePath(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_getResourcePath, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getResourcePath), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->getResourcePath(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6382,7 +5934,7 @@ std::string TextProcessorImpl::getResourcePath(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6394,7 +5946,7 @@ std::string TextProcessorImpl::getResourcePath(
 const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_getTokenizer, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getTokenizer), objid());
 	traceContext()->logger()->logOpenBranch();
 	const TokenizerFunctionInterface* p0 = obj()->getTokenizer(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6407,21 +5959,13 @@ const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_TokenizerFunction, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunction), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6433,7 +5977,7 @@ const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_getNormalizer, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getNormalizer), objid());
 	traceContext()->logger()->logOpenBranch();
 	const NormalizerFunctionInterface* p0 = obj()->getNormalizer(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6446,21 +5990,13 @@ const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_NormalizerFunction, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunction), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6472,7 +6008,7 @@ const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 const AggregatorFunctionInterface* TextProcessorImpl::getAggregator(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_getAggregator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getAggregator), objid());
 	traceContext()->logger()->logOpenBranch();
 	const AggregatorFunctionInterface* p0 = obj()->getAggregator(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6485,21 +6021,13 @@ const AggregatorFunctionInterface* TextProcessorImpl::getAggregator(
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_AggregatorFunction, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_AggregatorFunction), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6512,7 +6040,7 @@ bool TextProcessorImpl::detectDocumentClass(
 			DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_detectDocumentClass, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_detectDocumentClass), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->detectDocumentClass(p1, contentBegin, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -6523,7 +6051,7 @@ bool TextProcessorImpl::detectDocumentClass(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6535,19 +6063,19 @@ bool TextProcessorImpl::detectDocumentClass(
 void TextProcessorImpl::defineDocumentClassDetector(
 			DocumentClassDetectorInterface* p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_defineDocumentClassDetector, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_defineDocumentClassDetector), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineDocumentClassDetector(p1);
 	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
-	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_DocumentClassDetector, objbase_p1->objid());
+	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentClassDetector), objbase_p1->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p1) {delete p1; p1 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6559,7 +6087,7 @@ void TextProcessorImpl::defineTokenizer(
 			const std::string& p1, 
 			TokenizerFunctionInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_defineTokenizer, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_defineTokenizer), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineTokenizer(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -6567,12 +6095,12 @@ void TextProcessorImpl::defineTokenizer(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_TokenizerFunction, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6584,7 +6112,7 @@ void TextProcessorImpl::defineNormalizer(
 			const std::string& p1, 
 			NormalizerFunctionInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_defineNormalizer, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_defineNormalizer), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineNormalizer(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -6592,12 +6120,12 @@ void TextProcessorImpl::defineNormalizer(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_NormalizerFunction, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6609,7 +6137,7 @@ void TextProcessorImpl::defineAggregator(
 			const std::string& p1, 
 			AggregatorFunctionInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_defineAggregator, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_defineAggregator), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->defineAggregator(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -6617,12 +6145,12 @@ void TextProcessorImpl::defineAggregator(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_AggregatorFunction, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_AggregatorFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6633,7 +6161,7 @@ void TextProcessorImpl::defineAggregator(
 std::vector<std::string> TextProcessorImpl::getFunctionList(
 			const FunctionType& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TextProcessor, Method_getFunctionList, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getFunctionList), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->getFunctionList(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6643,7 +6171,7 @@ std::vector<std::string> TextProcessorImpl::getFunctionList(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6654,14 +6182,14 @@ std::vector<std::string> TextProcessorImpl::getFunctionList(
 
 TokenizerFunctionContextImpl::~TokenizerFunctionContextImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TokenizerFunctionContext, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionContext), TokenizerFunctionContextConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 std::vector<analyzer::Token> TokenizerFunctionContextImpl::tokenize(
 			const char* src, std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TokenizerFunctionContext, Method_tokenize, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionContext), TokenizerFunctionContextConst::methodName( Method_tokenize), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::vector<analyzer::Token> p0 = obj()->tokenize(src, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6671,7 +6199,7 @@ std::vector<analyzer::Token> TokenizerFunctionContextImpl::tokenize(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6682,13 +6210,13 @@ std::vector<analyzer::Token> TokenizerFunctionContextImpl::tokenize(
 
 TokenizerFunctionInstanceImpl::~TokenizerFunctionInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TokenizerFunctionInstance, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), TokenizerFunctionInstanceConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 bool TokenizerFunctionInstanceImpl::concatBeforeTokenize() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TokenizerFunctionInstance, Method_concatBeforeTokenize, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), TokenizerFunctionInstanceConst::methodName( Method_concatBeforeTokenize), objid());
 	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->concatBeforeTokenize();
 	traceContext()->logger()->logCloseBranch();
@@ -6697,7 +6225,7 @@ bool TokenizerFunctionInstanceImpl::concatBeforeTokenize() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6708,7 +6236,7 @@ bool TokenizerFunctionInstanceImpl::concatBeforeTokenize() const
 
 TokenizerFunctionContextInterface* TokenizerFunctionInstanceImpl::createFunctionContext() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TokenizerFunctionInstance, Method_createFunctionContext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), TokenizerFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
 	traceContext()->logger()->logOpenBranch();
 	TokenizerFunctionContextInterface* p0 = obj()->createFunctionContext();
 	traceContext()->logger()->logCloseBranch();
@@ -6721,21 +6249,13 @@ TokenizerFunctionContextInterface* TokenizerFunctionInstanceImpl::createFunction
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_TokenizerFunctionContext, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionContext), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6746,15 +6266,15 @@ TokenizerFunctionContextInterface* TokenizerFunctionInstanceImpl::createFunction
 
 TokenizerFunctionImpl::~TokenizerFunctionImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TokenizerFunction, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunction), TokenizerFunctionConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 			const std::vector<std::string>& p1, 
 			const TextProcessorInterface* p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TokenizerFunction, Method_createInstance, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunction), TokenizerFunctionConst::methodName( Method_createInstance), objid());
 	traceContext()->logger()->logOpenBranch();
 	TokenizerFunctionInstanceInterface* p0 = obj()->createInstance(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -6767,24 +6287,16 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_TokenizerFunctionInstance, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p0->objid());
 		parambuf.packStringVector(p1);
 		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
-		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_TextProcessor, objbase_p2->objid());
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TextProcessor), objbase_p2->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6795,7 +6307,7 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 
 const char* TokenizerFunctionImpl::getDescription() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_TokenizerFunction, Method_getDescription, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunction), TokenizerFunctionConst::methodName( Method_getDescription), objid());
 	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getDescription();
 	traceContext()->logger()->logCloseBranch();
@@ -6811,7 +6323,7 @@ const char* TokenizerFunctionImpl::getDescription() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6822,14 +6334,14 @@ const char* TokenizerFunctionImpl::getDescription() const
 
 ValueIteratorImpl::~ValueIteratorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ValueIterator, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ValueIterator), ValueIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void ValueIteratorImpl::skip(
 			const char* value, std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ValueIterator, Method_skip, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ValueIterator), ValueIteratorConst::methodName( Method_skip), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->skip(value, p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6839,7 +6351,7 @@ void ValueIteratorImpl::skip(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6850,7 +6362,7 @@ void ValueIteratorImpl::skip(
 std::vector<std::string> ValueIteratorImpl::fetchValues(
 			std::size_t p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_ValueIterator, Method_fetchValues, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ValueIterator), ValueIteratorConst::methodName( Method_fetchValues), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->fetchValues(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6860,7 +6372,7 @@ std::vector<std::string> ValueIteratorImpl::fetchValues(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6871,8 +6383,8 @@ std::vector<std::string> ValueIteratorImpl::fetchValues(
 
 WeightingFunctionContextImpl::~WeightingFunctionContextImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunctionContext, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionContext), WeightingFunctionContextConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void WeightingFunctionContextImpl::addWeightingFeature(
@@ -6881,7 +6393,7 @@ void WeightingFunctionContextImpl::addWeightingFeature(
 			double p3, 
 			const TermStatistics& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunctionContext, Method_addWeightingFeature, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionContext), WeightingFunctionContextConst::methodName( Method_addWeightingFeature), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addWeightingFeature(p1, p2, p3, p4);
 	traceContext()->logger()->logCloseBranch();
@@ -6889,13 +6401,13 @@ void WeightingFunctionContextImpl::addWeightingFeature(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_PostingIterator, objbase_p2->objid());
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p2->objid());
 	parambuf.packDouble(p3);
 	parambuf.packTermStatistics(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6906,7 +6418,7 @@ void WeightingFunctionContextImpl::addWeightingFeature(
 double WeightingFunctionContextImpl::call(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunctionContext, Method_call, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionContext), WeightingFunctionContextConst::methodName( Method_call), objid());
 	traceContext()->logger()->logOpenBranch();
 	double p0 = obj()->call(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -6916,7 +6428,7 @@ double WeightingFunctionContextImpl::call(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6927,15 +6439,15 @@ double WeightingFunctionContextImpl::call(
 
 WeightingFunctionInstanceImpl::~WeightingFunctionInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunctionInstance, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 void WeightingFunctionInstanceImpl::addStringParameter(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunctionInstance, Method_addStringParameter, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_addStringParameter), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addStringParameter(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -6946,7 +6458,7 @@ void WeightingFunctionInstanceImpl::addStringParameter(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6958,7 +6470,7 @@ void WeightingFunctionInstanceImpl::addNumericParameter(
 			const std::string& p1, 
 			const NumericVariant& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunctionInstance, Method_addNumericParameter, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_addNumericParameter), objid());
 	traceContext()->logger()->logOpenBranch();
 	obj()->addNumericParameter(p1, p2);
 	traceContext()->logger()->logCloseBranch();
@@ -6969,7 +6481,7 @@ void WeightingFunctionInstanceImpl::addNumericParameter(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -6982,7 +6494,7 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 			MetaDataReaderInterface* p2, 
 			const GlobalStatistics& p3) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunctionInstance, Method_createFunctionContext, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
 	traceContext()->logger()->logOpenBranch();
 	WeightingFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2, p3);
 	traceContext()->logger()->logCloseBranch();
@@ -6995,17 +6507,17 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( ClassId_WeightingFunctionContext, objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunctionContext), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_StorageClient, objbase_p1->objid());
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p1->objid());
 		TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( ClassId_MetaDataReader, objbase_p2->objid());
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataReader), objbase_p2->objid());
 		parambuf.packGlobalStatistics(p3);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -7016,7 +6528,7 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 
 std::string WeightingFunctionInstanceImpl::tostring() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunctionInstance, Method_tostring, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_tostring), objid());
 	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
 	traceContext()->logger()->logCloseBranch();
@@ -7025,7 +6537,7 @@ std::string WeightingFunctionInstanceImpl::tostring() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -7036,14 +6548,14 @@ std::string WeightingFunctionInstanceImpl::tostring() const
 
 WeightingFunctionImpl::~WeightingFunctionImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunction, Method_Destructor, objid());
-	traceContext()->logger()->logMethodTermination( callhnd, "");
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunction), WeightingFunctionConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
 WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 			const QueryProcessorInterface* p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunction, Method_createInstance, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunction), WeightingFunctionConst::methodName( Method_createInstance), objid());
 	traceContext()->logger()->logOpenBranch();
 	WeightingFunctionInstanceInterface* p0 = obj()->createInstance(p1);
 	traceContext()->logger()->logCloseBranch();
@@ -7056,23 +6568,15 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0)
-		{
-			parambuf.packVoid();
-		}
-		else
-		{
-			parambuf.packObject( ClassId_WeightingFunctionInstance, objbase_p0->objid());
-			traceContext()->logger()->logObjectCreation( objbase_p0->objid(), callhnd);
-		}
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( ClassId_QueryProcessor, objbase_p1->objid());
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_QueryProcessor), objbase_p1->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
@@ -7083,7 +6587,7 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 
 FunctionDescription WeightingFunctionImpl::getDescription() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( ClassId_WeightingFunction, Method_getDescription, objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunction), WeightingFunctionConst::methodName( Method_getDescription), objid());
 	traceContext()->logger()->logOpenBranch();
 	FunctionDescription p0 = obj()->getDescription();
 	traceContext()->logger()->logCloseBranch();
@@ -7092,7 +6596,7 @@ FunctionDescription WeightingFunctionImpl::getDescription() const
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, "");
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{

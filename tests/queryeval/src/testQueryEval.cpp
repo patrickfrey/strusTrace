@@ -44,13 +44,8 @@
 #include "strus/aggregatorFunctionInstanceInterface.hpp"
 #include "strus/valueIteratorInterface.hpp"
 #include "strus/traceObjectBuilderInterface.hpp"
-#include "strus/traceProcessorInterface.hpp"
 #include "strus/traceLoggerInterface.hpp"
-#include "strus/traceViewerInterface.hpp"
-#include "strus/traceIdMapInterface.hpp"
 #include "strus/traceElement.hpp"
-#include "strus/traceQuery.hpp"
-#include "strus/traceRecord.hpp"
 #include "objectIds_gen.hpp"
 #include <string>
 #include <cstdarg>
@@ -461,7 +456,7 @@ static bool diffFiles( const char* file1, const char* file2)
 
 static void envelope(
 		std::auto_ptr<strus::StorageObjectBuilderInterface>& sob,
-		const strus::TraceObjectBuilderInterface* tob)
+		strus::TraceObjectBuilderInterface* tob)
 {
 	strus::StorageObjectBuilderInterface*
 		sob_envelope = tob->createStorageObjectBuilder( sob.get());
@@ -478,7 +473,7 @@ static void envelope(
 
 static void envelope(
 		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>& aob,
-		const strus::TraceObjectBuilderInterface* tob)
+		strus::TraceObjectBuilderInterface* tob)
 {
 	strus::AnalyzerObjectBuilderInterface*
 		aob_envelope = tob->createAnalyzerObjectBuilder( aob.get());
@@ -493,173 +488,6 @@ static void envelope(
 	}
 }
 
-struct TestQuery
-{
-	const char* description;
-	strus::TraceClassId classId;
-	strus::TraceMethodId methodId;
-	strus::TraceObjectId objId;
-	strus::TraceTimeCounter time_from;
-	strus::TraceTimeCounter time_to;
-	strus::TraceTreeDepth depth_from;
-	strus::TraceTreeDepth depth_to;
-	std::size_t startIndex;
-	std::size_t maxNofResults;
-};
-
-
-static std::string encodeText( const char* buf, std::size_t bufsize)
-{
-	static const char* cntrlchrs = "\n\t\r\b";
-	static const char* cntrlsubs = "ntrb0";
-	std::string rt;
-	std::size_t bi = 0;
-	for (; bi < bufsize; ++bi)
-	{
-		if ((unsigned char)buf[bi] < 32)
-		{
-			char const* ci = std::strchr( cntrlchrs, buf[bi]);
-			if (ci)
-			{
-				rt.push_back( '\\');
-				rt.push_back( cntrlsubs[ ci-cntrlchrs]);
-			}
-			else
-			{
-				rt.push_back( '.');
-			}
-		}
-		else if (buf[bi] == '\'')
-		{
-			rt.push_back( '\\');
-			rt.push_back( buf[bi]);
-		}
-		else
-		{
-			rt.push_back( buf[bi]);
-		}
-	}
-	return rt;
-}
-
-static std::string unpackParam( const strus::TraceIdMapInterface* idmap, char const* param, std::size_t paramsize)
-{
-	std::ostringstream buf;
-	std::vector<std::string> stack;
-	bool delim = false;
-	const char* name;
-	std::vector<strus::TraceElement> elements
-		= idmap->unpackElements( param, paramsize);
-	std::vector<strus::TraceElement>::const_iterator ei = elements.begin(), ee = elements.end();
-	for (int eidx=0; ei != ee; ++ei,++eidx)
-	{
-		switch (ei->type())
-		{
-			case strus::TraceElement::TypeVoid:
-				if (delim) buf << " ";
-				delim = true;
-				buf << "()";
-				break;
-			case strus::TraceElement::TypeInt:
-				if (delim) buf << " ";
-				delim = true;
-				buf << ei->value().Int;
-				break;
-			case strus::TraceElement::TypeUInt:
-				if (delim) buf << " ";
-				delim = true;
-				buf << ei->value().UInt;
-				break;
-			case strus::TraceElement::TypeFloat:
-				if (delim) buf << " ";
-				delim = true;
-				buf << std::fixed << std::setprecision(3) << ei->value().Float;
-				break;
-			case strus::TraceElement::TypeDouble:
-				if (delim) buf << " ";
-				delim = true;
-				buf << std::fixed << std::setprecision(6) << ei->value().Double;
-				break;
-			case strus::TraceElement::TypeBool:
-				if (delim) buf << " ";
-				delim = true;
-				buf << (ei->value().Bool?"true":"false");
-				break;
-			case strus::TraceElement::TypeObject:
-				if (delim) buf << " ";
-				delim = true;
-				name = idmap->getClassName( ei->value().Obj.Class);
-				if (name) buf << name; else throw std::runtime_error("unknown class id");
-				buf << "<" << ei->value().Obj.Id << ">";
-				break;
-			case strus::TraceElement::TypeString:
-				if (delim) buf << " ";
-				delim = true;
-				buf << encodeText( ei->value().String.Ptr, ei->value().String.Size);
-				break;
-			case strus::TraceElement::TypeOpenIndex:
-				if (delim) buf << " ";
-				delim = false;
-				stack.push_back( "");
-				buf << "<" << ei->value().Index << ">";
-				break;
-			case strus::TraceElement::TypeOpenTag:
-				if (delim) buf << " ";
-				delim = false;
-				stack.push_back( encodeText( ei->value().String.Ptr, ei->value().String.Size));
-				buf << "<" << stack.back() << ">";
-				break;
-			case strus::TraceElement::TypeClose:
-				delim = true;
-				if (stack.empty()) throw std::runtime_error( "illegal close tag in trace parameter string");
-				buf << "</" << stack.back().c_str() << ">";
-				stack.pop_back();
-				break;
-		}
-	}
-	return buf.str();
-}
-
-static void executeViewerQueries( std::ostream& out, const strus::TraceIdMapInterface* idmap, const strus::TraceViewerInterface* viewer, const TestQuery testQueries[])
-{
-	std::size_t qi = 0;
-	for (; testQueries[qi].description; ++qi)
-	{
-		out << "QUERY " << testQueries[qi].description << std::endl;
-
-		strus::TraceQuery query;
-		if (testQueries[qi].classId) query.restrictClassId( testQueries[qi].classId);
-		if (testQueries[qi].methodId) query.restrictMethodId( testQueries[qi].methodId);
-		if (testQueries[qi].objId) query.restrictObjId( testQueries[qi].objId);
-		if (testQueries[qi].time_from||testQueries[qi].time_to) query.restrictTime( testQueries[qi].time_from, testQueries[qi].time_to);
-		if (testQueries[qi].depth_from||testQueries[qi].depth_to) query.restrictDepth( testQueries[qi].depth_from, testQueries[qi].depth_to);
-
-		std::vector<strus::TraceRecord> reclist = viewer->listMethodCalls( query, testQueries[qi].startIndex, testQueries[qi].maxNofResults+1);
-		std::vector<strus::TraceRecord>::const_iterator ri = reclist.begin(), re = reclist.end();
-		bool hasMore = false;
-		if (reclist.size() > testQueries[qi].maxNofResults)
-		{
-			hasMore = true;
-			--re;
-		}
-		for (; ri != re; ++ri)
-		{
-			out << "class=" << idmap->getClassName( ri->classId())
-				<< "<" << ri->objId() << ">"
-				<< "::" << idmap->getMethodName( ri->classId(), ri->methodId())
-				<< " start=" <<  ri->startTime()
-				<< " end=" <<  ri->endTime()
-				<< " depth=" <<  ri->depth()
-				<< " param:" << unpackParam( idmap, ri->packedParameter(), ri->packedParameterSize())
-				<< std::endl;
-		}
-		if (hasMore)
-		{
-			out << "..." << std::endl;
-		}
-		out << std::endl;
-	}
-}
 
 static const DocumentAnalyzerConfig g_analyzerconfig[] =
 {
@@ -679,16 +507,6 @@ static const TestDocument g_testdocs[] =
 };
 static const char* g_querystring = "dream transformed vermin";
 
-static const TestQuery g_testQueries[] =
-{
-	//{description,classId,methodId,objId,time_from,time_to,depth_from,depth_to, I,N}
-	{"analyze document (restrict time to 52-150)", 0,0,0,52,150,0,0,0,300},
-	{"analyze document (restrict time to 52-150 and depth 1)", 0,0,0,52,150,1,1,0,300},
-	{"storage add document (restrict to StorageDocument<26>)", strus::ClassId_StorageDocument,0,26,0,0,0,0,0,300},
-	{"database cursor (restrict to StorageDocument<26>)", strus::ClassId_DatabaseCursor,strus::DatabaseCursorConst::Method_seekUpperBound,298,0,0,0,0,0,300},
-	{0,0,0,0,0,0,0,0,0,0}
-};
-
 
 int main( int argc, const char* argv[])
 {
@@ -707,10 +525,22 @@ int main( int argc, const char* argv[])
 	std::string outputstr;
 	char storagecfg[ 1024];
 	snprintf( storagecfg, sizeof(storagecfg), "%s; metadata=doclen UINT16", argv[1]);
-	const char* outfile = argv[2];
-	char outcfg[ 1024];
-	snprintf( outcfg, sizeof(outcfg), "file=%s", outfile);
-	const char* expfile = argv[3];
+
+	char out_dump[ 1024];
+	snprintf( out_dump, sizeof(out_dump), "%s.txt", argv[2]);
+	char outcfg_dump[ 1024];
+	snprintf( outcfg_dump, sizeof(outcfg_dump), "file=%s.txt", argv[2]);
+
+	char out_json[ 1024];
+	snprintf( out_json, sizeof(out_json), "%s.json", argv[2]);
+	char outcfg_json[ 1024];
+	snprintf( outcfg_json, sizeof(outcfg_json), "file=%s.json", argv[2]);
+
+	char res_dump[ 1024];
+	snprintf( res_dump, sizeof(res_dump), "%s.txt", argv[3]);
+	char res_json[ 1024];
+	snprintf( res_json, sizeof(res_json), "%s.json", argv[3]);
+
 	const char* breakpoints = argc>4?argv[4]:(const char*)0;
 
 	g_errorhnd = strus::createErrorBuffer_standard( stderr, 1);
@@ -723,68 +553,59 @@ int main( int argc, const char* argv[])
 	{
 		{//begin scope trace processor:
 
-		const strus::TraceIdMapInterface* idmap = 0;
 		std::auto_ptr<strus::TraceObjectBuilderInterface> traceObjectBuilder_breakpoint;
 
-		// If breakpoints configured, create trace processor 'breakpoints':
+		// If breakpoints configured, create trace object builder 'breakpoints':
 		if (breakpoints)
 		{
-			strus::TraceProcessorInterface*
-				traceproc_breakpoint = strus::createTraceProcessor_breakpoint( g_errorhnd);
-			if (!traceproc_breakpoint)
+			strus::TraceLoggerInterface*
+				logger_breakpoint = strus::createTraceLogger_breakpoint( breakpoints, g_errorhnd);
+			if (!logger_breakpoint)
 			{
-				throw std::runtime_error("failed to create trace processor (textfile)");
+				throw std::runtime_error("failed to create trace logger (breakpoint)");
 			}
 			traceObjectBuilder_breakpoint =
 				std::auto_ptr<strus::TraceObjectBuilderInterface>(
-					strus::traceCreateObjectBuilder(
-						traceproc_breakpoint, breakpoints, g_errorhnd));
+					strus::traceCreateObjectBuilder( logger_breakpoint, g_errorhnd));
 			if (!traceObjectBuilder_breakpoint.get())
 			{
-				delete traceproc_breakpoint;
+				delete logger_breakpoint;
 				throw std::runtime_error("failed to create trace object builder (breakpoint)");
 			}
 		}
 
-		// Create trace processor 'textfile':
-		strus::TraceProcessorInterface* 
-			traceproc_textfile = strus::createTraceProcessor_textfile( g_errorhnd);
-		if (!traceproc_textfile)
+		// Create trace object builder 'dump':
+		strus::TraceLoggerInterface* 
+			logger_dump = strus::createTraceLogger_dump( outcfg_dump, g_errorhnd);
+		if (!logger_dump)
 		{
-			throw std::runtime_error("failed to create trace processor (textfile)");
+			throw std::runtime_error("failed to create trace logger (dump)");
 		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
-			traceObjectBuilder_logtext(
-				strus::traceCreateObjectBuilder(
-					traceproc_textfile, outcfg, g_errorhnd));
-		if (!traceObjectBuilder_logtext.get())
+			traceObjectBuilder_dump(
+				strus::traceCreateObjectBuilder( logger_dump, g_errorhnd));
+		if (!traceObjectBuilder_dump.get())
 		{
-			delete traceproc_textfile;
-			throw std::runtime_error("failed to create trace processor (textfile)");
+			delete logger_dump;
+			throw std::runtime_error("failed to create trace object builder (dump)");
 		}
 
-		// Create trace processor 'memory':
-		strus::TraceProcessorInterface*
-			traceproc_memory = strus::createTraceProcessor_memory( g_errorhnd);
-		if (!traceproc_memory)
+		// Create trace processor 'json':
+		strus::TraceLoggerInterface*
+			logger_json = strus::createTraceLogger_json( outcfg_json, g_errorhnd);
+		if (!logger_json)
 		{
-			throw std::runtime_error("failed to create trace processor (memory)");
+			throw std::runtime_error("failed to create trace logger (json)");
 		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
-			traceObjectBuilder_memory(
+			traceObjectBuilder_json(
 				strus::traceCreateObjectBuilder(
-					traceproc_memory, "", g_errorhnd));
-		if (!traceObjectBuilder_memory.get())
+					logger_json, g_errorhnd));
+		if (!traceObjectBuilder_json.get())
 		{
-			delete traceproc_memory;
-			throw std::runtime_error("failed to create trace object builder (memory)");
+			delete logger_json;
+			throw std::runtime_error("failed to create trace object builder (json)");
 		}
-		std::auto_ptr<strus::TraceViewerInterface> viewer( traceObjectBuilder_memory->createViewer());
-		if (!viewer.get())
-		{
-			throw std::runtime_error("failed to create trace viewer (memory)");
-		}
-		idmap = traceObjectBuilder_memory->getIdMap();
 
 		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>
 			aob( new strus::AnalyzerObjectBuilder( g_errorhnd));
@@ -796,10 +617,10 @@ int main( int argc, const char* argv[])
 			envelope( aob, traceObjectBuilder_breakpoint.get());
 			envelope( sob, traceObjectBuilder_breakpoint.get());
 		}
-		envelope( aob, traceObjectBuilder_logtext.get());
-		envelope( aob, traceObjectBuilder_memory.get());
-		envelope( sob, traceObjectBuilder_logtext.get());
-		envelope( sob, traceObjectBuilder_memory.get());
+		envelope( aob, traceObjectBuilder_dump.get());
+		envelope( aob, traceObjectBuilder_json.get());
+		envelope( sob, traceObjectBuilder_dump.get());
+		envelope( sob, traceObjectBuilder_json.get());
 
 		// Build storage and query evaluation test:
 		testEvaluateQuery(
@@ -809,36 +630,21 @@ int main( int argc, const char* argv[])
 		{
 			throw std::runtime_error(std::string("unhandled error: ") + g_errorhnd->fetchError());
 		}
-
-		// Test selective view of output:
-		std::ostringstream out;
-		executeViewerQueries( out, idmap, viewer.get(), g_testQueries);
-		outputstr.append( out.str());
-
-		// Test object creation time:
-		unsigned int creatTime = viewer->getObjectCreationTime( 298);
-		if (creatTime != 2969)
-		{
-			throw std::runtime_error( "error in reported creation time of object");
-		}
 		}//end scope trace processor
 
-		// Concat output of all tests together:
-		std::string outputstr1;
-		unsigned int ec = strus::readFile( outfile, outputstr1);
-		if (ec) throw std::runtime_error( std::string( "error reading output file: ") + ::strerror(ec));
-		ec = strus::writeFile( outfile, outputstr1 + outputstr);
-		if (ec) throw std::runtime_error( std::string( "error writing output file: ") + ::strerror(ec));
-
 		// Compare output with expected:
-		if (!diffFiles( outfile, expfile))
+		if (!diffFiles( out_dump, res_dump))
 		{
-			throw std::runtime_error( "input file and expected output file differ"); 
+			throw std::runtime_error( "input file and expected output file (dump) differ"); 
+		}
+		if (!diffFiles( out_json, res_json))
+		{
+			throw std::runtime_error( "input file and expected output file (json) differ"); 
 		}
 	}
 	catch (const std::bad_alloc&)
 	{
-		std::cerr << "ERROR memory allocation error" << std::endl;
+		std::cerr << "ERROR json allocation error" << std::endl;
 		return -1;
 	}
 	catch (const std::runtime_error& err)

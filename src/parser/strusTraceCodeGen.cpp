@@ -80,6 +80,10 @@ static void print_ObjectIdsHpp( std::ostream& out, const strus::InterfacesDef& i
 		out << std::endl;
 	}
 	out << "};" << std::endl << std::endl;
+	out << "struct TraceClassNameMap" << std::endl
+		<< "{" << std::endl
+		<< "\tstatic const char* className( unsigned int classId);" << std::endl
+		<< "};" << std::endl << std::endl;
 
 	ci = interfaceDef.classDefs().begin();
 	for (; ci != ce; ++ci)
@@ -98,12 +102,56 @@ static void print_ObjectIdsHpp( std::ostream& out, const strus::InterfacesDef& i
 			out << ","  << std::endl << "\t\tMethod_" << mi->name() << "=" << midx;
 		}
 		out << std::endl << "\t};" << std::endl;
+		out << "\tstatic const char* methodName( MethodId mid);" << std::endl;
 		out << "};" << std::endl << std::endl;
 	}
 	out
 		<< std::endl
 		<< "}//namespace" << std::endl;
 	strus::printHppFrameTail( out);
+}
+
+
+static void print_ObjectIdsCpp( std::ostream& out, const strus::InterfacesDef& interfaceDef)
+{
+	strus::printCppFrameHeader( out, "objectIds_gen", "Identifiers for objects and methods for serialization");
+	out << "#include \"objectIds_gen.hpp\"" << std::endl << std::endl;
+	out << "using namespace strus;" << std::endl << std::endl;
+
+	std::vector<strus::ClassDef>::const_iterator
+		ci = interfaceDef.classDefs().begin(),
+		ce = interfaceDef.classDefs().end();
+	out << "const char* TraceClassNameMap::className( unsigned int classId)" << std::endl;
+	out << "{" << std::endl;
+	out << "\tstatic const char* ar[] = {" << std::endl;
+	for (; ci != ce; ++ci)
+	{
+		out << "\t\t\"" << ci->name() << "\"";
+		if (ci+1 != ce) out << ",";
+		out << std::endl;
+	}
+	out << "\t};" << std::endl << std::endl;
+	out << "\treturn classId?ar[ classId-1]:0;" << std::endl;
+	out << "}" << std::endl << std::endl;
+
+	ci = interfaceDef.classDefs().begin();
+	for (; ci != ce; ++ci)
+	{
+		out << "const char* "<< ci->name() << "Const::methodName( MethodId mid)" << std::endl;
+		out << "{" << std::endl;
+		out << "\tstatic const char* ar[] = { \"Destructor\"";
+		std::vector<strus::MethodDef>::const_iterator
+			mi = ci->methodDefs().begin(),
+			me = ci->methodDefs().end();
+		for (; mi != me; ++mi)
+		{
+			out << ", \"" << mi->name() << "\"";
+		}
+		out << "};" << std::endl;
+		out << "\treturn ar[mid];" << std::endl;
+		out << "}" << std::endl << std::endl;
+	}
+	out << std::endl;
 }
 
 
@@ -192,9 +240,9 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 		out
 			<< implclassname << "::~" << implclassname << "()" << std::endl
 			<< "{" << std::endl
-			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( "
-			<< classid << ", Method_Destructor, objid());" << std::endl
-			<<"\ttraceContext()->logger()->logMethodTermination( callhnd, \"\");" << std::endl
+			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( "
+			<< classid << "), " << ci->name() << "Const::methodName( Method_Destructor), objid());" << std::endl
+			<<"\ttraceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());" << std::endl
 			<< "}" << std::endl << std::endl;
 
 		std::vector<strus::MethodDef>::const_iterator
@@ -220,8 +268,8 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			// Log method call:
 			out
 			<< "{" << std::endl
-			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( "
-			<< classid << ", Method_" << mi->name() << ", objid());" << std::endl
+			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( "
+			<< classid << "), " << ci->name() << "Const::methodName( Method_" << mi->name() << "), objid());" << std::endl
 			<< "\ttraceContext()->logger()->logOpenBranch();" << std::endl;
 
 			// Call real function:
@@ -262,15 +310,8 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			// Create string with packed function in/out parameters:
 			// Return value:
 			std::string source_packparam;
-			std::string source_packret( mi->returnValue().expand( "pack_ret", "p0"));
-			if (source_packret.empty())
-			{
-				source_packparam.append( mi->returnValue().expand( "pack_msg", "p0"));
-			}
-			else
-			{
-				source_packparam.append( source_packret);
-			}
+			source_packparam.append( mi->returnValue().expand( "pack_msg", "p0"));
+
 			// Parameter:
 			pi = mi->parameters().begin();
 			for (int pidx=0; pi != pe; ++pi,++pidx)
@@ -328,7 +369,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 				}
 			}
 			out
-			<<"\t\ttraceContext()->logger()->logMethodTermination( callhnd, \"\");" << std::endl
+			<<"\t\ttraceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());" << std::endl
 			<< "\t}" << std::endl
 			<< "\telse" << std::endl
 			<< "\t{" << std::endl
@@ -345,54 +386,6 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 	}
 	out << std::endl;
 }
-
-
-static void print_IdMapCpp( std::ostream& out, const strus::InterfacesDef& interfaceDef)
-{
-	strus::printCppFrameHeader( out, "traceIdMap_gen", "Fill map of strings to identifiers and back for objects and methods for serialization");
-	out << "#include \"traceIdMap.hpp\"" << std::endl;
-	out << "#include \"objectIds_gen.hpp\"" << std::endl;
-
-	out
-	<< std::endl
-	<< "using namespace strus;" << std::endl << std::endl;
-
-	out
-	<< "void TraceIdMap::fillMaps()" << std::endl
-	<< "{" << std::endl;
-	std::vector<strus::ClassDef>::const_iterator
-		ci = interfaceDef.classDefs().begin(),
-		ce = interfaceDef.classDefs().end();
-	for (; ci != ce; ++ci)
-	{
-		std::string implclassname( ci->name() + "Impl");
-		std::string classid( std::string("ClassId_") + ci->name());
-
-		out
-		<< "\tm_classnamemap[\"" << ci->name() << "\"] = ClassId_" << ci->name() << ";" << std::endl
-		<< "\tm_classnamear.push_back( \"" << ci->name() << "\");" << std::endl;
-	}
-	ci = interfaceDef.classDefs().begin();
-	for (; ci != ce; ++ci)
-	{
-		out
-		<< "\tm_methodnamemap[ MethodNameRef( ClassId_" << ci->name() << ", \"Destructor\")] = " << ci->name() << "Const::Method_Destructor;" << std::endl
-		<< "\tm_methodnameinvmap[ MethodIdRef( ClassId_" << ci->name() << ", " << ci->name() << "Const::Method_Destructor)] = \"Destructor\";" << std::endl;
-
-		std::vector<strus::MethodDef>::const_iterator
-			mi = ci->methodDefs().begin(),
-			me = ci->methodDefs().end();
-		for (; mi != me; ++mi)
-		{
-			out
-			<< "\tm_methodnamemap[ MethodNameRef( ClassId_" << ci->name() << ", \"" << mi->name() << "\")] = " << ci->name() << "Const::Method_" << mi->name() << ";" << std::endl
-			<< "\tm_methodnameinvmap[ MethodIdRef( ClassId_" << ci->name() << ", " << ci->name() << "Const::Method_" << mi->name() << ")] = \"" << mi->name() << "\";" << std::endl;
-		}
-	}
-	out
-	<< "}" << std::endl;
-}
-	
 
 
 int main( int argc, const char* argv[])
@@ -440,6 +433,11 @@ int main( int argc, const char* argv[])
 		printOutput( "src/objectIds_gen.hpp", &print_ObjectIdsHpp, interfaceDef);
 
 #ifdef STRUS_LOWLEVEL_DEBUG
+		print_ObjectIdsCpp( std::cout, interfaceDef);
+#endif
+		printOutput( "src/objectIds_gen.cpp", &print_ObjectIdsCpp, interfaceDef);
+
+#ifdef STRUS_LOWLEVEL_DEBUG
 		print_ObjectsHpp( std::cout, interfaceDef);
 #endif
 
@@ -449,11 +447,6 @@ int main( int argc, const char* argv[])
 		print_ObjectsCpp( std::cout, interfaceDef);
 #endif
 		printOutput( "src/objects_gen.cpp", &print_ObjectsCpp, interfaceDef);
-
-#ifdef STRUS_LOWLEVEL_DEBUG
-		print_ObjectsCpp( std::cout, interfaceDef);
-#endif
-		printOutput( "src/traceIdMap_gen.cpp", &print_IdMapCpp, interfaceDef);
 
 		std::cerr << "done." << std::endl;
 		return 0;

@@ -10,6 +10,7 @@
 #include "strus/lib/traceobj.hpp"
 #include "traceObjectBuilder.hpp"
 #include "strus/errorBufferInterface.hpp"
+#include "strus/traceLoggerInterface.hpp"
 #include "strus/base/dll_tags.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
@@ -19,8 +20,7 @@ static bool g_intl_initialized = false;
 
 DLL_PUBLIC TraceObjectBuilderInterface*
 	strus::traceCreateObjectBuilder(
-		TraceProcessorInterface* traceproc,
-		const std::string& loggerConfig,
+		TraceLoggerInterface* tracelog,
 		ErrorBufferInterface* errorhnd)
 {
 	try
@@ -30,7 +30,7 @@ DLL_PUBLIC TraceObjectBuilderInterface*
 			strus::initMessageTextDomain();
 			g_intl_initialized = true;
 		}
-		return new TraceObjectBuilder( traceproc, loggerConfig, errorhnd);
+		return new TraceObjectBuilder( tracelog, errorhnd);
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("error creating trace object builder: %s"), *errorhnd, 0);
 }

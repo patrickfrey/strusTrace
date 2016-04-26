@@ -5,10 +5,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/// \brief Implementation of logging and querying call traces to textfile or stdout
-/// \file traceLogger_textfile.hpp
-#ifndef _STRUS_TRACE_LOGGER_TEXTFILE_IMPLEMENTATION_HPP_INCLUDED
-#define _STRUS_TRACE_LOGGER_TEXTFILE_IMPLEMENTATION_HPP_INCLUDED
+/// \brief Implementation of immediately dumping method call traces to text file or stdout
+/// \file traceLogger_dump.hpp
+#ifndef _STRUS_TRACE_LOGGER_DUMP_IMPLEMENTATION_HPP_INCLUDED
+#define _STRUS_TRACE_LOGGER_DUMP_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/traceElement.hpp"
 #include <string>
@@ -18,46 +18,37 @@ namespace strus
 {
 ///\brief Forward declaration
 class ErrorBufferInterface;
-///\brief Forward declaration
-class TraceViewerInterface;
-///\brief Forward declaration
-class TraceIdMapInterface;
 
 /// \brief Strus standard call trace logger implementation
-class TraceLogger_textfile
+class TraceLogger_dump
 	:public TraceLoggerInterface
 {
 public:
 	/// \brief Constructor
-	TraceLogger_textfile( const std::string& filename, const TraceIdMapInterface* idmap_, ErrorBufferInterface* errorhnd_);
+	TraceLogger_dump( const std::string& filename, ErrorBufferInterface* errorhnd_);
 
 	/// \brief Destructor
-	virtual ~TraceLogger_textfile();
+	virtual ~TraceLogger_dump();
 
 	virtual TraceLogRecordHandle
 		logMethodCall(
-			const TraceClassId& classId,
-			const TraceMethodId& methodId,
+			const char* className,
+			const char* methodName,
 			const TraceObjectId& objId);
-
-	virtual void logObjectCreation(
-			const TraceObjectId& objId,
-			const TraceLogRecordHandle& loghnd);
 
 	virtual void logMethodTermination(
 			const TraceLogRecordHandle& loghnd,
-			const std::string& packedParameter);
+			const std::vector<TraceElement>& parameter);
 
 	virtual void logOpenBranch();
 	virtual void logCloseBranch();
 
-	virtual TraceViewerInterface* createViewer() const;
+	virtual bool close();
 
 private:
 	ErrorBufferInterface* m_errorhnd;
-	const TraceIdMapInterface* m_traceIdMap;
 	FILE* m_output;
-	TraceTreeDepth m_depth;
+	unsigned int m_depth;
 	std::string m_indentstr;
 	TraceLogRecordHandle m_logcnt;
 };

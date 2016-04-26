@@ -18,10 +18,6 @@ namespace strus
 class StorageObjectBuilderInterface;
 /// \brief Forward declaration
 class AnalyzerObjectBuilderInterface;
-/// \brief Forward declaration
-class TraceIdMapInterface;
-/// \brief Forward declaration
-class TraceViewerInterface;
 
 /// \brief Interface for creating proxies for Strus objects that log methods called besides calling them
 class TraceObjectBuilderInterface
@@ -35,22 +31,14 @@ public:
 	/// \param[in] builder builder object to build a proxy universe of
 	virtual AnalyzerObjectBuilderInterface*
 		createAnalyzerObjectBuilder(
-			AnalyzerObjectBuilderInterface* builder) const=0;
+			AnalyzerObjectBuilderInterface* builder)=0;
 	
 	/// \brief Create a proxy of an storage object builder that prints a trace log before and after every method call before executing the method itself
 	/// \param[in] errorhnd error buffer for error messages and exceptions
 	/// \param[in] builder builder object to build a proxy universe of
 	virtual StorageObjectBuilderInterface*
 		createStorageObjectBuilder(
-			StorageObjectBuilderInterface* builder) const=0;
-
-	/// \brief Get the map of identifiers (class names, method names) used
-	/// \return a read only reference to the identifier map
-	virtual const TraceIdMapInterface* getIdMap() const=0;
-
-	/// \brief Create a viewer for inspecting the method call traces of this object builder
-	/// \return the viewer interface
-	virtual TraceViewerInterface* createViewer() const=0;
+			StorageObjectBuilderInterface* builder)=0;
 };
 
 }//namespace

@@ -11,6 +11,8 @@
 #define _STRUS_TRACE_QUERY_HPP_INCLUDED
 #include "strus/traceElement.hpp"
 
+#error DEPRECATED
+
 namespace strus
 {
 

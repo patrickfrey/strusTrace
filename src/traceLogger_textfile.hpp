@@ -18,10 +18,6 @@ namespace strus
 {
 ///\brief Forward declaration
 class ErrorBufferInterface;
-///\brief Forward declaration
-class TraceViewerInterface;
-///\brief Forward declaration
-class TraceIdMapInterface;
 
 /// \brief Strus standard call trace logger implementation
 class TraceLogger_textfile
@@ -29,35 +25,30 @@ class TraceLogger_textfile
 {
 public:
 	/// \brief Constructor
-	TraceLogger_textfile( const std::string& filename, const TraceIdMapInterface* idmap_, ErrorBufferInterface* errorhnd_);
+	TraceLogger_textfile( const std::string& filename, ErrorBufferInterface* errorhnd_);
 
 	/// \brief Destructor
 	virtual ~TraceLogger_textfile();
 
 	virtual TraceLogRecordHandle
 		logMethodCall(
-			const TraceClassId& classId,
-			const TraceMethodId& methodId,
+			const char* className,
+			const char* methodName,
 			const TraceObjectId& objId);
-
-	virtual void logObjectCreation(
-			const TraceObjectId& objId,
-			const TraceLogRecordHandle& loghnd);
 
 	virtual void logMethodTermination(
 			const TraceLogRecordHandle& loghnd,
-			const std::string& packedParameter);
+			const std::vector<TraceElement>& parameter);
 
 	virtual void logOpenBranch();
 	virtual void logCloseBranch();
 
-	virtual TraceViewerInterface* createViewer() const;
+	virtual void close();
 
 private:
 	ErrorBufferInterface* m_errorhnd;
-	const TraceIdMapInterface* m_traceIdMap;
 	FILE* m_output;
-	TraceTreeDepth m_depth;
+	unsigned int m_depth;
 	std::string m_indentstr;
 	TraceLogRecordHandle m_logcnt;
 };

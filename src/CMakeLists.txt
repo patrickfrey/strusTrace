@@ -8,22 +8,18 @@ add_subdirectory( parser )
 # --------------------------------------
 set( source_files_proc
 	internationalization.cpp
-	traceViewer_memory.cpp
-	traceLogger_memory.cpp
+	logUtils.cpp
+	traceLogger_json.cpp
 	traceLogger_textfile.cpp
 	traceLogger_breakpoint.cpp
-	traceProcessor.cpp
 )
 
 set( source_files_obj
 	internationalization.cpp
-	traceIdMap.cpp
-	traceIdMap_gen.cpp
-	deserialize.cpp
-	serialize.cpp
 	traceSerializer.cpp
 	traceObject.cpp
 	objects_gen.cpp
+	objectIds_gen.cpp
 	traceObjectBuilder.cpp
 )
 

@@ -9,7 +9,7 @@
 /// \file traceSerializer.hpp
 #ifndef _STRUS_TRACE_SERIALIZER_HPP_INCLUDED
 #define _STRUS_TRACE_SERIALIZER_HPP_INCLUDED
-#include "serialize.hpp"
+#include "strus/traceElement.hpp"
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/numericVariant.hpp"
 #include "strus/documentClass.hpp"
@@ -35,7 +35,8 @@
 #include "strus/analyzer/token.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
-
+#include <string>
+#include <vector>
 
 namespace strus
 {
@@ -45,12 +46,11 @@ class ErrorBufferInterface;
 
 /// \brief Class for inspecting logged traces
 class TraceSerializer
-	:protected Serializer
 {
 public:
 	/// \brief Constructor
-	TraceSerializer()
-		:m_error(false){}
+	explicit TraceSerializer()
+		:m_error(false),m_elembuf(){}
 	/// \brief Destructor
 	~TraceSerializer(){}
 
@@ -80,7 +80,7 @@ public:
 	void openTag( const std::string& name);
 	void close();
 
-	void packObject( const TraceClassId& classId, const TraceObjectId& objId);
+	void packObject( const char* classId, const TraceObjectId& objId);
 	void packBuffer( const char* buf, std::size_t size);
 	void packBufferFloat( const double* buf, std::size_t size);
 	void packNumericVariant( const NumericVariant& val);
@@ -128,13 +128,14 @@ public:
 		return m_error;
 	}
 
-	const std::string& content() const
+	const std::vector<TraceElement>& content() const
 	{
-		return Serializer::content();
+		return m_elembuf;
 	}
 
 private:
 	bool m_error;
+	std::vector<TraceElement> m_elembuf;
 };
 
 }//namespace

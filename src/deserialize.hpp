@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+#error DEPRECATED
+
 namespace strus {
 
 class Deserializer

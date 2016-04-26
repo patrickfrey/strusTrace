@@ -10,8 +10,8 @@
 #include "traceLogger_textfile.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
+#include "logUtils.hpp"
 #include "strus/errorBufferInterface.hpp"
-#include "strus/traceIdMapInterface.hpp"
 #include <cstdlib>
 #include <cstring>
 #include <stdexcept>
@@ -24,8 +24,8 @@
 
 using namespace strus;
 
-TraceLogger_textfile::TraceLogger_textfile( const std::string& filename, const TraceIdMapInterface* idmap_, ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_traceIdMap(idmap_),m_output(0),m_depth(1),m_indentstr(),m_logcnt(0)
+TraceLogger_textfile::TraceLogger_textfile( const std::string& filename, ErrorBufferInterface* errorhnd_)
+	:m_errorhnd(errorhnd_),m_output(0),m_depth(1),m_indentstr(),m_logcnt(0)
 {
 	if (filename == "-" || filename == "stdout")
 	{
@@ -47,7 +47,7 @@ TraceLogger_textfile::TraceLogger_textfile( const std::string& filename, const T
 
 TraceLogger_textfile::~TraceLogger_textfile()
 {
-	if (m_output != ::stderr && m_output != ::stdout)
+	if (m_output && m_output != ::stderr && m_output != ::stdout)
 	{
 		::fclose( m_output);
 	}
@@ -55,19 +55,21 @@ TraceLogger_textfile::~TraceLogger_textfile()
 
 TraceLogRecordHandle
 	TraceLogger_textfile::logMethodCall(
-		const TraceClassId& classId,
-		const TraceMethodId& methodId,
+		const char* className,
+		const char* methodName,
 		const TraceObjectId& objId)
 {
 	try
 	{
+		if (!m_output)
+		{
+			throw strus::runtime_error(_TXT("logged to file already closed"));
+		}
 		if (m_logcnt >= std::numeric_limits<TraceLogRecordHandle>::max())
 		{
 			throw strus::runtime_error(_TXT("number of logs out of log handle range"));
 		}
 		++m_logcnt;
-		const char* className = m_traceIdMap->getClassName( classId);
-		const char* methodName = m_traceIdMap->getMethodName( classId, methodId);
 		::fprintf( m_output, "[%u] %s%s<%u>::%s\n", (unsigned int)m_logcnt, m_indentstr.c_str(), className, (unsigned int)objId, methodName);
 		::fflush( m_output);
 		return m_logcnt;
@@ -75,66 +77,19 @@ TraceLogRecordHandle
 	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call"), *m_errorhnd, 0)
 }
 
-void TraceLogger_textfile::logObjectCreation(
-		const TraceObjectId&,
-		const TraceLogRecordHandle&)
-{}
-
-static std::string encodeText( const char* buf, std::size_t bufsize)
-{
-	static const char* cntrlchrs = "\n\t\r\b";
-	static const char* cntrlsubs = "ntrb0";
-	std::string rt;
-	std::size_t bi = 0;
-	for (; bi < bufsize; ++bi)
-	{
-		if ((unsigned char)buf[bi] < 32)
-		{
-			char const* ci = std::strchr( cntrlchrs, buf[bi]);
-			if (ci)
-			{
-				rt.push_back( '\\');
-				rt.push_back( cntrlsubs[ ci-cntrlchrs]);
-			}
-			else
-			{
-				rt.push_back( '.');
-			}
-		}
-		else if (buf[bi] == '\'')
-		{
-			rt.push_back( '\\');
-			rt.push_back( buf[bi]);
-		}
-		else
-		{
-			rt.push_back( buf[bi]);
-		}
-	}
-	return rt;
-}
-
-static std::string encodeNumber( unsigned int num)
-{
-	std::ostringstream buf;
-	buf << num;
-	return buf.str();
-}
-
-
 void TraceLogger_textfile::logMethodTermination(
 		const TraceLogRecordHandle& loghnd,
-		const std::string& packedParameter)
+		const std::vector<TraceElement>& parameter)
 {
 	try
 	{
+		if (!m_output)
+		{
+			throw strus::runtime_error(_TXT("logged to file already closed"));
+		}
 		std::ostringstream buf;
-		std::vector<std::string> stack;
 		bool delim = false;
-		const char* name;
-		std::vector<TraceElement> elements
-			= m_traceIdMap->unpackElements( packedParameter.c_str(), packedParameter.size());
-		std::vector<TraceElement>::const_iterator ei = elements.begin(), ee = elements.end();
+		std::vector<TraceElement>::const_iterator ei = parameter.begin(), ee = parameter.end();
 		for (int eidx=0; ei != ee; ++ei,++eidx)
 		{
 			switch (ei->type())
@@ -154,15 +109,10 @@ void TraceLogger_textfile::logMethodTermination(
 					delim = true;
 					buf << ei->value().UInt;
 					break;
-				case TraceElement::TypeFloat:
-					if (delim) buf << " ";
-					delim = true;
-					buf << std::fixed << std::setprecision(3) << ei->value().Float;
-					break;
 				case TraceElement::TypeDouble:
 					if (delim) buf << " ";
 					delim = true;
-					buf << std::fixed << std::setprecision(6) << ei->value().Double;
+					buf << std::fixed << std::setprecision(9) << ei->value().Double;
 					break;
 				case TraceElement::TypeBool:
 					if (delim) buf << " ";
@@ -172,32 +122,28 @@ void TraceLogger_textfile::logMethodTermination(
 				case TraceElement::TypeObject:
 					if (delim) buf << " ";
 					delim = true;
-					name = m_traceIdMap->getClassName( ei->value().Obj.Class);
-					if (name) buf << name; else throw std::runtime_error("unknown class id");
+					buf << ei->value().Obj.Class;
 					buf << "<" << ei->value().Obj.Id << ">";
 					break;
 				case TraceElement::TypeString:
 					if (delim) buf << " ";
 					delim = true;
-					buf << encodeText( ei->value().String.Ptr, ei->value().String.Size);
+					buf << utils::encodeText( ei->value().String.Ptr, ei->value().String.Size);
 					break;
 				case TraceElement::TypeOpenIndex:
 					if (delim) buf << " ";
 					delim = false;
-					stack.push_back( encodeNumber( ei->value().Index));
-					buf << "<" << stack.back() << ">";
+					buf << utils::encodeNumber( ei->value().Index) << ":{";
 					break;
 				case TraceElement::TypeOpenTag:
 					if (delim) buf << " ";
 					delim = false;
-					stack.push_back( encodeText( ei->value().String.Ptr, ei->value().String.Size));
-					buf << "<" << stack.back() << ">";
+					buf << utils::encodeText( ei->value().String.Ptr, ei->value().String.Size);
+					buf << ":{";
 					break;
 				case TraceElement::TypeClose:
 					delim = true;
-					if (stack.empty()) throw strus::runtime_error(_TXT("illegal close tag in trace parameter string"));
-					buf << "</" << stack.back().c_str() << ">";
-					stack.pop_back();
+					buf << "}";
 					break;
 			}
 		}
@@ -212,7 +158,7 @@ void TraceLogger_textfile::logOpenBranch()
 {
 	try
 	{
-		if (m_depth >= std::numeric_limits<TraceTreeDepth>::max())
+		if (m_depth >= std::numeric_limits<unsigned short>::max())
 		{
 			m_errorhnd->report(_TXT("illegal call of log open branch (too deep)"));
 			return;
@@ -238,9 +184,13 @@ void TraceLogger_textfile::logCloseBranch()
 	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch"), *m_errorhnd)
 }
 
-TraceViewerInterface* TraceLogger_textfile::createViewer() const
+void TraceLogger_textfile::close()
 {
-	m_errorhnd->report(_TXT("not implemented (textfile trace logger cannot be created for this logger instance because previous output is not accessible)"));
-	return 0;
+	if (m_output && m_output != ::stderr && m_output != ::stdout)
+	{
+		::fclose( m_output);
+	}
+	m_output = 0;
 }
+
 

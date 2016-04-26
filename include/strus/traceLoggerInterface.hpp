@@ -48,7 +48,7 @@ public:
 	virtual void logCloseBranch()=0;
 
 	/// \brief Terminate logging, flush data logged to storage
-	virtual void close()=0;
+	virtual bool close()=0;
 };
 
 }//namespace

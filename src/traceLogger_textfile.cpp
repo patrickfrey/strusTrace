@@ -74,7 +74,7 @@ TraceLogRecordHandle
 		::fflush( m_output);
 		return m_logcnt;
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call"), *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call (textfile): %s"), *m_errorhnd, 0)
 }
 
 void TraceLogger_textfile::logMethodTermination(
@@ -151,7 +151,7 @@ void TraceLogger_textfile::logMethodTermination(
 		::fprintf( m_output, "[%u] %s<-- %s\n", (unsigned int)loghnd, m_indentstr.c_str(), params.c_str());
 		::fflush( m_output);
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging method termination"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging method call termination (textfile): %s"), *m_errorhnd)
 }
 
 void TraceLogger_textfile::logOpenBranch()
@@ -166,7 +166,7 @@ void TraceLogger_textfile::logOpenBranch()
 		m_depth += 1;
 		m_indentstr.append("  ");
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch (textfile): %s"), *m_errorhnd)
 }
 
 void TraceLogger_textfile::logCloseBranch()
@@ -181,16 +181,17 @@ void TraceLogger_textfile::logCloseBranch()
 		m_indentstr.resize(m_indentstr.size() -2);
 		m_depth -= 1;
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch (textfile): %s"), *m_errorhnd)
 }
 
-void TraceLogger_textfile::close()
+bool TraceLogger_textfile::close()
 {
 	if (m_output && m_output != ::stderr && m_output != ::stdout)
 	{
 		::fclose( m_output);
 	}
 	m_output = 0;
+	return true;
 }
 
 

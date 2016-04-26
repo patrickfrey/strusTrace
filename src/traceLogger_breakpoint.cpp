@@ -51,7 +51,7 @@ TraceLogRecordHandle
 		}
 		return m_logcnt;
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call"), *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call: %s"), *m_errorhnd, 0)
 }
 
 void TraceLogger_breakpoint::logMethodTermination(
@@ -70,7 +70,7 @@ void TraceLogger_breakpoint::logOpenBranch()
 		}
 		m_depth += 1;
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch: %s"), *m_errorhnd)
 }
 
 void TraceLogger_breakpoint::logCloseBranch()
@@ -84,10 +84,12 @@ void TraceLogger_breakpoint::logCloseBranch()
 		}
 		m_depth -= 1;
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch: %s"), *m_errorhnd)
 }
 
-void TraceLogger_breakpoint::close()
-{}
+bool TraceLogger_breakpoint::close()
+{
+	return true;
+}
 
 

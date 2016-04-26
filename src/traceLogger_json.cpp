@@ -20,8 +20,11 @@
 
 using namespace strus;
 
+#define INDENT_STEP "\t"
+
 TraceLogger_json::~TraceLogger_json()
 {
+	close();
 	std::vector<utils::StringBlock*>::iterator si = m_strings.begin(), se = m_strings.end();
 	for (; si != se; ++si)
 	{
@@ -44,7 +47,7 @@ TraceLogRecordHandle
 		}
 		return (TraceLogRecordHandle)m_recordar.size();
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call"), *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call (json): %s"), *m_errorhnd, 0)
 }
 
 const char* TraceLogger_json::allocString( const char* str, std::size_t strsize)
@@ -112,7 +115,7 @@ void TraceLogger_json::logMethodTermination(
 		}
 		m_recordar[ loghnd-1].setEndCall( m_recordar.size()+1, paramidx, parameter.size());
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging method call termination"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging method call termination (json): %s"), *m_errorhnd)
 }
 
 void TraceLogger_json::logOpenBranch()
@@ -171,79 +174,79 @@ static void printParameter( FILE* output, const std::string& indentstr, const ch
 				if (name)
 				{
 					fprintf( output, "\"%s\":null", name);
-					if (paramSize > 1) throw std::runtime_error("error in tragelog: two subsequent values in name context");
+					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "Void");
 				}
 				else
 				{
-					if (pidx++) fprintf( output, ", ");
+					if (pidx) fprintf( output, ", ");
 					fprintf( output, "null");
 				}
-				++pi;
+				++pi; ++pidx;
 				break;
 			case TraceElement::TypeInt:
 				if (name)
 				{
 					fprintf( output, "\"%s\":%ld", name, pi->value().Int);
-					if (paramSize > 1) throw std::runtime_error("error in tragelog: two subsequent values in name context");
+					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "Int");
 				}
 				else
 				{
-					if (pidx++) fprintf( output, ", ");
+					if (pidx) fprintf( output, ", ");
 					fprintf( output, "%ld", pi->value().Int);
 				}
-				++pi;
+				++pi; ++pidx;
 				break;
 			case TraceElement::TypeUInt:
 				if (name)
 				{
 					fprintf( output, "\"%s\":%lu", name, pi->value().UInt);
-					if (paramSize > 1) throw std::runtime_error("error in tragelog: two subsequent values in name context");
+					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "UInt");
 				}
 				else
 				{
-					if (pidx++) fprintf( output, ", ");
+					if (pidx) fprintf( output, ", ");
 					fprintf( output, "%lu", pi->value().UInt);
 				}
-				++pi;
+				++pi; ++pidx;
 				break;
 			case TraceElement::TypeDouble:
 				if (name)
 				{
 					fprintf( output, "\"%s\":%.9g", name, pi->value().Double);
-					if (paramSize > 1) throw std::runtime_error("error in tragelog: two subsequent values in name context");
+					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "Double");
 				}
 				else
 				{
-					if (pidx++) fprintf( output, ", ");
+					if (pidx) fprintf( output, ", ");
 					fprintf( output, "%.9g", pi->value().Double);
 				}
-				++pi;
+				++pi; ++pidx;
 				break;
 			case TraceElement::TypeBool:
 				if (name)
 				{
 					fprintf( output, "\"%s\":%s", name, pi->value().Bool ? "true":"false");
-					if (paramSize > 1) throw std::runtime_error("error in tragelog: two subsequent values in name context");
+					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "Bool");
 				}
 				else
 				{
-					if (pidx++) fprintf( output, ", ");
+					if (pidx) fprintf( output, ", ");
 					fprintf( output, "%s", pi->value().Bool ? "true":"false");
 				}
-				++pi;
+				++pi; ++pidx;
 				break;
 			case TraceElement::TypeObject:
 				if (name)
 				{
-					fprintf( output, "\"%s\":'%s<%u>'", name, pi->value().Obj.Class, (unsigned int)pi->value().Obj.Id);
-					if (paramSize > 1) throw std::runtime_error("error in tragelog: two subsequent values in name context");
+					fprintf( output, "\"%s\":\"%s<%u>\"", name, pi->value().Obj.Class, (unsigned int)pi->value().Obj.Id);
+					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "Object");
 				}
 				else
 				{
-					if (pidx++) fprintf( output, ", ");
-					fprintf( output, "'%s<%u>'", pi->value().Obj.Class, (unsigned int)pi->value().Obj.Id);
+					if (pidx) fprintf( output, ", ");
+					fprintf( output, "\"%s<%u>\"", pi->value().Obj.Class, (unsigned int)pi->value().Obj.Id);
 				}
-				++pi;
+				++pi; ++pidx;
 				break;
 			case TraceElement::TypeString:
 				{
@@ -251,26 +254,26 @@ static void printParameter( FILE* output, const std::string& indentstr, const ch
 					if (name)
 					{
 						fprintf( output, "\"%s\":\"%s\"", name, value.c_str());
-						if (paramSize > 1) throw std::runtime_error("error in tragelog: two subsequent values in name context");
+						if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "String");
 					}
 					else
 					{
-						if (pidx++) fprintf( output, ", ");
+						if (pidx) fprintf( output, ", ");
 						fprintf( output, "\"%s\"", value.c_str());
 					}
 				}
-				++pi;
+				++pi; ++pidx;
 				break;
 			case TraceElement::TypeOpenIndex:
 			{
 				if (name)
 				{
 					fprintf( output, "\"%s\":[", name);
-					if (paramSize > 1) throw std::runtime_error("error in tragelog: two subsequent values in name context");
+					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "OpenIndex");
 				}
 				else
 				{
-					if (pidx++) fprintf( output, ", ");
+					if (pidx) fprintf( output, ", ");
 					fprintf( output, "[");
 				}
 				int subpidx = 0;
@@ -281,12 +284,13 @@ static void printParameter( FILE* output, const std::string& indentstr, const ch
 					if (pi == pe) throw std::runtime_error(_TXT("unexpected end of structure"));
 
 					fprintf( output, "\n%s", indentstr.c_str());
-					std::size_t structsize = getStructSize( pi, paramSize - (pe - pi));
-					printParameter( output, indentstr + "\t", (const char*)0, pi, structsize);
+					std::size_t structsize = getStructSize( pi, pe - pi);
+					printParameter( output, indentstr + INDENT_STEP, (const char*)0, pi, structsize);
 					pi += structsize + 1;
 				}
-				while (pi->type() == TraceElement::TypeOpenIndex);
+				while (pi != pe && pi->type() == TraceElement::TypeOpenIndex);
 				fprintf( output, "]");
+				++pidx;
 				break;
 			}
 			case TraceElement::TypeOpenTag:
@@ -294,28 +298,29 @@ static void printParameter( FILE* output, const std::string& indentstr, const ch
 				if (name)
 				{
 					fprintf( output, "\"%s\":{", name);
-					if (paramSize > 1) throw std::runtime_error("error in tragelog: two subsequent values in name context");
+					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "OpenTag");
 				}
 				else
 				{
-					if (pidx++) fprintf( output, ", ");
+					if (pidx) fprintf( output, ", ");
 					fprintf( output, "{");
 				}
 				int subpidx = 0;
 				do
 				{
 					if (subpidx++) fprintf( output, ",");
-					const char* namechld = pi->value().String.Ptr;
+					std::string namechld( pi->value().String.Ptr, pi->value().String.Size);
 					++pi;
 					if (pi == pe) throw std::runtime_error(_TXT("unexpected end of structure"));
 
 					fprintf( output, "\n%s", indentstr.c_str());
-					std::size_t structsize = getStructSize( pi, paramSize - (pe - pi));
-					printParameter( output, indentstr + "\t", namechld, pi, structsize);
+					std::size_t structsize = getStructSize( pi, pe - pi);
+					printParameter( output, indentstr + INDENT_STEP, namechld.c_str(), pi, structsize);
 					pi += structsize + 1;
 				}
-				while (pi->type() == TraceElement::TypeOpenTag);
+				while (pi != pe && pi->type() == TraceElement::TypeOpenTag);
 				fprintf( output, "}");
+				++pidx;
 				break;
 			}
 			case TraceElement::TypeClose:
@@ -352,22 +357,23 @@ static void printOutputJSON( FILE* output, std::size_t ridx_start, const std::st
 		}
 		::fprintf( output, "\n%s{", indentstr.c_str());
 		::fprintf( output, "\n%s\"time\":%u", indentstr.c_str(), (unsigned int)ridx);
-		::fprintf( output, "\n%s\"object\":%u\n", indentstr.c_str(), (unsigned int)ri->objId());
-		::fprintf( output, "\n%s\"call\":\"%s::%s\"\n", indentstr.c_str(), ri->className(), ri->methodName());
+		::fprintf( output, ",\n%s\"object\":%u", indentstr.c_str(), (unsigned int)ri->objId());
+		::fprintf( output, ",\n%s\"class\":\"%s\"", indentstr.c_str(), ri->className());
+		::fprintf( output, ",\n%s\"method\":\"%s\"", indentstr.c_str(), ri->methodName());
 		if (ri->parameterSize())
 		{
-			::fprintf( output, "\n%s\"parameter\": {", indentstr.c_str());
-			printParameter( output, indentstr + "\t", 0, parameterbuf.data() + ri->parameterIdx(), ri->parameterSize());
-			::fprintf( output, "}");
+			::fprintf( output, ",\n%s\"parameter\": [", indentstr.c_str());
+			printParameter( output, indentstr + INDENT_STEP, 0, parameterbuf.data() + ri->parameterIdx(), ri->parameterSize());
+			::fprintf( output, "]");
 		}
 		if (ridx+1 < ri->endTime())
 		{
 			std::vector<TraceRecord>::const_iterator ri_next = ri + ri->endTime() - ridx;
 			std::size_t ridx_next = ri->endTime() /*ridx + ri->endTime() - ridx*/;
 
-			::fprintf( output, "\n%s\"sub\": {", indentstr.c_str());
-			printOutputJSON( output, ridx+1, indentstr + "\t", ri+1, ri_next, parameterbuf);
-			::fprintf( output, "\n%s}", indentstr.c_str());
+			::fprintf( output, ",\n%s\"sub\": [", indentstr.c_str());
+			printOutputJSON( output, ridx+1, indentstr + INDENT_STEP, ri+1, ri_next, parameterbuf);
+			::fprintf( output, "\n%s]", indentstr.c_str());
 			ri = ri_next;
 			ridx = ridx_next;
 		}
@@ -381,7 +387,7 @@ static void printOutputJSON( FILE* output, std::size_t ridx_start, const std::st
 	}
 }
 
-void TraceLogger_json::close()
+bool TraceLogger_json::close()
 {
 	try
 	{
@@ -406,8 +412,11 @@ void TraceLogger_json::close()
 		std::vector<TraceRecord>::const_iterator ri = m_recordar.begin(), re = m_recordar.end();
 		std::vector<std::size_t> stack;
 
-		printOutputJSON( output.file, 1, "", ri, re, m_parameterbuf);
+		::fprintf( output.file, "{\n\"calls\":[");
+		printOutputJSON( output.file, 1, INDENT_STEP, ri, re, m_parameterbuf);
+		::fprintf( output.file, "\n]\n}\n");
+		return true;
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error flushing and closing output"), *m_errorhnd)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error flushing and closing output (json): %s"), *m_errorhnd, false)
 }
 

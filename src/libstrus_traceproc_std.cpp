@@ -58,7 +58,7 @@ DLL_PUBLIC TraceLoggerInterface* strus::createTraceLogger_textfile( const std::s
 		}
 		return new TraceLogger_textfile( filename, errorhnd);
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (textfile)"), *errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (textfile): %s"), *errorhnd, 0)
 }
 
 
@@ -101,7 +101,7 @@ DLL_PUBLIC TraceLoggerInterface* strus::createTraceLogger_breakpoint( const std:
 		}
 		return new TraceLogger_breakpoint( breakpoints, errorhnd);
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (breakpoint)"), *errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (breakpoint): %s"), *errorhnd, 0)
 }
 
 

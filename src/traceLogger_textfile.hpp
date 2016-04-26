@@ -43,7 +43,7 @@ public:
 	virtual void logOpenBranch();
 	virtual void logCloseBranch();
 
-	virtual void close();
+	virtual bool close();
 
 private:
 	ErrorBufferInterface* m_errorhnd;

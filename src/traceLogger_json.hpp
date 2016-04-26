@@ -47,7 +47,7 @@ public:
 	virtual void logOpenBranch();
 	virtual void logCloseBranch();
 
-	virtual void close();
+	virtual bool close();
 
 private:
 	const char* allocString( const char* str, std::size_t strsize);

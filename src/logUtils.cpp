@@ -12,6 +12,7 @@
 #include "errorUtils.hpp"
 #include <iostream>
 #include <sstream>
+#include <cstdio>
 #include <cstring>
 #include <cstdlib>
 
@@ -21,28 +22,46 @@ using namespace strus::utils;
 std::string utils::encodeText( const char* buf, std::size_t bufsize)
 {
 	static const char* cntrlchrs = "\n\t\r\b";
-	static const char* cntrlsubs = "ntrb0";
+	static const char* cntrlsubs = "ntrb";
 	std::string rt;
 	std::size_t bi = 0;
 	for (; bi < bufsize; ++bi)
 	{
-		if ((unsigned char)buf[bi] < 32)
+		if ((unsigned char)buf[bi] > 127 || buf[bi] == '\\')
 		{
-			char const* ci = std::strchr( cntrlchrs, buf[bi]);
-			if (ci)
+			char encoded[ 32];
+			(void)::snprintf( encoded, sizeof(encoded), "&#%u;", (unsigned int)(unsigned char)buf[bi]);
+			rt.append( encoded);
+		}
+		else if ((unsigned char)buf[bi] < 32)
+		{
+			if ((unsigned char)buf[bi] == 0)
 			{
-				rt.push_back( '\\');
-				rt.push_back( cntrlsubs[ ci-cntrlchrs]);
+				rt.append( "&#0;");
 			}
 			else
 			{
-				rt.push_back( '.');
+				char const* ci = std::strchr( cntrlchrs, buf[bi]);
+				if (ci)
+				{
+					rt.push_back( '\\');
+					rt.push_back( cntrlsubs[ ci-cntrlchrs]);
+				}
+				else
+				{
+					char encoded[ 32];
+					(void)::snprintf( encoded, sizeof(encoded), "&#%u;", (unsigned int)(unsigned char)buf[bi]);
+					rt.append( encoded);
+				}
 			}
 		}
 		else if (buf[bi] == '\'')
 		{
-			rt.push_back( '\\');
-			rt.push_back( buf[bi]);
+			rt.append( "&apos;");
+		}
+		else if (buf[bi] == '"')
+		{
+			rt.append( "&quot;");
 		}
 		else
 		{

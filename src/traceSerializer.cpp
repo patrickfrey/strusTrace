@@ -266,14 +266,32 @@ void TraceSerializer::packDocumentClass( const DocumentClass& dclass)
 void TraceSerializer::packTermStatistics( const TermStatistics& stats)
 {
 	try{
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)stats.documentFrequency()));
+		if (stats.documentFrequency() >= 0)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "df"));
+			m_elembuf.push_back( TraceElement( (TraceElement::IntType)stats.documentFrequency()));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+		else
+		{
+			m_elembuf.push_back( TraceElement());
+		}
 	}CATCH_ERROR
 }
 
 void TraceSerializer::packGlobalStatistics( const GlobalStatistics& stats)
 {
 	try{
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)stats.nofDocumentsInserted()));
+		if (stats.nofDocumentsInserted() >= 0)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "nofdocs"));
+			m_elembuf.push_back( TraceElement( (TraceElement::IntType)stats.nofDocumentsInserted()));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+		else
+		{
+			m_elembuf.push_back( TraceElement());
+		}
 	}CATCH_ERROR
 }
 
@@ -345,9 +363,12 @@ void TraceSerializer::packSummaryElement( const SummaryElement& val)
 		m_elembuf.push_back( TraceElement( val.weight()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "index"));
-		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.index()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		if (val.index() >= 0)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "index"));
+			m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.index()));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
 	}CATCH_ERROR
 }
 

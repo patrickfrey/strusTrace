@@ -45,7 +45,7 @@ public:
 	virtual void logOpenBranch();
 	virtual void logCloseBranch();
 
-	virtual void close();
+	virtual bool close();
 
 private:
 	std::set<TraceTimeCounter> m_breakpoints;

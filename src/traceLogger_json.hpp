@@ -29,7 +29,7 @@ class TraceLogger_json
 public:
 	/// \brief Constructor
 	explicit TraceLogger_json( const std::string& filename_, ErrorBufferInterface* errorhnd_)
-		:m_errorhnd(errorhnd_),m_filename(filename_),m_depth(1){}
+		:m_errorhnd(errorhnd_),m_filename(filename_){}
 
 	/// \brief Destructor
 	virtual ~TraceLogger_json();
@@ -44,9 +44,6 @@ public:
 			const TraceLogRecordHandle& loghnd,
 			const std::vector<TraceElement>& parameter);
 
-	virtual void logOpenBranch();
-	virtual void logCloseBranch();
-
 	virtual bool close();
 
 private:
@@ -58,7 +55,6 @@ private:
 	std::vector<TraceRecord> m_recordar;
 	std::vector<utils::StringBlock*> m_strings;
 	std::vector<TraceElement> m_parameterbuf;
-	unsigned int m_depth;
 };
 
 }//namespace

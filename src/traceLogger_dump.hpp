@@ -40,15 +40,11 @@ public:
 			const TraceLogRecordHandle& loghnd,
 			const std::vector<TraceElement>& parameter);
 
-	virtual void logOpenBranch();
-	virtual void logCloseBranch();
-
 	virtual bool close();
 
 private:
 	ErrorBufferInterface* m_errorhnd;
 	FILE* m_output;
-	unsigned int m_depth;
 	std::string m_indentstr;
 	TraceLogRecordHandle m_logcnt;
 };

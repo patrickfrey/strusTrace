@@ -41,12 +41,6 @@ public:
 			const TraceLogRecordHandle& loghnd,
 			const std::vector<TraceElement>& parameter)=0;
 
-	/// \brief Open a new sub branch in the tree (depth+1)
-	virtual void logOpenBranch()=0;
-
-	/// \brief Close the current sub branch in the tree (depth-1)
-	virtual void logCloseBranch()=0;
-
 	/// \brief Terminate logging, flush data logged to storage
 	virtual bool close()=0;
 };

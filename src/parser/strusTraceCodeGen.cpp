@@ -269,8 +269,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			out
 			<< "{" << std::endl
 			<< "\tTraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( "
-			<< classid << "), " << ci->name() << "Const::methodName( Method_" << mi->name() << "), objid());" << std::endl
-			<< "\ttraceContext()->logger()->logOpenBranch();" << std::endl;
+			<< classid << "), " << ci->name() << "Const::methodName( Method_" << mi->name() << "), objid());" << std::endl;
 
 			// Call real function:
 			if (hasReturnValue)
@@ -293,8 +292,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 				out << passparam;
 			}
 			out
-			<< ");" << std::endl
-			<< "\ttraceContext()->logger()->logCloseBranch();" << std::endl;
+			<< ");" << std::endl;
 
 			// Wrap returned interface objects:
 			if (hasReturnValue)

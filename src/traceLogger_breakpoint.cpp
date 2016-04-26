@@ -19,7 +19,7 @@ using namespace strus;
 static void strus_breakpoint(){}
 
 TraceLogger_breakpoint::TraceLogger_breakpoint( const std::vector<TraceTimeCounter>& breakpoints_, ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_depth(1),m_logcnt(0)
+	:m_errorhnd(errorhnd_),m_logcnt(0)
 {
 	std::vector<TraceTimeCounter>::const_iterator bi = breakpoints_.begin(), be = breakpoints_.end();
 	for (; bi != be; ++bi)
@@ -58,34 +58,6 @@ void TraceLogger_breakpoint::logMethodTermination(
 		const TraceLogRecordHandle&,
 		const std::vector<TraceElement>&)
 {}
-
-void TraceLogger_breakpoint::logOpenBranch()
-{
-	try
-	{
-		if (m_depth >= std::numeric_limits<unsigned int>::max())
-		{
-			m_errorhnd->report(_TXT("illegal call of log open branch (too deep)"));
-			return;
-		}
-		m_depth += 1;
-	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch: %s"), *m_errorhnd)
-}
-
-void TraceLogger_breakpoint::logCloseBranch()
-{
-	try
-	{
-		if (m_depth == 1)
-		{
-			m_errorhnd->report(_TXT("illegal call of log close branch (no open branch)"));
-			return;
-		}
-		m_depth -= 1;
-	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch: %s"), *m_errorhnd)
-}
 
 bool TraceLogger_breakpoint::close()
 {

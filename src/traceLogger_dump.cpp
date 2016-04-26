@@ -24,8 +24,10 @@
 
 using namespace strus;
 
+#define INDENT_STEP "  "
+
 TraceLogger_dump::TraceLogger_dump( const std::string& filename, ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_output(0),m_depth(1),m_indentstr(),m_logcnt(0)
+	:m_errorhnd(errorhnd_),m_output(0),m_indentstr(),m_logcnt(0)
 {
 	if (filename == "-" || filename == "stdout")
 	{
@@ -72,6 +74,7 @@ TraceLogRecordHandle
 		++m_logcnt;
 		::fprintf( m_output, "[%u] %s%s<%u>::%s\n", (unsigned int)m_logcnt, m_indentstr.c_str(), className, (unsigned int)objId, methodName);
 		::fflush( m_output);
+		m_indentstr.append( INDENT_STEP);
 		return m_logcnt;
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call (dump): %s"), *m_errorhnd, 0)
@@ -83,6 +86,11 @@ void TraceLogger_dump::logMethodTermination(
 {
 	try
 	{
+		if (m_indentstr.size() < std::strlen(INDENT_STEP))
+		{
+			throw strus::runtime_error(_TXT("illegal call of log method termination (tag hierarchy broken)"));
+		}
+		m_indentstr.resize( m_indentstr.size() - std::strlen(INDENT_STEP));
 		if (!m_output)
 		{
 			throw strus::runtime_error(_TXT("logged to file already closed"));
@@ -152,36 +160,6 @@ void TraceLogger_dump::logMethodTermination(
 		::fflush( m_output);
 	}
 	CATCH_ERROR_MAP( _TXT("trace logger error logging method call termination (dump): %s"), *m_errorhnd)
-}
-
-void TraceLogger_dump::logOpenBranch()
-{
-	try
-	{
-		if (m_depth >= std::numeric_limits<unsigned short>::max())
-		{
-			m_errorhnd->report(_TXT("illegal call of log open branch (too deep)"));
-			return;
-		}
-		m_depth += 1;
-		m_indentstr.append("  ");
-	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch (dump): %s"), *m_errorhnd)
-}
-
-void TraceLogger_dump::logCloseBranch()
-{
-	try
-	{
-		if (m_depth == 1)
-		{
-			m_errorhnd->report(_TXT("illegal call of log close branch (no open branch)"));
-			return;
-		}
-		m_indentstr.resize(m_indentstr.size() -2);
-		m_depth -= 1;
-	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch (dump): %s"), *m_errorhnd)
 }
 
 bool TraceLogger_dump::close()

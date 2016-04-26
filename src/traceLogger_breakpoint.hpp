@@ -42,15 +42,11 @@ public:
 			const TraceLogRecordHandle& loghnd,
 			const std::vector<TraceElement>& parameter);
 
-	virtual void logOpenBranch();
-	virtual void logCloseBranch();
-
 	virtual bool close();
 
 private:
 	std::set<TraceTimeCounter> m_breakpoints;
 	ErrorBufferInterface* m_errorhnd;
-	unsigned int m_depth;
 	TraceLogRecordHandle m_logcnt;
 };
 

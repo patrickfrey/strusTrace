@@ -526,18 +526,18 @@ int main( int argc, const char* argv[])
 	char storagecfg[ 1024];
 	snprintf( storagecfg, sizeof(storagecfg), "%s; metadata=doclen UINT16", argv[1]);
 
-	char out_textfile[ 1024];
-	snprintf( out_textfile, sizeof(out_textfile), "%s.txt", argv[2]);
-	char outcfg_textfile[ 1024];
-	snprintf( outcfg_textfile, sizeof(outcfg_textfile), "file=%s.txt", argv[2]);
+	char out_dump[ 1024];
+	snprintf( out_dump, sizeof(out_dump), "%s.txt", argv[2]);
+	char outcfg_dump[ 1024];
+	snprintf( outcfg_dump, sizeof(outcfg_dump), "file=%s.txt", argv[2]);
 
 	char out_json[ 1024];
 	snprintf( out_json, sizeof(out_json), "%s.json", argv[2]);
 	char outcfg_json[ 1024];
 	snprintf( outcfg_json, sizeof(outcfg_json), "file=%s.json", argv[2]);
 
-	char res_textfile[ 1024];
-	snprintf( res_textfile, sizeof(res_textfile), "%s.txt", argv[3]);
+	char res_dump[ 1024];
+	snprintf( res_dump, sizeof(res_dump), "%s.txt", argv[3]);
 	char res_json[ 1024];
 	snprintf( res_json, sizeof(res_json), "%s.json", argv[3]);
 
@@ -574,20 +574,20 @@ int main( int argc, const char* argv[])
 			}
 		}
 
-		// Create trace object builder 'textfile':
+		// Create trace object builder 'dump':
 		strus::TraceLoggerInterface* 
-			logger_textfile = strus::createTraceLogger_textfile( outcfg_textfile, g_errorhnd);
-		if (!logger_textfile)
+			logger_dump = strus::createTraceLogger_dump( outcfg_dump, g_errorhnd);
+		if (!logger_dump)
 		{
-			throw std::runtime_error("failed to create trace logger (textfile)");
+			throw std::runtime_error("failed to create trace logger (dump)");
 		}
 		std::auto_ptr<strus::TraceObjectBuilderInterface>
-			traceObjectBuilder_textfile(
-				strus::traceCreateObjectBuilder( logger_textfile, g_errorhnd));
-		if (!traceObjectBuilder_textfile.get())
+			traceObjectBuilder_dump(
+				strus::traceCreateObjectBuilder( logger_dump, g_errorhnd));
+		if (!traceObjectBuilder_dump.get())
 		{
-			delete logger_textfile;
-			throw std::runtime_error("failed to create trace object builder (textfile)");
+			delete logger_dump;
+			throw std::runtime_error("failed to create trace object builder (dump)");
 		}
 
 		// Create trace processor 'json':
@@ -617,9 +617,9 @@ int main( int argc, const char* argv[])
 			envelope( aob, traceObjectBuilder_breakpoint.get());
 			envelope( sob, traceObjectBuilder_breakpoint.get());
 		}
-		envelope( aob, traceObjectBuilder_textfile.get());
+		envelope( aob, traceObjectBuilder_dump.get());
 		envelope( aob, traceObjectBuilder_json.get());
-		envelope( sob, traceObjectBuilder_textfile.get());
+		envelope( sob, traceObjectBuilder_dump.get());
 		envelope( sob, traceObjectBuilder_json.get());
 
 		// Build storage and query evaluation test:
@@ -633,9 +633,9 @@ int main( int argc, const char* argv[])
 		}//end scope trace processor
 
 		// Compare output with expected:
-		if (!diffFiles( out_textfile, res_textfile))
+		if (!diffFiles( out_dump, res_dump))
 		{
-			throw std::runtime_error( "input file and expected output file (textfile) differ"); 
+			throw std::runtime_error( "input file and expected output file (dump) differ"); 
 		}
 		if (!diffFiles( out_json, res_json))
 		{

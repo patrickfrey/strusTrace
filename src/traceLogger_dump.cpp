@@ -5,9 +5,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/// \brief Implementation of logging and querying call traces to textfile or stdout
-/// \file traceLogger_textfile.cpp
-#include "traceLogger_textfile.hpp"
+/// \brief Implementation of immediately dumping method call traces to text file or stdout
+/// \file traceLogger_dump.cpp
+#include "traceLogger_dump.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
 #include "logUtils.hpp"
@@ -24,7 +24,7 @@
 
 using namespace strus;
 
-TraceLogger_textfile::TraceLogger_textfile( const std::string& filename, ErrorBufferInterface* errorhnd_)
+TraceLogger_dump::TraceLogger_dump( const std::string& filename, ErrorBufferInterface* errorhnd_)
 	:m_errorhnd(errorhnd_),m_output(0),m_depth(1),m_indentstr(),m_logcnt(0)
 {
 	if (filename == "-" || filename == "stdout")
@@ -45,7 +45,7 @@ TraceLogger_textfile::TraceLogger_textfile( const std::string& filename, ErrorBu
 	}
 }
 
-TraceLogger_textfile::~TraceLogger_textfile()
+TraceLogger_dump::~TraceLogger_dump()
 {
 	if (m_output && m_output != ::stderr && m_output != ::stdout)
 	{
@@ -54,7 +54,7 @@ TraceLogger_textfile::~TraceLogger_textfile()
 }
 
 TraceLogRecordHandle
-	TraceLogger_textfile::logMethodCall(
+	TraceLogger_dump::logMethodCall(
 		const char* className,
 		const char* methodName,
 		const TraceObjectId& objId)
@@ -74,10 +74,10 @@ TraceLogRecordHandle
 		::fflush( m_output);
 		return m_logcnt;
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call (textfile): %s"), *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call (dump): %s"), *m_errorhnd, 0)
 }
 
-void TraceLogger_textfile::logMethodTermination(
+void TraceLogger_dump::logMethodTermination(
 		const TraceLogRecordHandle& loghnd,
 		const std::vector<TraceElement>& parameter)
 {
@@ -151,10 +151,10 @@ void TraceLogger_textfile::logMethodTermination(
 		::fprintf( m_output, "[%u] %s<-- %s\n", (unsigned int)loghnd, m_indentstr.c_str(), params.c_str());
 		::fflush( m_output);
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging method call termination (textfile): %s"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging method call termination (dump): %s"), *m_errorhnd)
 }
 
-void TraceLogger_textfile::logOpenBranch()
+void TraceLogger_dump::logOpenBranch()
 {
 	try
 	{
@@ -166,10 +166,10 @@ void TraceLogger_textfile::logOpenBranch()
 		m_depth += 1;
 		m_indentstr.append("  ");
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch (textfile): %s"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging open call tree branch (dump): %s"), *m_errorhnd)
 }
 
-void TraceLogger_textfile::logCloseBranch()
+void TraceLogger_dump::logCloseBranch()
 {
 	try
 	{
@@ -181,10 +181,10 @@ void TraceLogger_textfile::logCloseBranch()
 		m_indentstr.resize(m_indentstr.size() -2);
 		m_depth -= 1;
 	}
-	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch (textfile): %s"), *m_errorhnd)
+	CATCH_ERROR_MAP( _TXT("trace logger error logging close call tree branch (dump): %s"), *m_errorhnd)
 }
 
-bool TraceLogger_textfile::close()
+bool TraceLogger_dump::close()
 {
 	if (m_output && m_output != ::stderr && m_output != ::stdout)
 	{

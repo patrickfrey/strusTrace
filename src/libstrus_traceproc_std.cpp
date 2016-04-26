@@ -8,7 +8,7 @@
 /// \brief Exported functions of the strus standard trace processor library
 /// \file libstrus_traceproc_std.cpp
 #include "strus/lib/traceproc_std.hpp"
-#include "traceLogger_textfile.hpp"
+#include "traceLogger_dump.hpp"
 #include "traceLogger_breakpoint.hpp"
 #include "traceLogger_json.hpp"
 #include "strus/errorBufferInterface.hpp"
@@ -41,7 +41,7 @@ DLL_PUBLIC TraceLoggerInterface* strus::createTraceLogger_json( const std::strin
 }
 
 
-DLL_PUBLIC TraceLoggerInterface* strus::createTraceLogger_textfile( const std::string& config, ErrorBufferInterface* errorhnd)
+DLL_PUBLIC TraceLoggerInterface* strus::createTraceLogger_dump( const std::string& config, ErrorBufferInterface* errorhnd)
 {
 	try
 	{
@@ -56,9 +56,9 @@ DLL_PUBLIC TraceLoggerInterface* strus::createTraceLogger_textfile( const std::s
 		{
 			throw strus::runtime_error( _TXT("configuration variable '%s' undefined"), "file");
 		}
-		return new TraceLogger_textfile( filename, errorhnd);
+		return new TraceLogger_dump( filename, errorhnd);
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (textfile): %s"), *errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (dump): %s"), *errorhnd, 0)
 }
 
 

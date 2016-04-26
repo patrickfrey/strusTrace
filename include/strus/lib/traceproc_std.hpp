@@ -27,7 +27,7 @@ TraceLoggerInterface* createTraceLogger_json( const std::string& config, ErrorBu
 /// \brief Create an interface to the trace logger writing a trace directly to stdout
 /// \param[in] config configuration string of the logger
 /// \return the logger interface
-TraceLoggerInterface* createTraceLogger_textfile( const std::string& config, ErrorBufferInterface* errorhnd);
+TraceLoggerInterface* createTraceLogger_dump( const std::string& config, ErrorBufferInterface* errorhnd);
 
 /// \brief Create an interface to the trace logger than enables you to set debugger breakpoints on specific method calls
 /// \param[in] config configuration string of the logger

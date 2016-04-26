@@ -10,7 +10,7 @@ set( source_files_proc
 	internationalization.cpp
 	logUtils.cpp
 	traceLogger_json.cpp
-	traceLogger_textfile.cpp
+	traceLogger_dump.cpp
 	traceLogger_breakpoint.cpp
 )
 

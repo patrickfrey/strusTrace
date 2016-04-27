@@ -311,20 +311,6 @@ static void printParameter( FILE* output, const std::string& indentstr, const ch
 }
 
 
-struct FileRAII
-{
-	FILE* file;
-	bool doCloseFile;
-
-	FileRAII()
-		:file(0),doCloseFile(false)
-	{}
-	~FileRAII()
-	{
-		if (doCloseFile && file) fclose(file);
-	}
-};
-
 static void printOutputJSON( FILE* output, std::size_t ridx_start, const std::string& indentstr, std::vector<TraceRecord>::const_iterator ri, const std::vector<TraceRecord>::const_iterator& re, const std::vector<TraceElement>& parameterbuf)
 {
 	std::size_t ridx = ridx_start;
@@ -365,6 +351,20 @@ static void printOutputJSON( FILE* output, std::size_t ridx_start, const std::st
 		if (ri != re) ::fprintf( output, ",");
 	}
 }
+
+struct FileRAII
+{
+	FILE* file;
+	bool doCloseFile;
+
+	FileRAII()
+		:file(0),doCloseFile(false)
+	{}
+	~FileRAII()
+	{
+		if (doCloseFile && file) fclose(file);
+	}
+};
 
 bool TraceLogger_json::close()
 {

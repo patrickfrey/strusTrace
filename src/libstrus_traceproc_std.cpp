@@ -11,11 +11,15 @@
 #include "traceLogger_dump.hpp"
 #include "traceLogger_breakpoint.hpp"
 #include "traceLogger_json.hpp"
+#include "traceLogger_count.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/base/dll_tags.hpp"
 #include "strus/base/configParser.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
+#include <cstring>
+#include <utility>
+#include <string>
 
 using namespace strus;
 static bool g_intl_initialized = false;
@@ -102,6 +106,71 @@ DLL_PUBLIC TraceLoggerInterface* strus::createTraceLogger_breakpoint( const std:
 		return new TraceLogger_breakpoint( breakpoints, errorhnd);
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (breakpoint): %s"), *errorhnd, 0)
+}
+
+
+static std::pair<std::string,std::string> parseEventDef( const std::string& calldef)
+{
+	std::pair<std::string,std::string> rt;
+	char const* pi = std::strstr( calldef.c_str(), "::");
+	char const* pe = pi;
+	if (pi)
+	{
+		pe = pi+2;
+	}
+	else
+	{
+		pi = std::strchr( calldef.c_str(), '/');
+		if (pi) pe = pi+1;
+	}
+	if (pi)
+	{
+		rt.first.append( calldef.c_str(), pi - calldef.c_str());
+		rt.second.append( pe);
+	}
+	else
+	{
+		rt.first = calldef;
+	}
+	return rt;
+}
+
+DLL_PUBLIC TraceLoggerInterface* strus::createTraceLogger_count( const std::string& config, ErrorBufferInterface* errorhnd)
+{
+	try
+	{
+		if (!g_intl_initialized)
+		{
+			strus::initMessageTextDomain();
+			g_intl_initialized = true;
+		}
+		std::string configstr( config);
+		std::string filename;
+		if (!extractStringFromConfigString( filename, configstr, "file", errorhnd))
+		{
+			throw strus::runtime_error( _TXT("configuration variable '%s' undefined"), "file");
+		}
+		std::string groupBy;
+		std::string groupByClass;
+		std::string groupByMethod;
+		if (extractStringFromConfigString( groupBy, configstr, "groupby", errorhnd))
+		{
+			static std::pair<std::string,std::string> ev = parseEventDef( groupBy);
+			groupByClass = ev.first;
+			groupByMethod = ev.second;
+		}
+		std::string countEvent;
+		std::string countEventClass;
+		std::string countEventMethod;
+		if (extractStringFromConfigString( countEvent, configstr, "count", errorhnd))
+		{
+			static std::pair<std::string,std::string> ev = parseEventDef( countEvent);
+			countEventClass = ev.first;
+			countEventMethod = ev.second;
+		}
+		return new TraceLogger_count( filename, groupByClass, groupByMethod, countEventClass, countEventMethod, errorhnd);
+	}
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create trace logger (count): %s"), *errorhnd, 0)
 }
 
 

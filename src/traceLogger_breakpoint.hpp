@@ -45,8 +45,8 @@ public:
 	virtual bool close();
 
 private:
-	std::set<TraceTimeCounter> m_breakpoints;
 	ErrorBufferInterface* m_errorhnd;
+	std::set<TraceTimeCounter> m_breakpoints;
 	TraceLogRecordHandle m_logcnt;
 };
 

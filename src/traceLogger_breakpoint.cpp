@@ -51,7 +51,7 @@ TraceLogRecordHandle
 		}
 		return m_logcnt;
 	}
-	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call: %s"), *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error logging method call (breakpoint): %s"), *m_errorhnd, 0)
 }
 
 void TraceLogger_breakpoint::logMethodTermination(

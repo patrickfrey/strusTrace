@@ -12,6 +12,7 @@ set( source_files_proc
 	traceLogger_json.cpp
 	traceLogger_dump.cpp
 	traceLogger_breakpoint.cpp
+	traceLogger_count.cpp
 )
 
 set( source_files_obj

@@ -18,6 +18,8 @@
 #include <stdexcept>
 #include <memory>
 
+#error DEPRECATED
+
 /// \brief strus toplevel namespace
 namespace strus {
 
@@ -54,16 +56,9 @@ public:
 		return rt;
 	}
 
-	virtual strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const std::string& segmenterName=std::string()) const
+	virtual DocumentAnalyzerInterface* createDocumentAnalyzer( const SegmenterInterface* segmenter) const
 	{
-		strus::SegmenterInterface* segmenter = createSegmenter( segmenterName);
-		if (!segmenter) 
-		{
-			m_errorhnd->explain( "failed to create segmenter: %s");
-			return 0;
-		}
 		strus::DocumentAnalyzerInterface* rt = strus::createDocumentAnalyzer( segmenter, m_errorhnd);
-		delete segmenter;
 		if (!rt)
 		{
 			m_errorhnd->explain( "failed to create document analyzer: %s");

@@ -37,6 +37,7 @@ tests/queryeval/src/testQueryEval
 tests/queryeval/storage
 tests/queryeval/out.txt
 tests/queryeval/out.json
+tests/queryeval/out.cnt
 
 # CMake generated files
 CMakeCache.txt

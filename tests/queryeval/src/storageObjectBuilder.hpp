@@ -25,6 +25,8 @@
 #include <stdexcept>
 #include <memory>
 
+#error DEPRECATED
+
 /// \brief strus toplevel namespace
 namespace strus {
 
@@ -70,32 +72,9 @@ public:
 		return m_qpi.get();
 	}
 
-	virtual const strus::StatisticsProcessorInterface* getStatisticsProcessor() const
+	virtual const strus::StatisticsProcessorInterface* getStatisticsProcessor( const std::string&) const
 	{
 		return 0;
-	}
-
-	virtual strus::StorageClientInterface* createStorageClient( const std::string& config) const
-	{
-		std::auto_ptr<strus::DatabaseClientInterface> dci( m_dbi->createClient( config));
-		if (!dci.get())
-		{
-			m_errorhnd->explain( "failed to create database client: %s");
-			return 0;
-		}
-		strus::StorageClientInterface* rt = m_sti->createClient( config, dci.get());
-		if (!rt)
-		{
-			m_errorhnd->explain( "failed to create database client: %s");
-			return 0;
-		}
-		dci.release();
-		return rt;
-	}
-
-	virtual strus::StorageAlterMetaDataTableInterface* createAlterMetaDataTable( const std::string&) const
-	{
-		throw std::runtime_error("method 'createAlterMetaDataTable' not implemented");
 	}
 
 	virtual strus::QueryEvalInterface* createQueryEval() const
@@ -105,7 +84,6 @@ public:
 
 private:
 	ErrorBufferInterface* m_errorhnd;
-	std::string m_config;
 	strus::Reference<strus::DatabaseInterface> m_dbi;
 	strus::Reference<strus::StorageInterface> m_sti;
 	strus::Reference<strus::QueryProcessorInterface> m_qpi;

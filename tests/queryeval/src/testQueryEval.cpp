@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#include "analyzerObjectBuilder.hpp"
-#include "storageObjectBuilder.hpp"
+#include "strus/lib/analyzer_objbuild.hpp"
+#include "strus/lib/storage_objbuild.hpp"
 #include "strus/base/configParser.hpp"
 #include "strus/reference.hpp"
 #include "strus/databaseInterface.hpp"
@@ -191,8 +191,10 @@ struct AnalyzerFunctionDef
 
 static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
 {
-	std::auto_ptr<strus::DocumentAnalyzerInterface> analyzer( aob->createDocumentAnalyzer());
-	if (!analyzer.get()) throw std::runtime_error( "failed to get create document analyzer");
+	const strus::SegmenterInterface* segmenter = aob->getSegmenter();
+	if (!segmenter) throw std::runtime_error( "failed to get document segmenter");
+	std::auto_ptr<strus::DocumentAnalyzerInterface> analyzer( aob->createDocumentAnalyzer( segmenter));
+	if (!analyzer.get()) throw std::runtime_error( "failed to create document analyzer");
 	const strus::TextProcessorInterface* textproc = aob->getTextProcessor();
 	const char* countfeatname = 0;
 
@@ -400,7 +402,9 @@ static void testEvaluateQuery(
 
 	insertDocuments( sob, storageconfig, aob, analyzerconfig, testdocs);
 
-	std::auto_ptr<strus::StorageClientInterface> storage( sob->createStorageClient( storageconfig));
+	std::auto_ptr<strus::StorageClientInterface>
+		storage( strus::createStorageClient( sob, g_errorhnd, storageconfig));
+	
 	std::auto_ptr<strus::QueryEvalInterface> qeval( createQueryEval( sob));
 	std::auto_ptr<strus::QueryInterface> query( createQuery( sob, aob, storage.get(), qeval.get(), analyzerconfig, querystr));
 
@@ -536,10 +540,17 @@ int main( int argc, const char* argv[])
 	char outcfg_json[ 1024];
 	snprintf( outcfg_json, sizeof(outcfg_json), "file=%s.json", argv[2]);
 
+	char out_count[ 1024];
+	snprintf( out_count, sizeof(out_count), "%s.cnt", argv[2]);
+	char outcfg_count[ 1024];
+	snprintf( outcfg_count, sizeof(outcfg_count), "groupby=PostingIterator;count=DatabaseClient/read;file=%s.cnt", argv[2]);
+
 	char res_dump[ 1024];
 	snprintf( res_dump, sizeof(res_dump), "%s.txt", argv[3]);
 	char res_json[ 1024];
 	snprintf( res_json, sizeof(res_json), "%s.json", argv[3]);
+	char res_count[ 1024];
+	snprintf( res_count, sizeof(res_count), "%s.cnt", argv[3]);
 
 	const char* breakpoints = argc>4?argv[4]:(const char*)0;
 
@@ -607,10 +618,25 @@ int main( int argc, const char* argv[])
 			throw std::runtime_error("failed to create trace object builder (json)");
 		}
 
+		strus::TraceLoggerInterface* 
+			logger_count = strus::createTraceLogger_count( outcfg_count, g_errorhnd);
+		if (!logger_count)
+		{
+			throw std::runtime_error("failed to create trace logger (count)");
+		}
+		std::auto_ptr<strus::TraceObjectBuilderInterface>
+			traceObjectBuilder_count(
+				strus::traceCreateObjectBuilder( logger_count, g_errorhnd));
+		if (!traceObjectBuilder_count.get())
+		{
+			delete logger_count;
+			throw std::runtime_error("failed to create trace object builder (count)");
+		}
+
 		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>
-			aob( new strus::AnalyzerObjectBuilder( g_errorhnd));
+			aob( strus::createAnalyzerObjectBuilder_default( g_errorhnd));
 		std::auto_ptr<strus::StorageObjectBuilderInterface>
-			sob( new strus::StorageObjectBuilder( g_errorhnd));
+			sob( strus::createStorageObjectBuilder_default( g_errorhnd));
 
 		if (traceObjectBuilder_breakpoint.get())
 		{
@@ -619,8 +645,10 @@ int main( int argc, const char* argv[])
 		}
 		envelope( aob, traceObjectBuilder_dump.get());
 		envelope( aob, traceObjectBuilder_json.get());
+		envelope( aob, traceObjectBuilder_count.get());
 		envelope( sob, traceObjectBuilder_dump.get());
 		envelope( sob, traceObjectBuilder_json.get());
+		envelope( sob, traceObjectBuilder_count.get());
 
 		// Build storage and query evaluation test:
 		testEvaluateQuery(
@@ -641,10 +669,14 @@ int main( int argc, const char* argv[])
 		{
 			throw std::runtime_error( "input file and expected output file (json) differ"); 
 		}
+		if (!diffFiles( out_count, res_count))
+		{
+			throw std::runtime_error( "input file and expected output file (count) differ"); 
+		}
 	}
 	catch (const std::bad_alloc&)
 	{
-		std::cerr << "ERROR json allocation error" << std::endl;
+		std::cerr << "ERROR memory allocation error" << std::endl;
 		return -1;
 	}
 	catch (const std::runtime_error& err)

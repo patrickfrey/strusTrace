@@ -75,7 +75,7 @@ struct TraceElement
 	/// \brief Constructor
 	TraceElement( Type type_, std::size_t index_)
 		:m_type(type_) {m_value.Index = index_;}
-	TraceElement( Type type_, const char* cid_, TraceObjectId oid_)
+	TraceElement( Type type_, TraceObjectId oid_, const char* cid_)
 		:m_type(type_) {m_value.Obj.Class = cid_; m_value.Obj.Id = oid_;}
 	/// \brief Constructor
 	TraceElement( Type type_, const char* ptr_, std::size_t size_)

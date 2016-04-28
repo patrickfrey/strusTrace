@@ -107,7 +107,7 @@ public:
 	{
 		Method_Destructor=0,
 		Method_getTextProcessor=1,
-		Method_createSegmenter=2,
+		Method_getSegmenter=2,
 		Method_createDocumentAnalyzer=3,
 		Method_createQueryAnalyzer=4
 	};
@@ -709,9 +709,7 @@ public:
 		Method_getDatabase=2,
 		Method_getQueryProcessor=3,
 		Method_getStatisticsProcessor=4,
-		Method_createStorageClient=5,
-		Method_createAlterMetaDataTable=6,
-		Method_createQueryEval=7
+		Method_createQueryEval=5
 	};
 	static const char* methodName( MethodId mid);
 };

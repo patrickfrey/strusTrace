@@ -140,27 +140,26 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	return p0;
 }
 
-SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
+const SegmenterInterface* AnalyzerObjectBuilderImpl::getSegmenter(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createSegmenter), objid());
-	SegmenterInterface* p0 = obj()->createSegmenter(p1);
-	p0 = traceContext()->createInterfaceImpl<SegmenterInterface,SegmenterImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_getSegmenter), objid());
+	const SegmenterInterface* p0 = obj()->getSegmenter(p1);
+	p0 = traceContext()->createInterfaceImpl_const<SegmenterInterface,SegmenterImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createSegmenter", traceContext()->errorbuf()->fetchError());
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getSegmenter", traceContext()->errorbuf()->fetchError());
 	}
 	else
 	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -171,7 +170,7 @@ SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
 }
 
 DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
-			const std::string& p1) const
+			const SegmenterInterface* p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createDocumentAnalyzer), objid());
 	DocumentAnalyzerInterface* p0 = obj()->createDocumentAnalyzer(p1);
@@ -185,7 +184,8 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzer), objbase_p0->objid());
-		parambuf.packString(p1);
+		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p1->objid());
 	}
 	if (parambuf.hasError())
 	{
@@ -4979,10 +4979,11 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() con
 	return p0;
 }
 
-const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProcessor() const
+const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProcessor(
+			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getStatisticsProcessor), objid());
-	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor();
+	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor(p1);
 	p0 = traceContext()->createInterfaceImpl_const<StatisticsProcessorInterface,StatisticsProcessorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4993,70 +4994,11 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsProcessor), objbase_p0->objid());
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-StorageClientInterface* StorageObjectBuilderImpl::createStorageClient(
-			const std::string& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_createStorageClient), objid());
-	StorageClientInterface* p0 = obj()->createStorageClient(p1);
-	p0 = traceContext()->createInterfaceImpl<StorageClientInterface,StorageClientImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createStorageClient", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-StorageAlterMetaDataTableInterface* StorageObjectBuilderImpl::createAlterMetaDataTable(
-			const std::string& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_createAlterMetaDataTable), objid());
-	StorageAlterMetaDataTableInterface* p0 = obj()->createAlterMetaDataTable(p1);
-	p0 = traceContext()->createInterfaceImpl<StorageAlterMetaDataTableInterface,StorageAlterMetaDataTableImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createAlterMetaDataTable", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), objbase_p0->objid());
-		parambuf.packString(p1);
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

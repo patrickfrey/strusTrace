@@ -29,7 +29,9 @@ TraceLogger_count::TraceLogger_count( const std::string& filename_, const std::s
 	,m_errorhnd(errorhnd_){}
 
 TraceLogger_count::~TraceLogger_count()
-{}
+{
+	(void)close();
+}
 
 TraceLogRecordHandle
 	TraceLogger_count::logMethodCall(

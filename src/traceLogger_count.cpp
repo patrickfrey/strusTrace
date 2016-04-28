@@ -18,15 +18,15 @@
 using namespace strus;
 
 TraceLogger_count::TraceLogger_count( const std::string& filename_, const std::string& className_groupBy_, const std::string& methodName_groupBy_, const std::string& className_, const std::string& methodName_, ErrorBufferInterface* errorhnd_)
-	:m_filename(filename_) 
+	:m_errorhnd(errorhnd_)
+	,m_mutex()
+	,m_filename(filename_) 
 	,m_className_groupBy(className_groupBy_)
 	,m_methodName_groupBy(methodName_groupBy_)
 	,m_className(className_)
 	,m_methodName(methodName_)
-	,m_currentGroupHnd(0)
-	,m_currentIdx(0)
-	,m_logcnt(0)
-	,m_errorhnd(errorhnd_){}
+	,m_currentGroupMap()
+	,m_logcnt(0){}
 
 TraceLogger_count::~TraceLogger_count()
 {
@@ -41,6 +41,8 @@ TraceLogRecordHandle
 {
 	try
 	{
+		utils::ScopedLock lock( m_mutex);
+
 		++m_logcnt;
 		if (m_className.empty() && m_methodName.empty()) return m_logcnt;
 
@@ -72,17 +74,22 @@ TraceLogRecordHandle
 				if (gi == m_groupByMap.end())
 				{
 					m_groupByMap[ objId] = m_counters.size();
-					m_currentGroupHnd = m_logcnt;
-					m_currentIdx = m_counters.size();
 					m_counters.push_back(0);
+					m_currentGroupMap[ m_logcnt] = m_counters.size();
+				}
+				else
+				{
+					m_currentGroupMap[ m_logcnt] = gi->second;
 				}
 			}
 			/// Test if we got a match and count it if we are in a group context:
 			if (countClassMatch && countMethodMatch)
 			{
-				if (m_currentGroupHnd)
+				GroupMap::const_iterator
+					gi = m_currentGroupMap.begin(), ge = m_currentGroupMap.end();
+				for (; gi != ge; ++gi)
 				{
-					++m_counters[ m_currentIdx];
+					++m_counters[ gi->second];
 				}
 			}
 		}
@@ -95,11 +102,13 @@ void TraceLogger_count::logMethodTermination(
 		const TraceLogRecordHandle& loghnd,
 		const std::vector<TraceElement>&)
 {
-	if (loghnd == m_currentGroupHnd)
+	utils::ScopedLock lock( m_mutex);
+
+	GroupMap::iterator gi = m_currentGroupMap.find( loghnd);
+	if (gi != m_currentGroupMap.end())
 	{
 		/// ... terminate counting
-		m_currentGroupHnd = 0;
-		m_currentIdx = 0;
+		m_currentGroupMap.erase( gi);
 	}
 }
 
@@ -119,6 +128,8 @@ struct FileRAII
 
 bool TraceLogger_count::close()
 {
+	utils::ScopedLock lock( m_mutex);
+
 	FileRAII output;
 	if (m_filename == "-" || m_filename == "stdout")
 	{

@@ -27,7 +27,7 @@ using namespace strus;
 #define INDENT_STEP "  "
 
 TraceLogger_dump::TraceLogger_dump( const std::string& filename, ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_output(0),m_indentstr(),m_logcnt(0)
+	:m_errorhnd(errorhnd_),m_mutex(),m_output(0),m_indentstr(),m_logcnt(0)
 {
 	if (filename == "-" || filename == "stdout")
 	{
@@ -63,6 +63,8 @@ TraceLogRecordHandle
 {
 	try
 	{
+		utils::ScopedLock lock( m_mutex);
+
 		if (!m_output)
 		{
 			throw strus::runtime_error(_TXT("logged to file already closed"));
@@ -86,6 +88,8 @@ void TraceLogger_dump::logMethodTermination(
 {
 	try
 	{
+		utils::ScopedLock lock( m_mutex);
+
 		if (m_indentstr.size() < std::strlen(INDENT_STEP))
 		{
 			throw strus::runtime_error(_TXT("illegal call of log method termination (tag hierarchy broken)"));
@@ -164,6 +168,8 @@ void TraceLogger_dump::logMethodTermination(
 
 bool TraceLogger_dump::close()
 {
+	utils::ScopedLock lock( m_mutex);
+
 	if (m_output && m_output != ::stderr && m_output != ::stdout)
 	{
 		::fclose( m_output);

@@ -543,7 +543,7 @@ int main( int argc, const char* argv[])
 	char out_count[ 1024];
 	snprintf( out_count, sizeof(out_count), "%s.cnt", argv[2]);
 	char outcfg_count[ 1024];
-	snprintf( outcfg_count, sizeof(outcfg_count), "groupby=PostingIterator;count=DatabaseClient/read;file=%s.cnt", argv[2]);
+	snprintf( outcfg_count, sizeof(outcfg_count), "groupby=PostingIterator;count=DatabaseCursor/seekUpperBound;file=%s.cnt", argv[2]);
 
 	char res_dump[ 1024];
 	snprintf( res_dump, sizeof(res_dump), "%s.txt", argv[3]);

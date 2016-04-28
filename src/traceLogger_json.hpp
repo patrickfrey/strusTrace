@@ -10,6 +10,7 @@
 #ifndef _STRUS_TRACE_LOGGER_IMPLEMENTATION_HPP_INCLUDED
 #define _STRUS_TRACE_LOGGER_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"
+#include "utils.hpp"
 #include "traceRecord.hpp"
 #include "logUtils.hpp"
 #include <string>
@@ -50,11 +51,12 @@ private:
 	const char* allocString( const char* str, std::size_t strsize);
 
 private:
-	ErrorBufferInterface* m_errorhnd;
-	std::string m_filename;
-	std::vector<TraceRecord> m_recordar;
-	std::vector<utils::StringBlock*> m_strings;
-	std::vector<TraceElement> m_parameterbuf;
+	ErrorBufferInterface* m_errorhnd;			///< error buffer interface
+	utils::Mutex m_mutex;					///< mutex for critical sections
+	std::string m_filename;					///< file to write output to
+	std::vector<TraceRecord> m_recordar;			///< buffer for records written
+	std::vector<utils::StringBlock*> m_strings;		///< buffer for allocating strings as char*
+	std::vector<TraceElement> m_parameterbuf;		///< buffer for parameters written
 };
 
 }//namespace

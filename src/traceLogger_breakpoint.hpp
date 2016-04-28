@@ -11,6 +11,7 @@
 #define _STRUS_TRACE_LOGGER_BREAKPOINT_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/traceElement.hpp"
+#include "utils.hpp"
 #include <string>
 #include <vector>
 #include <set>
@@ -45,7 +46,8 @@ public:
 	virtual bool close();
 
 private:
-	ErrorBufferInterface* m_errorhnd;
+	ErrorBufferInterface* m_errorhnd;			///< error buffer interface
+	utils::Mutex m_mutex;					///< mutex for critical sections
 	std::set<TraceTimeCounter> m_breakpoints;
 	TraceLogRecordHandle m_logcnt;
 };

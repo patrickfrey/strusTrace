@@ -11,6 +11,7 @@
 #define _STRUS_TRACE_LOGGER_COUNT_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/traceElement.hpp"
+#include "utils.hpp"
 #include <string>
 #include <vector>
 #include <map>
@@ -57,6 +58,8 @@ public:
 	virtual bool close();
 
 private:
+	ErrorBufferInterface* m_errorhnd;			///< error buffer interface
+	utils::Mutex m_mutex;					///< mutex for critical sections
 	std::string m_filename;					///< file to write output to
 	std::string m_className_groupBy;			///< class name to group results by
 	std::string m_methodName_groupBy;			///< method name to group results by
@@ -64,10 +67,9 @@ private:
 	std::string m_methodName;				///< method name of events to count results of
 	std::map<TraceObjectId,std::size_t> m_groupByMap;	///< map to group events
 	std::vector<unsigned int> m_counters;			///< counters of events
-	TraceLogRecordHandle m_currentGroupHnd;			///< current group event handle
-	std::size_t m_currentIdx;				///< current counter handle
+	typedef std::map<TraceLogRecordHandle,std::size_t> GroupMap;
+	GroupMap m_currentGroupMap;				///< current group event handles
 	TraceLogRecordHandle m_logcnt;				///< current event count
-	ErrorBufferInterface* m_errorhnd;			///< error buffer interface
 };
 
 }//namespace

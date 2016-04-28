@@ -19,7 +19,7 @@ using namespace strus;
 static void strus_breakpoint(){}
 
 TraceLogger_breakpoint::TraceLogger_breakpoint( const std::vector<TraceTimeCounter>& breakpoints_, ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_logcnt(0)
+	:m_errorhnd(errorhnd_),m_mutex(),m_logcnt(0)
 {
 	std::vector<TraceTimeCounter>::const_iterator bi = breakpoints_.begin(), be = breakpoints_.end();
 	for (; bi != be; ++bi)
@@ -40,6 +40,8 @@ TraceLogRecordHandle
 {
 	try
 	{
+		utils::ScopedLock lock( m_mutex);
+
 		if (m_logcnt >= std::numeric_limits<TraceLogRecordHandle>::max())
 		{
 			throw strus::runtime_error(_TXT("number of logs out of log handle range"));

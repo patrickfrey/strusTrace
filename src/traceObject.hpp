@@ -63,7 +63,7 @@ private:
 public:
 	TraceObject( Interface* obj_, TraceGlobalContext* ctx_)
 		:TraceObjectBase(obj_,&deleter,ctx_){}
-	TraceObject( const Interface* obj_, const TraceGlobalContext* ctx_)
+	TraceObject( const Interface* obj_, TraceGlobalContext* ctx_)
 		:TraceObjectBase(obj_,ctx_){}
 	virtual ~TraceObject(){}
 

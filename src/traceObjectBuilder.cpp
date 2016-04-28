@@ -8,10 +8,10 @@
 /// \brief Toplevel object for logging and querying call traces
 /// \file traceObjectBuilder.cpp
 #include "traceObjectBuilder.hpp"
-#include "traceIdMap.hpp"
 #include "objects_gen.hpp"
 #include "internationalization.hpp"
 #include "errorUtils.hpp"
+#include "strus/traceLoggerInterface.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/storageObjectBuilderInterface.hpp"
@@ -19,8 +19,11 @@
 
 using namespace strus;
 
-TraceObjectBuilder::TraceObjectBuilder( TraceLoggerInterface* logger_, ErrorBufferInterface* errorhnd_)
-	:m_errorhnd(errorhnd_),m_idmap(new TraceIdMap(errorhnd_)),m_logger(logger_),m_ctx(logger_,errorhnd_){}
+TraceObjectBuilder::TraceObjectBuilder(
+		TraceLoggerInterface* tracelog_,
+		ErrorBufferInterface* errorhnd_)
+	:m_errorhnd(errorhnd_),m_logger(tracelog_),m_ctx( tracelog_, errorhnd_)
+{}
 
 AnalyzerObjectBuilderInterface*
 	TraceObjectBuilder::createAnalyzerObjectBuilder(
@@ -30,7 +33,7 @@ AnalyzerObjectBuilderInterface*
 	{
 		return new AnalyzerObjectBuilderImpl( builder, &m_ctx);
 	}
-	CATCH_ERROR_MAP_RETURN( "failed to create analyzer object builder builder proxy for generating call traces", *m_errorhnd, 0)
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces: %s"), *m_errorhnd, 0)
 }
 	
 StorageObjectBuilderInterface*
@@ -41,12 +44,7 @@ StorageObjectBuilderInterface*
 	{
 		return new StorageObjectBuilderImpl( builder, &m_ctx);
 	}
-	CATCH_ERROR_MAP_RETURN( "failed to create analyzer object builder builder proxy for generating call traces", *m_errorhnd, 0)
-}
-
-const TraceIdMapInterface* TraceObjectBuilder::getIdMap() const
-{
-	return m_idmap.get();
+	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces: %s"), *m_errorhnd, 0)
 }
 
 

@@ -4,17 +4,17 @@ include_directories(
    "${Boost_INCLUDE_DIRS}"
    "${Intl_INCLUDE_DIRS}"
    "${PROJECT_SOURCE_DIR}/include" 
+   "${PROJECT_SOURCE_DIR}/src"
    "${strus_INCLUDE_DIRS}"
    "${strusanalyzer_INCLUDE_DIRS}"
 )
 
 link_directories(
    "${Boost_LIBRARY_DIRS}"
-   "${Intl_LIBRARY_DIRS}"
    "${PROJECT_SOURCE_DIR}/src"
    "${strusanalyzer_LIBRARY_DIRS}"
    "${strus_LIBRARY_DIRS}"
 )
 
 add_executable( testQueryEval testQueryEval.cpp)
-target_link_libraries( testQueryEval strus_tracelog strus_error strus_storage strus_database_leveldb strus_textproc strus_analyzer strus_segmenter_textwolf strus_queryeval strus_queryproc strus_base ${Boost_LIBRARIES} ${Intl_LIBRARIES})
+target_link_libraries( testQueryEval strus_storage_objbuild strus_analyzer_objbuild strus_base strus_traceobj strus_traceproc_std strus_error strus_storage strus_database_leveldb strus_textproc strus_analyzer strus_segmenter_textwolf strus_queryeval strus_queryproc strus_base ${Boost_LIBRARIES} ${Intl_LIBRARIES})

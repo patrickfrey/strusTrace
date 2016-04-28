@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Patrick Frey <patrickpfrey@yahoo.com>
 Build-Depends: debhelper (>= 4.1.16), cmake,
  libboost1.53-dev, libboost-thread1.53-dev, libboost-system1.53-dev,
- libboost-date-time1.53-dev
+ libboost-date-time1.53-dev,
+ strusbase-dev, strus-dev, strusanalyzer-dev
 Standards-Version: 3.8.3
 Homepage: http://project-strus.net
 
@@ -17,6 +18,6 @@ Description: Library adding data introspection to a Strus search engine
 
 Package: strustrace-dev
 Architecture: any
-Depends: strusbase, strus, strusanalyzer, ${shlibs:Depends}, ${misc:Depends}
+Depends: strustrace, ${shlibs:Depends}, ${misc:Depends}
 Description: strustrace development files
  Strustrace development files.

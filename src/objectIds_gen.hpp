@@ -72,6 +72,11 @@ enum ClassId
 	ClassId_WeightingFunction=56
 };
 
+struct TraceClassNameMap
+{
+	static const char* className( unsigned int classId);
+};
+
 class AggregatorFunctionInstanceConst
 {
 public:
@@ -80,6 +85,7 @@ public:
 		Method_Destructor=0,
 		Method_evaluate=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class AggregatorFunctionConst
@@ -91,6 +97,7 @@ public:
 		Method_createInstance=1,
 		Method_getDescription=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class AnalyzerObjectBuilderConst
@@ -100,10 +107,11 @@ public:
 	{
 		Method_Destructor=0,
 		Method_getTextProcessor=1,
-		Method_createSegmenter=2,
+		Method_getSegmenter=2,
 		Method_createDocumentAnalyzer=3,
 		Method_createQueryAnalyzer=4
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class AttributeReaderConst
@@ -117,6 +125,7 @@ public:
 		Method_getValue=3,
 		Method_getAttributeNames=4
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class DatabaseBackupCursorConst
@@ -127,6 +136,7 @@ public:
 		Method_Destructor=0,
 		Method_fetch=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class DatabaseClientConst
@@ -142,6 +152,7 @@ public:
 		Method_removeImm=5,
 		Method_readValue=6
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class DatabaseCursorConst
@@ -159,6 +170,7 @@ public:
 		Method_key=7,
 		Method_value=8
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class DatabaseConst
@@ -175,6 +187,7 @@ public:
 		Method_getConfigDescription=6,
 		Method_getConfigParameters=7
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class DatabaseTransactionConst
@@ -190,6 +203,7 @@ public:
 		Method_commit=5,
 		Method_rollback=6
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class DocumentAnalyzerContextConst
@@ -201,6 +215,7 @@ public:
 		Method_putInput=1,
 		Method_analyzeNext=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class DocumentAnalyzerConst
@@ -218,6 +233,7 @@ public:
 		Method_analyze=7,
 		Method_createContext=8
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class DocumentClassDetectorConst
@@ -228,6 +244,7 @@ public:
 		Method_Destructor=0,
 		Method_detect=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class DocumentTermIteratorConst
@@ -241,6 +258,7 @@ public:
 		Method_termDocumentFrequency=3,
 		Method_termValue=4
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class ForwardIteratorConst
@@ -253,6 +271,7 @@ public:
 		Method_skipPos=2,
 		Method_fetch=3
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class InvAclIteratorConst
@@ -263,6 +282,7 @@ public:
 		Method_Destructor=0,
 		Method_skipDoc=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class MetaDataReaderConst
@@ -279,6 +299,7 @@ public:
 		Method_getType=6,
 		Method_getName=7
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class MetaDataRestrictionInstanceConst
@@ -289,6 +310,7 @@ public:
 		Method_Destructor=0,
 		Method_match=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class MetaDataRestrictionConst
@@ -301,6 +323,7 @@ public:
 		Method_createInstance=2,
 		Method_tostring=3
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class NormalizerFunctionContextConst
@@ -311,6 +334,7 @@ public:
 		Method_Destructor=0,
 		Method_normalize=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class NormalizerFunctionInstanceConst
@@ -321,6 +345,7 @@ public:
 		Method_Destructor=0,
 		Method_createFunctionContext=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class NormalizerFunctionConst
@@ -332,6 +357,7 @@ public:
 		Method_createInstance=1,
 		Method_getDescription=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class PostingIteratorConst
@@ -349,6 +375,7 @@ public:
 		Method_docno=7,
 		Method_posno=8
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class PostingJoinOperatorConst
@@ -360,6 +387,7 @@ public:
 		Method_createResultIterator=1,
 		Method_getDescription=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class QueryAnalyzerConst
@@ -372,6 +400,7 @@ public:
 		Method_analyzePhrase=2,
 		Method_analyzePhraseBulk=3
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class QueryEvalConst
@@ -389,6 +418,7 @@ public:
 		Method_defineWeightingFormula=7,
 		Method_createQuery=8
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class QueryConst
@@ -411,6 +441,7 @@ public:
 		Method_setWeightingVariableValue=12,
 		Method_evaluate=13
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class QueryProcessorConst
@@ -429,6 +460,7 @@ public:
 		Method_defineScalarFunctionParser=8,
 		Method_getScalarFunctionParser=9
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class ScalarFunctionInstanceConst
@@ -441,6 +473,7 @@ public:
 		Method_call=2,
 		Method_tostring=3
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class ScalarFunctionConst
@@ -455,6 +488,7 @@ public:
 		Method_createInstance=4,
 		Method_tostring=5
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class ScalarFunctionParserConst
@@ -465,6 +499,7 @@ public:
 		Method_Destructor=0,
 		Method_createFunction=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class SegmenterContextConst
@@ -476,6 +511,7 @@ public:
 		Method_putInput=1,
 		Method_getNext=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class SegmenterInstanceConst
@@ -488,6 +524,7 @@ public:
 		Method_defineSubSection=2,
 		Method_createContext=3
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class SegmenterConst
@@ -499,6 +536,7 @@ public:
 		Method_mimeType=1,
 		Method_createInstance=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StatisticsBuilderConst
@@ -513,6 +551,7 @@ public:
 		Method_rollback=4,
 		Method_fetchMessage=5
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StatisticsIteratorConst
@@ -523,6 +562,7 @@ public:
 		Method_Destructor=0,
 		Method_getNext=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StatisticsProcessorConst
@@ -534,6 +574,7 @@ public:
 		Method_createViewer=1,
 		Method_createBuilder=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StatisticsViewerConst
@@ -545,6 +586,7 @@ public:
 		Method_nofDocumentsInsertedChange=1,
 		Method_nextDfChange=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StorageAlterMetaDataTableConst
@@ -561,6 +603,7 @@ public:
 		Method_commit=6,
 		Method_rollback=7
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StorageClientConst
@@ -594,6 +637,7 @@ public:
 		Method_checkStorage=23,
 		Method_createDump=24
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StorageDocumentConst
@@ -609,6 +653,7 @@ public:
 		Method_setUserAccessRight=5,
 		Method_done=6
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StorageDocumentUpdateConst
@@ -625,6 +670,7 @@ public:
 		Method_clearUserAccessRights=6,
 		Method_done=7
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StorageDumpConst
@@ -635,6 +681,7 @@ public:
 		Method_Destructor=0,
 		Method_nextChunk=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StorageConst
@@ -649,6 +696,7 @@ public:
 		Method_getConfigDescription=4,
 		Method_getConfigParameters=5
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StorageObjectBuilderConst
@@ -661,10 +709,9 @@ public:
 		Method_getDatabase=2,
 		Method_getQueryProcessor=3,
 		Method_getStatisticsProcessor=4,
-		Method_createStorageClient=5,
-		Method_createAlterMetaDataTable=6,
-		Method_createQueryEval=7
+		Method_createQueryEval=5
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class StorageTransactionConst
@@ -681,6 +728,7 @@ public:
 		Method_commit=6,
 		Method_rollback=7
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class SummarizerFunctionContextConst
@@ -692,6 +740,7 @@ public:
 		Method_addSummarizationFeature=1,
 		Method_getSummary=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class SummarizerFunctionInstanceConst
@@ -705,6 +754,7 @@ public:
 		Method_createFunctionContext=3,
 		Method_tostring=4
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class SummarizerFunctionConst
@@ -716,6 +766,7 @@ public:
 		Method_createInstance=1,
 		Method_getDescription=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class TextProcessorConst
@@ -736,6 +787,7 @@ public:
 		Method_defineAggregator=10,
 		Method_getFunctionList=11
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class TokenizerFunctionContextConst
@@ -746,6 +798,7 @@ public:
 		Method_Destructor=0,
 		Method_tokenize=1
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class TokenizerFunctionInstanceConst
@@ -757,6 +810,7 @@ public:
 		Method_concatBeforeTokenize=1,
 		Method_createFunctionContext=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class TokenizerFunctionConst
@@ -768,6 +822,7 @@ public:
 		Method_createInstance=1,
 		Method_getDescription=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class ValueIteratorConst
@@ -779,6 +834,7 @@ public:
 		Method_skip=1,
 		Method_fetchValues=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class WeightingFunctionContextConst
@@ -790,6 +846,7 @@ public:
 		Method_addWeightingFeature=1,
 		Method_call=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class WeightingFunctionInstanceConst
@@ -803,6 +860,7 @@ public:
 		Method_createFunctionContext=3,
 		Method_tostring=4
 	};
+	static const char* methodName( MethodId mid);
 };
 
 class WeightingFunctionConst
@@ -814,6 +872,7 @@ public:
 		Method_createInstance=1,
 		Method_getDescription=2
 	};
+	static const char* methodName( MethodId mid);
 };
 
 

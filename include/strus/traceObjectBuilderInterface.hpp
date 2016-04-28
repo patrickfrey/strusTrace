@@ -18,8 +18,6 @@ namespace strus
 class StorageObjectBuilderInterface;
 /// \brief Forward declaration
 class AnalyzerObjectBuilderInterface;
-/// \brief Forward declaration
-class TraceIdMapInterface;
 
 /// \brief Interface for creating proxies for Strus objects that log methods called besides calling them
 class TraceObjectBuilderInterface
@@ -41,10 +39,6 @@ public:
 	virtual StorageObjectBuilderInterface*
 		createStorageObjectBuilder(
 			StorageObjectBuilderInterface* builder)=0;
-
-	/// \brief Get the map of identifiers (class names, method names) used
-	/// \return a read only reference to the identifier map
-	virtual const TraceIdMapInterface* getIdMap() const=0;
 };
 
 }//namespace

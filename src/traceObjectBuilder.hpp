@@ -19,8 +19,6 @@ namespace strus
 class ErrorBufferInterface;
 /// \brief Forward declaration
 class TraceLoggerInterface;
-/// \brief Forward declaration
-class TraceIdMapInterface;
 
 /// \brief Standard implementation of the interface creating proxies for Strus objects that log methods called besides calling them
 class TraceObjectBuilder
@@ -28,9 +26,11 @@ class TraceObjectBuilder
 {
 public:
 	/// \brief Constructor
-	/// \param[in] logger_ logger interface (ownership passed to this) to use for logging
+	/// \param[in] tracelog_ trace logger interface to use (ownership passed to this)
 	/// \param[in] errorhnd_ error buffer for error messages and exceptions
-	TraceObjectBuilder( TraceLoggerInterface* logger_, ErrorBufferInterface* errorhnd_);
+	TraceObjectBuilder(
+			TraceLoggerInterface* traceproc_,
+			ErrorBufferInterface* errorhnd_);
 
 	virtual ~TraceObjectBuilder(){}
 
@@ -42,11 +42,8 @@ public:
 		createStorageObjectBuilder(
 			StorageObjectBuilderInterface* builder);
 
-	virtual const TraceIdMapInterface* getIdMap() const;
-
 private:
 	ErrorBufferInterface* m_errorhnd;
-	Reference<TraceIdMapInterface> m_idmap;
 	Reference<TraceLoggerInterface> m_logger;
 	TraceGlobalContext m_ctx;
 };

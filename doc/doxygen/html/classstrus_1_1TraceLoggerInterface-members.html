@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">strusTrace
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
   </td>
  </tr>
@@ -64,18 +64,15 @@
 
 <p>This is the complete list of members for <a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#aab847075774b5f6674862b77a40e88af">createViewer</a>() const =0</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#ad48f8de53df443c86da61c2dd8014b81">logCloseBranch</a>()=0</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#af464ddf7da9e2af3a43be3301412edcb">logMethodCall</a>(const TraceClassId &amp;classId, const TraceMethodId &amp;methodId, const TraceObjectId &amp;objId)=0</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#a132eabf620df94d4f958e43cbab916ce">logMethodTermination</a>(const TraceLogRecordHandle &amp;loghnd, const std::string &amp;packedParameter)=0</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#a882a645037d725f58350467fba89e334">logObjectCreation</a>(const TraceObjectId &amp;objId, const TraceLogRecordHandle &amp;loghnd)=0</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#aaa635d672cf9f466d61d7078a67ad676">logOpenBranch</a>()=0</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90">~TraceLoggerInterface</a>()</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#a023d3cd9795cdc99926a83a04ab8b9f4">close</a>()=0</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#ab20991b50363686ff08076515a520462">logMethodCall</a>(const char *className, const char *methodName, const TraceObjectId &amp;objId)=0</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#abab1cfd0e7926bb5b010d5892e0048bf">logMethodTermination</a>(const TraceLogRecordHandle &amp;loghnd, const std::vector&lt; TraceElement &gt; &amp;parameter)=0</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90">~TraceLoggerInterface</a>()</td><td class="entry"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 16 2016 16:27:44 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 28 2016 22:39:18 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

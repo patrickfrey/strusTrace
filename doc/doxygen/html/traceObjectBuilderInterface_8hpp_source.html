@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">strusTrace
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
   </td>
  </tr>
@@ -76,39 +76,34 @@
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>StorageObjectBuilderInterface;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span>AnalyzerObjectBuilderInterface;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>TraceIdMapInterface;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classstrus_1_1TraceObjectBuilderInterface.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstrus_1_1TraceObjectBuilderInterface.html">TraceObjectBuilderInterface</a></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classstrus_1_1TraceObjectBuilderInterface.html#af6821356209a708a961b4e62048bdbd5">   29</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classstrus_1_1TraceObjectBuilderInterface.html#af6821356209a708a961b4e62048bdbd5">~TraceObjectBuilderInterface</a>(){}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">virtual</span> AnalyzerObjectBuilderInterface*</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                <a class="code" href="classstrus_1_1TraceObjectBuilderInterface.html#acfaae8281e735d9c9b48f3dd5ae006ac">createAnalyzerObjectBuilder</a>(</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                        AnalyzerObjectBuilderInterface* builder)=0;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">virtual</span> StorageObjectBuilderInterface*</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                <a class="code" href="classstrus_1_1TraceObjectBuilderInterface.html#ab6f372d1904c5ffd3ada2574aa72b7d9">createStorageObjectBuilder</a>(</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                        StorageObjectBuilderInterface* builder)=0;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classstrus_1_1TraceIdMapInterface.html">TraceIdMapInterface</a>* <a class="code" href="classstrus_1_1TraceObjectBuilderInterface.html#aa2df64da57307442f81124d2c5788671">getIdMap</a>() <span class="keyword">const</span>=0;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}<span class="comment">//namespace</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="ttc" id="classstrus_1_1TraceObjectBuilderInterface_html_aa2df64da57307442f81124d2c5788671"><div class="ttname"><a href="classstrus_1_1TraceObjectBuilderInterface.html#aa2df64da57307442f81124d2c5788671">strus::TraceObjectBuilderInterface::getIdMap</a></div><div class="ttdeci">virtual const TraceIdMapInterface * getIdMap() const =0</div><div class="ttdoc">Get the map of identifiers (class names, method names) used. </div></div>
-<div class="ttc" id="classstrus_1_1TraceIdMapInterface_html"><div class="ttname"><a href="classstrus_1_1TraceIdMapInterface.html">strus::TraceIdMapInterface</a></div><div class="ttdoc">Interface for mapping call trace identifiers to their internal representation as number and back...</div><div class="ttdef"><b>Definition:</b> traceIdMapInterface.hpp:20</div></div>
-<div class="ttc" id="classstrus_1_1TraceObjectBuilderInterface_html_af6821356209a708a961b4e62048bdbd5"><div class="ttname"><a href="classstrus_1_1TraceObjectBuilderInterface.html#af6821356209a708a961b4e62048bdbd5">strus::TraceObjectBuilderInterface::~TraceObjectBuilderInterface</a></div><div class="ttdeci">virtual ~TraceObjectBuilderInterface()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> traceObjectBuilderInterface.hpp:29</div></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classstrus_1_1TraceObjectBuilderInterface.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstrus_1_1TraceObjectBuilderInterface.html">TraceObjectBuilderInterface</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classstrus_1_1TraceObjectBuilderInterface.html#af6821356209a708a961b4e62048bdbd5">   27</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classstrus_1_1TraceObjectBuilderInterface.html#af6821356209a708a961b4e62048bdbd5">~TraceObjectBuilderInterface</a>(){}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">virtual</span> AnalyzerObjectBuilderInterface*</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                <a class="code" href="classstrus_1_1TraceObjectBuilderInterface.html#acfaae8281e735d9c9b48f3dd5ae006ac">createAnalyzerObjectBuilder</a>(</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                        AnalyzerObjectBuilderInterface* builder)=0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">virtual</span> StorageObjectBuilderInterface*</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                <a class="code" href="classstrus_1_1TraceObjectBuilderInterface.html#ab6f372d1904c5ffd3ada2574aa72b7d9">createStorageObjectBuilder</a>(</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                        StorageObjectBuilderInterface* builder)=0;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}<span class="comment">//namespace</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="ttc" id="classstrus_1_1TraceObjectBuilderInterface_html_af6821356209a708a961b4e62048bdbd5"><div class="ttname"><a href="classstrus_1_1TraceObjectBuilderInterface.html#af6821356209a708a961b4e62048bdbd5">strus::TraceObjectBuilderInterface::~TraceObjectBuilderInterface</a></div><div class="ttdeci">virtual ~TraceObjectBuilderInterface()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> traceObjectBuilderInterface.hpp:27</div></div>
 <div class="ttc" id="classstrus_1_1TraceObjectBuilderInterface_html_ab6f372d1904c5ffd3ada2574aa72b7d9"><div class="ttname"><a href="classstrus_1_1TraceObjectBuilderInterface.html#ab6f372d1904c5ffd3ada2574aa72b7d9">strus::TraceObjectBuilderInterface::createStorageObjectBuilder</a></div><div class="ttdeci">virtual StorageObjectBuilderInterface * createStorageObjectBuilder(StorageObjectBuilderInterface *builder)=0</div><div class="ttdoc">Create a proxy of an storage object builder that prints a trace log before and after every method cal...</div></div>
 <div class="ttc" id="classstrus_1_1TraceObjectBuilderInterface_html_acfaae8281e735d9c9b48f3dd5ae006ac"><div class="ttname"><a href="classstrus_1_1TraceObjectBuilderInterface.html#acfaae8281e735d9c9b48f3dd5ae006ac">strus::TraceObjectBuilderInterface::createAnalyzerObjectBuilder</a></div><div class="ttdeci">virtual AnalyzerObjectBuilderInterface * createAnalyzerObjectBuilder(AnalyzerObjectBuilderInterface *builder)=0</div><div class="ttdoc">Create a proxy of an analyzer object builder that prints a trace log before and after every method ca...</div></div>
-<div class="ttc" id="classstrus_1_1TraceObjectBuilderInterface_html"><div class="ttname"><a href="classstrus_1_1TraceObjectBuilderInterface.html">strus::TraceObjectBuilderInterface</a></div><div class="ttdoc">Interface for creating proxies for Strus objects that log methods called besides calling them...</div><div class="ttdef"><b>Definition:</b> traceObjectBuilderInterface.hpp:25</div></div>
+<div class="ttc" id="classstrus_1_1TraceObjectBuilderInterface_html"><div class="ttname"><a href="classstrus_1_1TraceObjectBuilderInterface.html">strus::TraceObjectBuilderInterface</a></div><div class="ttdoc">Interface for creating proxies for Strus objects that log methods called besides calling them...</div><div class="ttdef"><b>Definition:</b> traceObjectBuilderInterface.hpp:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 16 2016 16:27:44 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 28 2016 22:39:18 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

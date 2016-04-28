@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">strusTrace
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
   </td>
  </tr>
@@ -69,81 +69,46 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstrus_1_1TraceElement.html">TraceElement</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element type used to describe traced structures. Any atomic value or structure is described as sequence of trace elements.  <a href="structstrus_1_1TraceElement.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceIdMapInterface.html">TraceIdMapInterface</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for mapping call trace identifiers to their internal representation as number and back.  <a href="classstrus_1_1TraceIdMapInterface.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface providing a storage object builder interface with tracing and querying of traces.  <a href="classstrus_1_1TraceLoggerInterface.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceObjectBuilderInterface.html">TraceObjectBuilderInterface</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for creating proxies for Strus objects that log methods called besides calling them.  <a href="classstrus_1_1TraceObjectBuilderInterface.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceProcessorInterface.html">TraceProcessorInterface</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for creating loggers and viewers of call traces.  <a href="classstrus_1_1TraceProcessorInterface.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceQuery.html">TraceQuery</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure describing a query on a trace log.  <a href="classstrus_1_1TraceQuery.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceRecord.html">TraceRecord</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One logged data row (method call)  <a href="classstrus_1_1TraceRecord.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceViewerInterface.html">TraceViewerInterface</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for inspecting logged traces.  <a href="classstrus_1_1TraceViewerInterface.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ae9340d10722f78ad625abd0057a91b93"><td class="memItemLeft" align="right" valign="top">typedef unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93">TraceClassId</a></td></tr>
-<tr class="memdesc:ae9340d10722f78ad625abd0057a91b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of an interface class subject to logging (enum)  <a href="#ae9340d10722f78ad625abd0057a91b93">More...</a><br/></td></tr>
-<tr class="separator:ae9340d10722f78ad625abd0057a91b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42d7731bf746a8fca4754351041424e5"><td class="memItemLeft" align="right" valign="top">typedef unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a42d7731bf746a8fca4754351041424e5">TraceMethodId</a></td></tr>
-<tr class="memdesc:a42d7731bf746a8fca4754351041424e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of a method of an interface class subject to logging (enum)  <a href="#a42d7731bf746a8fca4754351041424e5">More...</a><br/></td></tr>
-<tr class="separator:a42d7731bf746a8fca4754351041424e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1604aac14a6a28c5174cdb57844eb670"><td class="memItemLeft" align="right" valign="top">typedef unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">TraceObjectId</a></td></tr>
 <tr class="memdesc:a1604aac14a6a28c5174cdb57844eb670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique object identifier.  <a href="#a1604aac14a6a28c5174cdb57844eb670">More...</a><br/></td></tr>
 <tr class="separator:a1604aac14a6a28c5174cdb57844eb670"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca14baf53ffd5c28c5a7e2a1a8743fec"><td class="memItemLeft" align="right" valign="top">typedef unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#aca14baf53ffd5c28c5a7e2a1a8743fec">TraceTimeCounter</a></td></tr>
 <tr class="memdesc:aca14baf53ffd5c28c5a7e2a1a8743fec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique timestamp of logged events.  <a href="#aca14baf53ffd5c28c5a7e2a1a8743fec">More...</a><br/></td></tr>
 <tr class="separator:aca14baf53ffd5c28c5a7e2a1a8743fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9834e0c7c38185941082a3b5252d603f"><td class="memItemLeft" align="right" valign="top">typedef unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a9834e0c7c38185941082a3b5252d603f">TraceTreeDepth</a></td></tr>
-<tr class="memdesc:a9834e0c7c38185941082a3b5252d603f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter value of the depth in the call tree.  <a href="#a9834e0c7c38185941082a3b5252d603f">More...</a><br/></td></tr>
-<tr class="separator:a9834e0c7c38185941082a3b5252d603f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a0caa9fd5bb41d3c8d916e6e4676b95"><td class="memItemLeft" align="right" valign="top">typedef std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a></td></tr>
 <tr class="memdesc:a5a0caa9fd5bb41d3c8d916e6e4676b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle of a trace log entry.  <a href="#a5a0caa9fd5bb41d3c8d916e6e4676b95">More...</a><br/></td></tr>
 <tr class="separator:a5a0caa9fd5bb41d3c8d916e6e4676b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aaf46b01cdfef9bedc46d6ce059b7485f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstrus_1_1TraceIdMapInterface.html">TraceIdMapInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#aaf46b01cdfef9bedc46d6ce059b7485f">createTraceIdMap</a> (ErrorBufferInterface *errorhnd)</td></tr>
-<tr class="memdesc:aaf46b01cdfef9bedc46d6ce059b7485f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a map of identifiers used in call trace logs.  <a href="#aaf46b01cdfef9bedc46d6ce059b7485f">More...</a><br/></td></tr>
-<tr class="separator:aaf46b01cdfef9bedc46d6ce059b7485f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5637fd26fc132e25a3bda3c6431e2528"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstrus_1_1TraceProcessorInterface.html">TraceProcessorInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a5637fd26fc132e25a3bda3c6431e2528">createTraceProcessor_memory</a> (ErrorBufferInterface *errorhnd)</td></tr>
-<tr class="memdesc:a5637fd26fc132e25a3bda3c6431e2528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an interface to the trace logger creating a trace in memory that can be queried in the same session (no recovery of previous sessions) with a viewer.  <a href="#a5637fd26fc132e25a3bda3c6431e2528">More...</a><br/></td></tr>
-<tr class="separator:a5637fd26fc132e25a3bda3c6431e2528"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61728dc8c7cc7ad22cd0a01a9131072f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstrus_1_1TraceProcessorInterface.html">TraceProcessorInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a61728dc8c7cc7ad22cd0a01a9131072f">createTraceProcessor_textfile</a> (ErrorBufferInterface *errorhnd)</td></tr>
-<tr class="memdesc:a61728dc8c7cc7ad22cd0a01a9131072f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an interface to the trace logger writing a trace directly to stdout.  <a href="#a61728dc8c7cc7ad22cd0a01a9131072f">More...</a><br/></td></tr>
-<tr class="separator:a61728dc8c7cc7ad22cd0a01a9131072f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a909710b0722482290f718819e9cb44f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstrus_1_1TraceObjectBuilderInterface.html">TraceObjectBuilderInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a909710b0722482290f718819e9cb44f9">traceCreateObjectBuilder</a> (<a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a> *tracelog, ErrorBufferInterface *errorhnd)</td></tr>
 <tr class="memdesc:a909710b0722482290f718819e9cb44f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a proxy object to wrap storage and analyzer object builder and all descendant objects to log all methods called besides calling them.  <a href="#a909710b0722482290f718819e9cb44f9">More...</a><br/></td></tr>
 <tr class="separator:a909710b0722482290f718819e9cb44f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7231e2ce05a6dd2a8437d1f9f85a2230"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a7231e2ce05a6dd2a8437d1f9f85a2230">createTraceLogger_json</a> (const std::string &amp;config, ErrorBufferInterface *errorhnd)</td></tr>
+<tr class="memdesc:a7231e2ce05a6dd2a8437d1f9f85a2230"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an interface to the trace logger creating a call tree representation in JSON.  <a href="#a7231e2ce05a6dd2a8437d1f9f85a2230">More...</a><br/></td></tr>
+<tr class="separator:a7231e2ce05a6dd2a8437d1f9f85a2230"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd78a7603125465cfce1223cbf8f9d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a0dd78a7603125465cfce1223cbf8f9d9">createTraceLogger_dump</a> (const std::string &amp;config, ErrorBufferInterface *errorhnd)</td></tr>
+<tr class="memdesc:a0dd78a7603125465cfce1223cbf8f9d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an interface to the trace logger writing a trace immediately to stdout or file.  <a href="#a0dd78a7603125465cfce1223cbf8f9d9">More...</a><br/></td></tr>
+<tr class="separator:a0dd78a7603125465cfce1223cbf8f9d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a004369c323682cedb2b9da16d606b3a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a004369c323682cedb2b9da16d606b3a6">createTraceLogger_breakpoint</a> (const std::string &amp;config, ErrorBufferInterface *errorhnd)</td></tr>
+<tr class="memdesc:a004369c323682cedb2b9da16d606b3a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an interface to the trace logger than enables you to set debugger breakpoints on specific method calls.  <a href="#a004369c323682cedb2b9da16d606b3a6">More...</a><br/></td></tr>
+<tr class="separator:a004369c323682cedb2b9da16d606b3a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7574c686959406661b4fcf3c37c1f962"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a7574c686959406661b4fcf3c37c1f962">createTraceLogger_count</a> (const std::string &amp;config, ErrorBufferInterface *errorhnd)</td></tr>
+<tr class="memdesc:a7574c686959406661b4fcf3c37c1f962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an interface to the trace logger counting method call events (with the possibility to group by another type of event) ant writing the final counts to stdout or file.  <a href="#a7574c686959406661b4fcf3c37c1f962">More...</a><br/></td></tr>
+<tr class="separator:a7574c686959406661b4fcf3c37c1f962"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>strus toplevel namespace </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="ae9340d10722f78ad625abd0057a91b93"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef unsigned char <a class="el" href="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93">strus::TraceClassId</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Id of an interface class subject to logging (enum) </p>
-
-</div>
-</div>
 <a class="anchor" id="a5a0caa9fd5bb41d3c8d916e6e4676b95"></a>
 <div class="memitem">
 <div class="memproto">
@@ -155,20 +120,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Handle of a trace log entry. </p>
-
-</div>
-</div>
-<a class="anchor" id="a42d7731bf746a8fca4754351041424e5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef unsigned char <a class="el" href="namespacestrus.html#a42d7731bf746a8fca4754351041424e5">strus::TraceMethodId</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Id of a method of an interface class subject to logging (enum) </p>
 
 </div>
 </div>
@@ -200,73 +151,148 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9834e0c7c38185941082a3b5252d603f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef unsigned int <a class="el" href="namespacestrus.html#a9834e0c7c38185941082a3b5252d603f">strus::TraceTreeDepth</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Counter value of the depth in the call tree. </p>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="aaf46b01cdfef9bedc46d6ce059b7485f"></a>
+<a class="anchor" id="a004369c323682cedb2b9da16d606b3a6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstrus_1_1TraceIdMapInterface.html">TraceIdMapInterface</a>* strus::createTraceIdMap </td>
+          <td class="memname"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a>* strus::createTraceLogger_breakpoint </td>
           <td>(</td>
-          <td class="paramtype">ErrorBufferInterface *&#160;</td>
-          <td class="paramname"><em>errorhnd</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">ErrorBufferInterface *&#160;</td>
+          <td class="paramname"><em>errorhnd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create a map of identifiers used in call trace logs. </p>
-<dl class="section return"><dt>Returns</dt><dd>the map </dd></dl>
+<p>Create an interface to the trace logger than enables you to set debugger breakpoints on specific method calls. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">config</td><td>configuration string of the logger </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">errorhnd</td><td>error buffer interface </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the logger interface </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a5637fd26fc132e25a3bda3c6431e2528"></a>
+<a class="anchor" id="a7574c686959406661b4fcf3c37c1f962"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstrus_1_1TraceProcessorInterface.html">TraceProcessorInterface</a>* strus::createTraceProcessor_memory </td>
+          <td class="memname"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a>* strus::createTraceLogger_count </td>
           <td>(</td>
-          <td class="paramtype">ErrorBufferInterface *&#160;</td>
-          <td class="paramname"><em>errorhnd</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">ErrorBufferInterface *&#160;</td>
+          <td class="paramname"><em>errorhnd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create an interface to the trace logger creating a trace in memory that can be queried in the same session (no recovery of previous sessions) with a viewer. </p>
+<p>Create an interface to the trace logger counting method call events (with the possibility to group by another type of event) ant writing the final counts to stdout or file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">config</td><td>configuration string of the logger </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">errorhnd</td><td>error buffer interface </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the logger interface </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a61728dc8c7cc7ad22cd0a01a9131072f"></a>
+<a class="anchor" id="a0dd78a7603125465cfce1223cbf8f9d9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classstrus_1_1TraceProcessorInterface.html">TraceProcessorInterface</a>* strus::createTraceProcessor_textfile </td>
+          <td class="memname"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a>* strus::createTraceLogger_dump </td>
           <td>(</td>
-          <td class="paramtype">ErrorBufferInterface *&#160;</td>
-          <td class="paramname"><em>errorhnd</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">ErrorBufferInterface *&#160;</td>
+          <td class="paramname"><em>errorhnd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create an interface to the trace logger writing a trace directly to stdout. </p>
+<p>Create an interface to the trace logger writing a trace immediately to stdout or file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">config</td><td>configuration string of the logger </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">errorhnd</td><td>error buffer interface </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the logger interface </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7231e2ce05a6dd2a8437d1f9f85a2230"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a>* strus::createTraceLogger_json </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ErrorBufferInterface *&#160;</td>
+          <td class="paramname"><em>errorhnd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create an interface to the trace logger creating a call tree representation in JSON. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">config</td><td>configuration string of the logger </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">errorhnd</td><td>error buffer interface </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the logger interface </dd></dl>
 
 </div>
 </div>
@@ -297,7 +323,7 @@ Functions</h2></td></tr>
 <p>Create a proxy object to wrap storage and analyzer object builder and all descendant objects to log all methods called besides calling them. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">tracelog</td><td>trace logger interface to use </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tracelog</td><td>trace logger interface to use (ownership passed to returned object) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">errorhnd</td><td>error buffer for error messages and exceptions </td></tr>
   </table>
   </dd>
@@ -309,7 +335,7 @@ Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 16 2016 16:27:44 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 28 2016 22:39:18 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

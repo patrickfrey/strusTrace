@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">strusTrace
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
   </td>
  </tr>
@@ -68,6 +68,7 @@
 <p>Element type used to describe traced structures.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;string&gt;</code><br/>
+<code>#include &lt;cstring&gt;</code><br/>
 <code>#include &quot;strus/base/stdint.h&quot;</code><br/>
 </div>
 <p><a href="traceElement_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -88,33 +89,23 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ae9340d10722f78ad625abd0057a91b93"><td class="memItemLeft" align="right" valign="top">typedef unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93">strus::TraceClassId</a></td></tr>
-<tr class="memdesc:ae9340d10722f78ad625abd0057a91b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of an interface class subject to logging (enum)  <a href="#ae9340d10722f78ad625abd0057a91b93">More...</a><br/></td></tr>
-<tr class="separator:ae9340d10722f78ad625abd0057a91b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42d7731bf746a8fca4754351041424e5"><td class="memItemLeft" align="right" valign="top">typedef unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a42d7731bf746a8fca4754351041424e5">strus::TraceMethodId</a></td></tr>
-<tr class="memdesc:a42d7731bf746a8fca4754351041424e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of a method of an interface class subject to logging (enum)  <a href="#a42d7731bf746a8fca4754351041424e5">More...</a><br/></td></tr>
-<tr class="separator:a42d7731bf746a8fca4754351041424e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1604aac14a6a28c5174cdb57844eb670"><td class="memItemLeft" align="right" valign="top">typedef unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">strus::TraceObjectId</a></td></tr>
 <tr class="memdesc:a1604aac14a6a28c5174cdb57844eb670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique object identifier.  <a href="#a1604aac14a6a28c5174cdb57844eb670">More...</a><br/></td></tr>
 <tr class="separator:a1604aac14a6a28c5174cdb57844eb670"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca14baf53ffd5c28c5a7e2a1a8743fec"><td class="memItemLeft" align="right" valign="top">typedef unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#aca14baf53ffd5c28c5a7e2a1a8743fec">strus::TraceTimeCounter</a></td></tr>
 <tr class="memdesc:aca14baf53ffd5c28c5a7e2a1a8743fec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique timestamp of logged events.  <a href="#aca14baf53ffd5c28c5a7e2a1a8743fec">More...</a><br/></td></tr>
 <tr class="separator:aca14baf53ffd5c28c5a7e2a1a8743fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9834e0c7c38185941082a3b5252d603f"><td class="memItemLeft" align="right" valign="top">typedef unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a9834e0c7c38185941082a3b5252d603f">strus::TraceTreeDepth</a></td></tr>
-<tr class="memdesc:a9834e0c7c38185941082a3b5252d603f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter value of the depth in the call tree.  <a href="#a9834e0c7c38185941082a3b5252d603f">More...</a><br/></td></tr>
-<tr class="separator:a9834e0c7c38185941082a3b5252d603f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a0caa9fd5bb41d3c8d916e6e4676b95"><td class="memItemLeft" align="right" valign="top">typedef std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">strus::TraceLogRecordHandle</a></td></tr>
 <tr class="memdesc:a5a0caa9fd5bb41d3c8d916e6e4676b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle of a trace log entry.  <a href="#a5a0caa9fd5bb41d3c8d916e6e4676b95">More...</a><br/></td></tr>
 <tr class="separator:a5a0caa9fd5bb41d3c8d916e6e4676b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Element type used to describe traced structures. </p>
-<p>Structure describing a query for inspecting elements of a strus call trace.</p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 16 2016 16:27:44 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 28 2016 22:39:18 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">strusTrace
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
   </td>
  </tr>
@@ -76,56 +76,40 @@
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>strus</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span>TraceViewerInterface;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classstrus_1_1TraceLoggerInterface.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90">   27</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90">~TraceLoggerInterface</a>(){}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                <a class="code" href="classstrus_1_1TraceLoggerInterface.html#af464ddf7da9e2af3a43be3301412edcb">logMethodCall</a>(</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                        <span class="keyword">const</span> <a class="code" href="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93">TraceClassId</a>&amp; classId,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                        <span class="keyword">const</span> <a class="code" href="namespacestrus.html#a42d7731bf746a8fca4754351041424e5">TraceMethodId</a>&amp; methodId,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                        <span class="keyword">const</span> <a class="code" href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">TraceObjectId</a>&amp; objId)=0;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstrus_1_1TraceLoggerInterface.html#a882a645037d725f58350467fba89e334">logObjectCreation</a>(</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                        <span class="keyword">const</span> <a class="code" href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">TraceObjectId</a>&amp; objId,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                        <span class="keyword">const</span> <a class="code" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a>&amp; loghnd)=0;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstrus_1_1TraceLoggerInterface.html#a132eabf620df94d4f958e43cbab916ce">logMethodTermination</a>(</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                        <span class="keyword">const</span> <a class="code" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a>&amp; loghnd,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                        <span class="keyword">const</span> std::string&amp; packedParameter)=0;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstrus_1_1TraceLoggerInterface.html#aaa635d672cf9f466d61d7078a67ad676">logOpenBranch</a>()=0;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstrus_1_1TraceLoggerInterface.html#ad48f8de53df443c86da61c2dd8014b81">logCloseBranch</a>()=0;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classstrus_1_1TraceViewerInterface.html">TraceViewerInterface</a>* <a class="code" href="classstrus_1_1TraceLoggerInterface.html#aab847075774b5f6674862b77a40e88af">createViewer</a>() <span class="keyword">const</span>=0;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}<span class="comment">//namespace</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor"></span></div>
-<div class="ttc" id="namespacestrus_html_a5a0caa9fd5bb41d3c8d916e6e4676b95"><div class="ttname"><a href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">strus::TraceLogRecordHandle</a></div><div class="ttdeci">std::size_t TraceLogRecordHandle</div><div class="ttdoc">Handle of a trace log entry. </div><div class="ttdef"><b>Definition:</b> traceElement.hpp:23</div></div>
-<div class="ttc" id="namespacestrus_html_a42d7731bf746a8fca4754351041424e5"><div class="ttname"><a href="namespacestrus.html#a42d7731bf746a8fca4754351041424e5">strus::TraceMethodId</a></div><div class="ttdeci">unsigned char TraceMethodId</div><div class="ttdoc">Id of a method of an interface class subject to logging (enum) </div><div class="ttdef"><b>Definition:</b> traceElement.hpp:19</div></div>
-<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_aab847075774b5f6674862b77a40e88af"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#aab847075774b5f6674862b77a40e88af">strus::TraceLoggerInterface::createViewer</a></div><div class="ttdeci">virtual TraceViewerInterface * createViewer() const =0</div><div class="ttdoc">Create and interface for inspecting this call trace. </div></div>
-<div class="ttc" id="namespacestrus_html_a1604aac14a6a28c5174cdb57844eb670"><div class="ttname"><a href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">strus::TraceObjectId</a></div><div class="ttdeci">unsigned int TraceObjectId</div><div class="ttdoc">Unique object identifier. </div><div class="ttdef"><b>Definition:</b> traceElement.hpp:20</div></div>
-<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_ad48f8de53df443c86da61c2dd8014b81"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#ad48f8de53df443c86da61c2dd8014b81">strus::TraceLoggerInterface::logCloseBranch</a></div><div class="ttdeci">virtual void logCloseBranch()=0</div><div class="ttdoc">Close the current sub branch in the tree (depth-1) </div></div>
-<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_af464ddf7da9e2af3a43be3301412edcb"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#af464ddf7da9e2af3a43be3301412edcb">strus::TraceLoggerInterface::logMethodCall</a></div><div class="ttdeci">virtual TraceLogRecordHandle logMethodCall(const TraceClassId &amp;classId, const TraceMethodId &amp;methodId, const TraceObjectId &amp;objId)=0</div><div class="ttdoc">Writes an entry to the method call log. </div></div>
-<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_a308959c087eda08c515c82ac52372c90"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90">strus::TraceLoggerInterface::~TraceLoggerInterface</a></div><div class="ttdeci">virtual ~TraceLoggerInterface()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> traceLoggerInterface.hpp:27</div></div>
-<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_aaa635d672cf9f466d61d7078a67ad676"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#aaa635d672cf9f466d61d7078a67ad676">strus::TraceLoggerInterface::logOpenBranch</a></div><div class="ttdeci">virtual void logOpenBranch()=0</div><div class="ttdoc">Open a new sub branch in the tree (depth+1) </div></div>
-<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_a132eabf620df94d4f958e43cbab916ce"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#a132eabf620df94d4f958e43cbab916ce">strus::TraceLoggerInterface::logMethodTermination</a></div><div class="ttdeci">virtual void logMethodTermination(const TraceLogRecordHandle &amp;loghnd, const std::string &amp;packedParameter)=0</div><div class="ttdoc">Log the termination of a method call. </div></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classstrus_1_1TraceLoggerInterface.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstrus_1_1TraceLoggerInterface.html">TraceLoggerInterface</a></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90">   24</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90">~TraceLoggerInterface</a>(){}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                <a class="code" href="classstrus_1_1TraceLoggerInterface.html#ab20991b50363686ff08076515a520462">logMethodCall</a>(</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                        <span class="keyword">const</span> <span class="keywordtype">char</span>* className,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                        <span class="keyword">const</span> <span class="keywordtype">char</span>* methodName,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                        <span class="keyword">const</span> <a class="code" href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">TraceObjectId</a>&amp; objId)=0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classstrus_1_1TraceLoggerInterface.html#abab1cfd0e7926bb5b010d5892e0048bf">logMethodTermination</a>(</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                        <span class="keyword">const</span> <a class="code" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a>&amp; loghnd,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                        <span class="keyword">const</span> std::vector&lt;TraceElement&gt;&amp; parameter)=0;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classstrus_1_1TraceLoggerInterface.html#a023d3cd9795cdc99926a83a04ab8b9f4">close</a>()=0;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}<span class="comment">//namespace</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor"></span></div>
+<div class="ttc" id="namespacestrus_html_a5a0caa9fd5bb41d3c8d916e6e4676b95"><div class="ttname"><a href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">strus::TraceLogRecordHandle</a></div><div class="ttdeci">std::size_t TraceLogRecordHandle</div><div class="ttdoc">Handle of a trace log entry. </div><div class="ttdef"><b>Definition:</b> traceElement.hpp:21</div></div>
+<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_a023d3cd9795cdc99926a83a04ab8b9f4"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#a023d3cd9795cdc99926a83a04ab8b9f4">strus::TraceLoggerInterface::close</a></div><div class="ttdeci">virtual bool close()=0</div><div class="ttdoc">Terminate logging, flush data logged to storage. </div></div>
+<div class="ttc" id="namespacestrus_html_a1604aac14a6a28c5174cdb57844eb670"><div class="ttname"><a href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">strus::TraceObjectId</a></div><div class="ttdeci">unsigned int TraceObjectId</div><div class="ttdoc">Unique object identifier. </div><div class="ttdef"><b>Definition:</b> traceElement.hpp:19</div></div>
+<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_a308959c087eda08c515c82ac52372c90"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90">strus::TraceLoggerInterface::~TraceLoggerInterface</a></div><div class="ttdeci">virtual ~TraceLoggerInterface()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> traceLoggerInterface.hpp:24</div></div>
+<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_ab20991b50363686ff08076515a520462"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#ab20991b50363686ff08076515a520462">strus::TraceLoggerInterface::logMethodCall</a></div><div class="ttdeci">virtual TraceLogRecordHandle logMethodCall(const char *className, const char *methodName, const TraceObjectId &amp;objId)=0</div><div class="ttdoc">Writes an entry to the method call log. </div></div>
+<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_abab1cfd0e7926bb5b010d5892e0048bf"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#abab1cfd0e7926bb5b010d5892e0048bf">strus::TraceLoggerInterface::logMethodTermination</a></div><div class="ttdeci">virtual void logMethodTermination(const TraceLogRecordHandle &amp;loghnd, const std::vector&lt; TraceElement &gt; &amp;parameter)=0</div><div class="ttdoc">Log the termination of a method call. </div></div>
 <div class="ttc" id="traceElement_8hpp_html"><div class="ttname"><a href="traceElement_8hpp.html">traceElement.hpp</a></div><div class="ttdoc">Element type used to describe traced structures. </div></div>
-<div class="ttc" id="classstrus_1_1TraceViewerInterface_html"><div class="ttname"><a href="classstrus_1_1TraceViewerInterface.html">strus::TraceViewerInterface</a></div><div class="ttdoc">Interface for inspecting logged traces. </div><div class="ttdef"><b>Definition:</b> traceViewerInterface.hpp:22</div></div>
-<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></div><div class="ttdoc">Interface providing a storage object builder interface with tracing and querying of traces...</div><div class="ttdef"><b>Definition:</b> traceLoggerInterface.hpp:23</div></div>
-<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html_a882a645037d725f58350467fba89e334"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html#a882a645037d725f58350467fba89e334">strus::TraceLoggerInterface::logObjectCreation</a></div><div class="ttdeci">virtual void logObjectCreation(const TraceObjectId &amp;objId, const TraceLogRecordHandle &amp;loghnd)=0</div><div class="ttdoc">Notifies the creation of an object in the method call log. </div></div>
-<div class="ttc" id="namespacestrus_html_ae9340d10722f78ad625abd0057a91b93"><div class="ttname"><a href="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93">strus::TraceClassId</a></div><div class="ttdeci">unsigned char TraceClassId</div><div class="ttdoc">Id of an interface class subject to logging (enum) </div><div class="ttdef"><b>Definition:</b> traceElement.hpp:18</div></div>
+<div class="ttc" id="classstrus_1_1TraceLoggerInterface_html"><div class="ttname"><a href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></div><div class="ttdoc">Interface providing a storage object builder interface with tracing and querying of traces...</div><div class="ttdef"><b>Definition:</b> traceLoggerInterface.hpp:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 16 2016 16:27:44 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 28 2016 22:39:18 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

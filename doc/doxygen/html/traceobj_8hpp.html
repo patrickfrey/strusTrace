@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>strusTrace: /home/patrick/Projects/github/strusTrace/include/strus/traceLoggerInterface.hpp File Reference</title>
+<title>strusTrace: /home/patrick/Projects/github/strusTrace/include/strus/lib/traceobj.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -52,40 +52,38 @@
   </div>
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_4c7fe52541d540b59710786f705b50e0.html">strus</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_4c7fe52541d540b59710786f705b50e0.html">strus</a></li><li class="navelem"><a class="el" href="dir_a73361def35442ed7e38ef668dbae29f.html">lib</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">traceLoggerInterface.hpp File Reference</div>  </div>
+<div class="title">traceobj.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Interface for logging call traces.  
+<p>Exported functions of the strus trace object builder library.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="traceElement_8hpp_source.html">strus/traceElement.hpp</a>&quot;</code><br/>
-<code>#include &lt;string&gt;</code><br/>
-<code>#include &lt;vector&gt;</code><br/>
+<div class="textblock"><code>#include &lt;string&gt;</code><br/>
 </div>
-<p><a href="traceLoggerInterface_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="traceobj_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html">strus::TraceLoggerInterface</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface providing a storage object builder interface with tracing and querying of traces.  <a href="classstrus_1_1TraceLoggerInterface.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacestrus"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html">strus</a></td></tr>
 <tr class="memdesc:namespacestrus"><td class="mdescLeft">&#160;</td><td class="mdescRight">strus toplevel namespace <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a909710b0722482290f718819e9cb44f9"><td class="memItemLeft" align="right" valign="top">TraceObjectBuilderInterface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestrus.html#a909710b0722482290f718819e9cb44f9">strus::traceCreateObjectBuilder</a> (TraceLoggerInterface *tracelog, ErrorBufferInterface *errorhnd)</td></tr>
+<tr class="memdesc:a909710b0722482290f718819e9cb44f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a proxy object to wrap storage and analyzer object builder and all descendant objects to log all methods called besides calling them.  <a href="#a909710b0722482290f718819e9cb44f9">More...</a><br/></td></tr>
+<tr class="separator:a909710b0722482290f718819e9cb44f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interface for logging call traces. </p>
+<div class="textblock"><p>Exported functions of the strus trace object builder library. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->

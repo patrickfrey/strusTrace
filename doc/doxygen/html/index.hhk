@@ -5,99 +5,59 @@
 </OBJECT>
 <UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#abf93b67e55d93176420addc33272a6e7"><param name="Name" value="Bool"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a401185c72160895746b2ed171aaaec8f"><param name="Name" value="classId"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a401185c72160895746b2ed171aaaec8f"><param name="Name" value="strus::TraceQuery"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a9fa78c7bcedb63a6031c6271c735d83f"><param name="Name" value="strus::TraceRecord"></OBJECT>
-  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#a023d3cd9795cdc99926a83a04ab8b9f4"><param name="Name" value="close"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#acfaae8281e735d9c9b48f3dd5ae006ac"><param name="Name" value="createAnalyzerObjectBuilder"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceProcessorInterface.html#a0fb69cf6641e13bfab014ec8db34c962"><param name="Name" value="createLogger"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#ab6f372d1904c5ffd3ada2574aa72b7d9"><param name="Name" value="createStorageObjectBuilder"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#aaf46b01cdfef9bedc46d6ce059b7485f"><param name="Name" value="createTraceIdMap"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a004369c323682cedb2b9da16d606b3a6"><param name="Name" value="createTraceLogger_breakpoint"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#aaf46b01cdfef9bedc46d6ce059b7485f"><param name="Name" value="strus"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#aaf46b01cdfef9bedc46d6ce059b7485f"><param name="Name" value="tracelog.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a004369c323682cedb2b9da16d606b3a6"><param name="Name" value="strus"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a004369c323682cedb2b9da16d606b3a6"><param name="Name" value="traceproc_std.hpp"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a5637fd26fc132e25a3bda3c6431e2528"><param name="Name" value="createTraceProcessor_memory"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a7574c686959406661b4fcf3c37c1f962"><param name="Name" value="createTraceLogger_count"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a5637fd26fc132e25a3bda3c6431e2528"><param name="Name" value="strus"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a5637fd26fc132e25a3bda3c6431e2528"><param name="Name" value="tracelog.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a7574c686959406661b4fcf3c37c1f962"><param name="Name" value="strus"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a7574c686959406661b4fcf3c37c1f962"><param name="Name" value="traceproc_std.hpp"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a61728dc8c7cc7ad22cd0a01a9131072f"><param name="Name" value="createTraceProcessor_textfile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a0dd78a7603125465cfce1223cbf8f9d9"><param name="Name" value="createTraceLogger_dump"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a61728dc8c7cc7ad22cd0a01a9131072f"><param name="Name" value="strus"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a61728dc8c7cc7ad22cd0a01a9131072f"><param name="Name" value="tracelog.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a0dd78a7603125465cfce1223cbf8f9d9"><param name="Name" value="strus"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a0dd78a7603125465cfce1223cbf8f9d9"><param name="Name" value="traceproc_std.hpp"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#aab847075774b5f6674862b77a40e88af"><param name="Name" value="createViewer"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a7231e2ce05a6dd2a8437d1f9f85a2230"><param name="Name" value="createTraceLogger_json"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#aab847075774b5f6674862b77a40e88af"><param name="Name" value="strus::TraceLoggerInterface"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceProcessorInterface.html#a20ff3c8bca2c7cc46c76e368f5726c09"><param name="Name" value="strus::TraceProcessorInterface"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a7231e2ce05a6dd2a8437d1f9f85a2230"><param name="Name" value="strus"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a7231e2ce05a6dd2a8437d1f9f85a2230"><param name="Name" value="traceproc_std.hpp"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#ae6bc3addbec8efb917897c3f3d7581ca"><param name="Name" value="depth"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#ac04c2873de841d111e439731cb3fd97c"><param name="Name" value="depth_from"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a040190a7ff4861a576e66c8c77c88d63"><param name="Name" value="depth_to"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a963a4a610a1fc399541ad6dd7dc12f34"><param name="Name" value="Double"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a82e088fd14e6c3881ee52f334f0b34c5"><param name="Name" value="endTime"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#ace56be73da31eae5bb54227f142800f3"><param name="Name" value="Float"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a16b9b9b82155031f19c16404cfed9b5a"><param name="Name" value="getClassId"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a65c1aac5ce073624b152d2ee04b2e9bf"><param name="Name" value="getClassName"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#aa2df64da57307442f81124d2c5788671"><param name="Name" value="getIdMap"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a24017852d86375673e331c3ed86b08cc"><param name="Name" value="getMethodId"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a40ef4e976b6594dd0b39c5c0cefe9b30"><param name="Name" value="getMethodName"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceViewerInterface.html#a6b9e949aaabc56a277fc732f12604754"><param name="Name" value="getObjectCreationTime"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a7a0fe7579cc824a7a2ad394416fc47ea"><param name="Name" value="Index"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a5cbaa9edb54092b1d73afe4612281da3"><param name="Name" value="Int"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a94d734327a17a6c5ee5993d49b08563a"><param name="Name" value="IntType"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceViewerInterface.html#a71fdcb2d60fa5af197bee80be8d4de3a"><param name="Name" value="listMethodCalls"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#ad48f8de53df443c86da61c2dd8014b81"><param name="Name" value="logCloseBranch"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#af464ddf7da9e2af3a43be3301412edcb"><param name="Name" value="logMethodCall"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#a132eabf620df94d4f958e43cbab916ce"><param name="Name" value="logMethodTermination"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#a882a645037d725f58350467fba89e334"><param name="Name" value="logObjectCreation"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#aaa635d672cf9f466d61d7078a67ad676"><param name="Name" value="logOpenBranch"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a8f5c8c6835ef44f4a3fd4b2da1dc5e3a"><param name="Name" value="methodId"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a8f5c8c6835ef44f4a3fd4b2da1dc5e3a"><param name="Name" value="strus::TraceQuery"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a0943f4beff9ff6f568554963cee0b9cc"><param name="Name" value="strus::TraceRecord"></OBJECT>
-  </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#aba89614e94146f46a0eeba017a3e8de1"><param name="Name" value="objId"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#aba89614e94146f46a0eeba017a3e8de1"><param name="Name" value="strus::TraceQuery"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a4af55d4f916f6271899dca43f5f4835e"><param name="Name" value="strus::TraceRecord"></OBJECT>
-  </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#aac230fcd14319a2244d9fe5d4392bea1"><param name="Name" value="packedParameter"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a624580897d145995ea4fff53bc96a533"><param name="Name" value="packedParameterSize"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a969dcee80e7a764a606cfa5c64608bff"><param name="Name" value="restrictClassId"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a806a2560d3a0499421073de291e5a049"><param name="Name" value="restrictDepth"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a5b1014e70afc932651c08d6ae1a94a63"><param name="Name" value="restrictMethodId"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a3a337b0c3cb12a77e0e2a55ebebfa966"><param name="Name" value="restrictObjId"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a3636e1f125180b9e00c6773e5a36e305"><param name="Name" value="restrictTime"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a953aad30b96dd36d5e11b718f277be16"><param name="Name" value="setEndCall"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a35a6f6fd0410ff4dc1efea87f54846a3"><param name="Name" value="size"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a5d342a546e839ee7719aa09d64596193"><param name="Name" value="startTime"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#aa6362221411f4fd5e69b18b1c17bb8be"><param name="Name" value="String"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#ab20991b50363686ff08076515a520462"><param name="Name" value="logMethodCall"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#abab1cfd0e7926bb5b010d5892e0048bf"><param name="Name" value="logMethodTermination"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a2080782d056c41821aad08e22e323d81"><param name="Name" value="Obj"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a19129ac0872b95a510216ef9dee22c4c"><param name="Name" value="String"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html"><param name="Name" value="strus"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html"><param name="Name" value="strus::TraceElement"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html"><param name="Name" value="strus::TraceElement::Value"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#abf93b67e55d93176420addc33272a6e7"><param name="Name" value="Bool"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a963a4a610a1fc399541ad6dd7dc12f34"><param name="Name" value="Double"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#ace56be73da31eae5bb54227f142800f3"><param name="Name" value="Float"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a7a0fe7579cc824a7a2ad394416fc47ea"><param name="Name" value="Index"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a5cbaa9edb54092b1d73afe4612281da3"><param name="Name" value="Int"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#aa6362221411f4fd5e69b18b1c17bb8be"><param name="Name" value="String"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a2080782d056c41821aad08e22e323d81"><param name="Name" value="Obj"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a19129ac0872b95a510216ef9dee22c4c"><param name="Name" value="String"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a548478656e662a2250586b6ec690934e"><param name="Name" value="UInt"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html"><param name="Name" value="strus::TraceElement"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a94d734327a17a6c5ee5993d49b08563a"><param name="Name" value="IntType"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a35a6f6fd0410ff4dc1efea87f54846a3"><param name="Name" value="size"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a2d4e3f97281ada440c464b3cadf709f8"><param name="Name" value="TraceElement"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a8b0752e2488de0e7ed8c383bca394d75"><param name="Name" value="type"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1a0bbbb08cd3b2b703fda0e3dcfc039db5"><param name="Name" value="TypeBool"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1aec419d4554d26c8a26dfa765598e7a92"><param name="Name" value="TypeClose"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1ab52cb831aed9deb7161f2d38f38860d6"><param name="Name" value="TypeDouble"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1ab84d87ea4bf3ea51540277be80d6eac6"><param name="Name" value="TypeFloat"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1a9467e56cb60862031349f55caaf33b27"><param name="Name" value="TypeInt"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1a85de3c535ab19cb28497e538e200bc35"><param name="Name" value="TypeObject"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1aebf907f5937e77532aa38ec7b4fdbdb7"><param name="Name" value="TypeOpenIndex"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1a2e9032d043e344a839b30c727fa5ec66"><param name="Name" value="TypeOpenTag"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1ab696e0fffddbce3de20165ca778d80bd"><param name="Name" value="TypeString"></OBJECT>
@@ -106,152 +66,75 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a08218a7389ea5a0c3099e23dd5211146"><param name="Name" value="UIntType"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a8df5d80ead4498ac1e1719c7340bc4be"><param name="Name" value="value"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html"><param name="Name" value="strus::TraceIdMapInterface"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a16b9b9b82155031f19c16404cfed9b5a"><param name="Name" value="getClassId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a65c1aac5ce073624b152d2ee04b2e9bf"><param name="Name" value="getClassName"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a24017852d86375673e331c3ed86b08cc"><param name="Name" value="getMethodId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a40ef4e976b6594dd0b39c5c0cefe9b30"><param name="Name" value="getMethodName"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a038cfc199635ac4da40b5855b2b5a59d"><param name="Name" value="unpackElements"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a93fa063c3407cf50cfeb01aea5eb2f66"><param name="Name" value="~TraceIdMapInterface"></OBJECT>
-  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html"><param name="Name" value="strus::TraceLoggerInterface"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#aab847075774b5f6674862b77a40e88af"><param name="Name" value="createViewer"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#ad48f8de53df443c86da61c2dd8014b81"><param name="Name" value="logCloseBranch"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#af464ddf7da9e2af3a43be3301412edcb"><param name="Name" value="logMethodCall"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#a132eabf620df94d4f958e43cbab916ce"><param name="Name" value="logMethodTermination"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#a882a645037d725f58350467fba89e334"><param name="Name" value="logObjectCreation"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#aaa635d672cf9f466d61d7078a67ad676"><param name="Name" value="logOpenBranch"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#a023d3cd9795cdc99926a83a04ab8b9f4"><param name="Name" value="close"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#ab20991b50363686ff08076515a520462"><param name="Name" value="logMethodCall"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#abab1cfd0e7926bb5b010d5892e0048bf"><param name="Name" value="logMethodTermination"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90"><param name="Name" value="~TraceLoggerInterface"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html"><param name="Name" value="strus::TraceObjectBuilderInterface"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#acfaae8281e735d9c9b48f3dd5ae006ac"><param name="Name" value="createAnalyzerObjectBuilder"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#ab6f372d1904c5ffd3ada2574aa72b7d9"><param name="Name" value="createStorageObjectBuilder"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#aa2df64da57307442f81124d2c5788671"><param name="Name" value="getIdMap"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#af6821356209a708a961b4e62048bdbd5"><param name="Name" value="~TraceObjectBuilderInterface"></OBJECT>
-  </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceProcessorInterface.html"><param name="Name" value="strus::TraceProcessorInterface"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceProcessorInterface.html#a0fb69cf6641e13bfab014ec8db34c962"><param name="Name" value="createLogger"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceProcessorInterface.html#a20ff3c8bca2c7cc46c76e368f5726c09"><param name="Name" value="createViewer"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceProcessorInterface.html#ab5b3e95c9e0b672c3a6908d630696cd4"><param name="Name" value="~TraceProcessorInterface"></OBJECT>
-  </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html"><param name="Name" value="strus::TraceQuery"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a401185c72160895746b2ed171aaaec8f"><param name="Name" value="classId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#ac04c2873de841d111e439731cb3fd97c"><param name="Name" value="depth_from"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a040190a7ff4861a576e66c8c77c88d63"><param name="Name" value="depth_to"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a8f5c8c6835ef44f4a3fd4b2da1dc5e3a"><param name="Name" value="methodId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#aba89614e94146f46a0eeba017a3e8de1"><param name="Name" value="objId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a969dcee80e7a764a606cfa5c64608bff"><param name="Name" value="restrictClassId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a806a2560d3a0499421073de291e5a049"><param name="Name" value="restrictDepth"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a5b1014e70afc932651c08d6ae1a94a63"><param name="Name" value="restrictMethodId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a3a337b0c3cb12a77e0e2a55ebebfa966"><param name="Name" value="restrictObjId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a3636e1f125180b9e00c6773e5a36e305"><param name="Name" value="restrictTime"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a7513851c3a0b0d0787c74e51c6e43a95"><param name="Name" value="time_from"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a55a3addb37e12d45cf8f93ad58287f64"><param name="Name" value="time_to"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#ada723dd6aba63187da6906fd91f52fb1"><param name="Name" value="TraceQuery"></OBJECT>
-  </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html"><param name="Name" value="strus::TraceRecord"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a9fa78c7bcedb63a6031c6271c735d83f"><param name="Name" value="classId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#ae6bc3addbec8efb917897c3f3d7581ca"><param name="Name" value="depth"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a82e088fd14e6c3881ee52f334f0b34c5"><param name="Name" value="endTime"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a0943f4beff9ff6f568554963cee0b9cc"><param name="Name" value="methodId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a4af55d4f916f6271899dca43f5f4835e"><param name="Name" value="objId"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#aac230fcd14319a2244d9fe5d4392bea1"><param name="Name" value="packedParameter"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a624580897d145995ea4fff53bc96a533"><param name="Name" value="packedParameterSize"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a953aad30b96dd36d5e11b718f277be16"><param name="Name" value="setEndCall"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a5d342a546e839ee7719aa09d64596193"><param name="Name" value="startTime"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a3b513e03eafa5a4ae6a7f5beaa00d42c"><param name="Name" value="TraceRecord"></OBJECT>
-  </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceViewerInterface.html"><param name="Name" value="strus::TraceViewerInterface"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceViewerInterface.html#a6b9e949aaabc56a277fc732f12604754"><param name="Name" value="getObjectCreationTime"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceViewerInterface.html#a71fdcb2d60fa5af197bee80be8d4de3a"><param name="Name" value="listMethodCalls"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceViewerInterface.html#aaa8841f2c5f35d39f3f3b4c251275c73"><param name="Name" value="~TraceViewerInterface"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html"><param name="Name" value="strus"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#aaf46b01cdfef9bedc46d6ce059b7485f"><param name="Name" value="createTraceIdMap"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a5637fd26fc132e25a3bda3c6431e2528"><param name="Name" value="createTraceProcessor_memory"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a61728dc8c7cc7ad22cd0a01a9131072f"><param name="Name" value="createTraceProcessor_textfile"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93"><param name="Name" value="TraceClassId"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a004369c323682cedb2b9da16d606b3a6"><param name="Name" value="createTraceLogger_breakpoint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a7574c686959406661b4fcf3c37c1f962"><param name="Name" value="createTraceLogger_count"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a0dd78a7603125465cfce1223cbf8f9d9"><param name="Name" value="createTraceLogger_dump"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a7231e2ce05a6dd2a8437d1f9f85a2230"><param name="Name" value="createTraceLogger_json"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a909710b0722482290f718819e9cb44f9"><param name="Name" value="traceCreateObjectBuilder"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95"><param name="Name" value="TraceLogRecordHandle"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a42d7731bf746a8fca4754351041424e5"><param name="Name" value="TraceMethodId"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670"><param name="Name" value="TraceObjectId"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#aca14baf53ffd5c28c5a7e2a1a8743fec"><param name="Name" value="TraceTimeCounter"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a9834e0c7c38185941082a3b5252d603f"><param name="Name" value="TraceTreeDepth"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#ac56d8f95eda712e2574b58f0a0b5a72d"><param name="Name" value="STRUS_TRACE_VERSION"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#ad0d397492550b7a013443c8219baa156"><param name="Name" value="STRUS_TRACE_VERSION_MAJOR"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#a38a273739fcb690609c688c31de1c336"><param name="Name" value="STRUS_TRACE_VERSION_MINOR"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#a42e37d87a86a57db781331388e09e089"><param name="Name" value="STRUS_TRACE_VERSION_STRING"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a7513851c3a0b0d0787c74e51c6e43a95"><param name="Name" value="time_from"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#a55a3addb37e12d45cf8f93ad58287f64"><param name="Name" value="time_to"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93"><param name="Name" value="TraceClassId"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93"><param name="Name" value="strus"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93"><param name="Name" value="traceElement.hpp"></OBJECT>
-  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a909710b0722482290f718819e9cb44f9"><param name="Name" value="traceCreateObjectBuilder"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a909710b0722482290f718819e9cb44f9"><param name="Name" value="strus"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a909710b0722482290f718819e9cb44f9"><param name="Name" value="tracelog.hpp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a909710b0722482290f718819e9cb44f9"><param name="Name" value="traceobj.hpp"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="traceElement_8hpp.html"><param name="Name" value="traceElement.hpp"></OBJECT>
   <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="traceElement_8hpp.html#ae9340d10722f78ad625abd0057a91b93"><param name="Name" value="TraceClassId"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="traceElement_8hpp.html#a5a0caa9fd5bb41d3c8d916e6e4676b95"><param name="Name" value="TraceLogRecordHandle"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="traceElement_8hpp.html#a42d7731bf746a8fca4754351041424e5"><param name="Name" value="TraceMethodId"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="traceElement_8hpp.html#a1604aac14a6a28c5174cdb57844eb670"><param name="Name" value="TraceObjectId"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="traceElement_8hpp.html#aca14baf53ffd5c28c5a7e2a1a8743fec"><param name="Name" value="TraceTimeCounter"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="traceElement_8hpp.html#a9834e0c7c38185941082a3b5252d603f"><param name="Name" value="TraceTreeDepth"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a2d4e3f97281ada440c464b3cadf709f8"><param name="Name" value="TraceElement"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="tracelog_8hpp.html"><param name="Name" value="tracelog.hpp"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="tracelog_8hpp.html#aaf46b01cdfef9bedc46d6ce059b7485f"><param name="Name" value="createTraceIdMap"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="tracelog_8hpp.html#a5637fd26fc132e25a3bda3c6431e2528"><param name="Name" value="createTraceProcessor_memory"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="tracelog_8hpp.html#a61728dc8c7cc7ad22cd0a01a9131072f"><param name="Name" value="createTraceProcessor_textfile"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="tracelog_8hpp.html#a909710b0722482290f718819e9cb44f9"><param name="Name" value="traceCreateObjectBuilder"></OBJECT>
-  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95"><param name="Name" value="TraceLogRecordHandle"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95"><param name="Name" value="strus"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95"><param name="Name" value="traceElement.hpp"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a42d7731bf746a8fca4754351041424e5"><param name="Name" value="TraceMethodId"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a42d7731bf746a8fca4754351041424e5"><param name="Name" value="strus"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a42d7731bf746a8fca4754351041424e5"><param name="Name" value="traceElement.hpp"></OBJECT>
-  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="traceobj_8hpp.html"><param name="Name" value="traceobj.hpp"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670"><param name="Name" value="TraceObjectId"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670"><param name="Name" value="strus"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670"><param name="Name" value="traceElement.hpp"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceQuery.html#ada723dd6aba63187da6906fd91f52fb1"><param name="Name" value="TraceQuery"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceRecord.html#a3b513e03eafa5a4ae6a7f5beaa00d42c"><param name="Name" value="TraceRecord"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="traceproc__std_8hpp.html"><param name="Name" value="traceproc_std.hpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="traceproc__std_8hpp.html#a004369c323682cedb2b9da16d606b3a6"><param name="Name" value="createTraceLogger_breakpoint"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="traceproc__std_8hpp.html#a7574c686959406661b4fcf3c37c1f962"><param name="Name" value="createTraceLogger_count"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="traceproc__std_8hpp.html#a0dd78a7603125465cfce1223cbf8f9d9"><param name="Name" value="createTraceLogger_dump"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="traceproc__std_8hpp.html#a7231e2ce05a6dd2a8437d1f9f85a2230"><param name="Name" value="createTraceLogger_json"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#aca14baf53ffd5c28c5a7e2a1a8743fec"><param name="Name" value="TraceTimeCounter"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#aca14baf53ffd5c28c5a7e2a1a8743fec"><param name="Name" value="strus"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#aca14baf53ffd5c28c5a7e2a1a8743fec"><param name="Name" value="traceElement.hpp"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a9834e0c7c38185941082a3b5252d603f"><param name="Name" value="TraceTreeDepth"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a9834e0c7c38185941082a3b5252d603f"><param name="Name" value="strus"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a9834e0c7c38185941082a3b5252d603f"><param name="Name" value="traceElement.hpp"></OBJECT>
-  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a8b0752e2488de0e7ed8c383bca394d75"><param name="Name" value="type"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1a0bbbb08cd3b2b703fda0e3dcfc039db5"><param name="Name" value="TypeBool"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1aec419d4554d26c8a26dfa765598e7a92"><param name="Name" value="TypeClose"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1ab52cb831aed9deb7161f2d38f38860d6"><param name="Name" value="TypeDouble"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1ab84d87ea4bf3ea51540277be80d6eac6"><param name="Name" value="TypeFloat"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1a9467e56cb60862031349f55caaf33b27"><param name="Name" value="TypeInt"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1a85de3c535ab19cb28497e538e200bc35"><param name="Name" value="TypeObject"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1aebf907f5937e77532aa38ec7b4fdbdb7"><param name="Name" value="TypeOpenIndex"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1a2e9032d043e344a839b30c727fa5ec66"><param name="Name" value="TypeOpenTag"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1ab696e0fffddbce3de20165ca778d80bd"><param name="Name" value="TypeString"></OBJECT>
@@ -259,7 +142,6 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a669da6434c7247e899a140fdd1f0dca1a3a3a626df8309c9f631d8a785ee27d81"><param name="Name" value="TypeVoid"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a548478656e662a2250586b6ec690934e"><param name="Name" value="UInt"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a08218a7389ea5a0c3099e23dd5211146"><param name="Name" value="UIntType"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a038cfc199635ac4da40b5855b2b5a59d"><param name="Name" value="unpackElements"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a8df5d80ead4498ac1e1719c7340bc4be"><param name="Name" value="value"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html"><param name="Name" value="versionTrace.hpp"></OBJECT>
   <UL>
@@ -268,11 +150,8 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#a38a273739fcb690609c688c31de1c336"><param name="Name" value="STRUS_TRACE_VERSION_MINOR"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#a42e37d87a86a57db781331388e09e089"><param name="Name" value="STRUS_TRACE_VERSION_STRING"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceIdMapInterface.html#a93fa063c3407cf50cfeb01aea5eb2f66"><param name="Name" value="~TraceIdMapInterface"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90"><param name="Name" value="~TraceLoggerInterface"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#af6821356209a708a961b4e62048bdbd5"><param name="Name" value="~TraceObjectBuilderInterface"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceProcessorInterface.html#ab5b3e95c9e0b672c3a6908d630696cd4"><param name="Name" value="~TraceProcessorInterface"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceViewerInterface.html#aaa8841f2c5f35d39f3f3b4c251275c73"><param name="Name" value="~TraceViewerInterface"></OBJECT>
 </UL>
 </BODY>
 </HTML>

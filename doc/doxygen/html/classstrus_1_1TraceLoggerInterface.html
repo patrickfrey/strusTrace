@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">strusTrace
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
   </td>
  </tr>
@@ -75,24 +75,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a308959c087eda08c515c82ac52372c90"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90">~TraceLoggerInterface</a> ()</td></tr>
 <tr class="memdesc:a308959c087eda08c515c82ac52372c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a308959c087eda08c515c82ac52372c90">More...</a><br/></td></tr>
 <tr class="separator:a308959c087eda08c515c82ac52372c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af464ddf7da9e2af3a43be3301412edcb"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#af464ddf7da9e2af3a43be3301412edcb">logMethodCall</a> (const <a class="el" href="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93">TraceClassId</a> &amp;classId, const <a class="el" href="namespacestrus.html#a42d7731bf746a8fca4754351041424e5">TraceMethodId</a> &amp;methodId, const <a class="el" href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">TraceObjectId</a> &amp;objId)=0</td></tr>
-<tr class="memdesc:af464ddf7da9e2af3a43be3301412edcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes an entry to the method call log.  <a href="#af464ddf7da9e2af3a43be3301412edcb">More...</a><br/></td></tr>
-<tr class="separator:af464ddf7da9e2af3a43be3301412edcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a882a645037d725f58350467fba89e334"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#a882a645037d725f58350467fba89e334">logObjectCreation</a> (const <a class="el" href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">TraceObjectId</a> &amp;objId, const <a class="el" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a> &amp;loghnd)=0</td></tr>
-<tr class="memdesc:a882a645037d725f58350467fba89e334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies the creation of an object in the method call log.  <a href="#a882a645037d725f58350467fba89e334">More...</a><br/></td></tr>
-<tr class="separator:a882a645037d725f58350467fba89e334"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a132eabf620df94d4f958e43cbab916ce"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#a132eabf620df94d4f958e43cbab916ce">logMethodTermination</a> (const <a class="el" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a> &amp;loghnd, const std::string &amp;packedParameter)=0</td></tr>
-<tr class="memdesc:a132eabf620df94d4f958e43cbab916ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log the termination of a method call.  <a href="#a132eabf620df94d4f958e43cbab916ce">More...</a><br/></td></tr>
-<tr class="separator:a132eabf620df94d4f958e43cbab916ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa635d672cf9f466d61d7078a67ad676"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#aaa635d672cf9f466d61d7078a67ad676">logOpenBranch</a> ()=0</td></tr>
-<tr class="memdesc:aaa635d672cf9f466d61d7078a67ad676"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new sub branch in the tree (depth+1)  <a href="#aaa635d672cf9f466d61d7078a67ad676">More...</a><br/></td></tr>
-<tr class="separator:aaa635d672cf9f466d61d7078a67ad676"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad48f8de53df443c86da61c2dd8014b81"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#ad48f8de53df443c86da61c2dd8014b81">logCloseBranch</a> ()=0</td></tr>
-<tr class="memdesc:ad48f8de53df443c86da61c2dd8014b81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the current sub branch in the tree (depth-1)  <a href="#ad48f8de53df443c86da61c2dd8014b81">More...</a><br/></td></tr>
-<tr class="separator:ad48f8de53df443c86da61c2dd8014b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab847075774b5f6674862b77a40e88af"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classstrus_1_1TraceViewerInterface.html">TraceViewerInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#aab847075774b5f6674862b77a40e88af">createViewer</a> () const =0</td></tr>
-<tr class="memdesc:aab847075774b5f6674862b77a40e88af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create and interface for inspecting this call trace.  <a href="#aab847075774b5f6674862b77a40e88af">More...</a><br/></td></tr>
-<tr class="separator:aab847075774b5f6674862b77a40e88af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab20991b50363686ff08076515a520462"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#ab20991b50363686ff08076515a520462">logMethodCall</a> (const char *className, const char *methodName, const <a class="el" href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">TraceObjectId</a> &amp;objId)=0</td></tr>
+<tr class="memdesc:ab20991b50363686ff08076515a520462"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes an entry to the method call log.  <a href="#ab20991b50363686ff08076515a520462">More...</a><br/></td></tr>
+<tr class="separator:ab20991b50363686ff08076515a520462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abab1cfd0e7926bb5b010d5892e0048bf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#abab1cfd0e7926bb5b010d5892e0048bf">logMethodTermination</a> (const <a class="el" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a> &amp;loghnd, const std::vector&lt; <a class="el" href="structstrus_1_1TraceElement.html">TraceElement</a> &gt; &amp;parameter)=0</td></tr>
+<tr class="memdesc:abab1cfd0e7926bb5b010d5892e0048bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log the termination of a method call.  <a href="#abab1cfd0e7926bb5b010d5892e0048bf">More...</a><br/></td></tr>
+<tr class="separator:abab1cfd0e7926bb5b010d5892e0048bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a023d3cd9795cdc99926a83a04ab8b9f4"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceLoggerInterface.html#a023d3cd9795cdc99926a83a04ab8b9f4">close</a> ()=0</td></tr>
+<tr class="memdesc:a023d3cd9795cdc99926a83a04ab8b9f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Terminate logging, flush data logged to storage.  <a href="#a023d3cd9795cdc99926a83a04ab8b9f4">More...</a><br/></td></tr>
+<tr class="separator:a023d3cd9795cdc99926a83a04ab8b9f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface providing a storage object builder interface with tracing and querying of traces. </p>
@@ -123,7 +114,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aab847075774b5f6674862b77a40e88af"></a>
+<a class="anchor" id="a023d3cd9795cdc99926a83a04ab8b9f4"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -131,33 +122,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classstrus_1_1TraceViewerInterface.html">TraceViewerInterface</a>* strus::TraceLoggerInterface::createViewer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Create and interface for inspecting this call trace. </p>
-<dl class="section return"><dt>Returns</dt><dd>the viewer </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ad48f8de53df443c86da61c2dd8014b81"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void strus::TraceLoggerInterface::logCloseBranch </td>
+          <td class="memname">virtual bool strus::TraceLoggerInterface::close </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -170,11 +135,11 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Close the current sub branch in the tree (depth-1) </p>
+<p>Terminate logging, flush data logged to storage. </p>
 
 </div>
 </div>
-<a class="anchor" id="af464ddf7da9e2af3a43be3301412edcb"></a>
+<a class="anchor" id="ab20991b50363686ff08076515a520462"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -184,14 +149,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a> strus::TraceLoggerInterface::logMethodCall </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacestrus.html#ae9340d10722f78ad625abd0057a91b93">TraceClassId</a> &amp;&#160;</td>
-          <td class="paramname"><em>classId</em>, </td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>className</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespacestrus.html#a42d7731bf746a8fca4754351041424e5">TraceMethodId</a> &amp;&#160;</td>
-          <td class="paramname"><em>methodId</em>, </td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>methodName</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -215,8 +180,8 @@ Public Member Functions</h2></td></tr>
 <p>Writes an entry to the method call log. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">classId</td><td>identifier of the caller object class </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">methodId</td><td>identifier of the method called in the context of the class </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">className</td><td>identifier of the caller object class </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">methodName</td><td>identifier of the method called </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">objId</td><td>object identifier of the caller </td></tr>
   </table>
   </dd>
@@ -225,7 +190,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a132eabf620df94d4f958e43cbab916ce"></a>
+<a class="anchor" id="abab1cfd0e7926bb5b010d5892e0048bf"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -241,8 +206,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>packedParameter</em>&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structstrus_1_1TraceElement.html">TraceElement</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>parameter</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -261,78 +226,10 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">loghnd</td><td>handl of the record that specifies the method call, returned by logMethodCall. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">packedParameter</td><td>packed return value and in/out parameter string </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parameter</td><td>return value and in/out parameter values </td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="a882a645037d725f58350467fba89e334"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void strus::TraceLoggerInterface::logObjectCreation </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670">TraceObjectId</a> &amp;&#160;</td>
-          <td class="paramname"><em>objId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacestrus.html#a5a0caa9fd5bb41d3c8d916e6e4676b95">TraceLogRecordHandle</a> &amp;&#160;</td>
-          <td class="paramname"><em>loghnd</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Notifies the creation of an object in the method call log. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">objId</td><td>object identifier of the object created. This can be queried with "getObjectCreationTime( const TraceObjectId&amp; objId) const" </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">loghnd</td><td>handle returned by the logMethodCall of the method that created the object </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="aaa635d672cf9f466d61d7078a67ad676"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void strus::TraceLoggerInterface::logOpenBranch </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Open a new sub branch in the tree (depth+1) </p>
 
 </div>
 </div>
@@ -343,7 +240,7 @@ Public Member Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 16 2016 16:27:44 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 28 2016 22:39:18 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

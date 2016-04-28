@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">strusTrace
-   &#160;<span id="projectnumber">0.8</span>
+   &#160;<span id="projectnumber">0.9</span>
    </div>
   </td>
  </tr>
@@ -83,9 +83,6 @@ AnalyzerObjectBuilderInterface *&#160;</td><td class="memItemRight" valign="bott
 StorageObjectBuilderInterface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceObjectBuilderInterface.html#ab6f372d1904c5ffd3ada2574aa72b7d9">createStorageObjectBuilder</a> (StorageObjectBuilderInterface *builder)=0</td></tr>
 <tr class="memdesc:ab6f372d1904c5ffd3ada2574aa72b7d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a proxy of an storage object builder that prints a trace log before and after every method call before executing the method itself.  <a href="#ab6f372d1904c5ffd3ada2574aa72b7d9">More...</a><br/></td></tr>
 <tr class="separator:ab6f372d1904c5ffd3ada2574aa72b7d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2df64da57307442f81124d2c5788671"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classstrus_1_1TraceIdMapInterface.html">TraceIdMapInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstrus_1_1TraceObjectBuilderInterface.html#aa2df64da57307442f81124d2c5788671">getIdMap</a> () const =0</td></tr>
-<tr class="memdesc:aa2df64da57307442f81124d2c5788671"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the map of identifiers (class names, method names) used.  <a href="#aa2df64da57307442f81124d2c5788671">More...</a><br/></td></tr>
-<tr class="separator:aa2df64da57307442f81124d2c5788671"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for creating proxies for Strus objects that log methods called besides calling them. </p>
@@ -182,32 +179,6 @@ StorageObjectBuilderInterface *&#160;</td><td class="memItemRight" valign="botto
 
 </div>
 </div>
-<a class="anchor" id="aa2df64da57307442f81124d2c5788671"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const <a class="el" href="classstrus_1_1TraceIdMapInterface.html">TraceIdMapInterface</a>* strus::TraceObjectBuilderInterface::getIdMap </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the map of identifiers (class names, method names) used. </p>
-<dl class="section return"><dt>Returns</dt><dd>a read only reference to the identifier map </dd></dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/patrick/Projects/github/strusTrace/include/strus/<a class="el" href="traceObjectBuilderInterface_8hpp_source.html">traceObjectBuilderInterface.hpp</a></li>
 </ul>
@@ -215,7 +186,7 @@ StorageObjectBuilderInterface *&#160;</td><td class="memItemRight" valign="botto
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 16 2016 16:27:44 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 28 2016 22:39:18 for strusTrace by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -23,9 +23,7 @@ NumericVariant AggregatorFunctionInstanceImpl::evaluate(
 			const analyzer::Document& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AggregatorFunctionInstance), AggregatorFunctionInstanceConst::methodName( Method_evaluate), objid());
-	traceContext()->logger()->logOpenBranch();
 	NumericVariant p0 = obj()->evaluate(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (!p0.defined())
 	{
@@ -58,9 +56,7 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 			const std::vector<std::string>& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AggregatorFunction), AggregatorFunctionConst::methodName( Method_createInstance), objid());
-	traceContext()->logger()->logOpenBranch();
 	AggregatorFunctionInstanceInterface* p0 = obj()->createInstance(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<AggregatorFunctionInstanceInterface,AggregatorFunctionInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -89,9 +85,7 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 const char* AggregatorFunctionImpl::getDescription() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AggregatorFunction), AggregatorFunctionConst::methodName( Method_getDescription), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getDescription();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -122,9 +116,7 @@ AnalyzerObjectBuilderImpl::~AnalyzerObjectBuilderImpl()
 const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_getTextProcessor), objid());
-	traceContext()->logger()->logOpenBranch();
 	const TextProcessorInterface* p0 = obj()->getTextProcessor();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<TextProcessorInterface,TextProcessorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -148,29 +140,26 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	return p0;
 }
 
-SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
+const SegmenterInterface* AnalyzerObjectBuilderImpl::getSegmenter(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createSegmenter), objid());
-	traceContext()->logger()->logOpenBranch();
-	SegmenterInterface* p0 = obj()->createSegmenter(p1);
-	traceContext()->logger()->logCloseBranch();
-	p0 = traceContext()->createInterfaceImpl<SegmenterInterface,SegmenterImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_getSegmenter), objid());
+	const SegmenterInterface* p0 = obj()->getSegmenter(p1);
+	p0 = traceContext()->createInterfaceImpl_const<SegmenterInterface,SegmenterImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createSegmenter", traceContext()->errorbuf()->fetchError());
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getSegmenter", traceContext()->errorbuf()->fetchError());
 	}
 	else
 	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -181,12 +170,10 @@ SegmenterInterface* AnalyzerObjectBuilderImpl::createSegmenter(
 }
 
 DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
-			const std::string& p1) const
+			const SegmenterInterface* p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createDocumentAnalyzer), objid());
-	traceContext()->logger()->logOpenBranch();
 	DocumentAnalyzerInterface* p0 = obj()->createDocumentAnalyzer(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerInterface,DocumentAnalyzerImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -197,7 +184,8 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzer), objbase_p0->objid());
-		parambuf.packString(p1);
+		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p1->objid());
 	}
 	if (parambuf.hasError())
 	{
@@ -215,9 +203,7 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createQueryAnalyzer), objid());
-	traceContext()->logger()->logOpenBranch();
 	QueryAnalyzerInterface* p0 = obj()->createQueryAnalyzer();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<QueryAnalyzerInterface,QueryAnalyzerImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -252,9 +238,7 @@ Index AttributeReaderImpl::elementHandle(
 			const char* p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_elementHandle), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->elementHandle(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -281,9 +265,7 @@ void AttributeReaderImpl::skipDoc(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_skipDoc), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->skipDoc(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packIndex(p1);
@@ -302,9 +284,7 @@ std::string AttributeReaderImpl::getValue(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_getValue), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->getValue(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	parambuf.packIndex(p1);
@@ -323,9 +303,7 @@ std::string AttributeReaderImpl::getValue(
 std::vector<std::string> AttributeReaderImpl::getAttributeNames() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_getAttributeNames), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->getAttributeNames();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
@@ -351,9 +329,7 @@ bool DatabaseBackupCursorImpl::fetch(
 			const char*& blk, std::size_t& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseBackupCursor), DatabaseBackupCursorConst::methodName( Method_fetch), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->fetch(key, p1, blk, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packBuffer( key, p1);
@@ -379,9 +355,7 @@ DatabaseClientImpl::~DatabaseClientImpl()
 DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_createTransaction), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseTransactionInterface* p0 = obj()->createTransaction();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<DatabaseTransactionInterface,DatabaseTransactionImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -410,9 +384,7 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 			const DatabaseOptions& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_createCursor), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface* p0 = obj()->createCursor(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<DatabaseCursorInterface,DatabaseCursorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -441,9 +413,7 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 DatabaseBackupCursorInterface* DatabaseClientImpl::createBackupCursor() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_createBackupCursor), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseBackupCursorInterface* p0 = obj()->createBackupCursor();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<DatabaseBackupCursorInterface,DatabaseBackupCursorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -473,9 +443,7 @@ void DatabaseClientImpl::writeImm(
 			const char* value, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_writeImm), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->writeImm(key, p1, value, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packBuffer( key, p1);
@@ -495,9 +463,7 @@ void DatabaseClientImpl::removeImm(
 			const char* key, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_removeImm), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->removeImm(key, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packBuffer( key, p1);
@@ -518,9 +484,7 @@ bool DatabaseClientImpl::readValue(
 			const DatabaseOptions& p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_readValue), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->readValue(key, p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packBuffer( key, p1);
@@ -549,9 +513,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
 			std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekUpperBound), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBound(key, p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	parambuf.packBuffer( key, p1);
@@ -573,9 +535,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBoundRestricted(
 			const char* upkey, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekUpperBoundRestricted), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBoundRestricted(key, p1, upkey, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	parambuf.packBuffer( key, p1);
@@ -596,9 +556,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekFirst(
 			const char* domainkey, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekFirst), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekFirst(domainkey, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	parambuf.packBuffer( domainkey, p1);
@@ -618,9 +576,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekLast(
 			const char* domainkey, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekLast), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekLast(domainkey, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	parambuf.packBuffer( domainkey, p1);
@@ -639,9 +595,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekLast(
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekNext()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekNext), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekNext();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
@@ -659,9 +613,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekNext()
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekPrev()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekPrev), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->seekPrev();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
@@ -679,9 +631,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekPrev()
 DatabaseCursorInterface::Slice DatabaseCursorImpl::key() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_key), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->key();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
@@ -699,9 +649,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::key() const
 DatabaseCursorInterface::Slice DatabaseCursorImpl::value() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_value), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface::Slice p0 = obj()->value();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
@@ -726,9 +674,7 @@ bool DatabaseImpl::exists(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_exists), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->exists(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
@@ -748,9 +694,7 @@ DatabaseClientInterface* DatabaseImpl::createClient(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_createClient), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseClientInterface* p0 = obj()->createClient(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<DatabaseClientInterface,DatabaseClientImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -780,9 +724,7 @@ bool DatabaseImpl::createDatabase(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_createDatabase), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->createDatabase(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
@@ -803,9 +745,7 @@ bool DatabaseImpl::restoreDatabase(
 			DatabaseBackupCursorInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_restoreDatabase), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->restoreDatabase(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
@@ -827,9 +767,7 @@ bool DatabaseImpl::destroyDatabase(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_destroyDatabase), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->destroyDatabase(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
@@ -849,9 +787,7 @@ const char* DatabaseImpl::getConfigDescription(
 			const ConfigType& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_getConfigDescription), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getConfigDescription(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -878,9 +814,7 @@ const char** DatabaseImpl::getConfigParameters(
 			const ConfigType& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Database), DatabaseConst::methodName( Method_getConfigParameters), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char** p0 = obj()->getConfigParameters(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -913,9 +847,7 @@ DatabaseCursorInterface* DatabaseTransactionImpl::createCursor(
 			const DatabaseOptions& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_createCursor), objid());
-	traceContext()->logger()->logOpenBranch();
 	DatabaseCursorInterface* p0 = obj()->createCursor(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<DatabaseCursorInterface,DatabaseCursorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -946,9 +878,7 @@ void DatabaseTransactionImpl::write(
 			const char* value, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_write), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->write(key, p1, value, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packBuffer( key, p1);
@@ -968,9 +898,7 @@ void DatabaseTransactionImpl::remove(
 			const char* key, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_remove), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->remove(key, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packBuffer( key, p1);
@@ -989,9 +917,7 @@ void DatabaseTransactionImpl::removeSubTree(
 			const char* domainkey, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_removeSubTree), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->removeSubTree(domainkey, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packBuffer( domainkey, p1);
@@ -1009,9 +935,7 @@ void DatabaseTransactionImpl::removeSubTree(
 bool DatabaseTransactionImpl::commit()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_commit), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->commit();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
@@ -1029,9 +953,7 @@ bool DatabaseTransactionImpl::commit()
 void DatabaseTransactionImpl::rollback()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseTransaction), DatabaseTransactionConst::methodName( Method_rollback), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->rollback();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	if (parambuf.hasError())
@@ -1056,9 +978,7 @@ void DocumentAnalyzerContextImpl::putInput(
 			bool p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerContext), DocumentAnalyzerContextConst::methodName( Method_putInput), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->putInput(chunk, p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packBuffer( chunk, p1);
@@ -1078,9 +998,7 @@ bool DocumentAnalyzerContextImpl::analyzeNext(
 			analyzer::Document& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerContext), DocumentAnalyzerContextConst::methodName( Method_analyzeNext), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->analyzeNext(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packAnalyzerDocument(p1);
@@ -1110,9 +1028,7 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 			const FeatureOptions& p5)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addSearchIndexFeature), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addSearchIndexFeature(p1, p2, p3, p4, p5);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1155,9 +1071,7 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 			const FeatureOptions& p5)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addForwardIndexFeature), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addForwardIndexFeature(p1, p2, p3, p4, p5);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1199,9 +1113,7 @@ void DocumentAnalyzerImpl::defineMetaData(
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineMetaData), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineMetaData(p1, p2, p3, p4);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1240,9 +1152,7 @@ void DocumentAnalyzerImpl::defineAggregatedMetaData(
 			AggregatorFunctionInstanceInterface* p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAggregatedMetaData), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineAggregatedMetaData(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1267,9 +1177,7 @@ void DocumentAnalyzerImpl::defineAttribute(
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAttribute), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineAttribute(p1, p2, p3, p4);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1308,9 +1216,7 @@ void DocumentAnalyzerImpl::defineSubDocument(
 			const std::string& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineSubDocument), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineSubDocument(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1331,9 +1237,7 @@ analyzer::Document DocumentAnalyzerImpl::analyze(
 			const DocumentClass& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_analyze), objid());
-	traceContext()->logger()->logOpenBranch();
 	analyzer::Document p0 = obj()->analyze(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packAnalyzerDocument(p0);
 	parambuf.packString(p1);
@@ -1354,9 +1258,7 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 			const DocumentClass& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_createContext), objid());
-	traceContext()->logger()->logOpenBranch();
 	DocumentAnalyzerContextInterface* p0 = obj()->createContext(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerContextInterface,DocumentAnalyzerContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -1393,9 +1295,7 @@ bool DocumentClassDetectorImpl::detect(
 			const char* contentBegin, std::size_t p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_detect), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->detect(p1, contentBegin, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packDocumentClass(p1);
@@ -1422,9 +1322,7 @@ Index DocumentTermIteratorImpl::skipDoc(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_skipDoc), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipDoc(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -1451,9 +1349,7 @@ bool DocumentTermIteratorImpl::nextTerm(
 			Term& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_nextTerm), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->nextTerm(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packDocumentTermIteratorTerm(p1);
@@ -1473,9 +1369,7 @@ unsigned int DocumentTermIteratorImpl::termDocumentFrequency(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_termDocumentFrequency), objid());
-	traceContext()->logger()->logOpenBranch();
 	unsigned int p0 = obj()->termDocumentFrequency(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packUInt(p0);
 	parambuf.packIndex(p1);
@@ -1495,9 +1389,7 @@ std::string DocumentTermIteratorImpl::termValue(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_termValue), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->termValue(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	parambuf.packIndex(p1);
@@ -1523,9 +1415,7 @@ void ForwardIteratorImpl::skipDoc(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ForwardIterator), ForwardIteratorConst::methodName( Method_skipDoc), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->skipDoc(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packIndex(p1);
@@ -1544,9 +1434,7 @@ Index ForwardIteratorImpl::skipPos(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ForwardIterator), ForwardIteratorConst::methodName( Method_skipPos), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipPos(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -1572,9 +1460,7 @@ Index ForwardIteratorImpl::skipPos(
 std::string ForwardIteratorImpl::fetch()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ForwardIterator), ForwardIteratorConst::methodName( Method_fetch), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->fetch();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	if (parambuf.hasError())
@@ -1599,9 +1485,7 @@ Index InvAclIteratorImpl::skipDoc(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_InvAclIterator), InvAclIteratorConst::methodName( Method_skipDoc), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipDoc(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -1634,9 +1518,7 @@ bool MetaDataReaderImpl::hasElement(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_hasElement), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->hasElement(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
@@ -1656,9 +1538,7 @@ Index MetaDataReaderImpl::elementHandle(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_elementHandle), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->elementHandle(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -1684,9 +1564,7 @@ Index MetaDataReaderImpl::elementHandle(
 Index MetaDataReaderImpl::nofElements() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_nofElements), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->nofElements();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -1712,9 +1590,7 @@ void MetaDataReaderImpl::skipDoc(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_skipDoc), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->skipDoc(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packIndex(p1);
@@ -1733,9 +1609,7 @@ NumericVariant MetaDataReaderImpl::getValue(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_getValue), objid());
-	traceContext()->logger()->logOpenBranch();
 	NumericVariant p0 = obj()->getValue(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (!p0.defined())
 	{
@@ -1762,9 +1636,7 @@ const char* MetaDataReaderImpl::getType(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_getType), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getType(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -1791,9 +1663,7 @@ const char* MetaDataReaderImpl::getName(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_getName), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getName(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -1826,9 +1696,7 @@ bool MetaDataRestrictionInstanceImpl::match(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestrictionInstance), MetaDataRestrictionInstanceConst::methodName( Method_match), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->match(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packIndex(p1);
@@ -1857,9 +1725,7 @@ void MetaDataRestrictionImpl::addCondition(
 			bool p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestriction), MetaDataRestrictionConst::methodName( Method_addCondition), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addCondition(p1, p2, p3, p4);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packMetaDataRestrictionCompareOperator(p1);
@@ -1880,9 +1746,7 @@ void MetaDataRestrictionImpl::addCondition(
 MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestriction), MetaDataRestrictionConst::methodName( Method_createInstance), objid());
-	traceContext()->logger()->logOpenBranch();
 	MetaDataRestrictionInstanceInterface* p0 = obj()->createInstance();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<MetaDataRestrictionInstanceInterface,MetaDataRestrictionInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -1910,9 +1774,7 @@ MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance() 
 std::string MetaDataRestrictionImpl::tostring() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataRestriction), MetaDataRestrictionConst::methodName( Method_tostring), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	if (parambuf.hasError())
@@ -1937,9 +1799,7 @@ std::string NormalizerFunctionContextImpl::normalize(
 			const char* src, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionContext), NormalizerFunctionContextConst::methodName( Method_normalize), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->normalize(src, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	parambuf.packBuffer( src, p1);
@@ -1964,9 +1824,7 @@ NormalizerFunctionInstanceImpl::~NormalizerFunctionInstanceImpl()
 NormalizerFunctionContextInterface* NormalizerFunctionInstanceImpl::createFunctionContext() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), NormalizerFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
-	traceContext()->logger()->logOpenBranch();
 	NormalizerFunctionContextInterface* p0 = obj()->createFunctionContext();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<NormalizerFunctionContextInterface,NormalizerFunctionContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -2002,9 +1860,7 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 			const TextProcessorInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunction), NormalizerFunctionConst::methodName( Method_createInstance), objid());
-	traceContext()->logger()->logOpenBranch();
 	NormalizerFunctionInstanceInterface* p0 = obj()->createInstance(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<NormalizerFunctionInstanceInterface,NormalizerFunctionInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -2035,9 +1891,7 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 const char* NormalizerFunctionImpl::getDescription() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunction), NormalizerFunctionConst::methodName( Method_getDescription), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getDescription();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -2069,9 +1923,7 @@ Index PostingIteratorImpl::skipDoc(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_skipDoc), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipDoc(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -2098,9 +1950,7 @@ Index PostingIteratorImpl::skipDocCandidate(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_skipDocCandidate), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipDocCandidate(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -2127,9 +1977,7 @@ Index PostingIteratorImpl::skipPos(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_skipPos), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->skipPos(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -2155,9 +2003,7 @@ Index PostingIteratorImpl::skipPos(
 const char* PostingIteratorImpl::featureid() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_featureid), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->featureid();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -2182,9 +2028,7 @@ const char* PostingIteratorImpl::featureid() const
 Index PostingIteratorImpl::documentFrequency() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_documentFrequency), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->documentFrequency();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -2209,9 +2053,7 @@ Index PostingIteratorImpl::documentFrequency() const
 unsigned int PostingIteratorImpl::frequency()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_frequency), objid());
-	traceContext()->logger()->logOpenBranch();
 	unsigned int p0 = obj()->frequency();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packUInt(p0);
 	if (parambuf.hasError())
@@ -2229,9 +2071,7 @@ unsigned int PostingIteratorImpl::frequency()
 Index PostingIteratorImpl::docno() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_docno), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->docno();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -2256,9 +2096,7 @@ Index PostingIteratorImpl::docno() const
 Index PostingIteratorImpl::posno() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_posno), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->posno();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -2292,9 +2130,7 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 			unsigned int p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingJoinOperator), PostingJoinOperatorConst::methodName( Method_createResultIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	PostingIteratorInterface* p0 = obj()->createResultIterator(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<PostingIteratorInterface,PostingIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -2333,9 +2169,7 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 PostingJoinOperatorInterface::Description PostingJoinOperatorImpl::getDescription() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingJoinOperator), PostingJoinOperatorConst::methodName( Method_getDescription), objid());
-	traceContext()->logger()->logOpenBranch();
 	PostingJoinOperatorInterface::Description p0 = obj()->getDescription();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packPostingJoinOperatorDescription(p0);
 	if (parambuf.hasError())
@@ -2363,9 +2197,7 @@ void QueryAnalyzerImpl::definePhraseType(
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_definePhraseType), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->definePhraseType(p1, p2, p3, p4);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2404,9 +2236,7 @@ std::vector<analyzer::Term> QueryAnalyzerImpl::analyzePhrase(
 			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_analyzePhrase), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::vector<analyzer::Term> p0 = obj()->analyzePhrase(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packAnalyzerTermVector(p0);
 	parambuf.packString(p1);
@@ -2427,9 +2257,7 @@ std::vector<analyzer::TermVector> QueryAnalyzerImpl::analyzePhraseBulk(
 			const std::vector<Phrase>& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_analyzePhraseBulk), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::vector<analyzer::TermVector> p0 = obj()->analyzePhraseBulk(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packAnalyzerTermVectorVector(p0);
 	parambuf.packPhraseVector(p1);
@@ -2457,9 +2285,7 @@ void QueryEvalImpl::addTerm(
 			const std::string& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addTerm), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addTerm(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2480,9 +2306,7 @@ void QueryEvalImpl::addSelectionFeature(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addSelectionFeature), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addSelectionFeature(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2501,9 +2325,7 @@ void QueryEvalImpl::addRestrictionFeature(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addRestrictionFeature), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addRestrictionFeature(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2522,9 +2344,7 @@ void QueryEvalImpl::addExclusionFeature(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addExclusionFeature), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addExclusionFeature(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2545,9 +2365,7 @@ void QueryEvalImpl::addSummarizerFunction(
 			const std::vector<FeatureParameter>& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addSummarizerFunction), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addSummarizerFunction(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2572,9 +2390,7 @@ void QueryEvalImpl::addWeightingFunction(
 			const std::vector<FeatureParameter>& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addWeightingFunction), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addWeightingFunction(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2597,9 +2413,7 @@ void QueryEvalImpl::defineWeightingFormula(
 			ScalarFunctionInterface* p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_defineWeightingFormula), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineWeightingFormula(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
@@ -2620,9 +2434,7 @@ QueryInterface* QueryEvalImpl::createQuery(
 			const StorageClientInterface* p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_createQuery), objid());
-	traceContext()->logger()->logOpenBranch();
 	QueryInterface* p0 = obj()->createQuery(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<QueryInterface,QueryImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -2660,9 +2472,7 @@ void QueryImpl::pushTerm(
 			const std::string& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_pushTerm), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->pushTerm(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2685,9 +2495,7 @@ void QueryImpl::pushExpression(
 			unsigned int p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_pushExpression), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->pushExpression(p1, p2, p3, p4);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
@@ -2710,9 +2518,7 @@ void QueryImpl::attachVariable(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_attachVariable), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->attachVariable(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2732,9 +2538,7 @@ void QueryImpl::defineFeature(
 			double p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineFeature), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineFeature(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2756,9 +2560,7 @@ void QueryImpl::defineTermStatistics(
 			const TermStatistics& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineTermStatistics), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineTermStatistics(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2779,9 +2581,7 @@ void QueryImpl::defineGlobalStatistics(
 			const GlobalStatistics& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineGlobalStatistics), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineGlobalStatistics(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packGlobalStatistics(p1);
@@ -2803,9 +2603,7 @@ void QueryImpl::addMetaDataRestrictionCondition(
 			bool p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addMetaDataRestrictionCondition), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addMetaDataRestrictionCondition(p1, p2, p3, p4);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packMetaDataRestrictionCompareOperator(p1);
@@ -2827,9 +2625,7 @@ void QueryImpl::addDocumentEvaluationSet(
 			const std::vector<Index>& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addDocumentEvaluationSet), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addDocumentEvaluationSet(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packIndexVector(p1);
@@ -2848,9 +2644,7 @@ void QueryImpl::setMaxNofRanks(
 			std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setMaxNofRanks), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setMaxNofRanks(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packSize( p1);
@@ -2869,9 +2663,7 @@ void QueryImpl::setMinRank(
 			std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setMinRank), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setMinRank(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packSize( p1);
@@ -2890,9 +2682,7 @@ void QueryImpl::addUserName(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addUserName), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addUserName(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2912,9 +2702,7 @@ void QueryImpl::setWeightingVariableValue(
 			double p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setWeightingVariableValue), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setWeightingVariableValue(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2933,9 +2721,7 @@ void QueryImpl::setWeightingVariableValue(
 QueryResult QueryImpl::evaluate()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_evaluate), objid());
-	traceContext()->logger()->logOpenBranch();
 	QueryResult p0 = obj()->evaluate();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packQueryResult(p0);
 	if (parambuf.hasError())
@@ -2961,9 +2747,7 @@ void QueryProcessorImpl::definePostingJoinOperator(
 			PostingJoinOperatorInterface* p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_definePostingJoinOperator), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->definePostingJoinOperator(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2985,9 +2769,7 @@ const PostingJoinOperatorInterface* QueryProcessorImpl::getPostingJoinOperator(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getPostingJoinOperator), objid());
-	traceContext()->logger()->logOpenBranch();
 	const PostingJoinOperatorInterface* p0 = obj()->getPostingJoinOperator(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<PostingJoinOperatorInterface,PostingJoinOperatorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3017,9 +2799,7 @@ void QueryProcessorImpl::defineWeightingFunction(
 			WeightingFunctionInterface* p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_defineWeightingFunction), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineWeightingFunction(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3041,9 +2821,7 @@ const WeightingFunctionInterface* QueryProcessorImpl::getWeightingFunction(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getWeightingFunction), objid());
-	traceContext()->logger()->logOpenBranch();
 	const WeightingFunctionInterface* p0 = obj()->getWeightingFunction(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<WeightingFunctionInterface,WeightingFunctionImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3073,9 +2851,7 @@ void QueryProcessorImpl::defineSummarizerFunction(
 			SummarizerFunctionInterface* p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_defineSummarizerFunction), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineSummarizerFunction(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3097,9 +2873,7 @@ const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getSummarizerFunction), objid());
-	traceContext()->logger()->logOpenBranch();
 	const SummarizerFunctionInterface* p0 = obj()->getSummarizerFunction(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<SummarizerFunctionInterface,SummarizerFunctionImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3128,9 +2902,7 @@ std::vector<std::string> QueryProcessorImpl::getFunctionList(
 			const FunctionType& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getFunctionList), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->getFunctionList(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
 	parambuf.packQueryProcessorFunctionType(p1);
@@ -3151,9 +2923,7 @@ void QueryProcessorImpl::defineScalarFunctionParser(
 			ScalarFunctionParserInterface* p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_defineScalarFunctionParser), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineScalarFunctionParser(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3175,9 +2945,7 @@ const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getScalarFunctionParser), objid());
-	traceContext()->logger()->logOpenBranch();
 	const ScalarFunctionParserInterface* p0 = obj()->getScalarFunctionParser(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<ScalarFunctionParserInterface,ScalarFunctionParserImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3213,9 +2981,7 @@ void ScalarFunctionInstanceImpl::setVariableValue(
 			double p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), ScalarFunctionInstanceConst::methodName( Method_setVariableValue), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setVariableValue(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3235,9 +3001,7 @@ double ScalarFunctionInstanceImpl::call(
 			const double* args, std::size_t p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), ScalarFunctionInstanceConst::methodName( Method_call), objid());
-	traceContext()->logger()->logOpenBranch();
 	double p0 = obj()->call(args, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packDouble(p0);
 	parambuf.packBufferFloat( args, p1);
@@ -3256,9 +3020,7 @@ double ScalarFunctionInstanceImpl::call(
 std::string ScalarFunctionInstanceImpl::tostring() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), ScalarFunctionInstanceConst::methodName( Method_tostring), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	if (parambuf.hasError())
@@ -3282,9 +3044,7 @@ ScalarFunctionImpl::~ScalarFunctionImpl()
 std::vector<std::string> ScalarFunctionImpl::getVariables() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_getVariables), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->getVariables();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
@@ -3302,9 +3062,7 @@ std::vector<std::string> ScalarFunctionImpl::getVariables() const
 std::size_t ScalarFunctionImpl::getNofArguments() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_getNofArguments), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::size_t p0 = obj()->getNofArguments();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSize( p0);
 	if (parambuf.hasError())
@@ -3324,9 +3082,7 @@ void ScalarFunctionImpl::setDefaultVariableValue(
 			double p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_setDefaultVariableValue), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setDefaultVariableValue(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3345,9 +3101,7 @@ void ScalarFunctionImpl::setDefaultVariableValue(
 ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_createInstance), objid());
-	traceContext()->logger()->logOpenBranch();
 	ScalarFunctionInstanceInterface* p0 = obj()->createInstance();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<ScalarFunctionInstanceInterface,ScalarFunctionInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3375,9 +3129,7 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 std::string ScalarFunctionImpl::tostring() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_tostring), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	if (parambuf.hasError())
@@ -3403,9 +3155,7 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 			const std::vector<std::string>& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionParser), ScalarFunctionParserConst::methodName( Method_createFunction), objid());
-	traceContext()->logger()->logOpenBranch();
 	ScalarFunctionInterface* p0 = obj()->createFunction(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<ScalarFunctionInterface,ScalarFunctionImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3443,9 +3193,7 @@ void SegmenterContextImpl::putInput(
 			bool p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterContext), SegmenterContextConst::methodName( Method_putInput), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->putInput(chunk, p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packBuffer( chunk, p1);
@@ -3467,9 +3215,7 @@ bool SegmenterContextImpl::getNext(
 			const char*& segment, std::size_t& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterContext), SegmenterContextConst::methodName( Method_getNext), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->getNext(p1, p2, segment, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packInt(p1);
@@ -3498,9 +3244,7 @@ void SegmenterInstanceImpl::defineSelectorExpression(
 			const std::string& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterInstance), SegmenterInstanceConst::methodName( Method_defineSelectorExpression), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineSelectorExpression(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packInt(p1);
@@ -3522,9 +3266,7 @@ void SegmenterInstanceImpl::defineSubSection(
 			const std::string& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterInstance), SegmenterInstanceConst::methodName( Method_defineSubSection), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineSubSection(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packInt(p1);
@@ -3545,9 +3287,7 @@ SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 			const DocumentClass& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterInstance), SegmenterInstanceConst::methodName( Method_createContext), objid());
-	traceContext()->logger()->logOpenBranch();
 	SegmenterContextInterface* p0 = obj()->createContext(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<SegmenterContextInterface,SegmenterContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3582,9 +3322,7 @@ SegmenterImpl::~SegmenterImpl()
 const char* SegmenterImpl::mimeType() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Segmenter), SegmenterConst::methodName( Method_mimeType), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->mimeType();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -3609,9 +3347,7 @@ const char* SegmenterImpl::mimeType() const
 SegmenterInstanceInterface* SegmenterImpl::createInstance() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Segmenter), SegmenterConst::methodName( Method_createInstance), objid());
-	traceContext()->logger()->logOpenBranch();
 	SegmenterInstanceInterface* p0 = obj()->createInstance();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<SegmenterInstanceInterface,SegmenterInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3646,9 +3382,7 @@ void StatisticsBuilderImpl::setNofDocumentsInsertedChange(
 			int p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_setNofDocumentsInsertedChange), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setNofDocumentsInsertedChange(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packInt(p1);
@@ -3669,9 +3403,7 @@ void StatisticsBuilderImpl::addDfChange(
 			int p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_addDfChange), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addDfChange(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packCharp(p1);
@@ -3691,9 +3423,7 @@ void StatisticsBuilderImpl::addDfChange(
 void StatisticsBuilderImpl::start()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_start), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->start();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	if (parambuf.hasError())
@@ -3710,9 +3440,7 @@ void StatisticsBuilderImpl::start()
 void StatisticsBuilderImpl::rollback()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_rollback), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->rollback();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	if (parambuf.hasError())
@@ -3730,9 +3458,7 @@ bool StatisticsBuilderImpl::fetchMessage(
 			const char*& blk, std::size_t& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_fetchMessage), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->fetchMessage(blk, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packBuffer( blk, p1);
@@ -3758,9 +3484,7 @@ bool StatisticsIteratorImpl::getNext(
 			const char*& msg, std::size_t& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsIterator), StatisticsIteratorConst::methodName( Method_getNext), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->getNext(msg, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packBuffer( msg, p1);
@@ -3786,9 +3510,7 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 			const char* msgptr, std::size_t p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_createViewer), objid());
-	traceContext()->logger()->logOpenBranch();
 	StatisticsViewerInterface* p0 = obj()->createViewer(msgptr, p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StatisticsViewerInterface,StatisticsViewerImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3818,9 +3540,7 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 			const BuilderOptions& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_createBuilder), objid());
-	traceContext()->logger()->logOpenBranch();
 	StatisticsBuilderInterface* p0 = obj()->createBuilder(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StatisticsBuilderInterface,StatisticsBuilderImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3855,9 +3575,7 @@ StatisticsViewerImpl::~StatisticsViewerImpl()
 int StatisticsViewerImpl::nofDocumentsInsertedChange()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsViewer), StatisticsViewerConst::methodName( Method_nofDocumentsInsertedChange), objid());
-	traceContext()->logger()->logOpenBranch();
 	int p0 = obj()->nofDocumentsInsertedChange();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packInt(p0);
 	if (parambuf.hasError())
@@ -3876,9 +3594,7 @@ bool StatisticsViewerImpl::nextDfChange(
 			DocumentFrequencyChange& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsViewer), StatisticsViewerConst::methodName( Method_nextDfChange), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->nextDfChange(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packStatisticsViewerDocumentFrequencyChange(p1);
@@ -3905,9 +3621,7 @@ void StorageAlterMetaDataTableImpl::addElement(
 			const std::string& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_addElement), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addElement(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3929,9 +3643,7 @@ void StorageAlterMetaDataTableImpl::alterElement(
 			const std::string& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_alterElement), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->alterElement(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3953,9 +3665,7 @@ void StorageAlterMetaDataTableImpl::renameElement(
 			const std::string& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_renameElement), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->renameElement(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3975,9 +3685,7 @@ void StorageAlterMetaDataTableImpl::deleteElement(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_deleteElement), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->deleteElement(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3996,9 +3704,7 @@ void StorageAlterMetaDataTableImpl::clearElement(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_clearElement), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->clearElement(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4016,9 +3722,7 @@ void StorageAlterMetaDataTableImpl::clearElement(
 bool StorageAlterMetaDataTableImpl::commit()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_commit), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->commit();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
@@ -4036,9 +3740,7 @@ bool StorageAlterMetaDataTableImpl::commit()
 void StorageAlterMetaDataTableImpl::rollback()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), StorageAlterMetaDataTableConst::methodName( Method_rollback), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->rollback();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	if (parambuf.hasError())
@@ -4063,9 +3765,7 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermPostingIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	PostingIteratorInterface* p0 = obj()->createTermPostingIterator(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<PostingIteratorInterface,PostingIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4097,9 +3797,7 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 			const Index& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createBrowsePostingIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	PostingIteratorInterface* p0 = obj()->createBrowsePostingIterator(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<PostingIteratorInterface,PostingIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4131,9 +3829,7 @@ ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createForwardIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	ForwardIteratorInterface* p0 = obj()->createForwardIterator(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<ForwardIteratorInterface,ForwardIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4163,9 +3859,7 @@ DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createDocumentTermIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	DocumentTermIteratorInterface* p0 = obj()->createDocumentTermIterator(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<DocumentTermIteratorInterface,DocumentTermIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4195,9 +3889,7 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createInvAclIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	InvAclIteratorInterface* p0 = obj()->createInvAclIterator(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<InvAclIteratorInterface,InvAclIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4226,9 +3918,7 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 Index StorageClientImpl::nofDocumentsInserted() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_nofDocumentsInserted), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->nofDocumentsInserted();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -4255,9 +3945,7 @@ Index StorageClientImpl::documentFrequency(
 			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_documentFrequency), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->documentFrequency(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -4284,9 +3972,7 @@ Index StorageClientImpl::documentFrequency(
 Index StorageClientImpl::maxDocumentNumber() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_maxDocumentNumber), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->maxDocumentNumber();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -4312,9 +3998,7 @@ Index StorageClientImpl::documentNumber(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_documentNumber), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->documentNumber(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -4340,9 +4024,7 @@ Index StorageClientImpl::documentNumber(
 ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermTypeIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	ValueIteratorInterface* p0 = obj()->createTermTypeIterator();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<ValueIteratorInterface,ValueIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4370,9 +4052,7 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 ValueIteratorInterface* StorageClientImpl::createTermValueIterator() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermValueIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	ValueIteratorInterface* p0 = obj()->createTermValueIterator();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<ValueIteratorInterface,ValueIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4400,9 +4080,7 @@ ValueIteratorInterface* StorageClientImpl::createTermValueIterator() const
 ValueIteratorInterface* StorageClientImpl::createDocIdIterator() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createDocIdIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	ValueIteratorInterface* p0 = obj()->createDocIdIterator();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<ValueIteratorInterface,ValueIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4430,9 +4108,7 @@ ValueIteratorInterface* StorageClientImpl::createDocIdIterator() const
 ValueIteratorInterface* StorageClientImpl::createUserNameIterator() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createUserNameIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	ValueIteratorInterface* p0 = obj()->createUserNameIterator();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<ValueIteratorInterface,ValueIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4463,9 +4139,7 @@ Index StorageClientImpl::documentStatistics(
 			const std::string& p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_documentStatistics), objid());
-	traceContext()->logger()->logOpenBranch();
 	Index p0 = obj()->documentStatistics(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 < 0)
 	{
@@ -4493,9 +4167,7 @@ Index StorageClientImpl::documentStatistics(
 MetaDataReaderInterface* StorageClientImpl::createMetaDataReader() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createMetaDataReader), objid());
-	traceContext()->logger()->logOpenBranch();
 	MetaDataReaderInterface* p0 = obj()->createMetaDataReader();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<MetaDataReaderInterface,MetaDataReaderImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4523,9 +4195,7 @@ MetaDataReaderInterface* StorageClientImpl::createMetaDataReader() const
 MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createMetaDataRestriction), objid());
-	traceContext()->logger()->logOpenBranch();
 	MetaDataRestrictionInterface* p0 = obj()->createMetaDataRestriction();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<MetaDataRestrictionInterface,MetaDataRestrictionImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4553,9 +4223,7 @@ MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction() con
 AttributeReaderInterface* StorageClientImpl::createAttributeReader() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createAttributeReader), objid());
-	traceContext()->logger()->logOpenBranch();
 	AttributeReaderInterface* p0 = obj()->createAttributeReader();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<AttributeReaderInterface,AttributeReaderImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4583,9 +4251,7 @@ AttributeReaderInterface* StorageClientImpl::createAttributeReader() const
 StorageTransactionInterface* StorageClientImpl::createTransaction()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTransaction), objid());
-	traceContext()->logger()->logOpenBranch();
 	StorageTransactionInterface* p0 = obj()->createTransaction();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StorageTransactionInterface,StorageTransactionImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4614,9 +4280,7 @@ StatisticsIteratorInterface* StorageClientImpl::createInitStatisticsIterator(
 			bool p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createInitStatisticsIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	StatisticsIteratorInterface* p0 = obj()->createInitStatisticsIterator(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StatisticsIteratorInterface,StatisticsIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4645,9 +4309,7 @@ StatisticsIteratorInterface* StorageClientImpl::createInitStatisticsIterator(
 StatisticsIteratorInterface* StorageClientImpl::createUpdateStatisticsIterator()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createUpdateStatisticsIterator), objid());
-	traceContext()->logger()->logOpenBranch();
 	StatisticsIteratorInterface* p0 = obj()->createUpdateStatisticsIterator();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StatisticsIteratorInterface,StatisticsIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4675,9 +4337,7 @@ StatisticsIteratorInterface* StorageClientImpl::createUpdateStatisticsIterator()
 const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_getStatisticsProcessor), objid());
-	traceContext()->logger()->logOpenBranch();
 	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<StatisticsProcessorInterface,StatisticsProcessorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4706,9 +4366,7 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createDocumentChecker), objid());
-	traceContext()->logger()->logOpenBranch();
 	StorageDocumentInterface* p0 = obj()->createDocumentChecker(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StorageDocumentInterface,StorageDocumentImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4739,9 +4397,7 @@ bool StorageClientImpl::checkStorage(
 			std::ostream& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_checkStorage), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->checkStorage(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	
@@ -4761,9 +4417,7 @@ StorageDumpInterface* StorageClientImpl::createDump(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createDump), objid());
-	traceContext()->logger()->logOpenBranch();
 	StorageDumpInterface* p0 = obj()->createDump(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StorageDumpInterface,StorageDumpImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -4801,9 +4455,7 @@ void StorageDocumentImpl::addSearchIndexTerm(
 			const Index& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_addSearchIndexTerm), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addSearchIndexTerm(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4826,9 +4478,7 @@ void StorageDocumentImpl::addForwardIndexTerm(
 			const Index& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_addForwardIndexTerm), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addForwardIndexTerm(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4850,9 +4500,7 @@ void StorageDocumentImpl::setMetaData(
 			const NumericVariant& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_setMetaData), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setMetaData(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4873,9 +4521,7 @@ void StorageDocumentImpl::setAttribute(
 			const std::string& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_setAttribute), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setAttribute(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4895,9 +4541,7 @@ void StorageDocumentImpl::setUserAccessRight(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_setUserAccessRight), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setUserAccessRight(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4915,9 +4559,7 @@ void StorageDocumentImpl::setUserAccessRight(
 void StorageDocumentImpl::done()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_done), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->done();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	if (parambuf.hasError())
@@ -4942,9 +4584,7 @@ void StorageDocumentUpdateImpl::setMetaData(
 			const NumericVariant& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_setMetaData), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setMetaData(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4965,9 +4605,7 @@ void StorageDocumentUpdateImpl::setAttribute(
 			const std::string& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_setAttribute), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setAttribute(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4987,9 +4625,7 @@ void StorageDocumentUpdateImpl::clearAttribute(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearAttribute), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->clearAttribute(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -5008,9 +4644,7 @@ void StorageDocumentUpdateImpl::setUserAccessRight(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_setUserAccessRight), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->setUserAccessRight(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -5029,9 +4663,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRight(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearUserAccessRight), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->clearUserAccessRight(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -5049,9 +4681,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRight(
 void StorageDocumentUpdateImpl::clearUserAccessRights()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearUserAccessRights), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->clearUserAccessRights();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	if (parambuf.hasError())
@@ -5068,9 +4698,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRights()
 void StorageDocumentUpdateImpl::done()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_done), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->done();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	if (parambuf.hasError())
@@ -5094,9 +4722,7 @@ bool StorageDumpImpl::nextChunk(
 			const char*& chunk, std::size_t& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDump), StorageDumpConst::methodName( Method_nextChunk), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->nextChunk(chunk, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packBuffer( chunk, p1);
@@ -5124,9 +4750,7 @@ StorageClientInterface* StorageImpl::createClient(
 			const StatisticsProcessorInterface* p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createClient), objid());
-	traceContext()->logger()->logOpenBranch();
 	StorageClientInterface* p0 = obj()->createClient(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StorageClientInterface,StorageClientImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5162,9 +4786,7 @@ bool StorageImpl::createStorage(
 			DatabaseClientInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createStorage), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->createStorage(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
@@ -5186,9 +4808,7 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 			DatabaseClientInterface* p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createAlterMetaDataTable), objid());
-	traceContext()->logger()->logOpenBranch();
 	StorageAlterMetaDataTableInterface* p0 = obj()->createAlterMetaDataTable(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StorageAlterMetaDataTableInterface,StorageAlterMetaDataTableImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5220,9 +4840,7 @@ const char* StorageImpl::getConfigDescription(
 			const ConfigType& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_getConfigDescription), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getConfigDescription(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -5249,9 +4867,7 @@ const char** StorageImpl::getConfigParameters(
 			const ConfigType& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_getConfigParameters), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char** p0 = obj()->getConfigParameters(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -5283,9 +4899,7 @@ StorageObjectBuilderImpl::~StorageObjectBuilderImpl()
 const StorageInterface* StorageObjectBuilderImpl::getStorage() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getStorage), objid());
-	traceContext()->logger()->logOpenBranch();
 	const StorageInterface* p0 = obj()->getStorage();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<StorageInterface,StorageImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5313,9 +4927,7 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getDatabase), objid());
-	traceContext()->logger()->logOpenBranch();
 	const DatabaseInterface* p0 = obj()->getDatabase(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<DatabaseInterface,DatabaseImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5343,9 +4955,7 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getQueryProcessor), objid());
-	traceContext()->logger()->logOpenBranch();
 	const QueryProcessorInterface* p0 = obj()->getQueryProcessor();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<QueryProcessorInterface,QueryProcessorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5369,12 +4979,11 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() con
 	return p0;
 }
 
-const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProcessor() const
+const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProcessor(
+			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getStatisticsProcessor), objid());
-	traceContext()->logger()->logOpenBranch();
-	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor();
-	traceContext()->logger()->logCloseBranch();
+	const StatisticsProcessorInterface* p0 = obj()->getStatisticsProcessor(p1);
 	p0 = traceContext()->createInterfaceImpl_const<StatisticsProcessorInterface,StatisticsProcessorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5385,74 +4994,11 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsProcessor), objbase_p0->objid());
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-StorageClientInterface* StorageObjectBuilderImpl::createStorageClient(
-			const std::string& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_createStorageClient), objid());
-	traceContext()->logger()->logOpenBranch();
-	StorageClientInterface* p0 = obj()->createStorageClient(p1);
-	traceContext()->logger()->logCloseBranch();
-	p0 = traceContext()->createInterfaceImpl<StorageClientInterface,StorageClientImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createStorageClient", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-StorageAlterMetaDataTableInterface* StorageObjectBuilderImpl::createAlterMetaDataTable(
-			const std::string& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_createAlterMetaDataTable), objid());
-	traceContext()->logger()->logOpenBranch();
-	StorageAlterMetaDataTableInterface* p0 = obj()->createAlterMetaDataTable(p1);
-	traceContext()->logger()->logCloseBranch();
-	p0 = traceContext()->createInterfaceImpl<StorageAlterMetaDataTableInterface,StorageAlterMetaDataTableImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createAlterMetaDataTable", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), objbase_p0->objid());
-		parambuf.packString(p1);
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5465,9 +5011,7 @@ StorageAlterMetaDataTableInterface* StorageObjectBuilderImpl::createAlterMetaDat
 QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_createQueryEval), objid());
-	traceContext()->logger()->logOpenBranch();
 	QueryEvalInterface* p0 = obj()->createQueryEval();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<QueryEvalInterface,QueryEvalImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5502,9 +5046,7 @@ StorageDocumentInterface* StorageTransactionImpl::createDocument(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_createDocument), objid());
-	traceContext()->logger()->logOpenBranch();
 	StorageDocumentInterface* p0 = obj()->createDocument(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StorageDocumentInterface,StorageDocumentImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5534,9 +5076,7 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_createDocumentUpdate), objid());
-	traceContext()->logger()->logOpenBranch();
 	StorageDocumentUpdateInterface* p0 = obj()->createDocumentUpdate(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<StorageDocumentUpdateInterface,StorageDocumentUpdateImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5566,9 +5106,7 @@ void StorageTransactionImpl::deleteDocument(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_deleteDocument), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->deleteDocument(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -5587,9 +5125,7 @@ void StorageTransactionImpl::deleteUserAccessRights(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_deleteUserAccessRights), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->deleteUserAccessRights(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -5610,9 +5146,7 @@ void StorageTransactionImpl::updateMetaData(
 			const NumericVariant& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_updateMetaData), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->updateMetaData(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packIndex(p1);
@@ -5632,9 +5166,7 @@ void StorageTransactionImpl::updateMetaData(
 bool StorageTransactionImpl::commit()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_commit), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->commit();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
@@ -5652,9 +5184,7 @@ bool StorageTransactionImpl::commit()
 void StorageTransactionImpl::rollback()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_rollback), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->rollback();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	if (parambuf.hasError())
@@ -5682,9 +5212,7 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 			const TermStatistics& p5)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_addSummarizationFeature), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addSummarizationFeature(p1, p2, p3, p4, p5);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -5708,9 +5236,7 @@ std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_getSummary), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::vector<SummaryElement> p0 = obj()->getSummary(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packSummaryElementVector(p0);
 	parambuf.packIndex(p1);
@@ -5737,9 +5263,7 @@ void SummarizerFunctionInstanceImpl::addStringParameter(
 			const std::string& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_addStringParameter), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addStringParameter(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -5760,9 +5284,7 @@ void SummarizerFunctionInstanceImpl::addNumericParameter(
 			const NumericVariant& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_addNumericParameter), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addNumericParameter(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -5784,9 +5306,7 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 			const GlobalStatistics& p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
-	traceContext()->logger()->logOpenBranch();
 	SummarizerFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<SummarizerFunctionContextInterface,SummarizerFunctionContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5818,9 +5338,7 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 std::string SummarizerFunctionInstanceImpl::tostring() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_tostring), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	if (parambuf.hasError())
@@ -5845,9 +5363,7 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 			const QueryProcessorInterface* p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunction), SummarizerFunctionConst::methodName( Method_createInstance), objid());
-	traceContext()->logger()->logOpenBranch();
 	SummarizerFunctionInstanceInterface* p0 = obj()->createInstance(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<SummarizerFunctionInstanceInterface,SummarizerFunctionInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5877,9 +5393,7 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 FunctionDescription SummarizerFunctionImpl::getDescription() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunction), SummarizerFunctionConst::methodName( Method_getDescription), objid());
-	traceContext()->logger()->logOpenBranch();
 	FunctionDescription p0 = obj()->getDescription();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packFunctionDescription(p0);
 	if (parambuf.hasError())
@@ -5904,9 +5418,7 @@ void TextProcessorImpl::addResourcePath(
 			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_addResourcePath), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addResourcePath(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -5925,9 +5437,7 @@ std::string TextProcessorImpl::getResourcePath(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getResourcePath), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->getResourcePath(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	parambuf.packString(p1);
@@ -5947,9 +5457,7 @@ const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getTokenizer), objid());
-	traceContext()->logger()->logOpenBranch();
 	const TokenizerFunctionInterface* p0 = obj()->getTokenizer(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<TokenizerFunctionInterface,TokenizerFunctionImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5978,9 +5486,7 @@ const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getNormalizer), objid());
-	traceContext()->logger()->logOpenBranch();
 	const NormalizerFunctionInterface* p0 = obj()->getNormalizer(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<NormalizerFunctionInterface,NormalizerFunctionImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -6009,9 +5515,7 @@ const AggregatorFunctionInterface* TextProcessorImpl::getAggregator(
 			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getAggregator), objid());
-	traceContext()->logger()->logOpenBranch();
 	const AggregatorFunctionInterface* p0 = obj()->getAggregator(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl_const<AggregatorFunctionInterface,AggregatorFunctionImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -6041,9 +5545,7 @@ bool TextProcessorImpl::detectDocumentClass(
 			const char* contentBegin, std::size_t p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_detectDocumentClass), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->detectDocumentClass(p1, contentBegin, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packDocumentClass(p1);
@@ -6064,9 +5566,7 @@ void TextProcessorImpl::defineDocumentClassDetector(
 			DocumentClassDetectorInterface* p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_defineDocumentClassDetector), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineDocumentClassDetector(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
@@ -6088,9 +5588,7 @@ void TextProcessorImpl::defineTokenizer(
 			TokenizerFunctionInterface* p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_defineTokenizer), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineTokenizer(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -6113,9 +5611,7 @@ void TextProcessorImpl::defineNormalizer(
 			NormalizerFunctionInterface* p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_defineNormalizer), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineNormalizer(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -6138,9 +5634,7 @@ void TextProcessorImpl::defineAggregator(
 			AggregatorFunctionInterface* p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_defineAggregator), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->defineAggregator(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -6162,9 +5656,7 @@ std::vector<std::string> TextProcessorImpl::getFunctionList(
 			const FunctionType& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getFunctionList), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->getFunctionList(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
 	parambuf.packTextProcessorFunctionType(p1);
@@ -6190,9 +5682,7 @@ std::vector<analyzer::Token> TokenizerFunctionContextImpl::tokenize(
 			const char* src, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionContext), TokenizerFunctionContextConst::methodName( Method_tokenize), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::vector<analyzer::Token> p0 = obj()->tokenize(src, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packAnalyzerTokenVector(p0);
 	parambuf.packBuffer( src, p1);
@@ -6217,9 +5707,7 @@ TokenizerFunctionInstanceImpl::~TokenizerFunctionInstanceImpl()
 bool TokenizerFunctionInstanceImpl::concatBeforeTokenize() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), TokenizerFunctionInstanceConst::methodName( Method_concatBeforeTokenize), objid());
-	traceContext()->logger()->logOpenBranch();
 	bool p0 = obj()->concatBeforeTokenize();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
@@ -6237,9 +5725,7 @@ bool TokenizerFunctionInstanceImpl::concatBeforeTokenize() const
 TokenizerFunctionContextInterface* TokenizerFunctionInstanceImpl::createFunctionContext() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), TokenizerFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
-	traceContext()->logger()->logOpenBranch();
 	TokenizerFunctionContextInterface* p0 = obj()->createFunctionContext();
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<TokenizerFunctionContextInterface,TokenizerFunctionContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -6275,9 +5761,7 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 			const TextProcessorInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunction), TokenizerFunctionConst::methodName( Method_createInstance), objid());
-	traceContext()->logger()->logOpenBranch();
 	TokenizerFunctionInstanceInterface* p0 = obj()->createInstance(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<TokenizerFunctionInstanceInterface,TokenizerFunctionInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -6308,9 +5792,7 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 const char* TokenizerFunctionImpl::getDescription() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunction), TokenizerFunctionConst::methodName( Method_getDescription), objid());
-	traceContext()->logger()->logOpenBranch();
 	const char* p0 = obj()->getDescription();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -6342,9 +5824,7 @@ void ValueIteratorImpl::skip(
 			const char* value, std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ValueIterator), ValueIteratorConst::methodName( Method_skip), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->skip(value, p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packBuffer( value, p1);
@@ -6363,9 +5843,7 @@ std::vector<std::string> ValueIteratorImpl::fetchValues(
 			std::size_t p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ValueIterator), ValueIteratorConst::methodName( Method_fetchValues), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::vector<std::string> p0 = obj()->fetchValues(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
 	parambuf.packSize( p1);
@@ -6394,9 +5872,7 @@ void WeightingFunctionContextImpl::addWeightingFeature(
 			const TermStatistics& p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionContext), WeightingFunctionContextConst::methodName( Method_addWeightingFeature), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addWeightingFeature(p1, p2, p3, p4);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -6419,9 +5895,7 @@ double WeightingFunctionContextImpl::call(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionContext), WeightingFunctionContextConst::methodName( Method_call), objid());
-	traceContext()->logger()->logOpenBranch();
 	double p0 = obj()->call(p1);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packDouble(p0);
 	parambuf.packIndex(p1);
@@ -6448,9 +5922,7 @@ void WeightingFunctionInstanceImpl::addStringParameter(
 			const std::string& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_addStringParameter), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addStringParameter(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -6471,9 +5943,7 @@ void WeightingFunctionInstanceImpl::addNumericParameter(
 			const NumericVariant& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_addNumericParameter), objid());
-	traceContext()->logger()->logOpenBranch();
 	obj()->addNumericParameter(p1, p2);
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -6495,9 +5965,7 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 			const GlobalStatistics& p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
-	traceContext()->logger()->logOpenBranch();
 	WeightingFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2, p3);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<WeightingFunctionContextInterface,WeightingFunctionContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -6529,9 +5997,7 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 std::string WeightingFunctionInstanceImpl::tostring() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_tostring), objid());
-	traceContext()->logger()->logOpenBranch();
 	std::string p0 = obj()->tostring();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	if (parambuf.hasError())
@@ -6556,9 +6022,7 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 			const QueryProcessorInterface* p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunction), WeightingFunctionConst::methodName( Method_createInstance), objid());
-	traceContext()->logger()->logOpenBranch();
 	WeightingFunctionInstanceInterface* p0 = obj()->createInstance(p1);
-	traceContext()->logger()->logCloseBranch();
 	p0 = traceContext()->createInterfaceImpl<WeightingFunctionInstanceInterface,WeightingFunctionInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -6588,9 +6052,7 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 FunctionDescription WeightingFunctionImpl::getDescription() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunction), WeightingFunctionConst::methodName( Method_getDescription), objid());
-	traceContext()->logger()->logOpenBranch();
 	FunctionDescription p0 = obj()->getDescription();
-	traceContext()->logger()->logCloseBranch();
 	TraceSerializer parambuf;
 	parambuf.packFunctionDescription(p0);
 	if (parambuf.hasError())

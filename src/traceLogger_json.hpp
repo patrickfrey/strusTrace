@@ -10,6 +10,7 @@
 #ifndef _STRUS_TRACE_LOGGER_IMPLEMENTATION_HPP_INCLUDED
 #define _STRUS_TRACE_LOGGER_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"
+#include "utils.hpp"
 #include "traceRecord.hpp"
 #include "logUtils.hpp"
 #include <string>
@@ -29,7 +30,7 @@ class TraceLogger_json
 public:
 	/// \brief Constructor
 	explicit TraceLogger_json( const std::string& filename_, ErrorBufferInterface* errorhnd_)
-		:m_errorhnd(errorhnd_),m_filename(filename_),m_depth(1){}
+		:m_errorhnd(errorhnd_),m_filename(filename_){}
 
 	/// \brief Destructor
 	virtual ~TraceLogger_json();
@@ -44,21 +45,18 @@ public:
 			const TraceLogRecordHandle& loghnd,
 			const std::vector<TraceElement>& parameter);
 
-	virtual void logOpenBranch();
-	virtual void logCloseBranch();
-
 	virtual bool close();
 
 private:
 	const char* allocString( const char* str, std::size_t strsize);
 
 private:
-	ErrorBufferInterface* m_errorhnd;
-	std::string m_filename;
-	std::vector<TraceRecord> m_recordar;
-	std::vector<utils::StringBlock*> m_strings;
-	std::vector<TraceElement> m_parameterbuf;
-	unsigned int m_depth;
+	ErrorBufferInterface* m_errorhnd;			///< error buffer interface
+	utils::Mutex m_mutex;					///< mutex for critical sections
+	std::string m_filename;					///< file to write output to
+	std::vector<TraceRecord> m_recordar;			///< buffer for records written
+	std::vector<utils::StringBlock*> m_strings;		///< buffer for allocating strings as char*
+	std::vector<TraceElement> m_parameterbuf;		///< buffer for parameters written
 };
 
 }//namespace

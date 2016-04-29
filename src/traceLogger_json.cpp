@@ -20,7 +20,7 @@
 
 using namespace strus;
 
-#define INDENT_STEP "\t"
+#define INDENT_STEP "  "
 
 TraceLogger_json::~TraceLogger_json()
 {
@@ -40,7 +40,9 @@ TraceLogRecordHandle
 {
 	try
 	{
-		m_recordar.push_back( TraceRecord( className, methodName, objId, m_recordar.size()+1, m_depth));
+		utils::ScopedLock lock( m_mutex);
+
+		m_recordar.push_back( TraceRecord( className, methodName, objId, m_recordar.size()+1));
 		if (m_recordar.size() > std::numeric_limits<TraceLogRecordHandle>::max())
 		{
 			throw strus::runtime_error(_TXT("number of logs out of log handle range"));
@@ -80,6 +82,8 @@ void TraceLogger_json::logMethodTermination(
 {
 	try
 	{
+		utils::ScopedLock lock( m_mutex);
+
 		if (loghnd == 0 || loghnd > m_recordar.size())
 		{
 			m_errorhnd->report(_TXT("call log method termination with illegal log handle"));
@@ -117,27 +121,6 @@ void TraceLogger_json::logMethodTermination(
 	}
 	CATCH_ERROR_MAP( _TXT("trace logger error logging method call termination (json): %s"), *m_errorhnd)
 }
-
-void TraceLogger_json::logOpenBranch()
-{
-	if (m_depth >= std::numeric_limits<unsigned int>::max())
-	{
-		m_errorhnd->report(_TXT("illegal call of log open branch (too deep)"));
-		return;
-	}
-	m_depth += 1;
-}
-
-void TraceLogger_json::logCloseBranch()
-{
-	if (m_depth == 1)
-	{
-		m_errorhnd->report(_TXT("illegal call of log close branch (no open branch)"));
-		return;
-	}
-	m_depth -= 1;
-}
-
 
 static std::size_t getStructSize( const TraceElement* param, std::size_t paramSize)
 {
@@ -332,20 +315,6 @@ static void printParameter( FILE* output, const std::string& indentstr, const ch
 }
 
 
-struct FileRAII
-{
-	FILE* file;
-	bool doCloseFile;
-
-	FileRAII()
-		:file(0),doCloseFile(false)
-	{}
-	~FileRAII()
-	{
-		if (doCloseFile && file) fclose(file);
-	}
-};
-
 static void printOutputJSON( FILE* output, std::size_t ridx_start, const std::string& indentstr, std::vector<TraceRecord>::const_iterator ri, const std::vector<TraceRecord>::const_iterator& re, const std::vector<TraceElement>& parameterbuf)
 {
 	std::size_t ridx = ridx_start;
@@ -387,10 +356,26 @@ static void printOutputJSON( FILE* output, std::size_t ridx_start, const std::st
 	}
 }
 
+struct FileRAII
+{
+	FILE* file;
+	bool doCloseFile;
+
+	FileRAII()
+		:file(0),doCloseFile(false)
+	{}
+	~FileRAII()
+	{
+		if (doCloseFile && file) fclose(file);
+	}
+};
+
 bool TraceLogger_json::close()
 {
 	try
 	{
+		utils::ScopedLock lock( m_mutex);
+
 		FileRAII output;
 		if (m_filename == "-" || m_filename == "stdout")
 		{

@@ -119,10 +119,10 @@ public:
 
 	virtual ~AnalyzerObjectBuilderImpl();
 	virtual const TextProcessorInterface* getTextProcessor() const;
-	virtual SegmenterInterface* createSegmenter(
+	virtual const SegmenterInterface* getSegmenter(
 			const std::string& p1) const;
 	virtual DocumentAnalyzerInterface* createDocumentAnalyzer(
-			const std::string& p1) const;
+			const SegmenterInterface* p1) const;
 	virtual QueryAnalyzerInterface* createQueryAnalyzer() const;
 };
 
@@ -1113,10 +1113,7 @@ public:
 	virtual const DatabaseInterface* getDatabase(
 			const std::string& p1) const;
 	virtual const QueryProcessorInterface* getQueryProcessor() const;
-	virtual const StatisticsProcessorInterface* getStatisticsProcessor() const;
-	virtual StorageClientInterface* createStorageClient(
-			const std::string& p1) const;
-	virtual StorageAlterMetaDataTableInterface* createAlterMetaDataTable(
+	virtual const StatisticsProcessorInterface* getStatisticsProcessor(
 			const std::string& p1) const;
 	virtual QueryEvalInterface* createQueryEval() const;
 };

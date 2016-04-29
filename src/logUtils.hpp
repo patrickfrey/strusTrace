@@ -6,7 +6,7 @@
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 /// \brief Some private logging helpers
-/// \file logUtils.cpp
+/// \file logUtils.hpp
 
 #ifndef _STRUS_TRACE_LOG_UTILS_HPP_INCLUDED
 #define _STRUS_TRACE_LOG_UTILS_HPP_INCLUDED

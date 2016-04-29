@@ -90,7 +90,7 @@ const char* AggregatorFunctionConst::methodName( MethodId mid)
 
 const char* AnalyzerObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getTextProcessor", "createSegmenter", "createDocumentAnalyzer", "createQueryAnalyzer"};
+	static const char* ar[] = { "Destructor", "getTextProcessor", "getSegmenter", "createDocumentAnalyzer", "createQueryAnalyzer"};
 	return ar[mid];
 }
 
@@ -336,7 +336,7 @@ const char* StorageConst::methodName( MethodId mid)
 
 const char* StorageObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "createStorageClient", "createAlterMetaDataTable", "createQueryEval"};
+	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "createQueryEval"};
 	return ar[mid];
 }
 

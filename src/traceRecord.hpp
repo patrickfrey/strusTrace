@@ -23,14 +23,12 @@ public:
 			const char* className_,
 			const char* methodName_,
 			TraceObjectId objId_,
-			TraceTimeCounter time_,
-			unsigned int depth_)
+			TraceTimeCounter time_)
 		:m_className(className_)
 		,m_methodName(methodName_)
 		,m_objId(objId_)
 		,m_startTime(time_)
 		,m_endTime(0)
-		,m_depth(depth_)
 		,m_parameterIdx(0)
 		,m_parameterSize(0){}
 
@@ -41,7 +39,6 @@ public:
 		,m_objId(o.m_objId)
 		,m_startTime(o.m_startTime)
 		,m_endTime(o.m_endTime)
-		,m_depth(o.m_depth)
 		,m_parameterIdx(o.m_parameterIdx)
 		,m_parameterSize(o.m_parameterSize){}
 
@@ -60,9 +57,6 @@ public:
 	/// \brief Get the termination time counter of this method call
 	/// \return the time count starting with 1
 	TraceTimeCounter endTime() const		{return m_endTime;}
-	/// \brief Get the depht in the call dependency tree
-	/// \return the depht starting with 1
-	unsigned int depth() const			{return m_depth;}
 	/// \brief Get the packed parameter structure of the call
 	/// \return the serialized parameter structure
 	std::size_t parameterIdx() const		{return m_parameterIdx;}
@@ -88,7 +82,6 @@ private:
 	TraceObjectId m_objId;
 	TraceTimeCounter m_startTime;
 	TraceTimeCounter m_endTime;
-	unsigned int m_depth;
 	std::size_t m_parameterIdx;
 	std::size_t m_parameterSize;
 };

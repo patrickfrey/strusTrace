@@ -13,6 +13,7 @@
 #include "strus/errorBufferInterface.hpp"
 #include "strus/traceLoggerInterface.hpp"
 #include "internationalization.hpp"
+#include "utils.hpp"
 #include <limits>
 
 namespace strus
@@ -26,13 +27,14 @@ class TraceGlobalContext
 public:
 	/// \brief Constructor
 	TraceGlobalContext( TraceLoggerInterface* logger_, ErrorBufferInterface* errhnd_)
-		:m_errhnd(errhnd_),m_idcnt(0),m_logger(logger_){}
+		:m_errhnd(errhnd_),m_mutex(),m_logger(logger_),m_idcnt(0){}
 	/// \brief Destructor
 	~TraceGlobalContext(){}
 
 	/// \brief Create a new object id (unique for this trace context)
 	TraceObjectId createId()
 	{
+		utils::ScopedLock lock( m_mutex);
 		if (m_idcnt >= std::numeric_limits<TraceObjectId>::max())
 		{
 			throw strus::runtime_error(_TXT("number of objects created out of range"));
@@ -55,6 +57,8 @@ public:
 		{
 			if (!wrapped) return 0;
 			InterfaceImpl* rt = new InterfaceImpl( wrapped, this);
+
+			utils::ScopedLock lock( m_mutex);
 			m_const_objects.push_back( Reference<TraceObjectBase>( rt));
 			return rt;
 		}
@@ -87,9 +91,10 @@ private:
 	void operator=( const TraceGlobalContext&){}		///< non copyable
 
 private:
-	ErrorBufferInterface* m_errhnd;
-	TraceObjectId m_idcnt;
+	ErrorBufferInterface* m_errhnd;				///< error buffer interface for exception handling
+	utils::Mutex m_mutex;					///< mutex for critical sections
 	TraceLoggerInterface* m_logger;
+	TraceObjectId m_idcnt;					///< counter for allocating unique object idetifiers
 	mutable std::vector<Reference<TraceObjectBase> > m_const_objects;
 };
 

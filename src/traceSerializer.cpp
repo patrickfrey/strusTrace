@@ -217,7 +217,7 @@ void TraceSerializer::close()
 void TraceSerializer::packObject( const char* className, const TraceObjectId& objId)
 {
 	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeObject, className, objId));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeObject, objId, className));
 	}CATCH_ERROR
 }
 
@@ -397,7 +397,7 @@ void TraceSerializer::packSummarizationVariable( const SummarizationVariable& va
 		if (so)
 		{
 			const char* className = TraceClassNameMap::className( ClassId_PostingIterator);
-			m_elembuf.push_back( TraceElement( TraceElement::TypeObject, className, so->objid()));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeObject, so->objid(), className));
 		}
 		else
 		{

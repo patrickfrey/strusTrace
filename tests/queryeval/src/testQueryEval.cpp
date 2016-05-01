@@ -471,7 +471,7 @@ static void envelope(
 	}
 	else
 	{
-		throw std::runtime_error("failed to storage object builder proxy");
+		throw std::runtime_error("failed to create storage object builder proxy");
 	}
 }
 
@@ -488,7 +488,7 @@ static void envelope(
 	}
 	else
 	{
-		throw std::runtime_error("failed to analyzer object builder proxy");
+		throw std::runtime_error("failed to create analyzer object builder proxy");
 	}
 }
 

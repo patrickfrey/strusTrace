@@ -169,26 +169,26 @@ static void printParameter( FILE* output, const std::string& indentstr, const ch
 			case TraceElement::TypeInt:
 				if (name)
 				{
-					fprintf( output, "\"%s\":%ld", name, pi->value().Int);
+					fprintf( output, "\"%s\":%ld", name, (long int)pi->value().Int);
 					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "Int");
 				}
 				else
 				{
 					if (pidx) fprintf( output, ", ");
-					fprintf( output, "%ld", pi->value().Int);
+					fprintf( output, "%ld", (long int)pi->value().Int);
 				}
 				++pi; ++pidx;
 				break;
 			case TraceElement::TypeUInt:
 				if (name)
 				{
-					fprintf( output, "\"%s\":%lu", name, pi->value().UInt);
+					fprintf( output, "\"%s\":%lu", name, (unsigned long int)pi->value().UInt);
 					if (pidx > 1) throw strus::runtime_error(_TXT("error in tragelog: two subsequent values in name context [%s]"), "UInt");
 				}
 				else
 				{
 					if (pidx) fprintf( output, ", ");
-					fprintf( output, "%lu", pi->value().UInt);
+					fprintf( output, "%lu", (unsigned long int)pi->value().UInt);
 				}
 				++pi; ++pidx;
 				break;

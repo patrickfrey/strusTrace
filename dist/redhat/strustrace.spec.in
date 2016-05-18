@@ -112,7 +112,7 @@
 %define sles 1
 %endif
 
-Summary: Library implementing the storage of a text search engine
+Summary: Library implementing logging of call traces for Strus
 Name: strustrace
 %define main_version @STRUS_VERSION@
 %define dep_version @STRUS_MAJOR_VERSION@.@STRUS_MINOR_VERSION@

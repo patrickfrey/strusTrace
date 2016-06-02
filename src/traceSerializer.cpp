@@ -577,7 +577,7 @@ void TraceSerializer::packAnalyzerToken( const analyzer::Token& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "docpos"));
-		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.docpos));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.ordpos));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "strpos"));

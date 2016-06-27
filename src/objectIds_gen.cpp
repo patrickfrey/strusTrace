@@ -90,7 +90,7 @@ const char* AggregatorFunctionConst::methodName( MethodId mid)
 
 const char* AnalyzerObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getTextProcessor", "getSegmenter", "createDocumentAnalyzer", "createQueryAnalyzer"};
+	static const char* ar[] = { "Destructor", "getTextProcessor", "getSegmenter", "findMimeTypeSegmenter", "createDocumentAnalyzer", "createQueryAnalyzer"};
 	return ar[mid];
 }
 

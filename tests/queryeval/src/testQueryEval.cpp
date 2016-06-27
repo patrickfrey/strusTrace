@@ -191,7 +191,7 @@ struct AnalyzerFunctionDef
 
 static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
 {
-	const strus::SegmenterInterface* segmenter = aob->getSegmenter();
+	const strus::SegmenterInterface* segmenter = aob->getSegmenter("");
 	if (!segmenter) throw std::runtime_error( "failed to get document segmenter");
 	std::auto_ptr<strus::DocumentAnalyzerInterface> analyzer( aob->createDocumentAnalyzer( segmenter));
 	if (!analyzer.get()) throw std::runtime_error( "failed to create document analyzer");

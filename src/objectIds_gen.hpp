@@ -108,8 +108,9 @@ public:
 		Method_Destructor=0,
 		Method_getTextProcessor=1,
 		Method_getSegmenter=2,
-		Method_createDocumentAnalyzer=3,
-		Method_createQueryAnalyzer=4
+		Method_findMimeTypeSegmenter=3,
+		Method_createDocumentAnalyzer=4,
+		Method_createQueryAnalyzer=5
 	};
 	static const char* methodName( MethodId mid);
 };

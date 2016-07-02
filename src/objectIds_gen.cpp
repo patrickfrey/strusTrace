@@ -48,6 +48,7 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"SegmenterContext",
 		"SegmenterInstance",
 		"Segmenter",
+		"SegmenterMarkupContext",
 		"StatisticsBuilder",
 		"StatisticsIterator",
 		"StatisticsProcessor",
@@ -264,13 +265,19 @@ const char* SegmenterContextConst::methodName( MethodId mid)
 
 const char* SegmenterInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineSelectorExpression", "defineSubSection", "createContext"};
+	static const char* ar[] = { "Destructor", "defineSelectorExpression", "defineSubSection", "createContext", "createMarkupContext"};
 	return ar[mid];
 }
 
 const char* SegmenterConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "mimeType", "createInstance"};
+	return ar[mid];
+}
+
+const char* SegmenterMarkupContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "getNext", "putMarkup", "getContent"};
 	return ar[mid];
 }
 

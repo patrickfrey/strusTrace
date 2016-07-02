@@ -45,6 +45,7 @@
 #include "strus/segmenterContextInterface.hpp"
 #include "strus/segmenterInstanceInterface.hpp"
 #include "strus/segmenterInterface.hpp"
+#include "strus/segmenterMarkupContextInterface.hpp"
 #include "strus/statisticsBuilderInterface.hpp"
 #include "strus/statisticsIteratorInterface.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
@@ -818,6 +819,9 @@ public:
 			const std::string& p3);
 	virtual SegmenterContextInterface* createContext(
 			const DocumentClass& p1) const;
+	virtual SegmenterMarkupContextInterface* createMarkupContext(
+			const DocumentClass& p1, 
+			const std::string& p2) const;
 };
 
 class SegmenterImpl
@@ -834,6 +838,28 @@ public:
 	virtual ~SegmenterImpl();
 	virtual const char* mimeType() const;
 	virtual SegmenterInstanceInterface* createInstance() const;
+};
+
+class SegmenterMarkupContextImpl
+		:public TraceObject<SegmenterMarkupContextInterface>
+		,public SegmenterMarkupContextInterface
+		,public SegmenterMarkupContextConst
+{
+public:
+	SegmenterMarkupContextImpl( SegmenterMarkupContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SegmenterMarkupContextInterface>(obj_,ctx_){}
+	SegmenterMarkupContextImpl( const SegmenterMarkupContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SegmenterMarkupContextInterface>(obj_,ctx_){}
+
+	virtual ~SegmenterMarkupContextImpl();
+	virtual int getNext(
+			SegmenterPosition& p1, 
+			const char*& segment, std::size_t& p2);
+	virtual void putMarkup(
+			std::size_t p1, 
+			std::size_t p2, 
+			const std::string& p3);
+	virtual std::string getContent() const;
 };
 
 class StatisticsBuilderImpl

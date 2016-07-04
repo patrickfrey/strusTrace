@@ -852,11 +852,24 @@ public:
 		:TraceObject<SegmenterMarkupContextInterface>(obj_,ctx_){}
 
 	virtual ~SegmenterMarkupContextImpl();
-	virtual int getNext(
+	virtual bool getNext(
 			SegmenterPosition& p1, 
 			const char*& segment, std::size_t& p2);
-	virtual void putMarkup(
-			std::size_t p1, 
+	virtual std::string tagName(
+			const SegmenterPosition& p1) const;
+	virtual int tagLevel(
+			const SegmenterPosition& p1) const;
+	virtual void putOpenTag(
+			const SegmenterPosition& p1, 
+			std::size_t p2, 
+			const std::string& p3);
+	virtual void putAttribute(
+			const SegmenterPosition& p1, 
+			std::size_t p2, 
+			const std::string& p3, 
+			const std::string& p4);
+	virtual void putCloseTag(
+			const SegmenterPosition& p1, 
 			std::size_t p2, 
 			const std::string& p3);
 	virtual std::string getContent() const;

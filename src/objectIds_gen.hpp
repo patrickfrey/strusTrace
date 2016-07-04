@@ -549,8 +549,12 @@ public:
 	{
 		Method_Destructor=0,
 		Method_getNext=1,
-		Method_putMarkup=2,
-		Method_getContent=3
+		Method_tagName=2,
+		Method_tagLevel=3,
+		Method_putOpenTag=4,
+		Method_putAttribute=5,
+		Method_putCloseTag=6,
+		Method_getContent=7
 	};
 	static const char* methodName( MethodId mid);
 };

@@ -3439,14 +3439,14 @@ SegmenterMarkupContextImpl::~SegmenterMarkupContextImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-int SegmenterMarkupContextImpl::getNext(
+bool SegmenterMarkupContextImpl::getNext(
 			SegmenterPosition& p1, 
 			const char*& segment, std::size_t& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterMarkupContext), SegmenterMarkupContextConst::methodName( Method_getNext), objid());
-	int p0 = obj()->getNext(p1, segment, p2);
+	bool p0 = obj()->getNext(p1, segment, p2);
 	TraceSerializer parambuf;
-	parambuf.packInt(p0);
+	parambuf.packBool(p0);
 	parambuf.packGlobalCounter(p1);
 	parambuf.packBuffer( segment, p2);
 	if (parambuf.hasError())
@@ -3461,16 +3461,104 @@ int SegmenterMarkupContextImpl::getNext(
 	return p0;
 }
 
-void SegmenterMarkupContextImpl::putMarkup(
-			std::size_t p1, 
+std::string SegmenterMarkupContextImpl::tagName(
+			const SegmenterPosition& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterMarkupContext), SegmenterMarkupContextConst::methodName( Method_tagName), objid());
+	std::string p0 = obj()->tagName(p1);
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	parambuf.packGlobalCounter(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+int SegmenterMarkupContextImpl::tagLevel(
+			const SegmenterPosition& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterMarkupContext), SegmenterMarkupContextConst::methodName( Method_tagLevel), objid());
+	int p0 = obj()->tagLevel(p1);
+	TraceSerializer parambuf;
+	parambuf.packInt(p0);
+	parambuf.packGlobalCounter(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+void SegmenterMarkupContextImpl::putOpenTag(
+			const SegmenterPosition& p1, 
 			std::size_t p2, 
 			const std::string& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterMarkupContext), SegmenterMarkupContextConst::methodName( Method_putMarkup), objid());
-	obj()->putMarkup(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterMarkupContext), SegmenterMarkupContextConst::methodName( Method_putOpenTag), objid());
+	obj()->putOpenTag(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packSize( p1);
+	parambuf.packGlobalCounter(p1);
+	parambuf.packSize( p2);
+	parambuf.packString(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void SegmenterMarkupContextImpl::putAttribute(
+			const SegmenterPosition& p1, 
+			std::size_t p2, 
+			const std::string& p3, 
+			const std::string& p4)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterMarkupContext), SegmenterMarkupContextConst::methodName( Method_putAttribute), objid());
+	obj()->putAttribute(p1, p2, p3, p4);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packGlobalCounter(p1);
+	parambuf.packSize( p2);
+	parambuf.packString(p3);
+	parambuf.packString(p4);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void SegmenterMarkupContextImpl::putCloseTag(
+			const SegmenterPosition& p1, 
+			std::size_t p2, 
+			const std::string& p3)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterMarkupContext), SegmenterMarkupContextConst::methodName( Method_putCloseTag), objid());
+	obj()->putCloseTag(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packGlobalCounter(p1);
 	parambuf.packSize( p2);
 	parambuf.packString(p3);
 	if (parambuf.hasError())

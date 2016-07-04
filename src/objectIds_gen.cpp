@@ -277,7 +277,7 @@ const char* SegmenterConst::methodName( MethodId mid)
 
 const char* SegmenterMarkupContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getNext", "putMarkup", "getContent"};
+	static const char* ar[] = { "Destructor", "getNext", "tagName", "tagLevel", "putOpenTag", "putAttribute", "putCloseTag", "getContent"};
 	return ar[mid];
 }
 

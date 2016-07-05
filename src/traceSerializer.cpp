@@ -254,6 +254,26 @@ void TraceSerializer::packNumericVariant( const NumericVariant& val)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packSegmenterOptions( const SegmenterOptions& val)
+{
+	try{
+	std::vector<SegmenterOptions::Item>::const_iterator oi = val.items().begin(), oe = val.items().end();
+	for (std::size_t oidx=0; oi != oe; ++oi,++oidx)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, oidx));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, oi->first.c_str(), oi->first.size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, oi->second.c_str(), oi->second.size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packDocumentClass( const DocumentClass& dclass)
 {
 	try{

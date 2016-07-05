@@ -837,7 +837,8 @@ public:
 
 	virtual ~SegmenterImpl();
 	virtual const char* mimeType() const;
-	virtual SegmenterInstanceInterface* createInstance() const;
+	virtual SegmenterInstanceInterface* createInstance(
+			const SegmenterOptions& p1) const;
 };
 
 class SegmenterMarkupContextImpl

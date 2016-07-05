@@ -3405,10 +3405,11 @@ const char* SegmenterImpl::mimeType() const
 	return p0;
 }
 
-SegmenterInstanceInterface* SegmenterImpl::createInstance() const
+SegmenterInstanceInterface* SegmenterImpl::createInstance(
+			const SegmenterOptions& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Segmenter), SegmenterConst::methodName( Method_createInstance), objid());
-	SegmenterInstanceInterface* p0 = obj()->createInstance();
+	SegmenterInstanceInterface* p0 = obj()->createInstance(p1);
 	p0 = traceContext()->createInterfaceImpl<SegmenterInstanceInterface,SegmenterInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -3419,6 +3420,7 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance() const
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SegmenterInstance), objbase_p0->objid());
+		parambuf.packSegmenterOptions(p1);
 	}
 	if (parambuf.hasError())
 	{

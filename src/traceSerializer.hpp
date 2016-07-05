@@ -30,6 +30,7 @@
 #include "strus/queryEvalInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
+#include "strus/segmenterInterface.hpp"
 #include "strus/documentAnalyzerInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
 #include "strus/analyzer/token.hpp"
@@ -85,6 +86,7 @@ public:
 	void packBufferFloat( const double* buf, std::size_t size);
 	void packNumericVariant( const NumericVariant& val);
 
+	void packSegmenterOptions( const SegmenterOptions& val);
 	void packDocumentClass( const DocumentClass& prop);
 	void packTermStatistics( const TermStatistics& stats);
 	void packGlobalStatistics( const GlobalStatistics& stats);

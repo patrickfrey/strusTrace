@@ -199,10 +199,11 @@ const SegmenterInterface* AnalyzerObjectBuilderImpl::findMimeTypeSegmenter(
 }
 
 DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
-			const SegmenterInterface* p1) const
+			const SegmenterInterface* p1, 
+			const SegmenterOptions& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createDocumentAnalyzer), objid());
-	DocumentAnalyzerInterface* p0 = obj()->createDocumentAnalyzer(p1);
+	DocumentAnalyzerInterface* p0 = obj()->createDocumentAnalyzer(p1, p2);
 	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerInterface,DocumentAnalyzerImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -215,6 +216,7 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzer), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p1->objid());
+		parambuf.packSegmenterOptions(p2);
 	}
 	if (parambuf.hasError())
 	{

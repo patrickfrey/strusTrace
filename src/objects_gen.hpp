@@ -125,7 +125,8 @@ public:
 	virtual const SegmenterInterface* findMimeTypeSegmenter(
 			const std::string& p1) const;
 	virtual DocumentAnalyzerInterface* createDocumentAnalyzer(
-			const SegmenterInterface* p1) const;
+			const SegmenterInterface* p1, 
+			const SegmenterOptions& p2) const;
 	virtual QueryAnalyzerInterface* createQueryAnalyzer() const;
 };
 

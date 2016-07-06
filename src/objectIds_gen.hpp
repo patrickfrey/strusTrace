@@ -47,29 +47,30 @@ enum ClassId
 	ClassId_SegmenterContext=31,
 	ClassId_SegmenterInstance=32,
 	ClassId_Segmenter=33,
-	ClassId_StatisticsBuilder=34,
-	ClassId_StatisticsIterator=35,
-	ClassId_StatisticsProcessor=36,
-	ClassId_StatisticsViewer=37,
-	ClassId_StorageAlterMetaDataTable=38,
-	ClassId_StorageClient=39,
-	ClassId_StorageDocument=40,
-	ClassId_StorageDocumentUpdate=41,
-	ClassId_StorageDump=42,
-	ClassId_Storage=43,
-	ClassId_StorageObjectBuilder=44,
-	ClassId_StorageTransaction=45,
-	ClassId_SummarizerFunctionContext=46,
-	ClassId_SummarizerFunctionInstance=47,
-	ClassId_SummarizerFunction=48,
-	ClassId_TextProcessor=49,
-	ClassId_TokenizerFunctionContext=50,
-	ClassId_TokenizerFunctionInstance=51,
-	ClassId_TokenizerFunction=52,
-	ClassId_ValueIterator=53,
-	ClassId_WeightingFunctionContext=54,
-	ClassId_WeightingFunctionInstance=55,
-	ClassId_WeightingFunction=56
+	ClassId_SegmenterMarkupContext=34,
+	ClassId_StatisticsBuilder=35,
+	ClassId_StatisticsIterator=36,
+	ClassId_StatisticsProcessor=37,
+	ClassId_StatisticsViewer=38,
+	ClassId_StorageAlterMetaDataTable=39,
+	ClassId_StorageClient=40,
+	ClassId_StorageDocument=41,
+	ClassId_StorageDocumentUpdate=42,
+	ClassId_StorageDump=43,
+	ClassId_Storage=44,
+	ClassId_StorageObjectBuilder=45,
+	ClassId_StorageTransaction=46,
+	ClassId_SummarizerFunctionContext=47,
+	ClassId_SummarizerFunctionInstance=48,
+	ClassId_SummarizerFunction=49,
+	ClassId_TextProcessor=50,
+	ClassId_TokenizerFunctionContext=51,
+	ClassId_TokenizerFunctionInstance=52,
+	ClassId_TokenizerFunction=53,
+	ClassId_ValueIterator=54,
+	ClassId_WeightingFunctionContext=55,
+	ClassId_WeightingFunctionInstance=56,
+	ClassId_WeightingFunction=57
 };
 
 struct TraceClassNameMap
@@ -108,8 +109,9 @@ public:
 		Method_Destructor=0,
 		Method_getTextProcessor=1,
 		Method_getSegmenter=2,
-		Method_createDocumentAnalyzer=3,
-		Method_createQueryAnalyzer=4
+		Method_findMimeTypeSegmenter=3,
+		Method_createDocumentAnalyzer=4,
+		Method_createQueryAnalyzer=5
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -522,7 +524,8 @@ public:
 		Method_Destructor=0,
 		Method_defineSelectorExpression=1,
 		Method_defineSubSection=2,
-		Method_createContext=3
+		Method_createContext=3,
+		Method_createMarkupContext=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -535,6 +538,23 @@ public:
 		Method_Destructor=0,
 		Method_mimeType=1,
 		Method_createInstance=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class SegmenterMarkupContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_getNext=1,
+		Method_tagName=2,
+		Method_tagLevel=3,
+		Method_putOpenTag=4,
+		Method_putAttribute=5,
+		Method_putCloseTag=6,
+		Method_getContent=7
 	};
 	static const char* methodName( MethodId mid);
 };

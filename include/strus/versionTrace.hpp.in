@@ -14,16 +14,16 @@
 namespace strus
 {
 
-/// \brief Version number of the strus core (storage)
+/// \brief Version number of strus trace
 #define STRUS_TRACE_VERSION (\
 	@STRUS_MAJOR_VERSION@ * 1000000\
 	+ @STRUS_MINOR_VERSION@ * 10000\
 	+ @STRUS_PATCH_VERSION@\
 )
 
-/// \brief Major version number of the strus core (storage)
+/// \brief Major version number of strus trace
 #define STRUS_TRACE_VERSION_MAJOR @STRUS_MAJOR_VERSION@
-/// \brief Minor version number of the strus core (storage)
+/// \brief Minor version number of strus trace
 #define STRUS_TRACE_VERSION_MINOR @STRUS_MINOR_VERSION@
 
 /// \brief The version of the strus trace library

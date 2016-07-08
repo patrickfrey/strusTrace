@@ -3465,6 +3465,26 @@ bool SegmenterMarkupContextImpl::getNext(
 	return p0;
 }
 
+unsigned int SegmenterMarkupContextImpl::segmentSize(
+			const SegmenterPosition& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterMarkupContext), SegmenterMarkupContextConst::methodName( Method_segmentSize), objid());
+	unsigned int p0 = obj()->segmentSize(p1);
+	TraceSerializer parambuf;
+	parambuf.packUInt(p0);
+	parambuf.packGlobalCounter(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 std::string SegmenterMarkupContextImpl::tagName(
 			const SegmenterPosition& p1) const
 {

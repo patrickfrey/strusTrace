@@ -857,6 +857,8 @@ public:
 	virtual bool getNext(
 			SegmenterPosition& p1, 
 			const char*& segment, std::size_t& p2);
+	virtual unsigned int segmentSize(
+			const SegmenterPosition& p1);
 	virtual std::string tagName(
 			const SegmenterPosition& p1) const;
 	virtual int tagLevel(

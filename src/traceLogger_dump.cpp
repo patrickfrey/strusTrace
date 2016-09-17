@@ -31,15 +31,15 @@ TraceLogger_dump::TraceLogger_dump( const std::string& filename, ErrorBufferInte
 {
 	if (filename == "-" || filename == "stdout")
 	{
-		m_output = ::stdout;
+		m_output = stdout;
 	}
 	else if (filename == "stderr")
 	{
-		m_output = ::stderr;
+		m_output = stderr;
 	}
 	else
 	{
-		m_output = ::fopen( filename.c_str(), "w");
+		m_output = fopen( filename.c_str(), "w");
 		if (m_output == 0)
 		{
 			throw strus::runtime_error(_TXT("failed to open file '%s' for writing (errno %u, call trace log)"), filename.c_str(), errno);
@@ -49,9 +49,9 @@ TraceLogger_dump::TraceLogger_dump( const std::string& filename, ErrorBufferInte
 
 TraceLogger_dump::~TraceLogger_dump()
 {
-	if (m_output && m_output != ::stderr && m_output != ::stdout)
+	if (m_output && m_output != stderr && m_output != stdout)
 	{
-		::fclose( m_output);
+		fclose( m_output);
 	}
 }
 
@@ -74,8 +74,8 @@ TraceLogRecordHandle
 			throw strus::runtime_error(_TXT("number of logs out of log handle range"));
 		}
 		++m_logcnt;
-		::fprintf( m_output, "[%u] %s%s<%u>::%s\n", (unsigned int)m_logcnt, m_indentstr.c_str(), className, (unsigned int)objId, methodName);
-		::fflush( m_output);
+		fprintf( m_output, "[%u] %s%s<%u>::%s\n", (unsigned int)m_logcnt, m_indentstr.c_str(), className, (unsigned int)objId, methodName);
+		fflush( m_output);
 		m_indentstr.append( INDENT_STEP);
 		return m_logcnt;
 	}
@@ -170,9 +170,9 @@ bool TraceLogger_dump::close()
 {
 	utils::ScopedLock lock( m_mutex);
 
-	if (m_output && m_output != ::stderr && m_output != ::stdout)
+	if (m_output && m_output != stderr && m_output != stdout)
 	{
-		::fclose( m_output);
+		fclose( m_output);
 	}
 	m_output = 0;
 	return true;

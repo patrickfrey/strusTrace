@@ -682,6 +682,7 @@ public:
 			const std::string& p1, 
 			double p2);
 	virtual QueryResult evaluate();
+	virtual std::string tostring() const;
 };
 
 class QueryProcessorImpl

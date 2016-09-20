@@ -2767,6 +2767,24 @@ QueryResult QueryImpl::evaluate()
 	return p0;
 }
 
+std::string QueryImpl::tostring() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_tostring), objid());
+	std::string p0 = obj()->tostring();
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 QueryProcessorImpl::~QueryProcessorImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_Destructor), objid());

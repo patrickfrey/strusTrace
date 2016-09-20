@@ -441,7 +441,8 @@ public:
 		Method_setMinRank=10,
 		Method_addUserName=11,
 		Method_setWeightingVariableValue=12,
-		Method_evaluate=13
+		Method_evaluate=13,
+		Method_tostring=14
 	};
 	static const char* methodName( MethodId mid);
 };

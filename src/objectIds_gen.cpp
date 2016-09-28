@@ -69,6 +69,9 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"TokenizerFunctionInstance",
 		"TokenizerFunction",
 		"ValueIterator",
+		"VectorSpaceModelBuilder",
+		"VectorSpaceModelInstance",
+		"VectorSpaceModel",
 		"WeightingFunctionContext",
 		"WeightingFunctionInstance",
 		"WeightingFunction"
@@ -343,7 +346,7 @@ const char* StorageConst::methodName( MethodId mid)
 
 const char* StorageObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "createQueryEval"};
+	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "getVectorSpaceModel", "createQueryEval"};
 	return ar[mid];
 }
 
@@ -398,6 +401,24 @@ const char* TokenizerFunctionConst::methodName( MethodId mid)
 const char* ValueIteratorConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "skip", "fetchValues"};
+	return ar[mid];
+}
+
+const char* VectorSpaceModelBuilderConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "addSampleVector", "finalize", "store"};
+	return ar[mid];
+}
+
+const char* VectorSpaceModelInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "mapVectorToFeatures", "nofFeatures", "config"};
+	return ar[mid];
+}
+
+const char* VectorSpaceModelConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createInstance", "createBuilder"};
 	return ar[mid];
 }
 

@@ -68,9 +68,12 @@ enum ClassId
 	ClassId_TokenizerFunctionInstance=52,
 	ClassId_TokenizerFunction=53,
 	ClassId_ValueIterator=54,
-	ClassId_WeightingFunctionContext=55,
-	ClassId_WeightingFunctionInstance=56,
-	ClassId_WeightingFunction=57
+	ClassId_VectorSpaceModelBuilder=55,
+	ClassId_VectorSpaceModelInstance=56,
+	ClassId_VectorSpaceModel=57,
+	ClassId_WeightingFunctionContext=58,
+	ClassId_WeightingFunctionInstance=59,
+	ClassId_WeightingFunction=60
 };
 
 struct TraceClassNameMap
@@ -731,7 +734,8 @@ public:
 		Method_getDatabase=2,
 		Method_getQueryProcessor=3,
 		Method_getStatisticsProcessor=4,
-		Method_createQueryEval=5
+		Method_getVectorSpaceModel=5,
+		Method_createQueryEval=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -855,6 +859,44 @@ public:
 		Method_Destructor=0,
 		Method_skip=1,
 		Method_fetchValues=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorSpaceModelBuilderConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_addSampleVector=1,
+		Method_finalize=2,
+		Method_store=3
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorSpaceModelInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_mapVectorToFeatures=1,
+		Method_nofFeatures=2,
+		Method_config=3
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorSpaceModelConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createInstance=1,
+		Method_createBuilder=2
 	};
 	static const char* methodName( MethodId mid);
 };

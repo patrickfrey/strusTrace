@@ -66,6 +66,9 @@
 #include "strus/tokenizerFunctionInstanceInterface.hpp"
 #include "strus/tokenizerFunctionInterface.hpp"
 #include "strus/valueIteratorInterface.hpp"
+#include "strus/vectorSpaceModelBuilderInterface.hpp"
+#include "strus/vectorSpaceModelInstanceInterface.hpp"
+#include "strus/vectorSpaceModelInterface.hpp"
 #include "strus/weightingFunctionContextInterface.hpp"
 #include "strus/weightingFunctionInstanceInterface.hpp"
 #include "strus/weightingFunctionInterface.hpp"
@@ -1161,6 +1164,8 @@ public:
 	virtual const QueryProcessorInterface* getQueryProcessor() const;
 	virtual const StatisticsProcessorInterface* getStatisticsProcessor(
 			const std::string& p1) const;
+	virtual const VectorSpaceModelInterface* getVectorSpaceModel(
+			const std::string& p1) const;
 	virtual QueryEvalInterface* createQueryEval() const;
 };
 
@@ -1362,6 +1367,60 @@ public:
 			const char* value, std::size_t p1);
 	virtual std::vector<std::string> fetchValues(
 			std::size_t p1);
+};
+
+class VectorSpaceModelBuilderImpl
+		:public TraceObject<VectorSpaceModelBuilderInterface>
+		,public VectorSpaceModelBuilderInterface
+		,public VectorSpaceModelBuilderConst
+{
+public:
+	VectorSpaceModelBuilderImpl( VectorSpaceModelBuilderInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelBuilderInterface>(obj_,ctx_){}
+	VectorSpaceModelBuilderImpl( const VectorSpaceModelBuilderInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelBuilderInterface>(obj_,ctx_){}
+
+	virtual ~VectorSpaceModelBuilderImpl();
+	virtual void addSampleVector(
+			const std::vector<double>& p1);
+	virtual void finalize();
+	virtual bool store();
+};
+
+class VectorSpaceModelInstanceImpl
+		:public TraceObject<VectorSpaceModelInstanceInterface>
+		,public VectorSpaceModelInstanceInterface
+		,public VectorSpaceModelInstanceConst
+{
+public:
+	VectorSpaceModelInstanceImpl( VectorSpaceModelInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelInstanceInterface>(obj_,ctx_){}
+	VectorSpaceModelInstanceImpl( const VectorSpaceModelInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelInstanceInterface>(obj_,ctx_){}
+
+	virtual ~VectorSpaceModelInstanceImpl();
+	virtual std::vector<Index> mapVectorToFeatures(
+			const std::vector<double>& p1) const;
+	virtual unsigned int nofFeatures() const;
+	virtual std::string config() const;
+};
+
+class VectorSpaceModelImpl
+		:public TraceObject<VectorSpaceModelInterface>
+		,public VectorSpaceModelInterface
+		,public VectorSpaceModelConst
+{
+public:
+	VectorSpaceModelImpl( VectorSpaceModelInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelInterface>(obj_,ctx_){}
+	VectorSpaceModelImpl( const VectorSpaceModelInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelInterface>(obj_,ctx_){}
+
+	virtual ~VectorSpaceModelImpl();
+	virtual VectorSpaceModelInstanceInterface* createInstance(
+			const std::string& p1) const;
+	virtual VectorSpaceModelBuilderInterface* createBuilder(
+			const std::string& p1) const;
 };
 
 class WeightingFunctionContextImpl

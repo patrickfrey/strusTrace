@@ -16,6 +16,7 @@
 #include <cerrno>
 
 using namespace strus;
+using namespace std;
 
 TraceLogger_count::TraceLogger_count( const std::string& filename_, const std::string& className_groupBy_, const std::string& methodName_groupBy_, const std::string& className_, const std::string& methodName_, ErrorBufferInterface* errorhnd_)
 	:m_errorhnd(errorhnd_)
@@ -133,15 +134,15 @@ bool TraceLogger_count::close()
 	FileRAII output;
 	if (m_filename == "-" || m_filename == "stdout")
 	{
-		output.file = ::stdout;
+		output.file = stdout;
 	}
 	else if (m_filename == "stderr")
 	{
-		output.file = ::stderr;
+		output.file = stderr;
 	}
 	else
 	{
-		output.file = ::fopen( m_filename.c_str(), "w");
+		output.file = fopen( m_filename.c_str(), "w");
 		if (output.file == 0)
 		{
 			throw strus::runtime_error(_TXT("failed to open file '%s' for writing (errno %u, call trace log '%s')"), m_filename.c_str(), errno, "count");
@@ -154,14 +155,14 @@ bool TraceLogger_count::close()
 	{
 		if (!mi->first && m_counters.size() == 1)
 		{
-			::fprintf( output.file, "%u\n", (unsigned int)m_counters[ mi->second]);
+			fprintf( output.file, "%u\n", (unsigned int)m_counters[ mi->second]);
 		}
 		else
 		{
-			::fprintf( output.file, "%u\t%u\n", (unsigned int)mi->first, (unsigned int)m_counters[ mi->second]);
+			fprintf( output.file, "%u\t%u\n", (unsigned int)mi->first, (unsigned int)m_counters[ mi->second]);
 		}
 	}
-	::fflush( output.file);
+	fflush( output.file);
 	return true;
 }
 

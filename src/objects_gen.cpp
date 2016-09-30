@@ -6214,13 +6214,13 @@ VectorSpaceModelInstanceImpl::~VectorSpaceModelInstanceImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-std::vector<Index> VectorSpaceModelInstanceImpl::mapVectorToFeatures(
+std::vector<unsigned int> VectorSpaceModelInstanceImpl::mapVectorToFeatures(
 			const std::vector<double>& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_mapVectorToFeatures), objid());
-	std::vector<Index> p0 = obj()->mapVectorToFeatures(p1);
+	std::vector<unsigned int> p0 = obj()->mapVectorToFeatures(p1);
 	TraceSerializer parambuf;
-	parambuf.packIndexVector(p0);
+	parambuf.packUintVector(p0);
 	parambuf.packFloatVector(p1);
 	if (parambuf.hasError())
 	{

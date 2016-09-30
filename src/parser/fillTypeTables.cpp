@@ -80,7 +80,16 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "std::vector<Index>")
 		("pack_msg", "parambuf.packIndexVector($name);")
 	;
+	typesystem.defineType( "const std::vector<unsigned int>&")
+		("pack_msg", "parambuf.packUintVector($name);")
+	;
+	typesystem.defineType( "std::vector<unsigned int>")
+		("pack_msg", "parambuf.packUintVector($name);")
+	;
 	typesystem.defineType( "const std::vector<double>&")
+		("pack_msg", "parambuf.packFloatVector($name);")
+	;
+	typesystem.defineType( "std::vector<double>")
 		("pack_msg", "parambuf.packFloatVector($name);")
 	;
 	typesystem.defineType( "const char*")

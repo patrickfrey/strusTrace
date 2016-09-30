@@ -1399,7 +1399,7 @@ public:
 		:TraceObject<VectorSpaceModelInstanceInterface>(obj_,ctx_){}
 
 	virtual ~VectorSpaceModelInstanceImpl();
-	virtual std::vector<Index> mapVectorToFeatures(
+	virtual std::vector<unsigned int> mapVectorToFeatures(
 			const std::vector<double>& p1) const;
 	virtual unsigned int nofFeatures() const;
 	virtual std::string config() const;

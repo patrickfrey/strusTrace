@@ -75,6 +75,7 @@ public:
 	void packString( const std::string& value);
 	void packStringVector( const std::vector<std::string>& ar);
 	void packIndexVector( const std::vector<Index>& ar);
+	void packUintVector( const std::vector<unsigned int>& ar);
 	void packFloatVector( const std::vector<double>& ar);
 	void packCharp( const char* buf);
 	void packCharpp( const char** buf);

@@ -271,7 +271,7 @@ static void insertDocuments(
 
 	std::auto_ptr<strus::StorageTransactionInterface> transaction( storage->createTransaction());
 	if (!transaction.get()) throw std::runtime_error("create insert transaction failed");
-	strus::DocumentClass dclass( "xml", "UTF-8");
+	strus::analyzer::DocumentClass dclass( "xml", "UTF-8");
 
 	std::size_t di = 0;
 	for (; testdocs[di].docid; ++di)

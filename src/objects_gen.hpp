@@ -16,6 +16,9 @@
 #include "strus/aggregatorFunctionInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/attributeReaderInterface.hpp"
+#include "strus/charRegexMatchContextInterface.hpp"
+#include "strus/charRegexMatchInstanceInterface.hpp"
+#include "strus/charRegexMatchInterface.hpp"
 #include "strus/databaseBackupCursorInterface.hpp"
 #include "strus/databaseClientInterface.hpp"
 #include "strus/databaseCursorInterface.hpp"
@@ -33,6 +36,8 @@
 #include "strus/normalizerFunctionContextInterface.hpp"
 #include "strus/normalizerFunctionInstanceInterface.hpp"
 #include "strus/normalizerFunctionInterface.hpp"
+#include "strus/patternMatchProgramInstanceInterface.hpp"
+#include "strus/patternMatchProgramInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
@@ -65,6 +70,11 @@
 #include "strus/tokenizerFunctionContextInterface.hpp"
 #include "strus/tokenizerFunctionInstanceInterface.hpp"
 #include "strus/tokenizerFunctionInterface.hpp"
+#include "strus/tokenMarkupContextInterface.hpp"
+#include "strus/tokenMarkupInstanceInterface.hpp"
+#include "strus/tokenPatternMatchContextInterface.hpp"
+#include "strus/tokenPatternMatchInstanceInterface.hpp"
+#include "strus/tokenPatternMatchInterface.hpp"
 #include "strus/valueIteratorInterface.hpp"
 #include "strus/vectorSpaceModelBuilderInterface.hpp"
 #include "strus/vectorSpaceModelInstanceInterface.hpp"
@@ -129,7 +139,7 @@ public:
 			const std::string& p1) const;
 	virtual DocumentAnalyzerInterface* createDocumentAnalyzer(
 			const SegmenterInterface* p1, 
-			const SegmenterOptions& p2) const;
+			const analyzer::SegmenterOptions& p2) const;
 	virtual QueryAnalyzerInterface* createQueryAnalyzer() const;
 };
 
@@ -152,6 +162,68 @@ public:
 	virtual std::string getValue(
 			const Index& p1) const;
 	virtual std::vector<std::string> getAttributeNames() const;
+};
+
+class CharRegexMatchContextImpl
+		:public TraceObject<CharRegexMatchContextInterface>
+		,public CharRegexMatchContextInterface
+		,public CharRegexMatchContextConst
+{
+public:
+	CharRegexMatchContextImpl( CharRegexMatchContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<CharRegexMatchContextInterface>(obj_,ctx_){}
+	CharRegexMatchContextImpl( const CharRegexMatchContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<CharRegexMatchContextInterface>(obj_,ctx_){}
+
+	virtual ~CharRegexMatchContextImpl();
+	virtual std::vector<analyzer::IdToken> match(
+			const char* src, std::size_t p1);
+};
+
+class CharRegexMatchInstanceImpl
+		:public TraceObject<CharRegexMatchInstanceInterface>
+		,public CharRegexMatchInstanceInterface
+		,public CharRegexMatchInstanceConst
+{
+public:
+	CharRegexMatchInstanceImpl( CharRegexMatchInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<CharRegexMatchInstanceInterface>(obj_,ctx_){}
+	CharRegexMatchInstanceImpl( const CharRegexMatchInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<CharRegexMatchInstanceInterface>(obj_,ctx_){}
+
+	virtual ~CharRegexMatchInstanceImpl();
+	virtual void definePattern(
+			unsigned int p1, 
+			const std::string& p2, 
+			unsigned int p3, 
+			unsigned int p4, 
+			analyzer::PositionBind p5);
+	virtual void defineSymbol(
+			unsigned int p1, 
+			unsigned int p2, 
+			const std::string& p3);
+	virtual unsigned int getSymbol(
+			unsigned int p1, 
+			const std::string& p2) const;
+	virtual bool compile(
+			const analyzer::CharRegexMatchOptions& p1);
+	virtual CharRegexMatchContextInterface* createContext() const;
+};
+
+class CharRegexMatchImpl
+		:public TraceObject<CharRegexMatchInterface>
+		,public CharRegexMatchInterface
+		,public CharRegexMatchConst
+{
+public:
+	CharRegexMatchImpl( CharRegexMatchInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<CharRegexMatchInterface>(obj_,ctx_){}
+	CharRegexMatchImpl( const CharRegexMatchInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<CharRegexMatchInterface>(obj_,ctx_){}
+
+	virtual ~CharRegexMatchImpl();
+	virtual std::vector<std::string> getCompileOptions() const;
+	virtual CharRegexMatchInstanceInterface* createInstance() const;
 };
 
 class DatabaseBackupCursorImpl
@@ -341,9 +413,9 @@ public:
 			const std::string& p2);
 	virtual analyzer::Document analyze(
 			const std::string& p1, 
-			const DocumentClass& p2) const;
+			const analyzer::DocumentClass& p2) const;
 	virtual DocumentAnalyzerContextInterface* createContext(
-			const DocumentClass& p1) const;
+			const analyzer::DocumentClass& p1) const;
 };
 
 class DocumentClassDetectorImpl
@@ -359,7 +431,7 @@ public:
 
 	virtual ~DocumentClassDetectorImpl();
 	virtual bool detect(
-			DocumentClass& p1, 
+			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2) const;
 };
 
@@ -531,6 +603,42 @@ public:
 			const std::vector<std::string>& p1, 
 			const TextProcessorInterface* p2) const;
 	virtual const char* getDescription() const;
+};
+
+class PatternMatchProgramInstanceImpl
+		:public TraceObject<PatternMatchProgramInstanceInterface>
+		,public PatternMatchProgramInstanceInterface
+		,public PatternMatchProgramInstanceConst
+{
+public:
+	PatternMatchProgramInstanceImpl( PatternMatchProgramInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatchProgramInstanceInterface>(obj_,ctx_){}
+	PatternMatchProgramInstanceImpl( const PatternMatchProgramInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatchProgramInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PatternMatchProgramInstanceImpl();
+	virtual bool load(
+			const std::string& p1);
+	virtual bool compile();
+	virtual const CharRegexMatchInstanceInterface* getCharRegexMatchInstance() const;
+	virtual const TokenPatternMatchInstanceInterface* getTokenPatternMatchInstance() const;
+	virtual const char* tokenName(
+			unsigned int p1) const;
+};
+
+class PatternMatchProgramImpl
+		:public TraceObject<PatternMatchProgramInterface>
+		,public PatternMatchProgramInterface
+		,public PatternMatchProgramConst
+{
+public:
+	PatternMatchProgramImpl( PatternMatchProgramInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatchProgramInterface>(obj_,ctx_){}
+	PatternMatchProgramImpl( const PatternMatchProgramInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatchProgramInterface>(obj_,ctx_){}
+
+	virtual ~PatternMatchProgramImpl();
+	virtual PatternMatchProgramInstanceInterface* createInstance() const;
 };
 
 class PostingIteratorImpl
@@ -823,9 +931,9 @@ public:
 			int p2, 
 			const std::string& p3);
 	virtual SegmenterContextInterface* createContext(
-			const DocumentClass& p1) const;
+			const analyzer::DocumentClass& p1) const;
 	virtual SegmenterMarkupContextInterface* createMarkupContext(
-			const DocumentClass& p1, 
+			const analyzer::DocumentClass& p1, 
 			const std::string& p2) const;
 };
 
@@ -843,7 +951,7 @@ public:
 	virtual ~SegmenterImpl();
 	virtual const char* mimeType() const;
 	virtual SegmenterInstanceInterface* createInstance(
-			const SegmenterOptions& p1) const;
+			const analyzer::SegmenterOptions& p1) const;
 };
 
 class SegmenterMarkupContextImpl
@@ -1284,7 +1392,7 @@ public:
 	virtual const AggregatorFunctionInterface* getAggregator(
 			const std::string& p1) const;
 	virtual bool detectDocumentClass(
-			DocumentClass& p1, 
+			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2) const;
 	virtual void defineDocumentClassDetector(
 			DocumentClassDetectorInterface* p1);
@@ -1349,6 +1457,115 @@ public:
 			const std::vector<std::string>& p1, 
 			const TextProcessorInterface* p2) const;
 	virtual const char* getDescription() const;
+};
+
+class TokenMarkupContextImpl
+		:public TraceObject<TokenMarkupContextInterface>
+		,public TokenMarkupContextInterface
+		,public TokenMarkupContextConst
+{
+public:
+	TokenMarkupContextImpl( TokenMarkupContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenMarkupContextInterface>(obj_,ctx_){}
+	TokenMarkupContextImpl( const TokenMarkupContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenMarkupContextInterface>(obj_,ctx_){}
+
+	virtual ~TokenMarkupContextImpl();
+	virtual void putMarkup(
+			const SegmenterPosition& p1, 
+			std::size_t p2, 
+			const SegmenterPosition& p3, 
+			std::size_t p4, 
+			const analyzer::TokenMarkup& p5, 
+			unsigned int p6);
+	virtual std::string markupDocument(
+			const SegmenterInstanceInterface* p1, 
+			const analyzer::DocumentClass& p2, 
+			const std::string& p3) const;
+};
+
+class TokenMarkupInstanceImpl
+		:public TraceObject<TokenMarkupInstanceInterface>
+		,public TokenMarkupInstanceInterface
+		,public TokenMarkupInstanceConst
+{
+public:
+	TokenMarkupInstanceImpl( TokenMarkupInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenMarkupInstanceInterface>(obj_,ctx_){}
+	TokenMarkupInstanceImpl( const TokenMarkupInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenMarkupInstanceInterface>(obj_,ctx_){}
+
+	virtual ~TokenMarkupInstanceImpl();
+	virtual TokenMarkupContextInterface* createContext() const;
+};
+
+class TokenPatternMatchContextImpl
+		:public TraceObject<TokenPatternMatchContextInterface>
+		,public TokenPatternMatchContextInterface
+		,public TokenPatternMatchContextConst
+{
+public:
+	TokenPatternMatchContextImpl( TokenPatternMatchContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenPatternMatchContextInterface>(obj_,ctx_){}
+	TokenPatternMatchContextImpl( const TokenPatternMatchContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenPatternMatchContextInterface>(obj_,ctx_){}
+
+	virtual ~TokenPatternMatchContextImpl();
+	virtual void putInput(
+			const analyzer::IdToken& p1);
+	virtual std::vector<analyzer::TokenPatternMatchResult> fetchResults() const;
+	virtual analyzer::TokenPatternMatchStatistics getStatistics() const;
+};
+
+class TokenPatternMatchInstanceImpl
+		:public TraceObject<TokenPatternMatchInstanceInterface>
+		,public TokenPatternMatchInstanceInterface
+		,public TokenPatternMatchInstanceConst
+{
+public:
+	TokenPatternMatchInstanceImpl( TokenPatternMatchInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenPatternMatchInstanceInterface>(obj_,ctx_){}
+	TokenPatternMatchInstanceImpl( const TokenPatternMatchInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenPatternMatchInstanceInterface>(obj_,ctx_){}
+
+	virtual ~TokenPatternMatchInstanceImpl();
+	virtual void defineTermFrequency(
+			unsigned int p1, 
+			double p2);
+	virtual void pushTerm(
+			unsigned int p1);
+	virtual void pushExpression(
+			JoinOperation p1, 
+			std::size_t p2, 
+			unsigned int p3, 
+			unsigned int p4);
+	virtual void pushPattern(
+			const std::string& p1);
+	virtual void attachVariable(
+			const std::string& p1, 
+			float p2);
+	virtual void definePattern(
+			const std::string& p1, 
+			bool p2);
+	virtual bool compile(
+			const analyzer::TokenPatternMatchOptions& p1);
+	virtual TokenPatternMatchContextInterface* createContext() const;
+};
+
+class TokenPatternMatchImpl
+		:public TraceObject<TokenPatternMatchInterface>
+		,public TokenPatternMatchInterface
+		,public TokenPatternMatchConst
+{
+public:
+	TokenPatternMatchImpl( TokenPatternMatchInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenPatternMatchInterface>(obj_,ctx_){}
+	TokenPatternMatchImpl( const TokenPatternMatchInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenPatternMatchInterface>(obj_,ctx_){}
+
+	virtual ~TokenPatternMatchImpl();
+	virtual std::vector<std::string> getCompileOptions() const;
+	virtual TokenPatternMatchInstanceInterface* createInstance() const;
 };
 
 class ValueIteratorImpl

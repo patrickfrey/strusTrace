@@ -29,8 +29,8 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("test_null", "$name < 0")
 		("pack_msg", "parambuf.packIndex($name);")
 	;
-	typesystem.defineType( "const SegmenterOptions&")
-		("pack_msg", "parambuf.packSegmenterOptions($name);")
+	typesystem.defineType( "const analyzer::SegmenterOptions&")
+		("pack_msg", "parambuf.packAnalyzerSegmenterOptions($name);")
 	;
 	typesystem.defineType( "const SegmenterPosition&")
 		("pack_msg", "parambuf.packGlobalCounter($name);")
@@ -121,11 +121,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("test_null", "!$name.defined()")
 		("pack_msg", "parambuf.packNumericVariant($name);")
 	;
-	typesystem.defineType( "const DocumentClass&")
-		("pack_msg", "parambuf.packDocumentClass($name);")
+	typesystem.defineType( "const analyzer::DocumentClass&")
+		("pack_msg", "parambuf.packAnalyzerDocumentClass($name);")
 	;
-	typesystem.defineType( "DocumentClass&")
-		("pack_msg", "parambuf.packDocumentClass($name);")
+	typesystem.defineType( "analyzer::DocumentClass&")
+		("pack_msg", "parambuf.packAnalyzerDocumentClass($name);")
 	;
 	typesystem.defineType( "const TermStatistics&")
 		("pack_msg", "parambuf.packTermStatistics($name);")
@@ -200,8 +200,38 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const analyzer::Token&")
 		("pack_msg", "parambuf.packAnalyzerToken($name);")
 	;
+	typesystem.defineType( "const analyzer::IdToken&")
+		("pack_msg", "parambuf.packAnalyzerIdToken($name);")
+	;
 	typesystem.defineType( "std::vector<analyzer::Token>")
 		("pack_msg", "parambuf.packAnalyzerTokenVector($name);")
+	;
+	typesystem.defineType( "std::vector<analyzer::IdToken>")
+		("pack_msg", "parambuf.packAnalyzerIdTokenVector($name);")
+	;
+	typesystem.defineType( "analyzer::PositionBind")
+		("pack_msg", "parambuf.packAnalyzerPositionBind($name);")
+	;
+	typesystem.defineType( "const analyzer::CharRegexMatchOptions&")
+		("pack_msg", "parambuf.packAnalyzerCharRegexMatchOptions($name);")
+	;
+	typesystem.defineType( "const analyzer::TokenPatternMatchOptions&")
+		("pack_msg", "parambuf.packAnalyzerTokenPatternMatchOptions($name);")
+	;
+	typesystem.defineType( "const analyzer::TokenMarkup&")
+		("pack_msg", "parambuf.packAnalyzerTokenMarkup($name);")
+	;
+	typesystem.defineType( "std::vector<analyzer::TokenPatternMatchResult>")
+		("pack_msg", "parambuf.packAnalyzerTokenPatternMatchResultVector($name);")
+	;
+	typesystem.defineType( "analyzer::TokenPatternMatchStatistics")
+		("pack_msg", "parambuf.packAnalyzerTokenPatternMatchStatistics($name);")
+	;
+	typesystem.defineType( "TokenPatternMatchInstanceInterface::JoinOperation")
+		("pack_msg", "parambuf.packTokenPatternMatchJoinOperation($name);")
+	;
+	typesystem.defineType( "JoinOperation")
+		("pack_msg", "parambuf.packTokenPatternMatchJoinOperation($name);")
 	;
 	typesystem.defineType( "const WeightedDocument&")
 		("pack_msg", "parambuf.packWeightedDocument($name);")

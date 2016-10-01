@@ -18,62 +18,72 @@ enum ClassId
 	ClassId_AggregatorFunction=2,
 	ClassId_AnalyzerObjectBuilder=3,
 	ClassId_AttributeReader=4,
-	ClassId_DatabaseBackupCursor=5,
-	ClassId_DatabaseClient=6,
-	ClassId_DatabaseCursor=7,
-	ClassId_Database=8,
-	ClassId_DatabaseTransaction=9,
-	ClassId_DocumentAnalyzerContext=10,
-	ClassId_DocumentAnalyzer=11,
-	ClassId_DocumentClassDetector=12,
-	ClassId_DocumentTermIterator=13,
-	ClassId_ForwardIterator=14,
-	ClassId_InvAclIterator=15,
-	ClassId_MetaDataReader=16,
-	ClassId_MetaDataRestrictionInstance=17,
-	ClassId_MetaDataRestriction=18,
-	ClassId_NormalizerFunctionContext=19,
-	ClassId_NormalizerFunctionInstance=20,
-	ClassId_NormalizerFunction=21,
-	ClassId_PostingIterator=22,
-	ClassId_PostingJoinOperator=23,
-	ClassId_QueryAnalyzer=24,
-	ClassId_QueryEval=25,
-	ClassId_Query=26,
-	ClassId_QueryProcessor=27,
-	ClassId_ScalarFunctionInstance=28,
-	ClassId_ScalarFunction=29,
-	ClassId_ScalarFunctionParser=30,
-	ClassId_SegmenterContext=31,
-	ClassId_SegmenterInstance=32,
-	ClassId_Segmenter=33,
-	ClassId_SegmenterMarkupContext=34,
-	ClassId_StatisticsBuilder=35,
-	ClassId_StatisticsIterator=36,
-	ClassId_StatisticsProcessor=37,
-	ClassId_StatisticsViewer=38,
-	ClassId_StorageAlterMetaDataTable=39,
-	ClassId_StorageClient=40,
-	ClassId_StorageDocument=41,
-	ClassId_StorageDocumentUpdate=42,
-	ClassId_StorageDump=43,
-	ClassId_Storage=44,
-	ClassId_StorageObjectBuilder=45,
-	ClassId_StorageTransaction=46,
-	ClassId_SummarizerFunctionContext=47,
-	ClassId_SummarizerFunctionInstance=48,
-	ClassId_SummarizerFunction=49,
-	ClassId_TextProcessor=50,
-	ClassId_TokenizerFunctionContext=51,
-	ClassId_TokenizerFunctionInstance=52,
-	ClassId_TokenizerFunction=53,
-	ClassId_ValueIterator=54,
-	ClassId_VectorSpaceModelBuilder=55,
-	ClassId_VectorSpaceModelInstance=56,
-	ClassId_VectorSpaceModel=57,
-	ClassId_WeightingFunctionContext=58,
-	ClassId_WeightingFunctionInstance=59,
-	ClassId_WeightingFunction=60
+	ClassId_CharRegexMatchContext=5,
+	ClassId_CharRegexMatchInstance=6,
+	ClassId_CharRegexMatch=7,
+	ClassId_DatabaseBackupCursor=8,
+	ClassId_DatabaseClient=9,
+	ClassId_DatabaseCursor=10,
+	ClassId_Database=11,
+	ClassId_DatabaseTransaction=12,
+	ClassId_DocumentAnalyzerContext=13,
+	ClassId_DocumentAnalyzer=14,
+	ClassId_DocumentClassDetector=15,
+	ClassId_DocumentTermIterator=16,
+	ClassId_ForwardIterator=17,
+	ClassId_InvAclIterator=18,
+	ClassId_MetaDataReader=19,
+	ClassId_MetaDataRestrictionInstance=20,
+	ClassId_MetaDataRestriction=21,
+	ClassId_NormalizerFunctionContext=22,
+	ClassId_NormalizerFunctionInstance=23,
+	ClassId_NormalizerFunction=24,
+	ClassId_PatternMatchProgramInstance=25,
+	ClassId_PatternMatchProgram=26,
+	ClassId_PostingIterator=27,
+	ClassId_PostingJoinOperator=28,
+	ClassId_QueryAnalyzer=29,
+	ClassId_QueryEval=30,
+	ClassId_Query=31,
+	ClassId_QueryProcessor=32,
+	ClassId_ScalarFunctionInstance=33,
+	ClassId_ScalarFunction=34,
+	ClassId_ScalarFunctionParser=35,
+	ClassId_SegmenterContext=36,
+	ClassId_SegmenterInstance=37,
+	ClassId_Segmenter=38,
+	ClassId_SegmenterMarkupContext=39,
+	ClassId_StatisticsBuilder=40,
+	ClassId_StatisticsIterator=41,
+	ClassId_StatisticsProcessor=42,
+	ClassId_StatisticsViewer=43,
+	ClassId_StorageAlterMetaDataTable=44,
+	ClassId_StorageClient=45,
+	ClassId_StorageDocument=46,
+	ClassId_StorageDocumentUpdate=47,
+	ClassId_StorageDump=48,
+	ClassId_Storage=49,
+	ClassId_StorageObjectBuilder=50,
+	ClassId_StorageTransaction=51,
+	ClassId_SummarizerFunctionContext=52,
+	ClassId_SummarizerFunctionInstance=53,
+	ClassId_SummarizerFunction=54,
+	ClassId_TextProcessor=55,
+	ClassId_TokenizerFunctionContext=56,
+	ClassId_TokenizerFunctionInstance=57,
+	ClassId_TokenizerFunction=58,
+	ClassId_TokenMarkupContext=59,
+	ClassId_TokenMarkupInstance=60,
+	ClassId_TokenPatternMatchContext=61,
+	ClassId_TokenPatternMatchInstance=62,
+	ClassId_TokenPatternMatch=63,
+	ClassId_ValueIterator=64,
+	ClassId_VectorSpaceModelBuilder=65,
+	ClassId_VectorSpaceModelInstance=66,
+	ClassId_VectorSpaceModel=67,
+	ClassId_WeightingFunctionContext=68,
+	ClassId_WeightingFunctionInstance=69,
+	ClassId_WeightingFunction=70
 };
 
 struct TraceClassNameMap
@@ -129,6 +139,44 @@ public:
 		Method_skipDoc=2,
 		Method_getValue=3,
 		Method_getAttributeNames=4
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class CharRegexMatchContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_match=1
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class CharRegexMatchInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_definePattern=1,
+		Method_defineSymbol=2,
+		Method_getSymbol=3,
+		Method_compile=4,
+		Method_createContext=5
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class CharRegexMatchConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_getCompileOptions=1,
+		Method_createInstance=2
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -361,6 +409,32 @@ public:
 		Method_Destructor=0,
 		Method_createInstance=1,
 		Method_getDescription=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternMatchProgramInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_load=1,
+		Method_compile=2,
+		Method_getCharRegexMatchInstance=3,
+		Method_getTokenPatternMatchInstance=4,
+		Method_tokenName=5
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternMatchProgramConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createInstance=1
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -847,6 +921,72 @@ public:
 		Method_Destructor=0,
 		Method_createInstance=1,
 		Method_getDescription=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class TokenMarkupContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_putMarkup=1,
+		Method_markupDocument=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class TokenMarkupInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createContext=1
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class TokenPatternMatchContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_putInput=1,
+		Method_fetchResults=2,
+		Method_getStatistics=3
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class TokenPatternMatchInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_defineTermFrequency=1,
+		Method_pushTerm=2,
+		Method_pushExpression=3,
+		Method_pushPattern=4,
+		Method_attachVariable=5,
+		Method_definePattern=6,
+		Method_compile=7,
+		Method_createContext=8
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class TokenPatternMatchConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_getCompileOptions=1,
+		Method_createInstance=2
 	};
 	static const char* methodName( MethodId mid);
 };

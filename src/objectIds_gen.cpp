@@ -19,6 +19,9 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"AggregatorFunction",
 		"AnalyzerObjectBuilder",
 		"AttributeReader",
+		"CharRegexMatchContext",
+		"CharRegexMatchInstance",
+		"CharRegexMatch",
 		"DatabaseBackupCursor",
 		"DatabaseClient",
 		"DatabaseCursor",
@@ -36,6 +39,8 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"NormalizerFunctionContext",
 		"NormalizerFunctionInstance",
 		"NormalizerFunction",
+		"PatternMatchProgramInstance",
+		"PatternMatchProgram",
 		"PostingIterator",
 		"PostingJoinOperator",
 		"QueryAnalyzer",
@@ -68,6 +73,11 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"TokenizerFunctionContext",
 		"TokenizerFunctionInstance",
 		"TokenizerFunction",
+		"TokenMarkupContext",
+		"TokenMarkupInstance",
+		"TokenPatternMatchContext",
+		"TokenPatternMatchInstance",
+		"TokenPatternMatch",
 		"ValueIterator",
 		"VectorSpaceModelBuilder",
 		"VectorSpaceModelInstance",
@@ -101,6 +111,24 @@ const char* AnalyzerObjectBuilderConst::methodName( MethodId mid)
 const char* AttributeReaderConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "elementHandle", "skipDoc", "getValue", "getAttributeNames"};
+	return ar[mid];
+}
+
+const char* CharRegexMatchContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "match"};
+	return ar[mid];
+}
+
+const char* CharRegexMatchInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "definePattern", "defineSymbol", "getSymbol", "compile", "createContext"};
+	return ar[mid];
+}
+
+const char* CharRegexMatchConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "getCompileOptions", "createInstance"};
 	return ar[mid];
 }
 
@@ -203,6 +231,18 @@ const char* NormalizerFunctionInstanceConst::methodName( MethodId mid)
 const char* NormalizerFunctionConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "createInstance", "getDescription"};
+	return ar[mid];
+}
+
+const char* PatternMatchProgramInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "load", "compile", "getCharRegexMatchInstance", "getTokenPatternMatchInstance", "tokenName"};
+	return ar[mid];
+}
+
+const char* PatternMatchProgramConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createInstance"};
 	return ar[mid];
 }
 
@@ -395,6 +435,36 @@ const char* TokenizerFunctionInstanceConst::methodName( MethodId mid)
 const char* TokenizerFunctionConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "createInstance", "getDescription"};
+	return ar[mid];
+}
+
+const char* TokenMarkupContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "putMarkup", "markupDocument"};
+	return ar[mid];
+}
+
+const char* TokenMarkupInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createContext"};
+	return ar[mid];
+}
+
+const char* TokenPatternMatchContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "putInput", "fetchResults", "getStatistics"};
+	return ar[mid];
+}
+
+const char* TokenPatternMatchInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "defineTermFrequency", "pushTerm", "pushExpression", "pushPattern", "attachVariable", "definePattern", "compile", "createContext"};
+	return ar[mid];
+}
+
+const char* TokenPatternMatchConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "getCompileOptions", "createInstance"};
 	return ar[mid];
 }
 

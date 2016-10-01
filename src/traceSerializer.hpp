@@ -12,7 +12,7 @@
 #include "strus/traceElement.hpp"
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/numericVariant.hpp"
-#include "strus/documentClass.hpp"
+#include "strus/analyzer/documentClass.hpp"
 #include "strus/termStatistics.hpp"
 #include "strus/globalStatistics.hpp"
 #include "strus/metaDataRestrictionInterface.hpp"
@@ -31,9 +31,23 @@
 #include "strus/queryProcessorInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
 #include "strus/segmenterInterface.hpp"
+#include "strus/tokenPatternMatchContextInterface.hpp"
+#include "strus/tokenPatternMatchInstanceInterface.hpp"
+#include "strus/tokenPatternMatchInterface.hpp"
+#include "strus/charRegexMatchContextInterface.hpp"
+#include "strus/charRegexMatchInstanceInterface.hpp"
+#include "strus/charRegexMatchInterface.hpp"
 #include "strus/documentAnalyzerInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
 #include "strus/analyzer/token.hpp"
+#include "strus/analyzer/idToken.hpp"
+#include "strus/analyzer/tokenMarkup.hpp"
+#include "strus/analyzer/tokenPatternMatchStatistics.hpp"
+#include "strus/analyzer/charRegexMatchOptions.hpp"
+#include "strus/analyzer/positionBind.hpp"
+#include "strus/analyzer/tokenPatternMatchOptions.hpp"
+#include "strus/analyzer/term.hpp"
+#include "strus/analyzer/tokenPatternMatchResult.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include <string>
@@ -88,8 +102,8 @@ public:
 	void packBufferFloat( const double* buf, std::size_t size);
 	void packNumericVariant( const NumericVariant& val);
 
-	void packSegmenterOptions( const SegmenterOptions& val);
-	void packDocumentClass( const DocumentClass& prop);
+	void packAnalyzerSegmenterOptions( const analyzer::SegmenterOptions& val);
+	void packAnalyzerDocumentClass( const analyzer::DocumentClass& prop);
 	void packTermStatistics( const TermStatistics& stats);
 	void packGlobalStatistics( const GlobalStatistics& stats);
 	void packMetaDataRestrictionCompareOperator( MetaDataRestrictionInterface::CompareOperator val);
@@ -112,6 +126,16 @@ public:
 	void packAnalyzerTermVectorVector( const std::vector<analyzer::TermVector>& val);
 	void packAnalyzerToken( const analyzer::Token& val);
 	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
+	void packAnalyzerIdToken( const analyzer::IdToken& val);
+	void packAnalyzerIdTokenVector( const std::vector<analyzer::IdToken>& val);
+	void packAnalyzerPositionBind( const analyzer::PositionBind& posbind);
+	void packAnalyzerCharRegexMatchOptions( const analyzer::CharRegexMatchOptions& val);
+	void packAnalyzerTokenPatternMatchOptions( const analyzer::TokenPatternMatchOptions& val);
+	void packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val);
+	void packAnalyzerTokenPatternMatchResult( const analyzer::TokenPatternMatchResult& val);
+	void packAnalyzerTokenPatternMatchResultVector( const std::vector<analyzer::TokenPatternMatchResult>& val);
+	void packAnalyzerTokenPatternMatchStatistics( const analyzer::TokenPatternMatchStatistics& val);
+	void packTokenPatternMatchJoinOperation( const TokenPatternMatchInstanceInterface::JoinOperation& val);
 	void packWeightedDocument( const WeightedDocument& val);
 	void packResultDocument( const ResultDocument& val);
 	void packQueryResult( const QueryResult& val);

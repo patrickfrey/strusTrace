@@ -200,38 +200,38 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const analyzer::Token&")
 		("pack_msg", "parambuf.packAnalyzerToken($name);")
 	;
-	typesystem.defineType( "const analyzer::IdToken&")
-		("pack_msg", "parambuf.packAnalyzerIdToken($name);")
+	typesystem.defineType( "const analyzer::PatternLexem&")
+		("pack_msg", "parambuf.packAnalyzerPatternLexem($name);")
 	;
 	typesystem.defineType( "std::vector<analyzer::Token>")
 		("pack_msg", "parambuf.packAnalyzerTokenVector($name);")
 	;
-	typesystem.defineType( "std::vector<analyzer::IdToken>")
-		("pack_msg", "parambuf.packAnalyzerIdTokenVector($name);")
+	typesystem.defineType( "std::vector<analyzer::PatternLexem>")
+		("pack_msg", "parambuf.packAnalyzerPatternLexemVector($name);")
 	;
 	typesystem.defineType( "analyzer::PositionBind")
 		("pack_msg", "parambuf.packAnalyzerPositionBind($name);")
 	;
-	typesystem.defineType( "const analyzer::CharRegexMatchOptions&")
-		("pack_msg", "parambuf.packAnalyzerCharRegexMatchOptions($name);")
+	typesystem.defineType( "const analyzer::PatternLexerOptions&")
+		("pack_msg", "parambuf.packAnalyzerPatternLexerOptions($name);")
 	;
-	typesystem.defineType( "const analyzer::TokenPatternMatchOptions&")
-		("pack_msg", "parambuf.packAnalyzerTokenPatternMatchOptions($name);")
+	typesystem.defineType( "const analyzer::PatternMatcherOptions&")
+		("pack_msg", "parambuf.packAnalyzerPatternMatcherOptions($name);")
 	;
 	typesystem.defineType( "const analyzer::TokenMarkup&")
 		("pack_msg", "parambuf.packAnalyzerTokenMarkup($name);")
 	;
-	typesystem.defineType( "std::vector<analyzer::TokenPatternMatchResult>")
-		("pack_msg", "parambuf.packAnalyzerTokenPatternMatchResultVector($name);")
+	typesystem.defineType( "std::vector<analyzer::PatternMatcherResult>")
+		("pack_msg", "parambuf.packAnalyzerPatternMatcherResultVector($name);")
 	;
-	typesystem.defineType( "analyzer::TokenPatternMatchStatistics")
-		("pack_msg", "parambuf.packAnalyzerTokenPatternMatchStatistics($name);")
+	typesystem.defineType( "analyzer::PatternMatcherStatistics")
+		("pack_msg", "parambuf.packAnalyzerPatternMatcherStatistics($name);")
 	;
-	typesystem.defineType( "TokenPatternMatchInstanceInterface::JoinOperation")
-		("pack_msg", "parambuf.packTokenPatternMatchJoinOperation($name);")
+	typesystem.defineType( "PatternMatcherInstanceInterface::JoinOperation")
+		("pack_msg", "parambuf.packPatternMatcherJoinOperation($name);")
 	;
 	typesystem.defineType( "JoinOperation")
-		("pack_msg", "parambuf.packTokenPatternMatchJoinOperation($name);")
+		("pack_msg", "parambuf.packPatternMatcherJoinOperation($name);")
 	;
 	typesystem.defineType( "const WeightedDocument&")
 		("pack_msg", "parambuf.packWeightedDocument($name);")

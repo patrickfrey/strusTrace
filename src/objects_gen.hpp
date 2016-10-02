@@ -16,9 +16,6 @@
 #include "strus/aggregatorFunctionInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/attributeReaderInterface.hpp"
-#include "strus/charRegexMatchContextInterface.hpp"
-#include "strus/charRegexMatchInstanceInterface.hpp"
-#include "strus/charRegexMatchInterface.hpp"
 #include "strus/databaseBackupCursorInterface.hpp"
 #include "strus/databaseClientInterface.hpp"
 #include "strus/databaseCursorInterface.hpp"
@@ -36,8 +33,14 @@
 #include "strus/normalizerFunctionContextInterface.hpp"
 #include "strus/normalizerFunctionInstanceInterface.hpp"
 #include "strus/normalizerFunctionInterface.hpp"
-#include "strus/patternMatchProgramInstanceInterface.hpp"
-#include "strus/patternMatchProgramInterface.hpp"
+#include "strus/patternLexerContextInterface.hpp"
+#include "strus/patternLexerInstanceInterface.hpp"
+#include "strus/patternLexerInterface.hpp"
+#include "strus/patternMatcherContextInterface.hpp"
+#include "strus/patternMatcherInstanceInterface.hpp"
+#include "strus/patternMatcherInterface.hpp"
+#include "strus/patternMatcherProgramInstanceInterface.hpp"
+#include "strus/patternMatcherProgramInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
@@ -72,9 +75,6 @@
 #include "strus/tokenizerFunctionInterface.hpp"
 #include "strus/tokenMarkupContextInterface.hpp"
 #include "strus/tokenMarkupInstanceInterface.hpp"
-#include "strus/tokenPatternMatchContextInterface.hpp"
-#include "strus/tokenPatternMatchInstanceInterface.hpp"
-#include "strus/tokenPatternMatchInterface.hpp"
 #include "strus/valueIteratorInterface.hpp"
 #include "strus/vectorSpaceModelBuilderInterface.hpp"
 #include "strus/vectorSpaceModelInstanceInterface.hpp"
@@ -162,68 +162,6 @@ public:
 	virtual std::string getValue(
 			const Index& p1) const;
 	virtual std::vector<std::string> getAttributeNames() const;
-};
-
-class CharRegexMatchContextImpl
-		:public TraceObject<CharRegexMatchContextInterface>
-		,public CharRegexMatchContextInterface
-		,public CharRegexMatchContextConst
-{
-public:
-	CharRegexMatchContextImpl( CharRegexMatchContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<CharRegexMatchContextInterface>(obj_,ctx_){}
-	CharRegexMatchContextImpl( const CharRegexMatchContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<CharRegexMatchContextInterface>(obj_,ctx_){}
-
-	virtual ~CharRegexMatchContextImpl();
-	virtual std::vector<analyzer::IdToken> match(
-			const char* src, std::size_t p1);
-};
-
-class CharRegexMatchInstanceImpl
-		:public TraceObject<CharRegexMatchInstanceInterface>
-		,public CharRegexMatchInstanceInterface
-		,public CharRegexMatchInstanceConst
-{
-public:
-	CharRegexMatchInstanceImpl( CharRegexMatchInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<CharRegexMatchInstanceInterface>(obj_,ctx_){}
-	CharRegexMatchInstanceImpl( const CharRegexMatchInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<CharRegexMatchInstanceInterface>(obj_,ctx_){}
-
-	virtual ~CharRegexMatchInstanceImpl();
-	virtual void definePattern(
-			unsigned int p1, 
-			const std::string& p2, 
-			unsigned int p3, 
-			unsigned int p4, 
-			analyzer::PositionBind p5);
-	virtual void defineSymbol(
-			unsigned int p1, 
-			unsigned int p2, 
-			const std::string& p3);
-	virtual unsigned int getSymbol(
-			unsigned int p1, 
-			const std::string& p2) const;
-	virtual bool compile(
-			const analyzer::CharRegexMatchOptions& p1);
-	virtual CharRegexMatchContextInterface* createContext() const;
-};
-
-class CharRegexMatchImpl
-		:public TraceObject<CharRegexMatchInterface>
-		,public CharRegexMatchInterface
-		,public CharRegexMatchConst
-{
-public:
-	CharRegexMatchImpl( CharRegexMatchInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<CharRegexMatchInterface>(obj_,ctx_){}
-	CharRegexMatchImpl( const CharRegexMatchInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<CharRegexMatchInterface>(obj_,ctx_){}
-
-	virtual ~CharRegexMatchImpl();
-	virtual std::vector<std::string> getCompileOptions() const;
-	virtual CharRegexMatchInstanceInterface* createInstance() const;
 };
 
 class DatabaseBackupCursorImpl
@@ -605,40 +543,171 @@ public:
 	virtual const char* getDescription() const;
 };
 
-class PatternMatchProgramInstanceImpl
-		:public TraceObject<PatternMatchProgramInstanceInterface>
-		,public PatternMatchProgramInstanceInterface
-		,public PatternMatchProgramInstanceConst
+class PatternLexerContextImpl
+		:public TraceObject<PatternLexerContextInterface>
+		,public PatternLexerContextInterface
+		,public PatternLexerContextConst
 {
 public:
-	PatternMatchProgramInstanceImpl( PatternMatchProgramInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<PatternMatchProgramInstanceInterface>(obj_,ctx_){}
-	PatternMatchProgramInstanceImpl( const PatternMatchProgramInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<PatternMatchProgramInstanceInterface>(obj_,ctx_){}
+	PatternLexerContextImpl( PatternLexerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerContextInterface>(obj_,ctx_){}
+	PatternLexerContextImpl( const PatternLexerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerContextInterface>(obj_,ctx_){}
 
-	virtual ~PatternMatchProgramInstanceImpl();
+	virtual ~PatternLexerContextImpl();
+	virtual std::vector<analyzer::PatternLexem> match(
+			const char* src, std::size_t p1);
+};
+
+class PatternLexerInstanceImpl
+		:public TraceObject<PatternLexerInstanceInterface>
+		,public PatternLexerInstanceInterface
+		,public PatternLexerInstanceConst
+{
+public:
+	PatternLexerInstanceImpl( PatternLexerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerInstanceInterface>(obj_,ctx_){}
+	PatternLexerInstanceImpl( const PatternLexerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PatternLexerInstanceImpl();
+	virtual void definePattern(
+			unsigned int p1, 
+			const std::string& p2, 
+			unsigned int p3, 
+			unsigned int p4, 
+			analyzer::PositionBind p5);
+	virtual void defineSymbol(
+			unsigned int p1, 
+			unsigned int p2, 
+			const std::string& p3);
+	virtual unsigned int getSymbol(
+			unsigned int p1, 
+			const std::string& p2) const;
+	virtual bool compile(
+			const analyzer::PatternLexerOptions& p1);
+	virtual PatternLexerContextInterface* createContext() const;
+};
+
+class PatternLexerImpl
+		:public TraceObject<PatternLexerInterface>
+		,public PatternLexerInterface
+		,public PatternLexerConst
+{
+public:
+	PatternLexerImpl( PatternLexerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerInterface>(obj_,ctx_){}
+	PatternLexerImpl( const PatternLexerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerInterface>(obj_,ctx_){}
+
+	virtual ~PatternLexerImpl();
+	virtual std::vector<std::string> getCompileOptions() const;
+	virtual PatternLexerInstanceInterface* createInstance() const;
+};
+
+class PatternMatcherContextImpl
+		:public TraceObject<PatternMatcherContextInterface>
+		,public PatternMatcherContextInterface
+		,public PatternMatcherContextConst
+{
+public:
+	PatternMatcherContextImpl( PatternMatcherContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherContextInterface>(obj_,ctx_){}
+	PatternMatcherContextImpl( const PatternMatcherContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherContextInterface>(obj_,ctx_){}
+
+	virtual ~PatternMatcherContextImpl();
+	virtual void putInput(
+			const analyzer::PatternLexem& p1);
+	virtual std::vector<analyzer::PatternMatcherResult> fetchResults() const;
+	virtual analyzer::PatternMatcherStatistics getStatistics() const;
+};
+
+class PatternMatcherInstanceImpl
+		:public TraceObject<PatternMatcherInstanceInterface>
+		,public PatternMatcherInstanceInterface
+		,public PatternMatcherInstanceConst
+{
+public:
+	PatternMatcherInstanceImpl( PatternMatcherInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherInstanceInterface>(obj_,ctx_){}
+	PatternMatcherInstanceImpl( const PatternMatcherInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PatternMatcherInstanceImpl();
+	virtual void defineTermFrequency(
+			unsigned int p1, 
+			double p2);
+	virtual void pushTerm(
+			unsigned int p1);
+	virtual void pushExpression(
+			JoinOperation p1, 
+			std::size_t p2, 
+			unsigned int p3, 
+			unsigned int p4);
+	virtual void pushPattern(
+			const std::string& p1);
+	virtual void attachVariable(
+			const std::string& p1, 
+			float p2);
+	virtual void definePattern(
+			const std::string& p1, 
+			bool p2);
+	virtual bool compile(
+			const analyzer::PatternMatcherOptions& p1);
+	virtual PatternMatcherContextInterface* createContext() const;
+};
+
+class PatternMatcherImpl
+		:public TraceObject<PatternMatcherInterface>
+		,public PatternMatcherInterface
+		,public PatternMatcherConst
+{
+public:
+	PatternMatcherImpl( PatternMatcherInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherInterface>(obj_,ctx_){}
+	PatternMatcherImpl( const PatternMatcherInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherInterface>(obj_,ctx_){}
+
+	virtual ~PatternMatcherImpl();
+	virtual std::vector<std::string> getCompileOptions() const;
+	virtual PatternMatcherInstanceInterface* createInstance() const;
+};
+
+class PatternMatcherProgramInstanceImpl
+		:public TraceObject<PatternMatcherProgramInstanceInterface>
+		,public PatternMatcherProgramInstanceInterface
+		,public PatternMatcherProgramInstanceConst
+{
+public:
+	PatternMatcherProgramInstanceImpl( PatternMatcherProgramInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherProgramInstanceInterface>(obj_,ctx_){}
+	PatternMatcherProgramInstanceImpl( const PatternMatcherProgramInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherProgramInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PatternMatcherProgramInstanceImpl();
 	virtual bool load(
 			const std::string& p1);
 	virtual bool compile();
-	virtual const CharRegexMatchInstanceInterface* getCharRegexMatchInstance() const;
-	virtual const TokenPatternMatchInstanceInterface* getTokenPatternMatchInstance() const;
+	virtual const PatternLexerInstanceInterface* getPatternLexerInstance() const;
+	virtual const PatternMatcherInstanceInterface* getPatternMatcherInstance() const;
 	virtual const char* tokenName(
 			unsigned int p1) const;
 };
 
-class PatternMatchProgramImpl
-		:public TraceObject<PatternMatchProgramInterface>
-		,public PatternMatchProgramInterface
-		,public PatternMatchProgramConst
+class PatternMatcherProgramImpl
+		:public TraceObject<PatternMatcherProgramInterface>
+		,public PatternMatcherProgramInterface
+		,public PatternMatcherProgramConst
 {
 public:
-	PatternMatchProgramImpl( PatternMatchProgramInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<PatternMatchProgramInterface>(obj_,ctx_){}
-	PatternMatchProgramImpl( const PatternMatchProgramInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<PatternMatchProgramInterface>(obj_,ctx_){}
+	PatternMatcherProgramImpl( PatternMatcherProgramInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherProgramInterface>(obj_,ctx_){}
+	PatternMatcherProgramImpl( const PatternMatcherProgramInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherProgramInterface>(obj_,ctx_){}
 
-	virtual ~PatternMatchProgramImpl();
-	virtual PatternMatchProgramInstanceInterface* createInstance() const;
+	virtual ~PatternMatcherProgramImpl();
+	virtual PatternMatcherProgramInstanceInterface* createInstance() const;
 };
 
 class PostingIteratorImpl
@@ -1497,75 +1566,6 @@ public:
 
 	virtual ~TokenMarkupInstanceImpl();
 	virtual TokenMarkupContextInterface* createContext() const;
-};
-
-class TokenPatternMatchContextImpl
-		:public TraceObject<TokenPatternMatchContextInterface>
-		,public TokenPatternMatchContextInterface
-		,public TokenPatternMatchContextConst
-{
-public:
-	TokenPatternMatchContextImpl( TokenPatternMatchContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenPatternMatchContextInterface>(obj_,ctx_){}
-	TokenPatternMatchContextImpl( const TokenPatternMatchContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenPatternMatchContextInterface>(obj_,ctx_){}
-
-	virtual ~TokenPatternMatchContextImpl();
-	virtual void putInput(
-			const analyzer::IdToken& p1);
-	virtual std::vector<analyzer::TokenPatternMatchResult> fetchResults() const;
-	virtual analyzer::TokenPatternMatchStatistics getStatistics() const;
-};
-
-class TokenPatternMatchInstanceImpl
-		:public TraceObject<TokenPatternMatchInstanceInterface>
-		,public TokenPatternMatchInstanceInterface
-		,public TokenPatternMatchInstanceConst
-{
-public:
-	TokenPatternMatchInstanceImpl( TokenPatternMatchInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenPatternMatchInstanceInterface>(obj_,ctx_){}
-	TokenPatternMatchInstanceImpl( const TokenPatternMatchInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenPatternMatchInstanceInterface>(obj_,ctx_){}
-
-	virtual ~TokenPatternMatchInstanceImpl();
-	virtual void defineTermFrequency(
-			unsigned int p1, 
-			double p2);
-	virtual void pushTerm(
-			unsigned int p1);
-	virtual void pushExpression(
-			JoinOperation p1, 
-			std::size_t p2, 
-			unsigned int p3, 
-			unsigned int p4);
-	virtual void pushPattern(
-			const std::string& p1);
-	virtual void attachVariable(
-			const std::string& p1, 
-			float p2);
-	virtual void definePattern(
-			const std::string& p1, 
-			bool p2);
-	virtual bool compile(
-			const analyzer::TokenPatternMatchOptions& p1);
-	virtual TokenPatternMatchContextInterface* createContext() const;
-};
-
-class TokenPatternMatchImpl
-		:public TraceObject<TokenPatternMatchInterface>
-		,public TokenPatternMatchInterface
-		,public TokenPatternMatchConst
-{
-public:
-	TokenPatternMatchImpl( TokenPatternMatchInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenPatternMatchInterface>(obj_,ctx_){}
-	TokenPatternMatchImpl( const TokenPatternMatchInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenPatternMatchInterface>(obj_,ctx_){}
-
-	virtual ~TokenPatternMatchImpl();
-	virtual std::vector<std::string> getCompileOptions() const;
-	virtual TokenPatternMatchInstanceInterface* createInstance() const;
 };
 
 class ValueIteratorImpl

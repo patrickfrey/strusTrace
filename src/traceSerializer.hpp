@@ -31,23 +31,23 @@
 #include "strus/queryProcessorInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
 #include "strus/segmenterInterface.hpp"
-#include "strus/tokenPatternMatchContextInterface.hpp"
-#include "strus/tokenPatternMatchInstanceInterface.hpp"
-#include "strus/tokenPatternMatchInterface.hpp"
-#include "strus/charRegexMatchContextInterface.hpp"
-#include "strus/charRegexMatchInstanceInterface.hpp"
-#include "strus/charRegexMatchInterface.hpp"
+#include "strus/patternMatcherContextInterface.hpp"
+#include "strus/patternMatcherInstanceInterface.hpp"
+#include "strus/patternMatcherInterface.hpp"
+#include "strus/patternLexerContextInterface.hpp"
+#include "strus/patternLexerInstanceInterface.hpp"
+#include "strus/patternLexerInterface.hpp"
 #include "strus/documentAnalyzerInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
 #include "strus/analyzer/token.hpp"
-#include "strus/analyzer/idToken.hpp"
+#include "strus/analyzer/patternLexem.hpp"
 #include "strus/analyzer/tokenMarkup.hpp"
-#include "strus/analyzer/tokenPatternMatchStatistics.hpp"
-#include "strus/analyzer/charRegexMatchOptions.hpp"
+#include "strus/analyzer/patternMatcherStatistics.hpp"
+#include "strus/analyzer/patternLexerOptions.hpp"
 #include "strus/analyzer/positionBind.hpp"
-#include "strus/analyzer/tokenPatternMatchOptions.hpp"
+#include "strus/analyzer/patternMatcherOptions.hpp"
+#include "strus/analyzer/patternMatcherResult.hpp"
 #include "strus/analyzer/term.hpp"
-#include "strus/analyzer/tokenPatternMatchResult.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include <string>
@@ -126,16 +126,16 @@ public:
 	void packAnalyzerTermVectorVector( const std::vector<analyzer::TermVector>& val);
 	void packAnalyzerToken( const analyzer::Token& val);
 	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
-	void packAnalyzerIdToken( const analyzer::IdToken& val);
-	void packAnalyzerIdTokenVector( const std::vector<analyzer::IdToken>& val);
+	void packAnalyzerPatternLexem( const analyzer::PatternLexem& val);
+	void packAnalyzerPatternLexemVector( const std::vector<analyzer::PatternLexem>& val);
 	void packAnalyzerPositionBind( const analyzer::PositionBind& posbind);
-	void packAnalyzerCharRegexMatchOptions( const analyzer::CharRegexMatchOptions& val);
-	void packAnalyzerTokenPatternMatchOptions( const analyzer::TokenPatternMatchOptions& val);
+	void packAnalyzerPatternLexerOptions( const analyzer::PatternLexerOptions& val);
+	void packAnalyzerPatternMatcherOptions( const analyzer::PatternMatcherOptions& val);
 	void packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val);
-	void packAnalyzerTokenPatternMatchResult( const analyzer::TokenPatternMatchResult& val);
-	void packAnalyzerTokenPatternMatchResultVector( const std::vector<analyzer::TokenPatternMatchResult>& val);
-	void packAnalyzerTokenPatternMatchStatistics( const analyzer::TokenPatternMatchStatistics& val);
-	void packTokenPatternMatchJoinOperation( const TokenPatternMatchInstanceInterface::JoinOperation& val);
+	void packAnalyzerPatternMatcherResult( const analyzer::PatternMatcherResult& val);
+	void packAnalyzerPatternMatcherResultVector( const std::vector<analyzer::PatternMatcherResult>& val);
+	void packAnalyzerPatternMatcherStatistics( const analyzer::PatternMatcherStatistics& val);
+	void packPatternMatcherJoinOperation( const PatternMatcherInstanceInterface::JoinOperation& val);
 	void packWeightedDocument( const WeightedDocument& val);
 	void packResultDocument( const ResultDocument& val);
 	void packQueryResult( const QueryResult& val);

@@ -653,7 +653,7 @@ void TraceSerializer::packAnalyzerTokenVector( const std::vector<analyzer::Token
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerIdToken( const analyzer::IdToken& val)
+void TraceSerializer::packAnalyzerPatternLexem( const analyzer::PatternLexem& val)
 {
 	packAnalyzerToken( val);
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "id"));
@@ -661,14 +661,14 @@ void TraceSerializer::packAnalyzerIdToken( const analyzer::IdToken& val)
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
-void TraceSerializer::packAnalyzerIdTokenVector( const std::vector<analyzer::IdToken>& val)
+void TraceSerializer::packAnalyzerPatternLexemVector( const std::vector<analyzer::PatternLexem>& val)
 {
 	try{
-	std::vector<analyzer::IdToken>::const_iterator ti = val.begin(), te = val.end();
+	std::vector<analyzer::PatternLexem>::const_iterator ti = val.begin(), te = val.end();
 	for (; ti != te; ++ti)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ti-val.begin()));
-		packAnalyzerIdToken( *ti);
+		packAnalyzerPatternLexem( *ti);
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
 	}CATCH_ERROR
@@ -688,9 +688,9 @@ void TraceSerializer::packAnalyzerPositionBind( const analyzer::PositionBind& va
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
-void TraceSerializer::packAnalyzerTokenPatternMatchOptions( const analyzer::TokenPatternMatchOptions& opts)
+void TraceSerializer::packAnalyzerPatternMatcherOptions( const analyzer::PatternMatcherOptions& opts)
 {
-	analyzer::TokenPatternMatchOptions::const_iterator oi = opts.begin(), oe = opts.end();
+	analyzer::PatternMatcherOptions::const_iterator oi = opts.begin(), oe = opts.end();
 	for (; oi != oe; ++oi)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "opt"));
@@ -700,9 +700,9 @@ void TraceSerializer::packAnalyzerTokenPatternMatchOptions( const analyzer::Toke
 	}
 }
 
-void TraceSerializer::packAnalyzerCharRegexMatchOptions( const analyzer::CharRegexMatchOptions& opts)
+void TraceSerializer::packAnalyzerPatternLexerOptions( const analyzer::PatternLexerOptions& opts)
 {
-	analyzer::CharRegexMatchOptions::const_iterator oi = opts.begin(), oe = opts.end();
+	analyzer::PatternLexerOptions::const_iterator oi = opts.begin(), oe = opts.end();
 	for (; oi != oe; ++oi)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "opt"));
@@ -726,7 +726,7 @@ void TraceSerializer::packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val)
 	}
 }
 
-void TraceSerializer::packAnalyzerTokenPatternMatchResult( const analyzer::TokenPatternMatchResult& val)
+void TraceSerializer::packAnalyzerPatternMatcherResult( const analyzer::PatternMatcherResult& val)
 {
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.name()));
@@ -747,7 +747,7 @@ void TraceSerializer::packAnalyzerTokenPatternMatchResult( const analyzer::Token
 	m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.end_origpos()));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
-	std::vector<analyzer::TokenPatternMatchResult::Item>::const_iterator ti = val.items().begin(), te = val.items().end();
+	std::vector<analyzer::PatternMatcherResult::Item>::const_iterator ti = val.items().begin(), te = val.items().end();
 	for (; ti != te; ++ti)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "item"));
@@ -776,20 +776,20 @@ void TraceSerializer::packAnalyzerTokenPatternMatchResult( const analyzer::Token
 	}
 }
 
-void TraceSerializer::packAnalyzerTokenPatternMatchResultVector( const std::vector<analyzer::TokenPatternMatchResult>& val)
+void TraceSerializer::packAnalyzerPatternMatcherResultVector( const std::vector<analyzer::PatternMatcherResult>& val)
 {
-	std::vector<analyzer::TokenPatternMatchResult>::const_iterator ri = val.begin(), re = val.end();
+	std::vector<analyzer::PatternMatcherResult>::const_iterator ri = val.begin(), re = val.end();
 	for (; ri != re; ++ri)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "result"));
-		packAnalyzerTokenPatternMatchResult( *ri);
+		packAnalyzerPatternMatcherResult( *ri);
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
 }
 
-void TraceSerializer::packAnalyzerTokenPatternMatchStatistics( const analyzer::TokenPatternMatchStatistics& val)
+void TraceSerializer::packAnalyzerPatternMatcherStatistics( const analyzer::PatternMatcherStatistics& val)
 {
-	std::vector<analyzer::TokenPatternMatchStatistics::Item>::const_iterator ti = val.items().begin(), te = val.items().end();
+	std::vector<analyzer::PatternMatcherStatistics::Item>::const_iterator ti = val.items().begin(), te = val.items().end();
 	for (; ti != te; ++ti)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, ti->name()));
@@ -798,18 +798,18 @@ void TraceSerializer::packAnalyzerTokenPatternMatchStatistics( const analyzer::T
 	}
 }
 
-void TraceSerializer::packTokenPatternMatchJoinOperation( const TokenPatternMatchInstanceInterface::JoinOperation& val)
+void TraceSerializer::packPatternMatcherJoinOperation( const PatternMatcherInstanceInterface::JoinOperation& val)
 {
 	const char* valstr = "";
 	switch (val)
 	{
-		case TokenPatternMatchInstanceInterface::OpSequence: valstr = "sequence"; break;
-		case TokenPatternMatchInstanceInterface::OpSequenceImm: valstr = "sequence_imm"; break;
-		case TokenPatternMatchInstanceInterface::OpSequenceStruct: valstr = "sequence_struct"; break;
-		case TokenPatternMatchInstanceInterface::OpWithin: valstr = "within"; break;
-		case TokenPatternMatchInstanceInterface::OpWithinStruct: valstr = "within_struct"; break;
-		case TokenPatternMatchInstanceInterface::OpAny: valstr = "any"; break;
-		case TokenPatternMatchInstanceInterface::OpAnd: valstr = "and"; break;
+		case PatternMatcherInstanceInterface::OpSequence: valstr = "sequence"; break;
+		case PatternMatcherInstanceInterface::OpSequenceImm: valstr = "sequence_imm"; break;
+		case PatternMatcherInstanceInterface::OpSequenceStruct: valstr = "sequence_struct"; break;
+		case PatternMatcherInstanceInterface::OpWithin: valstr = "within"; break;
+		case PatternMatcherInstanceInterface::OpWithinStruct: valstr = "within_struct"; break;
+		case PatternMatcherInstanceInterface::OpAny: valstr = "any"; break;
+		case PatternMatcherInstanceInterface::OpAnd: valstr = "and"; break;
 	}
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "joinop"));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeString, valstr));

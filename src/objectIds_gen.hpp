@@ -18,65 +18,65 @@ enum ClassId
 	ClassId_AggregatorFunction=2,
 	ClassId_AnalyzerObjectBuilder=3,
 	ClassId_AttributeReader=4,
-	ClassId_CharRegexMatchContext=5,
-	ClassId_CharRegexMatchInstance=6,
-	ClassId_CharRegexMatch=7,
-	ClassId_DatabaseBackupCursor=8,
-	ClassId_DatabaseClient=9,
-	ClassId_DatabaseCursor=10,
-	ClassId_Database=11,
-	ClassId_DatabaseTransaction=12,
-	ClassId_DocumentAnalyzerContext=13,
-	ClassId_DocumentAnalyzer=14,
-	ClassId_DocumentClassDetector=15,
-	ClassId_DocumentTermIterator=16,
-	ClassId_ForwardIterator=17,
-	ClassId_InvAclIterator=18,
-	ClassId_MetaDataReader=19,
-	ClassId_MetaDataRestrictionInstance=20,
-	ClassId_MetaDataRestriction=21,
-	ClassId_NormalizerFunctionContext=22,
-	ClassId_NormalizerFunctionInstance=23,
-	ClassId_NormalizerFunction=24,
-	ClassId_PatternMatchProgramInstance=25,
-	ClassId_PatternMatchProgram=26,
-	ClassId_PostingIterator=27,
-	ClassId_PostingJoinOperator=28,
-	ClassId_QueryAnalyzer=29,
-	ClassId_QueryEval=30,
-	ClassId_Query=31,
-	ClassId_QueryProcessor=32,
-	ClassId_ScalarFunctionInstance=33,
-	ClassId_ScalarFunction=34,
-	ClassId_ScalarFunctionParser=35,
-	ClassId_SegmenterContext=36,
-	ClassId_SegmenterInstance=37,
-	ClassId_Segmenter=38,
-	ClassId_SegmenterMarkupContext=39,
-	ClassId_StatisticsBuilder=40,
-	ClassId_StatisticsIterator=41,
-	ClassId_StatisticsProcessor=42,
-	ClassId_StatisticsViewer=43,
-	ClassId_StorageAlterMetaDataTable=44,
-	ClassId_StorageClient=45,
-	ClassId_StorageDocument=46,
-	ClassId_StorageDocumentUpdate=47,
-	ClassId_StorageDump=48,
-	ClassId_Storage=49,
-	ClassId_StorageObjectBuilder=50,
-	ClassId_StorageTransaction=51,
-	ClassId_SummarizerFunctionContext=52,
-	ClassId_SummarizerFunctionInstance=53,
-	ClassId_SummarizerFunction=54,
-	ClassId_TextProcessor=55,
-	ClassId_TokenizerFunctionContext=56,
-	ClassId_TokenizerFunctionInstance=57,
-	ClassId_TokenizerFunction=58,
-	ClassId_TokenMarkupContext=59,
-	ClassId_TokenMarkupInstance=60,
-	ClassId_TokenPatternMatchContext=61,
-	ClassId_TokenPatternMatchInstance=62,
-	ClassId_TokenPatternMatch=63,
+	ClassId_DatabaseBackupCursor=5,
+	ClassId_DatabaseClient=6,
+	ClassId_DatabaseCursor=7,
+	ClassId_Database=8,
+	ClassId_DatabaseTransaction=9,
+	ClassId_DocumentAnalyzerContext=10,
+	ClassId_DocumentAnalyzer=11,
+	ClassId_DocumentClassDetector=12,
+	ClassId_DocumentTermIterator=13,
+	ClassId_ForwardIterator=14,
+	ClassId_InvAclIterator=15,
+	ClassId_MetaDataReader=16,
+	ClassId_MetaDataRestrictionInstance=17,
+	ClassId_MetaDataRestriction=18,
+	ClassId_NormalizerFunctionContext=19,
+	ClassId_NormalizerFunctionInstance=20,
+	ClassId_NormalizerFunction=21,
+	ClassId_PatternLexerContext=22,
+	ClassId_PatternLexerInstance=23,
+	ClassId_PatternLexer=24,
+	ClassId_PatternMatcherContext=25,
+	ClassId_PatternMatcherInstance=26,
+	ClassId_PatternMatcher=27,
+	ClassId_PatternMatcherProgramInstance=28,
+	ClassId_PatternMatcherProgram=29,
+	ClassId_PostingIterator=30,
+	ClassId_PostingJoinOperator=31,
+	ClassId_QueryAnalyzer=32,
+	ClassId_QueryEval=33,
+	ClassId_Query=34,
+	ClassId_QueryProcessor=35,
+	ClassId_ScalarFunctionInstance=36,
+	ClassId_ScalarFunction=37,
+	ClassId_ScalarFunctionParser=38,
+	ClassId_SegmenterContext=39,
+	ClassId_SegmenterInstance=40,
+	ClassId_Segmenter=41,
+	ClassId_SegmenterMarkupContext=42,
+	ClassId_StatisticsBuilder=43,
+	ClassId_StatisticsIterator=44,
+	ClassId_StatisticsProcessor=45,
+	ClassId_StatisticsViewer=46,
+	ClassId_StorageAlterMetaDataTable=47,
+	ClassId_StorageClient=48,
+	ClassId_StorageDocument=49,
+	ClassId_StorageDocumentUpdate=50,
+	ClassId_StorageDump=51,
+	ClassId_Storage=52,
+	ClassId_StorageObjectBuilder=53,
+	ClassId_StorageTransaction=54,
+	ClassId_SummarizerFunctionContext=55,
+	ClassId_SummarizerFunctionInstance=56,
+	ClassId_SummarizerFunction=57,
+	ClassId_TextProcessor=58,
+	ClassId_TokenizerFunctionContext=59,
+	ClassId_TokenizerFunctionInstance=60,
+	ClassId_TokenizerFunction=61,
+	ClassId_TokenMarkupContext=62,
+	ClassId_TokenMarkupInstance=63,
 	ClassId_ValueIterator=64,
 	ClassId_VectorSpaceModelBuilder=65,
 	ClassId_VectorSpaceModelInstance=66,
@@ -139,44 +139,6 @@ public:
 		Method_skipDoc=2,
 		Method_getValue=3,
 		Method_getAttributeNames=4
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class CharRegexMatchContextConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_match=1
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class CharRegexMatchInstanceConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_definePattern=1,
-		Method_defineSymbol=2,
-		Method_getSymbol=3,
-		Method_compile=4,
-		Method_createContext=5
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class CharRegexMatchConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_getCompileOptions=1,
-		Method_createInstance=2
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -413,7 +375,88 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class PatternMatchProgramInstanceConst
+class PatternLexerContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_match=1
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternLexerInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_definePattern=1,
+		Method_defineSymbol=2,
+		Method_getSymbol=3,
+		Method_compile=4,
+		Method_createContext=5
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternLexerConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_getCompileOptions=1,
+		Method_createInstance=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternMatcherContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_putInput=1,
+		Method_fetchResults=2,
+		Method_getStatistics=3
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternMatcherInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_defineTermFrequency=1,
+		Method_pushTerm=2,
+		Method_pushExpression=3,
+		Method_pushPattern=4,
+		Method_attachVariable=5,
+		Method_definePattern=6,
+		Method_compile=7,
+		Method_createContext=8
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternMatcherConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_getCompileOptions=1,
+		Method_createInstance=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternMatcherProgramInstanceConst
 {
 public:
 	enum MethodId
@@ -421,14 +464,14 @@ public:
 		Method_Destructor=0,
 		Method_load=1,
 		Method_compile=2,
-		Method_getCharRegexMatchInstance=3,
-		Method_getTokenPatternMatchInstance=4,
+		Method_getPatternLexerInstance=3,
+		Method_getPatternMatcherInstance=4,
 		Method_tokenName=5
 	};
 	static const char* methodName( MethodId mid);
 };
 
-class PatternMatchProgramConst
+class PatternMatcherProgramConst
 {
 public:
 	enum MethodId
@@ -944,49 +987,6 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createContext=1
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class TokenPatternMatchContextConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_putInput=1,
-		Method_fetchResults=2,
-		Method_getStatistics=3
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class TokenPatternMatchInstanceConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_defineTermFrequency=1,
-		Method_pushTerm=2,
-		Method_pushExpression=3,
-		Method_pushPattern=4,
-		Method_attachVariable=5,
-		Method_definePattern=6,
-		Method_compile=7,
-		Method_createContext=8
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class TokenPatternMatchConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_getCompileOptions=1,
-		Method_createInstance=2
 	};
 	static const char* methodName( MethodId mid);
 };

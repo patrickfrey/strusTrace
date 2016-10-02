@@ -230,7 +230,7 @@ const char* PatternLexerInstanceConst::methodName( MethodId mid)
 
 const char* PatternLexerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getCompileOptions", "createInstance"};
+	static const char* ar[] = { "Destructor", "getCompileOptions", "createInstance", "getDescription"};
 	return ar[mid];
 }
 
@@ -248,7 +248,7 @@ const char* PatternMatcherInstanceConst::methodName( MethodId mid)
 
 const char* PatternMatcherConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getCompileOptions", "createInstance"};
+	static const char* ar[] = { "Destructor", "getCompileOptions", "createInstance", "getDescription"};
 	return ar[mid];
 }
 
@@ -434,7 +434,7 @@ const char* SummarizerFunctionConst::methodName( MethodId mid)
 
 const char* TextProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "getTokenizer", "getNormalizer", "getAggregator", "detectDocumentClass", "defineDocumentClassDetector", "defineTokenizer", "defineNormalizer", "defineAggregator", "getFunctionList"};
+	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "detectDocumentClass", "defineDocumentClassDetector", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
 	return ar[mid];
 }
 

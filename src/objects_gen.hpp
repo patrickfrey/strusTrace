@@ -603,6 +603,7 @@ public:
 	virtual ~PatternLexerImpl();
 	virtual std::vector<std::string> getCompileOptions() const;
 	virtual PatternLexerInstanceInterface* createInstance() const;
+	virtual const char* getDescription() const;
 };
 
 class PatternMatcherContextImpl
@@ -672,6 +673,7 @@ public:
 	virtual ~PatternMatcherImpl();
 	virtual std::vector<std::string> getCompileOptions() const;
 	virtual PatternMatcherInstanceInterface* createInstance() const;
+	virtual const char* getDescription() const;
 };
 
 class PatternMatcherProgramInstanceImpl
@@ -1460,6 +1462,10 @@ public:
 			const std::string& p1) const;
 	virtual const AggregatorFunctionInterface* getAggregator(
 			const std::string& p1) const;
+	virtual const PatternLexerInterface* getPatternLexer(
+			const std::string& p1) const;
+	virtual const PatternMatcherInterface* getPatternMatcher(
+			const std::string& p1) const;
 	virtual bool detectDocumentClass(
 			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2) const;
@@ -1474,6 +1480,12 @@ public:
 	virtual void defineAggregator(
 			const std::string& p1, 
 			AggregatorFunctionInterface* p2);
+	virtual void definePatternLexer(
+			const std::string& p1, 
+			PatternLexerInterface* p2);
+	virtual void definePatternMatcher(
+			const std::string& p1, 
+			PatternMatcherInterface* p2);
 	virtual std::vector<std::string> getFunctionList(
 			const FunctionType& p1) const;
 };

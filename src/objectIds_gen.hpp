@@ -408,7 +408,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_getCompileOptions=1,
-		Method_createInstance=2
+		Method_createInstance=2,
+		Method_getDescription=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -451,7 +452,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_getCompileOptions=1,
-		Method_createInstance=2
+		Method_createInstance=2,
+		Method_getDescription=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -923,12 +925,16 @@ public:
 		Method_getTokenizer=3,
 		Method_getNormalizer=4,
 		Method_getAggregator=5,
-		Method_detectDocumentClass=6,
-		Method_defineDocumentClassDetector=7,
-		Method_defineTokenizer=8,
-		Method_defineNormalizer=9,
-		Method_defineAggregator=10,
-		Method_getFunctionList=11
+		Method_getPatternLexer=6,
+		Method_getPatternMatcher=7,
+		Method_detectDocumentClass=8,
+		Method_defineDocumentClassDetector=9,
+		Method_defineTokenizer=10,
+		Method_defineNormalizer=11,
+		Method_defineAggregator=12,
+		Method_definePatternLexer=13,
+		Method_definePatternMatcher=14,
+		Method_getFunctionList=15
 	};
 	static const char* methodName( MethodId mid);
 };

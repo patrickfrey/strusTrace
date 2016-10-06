@@ -2491,165 +2491,6 @@ const char* PatternMatcherImpl::getDescription() const
 	return p0;
 }
 
-PatternMatcherProgramInstanceImpl::~PatternMatcherProgramInstanceImpl()
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherProgramInstance), PatternMatcherProgramInstanceConst::methodName( Method_Destructor), objid());
-	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-}
-
-bool PatternMatcherProgramInstanceImpl::load(
-			const std::string& p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherProgramInstance), PatternMatcherProgramInstanceConst::methodName( Method_load), objid());
-	bool p0 = obj()->load(p1);
-	TraceSerializer parambuf;
-	parambuf.packBool(p0);
-	parambuf.packString(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-bool PatternMatcherProgramInstanceImpl::compile()
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherProgramInstance), PatternMatcherProgramInstanceConst::methodName( Method_compile), objid());
-	bool p0 = obj()->compile();
-	TraceSerializer parambuf;
-	parambuf.packBool(p0);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-const PatternLexerInstanceInterface* PatternMatcherProgramInstanceImpl::getPatternLexerInstance() const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherProgramInstance), PatternMatcherProgramInstanceConst::methodName( Method_getPatternLexerInstance), objid());
-	const PatternLexerInstanceInterface* p0 = obj()->getPatternLexerInstance();
-	p0 = traceContext()->createInterfaceImpl_const<PatternLexerInstanceInterface,PatternLexerInstanceImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getPatternLexerInstance", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternLexerInstance), objbase_p0->objid());
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-const PatternMatcherInstanceInterface* PatternMatcherProgramInstanceImpl::getPatternMatcherInstance() const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherProgramInstance), PatternMatcherProgramInstanceConst::methodName( Method_getPatternMatcherInstance), objid());
-	const PatternMatcherInstanceInterface* p0 = obj()->getPatternMatcherInstance();
-	p0 = traceContext()->createInterfaceImpl_const<PatternMatcherInstanceInterface,PatternMatcherInstanceImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getPatternMatcherInstance", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternMatcherInstance), objbase_p0->objid());
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-const char* PatternMatcherProgramInstanceImpl::tokenName(
-			unsigned int p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherProgramInstance), PatternMatcherProgramInstanceConst::methodName( Method_tokenName), objid());
-	const char* p0 = obj()->tokenName(p1);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "tokenName", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		parambuf.packCharp(p0);
-		parambuf.packUInt(p1);
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-PatternMatcherProgramImpl::~PatternMatcherProgramImpl()
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherProgram), PatternMatcherProgramConst::methodName( Method_Destructor), objid());
-	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-}
-
-PatternMatcherProgramInstanceInterface* PatternMatcherProgramImpl::createInstance() const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherProgram), PatternMatcherProgramConst::methodName( Method_createInstance), objid());
-	PatternMatcherProgramInstanceInterface* p0 = obj()->createInstance();
-	p0 = traceContext()->createInterfaceImpl<PatternMatcherProgramInstanceInterface,PatternMatcherProgramInstanceImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternMatcherProgramInstance), objbase_p0->objid());
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
 PostingIteratorImpl::~PostingIteratorImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_Destructor), objid());
@@ -7077,12 +6918,12 @@ void VectorSpaceModelBuilderImpl::addSampleVector(
 	}
 }
 
-void VectorSpaceModelBuilderImpl::finalize()
+bool VectorSpaceModelBuilderImpl::finalize()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_finalize), objid());
-	obj()->finalize();
+	bool p0 = obj()->finalize();
 	TraceSerializer parambuf;
-	parambuf.packVoid();
+	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7092,6 +6933,7 @@ void VectorSpaceModelBuilderImpl::finalize()
 	{
 		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
 	}
+	return p0;
 }
 
 bool VectorSpaceModelBuilderImpl::store()

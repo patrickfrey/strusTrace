@@ -39,8 +39,6 @@
 #include "strus/patternMatcherContextInterface.hpp"
 #include "strus/patternMatcherInstanceInterface.hpp"
 #include "strus/patternMatcherInterface.hpp"
-#include "strus/patternMatcherProgramInstanceInterface.hpp"
-#include "strus/patternMatcherProgramInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
@@ -674,42 +672,6 @@ public:
 	virtual std::vector<std::string> getCompileOptions() const;
 	virtual PatternMatcherInstanceInterface* createInstance() const;
 	virtual const char* getDescription() const;
-};
-
-class PatternMatcherProgramInstanceImpl
-		:public TraceObject<PatternMatcherProgramInstanceInterface>
-		,public PatternMatcherProgramInstanceInterface
-		,public PatternMatcherProgramInstanceConst
-{
-public:
-	PatternMatcherProgramInstanceImpl( PatternMatcherProgramInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<PatternMatcherProgramInstanceInterface>(obj_,ctx_){}
-	PatternMatcherProgramInstanceImpl( const PatternMatcherProgramInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<PatternMatcherProgramInstanceInterface>(obj_,ctx_){}
-
-	virtual ~PatternMatcherProgramInstanceImpl();
-	virtual bool load(
-			const std::string& p1);
-	virtual bool compile();
-	virtual const PatternLexerInstanceInterface* getPatternLexerInstance() const;
-	virtual const PatternMatcherInstanceInterface* getPatternMatcherInstance() const;
-	virtual const char* tokenName(
-			unsigned int p1) const;
-};
-
-class PatternMatcherProgramImpl
-		:public TraceObject<PatternMatcherProgramInterface>
-		,public PatternMatcherProgramInterface
-		,public PatternMatcherProgramConst
-{
-public:
-	PatternMatcherProgramImpl( PatternMatcherProgramInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<PatternMatcherProgramInterface>(obj_,ctx_){}
-	PatternMatcherProgramImpl( const PatternMatcherProgramInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<PatternMatcherProgramInterface>(obj_,ctx_){}
-
-	virtual ~PatternMatcherProgramImpl();
-	virtual PatternMatcherProgramInstanceInterface* createInstance() const;
 };
 
 class PostingIteratorImpl
@@ -1612,7 +1574,7 @@ public:
 	virtual ~VectorSpaceModelBuilderImpl();
 	virtual void addSampleVector(
 			const std::vector<double>& p1);
-	virtual void finalize();
+	virtual bool finalize();
 	virtual bool store();
 };
 

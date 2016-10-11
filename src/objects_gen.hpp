@@ -1608,6 +1608,8 @@ public:
 		:TraceObject<VectorSpaceModelInterface>(obj_,ctx_){}
 
 	virtual ~VectorSpaceModelImpl();
+	virtual bool destroyModel(
+			const std::string& p1) const;
 	virtual VectorSpaceModelInstanceInterface* createInstance(
 			const std::string& p1) const;
 	virtual VectorSpaceModelBuilderInterface* createBuilder(

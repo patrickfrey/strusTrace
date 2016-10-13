@@ -1572,7 +1572,7 @@ public:
 		:TraceObject<VectorSpaceModelBuilderInterface>(obj_,ctx_){}
 
 	virtual ~VectorSpaceModelBuilderImpl();
-	virtual void addSampleVector(
+	virtual void addVector(
 			const std::vector<double>& p1);
 	virtual bool finalize();
 	virtual bool store();

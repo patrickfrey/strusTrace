@@ -987,7 +987,7 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_addSampleVector=1,
+		Method_addVector=1,
 		Method_finalize=2,
 		Method_store=3
 	};

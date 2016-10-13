@@ -6899,11 +6899,11 @@ VectorSpaceModelBuilderImpl::~VectorSpaceModelBuilderImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void VectorSpaceModelBuilderImpl::addSampleVector(
+void VectorSpaceModelBuilderImpl::addVector(
 			const std::vector<double>& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_addSampleVector), objid());
-	obj()->addSampleVector(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_addVector), objid());
+	obj()->addVector(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packFloatVector(p1);

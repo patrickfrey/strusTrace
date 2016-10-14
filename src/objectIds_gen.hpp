@@ -1001,8 +1001,10 @@ public:
 	{
 		Method_Destructor=0,
 		Method_mapVectorToFeatures=1,
-		Method_nofFeatures=2,
-		Method_config=3
+		Method_mapIndexToFeatures=2,
+		Method_mapFeatureToIndices=3,
+		Method_nofFeatures=4,
+		Method_config=5
 	};
 	static const char* methodName( MethodId mid);
 };

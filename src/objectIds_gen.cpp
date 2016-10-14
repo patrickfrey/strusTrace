@@ -468,7 +468,7 @@ const char* VectorSpaceModelBuilderConst::methodName( MethodId mid)
 
 const char* VectorSpaceModelInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "mapVectorToFeatures", "nofFeatures", "config"};
+	static const char* ar[] = { "Destructor", "mapVectorToFeatures", "mapIndexToFeatures", "mapFeatureToIndices", "nofFeatures", "config"};
 	return ar[mid];
 }
 

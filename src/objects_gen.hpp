@@ -1573,7 +1573,8 @@ public:
 
 	virtual ~VectorSpaceModelBuilderImpl();
 	virtual void addVector(
-			const std::vector<double>& p1);
+			const std::string& p1, 
+			const std::vector<double>& p2);
 	virtual bool finalize();
 	virtual bool store();
 };
@@ -1597,6 +1598,9 @@ public:
 	virtual std::vector<unsigned int> mapFeatureToIndices(
 			unsigned int p1) const;
 	virtual unsigned int nofFeatures() const;
+	virtual unsigned int nofSamples() const;
+	virtual std::string sampleName(
+			unsigned int p1) const;
 	virtual std::string config() const;
 };
 

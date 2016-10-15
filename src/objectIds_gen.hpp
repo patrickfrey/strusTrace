@@ -1004,7 +1004,9 @@ public:
 		Method_mapIndexToFeatures=2,
 		Method_mapFeatureToIndices=3,
 		Method_nofFeatures=4,
-		Method_config=5
+		Method_nofSamples=5,
+		Method_sampleName=6,
+		Method_config=7
 	};
 	static const char* methodName( MethodId mid);
 };

@@ -5553,7 +5553,7 @@ StorageImpl::~StorageImpl()
 
 StorageClientInterface* StorageImpl::createClient(
 			const std::string& p1, 
-			DatabaseClientInterface* p2, 
+			const DatabaseInterface* p2, 
 			const StatisticsProcessorInterface* p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createClient), objid());
@@ -5569,8 +5569,8 @@ StorageClientInterface* StorageImpl::createClient(
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p0->objid());
 		parambuf.packString(p1);
-		TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseClient), objbase_p2->objid());
+		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
 		const TraceObjectBase* objbase_p3 = dynamic_cast<const TraceObjectBase*>( p3);
 		if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsProcessor), objbase_p3->objid());
 	}
@@ -5578,7 +5578,6 @@ StorageClientInterface* StorageImpl::createClient(
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5590,15 +5589,15 @@ StorageClientInterface* StorageImpl::createClient(
 
 bool StorageImpl::createStorage(
 			const std::string& p1, 
-			DatabaseClientInterface* p2) const
+			const DatabaseInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createStorage), objid());
 	bool p0 = obj()->createStorage(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
-	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseClient), objbase_p2->objid());
+	const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -5612,10 +5611,11 @@ bool StorageImpl::createStorage(
 }
 
 StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
-			DatabaseClientInterface* p1) const
+			const std::string& p1, 
+			const DatabaseInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createAlterMetaDataTable), objid());
-	StorageAlterMetaDataTableInterface* p0 = obj()->createAlterMetaDataTable(p1);
+	StorageAlterMetaDataTableInterface* p0 = obj()->createAlterMetaDataTable(p1, p2);
 	p0 = traceContext()->createInterfaceImpl<StorageAlterMetaDataTableInterface,StorageAlterMetaDataTableImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5626,14 +5626,14 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageAlterMetaDataTable), objbase_p0->objid());
-		TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseClient), objbase_p1->objid());
+		parambuf.packString(p1);
+		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

@@ -66,14 +66,10 @@ static strus::StorageClientInterface* createStorage( const strus::StorageObjectB
 	if (g_errorhnd->hasError()) throw std::runtime_error( g_errorhnd->fetchError());
 	(void) dbi->destroyDatabase( storageconfig);
 	(void) g_errorhnd->fetchError();
-	if (!dbi->createDatabase( storageconfig)) throw std::runtime_error("failed to create database");
-	std::auto_ptr<strus::DatabaseClientInterface> database( dbi->createClient( storageconfig));
-	if (!database.get()) throw std::runtime_error( "failed to create database client");
 	const strus::StorageInterface* sti = sob->getStorage();
 	if (!sti) throw std::runtime_error( "failed to get storage interface");
-	if (!sti->createStorage( storageconfig, database.get())) throw std::runtime_error( "failed to create storage");
-	std::auto_ptr<strus::StorageClientInterface> storage( sti->createClient( storageconfig, database.get()));
-	database.release();
+	if (!sti->createStorage( storageconfig, dbi)) throw std::runtime_error( "failed to create storage");
+	std::auto_ptr<strus::StorageClientInterface> storage( sti->createClient( storageconfig, dbi));
 	if (!storage.get()) throw std::runtime_error( "failed to get create storage client");
 	return storage.release();
 }

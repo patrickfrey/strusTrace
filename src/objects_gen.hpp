@@ -1274,13 +1274,14 @@ public:
 	virtual ~StorageImpl();
 	virtual StorageClientInterface* createClient(
 			const std::string& p1, 
-			DatabaseClientInterface* p2, 
+			const DatabaseInterface* p2, 
 			const StatisticsProcessorInterface* p3) const;
 	virtual bool createStorage(
 			const std::string& p1, 
-			DatabaseClientInterface* p2) const;
+			const DatabaseInterface* p2) const;
 	virtual StorageAlterMetaDataTableInterface* createAlterMetaDataTable(
-			DatabaseClientInterface* p1) const;
+			const std::string& p1, 
+			const DatabaseInterface* p2) const;
 	virtual const char* getConfigDescription(
 			const ConfigType& p1) const;
 	virtual const char** getConfigParameters(

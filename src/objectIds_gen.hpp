@@ -988,8 +988,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_addSampleVector=1,
-		Method_finalize=2,
-		Method_store=3
+		Method_commit=2,
+		Method_finalize=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1018,9 +1018,8 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_destroyModel=1,
-		Method_createInstance=2,
-		Method_createBuilder=3
+		Method_createInstance=1,
+		Method_createBuilder=2
 	};
 	static const char* methodName( MethodId mid);
 };

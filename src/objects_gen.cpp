@@ -6920,10 +6920,10 @@ void VectorSpaceModelBuilderImpl::addSampleVector(
 	}
 }
 
-bool VectorSpaceModelBuilderImpl::finalize()
+bool VectorSpaceModelBuilderImpl::commit()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_finalize), objid());
-	bool p0 = obj()->finalize();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_commit), objid());
+	bool p0 = obj()->commit();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
@@ -6938,10 +6938,10 @@ bool VectorSpaceModelBuilderImpl::finalize()
 	return p0;
 }
 
-bool VectorSpaceModelBuilderImpl::store()
+bool VectorSpaceModelBuilderImpl::finalize()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_store), objid());
-	bool p0 = obj()->store();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_finalize), objid());
+	bool p0 = obj()->finalize();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
@@ -6962,13 +6962,13 @@ VectorSpaceModelInstanceImpl::~VectorSpaceModelInstanceImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-std::vector<unsigned int> VectorSpaceModelInstanceImpl::mapVectorToFeatures(
+std::vector<Index> VectorSpaceModelInstanceImpl::mapVectorToFeatures(
 			const std::vector<double>& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_mapVectorToFeatures), objid());
-	std::vector<unsigned int> p0 = obj()->mapVectorToFeatures(p1);
+	std::vector<Index> p0 = obj()->mapVectorToFeatures(p1);
 	TraceSerializer parambuf;
-	parambuf.packUintVector(p0);
+	parambuf.packIndexVector(p0);
 	parambuf.packFloatVector(p1);
 	if (parambuf.hasError())
 	{
@@ -6982,14 +6982,14 @@ std::vector<unsigned int> VectorSpaceModelInstanceImpl::mapVectorToFeatures(
 	return p0;
 }
 
-std::vector<unsigned int> VectorSpaceModelInstanceImpl::sampleFeatures(
-			unsigned int p1) const
+std::vector<Index> VectorSpaceModelInstanceImpl::sampleFeatures(
+			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_sampleFeatures), objid());
-	std::vector<unsigned int> p0 = obj()->sampleFeatures(p1);
+	std::vector<Index> p0 = obj()->sampleFeatures(p1);
 	TraceSerializer parambuf;
-	parambuf.packUintVector(p0);
-	parambuf.packUInt(p1);
+	parambuf.packIndexVector(p0);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7003,13 +7003,13 @@ std::vector<unsigned int> VectorSpaceModelInstanceImpl::sampleFeatures(
 }
 
 std::vector<double> VectorSpaceModelInstanceImpl::sampleVector(
-			unsigned int p1) const
+			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_sampleVector), objid());
 	std::vector<double> p0 = obj()->sampleVector(p1);
 	TraceSerializer parambuf;
 	parambuf.packFloatVector(p0);
-	parambuf.packUInt(p1);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7022,14 +7022,14 @@ std::vector<double> VectorSpaceModelInstanceImpl::sampleVector(
 	return p0;
 }
 
-std::vector<unsigned int> VectorSpaceModelInstanceImpl::featureSamples(
-			unsigned int p1) const
+std::vector<Index> VectorSpaceModelInstanceImpl::featureSamples(
+			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_featureSamples), objid());
-	std::vector<unsigned int> p0 = obj()->featureSamples(p1);
+	std::vector<Index> p0 = obj()->featureSamples(p1);
 	TraceSerializer parambuf;
-	parambuf.packUintVector(p0);
-	parambuf.packUInt(p1);
+	parambuf.packIndexVector(p0);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7079,13 +7079,13 @@ unsigned int VectorSpaceModelInstanceImpl::nofSamples() const
 }
 
 std::string VectorSpaceModelInstanceImpl::sampleName(
-			unsigned int p1) const
+			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_sampleName), objid());
 	std::string p0 = obj()->sampleName(p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
-	parambuf.packUInt(p1);
+	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7122,31 +7122,12 @@ VectorSpaceModelImpl::~VectorSpaceModelImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-bool VectorSpaceModelImpl::destroyModel(
-			const std::string& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_destroyModel), objid());
-	bool p0 = obj()->destroyModel(p1);
-	TraceSerializer parambuf;
-	parambuf.packBool(p0);
-	parambuf.packString(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
 VectorSpaceModelInstanceInterface* VectorSpaceModelImpl::createInstance(
-			const std::string& p1) const
+			const DatabaseInterface* p1, 
+			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createInstance), objid());
-	VectorSpaceModelInstanceInterface* p0 = obj()->createInstance(p1);
+	VectorSpaceModelInstanceInterface* p0 = obj()->createInstance(p1, p2);
 	p0 = traceContext()->createInterfaceImpl<VectorSpaceModelInstanceInterface,VectorSpaceModelInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -7157,7 +7138,9 @@ VectorSpaceModelInstanceInterface* VectorSpaceModelImpl::createInstance(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), objbase_p0->objid());
-		parambuf.packString(p1);
+		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p1->objid());
+		parambuf.packString(p2);
 	}
 	if (parambuf.hasError())
 	{
@@ -7173,10 +7156,11 @@ VectorSpaceModelInstanceInterface* VectorSpaceModelImpl::createInstance(
 }
 
 VectorSpaceModelBuilderInterface* VectorSpaceModelImpl::createBuilder(
-			const std::string& p1) const
+			const DatabaseInterface* p1, 
+			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createBuilder), objid());
-	VectorSpaceModelBuilderInterface* p0 = obj()->createBuilder(p1);
+	VectorSpaceModelBuilderInterface* p0 = obj()->createBuilder(p1, p2);
 	p0 = traceContext()->createInterfaceImpl<VectorSpaceModelBuilderInterface,VectorSpaceModelBuilderImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -7187,7 +7171,9 @@ VectorSpaceModelBuilderInterface* VectorSpaceModelImpl::createBuilder(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), objbase_p0->objid());
-		parambuf.packString(p1);
+		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p1->objid());
+		parambuf.packString(p2);
 	}
 	if (parambuf.hasError())
 	{

@@ -1575,8 +1575,8 @@ public:
 	virtual void addSampleVector(
 			const std::string& p1, 
 			const std::vector<double>& p2);
+	virtual bool commit();
 	virtual bool finalize();
-	virtual bool store();
 };
 
 class VectorSpaceModelInstanceImpl
@@ -1591,18 +1591,18 @@ public:
 		:TraceObject<VectorSpaceModelInstanceInterface>(obj_,ctx_){}
 
 	virtual ~VectorSpaceModelInstanceImpl();
-	virtual std::vector<unsigned int> mapVectorToFeatures(
+	virtual std::vector<Index> mapVectorToFeatures(
 			const std::vector<double>& p1) const;
-	virtual std::vector<unsigned int> sampleFeatures(
-			unsigned int p1) const;
+	virtual std::vector<Index> sampleFeatures(
+			const Index& p1) const;
 	virtual std::vector<double> sampleVector(
-			unsigned int p1) const;
-	virtual std::vector<unsigned int> featureSamples(
-			unsigned int p1) const;
+			const Index& p1) const;
+	virtual std::vector<Index> featureSamples(
+			const Index& p1) const;
 	virtual unsigned int nofFeatures() const;
 	virtual unsigned int nofSamples() const;
 	virtual std::string sampleName(
-			unsigned int p1) const;
+			const Index& p1) const;
 	virtual std::string config() const;
 };
 
@@ -1618,12 +1618,12 @@ public:
 		:TraceObject<VectorSpaceModelInterface>(obj_,ctx_){}
 
 	virtual ~VectorSpaceModelImpl();
-	virtual bool destroyModel(
-			const std::string& p1) const;
 	virtual VectorSpaceModelInstanceInterface* createInstance(
-			const std::string& p1) const;
+			const DatabaseInterface* p1, 
+			const std::string& p2) const;
 	virtual VectorSpaceModelBuilderInterface* createBuilder(
-			const std::string& p1) const;
+			const DatabaseInterface* p1, 
+			const std::string& p2) const;
 };
 
 class WeightingFunctionContextImpl

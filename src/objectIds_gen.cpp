@@ -462,7 +462,7 @@ const char* ValueIteratorConst::methodName( MethodId mid)
 
 const char* VectorSpaceModelBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSampleVector", "finalize", "store"};
+	static const char* ar[] = { "Destructor", "addSampleVector", "commit", "finalize"};
 	return ar[mid];
 }
 
@@ -474,7 +474,7 @@ const char* VectorSpaceModelInstanceConst::methodName( MethodId mid)
 
 const char* VectorSpaceModelConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "destroyModel", "createInstance", "createBuilder"};
+	static const char* ar[] = { "Destructor", "createInstance", "createBuilder"};
 	return ar[mid];
 }
 

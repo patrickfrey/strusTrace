@@ -63,10 +63,10 @@ static strus::StorageClientInterface* createStorage( const strus::StorageObjectB
 {
 	std::string configstr( storageconfig);
 	std::string dbname;
-	(void)strus::extractStringFromConfigString( dbname, configstr, "database", errorhnd);
-	if (errorhnd->hasError())
+	(void)strus::extractStringFromConfigString( dbname, configstr, "database", g_errorhnd);
+	if (g_errorhnd->hasError())
 	{
-		throw strus::runtime_error(_TXT("cannot evaluate database: %s"), errorhnd->fetchError());
+		throw strus::runtime_error(_TXT("cannot evaluate database: %s"), g_errorhnd->fetchError());
 	}
 	const strus::DatabaseInterface* dbi = sob->getDatabase( dbname);
 	if (!dbi) throw std::runtime_error( "failed to get database interface");

@@ -1573,7 +1573,7 @@ public:
 		:TraceObject<VectorSpaceModelBuilderInterface>(obj_,ctx_){}
 
 	virtual ~VectorSpaceModelBuilderImpl();
-	virtual void addSampleVector(
+	virtual void addFeature(
 			const std::string& p1, 
 			const std::vector<double>& p2);
 	virtual bool commit();
@@ -1592,18 +1592,18 @@ public:
 		:TraceObject<VectorSpaceModelInstanceInterface>(obj_,ctx_){}
 
 	virtual ~VectorSpaceModelInstanceImpl();
-	virtual std::vector<Index> mapVectorToFeatures(
+	virtual std::vector<Index> mapVectorToConcepts(
 			const std::vector<double>& p1) const;
-	virtual std::vector<Index> sampleFeatures(
+	virtual std::vector<Index> featureConcepts(
 			const Index& p1) const;
-	virtual std::vector<double> sampleVector(
+	virtual std::vector<double> featureVector(
 			const Index& p1) const;
-	virtual std::vector<Index> featureSamples(
+	virtual std::string featureName(
 			const Index& p1) const;
+	virtual std::vector<Index> conceptFeatures(
+			const Index& p1) const;
+	virtual unsigned int nofConcepts() const;
 	virtual unsigned int nofFeatures() const;
-	virtual unsigned int nofSamples() const;
-	virtual std::string sampleName(
-			const Index& p1) const;
 	virtual std::string config() const;
 };
 

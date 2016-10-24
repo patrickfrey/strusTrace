@@ -987,7 +987,7 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_addSampleVector=1,
+		Method_addFeature=1,
 		Method_commit=2,
 		Method_finalize=3
 	};
@@ -1000,13 +1000,13 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_mapVectorToFeatures=1,
-		Method_sampleFeatures=2,
-		Method_sampleVector=3,
-		Method_featureSamples=4,
-		Method_nofFeatures=5,
-		Method_nofSamples=6,
-		Method_sampleName=7,
+		Method_mapVectorToConcepts=1,
+		Method_featureConcepts=2,
+		Method_featureVector=3,
+		Method_featureName=4,
+		Method_conceptFeatures=5,
+		Method_nofConcepts=6,
+		Method_nofFeatures=7,
 		Method_config=8
 	};
 	static const char* methodName( MethodId mid);

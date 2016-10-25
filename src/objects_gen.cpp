@@ -7124,7 +7124,7 @@ VectorSpaceModelImpl::~VectorSpaceModelImpl()
 
 bool VectorSpaceModelImpl::createRepository(
 			const std::string& p1, 
-			const DatabaseInterface* p2)
+			const DatabaseInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createRepository), objid());
 	bool p0 = obj()->createRepository(p1, p2);
@@ -7147,7 +7147,7 @@ bool VectorSpaceModelImpl::createRepository(
 
 bool VectorSpaceModelImpl::resetRepository(
 			const std::string& p1, 
-			const DatabaseInterface* p2)
+			const DatabaseInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_resetRepository), objid());
 	bool p0 = obj()->resetRepository(p1, p2);

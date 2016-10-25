@@ -1621,10 +1621,10 @@ public:
 	virtual ~VectorSpaceModelImpl();
 	virtual bool createRepository(
 			const std::string& p1, 
-			const DatabaseInterface* p2);
+			const DatabaseInterface* p2) const;
 	virtual bool resetRepository(
 			const std::string& p1, 
-			const DatabaseInterface* p2);
+			const DatabaseInterface* p2) const;
 	virtual VectorSpaceModelInstanceInterface* createInstance(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;

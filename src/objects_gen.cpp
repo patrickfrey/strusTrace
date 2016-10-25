@@ -7122,6 +7122,52 @@ VectorSpaceModelImpl::~VectorSpaceModelImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
+bool VectorSpaceModelImpl::createRepository(
+			const std::string& p1, 
+			const DatabaseInterface* p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createRepository), objid());
+	bool p0 = obj()->createRepository(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packBool(p0);
+	parambuf.packString(p1);
+	const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+bool VectorSpaceModelImpl::resetRepository(
+			const std::string& p1, 
+			const DatabaseInterface* p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_resetRepository), objid());
+	bool p0 = obj()->resetRepository(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packBool(p0);
+	parambuf.packString(p1);
+	const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 VectorSpaceModelInstanceInterface* VectorSpaceModelImpl::createInstance(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const

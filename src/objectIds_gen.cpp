@@ -474,7 +474,7 @@ const char* VectorSpaceModelInstanceConst::methodName( MethodId mid)
 
 const char* VectorSpaceModelConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createInstance", "createBuilder"};
+	static const char* ar[] = { "Destructor", "createRepository", "resetRepository", "createInstance", "createBuilder"};
 	return ar[mid];
 }
 

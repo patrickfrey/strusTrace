@@ -1018,8 +1018,10 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_createInstance=1,
-		Method_createBuilder=2
+		Method_createRepository=1,
+		Method_resetRepository=2,
+		Method_createInstance=3,
+		Method_createBuilder=4
 	};
 	static const char* methodName( MethodId mid);
 };

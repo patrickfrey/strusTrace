@@ -1619,6 +1619,12 @@ public:
 		:TraceObject<VectorSpaceModelInterface>(obj_,ctx_){}
 
 	virtual ~VectorSpaceModelImpl();
+	virtual bool createRepository(
+			const std::string& p1, 
+			const DatabaseInterface* p2);
+	virtual bool resetRepository(
+			const std::string& p1, 
+			const DatabaseInterface* p2);
 	virtual VectorSpaceModelInstanceInterface* createInstance(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;

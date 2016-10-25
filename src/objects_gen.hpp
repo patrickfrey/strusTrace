@@ -1620,11 +1620,11 @@ public:
 
 	virtual ~VectorSpaceModelImpl();
 	virtual VectorSpaceModelInstanceInterface* createInstance(
-			const DatabaseInterface* p1, 
-			const std::string& p2) const;
+			const std::string& p1, 
+			const DatabaseInterface* p2) const;
 	virtual VectorSpaceModelBuilderInterface* createBuilder(
-			const DatabaseInterface* p1, 
-			const std::string& p2) const;
+			const std::string& p1, 
+			const DatabaseInterface* p2) const;
 };
 
 class WeightingFunctionContextImpl

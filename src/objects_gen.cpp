@@ -7123,8 +7123,8 @@ VectorSpaceModelImpl::~VectorSpaceModelImpl()
 }
 
 VectorSpaceModelInstanceInterface* VectorSpaceModelImpl::createInstance(
-			const DatabaseInterface* p1, 
-			const std::string& p2) const
+			const std::string& p1, 
+			const DatabaseInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createInstance), objid());
 	VectorSpaceModelInstanceInterface* p0 = obj()->createInstance(p1, p2);
@@ -7138,9 +7138,9 @@ VectorSpaceModelInstanceInterface* VectorSpaceModelImpl::createInstance(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), objbase_p0->objid());
-		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p1->objid());
-		parambuf.packString(p2);
+		parambuf.packString(p1);
+		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
 	}
 	if (parambuf.hasError())
 	{
@@ -7156,8 +7156,8 @@ VectorSpaceModelInstanceInterface* VectorSpaceModelImpl::createInstance(
 }
 
 VectorSpaceModelBuilderInterface* VectorSpaceModelImpl::createBuilder(
-			const DatabaseInterface* p1, 
-			const std::string& p2) const
+			const std::string& p1, 
+			const DatabaseInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createBuilder), objid());
 	VectorSpaceModelBuilderInterface* p0 = obj()->createBuilder(p1, p2);
@@ -7171,9 +7171,9 @@ VectorSpaceModelBuilderInterface* VectorSpaceModelImpl::createBuilder(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), objbase_p0->objid());
-		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p1->objid());
-		parambuf.packString(p2);
+		parambuf.packString(p1);
+		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
 	}
 	if (parambuf.hasError())
 	{

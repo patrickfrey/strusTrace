@@ -204,6 +204,7 @@ public:
 			const char* key, std::size_t p1, 
 			std::string& p2, 
 			const DatabaseOptions& p3) const;
+	virtual std::string config() const;
 };
 
 class DatabaseCursorImpl
@@ -1141,6 +1142,7 @@ public:
 		:TraceObject<StorageClientInterface>(obj_,ctx_){}
 
 	virtual ~StorageClientImpl();
+	virtual std::string config() const;
 	virtual PostingIteratorInterface* createTermPostingIterator(
 			const std::string& p1, 
 			const std::string& p2) const;

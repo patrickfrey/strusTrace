@@ -163,7 +163,8 @@ public:
 		Method_createBackupCursor=3,
 		Method_writeImm=4,
 		Method_removeImm=5,
-		Method_readValue=6
+		Method_readValue=6,
+		Method_config=7
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -728,30 +729,31 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_createTermPostingIterator=1,
-		Method_createBrowsePostingIterator=2,
-		Method_createForwardIterator=3,
-		Method_createDocumentTermIterator=4,
-		Method_createInvAclIterator=5,
-		Method_nofDocumentsInserted=6,
-		Method_documentFrequency=7,
-		Method_maxDocumentNumber=8,
-		Method_documentNumber=9,
-		Method_createTermTypeIterator=10,
-		Method_createTermValueIterator=11,
-		Method_createDocIdIterator=12,
-		Method_createUserNameIterator=13,
-		Method_documentStatistics=14,
-		Method_createMetaDataReader=15,
-		Method_createMetaDataRestriction=16,
-		Method_createAttributeReader=17,
-		Method_createTransaction=18,
-		Method_createInitStatisticsIterator=19,
-		Method_createUpdateStatisticsIterator=20,
-		Method_getStatisticsProcessor=21,
-		Method_createDocumentChecker=22,
-		Method_checkStorage=23,
-		Method_createDump=24
+		Method_config=1,
+		Method_createTermPostingIterator=2,
+		Method_createBrowsePostingIterator=3,
+		Method_createForwardIterator=4,
+		Method_createDocumentTermIterator=5,
+		Method_createInvAclIterator=6,
+		Method_nofDocumentsInserted=7,
+		Method_documentFrequency=8,
+		Method_maxDocumentNumber=9,
+		Method_documentNumber=10,
+		Method_createTermTypeIterator=11,
+		Method_createTermValueIterator=12,
+		Method_createDocIdIterator=13,
+		Method_createUserNameIterator=14,
+		Method_documentStatistics=15,
+		Method_createMetaDataReader=16,
+		Method_createMetaDataRestriction=17,
+		Method_createAttributeReader=18,
+		Method_createTransaction=19,
+		Method_createInitStatisticsIterator=20,
+		Method_createUpdateStatisticsIterator=21,
+		Method_getStatisticsProcessor=22,
+		Method_createDocumentChecker=23,
+		Method_checkStorage=24,
+		Method_createDump=25
 	};
 	static const char* methodName( MethodId mid);
 };

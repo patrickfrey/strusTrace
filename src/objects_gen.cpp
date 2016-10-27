@@ -7078,6 +7078,33 @@ std::string VectorSpaceModelInstanceImpl::featureName(
 	return p0;
 }
 
+Index VectorSpaceModelInstanceImpl::featureIndex(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_featureIndex), objid());
+	Index p0 = obj()->featureIndex(p1);
+	TraceSerializer parambuf;
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "featureIndex", traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		parambuf.packIndex(p0);
+		parambuf.packString(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 std::vector<Index> VectorSpaceModelInstanceImpl::conceptFeatures(
 			const Index& p1) const
 {

@@ -1006,10 +1006,11 @@ public:
 		Method_featureConcepts=2,
 		Method_featureVector=3,
 		Method_featureName=4,
-		Method_conceptFeatures=5,
-		Method_nofConcepts=6,
-		Method_nofFeatures=7,
-		Method_config=8
+		Method_featureIndex=5,
+		Method_conceptFeatures=6,
+		Method_nofConcepts=7,
+		Method_nofFeatures=8,
+		Method_config=9
 	};
 	static const char* methodName( MethodId mid);
 };

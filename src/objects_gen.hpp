@@ -1594,6 +1594,7 @@ public:
 		:TraceObject<VectorSpaceModelInstanceInterface>(obj_,ctx_){}
 
 	virtual ~VectorSpaceModelInstanceImpl();
+	virtual void preload();
 	virtual std::vector<Index> mapVectorToConcepts(
 			const std::vector<double>& p1) const;
 	virtual std::vector<Index> featureConcepts(

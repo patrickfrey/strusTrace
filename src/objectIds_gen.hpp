@@ -1002,17 +1002,18 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_mapVectorToConcepts=1,
-		Method_featureConcepts=2,
-		Method_featureVector=3,
-		Method_featureName=4,
-		Method_featureIndex=5,
-		Method_attributes=6,
-		Method_attributeNames=7,
-		Method_conceptFeatures=8,
-		Method_nofConcepts=9,
-		Method_nofFeatures=10,
-		Method_config=11
+		Method_preload=1,
+		Method_mapVectorToConcepts=2,
+		Method_featureConcepts=3,
+		Method_featureVector=4,
+		Method_featureName=5,
+		Method_featureIndex=6,
+		Method_attributes=7,
+		Method_attributeNames=8,
+		Method_conceptFeatures=9,
+		Method_nofConcepts=10,
+		Method_nofFeatures=11,
+		Method_config=12
 	};
 	static const char* methodName( MethodId mid);
 };

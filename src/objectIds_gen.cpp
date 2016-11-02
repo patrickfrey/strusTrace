@@ -78,6 +78,7 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"TokenMarkupInstance",
 		"ValueIterator",
 		"VectorSpaceModelBuilder",
+		"VectorSpaceModelDump",
 		"VectorSpaceModelInstance",
 		"VectorSpaceModel",
 		"WeightingFunctionContext",
@@ -360,7 +361,7 @@ const char* StorageAlterMetaDataTableConst::methodName( MethodId mid)
 
 const char* StorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createBrowsePostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "createTermTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createInitStatisticsIterator", "createUpdateStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage", "createDump"};
+	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createBrowsePostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "createTermTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createInitStatisticsIterator", "createUpdateStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage"};
 	return ar[mid];
 }
 
@@ -384,7 +385,7 @@ const char* StorageDumpConst::methodName( MethodId mid)
 
 const char* StorageConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createClient", "createStorage", "createAlterMetaDataTable", "getConfigDescription", "getConfigParameters"};
+	static const char* ar[] = { "Destructor", "createClient", "createStorage", "createAlterMetaDataTable", "getConfigDescription", "getConfigParameters", "createDump"};
 	return ar[mid];
 }
 
@@ -466,6 +467,12 @@ const char* VectorSpaceModelBuilderConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
+const char* VectorSpaceModelDumpConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "nextChunk"};
+	return ar[mid];
+}
+
 const char* VectorSpaceModelInstanceConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "preload", "mapVectorToConcepts", "featureConcepts", "featureVector", "featureName", "featureIndex", "attributes", "attributeNames", "conceptFeatures", "nofConcepts", "nofFeatures", "config"};
@@ -474,7 +481,7 @@ const char* VectorSpaceModelInstanceConst::methodName( MethodId mid)
 
 const char* VectorSpaceModelConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createRepository", "resetRepository", "createInstance", "createBuilder"};
+	static const char* ar[] = { "Destructor", "createRepository", "resetRepository", "createInstance", "createBuilder", "createDump"};
 	return ar[mid];
 }
 

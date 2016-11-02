@@ -5256,36 +5256,6 @@ bool StorageClientImpl::checkStorage(
 	return p0;
 }
 
-StorageDumpInterface* StorageClientImpl::createDump(
-			const std::string& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createDump), objid());
-	StorageDumpInterface* p0 = obj()->createDump(p1);
-	p0 = traceContext()->createInterfaceImpl<StorageDumpInterface,StorageDumpImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDump", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageDump), objbase_p0->objid());
-		parambuf.packString(p1);
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
 StorageDocumentImpl::~StorageDocumentImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_Destructor), objid());
@@ -5724,6 +5694,41 @@ const char** StorageImpl::getConfigParameters(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+StorageDumpInterface* StorageImpl::createDump(
+			const std::string& p1, 
+			const DatabaseInterface* p2, 
+			const std::string& p3) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Storage), StorageConst::methodName( Method_createDump), objid());
+	StorageDumpInterface* p0 = obj()->createDump(p1, p2, p3);
+	p0 = traceContext()->createInterfaceImpl<StorageDumpInterface,StorageDumpImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDump", traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageDump), objbase_p0->objid());
+		parambuf.packString(p1);
+		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
+		parambuf.packString(p3);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6992,6 +6997,32 @@ bool VectorSpaceModelBuilderImpl::finalize()
 	return p0;
 }
 
+VectorSpaceModelDumpImpl::~VectorSpaceModelDumpImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelDump), VectorSpaceModelDumpConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+bool VectorSpaceModelDumpImpl::nextChunk(
+			const char*& chunk, std::size_t& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelDump), VectorSpaceModelDumpConst::methodName( Method_nextChunk), objid());
+	bool p0 = obj()->nextChunk(chunk, p1);
+	TraceSerializer parambuf;
+	parambuf.packBool(p0);
+	parambuf.packBuffer( chunk, p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 VectorSpaceModelInstanceImpl::~VectorSpaceModelInstanceImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_Destructor), objid());
@@ -7340,6 +7371,41 @@ VectorSpaceModelBuilderInterface* VectorSpaceModelImpl::createBuilder(
 		parambuf.packString(p1);
 		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+VectorSpaceModelDumpInterface* VectorSpaceModelImpl::createDump(
+			const std::string& p1, 
+			const DatabaseInterface* p2, 
+			const std::string& p3) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createDump), objid());
+	VectorSpaceModelDumpInterface* p0 = obj()->createDump(p1, p2, p3);
+	p0 = traceContext()->createInterfaceImpl<VectorSpaceModelDumpInterface,VectorSpaceModelDumpImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDump", traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModelDump), objbase_p0->objid());
+		parambuf.packString(p1);
+		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
+		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
+		parambuf.packString(p3);
 	}
 	if (parambuf.hasError())
 	{

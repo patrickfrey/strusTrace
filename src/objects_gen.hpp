@@ -75,6 +75,7 @@
 #include "strus/tokenMarkupInstanceInterface.hpp"
 #include "strus/valueIteratorInterface.hpp"
 #include "strus/vectorSpaceModelBuilderInterface.hpp"
+#include "strus/vectorSpaceModelDumpInterface.hpp"
 #include "strus/vectorSpaceModelInstanceInterface.hpp"
 #include "strus/vectorSpaceModelInterface.hpp"
 #include "strus/weightingFunctionContextInterface.hpp"
@@ -1183,8 +1184,6 @@ public:
 			const std::string& p2) const;
 	virtual bool checkStorage(
 			std::ostream& p1) const;
-	virtual StorageDumpInterface* createDump(
-			const std::string& p1) const;
 };
 
 class StorageDocumentImpl
@@ -1288,6 +1287,10 @@ public:
 			const ConfigType& p1) const;
 	virtual const char** getConfigParameters(
 			const ConfigType& p1) const;
+	virtual StorageDumpInterface* createDump(
+			const std::string& p1, 
+			const DatabaseInterface* p2, 
+			const std::string& p3) const;
 };
 
 class StorageObjectBuilderImpl
@@ -1582,6 +1585,22 @@ public:
 	virtual bool finalize();
 };
 
+class VectorSpaceModelDumpImpl
+		:public TraceObject<VectorSpaceModelDumpInterface>
+		,public VectorSpaceModelDumpInterface
+		,public VectorSpaceModelDumpConst
+{
+public:
+	VectorSpaceModelDumpImpl( VectorSpaceModelDumpInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelDumpInterface>(obj_,ctx_){}
+	VectorSpaceModelDumpImpl( const VectorSpaceModelDumpInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelDumpInterface>(obj_,ctx_){}
+
+	virtual ~VectorSpaceModelDumpImpl();
+	virtual bool nextChunk(
+			const char*& chunk, std::size_t& p1);
+};
+
 class VectorSpaceModelInstanceImpl
 		:public TraceObject<VectorSpaceModelInstanceInterface>
 		,public VectorSpaceModelInstanceInterface
@@ -1640,6 +1659,10 @@ public:
 	virtual VectorSpaceModelBuilderInterface* createBuilder(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
+	virtual VectorSpaceModelDumpInterface* createDump(
+			const std::string& p1, 
+			const DatabaseInterface* p2, 
+			const std::string& p3) const;
 };
 
 class WeightingFunctionContextImpl

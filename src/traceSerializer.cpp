@@ -593,10 +593,10 @@ void TraceSerializer::packAnalyzerTerm( const analyzer::Term& val)
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerTermVector( const analyzer::TermVector& val)
+void TraceSerializer::packAnalyzerTermArray( const analyzer::TermArray& val)
 {
 	try{
-	analyzer::TermVector::const_iterator ti = val.begin(), te = val.end();
+	analyzer::TermArray::const_iterator ti = val.begin(), te = val.end();
 	for (; ti != te; ++ti)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ti-val.begin()));
@@ -606,14 +606,14 @@ void TraceSerializer::packAnalyzerTermVector( const analyzer::TermVector& val)
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerTermVectorVector( const std::vector<analyzer::TermVector>& val)
+void TraceSerializer::packAnalyzerTermArrayArray( const std::vector<analyzer::TermArray>& val)
 {
 	try{
-	std::vector<analyzer::TermVector>::const_iterator ti = val.begin(), te = val.end();
+	std::vector<analyzer::TermArray>::const_iterator ti = val.begin(), te = val.end();
 	for (; ti != te; ++ti)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ti-val.begin()));
-		packAnalyzerTermVector( *ti);
+		packAnalyzerTermArray( *ti);
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
 	}CATCH_ERROR

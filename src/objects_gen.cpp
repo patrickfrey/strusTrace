@@ -2834,7 +2834,7 @@ std::vector<analyzer::Term> QueryAnalyzerImpl::analyzePhrase(
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_analyzePhrase), objid());
 	std::vector<analyzer::Term> p0 = obj()->analyzePhrase(p1, p2);
 	TraceSerializer parambuf;
-	parambuf.packAnalyzerTermVector(p0);
+	parambuf.packAnalyzerTermArray(p0);
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	if (parambuf.hasError())
@@ -2849,13 +2849,13 @@ std::vector<analyzer::Term> QueryAnalyzerImpl::analyzePhrase(
 	return p0;
 }
 
-std::vector<analyzer::TermVector> QueryAnalyzerImpl::analyzePhraseBulk(
+std::vector<analyzer::TermArray> QueryAnalyzerImpl::analyzePhraseBulk(
 			const std::vector<Phrase>& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_analyzePhraseBulk), objid());
-	std::vector<analyzer::TermVector> p0 = obj()->analyzePhraseBulk(p1);
+	std::vector<analyzer::TermArray> p0 = obj()->analyzePhraseBulk(p1);
 	TraceSerializer parambuf;
-	parambuf.packAnalyzerTermVectorVector(p0);
+	parambuf.packAnalyzerTermArrayArray(p0);
 	parambuf.packPhraseVector(p1);
 	if (parambuf.hasError())
 	{

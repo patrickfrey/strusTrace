@@ -122,8 +122,8 @@ public:
 	void packAnalyzerAttribute( const analyzer::Attribute& val);
 	void packAnalyzerMetaData( const analyzer::MetaData& val);
 	void packAnalyzerTerm( const analyzer::Term& val);
-	void packAnalyzerTermVector( const analyzer::TermVector& val);
-	void packAnalyzerTermVectorVector( const std::vector<analyzer::TermVector>& val);
+	void packAnalyzerTermArray( const analyzer::TermArray& val);
+	void packAnalyzerTermArrayArray( const std::vector<analyzer::TermArray>& val);
 	void packAnalyzerToken( const analyzer::Token& val);
 	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
 	void packAnalyzerPatternLexem( const analyzer::PatternLexem& val);

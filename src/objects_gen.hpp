@@ -740,7 +740,7 @@ public:
 	virtual std::vector<analyzer::Term> analyzePhrase(
 			const std::string& p1, 
 			const std::string& p2) const;
-	virtual std::vector<analyzer::TermVector> analyzePhraseBulk(
+	virtual std::vector<analyzer::TermArray> analyzePhraseBulk(
 			const std::vector<Phrase>& p1) const;
 };
 

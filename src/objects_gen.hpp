@@ -1583,6 +1583,7 @@ public:
 			const std::vector<double>& p2);
 	virtual bool commit();
 	virtual bool finalize();
+	virtual bool rebase();
 };
 
 class VectorSpaceModelDumpImpl

@@ -114,6 +114,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pass_param", "$bufname, $name")
 		("pack_msg", "parambuf.packBufferFloat( $bufname, $name);")
 	;
+	typesystem.defineType( "const double* $bufname, unsigned int")
+		("test_null", "$bufname == 0")
+		("pass_param", "$bufname, $name")
+		("pack_msg", "parambuf.packBufferFloat( $bufname, $name);")
+	;
 	typesystem.defineType( "const NumericVariant&")
 		("pack_msg", "parambuf.packNumericVariant($name);")
 	;
@@ -148,8 +153,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const ConfigType&", "Storage")
 		("pack_msg", "parambuf.packStorageConfigType($name);")
 	;
-	typesystem.defineType( "const FeatureOptions&", "DocumentAnalyzer")
+	typesystem.defineType( "const analyzer::FeatureOptions&")
 		("pack_msg", "parambuf.packFeatureOptions($name);")
+	;
+	typesystem.defineType( "const GroupBy&", "QueryAnalyzer")
+		("pack_msg", "parambuf.packAnalyzerQueryGroupBy($name);")
 	;
 	typesystem.defineType( "const SummaryElement&")
 		("pack_msg", "parambuf.packSummaryElement($name);")
@@ -172,6 +180,15 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "Slice", "DatabaseCursor")
 		("scopedtype", "DatabaseCursorInterface::Slice")
 		("pack_msg", "parambuf.packSlice($name);")
+	;
+	typesystem.defineType( "const analyzer::Query&")
+		("pack_msg", "parambuf.packAnalyzerQuery($name);")
+	;
+	typesystem.defineType( "analyzer::Query&")
+		("pack_msg", "parambuf.packAnalyzerQuery($name);")
+	;
+	typesystem.defineType( "analyzer::Query")
+		("pack_msg", "parambuf.packAnalyzerQuery($name);")
 	;
 	typesystem.defineType( "const analyzer::Document&")
 		("pack_msg", "parambuf.packAnalyzerDocument($name);")

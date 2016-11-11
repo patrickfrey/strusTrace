@@ -44,6 +44,7 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"PatternMatcher",
 		"PostingIterator",
 		"PostingJoinOperator",
+		"QueryAnalyzerContext",
 		"QueryAnalyzer",
 		"QueryEval",
 		"Query",
@@ -263,9 +264,15 @@ const char* PostingJoinOperatorConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
+const char* QueryAnalyzerContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "putField", "groupElements", "analyze"};
+	return ar[mid];
+}
+
 const char* QueryAnalyzerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "definePhraseType", "analyzePhrase", "analyzePhraseBulk"};
+	static const char* ar[] = { "Destructor", "addSearchIndexElement", "addMetaDataElement", "createContext"};
 	return ar[mid];
 }
 
@@ -397,7 +404,7 @@ const char* StorageObjectBuilderConst::methodName( MethodId mid)
 
 const char* StorageTransactionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createDocument", "createDocumentUpdate", "deleteDocument", "deleteUserAccessRights", "updateMetaData", "commit", "rollback"};
+	static const char* ar[] = { "Destructor", "createDocument", "createDocumentUpdate", "deleteDocument", "deleteUserAccessRights", "updateMetaData", "commit", "rollback", "nofDocumentsAffected"};
 	return ar[mid];
 }
 

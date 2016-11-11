@@ -38,7 +38,9 @@
 #include "strus/patternLexerInstanceInterface.hpp"
 #include "strus/patternLexerInterface.hpp"
 #include "strus/documentAnalyzerInterface.hpp"
+#include "strus/documentAnalyzerContextInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
+#include "strus/queryAnalyzerContextInterface.hpp"
 #include "strus/analyzer/token.hpp"
 #include "strus/analyzer/patternLexem.hpp"
 #include "strus/analyzer/tokenMarkup.hpp"
@@ -111,13 +113,14 @@ public:
 	void packDatabaseOptions( const DatabaseOptions& val);
 	void packDatabaseConfigType( const DatabaseInterface::ConfigType& val);
 	void packStorageConfigType( const StorageInterface::ConfigType& val);
-	void packFeatureOptions( const DocumentAnalyzerInterface::FeatureOptions& val);
+	void packFeatureOptions( const analyzer::FeatureOptions& val);
 	void packSummaryElement( const SummaryElement& val);
 	void packSummaryElementVector( const std::vector<SummaryElement>& val);
 	void packSummarizationVariable( const SummarizationVariable& val);
 	void packSummarizationVariableVector( const std::vector<SummarizationVariable>& val);
 	void packDocumentTermIteratorTerm( const DocumentTermIteratorInterface::Term& term);
 	void packSlice( DatabaseCursorInterface::Slice& val);
+	void packAnalyzerQuery( const analyzer::Query& val);
 	void packAnalyzerDocument( const analyzer::Document& val);
 	void packAnalyzerAttribute( const analyzer::Attribute& val);
 	void packAnalyzerMetaData( const analyzer::MetaData& val);
@@ -126,6 +129,7 @@ public:
 	void packAnalyzerTermArrayArray( const std::vector<analyzer::TermArray>& val);
 	void packAnalyzerToken( const analyzer::Token& val);
 	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
+	void packAnalyzerQueryGroupBy( const QueryAnalyzerContextInterface::GroupBy& groupBy);
 	void packAnalyzerPatternLexem( const analyzer::PatternLexem& val);
 	void packAnalyzerPatternLexemVector( const std::vector<analyzer::PatternLexem>& val);
 	void packAnalyzerPositionBind( const analyzer::PositionBind& posbind);
@@ -141,8 +145,6 @@ public:
 	void packQueryResult( const QueryResult& val);
 	void packFeatureParameter( const QueryEvalInterface::FeatureParameter& val);
 	void packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar);
-	void packPhrase( const QueryAnalyzerInterface::Phrase& val);
-	void packPhraseVector( const std::vector<QueryAnalyzerInterface::Phrase>& val);
 	void packDocumentStatisticsType( const StorageClientInterface::DocumentStatisticsType& val);
 	void packStatisticsProcessorBuilderOptions( const StatisticsProcessorInterface::BuilderOptions& val);
 	void packStatisticsViewerDocumentFrequencyChange( const StatisticsViewerInterface::DocumentFrequencyChange& val);

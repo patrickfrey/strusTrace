@@ -41,6 +41,7 @@
 #include "strus/patternMatcherInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
+#include "strus/queryAnalyzerContextInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
 #include "strus/queryEvalInterface.hpp"
 #include "strus/queryInterface.hpp"
@@ -326,13 +327,13 @@ public:
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const FeatureOptions& p5);
+			const analyzer::FeatureOptions& p5);
 	virtual void addForwardIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const FeatureOptions& p5);
+			const analyzer::FeatureOptions& p5);
 	virtual void defineMetaData(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -720,6 +721,30 @@ public:
 	virtual Description getDescription() const;
 };
 
+class QueryAnalyzerContextImpl
+		:public TraceObject<QueryAnalyzerContextInterface>
+		,public QueryAnalyzerContextInterface
+		,public QueryAnalyzerContextConst
+{
+public:
+	QueryAnalyzerContextImpl( QueryAnalyzerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryAnalyzerContextInterface>(obj_,ctx_){}
+	QueryAnalyzerContextImpl( const QueryAnalyzerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryAnalyzerContextInterface>(obj_,ctx_){}
+
+	virtual ~QueryAnalyzerContextImpl();
+	virtual void putField(
+			unsigned int p1, 
+			const std::string& p2, 
+			const std::string& p3);
+	virtual void groupElements(
+			unsigned int p1, 
+			const std::vector<unsigned int>& p2, 
+			const GroupBy& p3, 
+			bool p4);
+	virtual analyzer::Query analyze() const;
+};
+
 class QueryAnalyzerImpl
 		:public TraceObject<QueryAnalyzerInterface>
 		,public QueryAnalyzerInterface
@@ -732,16 +757,17 @@ public:
 		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
 
 	virtual ~QueryAnalyzerImpl();
-	virtual void definePhraseType(
+	virtual void addSearchIndexElement(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
-	virtual std::vector<analyzer::Term> analyzePhrase(
+	virtual void addMetaDataElement(
 			const std::string& p1, 
-			const std::string& p2) const;
-	virtual std::vector<analyzer::TermArray> analyzePhraseBulk(
-			const std::vector<Phrase>& p1) const;
+			const std::string& p2, 
+			TokenizerFunctionInstanceInterface* p3, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
+	virtual QueryAnalyzerContextInterface* createContext() const;
 };
 
 class QueryEvalImpl
@@ -797,7 +823,7 @@ public:
 			const std::string& p2);
 	virtual void pushExpression(
 			const PostingJoinOperatorInterface* p1, 
-			std::size_t p2, 
+			unsigned int p2, 
 			int p3, 
 			unsigned int p4);
 	virtual void attachVariable(
@@ -883,7 +909,7 @@ public:
 			const std::string& p1, 
 			double p2);
 	virtual double call(
-			const double* args, std::size_t p1) const;
+			const double* args, unsigned int p1) const;
 	virtual std::string tostring() const;
 };
 
@@ -900,7 +926,7 @@ public:
 
 	virtual ~ScalarFunctionImpl();
 	virtual std::vector<std::string> getVariables() const;
-	virtual std::size_t getNofArguments() const;
+	virtual unsigned int getNofArguments() const;
 	virtual void setDefaultVariableValue(
 			const std::string& p1, 
 			double p2);
@@ -1342,6 +1368,7 @@ public:
 			const NumericVariant& p3);
 	virtual bool commit();
 	virtual void rollback();
+	virtual unsigned int nofDocumentsAffected() const;
 };
 
 class SummarizerFunctionContextImpl

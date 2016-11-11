@@ -34,6 +34,7 @@
 #include "strus/textProcessorInterface.hpp"
 #include "strus/documentAnalyzerInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
+#include "strus/queryAnalyzerContextInterface.hpp"
 #include "strus/normalizerFunctionInterface.hpp"
 #include "strus/normalizerFunctionInstanceInterface.hpp"
 #include "strus/normalizerFunctionContextInterface.hpp"
@@ -210,11 +211,11 @@ static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::An
 			case SearchIndex:
 				if (!countfeatname) countfeatname = config[ai].type;
 				analyzer->addSearchIndexFeature(
-					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers);
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, strus::analyzer::FeatureOptions());
 				break;
 			case ForwardIndex:
 				analyzer->addForwardIndexFeature(
-					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers);
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, strus::analyzer::FeatureOptions());
 				break;
 			case MetaData:
 				analyzer->defineMetaData(
@@ -251,7 +252,7 @@ static strus::QueryAnalyzerInterface* createQueryAnalyzer( const strus::Analyzer
 	if (!config[ai].type) throw std::runtime_error( "no search index feature defined in analyzer configuration");
 	
 	AnalyzerFunctionDef anafundef( textproc, config[ai].normalizer, config[ai].tokenizer);
-	analyzer->definePhraseType( "querystring", config[ai].type, anafundef.tokenizer, anafundef.normalizers);
+	analyzer->addSearchIndexElement( config[ai].type, "querystring", anafundef.tokenizer, anafundef.normalizers);
 	return analyzer.release();
 }
 
@@ -353,11 +354,14 @@ static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBui
 	return qeval.release();
 }
 
-static std::vector<strus::analyzer::Term> analyzeQuery( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* anaconfig, const char* querystr)
+static strus::analyzer::Query analyzeQuery( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* anaconfig, const char* querystr)
 {
-	std::auto_ptr<strus::QueryAnalyzerInterface> qana( createQueryAnalyzer( aob, anaconfig));
-	if (!qana.get()) throw std::runtime_error("failed to create query analyzer");
-	return qana->analyzePhrase( "querystring", querystr);
+	std::auto_ptr<strus::QueryAnalyzerInterface> qai( createQueryAnalyzer( aob, anaconfig));
+	if (!qai.get()) throw std::runtime_error("failed to create query analyzer");
+	std::auto_ptr<strus::QueryAnalyzerContextInterface> qac( qai->createContext());
+	if (!qac.get()) throw std::runtime_error("failed to create query analyzer context");
+	qac->putField( 1, "querystring", querystr);
+	return qac->analyze();
 }
 
 static strus::QueryInterface* createQuery(
@@ -370,23 +374,42 @@ static strus::QueryInterface* createQuery(
 {
 	const strus::QueryProcessorInterface* qproc = sob->getQueryProcessor();
 	if (!qproc) throw std::runtime_error("failed to get query processor");
-
-	std::vector<strus::analyzer::Term> qterms = analyzeQuery( aob, anaconfig, querystr);
-	if (qterms.empty()) throw std::runtime_error("no query terms in query");
-
 	std::auto_ptr<strus::QueryInterface> query( qeval->createQuery( storage));
-	std::vector<strus::analyzer::Term>::const_iterator qi = qterms.begin(), qe = qterms.end();
-	for (; qi != qe; ++qi)
+
+	// The query analysis is only rudimentary and does not make use of latest query analysis capabilities
+	// to deal with query structures (trees):
+	strus::analyzer::Query querystruct = analyzeQuery( aob, anaconfig, querystr);
+	if (querystruct.empty()) throw std::runtime_error("query is empty");
+
+	std::vector<unsigned int> selfeat;
+	std::vector<strus::analyzer::Query::Instruction>::const_iterator
+		ei = querystruct.instructions().begin(), ee = querystruct.instructions().end();
+	for (; ei != ee; ++ei)
 	{
-		query->pushTerm( qi->type(), qi->value());
-		query->defineFeature( "docfeat");
+		switch (ei->opCode())
+		{
+			case strus::analyzer::Query::Instruction::PushMetaData:
+				throw std::runtime_error("meta data restriction feature support not complete yet in query analyzer");
+			case strus::analyzer::Query::Instruction::PushSearchIndexTerm:
+			{
+				const strus::analyzer::Term& term = querystruct.searchIndexTerm( ei->idx());
+				query->pushTerm( term.type(), term.value());
+				query->defineFeature( "docfeat");
+				selfeat.push_back( ei->idx());
+				break;
+			}
+			case strus::analyzer::Query::Instruction::Operator:
+				throw std::runtime_error("structured query support not complete yet in query analyzer");
+		}
 	}
-	for (qi = qterms.begin(); qi != qe; ++qi)
+	std::vector<unsigned int>::const_iterator si = selfeat.begin(), se = selfeat.end();
+	for (; si != se; ++si)
 	{
-		query->pushTerm( qi->type(), qi->value());
+		const strus::analyzer::Term& term = querystruct.searchIndexTerm( *si);
+		query->pushTerm( term.type(), term.value());
 	}
 	const strus::PostingJoinOperatorInterface* contains = qproc->getPostingJoinOperator("contains");
-	query->pushExpression( contains, qterms.size(), 0, 1/*cardinality*/);
+	query->pushExpression( contains, selfeat.size(), 0, 1/*cardinality*/);
 	query->defineFeature( "selfeat");
 	return query.release();
 }

@@ -7181,14 +7181,34 @@ void VectorSpaceModelInstanceImpl::preload()
 	}
 }
 
+std::vector<std::string> VectorSpaceModelInstanceImpl::conceptClassNames() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_conceptClassNames), objid());
+	std::vector<std::string> p0 = obj()->conceptClassNames();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 std::vector<Index> VectorSpaceModelInstanceImpl::mapVectorToConcepts(
-			const std::vector<double>& p1) const
+			const std::string& p1, 
+			const std::vector<double>& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_mapVectorToConcepts), objid());
-	std::vector<Index> p0 = obj()->mapVectorToConcepts(p1);
+	std::vector<Index> p0 = obj()->mapVectorToConcepts(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packIndexVector(p0);
-	parambuf.packFloatVector(p1);
+	parambuf.packString(p1);
+	parambuf.packFloatVector(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7202,13 +7222,15 @@ std::vector<Index> VectorSpaceModelInstanceImpl::mapVectorToConcepts(
 }
 
 std::vector<Index> VectorSpaceModelInstanceImpl::featureConcepts(
-			const Index& p1) const
+			const std::string& p1, 
+			const Index& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_featureConcepts), objid());
-	std::vector<Index> p0 = obj()->featureConcepts(p1);
+	std::vector<Index> p0 = obj()->featureConcepts(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packIndexVector(p0);
-	parambuf.packIndex(p1);
+	parambuf.packString(p1);
+	parambuf.packIndex(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7329,13 +7351,15 @@ std::vector<std::string> VectorSpaceModelInstanceImpl::attributeNames() const
 }
 
 std::vector<Index> VectorSpaceModelInstanceImpl::conceptFeatures(
-			const Index& p1) const
+			const std::string& p1, 
+			const Index& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_conceptFeatures), objid());
-	std::vector<Index> p0 = obj()->conceptFeatures(p1);
+	std::vector<Index> p0 = obj()->conceptFeatures(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packIndexVector(p0);
-	parambuf.packIndex(p1);
+	parambuf.packString(p1);
+	parambuf.packIndex(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7348,12 +7372,14 @@ std::vector<Index> VectorSpaceModelInstanceImpl::conceptFeatures(
 	return p0;
 }
 
-unsigned int VectorSpaceModelInstanceImpl::nofConcepts() const
+unsigned int VectorSpaceModelInstanceImpl::nofConcepts(
+			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_nofConcepts), objid());
-	unsigned int p0 = obj()->nofConcepts();
+	unsigned int p0 = obj()->nofConcepts(p1);
 	TraceSerializer parambuf;
 	parambuf.packUInt(p0);
+	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

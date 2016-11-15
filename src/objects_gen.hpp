@@ -1642,10 +1642,13 @@ public:
 
 	virtual ~VectorSpaceModelInstanceImpl();
 	virtual void preload();
+	virtual std::vector<std::string> conceptClassNames() const;
 	virtual std::vector<Index> mapVectorToConcepts(
-			const std::vector<double>& p1) const;
+			const std::string& p1, 
+			const std::vector<double>& p2) const;
 	virtual std::vector<Index> featureConcepts(
-			const Index& p1) const;
+			const std::string& p1, 
+			const Index& p2) const;
 	virtual std::vector<double> featureVector(
 			const Index& p1) const;
 	virtual std::string featureName(
@@ -1657,8 +1660,10 @@ public:
 			const Index& p2) const;
 	virtual std::vector<std::string> attributeNames() const;
 	virtual std::vector<Index> conceptFeatures(
-			const Index& p1) const;
-	virtual unsigned int nofConcepts() const;
+			const std::string& p1, 
+			const Index& p2) const;
+	virtual unsigned int nofConcepts(
+			const std::string& p1) const;
 	virtual unsigned int nofFeatures() const;
 	virtual std::string config() const;
 };

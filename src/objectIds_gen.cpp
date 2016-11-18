@@ -470,7 +470,7 @@ const char* ValueIteratorConst::methodName( MethodId mid)
 
 const char* VectorSpaceModelBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addFeature", "commit", "finalize", "rebase"};
+	static const char* ar[] = { "Destructor", "addFeature", "done", "run", "commands"};
 	return ar[mid];
 }
 

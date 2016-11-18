@@ -7078,10 +7078,10 @@ void VectorSpaceModelBuilderImpl::addFeature(
 	}
 }
 
-bool VectorSpaceModelBuilderImpl::commit()
+bool VectorSpaceModelBuilderImpl::done()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_commit), objid());
-	bool p0 = obj()->commit();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_done), objid());
+	bool p0 = obj()->done();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
@@ -7096,12 +7096,14 @@ bool VectorSpaceModelBuilderImpl::commit()
 	return p0;
 }
 
-bool VectorSpaceModelBuilderImpl::finalize()
+bool VectorSpaceModelBuilderImpl::run(
+			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_finalize), objid());
-	bool p0 = obj()->finalize();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_run), objid());
+	bool p0 = obj()->run(p1);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
+	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7114,12 +7116,12 @@ bool VectorSpaceModelBuilderImpl::finalize()
 	return p0;
 }
 
-bool VectorSpaceModelBuilderImpl::rebase()
+std::vector<std::string> VectorSpaceModelBuilderImpl::commands() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_rebase), objid());
-	bool p0 = obj()->rebase();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_commands), objid());
+	std::vector<std::string> p0 = obj()->commands();
 	TraceSerializer parambuf;
-	parambuf.packBool(p0);
+	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

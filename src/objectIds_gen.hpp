@@ -1006,9 +1006,9 @@ public:
 	{
 		Method_Destructor=0,
 		Method_addFeature=1,
-		Method_commit=2,
-		Method_finalize=3,
-		Method_rebase=4
+		Method_done=2,
+		Method_run=3,
+		Method_commands=4
 	};
 	static const char* methodName( MethodId mid);
 };

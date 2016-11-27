@@ -1008,7 +1008,8 @@ public:
 		Method_addFeature=1,
 		Method_done=2,
 		Method_run=3,
-		Method_commands=4
+		Method_commands=4,
+		Method_commandDescription=5
 	};
 	static const char* methodName( MethodId mid);
 };

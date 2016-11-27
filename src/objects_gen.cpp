@@ -7134,6 +7134,26 @@ std::vector<std::string> VectorSpaceModelBuilderImpl::commands() const
 	return p0;
 }
 
+std::string VectorSpaceModelBuilderImpl::commandDescription(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_commandDescription), objid());
+	std::string p0 = obj()->commandDescription(p1);
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 VectorSpaceModelDumpImpl::~VectorSpaceModelDumpImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelDump), VectorSpaceModelDumpConst::methodName( Method_Destructor), objid());

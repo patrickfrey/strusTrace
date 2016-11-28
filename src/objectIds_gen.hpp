@@ -1007,9 +1007,7 @@ public:
 		Method_Destructor=0,
 		Method_addFeature=1,
 		Method_done=2,
-		Method_run=3,
-		Method_commands=4,
-		Method_commandDescription=5
+		Method_run=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1058,7 +1056,9 @@ public:
 		Method_resetRepository=2,
 		Method_createInstance=3,
 		Method_createBuilder=4,
-		Method_createDump=5
+		Method_builderCommands=5,
+		Method_builderCommandDescription=6,
+		Method_createDump=7
 	};
 	static const char* methodName( MethodId mid);
 };

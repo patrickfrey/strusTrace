@@ -1611,9 +1611,6 @@ public:
 	virtual bool done();
 	virtual bool run(
 			const std::string& p1);
-	virtual std::vector<std::string> commands() const;
-	virtual std::string commandDescription(
-			const std::string& p1) const;
 };
 
 class VectorSpaceModelDumpImpl
@@ -1695,6 +1692,9 @@ public:
 	virtual VectorSpaceModelBuilderInterface* createBuilder(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
+	virtual std::vector<std::string> builderCommands() const;
+	virtual std::string builderCommandDescription(
+			const std::string& p1) const;
 	virtual VectorSpaceModelDumpInterface* createDump(
 			const std::string& p1, 
 			const DatabaseInterface* p2, 

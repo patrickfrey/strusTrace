@@ -41,49 +41,51 @@ enum ClassId
 	ClassId_PatternMatcherContext=25,
 	ClassId_PatternMatcherInstance=26,
 	ClassId_PatternMatcher=27,
-	ClassId_PostingIterator=28,
-	ClassId_PostingJoinOperator=29,
-	ClassId_QueryAnalyzerContext=30,
-	ClassId_QueryAnalyzer=31,
-	ClassId_QueryEval=32,
-	ClassId_Query=33,
-	ClassId_QueryProcessor=34,
-	ClassId_ScalarFunctionInstance=35,
-	ClassId_ScalarFunction=36,
-	ClassId_ScalarFunctionParser=37,
-	ClassId_SegmenterContext=38,
-	ClassId_SegmenterInstance=39,
-	ClassId_Segmenter=40,
-	ClassId_SegmenterMarkupContext=41,
-	ClassId_StatisticsBuilder=42,
-	ClassId_StatisticsIterator=43,
-	ClassId_StatisticsProcessor=44,
-	ClassId_StatisticsViewer=45,
-	ClassId_StorageAlterMetaDataTable=46,
-	ClassId_StorageClient=47,
-	ClassId_StorageDocument=48,
-	ClassId_StorageDocumentUpdate=49,
-	ClassId_StorageDump=50,
-	ClassId_Storage=51,
-	ClassId_StorageObjectBuilder=52,
-	ClassId_StorageTransaction=53,
-	ClassId_SummarizerFunctionContext=54,
-	ClassId_SummarizerFunctionInstance=55,
-	ClassId_SummarizerFunction=56,
-	ClassId_TextProcessor=57,
-	ClassId_TokenizerFunctionContext=58,
-	ClassId_TokenizerFunctionInstance=59,
-	ClassId_TokenizerFunction=60,
-	ClassId_TokenMarkupContext=61,
-	ClassId_TokenMarkupInstance=62,
-	ClassId_ValueIterator=63,
-	ClassId_VectorSpaceModelBuilder=64,
-	ClassId_VectorSpaceModelDump=65,
-	ClassId_VectorSpaceModelInstance=66,
-	ClassId_VectorSpaceModel=67,
-	ClassId_WeightingFunctionContext=68,
-	ClassId_WeightingFunctionInstance=69,
-	ClassId_WeightingFunction=70
+	ClassId_PatternTermFeederInstance=28,
+	ClassId_PatternTermFeeder=29,
+	ClassId_PostingIterator=30,
+	ClassId_PostingJoinOperator=31,
+	ClassId_QueryAnalyzerContext=32,
+	ClassId_QueryAnalyzer=33,
+	ClassId_QueryEval=34,
+	ClassId_Query=35,
+	ClassId_QueryProcessor=36,
+	ClassId_ScalarFunctionInstance=37,
+	ClassId_ScalarFunction=38,
+	ClassId_ScalarFunctionParser=39,
+	ClassId_SegmenterContext=40,
+	ClassId_SegmenterInstance=41,
+	ClassId_Segmenter=42,
+	ClassId_SegmenterMarkupContext=43,
+	ClassId_StatisticsBuilder=44,
+	ClassId_StatisticsIterator=45,
+	ClassId_StatisticsProcessor=46,
+	ClassId_StatisticsViewer=47,
+	ClassId_StorageAlterMetaDataTable=48,
+	ClassId_StorageClient=49,
+	ClassId_StorageDocument=50,
+	ClassId_StorageDocumentUpdate=51,
+	ClassId_StorageDump=52,
+	ClassId_Storage=53,
+	ClassId_StorageObjectBuilder=54,
+	ClassId_StorageTransaction=55,
+	ClassId_SummarizerFunctionContext=56,
+	ClassId_SummarizerFunctionInstance=57,
+	ClassId_SummarizerFunction=58,
+	ClassId_TextProcessor=59,
+	ClassId_TokenizerFunctionContext=60,
+	ClassId_TokenizerFunctionInstance=61,
+	ClassId_TokenizerFunction=62,
+	ClassId_TokenMarkupContext=63,
+	ClassId_TokenMarkupInstance=64,
+	ClassId_ValueIterator=65,
+	ClassId_VectorSpaceModelBuilder=66,
+	ClassId_VectorSpaceModelDump=67,
+	ClassId_VectorSpaceModelInstance=68,
+	ClassId_VectorSpaceModel=69,
+	ClassId_WeightingFunctionContext=70,
+	ClassId_WeightingFunctionInstance=71,
+	ClassId_WeightingFunction=72
 };
 
 struct TraceClassNameMap
@@ -393,7 +395,7 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_definePattern=1,
+		Method_defineLexem=1,
 		Method_defineSymbol=2,
 		Method_getSymbol=3,
 		Method_compile=4,
@@ -455,6 +457,31 @@ public:
 		Method_getCompileOptions=1,
 		Method_createInstance=2,
 		Method_getDescription=3
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternTermFeederInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_defineLexem=1,
+		Method_defineSymbol=2,
+		Method_getSymbol=3,
+		Method_mapTerms=4
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternTermFeederConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createInstance=1
 	};
 	static const char* methodName( MethodId mid);
 };

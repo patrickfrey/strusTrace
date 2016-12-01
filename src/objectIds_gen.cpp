@@ -42,6 +42,8 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"PatternMatcherContext",
 		"PatternMatcherInstance",
 		"PatternMatcher",
+		"PatternTermFeederInstance",
+		"PatternTermFeeder",
 		"PostingIterator",
 		"PostingJoinOperator",
 		"QueryAnalyzerContext",
@@ -224,7 +226,7 @@ const char* PatternLexerContextConst::methodName( MethodId mid)
 
 const char* PatternLexerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "definePattern", "defineSymbol", "getSymbol", "compile", "createContext"};
+	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getSymbol", "compile", "createContext"};
 	return ar[mid];
 }
 
@@ -249,6 +251,18 @@ const char* PatternMatcherInstanceConst::methodName( MethodId mid)
 const char* PatternMatcherConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "getCompileOptions", "createInstance", "getDescription"};
+	return ar[mid];
+}
+
+const char* PatternTermFeederInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getSymbol", "mapTerms"};
+	return ar[mid];
+}
+
+const char* PatternTermFeederConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createInstance"};
 	return ar[mid];
 }
 

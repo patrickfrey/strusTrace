@@ -39,6 +39,8 @@
 #include "strus/patternMatcherContextInterface.hpp"
 #include "strus/patternMatcherInstanceInterface.hpp"
 #include "strus/patternMatcherInterface.hpp"
+#include "strus/patternTermFeederInstanceInterface.hpp"
+#include "strus/patternTermFeederInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
@@ -572,7 +574,7 @@ public:
 		:TraceObject<PatternLexerInstanceInterface>(obj_,ctx_){}
 
 	virtual ~PatternLexerInstanceImpl();
-	virtual void definePattern(
+	virtual void defineLexem(
 			unsigned int p1, 
 			const std::string& p2, 
 			unsigned int p3, 
@@ -675,6 +677,47 @@ public:
 	virtual std::vector<std::string> getCompileOptions() const;
 	virtual PatternMatcherInstanceInterface* createInstance() const;
 	virtual const char* getDescription() const;
+};
+
+class PatternTermFeederInstanceImpl
+		:public TraceObject<PatternTermFeederInstanceInterface>
+		,public PatternTermFeederInstanceInterface
+		,public PatternTermFeederInstanceConst
+{
+public:
+	PatternTermFeederInstanceImpl( PatternTermFeederInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternTermFeederInstanceInterface>(obj_,ctx_){}
+	PatternTermFeederInstanceImpl( const PatternTermFeederInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternTermFeederInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PatternTermFeederInstanceImpl();
+	virtual void defineLexem(
+			unsigned int p1, 
+			const std::string& p2);
+	virtual void defineSymbol(
+			unsigned int p1, 
+			unsigned int p2, 
+			const std::string& p3);
+	virtual unsigned int getSymbol(
+			unsigned int p1, 
+			const std::string& p2) const;
+	virtual std::vector<analyzer::PatternLexem> mapTerms(
+			const std::vector<analyzer::Term>& p1);
+};
+
+class PatternTermFeederImpl
+		:public TraceObject<PatternTermFeederInterface>
+		,public PatternTermFeederInterface
+		,public PatternTermFeederConst
+{
+public:
+	PatternTermFeederImpl( PatternTermFeederInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternTermFeederInterface>(obj_,ctx_){}
+	PatternTermFeederImpl( const PatternTermFeederInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternTermFeederInterface>(obj_,ctx_){}
+
+	virtual ~PatternTermFeederImpl();
+	virtual PatternTermFeederInstanceInterface* createInstance() const;
 };
 
 class PostingIteratorImpl

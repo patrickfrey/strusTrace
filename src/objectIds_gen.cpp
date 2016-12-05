@@ -256,7 +256,7 @@ const char* PatternMatcherConst::methodName( MethodId mid)
 
 const char* PatternTermFeederInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getSymbol", "mapTerms"};
+	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getSymbol", "mapTerms", "mapResults"};
 	return ar[mid];
 }
 

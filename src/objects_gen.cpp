@@ -2582,13 +2582,37 @@ unsigned int PatternTermFeederInstanceImpl::getSymbol(
 }
 
 std::vector<analyzer::PatternLexem> PatternTermFeederInstanceImpl::mapTerms(
-			const std::vector<analyzer::Term>& p1)
+			const std::vector<analyzer::Term>& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternTermFeederInstance), PatternTermFeederInstanceConst::methodName( Method_mapTerms), objid());
 	std::vector<analyzer::PatternLexem> p0 = obj()->mapTerms(p1);
 	TraceSerializer parambuf;
 	parambuf.packAnalyzerPatternLexemVector(p0);
 	parambuf.packAnalyzerTermArray(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<analyzer::Term> PatternTermFeederInstanceImpl::mapResults(
+			const std::string& p1, 
+			const std::vector<analyzer::PatternMatcherResult>& p2, 
+			const std::vector<analyzer::Term>& p3) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternTermFeederInstance), PatternTermFeederInstanceConst::methodName( Method_mapResults), objid());
+	std::vector<analyzer::Term> p0 = obj()->mapResults(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerTermArray(p0);
+	parambuf.packString(p1);
+	parambuf.packAnalyzerPatternMatcherResultVector(p2);
+	parambuf.packAnalyzerTermArray(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

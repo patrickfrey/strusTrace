@@ -702,7 +702,11 @@ public:
 			unsigned int p1, 
 			const std::string& p2) const;
 	virtual std::vector<analyzer::PatternLexem> mapTerms(
-			const std::vector<analyzer::Term>& p1);
+			const std::vector<analyzer::Term>& p1) const;
+	virtual std::vector<analyzer::Term> mapResults(
+			const std::string& p1, 
+			const std::vector<analyzer::PatternMatcherResult>& p2, 
+			const std::vector<analyzer::Term>& p3) const;
 };
 
 class PatternTermFeederImpl

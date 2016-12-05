@@ -470,7 +470,8 @@ public:
 		Method_defineLexem=1,
 		Method_defineSymbol=2,
 		Method_getSymbol=3,
-		Method_mapTerms=4
+		Method_mapTerms=4,
+		Method_mapResults=5
 	};
 	static const char* methodName( MethodId mid);
 };

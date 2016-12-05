@@ -1689,6 +1689,8 @@ public:
 
 	virtual ~VectorSpaceModelInstanceImpl();
 	virtual void preload();
+	virtual std::vector<Index> findSimFeatures(
+			const std::vector<double>& p1) const;
 	virtual std::vector<std::string> conceptClassNames() const;
 	virtual std::vector<Index> mapVectorToConcepts(
 			const std::string& p1, 

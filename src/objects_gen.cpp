@@ -7315,6 +7315,26 @@ void VectorSpaceModelInstanceImpl::preload()
 	}
 }
 
+std::vector<Index> VectorSpaceModelInstanceImpl::findSimFeatures(
+			const std::vector<double>& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_findSimFeatures), objid());
+	std::vector<Index> p0 = obj()->findSimFeatures(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndexVector(p0);
+	parambuf.packFloatVector(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 std::vector<std::string> VectorSpaceModelInstanceImpl::conceptClassNames() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_conceptClassNames), objid());

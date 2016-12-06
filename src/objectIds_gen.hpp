@@ -1058,19 +1058,18 @@ public:
 	{
 		Method_Destructor=0,
 		Method_preload=1,
-		Method_findSimFeatures=2,
-		Method_conceptClassNames=3,
-		Method_mapVectorToConcepts=4,
-		Method_featureConcepts=5,
-		Method_featureVector=6,
-		Method_featureName=7,
-		Method_featureIndex=8,
-		Method_attributes=9,
-		Method_attributeNames=10,
-		Method_conceptFeatures=11,
-		Method_nofConcepts=12,
-		Method_nofFeatures=13,
-		Method_config=14
+		Method_conceptClassNames=2,
+		Method_conceptFeatures=3,
+		Method_nofConcepts=4,
+		Method_findSimilarFeatures=5,
+		Method_featureConcepts=6,
+		Method_featureVector=7,
+		Method_featureName=8,
+		Method_featureIndex=9,
+		Method_featureAttributes=10,
+		Method_featureAttributeNames=11,
+		Method_nofFeatures=12,
+		Method_config=13
 	};
 	static const char* methodName( MethodId mid);
 };

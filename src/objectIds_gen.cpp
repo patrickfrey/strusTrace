@@ -256,7 +256,7 @@ const char* PatternMatcherConst::methodName( MethodId mid)
 
 const char* PatternTermFeederInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getSymbol", "mapTerms"};
+	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getSymbol", "mapTerms", "mapResults"};
 	return ar[mid];
 }
 
@@ -496,7 +496,7 @@ const char* VectorSpaceModelDumpConst::methodName( MethodId mid)
 
 const char* VectorSpaceModelInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "preload", "conceptClassNames", "mapVectorToConcepts", "featureConcepts", "featureVector", "featureName", "featureIndex", "attributes", "attributeNames", "conceptFeatures", "nofConcepts", "nofFeatures", "config"};
+	static const char* ar[] = { "Destructor", "preload", "conceptClassNames", "conceptFeatures", "nofConcepts", "findSimilarFeatures", "featureConcepts", "featureVector", "featureName", "featureIndex", "featureAttributes", "featureAttributeNames", "nofFeatures", "config"};
 	return ar[mid];
 }
 

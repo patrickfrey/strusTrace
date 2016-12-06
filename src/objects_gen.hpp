@@ -702,7 +702,11 @@ public:
 			unsigned int p1, 
 			const std::string& p2) const;
 	virtual std::vector<analyzer::PatternLexem> mapTerms(
-			const std::vector<analyzer::Term>& p1);
+			const std::vector<analyzer::Term>& p1) const;
+	virtual std::vector<analyzer::Term> mapResults(
+			const std::string& p1, 
+			const std::vector<analyzer::PatternMatcherResult>& p2, 
+			const std::vector<analyzer::Term>& p3) const;
 };
 
 class PatternTermFeederImpl
@@ -1686,9 +1690,13 @@ public:
 	virtual ~VectorSpaceModelInstanceImpl();
 	virtual void preload();
 	virtual std::vector<std::string> conceptClassNames() const;
-	virtual std::vector<Index> mapVectorToConcepts(
+	virtual std::vector<Index> conceptFeatures(
 			const std::string& p1, 
-			const std::vector<double>& p2) const;
+			const Index& p2) const;
+	virtual unsigned int nofConcepts(
+			const std::string& p1) const;
+	virtual std::vector<Index> findSimilarFeatures(
+			const std::vector<double>& p1) const;
 	virtual std::vector<Index> featureConcepts(
 			const std::string& p1, 
 			const Index& p2) const;
@@ -1698,15 +1706,10 @@ public:
 			const Index& p1) const;
 	virtual Index featureIndex(
 			const std::string& p1) const;
-	virtual std::vector<std::string> attributes(
+	virtual std::vector<std::string> featureAttributes(
 			const std::string& p1, 
 			const Index& p2) const;
-	virtual std::vector<std::string> attributeNames() const;
-	virtual std::vector<Index> conceptFeatures(
-			const std::string& p1, 
-			const Index& p2) const;
-	virtual unsigned int nofConcepts(
-			const std::string& p1) const;
+	virtual std::vector<std::string> featureAttributeNames() const;
 	virtual unsigned int nofFeatures() const;
 	virtual std::string config() const;
 };

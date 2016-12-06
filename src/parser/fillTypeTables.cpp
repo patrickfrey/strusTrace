@@ -244,6 +244,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "std::vector<analyzer::PatternMatcherResult>")
 		("pack_msg", "parambuf.packAnalyzerPatternMatcherResultVector($name);")
 	;
+	typesystem.defineType( "const std::vector<analyzer::PatternMatcherResult>&")
+		("pack_msg", "parambuf.packAnalyzerPatternMatcherResultVector($name);")
+	;
 	typesystem.defineType( "analyzer::PatternMatcherStatistics")
 		("pack_msg", "parambuf.packAnalyzerPatternMatcherStatistics($name);")
 	;

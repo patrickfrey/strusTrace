@@ -470,7 +470,8 @@ public:
 		Method_defineLexem=1,
 		Method_defineSymbol=2,
 		Method_getSymbol=3,
-		Method_mapTerms=4
+		Method_mapTerms=4,
+		Method_mapResults=5
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1058,15 +1059,15 @@ public:
 		Method_Destructor=0,
 		Method_preload=1,
 		Method_conceptClassNames=2,
-		Method_mapVectorToConcepts=3,
-		Method_featureConcepts=4,
-		Method_featureVector=5,
-		Method_featureName=6,
-		Method_featureIndex=7,
-		Method_attributes=8,
-		Method_attributeNames=9,
-		Method_conceptFeatures=10,
-		Method_nofConcepts=11,
+		Method_conceptFeatures=3,
+		Method_nofConcepts=4,
+		Method_findSimilarFeatures=5,
+		Method_featureConcepts=6,
+		Method_featureVector=7,
+		Method_featureName=8,
+		Method_featureIndex=9,
+		Method_featureAttributes=10,
+		Method_featureAttributeNames=11,
 		Method_nofFeatures=12,
 		Method_config=13
 	};

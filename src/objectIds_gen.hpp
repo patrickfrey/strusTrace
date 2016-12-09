@@ -248,8 +248,14 @@ public:
 		Method_defineAggregatedMetaData=4,
 		Method_defineAttribute=5,
 		Method_defineSubDocument=6,
-		Method_analyze=7,
-		Method_createContext=8
+		Method_definePatternMatcherPostProc=7,
+		Method_definePatternMatcherPreProc=8,
+		Method_addSearchIndexFeatureFromPatternMatch=9,
+		Method_addForwardIndexFeatureFromPatternMatch=10,
+		Method_defineMetaDataFromPatternMatch=11,
+		Method_defineAttributeFromPatternMatch=12,
+		Method_analyze=13,
+		Method_createContext=14
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -469,9 +475,8 @@ public:
 		Method_Destructor=0,
 		Method_defineLexem=1,
 		Method_defineSymbol=2,
-		Method_getSymbol=3,
-		Method_mapTerms=4,
-		Method_mapResults=5
+		Method_getLexem=3,
+		Method_getSymbol=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -538,7 +543,11 @@ public:
 		Method_Destructor=0,
 		Method_addSearchIndexElement=1,
 		Method_addMetaDataElement=2,
-		Method_createContext=3
+		Method_definePatternMatcherPostProc=3,
+		Method_definePatternMatcherPreProc=4,
+		Method_addSearchIndexFeatureFromPatternMatch=5,
+		Method_defineMetaDataFromPatternMatch=6,
+		Method_createContext=7
 	};
 	static const char* methodName( MethodId mid);
 };

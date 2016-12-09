@@ -154,7 +154,7 @@ const char* DocumentAnalyzerContextConst::methodName( MethodId mid)
 
 const char* DocumentAnalyzerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "analyze", "createContext"};
+	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexFeatureFromPatternMatch", "addForwardIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "defineAttributeFromPatternMatch", "analyze", "createContext"};
 	return ar[mid];
 }
 
@@ -256,7 +256,7 @@ const char* PatternMatcherConst::methodName( MethodId mid)
 
 const char* PatternTermFeederInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getSymbol", "mapTerms", "mapResults"};
+	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getLexem", "getSymbol"};
 	return ar[mid];
 }
 
@@ -286,7 +286,7 @@ const char* QueryAnalyzerContextConst::methodName( MethodId mid)
 
 const char* QueryAnalyzerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSearchIndexElement", "addMetaDataElement", "createContext"};
+	static const char* ar[] = { "Destructor", "addSearchIndexElement", "addMetaDataElement", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "createContext"};
 	return ar[mid];
 }
 

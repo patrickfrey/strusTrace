@@ -7690,13 +7690,15 @@ unsigned int VectorSpaceModelInstanceImpl::nofConcepts(
 }
 
 std::vector<Index> VectorSpaceModelInstanceImpl::findSimilarFeatures(
-			const std::vector<double>& p1) const
+			const std::vector<double>& p1, 
+			unsigned int p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelInstance), VectorSpaceModelInstanceConst::methodName( Method_findSimilarFeatures), objid());
-	std::vector<Index> p0 = obj()->findSimilarFeatures(p1);
+	std::vector<Index> p0 = obj()->findSimilarFeatures(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packIndexVector(p0);
 	parambuf.packFloatVector(p1);
+	parambuf.packUInt(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

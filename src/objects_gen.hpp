@@ -352,6 +352,11 @@ public:
 	virtual void defineSubDocument(
 			const std::string& p1, 
 			const std::string& p2);
+	virtual void addPatternLexem(
+			const std::string& p1, 
+			const std::string& p2, 
+			TokenizerFunctionInstanceInterface* p3, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
 	virtual void definePatternMatcherPostProc(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
@@ -812,7 +817,7 @@ public:
 			const std::vector<unsigned int>& p2, 
 			const GroupBy& p3, 
 			bool p4);
-	virtual analyzer::Query analyze() const;
+	virtual analyzer::Query analyze();
 };
 
 class QueryAnalyzerImpl
@@ -833,6 +838,11 @@ public:
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
 	virtual void addMetaDataElement(
+			const std::string& p1, 
+			const std::string& p2, 
+			TokenizerFunctionInstanceInterface* p3, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
+	virtual void addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 

@@ -1281,6 +1281,47 @@ void DocumentAnalyzerImpl::defineSubDocument(
 	}
 }
 
+void DocumentAnalyzerImpl::addPatternLexem(
+			const std::string& p1, 
+			const std::string& p2, 
+			TokenizerFunctionInstanceInterface* p3, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addPatternLexem), objid());
+	obj()->addPatternLexem(p1, p2, p3, p4);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
+	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
+	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		i_p4 = p4.begin(), e_p4 = p4.end();
+	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
+	{
+		parambuf.openIndex( idx_p4); 
+		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
+		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
+		parambuf.close();
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (p3) {delete p3; p3 = 0;}
+		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+			i_p4 = p4.begin(), e_p4 = p4.end();
+		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
+		{
+			delete *i_p4;
+		}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void DocumentAnalyzerImpl::definePatternMatcherPostProc(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
@@ -3168,7 +3209,7 @@ void QueryAnalyzerContextImpl::groupElements(
 	}
 }
 
-analyzer::Query QueryAnalyzerContextImpl::analyze() const
+analyzer::Query QueryAnalyzerContextImpl::analyze()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerContext), QueryAnalyzerContextConst::methodName( Method_analyze), objid());
 	analyzer::Query p0 = obj()->analyze();
@@ -3241,6 +3282,47 @@ void QueryAnalyzerImpl::addMetaDataElement(
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addMetaDataElement), objid());
 	obj()->addMetaDataElement(p1, p2, p3, p4);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
+	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
+	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		i_p4 = p4.begin(), e_p4 = p4.end();
+	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
+	{
+		parambuf.openIndex( idx_p4); 
+		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
+		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
+		parambuf.close();
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (p3) {delete p3; p3 = 0;}
+		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+			i_p4 = p4.begin(), e_p4 = p4.end();
+		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
+		{
+			delete *i_p4;
+		}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void QueryAnalyzerImpl::addPatternLexem(
+			const std::string& p1, 
+			const std::string& p2, 
+			TokenizerFunctionInstanceInterface* p3, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addPatternLexem), objid());
+	obj()->addPatternLexem(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);

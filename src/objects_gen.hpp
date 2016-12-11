@@ -732,6 +732,7 @@ public:
 			const std::string& p3);
 	virtual unsigned int getLexem(
 			const std::string& p1) const;
+	virtual std::vector<std::string> lexemTypes() const;
 	virtual unsigned int getSymbol(
 			unsigned int p1, 
 			const std::string& p2) const;

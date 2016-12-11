@@ -2828,6 +2828,24 @@ unsigned int PatternTermFeederInstanceImpl::getLexem(
 	return p0;
 }
 
+std::vector<std::string> PatternTermFeederInstanceImpl::lexemTypes() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternTermFeederInstance), PatternTermFeederInstanceConst::methodName( Method_lexemTypes), objid());
+	std::vector<std::string> p0 = obj()->lexemTypes();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 unsigned int PatternTermFeederInstanceImpl::getSymbol(
 			unsigned int p1, 
 			const std::string& p2) const

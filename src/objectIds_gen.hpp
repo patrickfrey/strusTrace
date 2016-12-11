@@ -477,7 +477,8 @@ public:
 		Method_defineLexem=1,
 		Method_defineSymbol=2,
 		Method_getLexem=3,
-		Method_getSymbol=4
+		Method_lexemTypes=4,
+		Method_getSymbol=5
 	};
 	static const char* methodName( MethodId mid);
 };

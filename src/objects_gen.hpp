@@ -1559,6 +1559,7 @@ public:
 			const std::string& p1) const;
 	virtual const PatternMatcherInterface* getPatternMatcher(
 			const std::string& p1) const;
+	virtual const PatternTermFeederInterface* getPatternTermFeeder() const;
 	virtual bool detectDocumentClass(
 			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2) const;

@@ -7156,6 +7156,33 @@ const PatternMatcherInterface* TextProcessorImpl::getPatternMatcher(
 	return p0;
 }
 
+const PatternTermFeederInterface* TextProcessorImpl::getPatternTermFeeder() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getPatternTermFeeder), objid());
+	const PatternTermFeederInterface* p0 = obj()->getPatternTermFeeder();
+	p0 = traceContext()->createInterfaceImpl_const<PatternTermFeederInterface,PatternTermFeederImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getPatternTermFeeder", traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternTermFeeder), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 bool TextProcessorImpl::detectDocumentClass(
 			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2) const

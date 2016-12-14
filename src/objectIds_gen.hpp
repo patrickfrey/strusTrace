@@ -957,14 +957,15 @@ public:
 		Method_getAggregator=5,
 		Method_getPatternLexer=6,
 		Method_getPatternMatcher=7,
-		Method_detectDocumentClass=8,
-		Method_defineDocumentClassDetector=9,
-		Method_defineTokenizer=10,
-		Method_defineNormalizer=11,
-		Method_defineAggregator=12,
-		Method_definePatternLexer=13,
-		Method_definePatternMatcher=14,
-		Method_getFunctionList=15
+		Method_getPatternTermFeeder=8,
+		Method_detectDocumentClass=9,
+		Method_defineDocumentClassDetector=10,
+		Method_defineTokenizer=11,
+		Method_defineNormalizer=12,
+		Method_defineAggregator=13,
+		Method_definePatternLexer=14,
+		Method_definePatternMatcher=15,
+		Method_getFunctionList=16
 	};
 	static const char* methodName( MethodId mid);
 };

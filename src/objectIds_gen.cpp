@@ -81,9 +81,10 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"TokenMarkupInstance",
 		"ValueIterator",
 		"VectorSpaceModelBuilder",
+		"VectorSpaceModelClient",
 		"VectorSpaceModelDump",
-		"VectorSpaceModelInstance",
 		"VectorSpaceModel",
+		"VectorSpaceModelSearch",
 		"WeightingFunctionContext",
 		"WeightingFunctionInstance",
 		"WeightingFunction"
@@ -488,21 +489,27 @@ const char* VectorSpaceModelBuilderConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
+const char* VectorSpaceModelClientConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createSearcher", "conceptClassNames", "conceptFeatures", "nofConcepts", "featureConcepts", "featureVector", "featureName", "featureIndex", "featureAttributes", "featureAttributeNames", "nofFeatures", "config"};
+	return ar[mid];
+}
+
 const char* VectorSpaceModelDumpConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "nextChunk"};
 	return ar[mid];
 }
 
-const char* VectorSpaceModelInstanceConst::methodName( MethodId mid)
+const char* VectorSpaceModelConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "preload", "conceptClassNames", "conceptFeatures", "nofConcepts", "findSimilarFeatures", "featureConcepts", "featureVector", "featureName", "featureIndex", "featureAttributes", "featureAttributeNames", "nofFeatures", "config"};
+	static const char* ar[] = { "Destructor", "createRepository", "resetRepository", "createClient", "createBuilder", "builderCommands", "builderCommandDescription", "createDump"};
 	return ar[mid];
 }
 
-const char* VectorSpaceModelConst::methodName( MethodId mid)
+const char* VectorSpaceModelSearchConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createRepository", "resetRepository", "createInstance", "createBuilder", "builderCommands", "builderCommandDescription", "createDump"};
+	static const char* ar[] = { "Destructor", "findSimilar"};
 	return ar[mid];
 }
 

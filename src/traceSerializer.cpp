@@ -1101,4 +1101,21 @@ void TraceSerializer::packFunctionDescription( const FunctionDescription& val)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packVectorSpaceModelSearchResult( const std::vector<VectorSpaceModelSearchInterface::Result>& val)
+{
+	try{
+	std::vector<VectorSpaceModelSearchInterface::Result>::const_iterator ri = val.begin(), re = val.end();
+	for (std::size_t ridx=0; ri != re; ++ri,++ridx)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ridx));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "featidx"));
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ri->featidx()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "weight"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeDouble, ri->weight()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+	}CATCH_ERROR
+}
 

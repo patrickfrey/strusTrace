@@ -78,9 +78,10 @@
 #include "strus/tokenMarkupInstanceInterface.hpp"
 #include "strus/valueIteratorInterface.hpp"
 #include "strus/vectorSpaceModelBuilderInterface.hpp"
+#include "strus/vectorSpaceModelClientInterface.hpp"
 #include "strus/vectorSpaceModelDumpInterface.hpp"
-#include "strus/vectorSpaceModelInstanceInterface.hpp"
 #include "strus/vectorSpaceModelInterface.hpp"
+#include "strus/vectorSpaceModelSearchInterface.hpp"
 #include "strus/weightingFunctionContextInterface.hpp"
 #include "strus/weightingFunctionInstanceInterface.hpp"
 #include "strus/weightingFunctionInterface.hpp"
@@ -1712,44 +1713,27 @@ public:
 			const std::string& p1);
 };
 
-class VectorSpaceModelDumpImpl
-		:public TraceObject<VectorSpaceModelDumpInterface>
-		,public VectorSpaceModelDumpInterface
-		,public VectorSpaceModelDumpConst
+class VectorSpaceModelClientImpl
+		:public TraceObject<VectorSpaceModelClientInterface>
+		,public VectorSpaceModelClientInterface
+		,public VectorSpaceModelClientConst
 {
 public:
-	VectorSpaceModelDumpImpl( VectorSpaceModelDumpInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorSpaceModelDumpInterface>(obj_,ctx_){}
-	VectorSpaceModelDumpImpl( const VectorSpaceModelDumpInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorSpaceModelDumpInterface>(obj_,ctx_){}
+	VectorSpaceModelClientImpl( VectorSpaceModelClientInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelClientInterface>(obj_,ctx_){}
+	VectorSpaceModelClientImpl( const VectorSpaceModelClientInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelClientInterface>(obj_,ctx_){}
 
-	virtual ~VectorSpaceModelDumpImpl();
-	virtual bool nextChunk(
-			const char*& chunk, std::size_t& p1);
-};
-
-class VectorSpaceModelInstanceImpl
-		:public TraceObject<VectorSpaceModelInstanceInterface>
-		,public VectorSpaceModelInstanceInterface
-		,public VectorSpaceModelInstanceConst
-{
-public:
-	VectorSpaceModelInstanceImpl( VectorSpaceModelInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorSpaceModelInstanceInterface>(obj_,ctx_){}
-	VectorSpaceModelInstanceImpl( const VectorSpaceModelInstanceInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorSpaceModelInstanceInterface>(obj_,ctx_){}
-
-	virtual ~VectorSpaceModelInstanceImpl();
-	virtual void preload();
+	virtual ~VectorSpaceModelClientImpl();
+	virtual VectorSpaceModelSearchInterface* createSearcher(
+			const Index& p1, 
+			const Index& p2) const;
 	virtual std::vector<std::string> conceptClassNames() const;
 	virtual std::vector<Index> conceptFeatures(
 			const std::string& p1, 
 			const Index& p2) const;
 	virtual unsigned int nofConcepts(
 			const std::string& p1) const;
-	virtual std::vector<Index> findSimilarFeatures(
-			const std::vector<double>& p1, 
-			unsigned int p2) const;
 	virtual std::vector<Index> featureConcepts(
 			const std::string& p1, 
 			const Index& p2) const;
@@ -1765,6 +1749,22 @@ public:
 	virtual std::vector<std::string> featureAttributeNames() const;
 	virtual unsigned int nofFeatures() const;
 	virtual std::string config() const;
+};
+
+class VectorSpaceModelDumpImpl
+		:public TraceObject<VectorSpaceModelDumpInterface>
+		,public VectorSpaceModelDumpInterface
+		,public VectorSpaceModelDumpConst
+{
+public:
+	VectorSpaceModelDumpImpl( VectorSpaceModelDumpInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelDumpInterface>(obj_,ctx_){}
+	VectorSpaceModelDumpImpl( const VectorSpaceModelDumpInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelDumpInterface>(obj_,ctx_){}
+
+	virtual ~VectorSpaceModelDumpImpl();
+	virtual bool nextChunk(
+			const char*& chunk, std::size_t& p1);
 };
 
 class VectorSpaceModelImpl
@@ -1785,7 +1785,7 @@ public:
 	virtual bool resetRepository(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
-	virtual VectorSpaceModelInstanceInterface* createInstance(
+	virtual VectorSpaceModelClientInterface* createClient(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
 	virtual VectorSpaceModelBuilderInterface* createBuilder(
@@ -1798,6 +1798,23 @@ public:
 			const std::string& p1, 
 			const DatabaseInterface* p2, 
 			const std::string& p3) const;
+};
+
+class VectorSpaceModelSearchImpl
+		:public TraceObject<VectorSpaceModelSearchInterface>
+		,public VectorSpaceModelSearchInterface
+		,public VectorSpaceModelSearchConst
+{
+public:
+	VectorSpaceModelSearchImpl( VectorSpaceModelSearchInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelSearchInterface>(obj_,ctx_){}
+	VectorSpaceModelSearchImpl( const VectorSpaceModelSearchInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorSpaceModelSearchInterface>(obj_,ctx_){}
+
+	virtual ~VectorSpaceModelSearchImpl();
+	virtual std::vector<Result> findSimilar(
+			const std::vector<double>& p1, 
+			unsigned int p2) const;
 };
 
 class WeightingFunctionContextImpl

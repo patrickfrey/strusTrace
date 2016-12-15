@@ -41,6 +41,7 @@
 #include "strus/documentAnalyzerContextInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
+#include "strus/vectorSpaceModelSearchInterface.hpp"
 #include "strus/analyzer/token.hpp"
 #include "strus/analyzer/patternLexem.hpp"
 #include "strus/analyzer/tokenMarkup.hpp"
@@ -152,6 +153,7 @@ public:
 	void packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val);
 	void packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val);
 	void packFunctionDescription( const FunctionDescription& val);
+	void packVectorSpaceModelSearchResult( const std::vector<VectorSpaceModelSearchInterface::Result>& val);
 
 	bool hasError() const
 	{

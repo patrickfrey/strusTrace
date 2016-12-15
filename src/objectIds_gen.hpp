@@ -80,12 +80,13 @@ enum ClassId
 	ClassId_TokenMarkupInstance=64,
 	ClassId_ValueIterator=65,
 	ClassId_VectorSpaceModelBuilder=66,
-	ClassId_VectorSpaceModelDump=67,
-	ClassId_VectorSpaceModelInstance=68,
+	ClassId_VectorSpaceModelClient=67,
+	ClassId_VectorSpaceModelDump=68,
 	ClassId_VectorSpaceModel=69,
-	ClassId_WeightingFunctionContext=70,
-	ClassId_WeightingFunctionInstance=71,
-	ClassId_WeightingFunction=72
+	ClassId_VectorSpaceModelSearch=70,
+	ClassId_WeightingFunctionContext=71,
+	ClassId_WeightingFunctionInstance=72,
+	ClassId_WeightingFunction=73
 };
 
 struct TraceClassNameMap
@@ -1053,6 +1054,28 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
+class VectorSpaceModelClientConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createSearcher=1,
+		Method_conceptClassNames=2,
+		Method_conceptFeatures=3,
+		Method_nofConcepts=4,
+		Method_featureConcepts=5,
+		Method_featureVector=6,
+		Method_featureName=7,
+		Method_featureIndex=8,
+		Method_featureAttributes=9,
+		Method_featureAttributeNames=10,
+		Method_nofFeatures=11,
+		Method_config=12
+	};
+	static const char* methodName( MethodId mid);
+};
+
 class VectorSpaceModelDumpConst
 {
 public:
@@ -1060,29 +1083,6 @@ public:
 	{
 		Method_Destructor=0,
 		Method_nextChunk=1
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class VectorSpaceModelInstanceConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_preload=1,
-		Method_conceptClassNames=2,
-		Method_conceptFeatures=3,
-		Method_nofConcepts=4,
-		Method_findSimilarFeatures=5,
-		Method_featureConcepts=6,
-		Method_featureVector=7,
-		Method_featureName=8,
-		Method_featureIndex=9,
-		Method_featureAttributes=10,
-		Method_featureAttributeNames=11,
-		Method_nofFeatures=12,
-		Method_config=13
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1095,11 +1095,22 @@ public:
 		Method_Destructor=0,
 		Method_createRepository=1,
 		Method_resetRepository=2,
-		Method_createInstance=3,
+		Method_createClient=3,
 		Method_createBuilder=4,
 		Method_builderCommands=5,
 		Method_builderCommandDescription=6,
 		Method_createDump=7
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorSpaceModelSearchConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_findSimilar=1
 	};
 	static const char* methodName( MethodId mid);
 };

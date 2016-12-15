@@ -383,7 +383,7 @@ const char* StorageAlterMetaDataTableConst::methodName( MethodId mid)
 
 const char* StorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createBrowsePostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "createTermTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createInitStatisticsIterator", "createUpdateStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage"};
+	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createBrowsePostingIterator", "createFieldPostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "createTermTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createInitStatisticsIterator", "createUpdateStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage"};
 	return ar[mid];
 }
 
@@ -431,7 +431,7 @@ const char* SummarizerFunctionContextConst::methodName( MethodId mid)
 
 const char* SummarizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "createFunctionContext", "tostring"};
+	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "defineResultName", "createFunctionContext", "tostring"};
 	return ar[mid];
 }
 

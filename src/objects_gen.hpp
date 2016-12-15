@@ -1275,6 +1275,9 @@ public:
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const;
+	virtual PostingIteratorInterface* createFieldPostingIterator(
+			const std::string& p1, 
+			const std::string& p2) const;
 	virtual ForwardIteratorInterface* createForwardIterator(
 			const std::string& p1) const;
 	virtual DocumentTermIteratorInterface* createDocumentTermIterator(
@@ -1510,6 +1513,9 @@ public:
 	virtual void addNumericParameter(
 			const std::string& p1, 
 			const NumericVariant& p2);
+	virtual void defineResultName(
+			const std::string& p1, 
+			const std::string& p2);
 	virtual SummarizerFunctionContextInterface* createFunctionContext(
 			const StorageClientInterface* p1, 
 			MetaDataReaderInterface* p2, 

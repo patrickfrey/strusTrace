@@ -788,27 +788,28 @@ public:
 		Method_config=1,
 		Method_createTermPostingIterator=2,
 		Method_createBrowsePostingIterator=3,
-		Method_createForwardIterator=4,
-		Method_createDocumentTermIterator=5,
-		Method_createInvAclIterator=6,
-		Method_nofDocumentsInserted=7,
-		Method_documentFrequency=8,
-		Method_maxDocumentNumber=9,
-		Method_documentNumber=10,
-		Method_createTermTypeIterator=11,
-		Method_createTermValueIterator=12,
-		Method_createDocIdIterator=13,
-		Method_createUserNameIterator=14,
-		Method_documentStatistics=15,
-		Method_createMetaDataReader=16,
-		Method_createMetaDataRestriction=17,
-		Method_createAttributeReader=18,
-		Method_createTransaction=19,
-		Method_createInitStatisticsIterator=20,
-		Method_createUpdateStatisticsIterator=21,
-		Method_getStatisticsProcessor=22,
-		Method_createDocumentChecker=23,
-		Method_checkStorage=24
+		Method_createFieldPostingIterator=4,
+		Method_createForwardIterator=5,
+		Method_createDocumentTermIterator=6,
+		Method_createInvAclIterator=7,
+		Method_nofDocumentsInserted=8,
+		Method_documentFrequency=9,
+		Method_maxDocumentNumber=10,
+		Method_documentNumber=11,
+		Method_createTermTypeIterator=12,
+		Method_createTermValueIterator=13,
+		Method_createDocIdIterator=14,
+		Method_createUserNameIterator=15,
+		Method_documentStatistics=16,
+		Method_createMetaDataReader=17,
+		Method_createMetaDataRestriction=18,
+		Method_createAttributeReader=19,
+		Method_createTransaction=20,
+		Method_createInitStatisticsIterator=21,
+		Method_createUpdateStatisticsIterator=22,
+		Method_getStatisticsProcessor=23,
+		Method_createDocumentChecker=24,
+		Method_checkStorage=25
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -927,8 +928,9 @@ public:
 		Method_Destructor=0,
 		Method_addStringParameter=1,
 		Method_addNumericParameter=2,
-		Method_createFunctionContext=3,
-		Method_tostring=4
+		Method_defineResultName=3,
+		Method_createFunctionContext=4,
+		Method_tostring=5
 	};
 	static const char* methodName( MethodId mid);
 };

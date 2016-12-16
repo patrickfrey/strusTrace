@@ -3747,6 +3747,27 @@ void QueryImpl::pushTerm(
 	}
 }
 
+void QueryImpl::pushDocField(
+			const std::string& p1, 
+			const std::string& p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_pushDocField), objid());
+	obj()->pushDocField(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void QueryImpl::pushExpression(
 			const PostingJoinOperatorInterface* p1, 
 			unsigned int p2, 

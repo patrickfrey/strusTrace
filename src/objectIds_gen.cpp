@@ -299,7 +299,7 @@ const char* QueryEvalConst::methodName( MethodId mid)
 
 const char* QueryConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "pushTerm", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "setMaxNofRanks", "setMinRank", "addUserName", "setWeightingVariableValue", "evaluate", "tostring"};
+	static const char* ar[] = { "Destructor", "pushTerm", "pushDocField", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "setMaxNofRanks", "setMinRank", "addUserName", "setWeightingVariableValue", "evaluate", "tostring"};
 	return ar[mid];
 }
 

@@ -581,19 +581,20 @@ public:
 	{
 		Method_Destructor=0,
 		Method_pushTerm=1,
-		Method_pushExpression=2,
-		Method_attachVariable=3,
-		Method_defineFeature=4,
-		Method_defineTermStatistics=5,
-		Method_defineGlobalStatistics=6,
-		Method_addMetaDataRestrictionCondition=7,
-		Method_addDocumentEvaluationSet=8,
-		Method_setMaxNofRanks=9,
-		Method_setMinRank=10,
-		Method_addUserName=11,
-		Method_setWeightingVariableValue=12,
-		Method_evaluate=13,
-		Method_tostring=14
+		Method_pushDocField=2,
+		Method_pushExpression=3,
+		Method_attachVariable=4,
+		Method_defineFeature=5,
+		Method_defineTermStatistics=6,
+		Method_defineGlobalStatistics=7,
+		Method_addMetaDataRestrictionCondition=8,
+		Method_addDocumentEvaluationSet=9,
+		Method_setMaxNofRanks=10,
+		Method_setMinRank=11,
+		Method_addUserName=12,
+		Method_setWeightingVariableValue=13,
+		Method_evaluate=14,
+		Method_tostring=15
 	};
 	static const char* methodName( MethodId mid);
 };

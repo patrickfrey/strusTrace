@@ -920,6 +920,9 @@ public:
 	virtual void pushTerm(
 			const std::string& p1, 
 			const std::string& p2);
+	virtual void pushDocField(
+			const std::string& p1, 
+			const std::string& p2);
 	virtual void pushExpression(
 			const PostingJoinOperatorInterface* p1, 
 			unsigned int p2, 

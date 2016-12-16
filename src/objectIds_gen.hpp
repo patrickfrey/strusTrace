@@ -79,11 +79,11 @@ enum ClassId
 	ClassId_TokenMarkupContext=63,
 	ClassId_TokenMarkupInstance=64,
 	ClassId_ValueIterator=65,
-	ClassId_VectorSpaceModelBuilder=66,
-	ClassId_VectorSpaceModelClient=67,
-	ClassId_VectorSpaceModelDump=68,
-	ClassId_VectorSpaceModel=69,
-	ClassId_VectorSpaceModelSearch=70,
+	ClassId_VectorStorageBuilder=66,
+	ClassId_VectorStorageClient=67,
+	ClassId_VectorStorageDump=68,
+	ClassId_VectorStorage=69,
+	ClassId_VectorStorageSearch=70,
 	ClassId_WeightingFunctionContext=71,
 	ClassId_WeightingFunctionInstance=72,
 	ClassId_WeightingFunction=73
@@ -884,7 +884,7 @@ public:
 		Method_getDatabase=2,
 		Method_getQueryProcessor=3,
 		Method_getStatisticsProcessor=4,
-		Method_getVectorSpaceModel=5,
+		Method_getVectorStorage=5,
 		Method_createQueryEval=6
 	};
 	static const char* methodName( MethodId mid);
@@ -1043,7 +1043,7 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class VectorSpaceModelBuilderConst
+class VectorStorageBuilderConst
 {
 public:
 	enum MethodId
@@ -1056,7 +1056,7 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class VectorSpaceModelClientConst
+class VectorStorageClientConst
 {
 public:
 	enum MethodId
@@ -1078,7 +1078,7 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class VectorSpaceModelDumpConst
+class VectorStorageDumpConst
 {
 public:
 	enum MethodId
@@ -1089,14 +1089,14 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class VectorSpaceModelConst
+class VectorStorageConst
 {
 public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_createRepository=1,
-		Method_resetRepository=2,
+		Method_createStorage=1,
+		Method_resetStorage=2,
 		Method_createClient=3,
 		Method_createBuilder=4,
 		Method_builderCommands=5,
@@ -1106,7 +1106,7 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class VectorSpaceModelSearchConst
+class VectorStorageSearchConst
 {
 public:
 	enum MethodId

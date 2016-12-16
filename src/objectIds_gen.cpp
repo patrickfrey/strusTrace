@@ -80,11 +80,11 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"TokenMarkupContext",
 		"TokenMarkupInstance",
 		"ValueIterator",
-		"VectorSpaceModelBuilder",
-		"VectorSpaceModelClient",
-		"VectorSpaceModelDump",
-		"VectorSpaceModel",
-		"VectorSpaceModelSearch",
+		"VectorStorageBuilder",
+		"VectorStorageClient",
+		"VectorStorageDump",
+		"VectorStorage",
+		"VectorStorageSearch",
 		"WeightingFunctionContext",
 		"WeightingFunctionInstance",
 		"WeightingFunction"
@@ -413,7 +413,7 @@ const char* StorageConst::methodName( MethodId mid)
 
 const char* StorageObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "getVectorSpaceModel", "createQueryEval"};
+	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "getVectorStorage", "createQueryEval"};
 	return ar[mid];
 }
 
@@ -483,31 +483,31 @@ const char* ValueIteratorConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* VectorSpaceModelBuilderConst::methodName( MethodId mid)
+const char* VectorStorageBuilderConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "addFeature", "done", "run"};
 	return ar[mid];
 }
 
-const char* VectorSpaceModelClientConst::methodName( MethodId mid)
+const char* VectorStorageClientConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "createSearcher", "conceptClassNames", "conceptFeatures", "nofConcepts", "featureConcepts", "featureVector", "featureName", "featureIndex", "featureAttributes", "featureAttributeNames", "nofFeatures", "config"};
 	return ar[mid];
 }
 
-const char* VectorSpaceModelDumpConst::methodName( MethodId mid)
+const char* VectorStorageDumpConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "nextChunk"};
 	return ar[mid];
 }
 
-const char* VectorSpaceModelConst::methodName( MethodId mid)
+const char* VectorStorageConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createRepository", "resetRepository", "createClient", "createBuilder", "builderCommands", "builderCommandDescription", "createDump"};
+	static const char* ar[] = { "Destructor", "createStorage", "resetStorage", "createClient", "createBuilder", "builderCommands", "builderCommandDescription", "createDump"};
 	return ar[mid];
 }
 
-const char* VectorSpaceModelSearchConst::methodName( MethodId mid)
+const char* VectorStorageSearchConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "findSimilar"};
 	return ar[mid];

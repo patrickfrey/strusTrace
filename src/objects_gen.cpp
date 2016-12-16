@@ -6551,21 +6551,21 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	return p0;
 }
 
-const VectorSpaceModelInterface* StorageObjectBuilderImpl::getVectorSpaceModel(
+const VectorStorageInterface* StorageObjectBuilderImpl::getVectorStorage(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getVectorSpaceModel), objid());
-	const VectorSpaceModelInterface* p0 = obj()->getVectorSpaceModel(p1);
-	p0 = traceContext()->createInterfaceImpl_const<VectorSpaceModelInterface,VectorSpaceModelImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageObjectBuilder), StorageObjectBuilderConst::methodName( Method_getVectorStorage), objid());
+	const VectorStorageInterface* p0 = obj()->getVectorStorage(p1);
+	p0 = traceContext()->createInterfaceImpl_const<VectorStorageInterface,VectorStorageImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getVectorSpaceModel", traceContext()->errorbuf()->fetchError());
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getVectorStorage", traceContext()->errorbuf()->fetchError());
 	}
 	else
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModel), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorStorage), objbase_p0->objid());
 		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
@@ -7695,17 +7695,17 @@ std::vector<std::string> ValueIteratorImpl::fetchValues(
 	return p0;
 }
 
-VectorSpaceModelBuilderImpl::~VectorSpaceModelBuilderImpl()
+VectorStorageBuilderImpl::~VectorStorageBuilderImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageBuilder), VectorStorageBuilderConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void VectorSpaceModelBuilderImpl::addFeature(
+void VectorStorageBuilderImpl::addFeature(
 			const std::string& p1, 
 			const std::vector<double>& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_addFeature), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageBuilder), VectorStorageBuilderConst::methodName( Method_addFeature), objid());
 	obj()->addFeature(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -7722,9 +7722,9 @@ void VectorSpaceModelBuilderImpl::addFeature(
 	}
 }
 
-bool VectorSpaceModelBuilderImpl::done()
+bool VectorStorageBuilderImpl::done()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_done), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageBuilder), VectorStorageBuilderConst::methodName( Method_done), objid());
 	bool p0 = obj()->done();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
@@ -7740,10 +7740,10 @@ bool VectorSpaceModelBuilderImpl::done()
 	return p0;
 }
 
-bool VectorSpaceModelBuilderImpl::run(
+bool VectorStorageBuilderImpl::run(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), VectorSpaceModelBuilderConst::methodName( Method_run), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageBuilder), VectorStorageBuilderConst::methodName( Method_run), objid());
 	bool p0 = obj()->run(p1);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
@@ -7760,19 +7760,19 @@ bool VectorSpaceModelBuilderImpl::run(
 	return p0;
 }
 
-VectorSpaceModelClientImpl::~VectorSpaceModelClientImpl()
+VectorStorageClientImpl::~VectorStorageClientImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-VectorSpaceModelSearchInterface* VectorSpaceModelClientImpl::createSearcher(
+VectorStorageSearchInterface* VectorStorageClientImpl::createSearcher(
 			const Index& p1, 
 			const Index& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_createSearcher), objid());
-	VectorSpaceModelSearchInterface* p0 = obj()->createSearcher(p1, p2);
-	p0 = traceContext()->createInterfaceImpl<VectorSpaceModelSearchInterface,VectorSpaceModelSearchImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_createSearcher), objid());
+	VectorStorageSearchInterface* p0 = obj()->createSearcher(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<VectorStorageSearchInterface,VectorStorageSearchImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -7781,7 +7781,7 @@ VectorSpaceModelSearchInterface* VectorSpaceModelClientImpl::createSearcher(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModelSearch), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorStorageSearch), objbase_p0->objid());
 		parambuf.packIndex(p1);
 		parambuf.packIndex(p2);
 	}
@@ -7798,9 +7798,9 @@ VectorSpaceModelSearchInterface* VectorSpaceModelClientImpl::createSearcher(
 	return p0;
 }
 
-std::vector<std::string> VectorSpaceModelClientImpl::conceptClassNames() const
+std::vector<std::string> VectorStorageClientImpl::conceptClassNames() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_conceptClassNames), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_conceptClassNames), objid());
 	std::vector<std::string> p0 = obj()->conceptClassNames();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
@@ -7816,11 +7816,11 @@ std::vector<std::string> VectorSpaceModelClientImpl::conceptClassNames() const
 	return p0;
 }
 
-std::vector<Index> VectorSpaceModelClientImpl::conceptFeatures(
+std::vector<Index> VectorStorageClientImpl::conceptFeatures(
 			const std::string& p1, 
 			const Index& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_conceptFeatures), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_conceptFeatures), objid());
 	std::vector<Index> p0 = obj()->conceptFeatures(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packIndexVector(p0);
@@ -7838,10 +7838,10 @@ std::vector<Index> VectorSpaceModelClientImpl::conceptFeatures(
 	return p0;
 }
 
-unsigned int VectorSpaceModelClientImpl::nofConcepts(
+unsigned int VectorStorageClientImpl::nofConcepts(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_nofConcepts), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_nofConcepts), objid());
 	unsigned int p0 = obj()->nofConcepts(p1);
 	TraceSerializer parambuf;
 	parambuf.packUInt(p0);
@@ -7858,11 +7858,11 @@ unsigned int VectorSpaceModelClientImpl::nofConcepts(
 	return p0;
 }
 
-std::vector<Index> VectorSpaceModelClientImpl::featureConcepts(
+std::vector<Index> VectorStorageClientImpl::featureConcepts(
 			const std::string& p1, 
 			const Index& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_featureConcepts), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureConcepts), objid());
 	std::vector<Index> p0 = obj()->featureConcepts(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packIndexVector(p0);
@@ -7880,10 +7880,10 @@ std::vector<Index> VectorSpaceModelClientImpl::featureConcepts(
 	return p0;
 }
 
-std::vector<double> VectorSpaceModelClientImpl::featureVector(
+std::vector<double> VectorStorageClientImpl::featureVector(
 			const Index& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_featureVector), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureVector), objid());
 	std::vector<double> p0 = obj()->featureVector(p1);
 	TraceSerializer parambuf;
 	parambuf.packFloatVector(p0);
@@ -7900,10 +7900,10 @@ std::vector<double> VectorSpaceModelClientImpl::featureVector(
 	return p0;
 }
 
-std::string VectorSpaceModelClientImpl::featureName(
+std::string VectorStorageClientImpl::featureName(
 			const Index& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_featureName), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureName), objid());
 	std::string p0 = obj()->featureName(p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
@@ -7920,10 +7920,10 @@ std::string VectorSpaceModelClientImpl::featureName(
 	return p0;
 }
 
-Index VectorSpaceModelClientImpl::featureIndex(
+Index VectorStorageClientImpl::featureIndex(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_featureIndex), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureIndex), objid());
 	Index p0 = obj()->featureIndex(p1);
 	TraceSerializer parambuf;
 	if (p0 < 0)
@@ -7947,11 +7947,11 @@ Index VectorSpaceModelClientImpl::featureIndex(
 	return p0;
 }
 
-std::vector<std::string> VectorSpaceModelClientImpl::featureAttributes(
+std::vector<std::string> VectorStorageClientImpl::featureAttributes(
 			const std::string& p1, 
 			const Index& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_featureAttributes), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureAttributes), objid());
 	std::vector<std::string> p0 = obj()->featureAttributes(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
@@ -7969,9 +7969,9 @@ std::vector<std::string> VectorSpaceModelClientImpl::featureAttributes(
 	return p0;
 }
 
-std::vector<std::string> VectorSpaceModelClientImpl::featureAttributeNames() const
+std::vector<std::string> VectorStorageClientImpl::featureAttributeNames() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_featureAttributeNames), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureAttributeNames), objid());
 	std::vector<std::string> p0 = obj()->featureAttributeNames();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
@@ -7987,9 +7987,9 @@ std::vector<std::string> VectorSpaceModelClientImpl::featureAttributeNames() con
 	return p0;
 }
 
-unsigned int VectorSpaceModelClientImpl::nofFeatures() const
+unsigned int VectorStorageClientImpl::nofFeatures() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_nofFeatures), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_nofFeatures), objid());
 	unsigned int p0 = obj()->nofFeatures();
 	TraceSerializer parambuf;
 	parambuf.packUInt(p0);
@@ -8005,9 +8005,9 @@ unsigned int VectorSpaceModelClientImpl::nofFeatures() const
 	return p0;
 }
 
-std::string VectorSpaceModelClientImpl::config() const
+std::string VectorStorageClientImpl::config() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), VectorSpaceModelClientConst::methodName( Method_config), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_config), objid());
 	std::string p0 = obj()->config();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
@@ -8023,16 +8023,16 @@ std::string VectorSpaceModelClientImpl::config() const
 	return p0;
 }
 
-VectorSpaceModelDumpImpl::~VectorSpaceModelDumpImpl()
+VectorStorageDumpImpl::~VectorStorageDumpImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelDump), VectorSpaceModelDumpConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageDump), VectorStorageDumpConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-bool VectorSpaceModelDumpImpl::nextChunk(
+bool VectorStorageDumpImpl::nextChunk(
 			const char*& chunk, std::size_t& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelDump), VectorSpaceModelDumpConst::methodName( Method_nextChunk), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageDump), VectorStorageDumpConst::methodName( Method_nextChunk), objid());
 	bool p0 = obj()->nextChunk(chunk, p1);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
@@ -8049,18 +8049,18 @@ bool VectorSpaceModelDumpImpl::nextChunk(
 	return p0;
 }
 
-VectorSpaceModelImpl::~VectorSpaceModelImpl()
+VectorStorageImpl::~VectorStorageImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-bool VectorSpaceModelImpl::createRepository(
+bool VectorStorageImpl::createStorage(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createRepository), objid());
-	bool p0 = obj()->createRepository(p1, p2);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_createStorage), objid());
+	bool p0 = obj()->createStorage(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
@@ -8078,12 +8078,12 @@ bool VectorSpaceModelImpl::createRepository(
 	return p0;
 }
 
-bool VectorSpaceModelImpl::resetRepository(
+bool VectorStorageImpl::resetStorage(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_resetRepository), objid());
-	bool p0 = obj()->resetRepository(p1, p2);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_resetStorage), objid());
+	bool p0 = obj()->resetStorage(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
@@ -8101,13 +8101,13 @@ bool VectorSpaceModelImpl::resetRepository(
 	return p0;
 }
 
-VectorSpaceModelClientInterface* VectorSpaceModelImpl::createClient(
+VectorStorageClientInterface* VectorStorageImpl::createClient(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createClient), objid());
-	VectorSpaceModelClientInterface* p0 = obj()->createClient(p1, p2);
-	p0 = traceContext()->createInterfaceImpl<VectorSpaceModelClientInterface,VectorSpaceModelClientImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_createClient), objid());
+	VectorStorageClientInterface* p0 = obj()->createClient(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<VectorStorageClientInterface,VectorStorageClientImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -8116,7 +8116,7 @@ VectorSpaceModelClientInterface* VectorSpaceModelImpl::createClient(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModelClient), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorStorageClient), objbase_p0->objid());
 		parambuf.packString(p1);
 		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
@@ -8134,13 +8134,13 @@ VectorSpaceModelClientInterface* VectorSpaceModelImpl::createClient(
 	return p0;
 }
 
-VectorSpaceModelBuilderInterface* VectorSpaceModelImpl::createBuilder(
+VectorStorageBuilderInterface* VectorStorageImpl::createBuilder(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createBuilder), objid());
-	VectorSpaceModelBuilderInterface* p0 = obj()->createBuilder(p1, p2);
-	p0 = traceContext()->createInterfaceImpl<VectorSpaceModelBuilderInterface,VectorSpaceModelBuilderImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_createBuilder), objid());
+	VectorStorageBuilderInterface* p0 = obj()->createBuilder(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<VectorStorageBuilderInterface,VectorStorageBuilderImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -8149,7 +8149,7 @@ VectorSpaceModelBuilderInterface* VectorSpaceModelImpl::createBuilder(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModelBuilder), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorStorageBuilder), objbase_p0->objid());
 		parambuf.packString(p1);
 		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
@@ -8167,9 +8167,9 @@ VectorSpaceModelBuilderInterface* VectorSpaceModelImpl::createBuilder(
 	return p0;
 }
 
-std::vector<std::string> VectorSpaceModelImpl::builderCommands() const
+std::vector<std::string> VectorStorageImpl::builderCommands() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_builderCommands), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_builderCommands), objid());
 	std::vector<std::string> p0 = obj()->builderCommands();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
@@ -8185,10 +8185,10 @@ std::vector<std::string> VectorSpaceModelImpl::builderCommands() const
 	return p0;
 }
 
-std::string VectorSpaceModelImpl::builderCommandDescription(
+std::string VectorStorageImpl::builderCommandDescription(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_builderCommandDescription), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_builderCommandDescription), objid());
 	std::string p0 = obj()->builderCommandDescription(p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
@@ -8205,14 +8205,14 @@ std::string VectorSpaceModelImpl::builderCommandDescription(
 	return p0;
 }
 
-VectorSpaceModelDumpInterface* VectorSpaceModelImpl::createDump(
+VectorStorageDumpInterface* VectorStorageImpl::createDump(
 			const std::string& p1, 
 			const DatabaseInterface* p2, 
 			const std::string& p3) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModel), VectorSpaceModelConst::methodName( Method_createDump), objid());
-	VectorSpaceModelDumpInterface* p0 = obj()->createDump(p1, p2, p3);
-	p0 = traceContext()->createInterfaceImpl<VectorSpaceModelDumpInterface,VectorSpaceModelDumpImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_createDump), objid());
+	VectorStorageDumpInterface* p0 = obj()->createDump(p1, p2, p3);
+	p0 = traceContext()->createInterfaceImpl<VectorStorageDumpInterface,VectorStorageDumpImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -8221,7 +8221,7 @@ VectorSpaceModelDumpInterface* VectorSpaceModelImpl::createDump(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorSpaceModelDump), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorStorageDump), objbase_p0->objid());
 		parambuf.packString(p1);
 		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
@@ -8240,20 +8240,20 @@ VectorSpaceModelDumpInterface* VectorSpaceModelImpl::createDump(
 	return p0;
 }
 
-VectorSpaceModelSearchImpl::~VectorSpaceModelSearchImpl()
+VectorStorageSearchImpl::~VectorStorageSearchImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelSearch), VectorSpaceModelSearchConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-std::vector<VectorSpaceModelSearchInterface::Result> VectorSpaceModelSearchImpl::findSimilar(
+std::vector<VectorStorageSearchInterface::Result> VectorStorageSearchImpl::findSimilar(
 			const std::vector<double>& p1, 
 			unsigned int p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorSpaceModelSearch), VectorSpaceModelSearchConst::methodName( Method_findSimilar), objid());
-	std::vector<VectorSpaceModelSearchInterface::Result> p0 = obj()->findSimilar(p1, p2);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilar), objid());
+	std::vector<VectorStorageSearchInterface::Result> p0 = obj()->findSimilar(p1, p2);
 	TraceSerializer parambuf;
-	parambuf.packVectorSpaceModelSearchResult(p0);
+	parambuf.packVectorStorageSearchResult(p0);
 	parambuf.packFloatVector(p1);
 	parambuf.packUInt(p2);
 	if (parambuf.hasError())

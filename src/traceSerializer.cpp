@@ -1101,10 +1101,10 @@ void TraceSerializer::packFunctionDescription( const FunctionDescription& val)
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packVectorSpaceModelSearchResult( const std::vector<VectorSpaceModelSearchInterface::Result>& val)
+void TraceSerializer::packVectorStorageSearchResult( const std::vector<VectorStorageSearchInterface::Result>& val)
 {
 	try{
-	std::vector<VectorSpaceModelSearchInterface::Result>::const_iterator ri = val.begin(), re = val.end();
+	std::vector<VectorStorageSearchInterface::Result>::const_iterator ri = val.begin(), re = val.end();
 	for (std::size_t ridx=0; ri != re; ++ri,++ridx)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ridx));

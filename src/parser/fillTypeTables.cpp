@@ -80,9 +80,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "std::vector<Index>")
 		("pack_msg", "parambuf.packIndexVector($name);")
 	;
-	typesystem.defineType( "std::vector<Result>", "VectorSpaceModelSearchInterface")
-		("scopedtype", "std::vector<VectorSpaceModelSearchInterface::Result>")
-		("pack_msg", "parambuf.packVectorSpaceModelSearchResult($name);")
+	typesystem.defineType( "std::vector<Result>", "VectorStorageSearchInterface")
+		("scopedtype", "std::vector<VectorStorageSearchInterface::Result>")
+		("pack_msg", "parambuf.packVectorStorageSearchResult($name);")
 	;
 	typesystem.defineType( "const std::vector<unsigned int>&")
 		("pack_msg", "parambuf.packUintVector($name);")

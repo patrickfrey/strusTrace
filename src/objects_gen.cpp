@@ -3430,13 +3430,13 @@ void QueryAnalyzerImpl::definePatternMatcherPreProc(
 	}
 }
 
-void QueryAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
+void QueryAnalyzerImpl::addSearchIndexElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addSearchIndexFeatureFromPatternMatch), objid());
-	obj()->addSearchIndexFeatureFromPatternMatch(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addSearchIndexElementFromPatternMatch), objid());
+	obj()->addSearchIndexElementFromPatternMatch(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3467,13 +3467,13 @@ void QueryAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
 	}
 }
 
-void QueryAnalyzerImpl::defineMetaDataFromPatternMatch(
+void QueryAnalyzerImpl::addMetaDataElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_defineMetaDataFromPatternMatch), objid());
-	obj()->defineMetaDataFromPatternMatch(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addMetaDataElementFromPatternMatch), objid());
+	obj()->addMetaDataElementFromPatternMatch(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);

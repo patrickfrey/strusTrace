@@ -549,8 +549,8 @@ public:
 		Method_addPatternLexem=3,
 		Method_definePatternMatcherPostProc=4,
 		Method_definePatternMatcherPreProc=5,
-		Method_addSearchIndexFeatureFromPatternMatch=6,
-		Method_defineMetaDataFromPatternMatch=7,
+		Method_addSearchIndexElementFromPatternMatch=6,
+		Method_addMetaDataElementFromPatternMatch=7,
 		Method_createContext=8
 	};
 	static const char* methodName( MethodId mid);

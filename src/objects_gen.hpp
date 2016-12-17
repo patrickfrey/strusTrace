@@ -858,11 +858,11 @@ public:
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
 			const std::vector<std::string>& p4);
-	virtual void addSearchIndexFeatureFromPatternMatch(
+	virtual void addSearchIndexElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
-	virtual void defineMetaDataFromPatternMatch(
+	virtual void addMetaDataElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3);

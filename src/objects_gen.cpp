@@ -2237,6 +2237,23 @@ std::vector<analyzer::PatternLexem> PatternLexerContextImpl::match(
 	return p0;
 }
 
+void PatternLexerContextImpl::reset()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternLexerContext), PatternLexerContextConst::methodName( Method_reset), objid());
+	obj()->reset();
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 PatternLexerInstanceImpl::~PatternLexerInstanceImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternLexerInstance), PatternLexerInstanceConst::methodName( Method_Destructor), objid());
@@ -2499,6 +2516,23 @@ analyzer::PatternMatcherStatistics PatternMatcherContextImpl::getStatistics() co
 		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
 	}
 	return p0;
+}
+
+void PatternMatcherContextImpl::reset()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherContext), PatternMatcherContextConst::methodName( Method_reset), objid());
+	obj()->reset();
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
 }
 
 PatternMatcherInstanceImpl::~PatternMatcherInstanceImpl()

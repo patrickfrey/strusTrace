@@ -593,6 +593,7 @@ public:
 	virtual ~PatternLexerContextImpl();
 	virtual std::vector<analyzer::PatternLexem> match(
 			const char* src, std::size_t p1);
+	virtual void reset();
 };
 
 class PatternLexerInstanceImpl
@@ -658,6 +659,7 @@ public:
 			const analyzer::PatternLexem& p1);
 	virtual std::vector<analyzer::PatternMatcherResult> fetchResults() const;
 	virtual analyzer::PatternMatcherStatistics getStatistics() const;
+	virtual void reset();
 };
 
 class PatternMatcherInstanceImpl

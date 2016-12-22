@@ -392,7 +392,8 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_match=1
+		Method_match=1,
+		Method_reset=2
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -433,7 +434,8 @@ public:
 		Method_Destructor=0,
 		Method_putInput=1,
 		Method_fetchResults=2,
-		Method_getStatistics=3
+		Method_getStatistics=3,
+		Method_reset=4
 	};
 	static const char* methodName( MethodId mid);
 };

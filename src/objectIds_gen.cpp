@@ -221,7 +221,7 @@ const char* NormalizerFunctionConst::methodName( MethodId mid)
 
 const char* PatternLexerContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "match"};
+	static const char* ar[] = { "Destructor", "match", "reset"};
 	return ar[mid];
 }
 
@@ -239,7 +239,7 @@ const char* PatternLexerConst::methodName( MethodId mid)
 
 const char* PatternMatcherContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "putInput", "fetchResults", "getStatistics"};
+	static const char* ar[] = { "Destructor", "putInput", "fetchResults", "getStatistics", "reset"};
 	return ar[mid];
 }
 

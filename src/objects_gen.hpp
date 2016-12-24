@@ -30,7 +30,6 @@
 #include "strus/metaDataReaderInterface.hpp"
 #include "strus/metaDataRestrictionInstanceInterface.hpp"
 #include "strus/metaDataRestrictionInterface.hpp"
-#include "strus/normalizerFunctionContextInterface.hpp"
 #include "strus/normalizerFunctionInstanceInterface.hpp"
 #include "strus/normalizerFunctionInterface.hpp"
 #include "strus/patternLexerContextInterface.hpp"
@@ -71,7 +70,6 @@
 #include "strus/summarizerFunctionInstanceInterface.hpp"
 #include "strus/summarizerFunctionInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
-#include "strus/tokenizerFunctionContextInterface.hpp"
 #include "strus/tokenizerFunctionInstanceInterface.hpp"
 #include "strus/tokenizerFunctionInterface.hpp"
 #include "strus/tokenMarkupContextInterface.hpp"
@@ -530,22 +528,6 @@ public:
 	virtual std::string tostring() const;
 };
 
-class NormalizerFunctionContextImpl
-		:public TraceObject<NormalizerFunctionContextInterface>
-		,public NormalizerFunctionContextInterface
-		,public NormalizerFunctionContextConst
-{
-public:
-	NormalizerFunctionContextImpl( NormalizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<NormalizerFunctionContextInterface>(obj_,ctx_){}
-	NormalizerFunctionContextImpl( const NormalizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<NormalizerFunctionContextInterface>(obj_,ctx_){}
-
-	virtual ~NormalizerFunctionContextImpl();
-	virtual std::string normalize(
-			const char* src, std::size_t p1);
-};
-
 class NormalizerFunctionInstanceImpl
 		:public TraceObject<NormalizerFunctionInstanceInterface>
 		,public NormalizerFunctionInstanceInterface
@@ -558,7 +540,8 @@ public:
 		:TraceObject<NormalizerFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~NormalizerFunctionInstanceImpl();
-	virtual NormalizerFunctionContextInterface* createFunctionContext() const;
+	virtual std::string normalize(
+			const char* src, std::size_t p1) const;
 };
 
 class NormalizerFunctionImpl
@@ -1596,22 +1579,6 @@ public:
 			const FunctionType& p1) const;
 };
 
-class TokenizerFunctionContextImpl
-		:public TraceObject<TokenizerFunctionContextInterface>
-		,public TokenizerFunctionContextInterface
-		,public TokenizerFunctionContextConst
-{
-public:
-	TokenizerFunctionContextImpl( TokenizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenizerFunctionContextInterface>(obj_,ctx_){}
-	TokenizerFunctionContextImpl( const TokenizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenizerFunctionContextInterface>(obj_,ctx_){}
-
-	virtual ~TokenizerFunctionContextImpl();
-	virtual std::vector<analyzer::Token> tokenize(
-			const char* src, std::size_t p1);
-};
-
 class TokenizerFunctionInstanceImpl
 		:public TraceObject<TokenizerFunctionInstanceInterface>
 		,public TokenizerFunctionInstanceInterface
@@ -1625,7 +1592,8 @@ public:
 
 	virtual ~TokenizerFunctionInstanceImpl();
 	virtual bool concatBeforeTokenize() const;
-	virtual TokenizerFunctionContextInterface* createFunctionContext() const;
+	virtual std::vector<analyzer::Token> tokenize(
+			const char* src, std::size_t p1) const;
 };
 
 class TokenizerFunctionImpl

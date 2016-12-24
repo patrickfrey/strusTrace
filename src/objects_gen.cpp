@@ -2087,16 +2087,16 @@ std::string MetaDataRestrictionImpl::tostring() const
 	return p0;
 }
 
-NormalizerFunctionContextImpl::~NormalizerFunctionContextImpl()
+NormalizerFunctionInstanceImpl::~NormalizerFunctionInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionContext), NormalizerFunctionContextConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), NormalizerFunctionInstanceConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-std::string NormalizerFunctionContextImpl::normalize(
-			const char* src, std::size_t p1)
+std::string NormalizerFunctionInstanceImpl::normalize(
+			const char* src, std::size_t p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionContext), NormalizerFunctionContextConst::methodName( Method_normalize), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), NormalizerFunctionInstanceConst::methodName( Method_normalize), objid());
 	std::string p0 = obj()->normalize(src, p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
@@ -2104,40 +2104,6 @@ std::string NormalizerFunctionContextImpl::normalize(
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-NormalizerFunctionInstanceImpl::~NormalizerFunctionInstanceImpl()
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), NormalizerFunctionInstanceConst::methodName( Method_Destructor), objid());
-	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-}
-
-NormalizerFunctionContextInterface* NormalizerFunctionInstanceImpl::createFunctionContext() const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), NormalizerFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
-	NormalizerFunctionContextInterface* p0 = obj()->createFunctionContext();
-	p0 = traceContext()->createInterfaceImpl<NormalizerFunctionContextInterface,NormalizerFunctionContextImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createFunctionContext", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionContext), objbase_p0->objid());
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7469,32 +7435,6 @@ std::vector<std::string> TextProcessorImpl::getFunctionList(
 	return p0;
 }
 
-TokenizerFunctionContextImpl::~TokenizerFunctionContextImpl()
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionContext), TokenizerFunctionContextConst::methodName( Method_Destructor), objid());
-	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-}
-
-std::vector<analyzer::Token> TokenizerFunctionContextImpl::tokenize(
-			const char* src, std::size_t p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionContext), TokenizerFunctionContextConst::methodName( Method_tokenize), objid());
-	std::vector<analyzer::Token> p0 = obj()->tokenize(src, p1);
-	TraceSerializer parambuf;
-	parambuf.packAnalyzerTokenVector(p0);
-	parambuf.packBuffer( src, p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
 TokenizerFunctionInstanceImpl::~TokenizerFunctionInstanceImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), TokenizerFunctionInstanceConst::methodName( Method_Destructor), objid());
@@ -7519,25 +7459,17 @@ bool TokenizerFunctionInstanceImpl::concatBeforeTokenize() const
 	return p0;
 }
 
-TokenizerFunctionContextInterface* TokenizerFunctionInstanceImpl::createFunctionContext() const
+std::vector<analyzer::Token> TokenizerFunctionInstanceImpl::tokenize(
+			const char* src, std::size_t p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), TokenizerFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
-	TokenizerFunctionContextInterface* p0 = obj()->createFunctionContext();
-	p0 = traceContext()->createInterfaceImpl<TokenizerFunctionContextInterface,TokenizerFunctionContextImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), TokenizerFunctionInstanceConst::methodName( Method_tokenize), objid());
+	std::vector<analyzer::Token> p0 = obj()->tokenize(src, p1);
 	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createFunctionContext", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionContext), objbase_p0->objid());
-	}
+	parambuf.packAnalyzerTokenVector(p0);
+	parambuf.packBuffer( src, p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

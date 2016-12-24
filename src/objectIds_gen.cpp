@@ -33,7 +33,6 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"MetaDataReader",
 		"MetaDataRestrictionInstance",
 		"MetaDataRestriction",
-		"NormalizerFunctionContext",
 		"NormalizerFunctionInstance",
 		"NormalizerFunction",
 		"PatternLexerContext",
@@ -74,7 +73,6 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"SummarizerFunctionInstance",
 		"SummarizerFunction",
 		"TextProcessor",
-		"TokenizerFunctionContext",
 		"TokenizerFunctionInstance",
 		"TokenizerFunction",
 		"TokenMarkupContext",
@@ -201,15 +199,9 @@ const char* MetaDataRestrictionConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* NormalizerFunctionContextConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "normalize"};
-	return ar[mid];
-}
-
 const char* NormalizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createFunctionContext"};
+	static const char* ar[] = { "Destructor", "normalize"};
 	return ar[mid];
 }
 
@@ -447,15 +439,9 @@ const char* TextProcessorConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* TokenizerFunctionContextConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "tokenize"};
-	return ar[mid];
-}
-
 const char* TokenizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "concatBeforeTokenize", "createFunctionContext"};
+	static const char* ar[] = { "Destructor", "concatBeforeTokenize", "tokenize"};
 	return ar[mid];
 }
 

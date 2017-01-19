@@ -219,13 +219,13 @@ const char* PatternLexerContextConst::methodName( MethodId mid)
 
 const char* PatternLexerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getSymbol", "compile", "createContext"};
+	static const char* ar[] = { "Destructor", "defineOption", "defineLexem", "defineSymbol", "getSymbol", "compile", "createContext"};
 	return ar[mid];
 }
 
 const char* PatternLexerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getCompileOptions", "createInstance", "getDescription"};
+	static const char* ar[] = { "Destructor", "getCompileOptionNames", "createInstance", "getDescription"};
 	return ar[mid];
 }
 
@@ -237,13 +237,13 @@ const char* PatternMatcherContextConst::methodName( MethodId mid)
 
 const char* PatternMatcherInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineTermFrequency", "pushTerm", "pushExpression", "pushPattern", "attachVariable", "definePattern", "compile", "createContext"};
+	static const char* ar[] = { "Destructor", "defineOption", "defineTermFrequency", "pushTerm", "pushExpression", "pushPattern", "attachVariable", "definePattern", "compile", "createContext"};
 	return ar[mid];
 }
 
 const char* PatternMatcherConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getCompileOptions", "createInstance", "getDescription"};
+	static const char* ar[] = { "Destructor", "getCompileOptionNames", "createInstance", "getDescription"};
 	return ar[mid];
 }
 

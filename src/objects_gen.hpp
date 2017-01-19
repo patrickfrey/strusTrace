@@ -591,6 +591,9 @@ public:
 		:TraceObject<PatternLexerInstanceInterface>(obj_,ctx_){}
 
 	virtual ~PatternLexerInstanceImpl();
+	virtual void defineOption(
+			const std::string& p1, 
+			double p2);
 	virtual void defineLexem(
 			unsigned int p1, 
 			const std::string& p2, 
@@ -604,8 +607,7 @@ public:
 	virtual unsigned int getSymbol(
 			unsigned int p1, 
 			const std::string& p2) const;
-	virtual bool compile(
-			const analyzer::PatternLexerOptions& p1);
+	virtual bool compile();
 	virtual PatternLexerContextInterface* createContext() const;
 };
 
@@ -621,7 +623,7 @@ public:
 		:TraceObject<PatternLexerInterface>(obj_,ctx_){}
 
 	virtual ~PatternLexerImpl();
-	virtual std::vector<std::string> getCompileOptions() const;
+	virtual std::vector<std::string> getCompileOptionNames() const;
 	virtual PatternLexerInstanceInterface* createInstance() const;
 	virtual const char* getDescription() const;
 };
@@ -657,6 +659,9 @@ public:
 		:TraceObject<PatternMatcherInstanceInterface>(obj_,ctx_){}
 
 	virtual ~PatternMatcherInstanceImpl();
+	virtual void defineOption(
+			const std::string& p1, 
+			double p2);
 	virtual void defineTermFrequency(
 			unsigned int p1, 
 			double p2);
@@ -675,8 +680,7 @@ public:
 	virtual void definePattern(
 			const std::string& p1, 
 			bool p2);
-	virtual bool compile(
-			const analyzer::PatternMatcherOptions& p1);
+	virtual bool compile();
 	virtual PatternMatcherContextInterface* createContext() const;
 };
 
@@ -692,7 +696,7 @@ public:
 		:TraceObject<PatternMatcherInterface>(obj_,ctx_){}
 
 	virtual ~PatternMatcherImpl();
-	virtual std::vector<std::string> getCompileOptions() const;
+	virtual std::vector<std::string> getCompileOptionNames() const;
 	virtual PatternMatcherInstanceInterface* createInstance() const;
 	virtual const char* getDescription() const;
 };

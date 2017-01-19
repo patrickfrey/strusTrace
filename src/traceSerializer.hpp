@@ -46,9 +46,7 @@
 #include "strus/analyzer/patternLexem.hpp"
 #include "strus/analyzer/tokenMarkup.hpp"
 #include "strus/analyzer/patternMatcherStatistics.hpp"
-#include "strus/analyzer/patternLexerOptions.hpp"
 #include "strus/analyzer/positionBind.hpp"
-#include "strus/analyzer/patternMatcherOptions.hpp"
 #include "strus/analyzer/patternMatcherResult.hpp"
 #include "strus/analyzer/term.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
@@ -134,8 +132,6 @@ public:
 	void packAnalyzerPatternLexem( const analyzer::PatternLexem& val);
 	void packAnalyzerPatternLexemVector( const std::vector<analyzer::PatternLexem>& val);
 	void packAnalyzerPositionBind( const analyzer::PositionBind& posbind);
-	void packAnalyzerPatternLexerOptions( const analyzer::PatternLexerOptions& val);
-	void packAnalyzerPatternMatcherOptions( const analyzer::PatternMatcherOptions& val);
 	void packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val);
 	void packAnalyzerPatternMatcherResult( const analyzer::PatternMatcherResult& val);
 	void packAnalyzerPatternMatcherResultVector( const std::vector<analyzer::PatternMatcherResult>& val);

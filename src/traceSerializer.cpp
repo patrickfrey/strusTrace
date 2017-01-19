@@ -768,29 +768,6 @@ void TraceSerializer::packAnalyzerPositionBind( const analyzer::PositionBind& va
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
-void TraceSerializer::packAnalyzerPatternMatcherOptions( const analyzer::PatternMatcherOptions& opts)
-{
-	analyzer::PatternMatcherOptions::const_iterator oi = opts.begin(), oe = opts.end();
-	for (; oi != oe; ++oi)
-	{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "opt"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, oi->first.c_str()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeDouble, oi->second));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	}
-}
-
-void TraceSerializer::packAnalyzerPatternLexerOptions( const analyzer::PatternLexerOptions& opts)
-{
-	analyzer::PatternLexerOptions::const_iterator oi = opts.begin(), oe = opts.end();
-	for (; oi != oe; ++oi)
-	{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "opt"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, oi->c_str()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	}
-}
-
 void TraceSerializer::packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val)
 {
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));

@@ -236,12 +236,6 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "analyzer::PositionBind")
 		("pack_msg", "parambuf.packAnalyzerPositionBind($name);")
 	;
-	typesystem.defineType( "const analyzer::PatternLexerOptions&")
-		("pack_msg", "parambuf.packAnalyzerPatternLexerOptions($name);")
-	;
-	typesystem.defineType( "const analyzer::PatternMatcherOptions&")
-		("pack_msg", "parambuf.packAnalyzerPatternMatcherOptions($name);")
-	;
 	typesystem.defineType( "const analyzer::TokenMarkup&")
 		("pack_msg", "parambuf.packAnalyzerTokenMarkup($name);")
 	;

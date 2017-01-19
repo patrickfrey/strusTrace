@@ -391,11 +391,12 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_defineLexem=1,
-		Method_defineSymbol=2,
-		Method_getSymbol=3,
-		Method_compile=4,
-		Method_createContext=5
+		Method_defineOption=1,
+		Method_defineLexem=2,
+		Method_defineSymbol=3,
+		Method_getSymbol=4,
+		Method_compile=5,
+		Method_createContext=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -406,7 +407,7 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_getCompileOptions=1,
+		Method_getCompileOptionNames=1,
 		Method_createInstance=2,
 		Method_getDescription=3
 	};
@@ -433,14 +434,15 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_defineTermFrequency=1,
-		Method_pushTerm=2,
-		Method_pushExpression=3,
-		Method_pushPattern=4,
-		Method_attachVariable=5,
-		Method_definePattern=6,
-		Method_compile=7,
-		Method_createContext=8
+		Method_defineOption=1,
+		Method_defineTermFrequency=2,
+		Method_pushTerm=3,
+		Method_pushExpression=4,
+		Method_pushPattern=5,
+		Method_attachVariable=6,
+		Method_definePattern=7,
+		Method_compile=8,
+		Method_createContext=9
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -451,7 +453,7 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_getCompileOptions=1,
+		Method_getCompileOptionNames=1,
 		Method_createInstance=2,
 		Method_getDescription=3
 	};

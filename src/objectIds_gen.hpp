@@ -77,11 +77,11 @@ enum ClassId
 	ClassId_TokenMarkupContext=61,
 	ClassId_TokenMarkupInstance=62,
 	ClassId_ValueIterator=63,
-	ClassId_VectorStorageBuilder=64,
-	ClassId_VectorStorageClient=65,
-	ClassId_VectorStorageDump=66,
-	ClassId_VectorStorage=67,
-	ClassId_VectorStorageSearch=68,
+	ClassId_VectorStorageClient=64,
+	ClassId_VectorStorageDump=65,
+	ClassId_VectorStorage=66,
+	ClassId_VectorStorageSearch=67,
+	ClassId_VectorStorageTransaction=68,
 	ClassId_WeightingFunctionContext=69,
 	ClassId_WeightingFunctionInstance=70,
 	ClassId_WeightingFunction=71
@@ -1024,19 +1024,6 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class VectorStorageBuilderConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_addFeature=1,
-		Method_done=2,
-		Method_run=3
-	};
-	static const char* methodName( MethodId mid);
-};
-
 class VectorStorageClientConst
 {
 public:
@@ -1044,17 +1031,16 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createSearcher=1,
-		Method_conceptClassNames=2,
-		Method_conceptFeatures=3,
-		Method_nofConcepts=4,
-		Method_featureConcepts=5,
-		Method_featureVector=6,
-		Method_featureName=7,
-		Method_featureIndex=8,
-		Method_featureAttributes=9,
-		Method_featureAttributeNames=10,
-		Method_nofFeatures=11,
-		Method_config=12
+		Method_createTransaction=2,
+		Method_conceptClassNames=3,
+		Method_conceptFeatures=4,
+		Method_nofConcepts=5,
+		Method_featureConcepts=6,
+		Method_featureVector=7,
+		Method_featureName=8,
+		Method_featureIndex=9,
+		Method_nofFeatures=10,
+		Method_config=11
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1077,12 +1063,9 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createStorage=1,
-		Method_resetStorage=2,
-		Method_createClient=3,
-		Method_createBuilder=4,
-		Method_builderCommands=5,
-		Method_builderCommandDescription=6,
-		Method_createDump=7
+		Method_createClient=2,
+		Method_createDump=3,
+		Method_runBuild=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1093,7 +1076,22 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_findSimilar=1
+		Method_findSimilar=1,
+		Method_close=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorStorageTransactionConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_addFeature=1,
+		Method_defineFeatureConceptRelation=2,
+		Method_commit=3,
+		Method_rollback=4
 	};
 	static const char* methodName( MethodId mid);
 };

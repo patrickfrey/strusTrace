@@ -75,11 +75,11 @@
 #include "strus/tokenMarkupContextInterface.hpp"
 #include "strus/tokenMarkupInstanceInterface.hpp"
 #include "strus/valueIteratorInterface.hpp"
-#include "strus/vectorStorageBuilderInterface.hpp"
 #include "strus/vectorStorageClientInterface.hpp"
 #include "strus/vectorStorageDumpInterface.hpp"
 #include "strus/vectorStorageInterface.hpp"
 #include "strus/vectorStorageSearchInterface.hpp"
+#include "strus/vectorStorageTransactionInterface.hpp"
 #include "strus/weightingFunctionContextInterface.hpp"
 #include "strus/weightingFunctionInstanceInterface.hpp"
 #include "strus/weightingFunctionInterface.hpp"
@@ -1676,26 +1676,6 @@ public:
 			std::size_t p1);
 };
 
-class VectorStorageBuilderImpl
-		:public TraceObject<VectorStorageBuilderInterface>
-		,public VectorStorageBuilderInterface
-		,public VectorStorageBuilderConst
-{
-public:
-	VectorStorageBuilderImpl( VectorStorageBuilderInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorStorageBuilderInterface>(obj_,ctx_){}
-	VectorStorageBuilderImpl( const VectorStorageBuilderInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorStorageBuilderInterface>(obj_,ctx_){}
-
-	virtual ~VectorStorageBuilderImpl();
-	virtual void addFeature(
-			const std::string& p1, 
-			const std::vector<double>& p2);
-	virtual bool done();
-	virtual bool run(
-			const std::string& p1);
-};
-
 class VectorStorageClientImpl
 		:public TraceObject<VectorStorageClientInterface>
 		,public VectorStorageClientInterface
@@ -1711,6 +1691,7 @@ public:
 	virtual VectorStorageSearchInterface* createSearcher(
 			const Index& p1, 
 			const Index& p2) const;
+	virtual VectorStorageTransactionInterface* createTransaction();
 	virtual std::vector<std::string> conceptClassNames() const;
 	virtual std::vector<Index> conceptFeatures(
 			const std::string& p1, 
@@ -1726,10 +1707,6 @@ public:
 			const Index& p1) const;
 	virtual Index featureIndex(
 			const std::string& p1) const;
-	virtual std::vector<std::string> featureAttributes(
-			const std::string& p1, 
-			const Index& p2) const;
-	virtual std::vector<std::string> featureAttributeNames() const;
 	virtual unsigned int nofFeatures() const;
 	virtual std::string config() const;
 };
@@ -1765,22 +1742,17 @@ public:
 	virtual bool createStorage(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
-	virtual bool resetStorage(
-			const std::string& p1, 
-			const DatabaseInterface* p2) const;
 	virtual VectorStorageClientInterface* createClient(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
-	virtual VectorStorageBuilderInterface* createBuilder(
-			const std::string& p1, 
-			const DatabaseInterface* p2) const;
-	virtual std::vector<std::string> builderCommands() const;
-	virtual std::string builderCommandDescription(
-			const std::string& p1) const;
 	virtual VectorStorageDumpInterface* createDump(
 			const std::string& p1, 
 			const DatabaseInterface* p2, 
 			const std::string& p3) const;
+	virtual bool runBuild(
+			const std::string& p1, 
+			const std::string& p2, 
+			const DatabaseInterface* p3) const;
 };
 
 class VectorStorageSearchImpl
@@ -1798,6 +1770,30 @@ public:
 	virtual std::vector<Result> findSimilar(
 			const std::vector<double>& p1, 
 			unsigned int p2) const;
+	virtual void close();
+};
+
+class VectorStorageTransactionImpl
+		:public TraceObject<VectorStorageTransactionInterface>
+		,public VectorStorageTransactionInterface
+		,public VectorStorageTransactionConst
+{
+public:
+	VectorStorageTransactionImpl( VectorStorageTransactionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageTransactionInterface>(obj_,ctx_){}
+	VectorStorageTransactionImpl( const VectorStorageTransactionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageTransactionInterface>(obj_,ctx_){}
+
+	virtual ~VectorStorageTransactionImpl();
+	virtual void addFeature(
+			const std::string& p1, 
+			const std::vector<double>& p2);
+	virtual void defineFeatureConceptRelation(
+			const std::string& p1, 
+			const Index& p2, 
+			const Index& p3);
+	virtual bool commit();
+	virtual void rollback();
 };
 
 class WeightingFunctionContextImpl

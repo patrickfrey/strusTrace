@@ -78,11 +78,11 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"TokenMarkupContext",
 		"TokenMarkupInstance",
 		"ValueIterator",
-		"VectorStorageBuilder",
 		"VectorStorageClient",
 		"VectorStorageDump",
 		"VectorStorage",
 		"VectorStorageSearch",
+		"VectorStorageTransaction",
 		"WeightingFunctionContext",
 		"WeightingFunctionInstance",
 		"WeightingFunction"
@@ -469,15 +469,9 @@ const char* ValueIteratorConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* VectorStorageBuilderConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "addFeature", "done", "run"};
-	return ar[mid];
-}
-
 const char* VectorStorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createSearcher", "conceptClassNames", "conceptFeatures", "nofConcepts", "featureConcepts", "featureVector", "featureName", "featureIndex", "featureAttributes", "featureAttributeNames", "nofFeatures", "config"};
+	static const char* ar[] = { "Destructor", "createSearcher", "createTransaction", "conceptClassNames", "conceptFeatures", "nofConcepts", "featureConcepts", "featureVector", "featureName", "featureIndex", "nofFeatures", "config"};
 	return ar[mid];
 }
 
@@ -489,13 +483,19 @@ const char* VectorStorageDumpConst::methodName( MethodId mid)
 
 const char* VectorStorageConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createStorage", "resetStorage", "createClient", "createBuilder", "builderCommands", "builderCommandDescription", "createDump"};
+	static const char* ar[] = { "Destructor", "createStorage", "createClient", "createDump", "runBuild"};
 	return ar[mid];
 }
 
 const char* VectorStorageSearchConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "findSimilar"};
+	static const char* ar[] = { "Destructor", "findSimilar", "close"};
+	return ar[mid];
+}
+
+const char* VectorStorageTransactionConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "addFeature", "defineFeatureConceptRelation", "commit", "rollback"};
 	return ar[mid];
 }
 

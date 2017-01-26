@@ -489,7 +489,7 @@ const char* VectorStorageConst::methodName( MethodId mid)
 
 const char* VectorStorageSearchConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "findSimilar", "close"};
+	static const char* ar[] = { "Destructor", "findSimilar", "findSimilarFromSelection", "close"};
 	return ar[mid];
 }
 

@@ -1077,7 +1077,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_findSimilar=1,
-		Method_close=2
+		Method_findSimilarFromSelection=2,
+		Method_close=3
 	};
 	static const char* methodName( MethodId mid);
 };

@@ -8147,6 +8147,30 @@ std::vector<VectorStorageSearchInterface::Result> VectorStorageSearchImpl::findS
 	return p0;
 }
 
+std::vector<VectorStorageSearchInterface::Result> VectorStorageSearchImpl::findSimilarFromSelection(
+			const std::vector<Index>& p1, 
+			const std::vector<double>& p2, 
+			unsigned int p3) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilarFromSelection), objid());
+	std::vector<VectorStorageSearchInterface::Result> p0 = obj()->findSimilarFromSelection(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVectorStorageSearchResult(p0);
+	parambuf.packIndexVector(p1);
+	parambuf.packFloatVector(p2);
+	parambuf.packUInt(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 void VectorStorageSearchImpl::close()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_close), objid());

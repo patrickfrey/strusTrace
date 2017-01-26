@@ -1770,6 +1770,10 @@ public:
 	virtual std::vector<Result> findSimilar(
 			const std::vector<double>& p1, 
 			unsigned int p2) const;
+	virtual std::vector<Result> findSimilarFromSelection(
+			const std::vector<Index>& p1, 
+			const std::vector<double>& p2, 
+			unsigned int p3) const;
 	virtual void close();
 };
 

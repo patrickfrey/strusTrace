@@ -645,8 +645,12 @@ void TraceSerializer::packAnalyzerTerm( const analyzer::Term& val)
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value().c_str(), val.value().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "pos"));
 		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.pos()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "len"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.len()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }

@@ -3145,6 +3145,31 @@ Index PostingIteratorImpl::posno() const
 	return p0;
 }
 
+Index PostingIteratorImpl::length() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_length), objid());
+	Index p0 = obj()->length();
+	TraceSerializer parambuf;
+	if (p0 < 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "length", traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		parambuf.packIndex(p0);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 PostingJoinOperatorImpl::~PostingJoinOperatorImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingJoinOperator), PostingJoinOperatorConst::methodName( Method_Destructor), objid());
@@ -3766,14 +3791,16 @@ QueryImpl::~QueryImpl()
 
 void QueryImpl::pushTerm(
 			const std::string& p1, 
-			const std::string& p2)
+			const std::string& p2, 
+			const Index& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_pushTerm), objid());
-	obj()->pushTerm(p1, p2);
+	obj()->pushTerm(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
+	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -5327,10 +5354,11 @@ std::string StorageClientImpl::config() const
 
 PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 			const std::string& p1, 
-			const std::string& p2) const
+			const std::string& p2, 
+			const Index& p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermPostingIterator), objid());
-	PostingIteratorInterface* p0 = obj()->createTermPostingIterator(p1, p2);
+	PostingIteratorInterface* p0 = obj()->createTermPostingIterator(p1, p2, p3);
 	p0 = traceContext()->createInterfaceImpl<PostingIteratorInterface,PostingIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5343,6 +5371,7 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p0->objid());
 		parambuf.packString(p1);
 		parambuf.packString(p2);
+		parambuf.packIndex(p3);
 	}
 	if (parambuf.hasError())
 	{

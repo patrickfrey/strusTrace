@@ -261,7 +261,7 @@ const char* PatternTermFeederConst::methodName( MethodId mid)
 
 const char* PostingIteratorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "skipDoc", "skipDocCandidate", "skipPos", "featureid", "documentFrequency", "frequency", "docno", "posno"};
+	static const char* ar[] = { "Destructor", "skipDoc", "skipDocCandidate", "skipPos", "featureid", "documentFrequency", "frequency", "docno", "posno", "length"};
 	return ar[mid];
 }
 

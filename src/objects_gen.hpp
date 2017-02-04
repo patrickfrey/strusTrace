@@ -766,6 +766,7 @@ public:
 	virtual unsigned int frequency();
 	virtual Index docno() const;
 	virtual Index posno() const;
+	virtual Index length() const;
 };
 
 class PostingJoinOperatorImpl
@@ -908,7 +909,8 @@ public:
 	virtual ~QueryImpl();
 	virtual void pushTerm(
 			const std::string& p1, 
-			const std::string& p2);
+			const std::string& p2, 
+			const Index& p3);
 	virtual void pushDocField(
 			const std::string& p1, 
 			const std::string& p2);
@@ -1263,7 +1265,8 @@ public:
 	virtual std::string config() const;
 	virtual PostingIteratorInterface* createTermPostingIterator(
 			const std::string& p1, 
-			const std::string& p2) const;
+			const std::string& p2, 
+			const Index& p3) const;
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const;

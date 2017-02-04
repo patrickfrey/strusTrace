@@ -499,7 +499,8 @@ public:
 		Method_documentFrequency=5,
 		Method_frequency=6,
 		Method_docno=7,
-		Method_posno=8
+		Method_posno=8,
+		Method_length=9
 	};
 	static const char* methodName( MethodId mid);
 };

@@ -391,7 +391,7 @@ static strus::QueryInterface* createQuery(
 			case strus::analyzer::Query::Instruction::PushSearchIndexTerm:
 			{
 				const strus::analyzer::Term& term = querystruct.searchIndexTerm( ei->idx());
-				query->pushTerm( term.type(), term.value());
+				query->pushTerm( term.type(), term.value(), term.len());
 				query->defineFeature( "docfeat");
 				selfeat.push_back( ei->idx());
 				break;
@@ -404,7 +404,7 @@ static strus::QueryInterface* createQuery(
 	for (; si != se; ++si)
 	{
 		const strus::analyzer::Term& term = querystruct.searchIndexTerm( *si);
-		query->pushTerm( term.type(), term.value());
+		query->pushTerm( term.type(), term.value(), term.len());
 	}
 	const strus::PostingJoinOperatorInterface* contains = qproc->getPostingJoinOperator("contains");
 	query->pushExpression( contains, selfeat.size(), 0, 1/*cardinality*/);

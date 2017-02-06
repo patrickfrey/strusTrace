@@ -30,11 +30,19 @@
 #include "strus/metaDataReaderInterface.hpp"
 #include "strus/metaDataRestrictionInstanceInterface.hpp"
 #include "strus/metaDataRestrictionInterface.hpp"
-#include "strus/normalizerFunctionContextInterface.hpp"
 #include "strus/normalizerFunctionInstanceInterface.hpp"
 #include "strus/normalizerFunctionInterface.hpp"
+#include "strus/patternLexerContextInterface.hpp"
+#include "strus/patternLexerInstanceInterface.hpp"
+#include "strus/patternLexerInterface.hpp"
+#include "strus/patternMatcherContextInterface.hpp"
+#include "strus/patternMatcherInstanceInterface.hpp"
+#include "strus/patternMatcherInterface.hpp"
+#include "strus/patternTermFeederInstanceInterface.hpp"
+#include "strus/patternTermFeederInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
+#include "strus/queryAnalyzerContextInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
 #include "strus/queryEvalInterface.hpp"
 #include "strus/queryInterface.hpp"
@@ -62,10 +70,16 @@
 #include "strus/summarizerFunctionInstanceInterface.hpp"
 #include "strus/summarizerFunctionInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
-#include "strus/tokenizerFunctionContextInterface.hpp"
 #include "strus/tokenizerFunctionInstanceInterface.hpp"
 #include "strus/tokenizerFunctionInterface.hpp"
+#include "strus/tokenMarkupContextInterface.hpp"
+#include "strus/tokenMarkupInstanceInterface.hpp"
 #include "strus/valueIteratorInterface.hpp"
+#include "strus/vectorStorageClientInterface.hpp"
+#include "strus/vectorStorageDumpInterface.hpp"
+#include "strus/vectorStorageInterface.hpp"
+#include "strus/vectorStorageSearchInterface.hpp"
+#include "strus/vectorStorageTransactionInterface.hpp"
 #include "strus/weightingFunctionContextInterface.hpp"
 #include "strus/weightingFunctionInstanceInterface.hpp"
 #include "strus/weightingFunctionInterface.hpp"
@@ -126,7 +140,7 @@ public:
 			const std::string& p1) const;
 	virtual DocumentAnalyzerInterface* createDocumentAnalyzer(
 			const SegmenterInterface* p1, 
-			const SegmenterOptions& p2) const;
+			const analyzer::SegmenterOptions& p2) const;
 	virtual QueryAnalyzerInterface* createQueryAnalyzer() const;
 };
 
@@ -193,6 +207,7 @@ public:
 			const char* key, std::size_t p1, 
 			std::string& p2, 
 			const DatabaseOptions& p3) const;
+	virtual std::string config() const;
 };
 
 class DatabaseCursorImpl
@@ -313,13 +328,13 @@ public:
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const FeatureOptions& p5);
+			const analyzer::FeatureOptions& p5);
 	virtual void addForwardIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const FeatureOptions& p5);
+			const analyzer::FeatureOptions& p5);
 	virtual void defineMetaData(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -336,11 +351,43 @@ public:
 	virtual void defineSubDocument(
 			const std::string& p1, 
 			const std::string& p2);
+	virtual void addPatternLexem(
+			const std::string& p1, 
+			const std::string& p2, 
+			TokenizerFunctionInstanceInterface* p3, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
+	virtual void definePatternMatcherPostProc(
+			const std::string& p1, 
+			PatternMatcherInstanceInterface* p2, 
+			PatternTermFeederInstanceInterface* p3);
+	virtual void definePatternMatcherPreProc(
+			const std::string& p1, 
+			PatternMatcherInstanceInterface* p2, 
+			PatternLexerInstanceInterface* p3, 
+			const std::vector<std::string>& p4);
+	virtual void addSearchIndexFeatureFromPatternMatch(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
+			const analyzer::FeatureOptions& p4);
+	virtual void addForwardIndexFeatureFromPatternMatch(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
+			const analyzer::FeatureOptions& p4);
+	virtual void defineMetaDataFromPatternMatch(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
+	virtual void defineAttributeFromPatternMatch(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
 	virtual analyzer::Document analyze(
 			const std::string& p1, 
-			const DocumentClass& p2) const;
+			const analyzer::DocumentClass& p2) const;
 	virtual DocumentAnalyzerContextInterface* createContext(
-			const DocumentClass& p1) const;
+			const analyzer::DocumentClass& p1) const;
 };
 
 class DocumentClassDetectorImpl
@@ -356,7 +403,7 @@ public:
 
 	virtual ~DocumentClassDetectorImpl();
 	virtual bool detect(
-			DocumentClass& p1, 
+			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2) const;
 };
 
@@ -481,22 +528,6 @@ public:
 	virtual std::string tostring() const;
 };
 
-class NormalizerFunctionContextImpl
-		:public TraceObject<NormalizerFunctionContextInterface>
-		,public NormalizerFunctionContextInterface
-		,public NormalizerFunctionContextConst
-{
-public:
-	NormalizerFunctionContextImpl( NormalizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<NormalizerFunctionContextInterface>(obj_,ctx_){}
-	NormalizerFunctionContextImpl( const NormalizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<NormalizerFunctionContextInterface>(obj_,ctx_){}
-
-	virtual ~NormalizerFunctionContextImpl();
-	virtual std::string normalize(
-			const char* src, std::size_t p1);
-};
-
 class NormalizerFunctionInstanceImpl
 		:public TraceObject<NormalizerFunctionInstanceInterface>
 		,public NormalizerFunctionInstanceInterface
@@ -509,7 +540,8 @@ public:
 		:TraceObject<NormalizerFunctionInstanceInterface>(obj_,ctx_){}
 
 	virtual ~NormalizerFunctionInstanceImpl();
-	virtual NormalizerFunctionContextInterface* createFunctionContext() const;
+	virtual std::string normalize(
+			const char* src, std::size_t p1) const;
 };
 
 class NormalizerFunctionImpl
@@ -528,6 +560,187 @@ public:
 			const std::vector<std::string>& p1, 
 			const TextProcessorInterface* p2) const;
 	virtual const char* getDescription() const;
+};
+
+class PatternLexerContextImpl
+		:public TraceObject<PatternLexerContextInterface>
+		,public PatternLexerContextInterface
+		,public PatternLexerContextConst
+{
+public:
+	PatternLexerContextImpl( PatternLexerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerContextInterface>(obj_,ctx_){}
+	PatternLexerContextImpl( const PatternLexerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerContextInterface>(obj_,ctx_){}
+
+	virtual ~PatternLexerContextImpl();
+	virtual std::vector<analyzer::PatternLexem> match(
+			const char* src, std::size_t p1);
+	virtual void reset();
+};
+
+class PatternLexerInstanceImpl
+		:public TraceObject<PatternLexerInstanceInterface>
+		,public PatternLexerInstanceInterface
+		,public PatternLexerInstanceConst
+{
+public:
+	PatternLexerInstanceImpl( PatternLexerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerInstanceInterface>(obj_,ctx_){}
+	PatternLexerInstanceImpl( const PatternLexerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PatternLexerInstanceImpl();
+	virtual void defineOption(
+			const std::string& p1, 
+			double p2);
+	virtual void defineLexem(
+			unsigned int p1, 
+			const std::string& p2, 
+			unsigned int p3, 
+			unsigned int p4, 
+			analyzer::PositionBind p5);
+	virtual void defineSymbol(
+			unsigned int p1, 
+			unsigned int p2, 
+			const std::string& p3);
+	virtual unsigned int getSymbol(
+			unsigned int p1, 
+			const std::string& p2) const;
+	virtual bool compile();
+	virtual PatternLexerContextInterface* createContext() const;
+};
+
+class PatternLexerImpl
+		:public TraceObject<PatternLexerInterface>
+		,public PatternLexerInterface
+		,public PatternLexerConst
+{
+public:
+	PatternLexerImpl( PatternLexerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerInterface>(obj_,ctx_){}
+	PatternLexerImpl( const PatternLexerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternLexerInterface>(obj_,ctx_){}
+
+	virtual ~PatternLexerImpl();
+	virtual std::vector<std::string> getCompileOptionNames() const;
+	virtual PatternLexerInstanceInterface* createInstance() const;
+	virtual const char* getDescription() const;
+};
+
+class PatternMatcherContextImpl
+		:public TraceObject<PatternMatcherContextInterface>
+		,public PatternMatcherContextInterface
+		,public PatternMatcherContextConst
+{
+public:
+	PatternMatcherContextImpl( PatternMatcherContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherContextInterface>(obj_,ctx_){}
+	PatternMatcherContextImpl( const PatternMatcherContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherContextInterface>(obj_,ctx_){}
+
+	virtual ~PatternMatcherContextImpl();
+	virtual void putInput(
+			const analyzer::PatternLexem& p1);
+	virtual std::vector<analyzer::PatternMatcherResult> fetchResults() const;
+	virtual analyzer::PatternMatcherStatistics getStatistics() const;
+	virtual void reset();
+};
+
+class PatternMatcherInstanceImpl
+		:public TraceObject<PatternMatcherInstanceInterface>
+		,public PatternMatcherInstanceInterface
+		,public PatternMatcherInstanceConst
+{
+public:
+	PatternMatcherInstanceImpl( PatternMatcherInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherInstanceInterface>(obj_,ctx_){}
+	PatternMatcherInstanceImpl( const PatternMatcherInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PatternMatcherInstanceImpl();
+	virtual void defineOption(
+			const std::string& p1, 
+			double p2);
+	virtual void defineTermFrequency(
+			unsigned int p1, 
+			double p2);
+	virtual void pushTerm(
+			unsigned int p1);
+	virtual void pushExpression(
+			JoinOperation p1, 
+			std::size_t p2, 
+			unsigned int p3, 
+			unsigned int p4);
+	virtual void pushPattern(
+			const std::string& p1);
+	virtual void attachVariable(
+			const std::string& p1, 
+			float p2);
+	virtual void definePattern(
+			const std::string& p1, 
+			bool p2);
+	virtual bool compile();
+	virtual PatternMatcherContextInterface* createContext() const;
+};
+
+class PatternMatcherImpl
+		:public TraceObject<PatternMatcherInterface>
+		,public PatternMatcherInterface
+		,public PatternMatcherConst
+{
+public:
+	PatternMatcherImpl( PatternMatcherInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherInterface>(obj_,ctx_){}
+	PatternMatcherImpl( const PatternMatcherInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternMatcherInterface>(obj_,ctx_){}
+
+	virtual ~PatternMatcherImpl();
+	virtual std::vector<std::string> getCompileOptionNames() const;
+	virtual PatternMatcherInstanceInterface* createInstance() const;
+	virtual const char* getDescription() const;
+};
+
+class PatternTermFeederInstanceImpl
+		:public TraceObject<PatternTermFeederInstanceInterface>
+		,public PatternTermFeederInstanceInterface
+		,public PatternTermFeederInstanceConst
+{
+public:
+	PatternTermFeederInstanceImpl( PatternTermFeederInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternTermFeederInstanceInterface>(obj_,ctx_){}
+	PatternTermFeederInstanceImpl( const PatternTermFeederInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternTermFeederInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PatternTermFeederInstanceImpl();
+	virtual void defineLexem(
+			unsigned int p1, 
+			const std::string& p2);
+	virtual void defineSymbol(
+			unsigned int p1, 
+			unsigned int p2, 
+			const std::string& p3);
+	virtual unsigned int getLexem(
+			const std::string& p1) const;
+	virtual std::vector<std::string> lexemTypes() const;
+	virtual unsigned int getSymbol(
+			unsigned int p1, 
+			const std::string& p2) const;
+};
+
+class PatternTermFeederImpl
+		:public TraceObject<PatternTermFeederInterface>
+		,public PatternTermFeederInterface
+		,public PatternTermFeederConst
+{
+public:
+	PatternTermFeederImpl( PatternTermFeederInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternTermFeederInterface>(obj_,ctx_){}
+	PatternTermFeederImpl( const PatternTermFeederInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PatternTermFeederInterface>(obj_,ctx_){}
+
+	virtual ~PatternTermFeederImpl();
+	virtual PatternTermFeederInstanceInterface* createInstance() const;
 };
 
 class PostingIteratorImpl
@@ -553,6 +766,7 @@ public:
 	virtual unsigned int frequency();
 	virtual Index docno() const;
 	virtual Index posno() const;
+	virtual Index length() const;
 };
 
 class PostingJoinOperatorImpl
@@ -574,6 +788,30 @@ public:
 	virtual Description getDescription() const;
 };
 
+class QueryAnalyzerContextImpl
+		:public TraceObject<QueryAnalyzerContextInterface>
+		,public QueryAnalyzerContextInterface
+		,public QueryAnalyzerContextConst
+{
+public:
+	QueryAnalyzerContextImpl( QueryAnalyzerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryAnalyzerContextInterface>(obj_,ctx_){}
+	QueryAnalyzerContextImpl( const QueryAnalyzerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryAnalyzerContextInterface>(obj_,ctx_){}
+
+	virtual ~QueryAnalyzerContextImpl();
+	virtual void putField(
+			unsigned int p1, 
+			const std::string& p2, 
+			const std::string& p3);
+	virtual void groupElements(
+			unsigned int p1, 
+			const std::vector<unsigned int>& p2, 
+			const GroupBy& p3, 
+			bool p4);
+	virtual analyzer::Query analyze();
+};
+
 class QueryAnalyzerImpl
 		:public TraceObject<QueryAnalyzerInterface>
 		,public QueryAnalyzerInterface
@@ -586,16 +824,39 @@ public:
 		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
 
 	virtual ~QueryAnalyzerImpl();
-	virtual void definePhraseType(
+	virtual void addSearchIndexElement(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
-	virtual std::vector<analyzer::Term> analyzePhrase(
+	virtual void addMetaDataElement(
 			const std::string& p1, 
-			const std::string& p2) const;
-	virtual std::vector<analyzer::TermVector> analyzePhraseBulk(
-			const std::vector<Phrase>& p1) const;
+			const std::string& p2, 
+			TokenizerFunctionInstanceInterface* p3, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
+	virtual void addPatternLexem(
+			const std::string& p1, 
+			const std::string& p2, 
+			TokenizerFunctionInstanceInterface* p3, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
+	virtual void definePatternMatcherPostProc(
+			const std::string& p1, 
+			PatternMatcherInstanceInterface* p2, 
+			PatternTermFeederInstanceInterface* p3);
+	virtual void definePatternMatcherPreProc(
+			const std::string& p1, 
+			PatternMatcherInstanceInterface* p2, 
+			PatternLexerInstanceInterface* p3, 
+			const std::vector<std::string>& p4);
+	virtual void addSearchIndexElementFromPatternMatch(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
+	virtual void addMetaDataElementFromPatternMatch(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
+	virtual QueryAnalyzerContextInterface* createContext() const;
 };
 
 class QueryEvalImpl
@@ -648,10 +909,14 @@ public:
 	virtual ~QueryImpl();
 	virtual void pushTerm(
 			const std::string& p1, 
+			const std::string& p2, 
+			const Index& p3);
+	virtual void pushDocField(
+			const std::string& p1, 
 			const std::string& p2);
 	virtual void pushExpression(
 			const PostingJoinOperatorInterface* p1, 
-			std::size_t p2, 
+			unsigned int p2, 
 			int p3, 
 			unsigned int p4);
 	virtual void attachVariable(
@@ -682,6 +947,7 @@ public:
 			const std::string& p1, 
 			double p2);
 	virtual QueryResult evaluate();
+	virtual std::string tostring() const;
 };
 
 class QueryProcessorImpl
@@ -736,7 +1002,7 @@ public:
 			const std::string& p1, 
 			double p2);
 	virtual double call(
-			const double* args, std::size_t p1) const;
+			const double* args, unsigned int p1) const;
 	virtual std::string tostring() const;
 };
 
@@ -753,7 +1019,7 @@ public:
 
 	virtual ~ScalarFunctionImpl();
 	virtual std::vector<std::string> getVariables() const;
-	virtual std::size_t getNofArguments() const;
+	virtual unsigned int getNofArguments() const;
 	virtual void setDefaultVariableValue(
 			const std::string& p1, 
 			double p2);
@@ -819,9 +1085,9 @@ public:
 			int p2, 
 			const std::string& p3);
 	virtual SegmenterContextInterface* createContext(
-			const DocumentClass& p1) const;
+			const analyzer::DocumentClass& p1) const;
 	virtual SegmenterMarkupContextInterface* createMarkupContext(
-			const DocumentClass& p1, 
+			const analyzer::DocumentClass& p1, 
 			const std::string& p2) const;
 };
 
@@ -839,7 +1105,7 @@ public:
 	virtual ~SegmenterImpl();
 	virtual const char* mimeType() const;
 	virtual SegmenterInstanceInterface* createInstance(
-			const SegmenterOptions& p1) const;
+			const analyzer::SegmenterOptions& p1) const;
 };
 
 class SegmenterMarkupContextImpl
@@ -996,12 +1262,17 @@ public:
 		:TraceObject<StorageClientInterface>(obj_,ctx_){}
 
 	virtual ~StorageClientImpl();
+	virtual std::string config() const;
 	virtual PostingIteratorInterface* createTermPostingIterator(
 			const std::string& p1, 
-			const std::string& p2) const;
+			const std::string& p2, 
+			const Index& p3) const;
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const;
+	virtual PostingIteratorInterface* createFieldPostingIterator(
+			const std::string& p1, 
+			const std::string& p2) const;
 	virtual ForwardIteratorInterface* createForwardIterator(
 			const std::string& p1) const;
 	virtual DocumentTermIteratorInterface* createDocumentTermIterator(
@@ -1036,8 +1307,6 @@ public:
 			const std::string& p2) const;
 	virtual bool checkStorage(
 			std::ostream& p1) const;
-	virtual StorageDumpInterface* createDump(
-			const std::string& p1) const;
 };
 
 class StorageDocumentImpl
@@ -1129,17 +1398,22 @@ public:
 	virtual ~StorageImpl();
 	virtual StorageClientInterface* createClient(
 			const std::string& p1, 
-			DatabaseClientInterface* p2, 
+			const DatabaseInterface* p2, 
 			const StatisticsProcessorInterface* p3) const;
 	virtual bool createStorage(
 			const std::string& p1, 
-			DatabaseClientInterface* p2) const;
+			const DatabaseInterface* p2) const;
 	virtual StorageAlterMetaDataTableInterface* createAlterMetaDataTable(
-			DatabaseClientInterface* p1) const;
+			const std::string& p1, 
+			const DatabaseInterface* p2) const;
 	virtual const char* getConfigDescription(
 			const ConfigType& p1) const;
 	virtual const char** getConfigParameters(
 			const ConfigType& p1) const;
+	virtual StorageDumpInterface* createDump(
+			const std::string& p1, 
+			const DatabaseInterface* p2, 
+			const std::string& p3) const;
 };
 
 class StorageObjectBuilderImpl
@@ -1159,6 +1433,8 @@ public:
 			const std::string& p1) const;
 	virtual const QueryProcessorInterface* getQueryProcessor() const;
 	virtual const StatisticsProcessorInterface* getStatisticsProcessor(
+			const std::string& p1) const;
+	virtual const VectorStorageInterface* getVectorStorage(
 			const std::string& p1) const;
 	virtual QueryEvalInterface* createQueryEval() const;
 };
@@ -1189,6 +1465,7 @@ public:
 			const NumericVariant& p3);
 	virtual bool commit();
 	virtual void rollback();
+	virtual unsigned int nofDocumentsAffected() const;
 };
 
 class SummarizerFunctionContextImpl
@@ -1231,6 +1508,9 @@ public:
 	virtual void addNumericParameter(
 			const std::string& p1, 
 			const NumericVariant& p2);
+	virtual void defineResultName(
+			const std::string& p1, 
+			const std::string& p2);
 	virtual SummarizerFunctionContextInterface* createFunctionContext(
 			const StorageClientInterface* p1, 
 			MetaDataReaderInterface* p2, 
@@ -1277,8 +1557,13 @@ public:
 			const std::string& p1) const;
 	virtual const AggregatorFunctionInterface* getAggregator(
 			const std::string& p1) const;
+	virtual const PatternLexerInterface* getPatternLexer(
+			const std::string& p1) const;
+	virtual const PatternMatcherInterface* getPatternMatcher(
+			const std::string& p1) const;
+	virtual const PatternTermFeederInterface* getPatternTermFeeder() const;
 	virtual bool detectDocumentClass(
-			DocumentClass& p1, 
+			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2) const;
 	virtual void defineDocumentClassDetector(
 			DocumentClassDetectorInterface* p1);
@@ -1291,24 +1576,14 @@ public:
 	virtual void defineAggregator(
 			const std::string& p1, 
 			AggregatorFunctionInterface* p2);
+	virtual void definePatternLexer(
+			const std::string& p1, 
+			PatternLexerInterface* p2);
+	virtual void definePatternMatcher(
+			const std::string& p1, 
+			PatternMatcherInterface* p2);
 	virtual std::vector<std::string> getFunctionList(
 			const FunctionType& p1) const;
-};
-
-class TokenizerFunctionContextImpl
-		:public TraceObject<TokenizerFunctionContextInterface>
-		,public TokenizerFunctionContextInterface
-		,public TokenizerFunctionContextConst
-{
-public:
-	TokenizerFunctionContextImpl( TokenizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenizerFunctionContextInterface>(obj_,ctx_){}
-	TokenizerFunctionContextImpl( const TokenizerFunctionContextInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<TokenizerFunctionContextInterface>(obj_,ctx_){}
-
-	virtual ~TokenizerFunctionContextImpl();
-	virtual std::vector<analyzer::Token> tokenize(
-			const char* src, std::size_t p1);
 };
 
 class TokenizerFunctionInstanceImpl
@@ -1324,7 +1599,8 @@ public:
 
 	virtual ~TokenizerFunctionInstanceImpl();
 	virtual bool concatBeforeTokenize() const;
-	virtual TokenizerFunctionContextInterface* createFunctionContext() const;
+	virtual std::vector<analyzer::Token> tokenize(
+			const char* src, std::size_t p1) const;
 };
 
 class TokenizerFunctionImpl
@@ -1345,6 +1621,46 @@ public:
 	virtual const char* getDescription() const;
 };
 
+class TokenMarkupContextImpl
+		:public TraceObject<TokenMarkupContextInterface>
+		,public TokenMarkupContextInterface
+		,public TokenMarkupContextConst
+{
+public:
+	TokenMarkupContextImpl( TokenMarkupContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenMarkupContextInterface>(obj_,ctx_){}
+	TokenMarkupContextImpl( const TokenMarkupContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenMarkupContextInterface>(obj_,ctx_){}
+
+	virtual ~TokenMarkupContextImpl();
+	virtual void putMarkup(
+			const SegmenterPosition& p1, 
+			std::size_t p2, 
+			const SegmenterPosition& p3, 
+			std::size_t p4, 
+			const analyzer::TokenMarkup& p5, 
+			unsigned int p6);
+	virtual std::string markupDocument(
+			const SegmenterInstanceInterface* p1, 
+			const analyzer::DocumentClass& p2, 
+			const std::string& p3) const;
+};
+
+class TokenMarkupInstanceImpl
+		:public TraceObject<TokenMarkupInstanceInterface>
+		,public TokenMarkupInstanceInterface
+		,public TokenMarkupInstanceConst
+{
+public:
+	TokenMarkupInstanceImpl( TokenMarkupInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenMarkupInstanceInterface>(obj_,ctx_){}
+	TokenMarkupInstanceImpl( const TokenMarkupInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<TokenMarkupInstanceInterface>(obj_,ctx_){}
+
+	virtual ~TokenMarkupInstanceImpl();
+	virtual TokenMarkupContextInterface* createContext() const;
+};
+
 class ValueIteratorImpl
 		:public TraceObject<ValueIteratorInterface>
 		,public ValueIteratorInterface
@@ -1361,6 +1677,130 @@ public:
 			const char* value, std::size_t p1);
 	virtual std::vector<std::string> fetchValues(
 			std::size_t p1);
+};
+
+class VectorStorageClientImpl
+		:public TraceObject<VectorStorageClientInterface>
+		,public VectorStorageClientInterface
+		,public VectorStorageClientConst
+{
+public:
+	VectorStorageClientImpl( VectorStorageClientInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageClientInterface>(obj_,ctx_){}
+	VectorStorageClientImpl( const VectorStorageClientInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageClientInterface>(obj_,ctx_){}
+
+	virtual ~VectorStorageClientImpl();
+	virtual VectorStorageSearchInterface* createSearcher(
+			const Index& p1, 
+			const Index& p2) const;
+	virtual VectorStorageTransactionInterface* createTransaction();
+	virtual std::vector<std::string> conceptClassNames() const;
+	virtual std::vector<Index> conceptFeatures(
+			const std::string& p1, 
+			const Index& p2) const;
+	virtual unsigned int nofConcepts(
+			const std::string& p1) const;
+	virtual std::vector<Index> featureConcepts(
+			const std::string& p1, 
+			const Index& p2) const;
+	virtual std::vector<double> featureVector(
+			const Index& p1) const;
+	virtual std::string featureName(
+			const Index& p1) const;
+	virtual Index featureIndex(
+			const std::string& p1) const;
+	virtual unsigned int nofFeatures() const;
+	virtual std::string config() const;
+};
+
+class VectorStorageDumpImpl
+		:public TraceObject<VectorStorageDumpInterface>
+		,public VectorStorageDumpInterface
+		,public VectorStorageDumpConst
+{
+public:
+	VectorStorageDumpImpl( VectorStorageDumpInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageDumpInterface>(obj_,ctx_){}
+	VectorStorageDumpImpl( const VectorStorageDumpInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageDumpInterface>(obj_,ctx_){}
+
+	virtual ~VectorStorageDumpImpl();
+	virtual bool nextChunk(
+			const char*& chunk, std::size_t& p1);
+};
+
+class VectorStorageImpl
+		:public TraceObject<VectorStorageInterface>
+		,public VectorStorageInterface
+		,public VectorStorageConst
+{
+public:
+	VectorStorageImpl( VectorStorageInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageInterface>(obj_,ctx_){}
+	VectorStorageImpl( const VectorStorageInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageInterface>(obj_,ctx_){}
+
+	virtual ~VectorStorageImpl();
+	virtual bool createStorage(
+			const std::string& p1, 
+			const DatabaseInterface* p2) const;
+	virtual VectorStorageClientInterface* createClient(
+			const std::string& p1, 
+			const DatabaseInterface* p2) const;
+	virtual VectorStorageDumpInterface* createDump(
+			const std::string& p1, 
+			const DatabaseInterface* p2, 
+			const std::string& p3) const;
+	virtual bool runBuild(
+			const std::string& p1, 
+			const std::string& p2, 
+			const DatabaseInterface* p3) const;
+};
+
+class VectorStorageSearchImpl
+		:public TraceObject<VectorStorageSearchInterface>
+		,public VectorStorageSearchInterface
+		,public VectorStorageSearchConst
+{
+public:
+	VectorStorageSearchImpl( VectorStorageSearchInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageSearchInterface>(obj_,ctx_){}
+	VectorStorageSearchImpl( const VectorStorageSearchInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageSearchInterface>(obj_,ctx_){}
+
+	virtual ~VectorStorageSearchImpl();
+	virtual std::vector<Result> findSimilar(
+			const std::vector<double>& p1, 
+			unsigned int p2) const;
+	virtual std::vector<Result> findSimilarFromSelection(
+			const std::vector<Index>& p1, 
+			const std::vector<double>& p2, 
+			unsigned int p3) const;
+	virtual void close();
+};
+
+class VectorStorageTransactionImpl
+		:public TraceObject<VectorStorageTransactionInterface>
+		,public VectorStorageTransactionInterface
+		,public VectorStorageTransactionConst
+{
+public:
+	VectorStorageTransactionImpl( VectorStorageTransactionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageTransactionInterface>(obj_,ctx_){}
+	VectorStorageTransactionImpl( const VectorStorageTransactionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<VectorStorageTransactionInterface>(obj_,ctx_){}
+
+	virtual ~VectorStorageTransactionImpl();
+	virtual void addFeature(
+			const std::string& p1, 
+			const std::vector<double>& p2);
+	virtual void defineFeatureConceptRelation(
+			const std::string& p1, 
+			const Index& p2, 
+			const Index& p3);
+	virtual bool commit();
+	virtual void rollback();
 };
 
 class WeightingFunctionContextImpl

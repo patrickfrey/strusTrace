@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include <limits>
 #include <cerrno>
+#include <cstdio>
 
 using namespace strus;
 
@@ -379,15 +380,15 @@ bool TraceLogger_json::close()
 		FileRAII output;
 		if (m_filename == "-" || m_filename == "stdout")
 		{
-			output.file = ::stdout;
+			output.file = stdout;
 		}
 		else if (m_filename == "stderr")
 		{
-			output.file = ::stderr;
+			output.file = stderr;
 		}
 		else
 		{
-			output.file = ::fopen( m_filename.c_str(), "w");
+			output.file = fopen( m_filename.c_str(), "w");
 			if (output.file == 0)
 			{
 				throw strus::runtime_error(_TXT("failed to open file '%s' for writing (errno %u, call trace log)"), m_filename.c_str(), errno);
@@ -397,9 +398,9 @@ bool TraceLogger_json::close()
 		std::vector<TraceRecord>::const_iterator ri = m_recordar.begin(), re = m_recordar.end();
 		std::vector<std::size_t> stack;
 
-		::fprintf( output.file, "{\n\"calls\":[");
+		fprintf( output.file, "{\n\"calls\":[");
 		printOutputJSON( output.file, 1, INDENT_STEP, ri, re, m_parameterbuf);
-		::fprintf( output.file, "\n]\n}\n");
+		fprintf( output.file, "\n]\n}\n");
 		return true;
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("trace logger error flushing and closing output (json): %s"), *m_errorhnd, false)

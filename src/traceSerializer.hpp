@@ -12,7 +12,7 @@
 #include "strus/traceElement.hpp"
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/numericVariant.hpp"
-#include "strus/documentClass.hpp"
+#include "strus/analyzer/documentClass.hpp"
 #include "strus/termStatistics.hpp"
 #include "strus/globalStatistics.hpp"
 #include "strus/metaDataRestrictionInterface.hpp"
@@ -31,9 +31,24 @@
 #include "strus/queryProcessorInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
 #include "strus/segmenterInterface.hpp"
+#include "strus/patternMatcherContextInterface.hpp"
+#include "strus/patternMatcherInstanceInterface.hpp"
+#include "strus/patternMatcherInterface.hpp"
+#include "strus/patternLexerContextInterface.hpp"
+#include "strus/patternLexerInstanceInterface.hpp"
+#include "strus/patternLexerInterface.hpp"
 #include "strus/documentAnalyzerInterface.hpp"
+#include "strus/documentAnalyzerContextInterface.hpp"
 #include "strus/queryAnalyzerInterface.hpp"
+#include "strus/queryAnalyzerContextInterface.hpp"
+#include "strus/vectorStorageSearchInterface.hpp"
 #include "strus/analyzer/token.hpp"
+#include "strus/analyzer/patternLexem.hpp"
+#include "strus/analyzer/tokenMarkup.hpp"
+#include "strus/analyzer/patternMatcherStatistics.hpp"
+#include "strus/analyzer/positionBind.hpp"
+#include "strus/analyzer/patternMatcherResult.hpp"
+#include "strus/analyzer/term.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include <string>
@@ -75,6 +90,8 @@ public:
 	void packString( const std::string& value);
 	void packStringVector( const std::vector<std::string>& ar);
 	void packIndexVector( const std::vector<Index>& ar);
+	void packUintVector( const std::vector<unsigned int>& ar);
+	void packFloatVector( const std::vector<double>& ar);
 	void packCharp( const char* buf);
 	void packCharpp( const char** buf);
 	void openIndex( const std::size_t& value);
@@ -86,8 +103,8 @@ public:
 	void packBufferFloat( const double* buf, std::size_t size);
 	void packNumericVariant( const NumericVariant& val);
 
-	void packSegmenterOptions( const SegmenterOptions& val);
-	void packDocumentClass( const DocumentClass& prop);
+	void packAnalyzerSegmenterOptions( const analyzer::SegmenterOptions& val);
+	void packAnalyzerDocumentClass( const analyzer::DocumentClass& prop);
 	void packTermStatistics( const TermStatistics& stats);
 	void packGlobalStatistics( const GlobalStatistics& stats);
 	void packMetaDataRestrictionCompareOperator( MetaDataRestrictionInterface::CompareOperator val);
@@ -95,28 +112,36 @@ public:
 	void packDatabaseOptions( const DatabaseOptions& val);
 	void packDatabaseConfigType( const DatabaseInterface::ConfigType& val);
 	void packStorageConfigType( const StorageInterface::ConfigType& val);
-	void packFeatureOptions( const DocumentAnalyzerInterface::FeatureOptions& val);
+	void packFeatureOptions( const analyzer::FeatureOptions& val);
 	void packSummaryElement( const SummaryElement& val);
 	void packSummaryElementVector( const std::vector<SummaryElement>& val);
 	void packSummarizationVariable( const SummarizationVariable& val);
 	void packSummarizationVariableVector( const std::vector<SummarizationVariable>& val);
 	void packDocumentTermIteratorTerm( const DocumentTermIteratorInterface::Term& term);
 	void packSlice( DatabaseCursorInterface::Slice& val);
+	void packAnalyzerQuery( const analyzer::Query& val);
 	void packAnalyzerDocument( const analyzer::Document& val);
 	void packAnalyzerAttribute( const analyzer::Attribute& val);
 	void packAnalyzerMetaData( const analyzer::MetaData& val);
 	void packAnalyzerTerm( const analyzer::Term& val);
-	void packAnalyzerTermVector( const analyzer::TermVector& val);
-	void packAnalyzerTermVectorVector( const std::vector<analyzer::TermVector>& val);
+	void packAnalyzerTermArray( const analyzer::TermArray& val);
+	void packAnalyzerTermArrayArray( const std::vector<analyzer::TermArray>& val);
 	void packAnalyzerToken( const analyzer::Token& val);
 	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
+	void packAnalyzerQueryGroupBy( const QueryAnalyzerContextInterface::GroupBy& groupBy);
+	void packAnalyzerPatternLexem( const analyzer::PatternLexem& val);
+	void packAnalyzerPatternLexemVector( const std::vector<analyzer::PatternLexem>& val);
+	void packAnalyzerPositionBind( const analyzer::PositionBind& posbind);
+	void packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val);
+	void packAnalyzerPatternMatcherResult( const analyzer::PatternMatcherResult& val);
+	void packAnalyzerPatternMatcherResultVector( const std::vector<analyzer::PatternMatcherResult>& val);
+	void packAnalyzerPatternMatcherStatistics( const analyzer::PatternMatcherStatistics& val);
+	void packPatternMatcherJoinOperation( const PatternMatcherInstanceInterface::JoinOperation& val);
 	void packWeightedDocument( const WeightedDocument& val);
 	void packResultDocument( const ResultDocument& val);
 	void packQueryResult( const QueryResult& val);
 	void packFeatureParameter( const QueryEvalInterface::FeatureParameter& val);
 	void packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar);
-	void packPhrase( const QueryAnalyzerInterface::Phrase& val);
-	void packPhraseVector( const std::vector<QueryAnalyzerInterface::Phrase>& val);
 	void packDocumentStatisticsType( const StorageClientInterface::DocumentStatisticsType& val);
 	void packStatisticsProcessorBuilderOptions( const StatisticsProcessorInterface::BuilderOptions& val);
 	void packStatisticsViewerDocumentFrequencyChange( const StatisticsViewerInterface::DocumentFrequencyChange& val);
@@ -124,6 +149,7 @@ public:
 	void packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val);
 	void packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val);
 	void packFunctionDescription( const FunctionDescription& val);
+	void packVectorStorageSearchResult( const std::vector<VectorStorageSearchInterface::Result>& val);
 
 	bool hasError() const
 	{

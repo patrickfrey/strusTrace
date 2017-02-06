@@ -32,45 +32,59 @@ enum ClassId
 	ClassId_MetaDataReader=16,
 	ClassId_MetaDataRestrictionInstance=17,
 	ClassId_MetaDataRestriction=18,
-	ClassId_NormalizerFunctionContext=19,
-	ClassId_NormalizerFunctionInstance=20,
-	ClassId_NormalizerFunction=21,
-	ClassId_PostingIterator=22,
-	ClassId_PostingJoinOperator=23,
-	ClassId_QueryAnalyzer=24,
-	ClassId_QueryEval=25,
-	ClassId_Query=26,
-	ClassId_QueryProcessor=27,
-	ClassId_ScalarFunctionInstance=28,
-	ClassId_ScalarFunction=29,
-	ClassId_ScalarFunctionParser=30,
-	ClassId_SegmenterContext=31,
-	ClassId_SegmenterInstance=32,
-	ClassId_Segmenter=33,
-	ClassId_SegmenterMarkupContext=34,
-	ClassId_StatisticsBuilder=35,
-	ClassId_StatisticsIterator=36,
-	ClassId_StatisticsProcessor=37,
-	ClassId_StatisticsViewer=38,
-	ClassId_StorageAlterMetaDataTable=39,
-	ClassId_StorageClient=40,
-	ClassId_StorageDocument=41,
-	ClassId_StorageDocumentUpdate=42,
-	ClassId_StorageDump=43,
-	ClassId_Storage=44,
-	ClassId_StorageObjectBuilder=45,
-	ClassId_StorageTransaction=46,
-	ClassId_SummarizerFunctionContext=47,
-	ClassId_SummarizerFunctionInstance=48,
-	ClassId_SummarizerFunction=49,
-	ClassId_TextProcessor=50,
-	ClassId_TokenizerFunctionContext=51,
-	ClassId_TokenizerFunctionInstance=52,
-	ClassId_TokenizerFunction=53,
-	ClassId_ValueIterator=54,
-	ClassId_WeightingFunctionContext=55,
-	ClassId_WeightingFunctionInstance=56,
-	ClassId_WeightingFunction=57
+	ClassId_NormalizerFunctionInstance=19,
+	ClassId_NormalizerFunction=20,
+	ClassId_PatternLexerContext=21,
+	ClassId_PatternLexerInstance=22,
+	ClassId_PatternLexer=23,
+	ClassId_PatternMatcherContext=24,
+	ClassId_PatternMatcherInstance=25,
+	ClassId_PatternMatcher=26,
+	ClassId_PatternTermFeederInstance=27,
+	ClassId_PatternTermFeeder=28,
+	ClassId_PostingIterator=29,
+	ClassId_PostingJoinOperator=30,
+	ClassId_QueryAnalyzerContext=31,
+	ClassId_QueryAnalyzer=32,
+	ClassId_QueryEval=33,
+	ClassId_Query=34,
+	ClassId_QueryProcessor=35,
+	ClassId_ScalarFunctionInstance=36,
+	ClassId_ScalarFunction=37,
+	ClassId_ScalarFunctionParser=38,
+	ClassId_SegmenterContext=39,
+	ClassId_SegmenterInstance=40,
+	ClassId_Segmenter=41,
+	ClassId_SegmenterMarkupContext=42,
+	ClassId_StatisticsBuilder=43,
+	ClassId_StatisticsIterator=44,
+	ClassId_StatisticsProcessor=45,
+	ClassId_StatisticsViewer=46,
+	ClassId_StorageAlterMetaDataTable=47,
+	ClassId_StorageClient=48,
+	ClassId_StorageDocument=49,
+	ClassId_StorageDocumentUpdate=50,
+	ClassId_StorageDump=51,
+	ClassId_Storage=52,
+	ClassId_StorageObjectBuilder=53,
+	ClassId_StorageTransaction=54,
+	ClassId_SummarizerFunctionContext=55,
+	ClassId_SummarizerFunctionInstance=56,
+	ClassId_SummarizerFunction=57,
+	ClassId_TextProcessor=58,
+	ClassId_TokenizerFunctionInstance=59,
+	ClassId_TokenizerFunction=60,
+	ClassId_TokenMarkupContext=61,
+	ClassId_TokenMarkupInstance=62,
+	ClassId_ValueIterator=63,
+	ClassId_VectorStorageClient=64,
+	ClassId_VectorStorageDump=65,
+	ClassId_VectorStorage=66,
+	ClassId_VectorStorageSearch=67,
+	ClassId_VectorStorageTransaction=68,
+	ClassId_WeightingFunctionContext=69,
+	ClassId_WeightingFunctionInstance=70,
+	ClassId_WeightingFunction=71
 };
 
 struct TraceClassNameMap
@@ -152,7 +166,8 @@ public:
 		Method_createBackupCursor=3,
 		Method_writeImm=4,
 		Method_removeImm=5,
-		Method_readValue=6
+		Method_readValue=6,
+		Method_config=7
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -232,8 +247,15 @@ public:
 		Method_defineAggregatedMetaData=4,
 		Method_defineAttribute=5,
 		Method_defineSubDocument=6,
-		Method_analyze=7,
-		Method_createContext=8
+		Method_addPatternLexem=7,
+		Method_definePatternMatcherPostProc=8,
+		Method_definePatternMatcherPreProc=9,
+		Method_addSearchIndexFeatureFromPatternMatch=10,
+		Method_addForwardIndexFeatureFromPatternMatch=11,
+		Method_defineMetaDataFromPatternMatch=12,
+		Method_defineAttributeFromPatternMatch=13,
+		Method_analyze=14,
+		Method_createContext=15
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -328,24 +350,13 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class NormalizerFunctionContextConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_normalize=1
-	};
-	static const char* methodName( MethodId mid);
-};
-
 class NormalizerFunctionInstanceConst
 {
 public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_createFunctionContext=1
+		Method_normalize=1
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -358,6 +369,119 @@ public:
 		Method_Destructor=0,
 		Method_createInstance=1,
 		Method_getDescription=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternLexerContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_match=1,
+		Method_reset=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternLexerInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_defineOption=1,
+		Method_defineLexem=2,
+		Method_defineSymbol=3,
+		Method_getSymbol=4,
+		Method_compile=5,
+		Method_createContext=6
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternLexerConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_getCompileOptionNames=1,
+		Method_createInstance=2,
+		Method_getDescription=3
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternMatcherContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_putInput=1,
+		Method_fetchResults=2,
+		Method_getStatistics=3,
+		Method_reset=4
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternMatcherInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_defineOption=1,
+		Method_defineTermFrequency=2,
+		Method_pushTerm=3,
+		Method_pushExpression=4,
+		Method_pushPattern=5,
+		Method_attachVariable=6,
+		Method_definePattern=7,
+		Method_compile=8,
+		Method_createContext=9
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternMatcherConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_getCompileOptionNames=1,
+		Method_createInstance=2,
+		Method_getDescription=3
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternTermFeederInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_defineLexem=1,
+		Method_defineSymbol=2,
+		Method_getLexem=3,
+		Method_lexemTypes=4,
+		Method_getSymbol=5
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class PatternTermFeederConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createInstance=1
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -375,7 +499,8 @@ public:
 		Method_documentFrequency=5,
 		Method_frequency=6,
 		Method_docno=7,
-		Method_posno=8
+		Method_posno=8,
+		Method_length=9
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -392,15 +517,33 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
+class QueryAnalyzerContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_putField=1,
+		Method_groupElements=2,
+		Method_analyze=3
+	};
+	static const char* methodName( MethodId mid);
+};
+
 class QueryAnalyzerConst
 {
 public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_definePhraseType=1,
-		Method_analyzePhrase=2,
-		Method_analyzePhraseBulk=3
+		Method_addSearchIndexElement=1,
+		Method_addMetaDataElement=2,
+		Method_addPatternLexem=3,
+		Method_definePatternMatcherPostProc=4,
+		Method_definePatternMatcherPreProc=5,
+		Method_addSearchIndexElementFromPatternMatch=6,
+		Method_addMetaDataElementFromPatternMatch=7,
+		Method_createContext=8
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -430,18 +573,20 @@ public:
 	{
 		Method_Destructor=0,
 		Method_pushTerm=1,
-		Method_pushExpression=2,
-		Method_attachVariable=3,
-		Method_defineFeature=4,
-		Method_defineTermStatistics=5,
-		Method_defineGlobalStatistics=6,
-		Method_addMetaDataRestrictionCondition=7,
-		Method_addDocumentEvaluationSet=8,
-		Method_setMaxNofRanks=9,
-		Method_setMinRank=10,
-		Method_addUserName=11,
-		Method_setWeightingVariableValue=12,
-		Method_evaluate=13
+		Method_pushDocField=2,
+		Method_pushExpression=3,
+		Method_attachVariable=4,
+		Method_defineFeature=5,
+		Method_defineTermStatistics=6,
+		Method_defineGlobalStatistics=7,
+		Method_addMetaDataRestrictionCondition=8,
+		Method_addDocumentEvaluationSet=9,
+		Method_setMaxNofRanks=10,
+		Method_setMinRank=11,
+		Method_addUserName=12,
+		Method_setWeightingVariableValue=13,
+		Method_evaluate=14,
+		Method_tostring=15
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -633,30 +778,31 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_createTermPostingIterator=1,
-		Method_createBrowsePostingIterator=2,
-		Method_createForwardIterator=3,
-		Method_createDocumentTermIterator=4,
-		Method_createInvAclIterator=5,
-		Method_nofDocumentsInserted=6,
-		Method_documentFrequency=7,
-		Method_maxDocumentNumber=8,
-		Method_documentNumber=9,
-		Method_createTermTypeIterator=10,
-		Method_createTermValueIterator=11,
-		Method_createDocIdIterator=12,
-		Method_createUserNameIterator=13,
-		Method_documentStatistics=14,
-		Method_createMetaDataReader=15,
-		Method_createMetaDataRestriction=16,
-		Method_createAttributeReader=17,
-		Method_createTransaction=18,
-		Method_createInitStatisticsIterator=19,
-		Method_createUpdateStatisticsIterator=20,
-		Method_getStatisticsProcessor=21,
-		Method_createDocumentChecker=22,
-		Method_checkStorage=23,
-		Method_createDump=24
+		Method_config=1,
+		Method_createTermPostingIterator=2,
+		Method_createBrowsePostingIterator=3,
+		Method_createFieldPostingIterator=4,
+		Method_createForwardIterator=5,
+		Method_createDocumentTermIterator=6,
+		Method_createInvAclIterator=7,
+		Method_nofDocumentsInserted=8,
+		Method_documentFrequency=9,
+		Method_maxDocumentNumber=10,
+		Method_documentNumber=11,
+		Method_createTermTypeIterator=12,
+		Method_createTermValueIterator=13,
+		Method_createDocIdIterator=14,
+		Method_createUserNameIterator=15,
+		Method_documentStatistics=16,
+		Method_createMetaDataReader=17,
+		Method_createMetaDataRestriction=18,
+		Method_createAttributeReader=19,
+		Method_createTransaction=20,
+		Method_createInitStatisticsIterator=21,
+		Method_createUpdateStatisticsIterator=22,
+		Method_getStatisticsProcessor=23,
+		Method_createDocumentChecker=24,
+		Method_checkStorage=25
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -715,7 +861,8 @@ public:
 		Method_createStorage=2,
 		Method_createAlterMetaDataTable=3,
 		Method_getConfigDescription=4,
-		Method_getConfigParameters=5
+		Method_getConfigParameters=5,
+		Method_createDump=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -730,7 +877,8 @@ public:
 		Method_getDatabase=2,
 		Method_getQueryProcessor=3,
 		Method_getStatisticsProcessor=4,
-		Method_createQueryEval=5
+		Method_getVectorStorage=5,
+		Method_createQueryEval=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -747,7 +895,8 @@ public:
 		Method_deleteUserAccessRights=4,
 		Method_updateMetaData=5,
 		Method_commit=6,
-		Method_rollback=7
+		Method_rollback=7,
+		Method_nofDocumentsAffected=8
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -772,8 +921,9 @@ public:
 		Method_Destructor=0,
 		Method_addStringParameter=1,
 		Method_addNumericParameter=2,
-		Method_createFunctionContext=3,
-		Method_tostring=4
+		Method_defineResultName=3,
+		Method_createFunctionContext=4,
+		Method_tostring=5
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -801,23 +951,17 @@ public:
 		Method_getTokenizer=3,
 		Method_getNormalizer=4,
 		Method_getAggregator=5,
-		Method_detectDocumentClass=6,
-		Method_defineDocumentClassDetector=7,
-		Method_defineTokenizer=8,
-		Method_defineNormalizer=9,
-		Method_defineAggregator=10,
-		Method_getFunctionList=11
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class TokenizerFunctionContextConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_tokenize=1
+		Method_getPatternLexer=6,
+		Method_getPatternMatcher=7,
+		Method_getPatternTermFeeder=8,
+		Method_detectDocumentClass=9,
+		Method_defineDocumentClassDetector=10,
+		Method_defineTokenizer=11,
+		Method_defineNormalizer=12,
+		Method_defineAggregator=13,
+		Method_definePatternLexer=14,
+		Method_definePatternMatcher=15,
+		Method_getFunctionList=16
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -829,7 +973,7 @@ public:
 	{
 		Method_Destructor=0,
 		Method_concatBeforeTokenize=1,
-		Method_createFunctionContext=2
+		Method_tokenize=2
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -846,6 +990,29 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
+class TokenMarkupContextConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_putMarkup=1,
+		Method_markupDocument=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class TokenMarkupInstanceConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createContext=1
+	};
+	static const char* methodName( MethodId mid);
+};
+
 class ValueIteratorConst
 {
 public:
@@ -854,6 +1021,79 @@ public:
 		Method_Destructor=0,
 		Method_skip=1,
 		Method_fetchValues=2
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorStorageClientConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createSearcher=1,
+		Method_createTransaction=2,
+		Method_conceptClassNames=3,
+		Method_conceptFeatures=4,
+		Method_nofConcepts=5,
+		Method_featureConcepts=6,
+		Method_featureVector=7,
+		Method_featureName=8,
+		Method_featureIndex=9,
+		Method_nofFeatures=10,
+		Method_config=11
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorStorageDumpConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_nextChunk=1
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorStorageConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createStorage=1,
+		Method_createClient=2,
+		Method_createDump=3,
+		Method_runBuild=4
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorStorageSearchConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_findSimilar=1,
+		Method_findSimilarFromSelection=2,
+		Method_close=3
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class VectorStorageTransactionConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_addFeature=1,
+		Method_defineFeatureConceptRelation=2,
+		Method_commit=3,
+		Method_rollback=4
 	};
 	static const char* methodName( MethodId mid);
 };

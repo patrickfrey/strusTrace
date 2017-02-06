@@ -33,11 +33,19 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"MetaDataReader",
 		"MetaDataRestrictionInstance",
 		"MetaDataRestriction",
-		"NormalizerFunctionContext",
 		"NormalizerFunctionInstance",
 		"NormalizerFunction",
+		"PatternLexerContext",
+		"PatternLexerInstance",
+		"PatternLexer",
+		"PatternMatcherContext",
+		"PatternMatcherInstance",
+		"PatternMatcher",
+		"PatternTermFeederInstance",
+		"PatternTermFeeder",
 		"PostingIterator",
 		"PostingJoinOperator",
+		"QueryAnalyzerContext",
 		"QueryAnalyzer",
 		"QueryEval",
 		"Query",
@@ -65,10 +73,16 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"SummarizerFunctionInstance",
 		"SummarizerFunction",
 		"TextProcessor",
-		"TokenizerFunctionContext",
 		"TokenizerFunctionInstance",
 		"TokenizerFunction",
+		"TokenMarkupContext",
+		"TokenMarkupInstance",
 		"ValueIterator",
+		"VectorStorageClient",
+		"VectorStorageDump",
+		"VectorStorage",
+		"VectorStorageSearch",
+		"VectorStorageTransaction",
 		"WeightingFunctionContext",
 		"WeightingFunctionInstance",
 		"WeightingFunction"
@@ -109,7 +123,7 @@ const char* DatabaseBackupCursorConst::methodName( MethodId mid)
 
 const char* DatabaseClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createTransaction", "createCursor", "createBackupCursor", "writeImm", "removeImm", "readValue"};
+	static const char* ar[] = { "Destructor", "createTransaction", "createCursor", "createBackupCursor", "writeImm", "removeImm", "readValue", "config"};
 	return ar[mid];
 }
 
@@ -139,7 +153,7 @@ const char* DocumentAnalyzerContextConst::methodName( MethodId mid)
 
 const char* DocumentAnalyzerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "analyze", "createContext"};
+	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexFeatureFromPatternMatch", "addForwardIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "defineAttributeFromPatternMatch", "analyze", "createContext"};
 	return ar[mid];
 }
 
@@ -185,15 +199,9 @@ const char* MetaDataRestrictionConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* NormalizerFunctionContextConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "normalize"};
-	return ar[mid];
-}
-
 const char* NormalizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createFunctionContext"};
+	static const char* ar[] = { "Destructor", "normalize"};
 	return ar[mid];
 }
 
@@ -203,9 +211,57 @@ const char* NormalizerFunctionConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
+const char* PatternLexerContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "match", "reset"};
+	return ar[mid];
+}
+
+const char* PatternLexerInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "defineOption", "defineLexem", "defineSymbol", "getSymbol", "compile", "createContext"};
+	return ar[mid];
+}
+
+const char* PatternLexerConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "getCompileOptionNames", "createInstance", "getDescription"};
+	return ar[mid];
+}
+
+const char* PatternMatcherContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "putInput", "fetchResults", "getStatistics", "reset"};
+	return ar[mid];
+}
+
+const char* PatternMatcherInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "defineOption", "defineTermFrequency", "pushTerm", "pushExpression", "pushPattern", "attachVariable", "definePattern", "compile", "createContext"};
+	return ar[mid];
+}
+
+const char* PatternMatcherConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "getCompileOptionNames", "createInstance", "getDescription"};
+	return ar[mid];
+}
+
+const char* PatternTermFeederInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getLexem", "lexemTypes", "getSymbol"};
+	return ar[mid];
+}
+
+const char* PatternTermFeederConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createInstance"};
+	return ar[mid];
+}
+
 const char* PostingIteratorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "skipDoc", "skipDocCandidate", "skipPos", "featureid", "documentFrequency", "frequency", "docno", "posno"};
+	static const char* ar[] = { "Destructor", "skipDoc", "skipDocCandidate", "skipPos", "featureid", "documentFrequency", "frequency", "docno", "posno", "length"};
 	return ar[mid];
 }
 
@@ -215,9 +271,15 @@ const char* PostingJoinOperatorConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
+const char* QueryAnalyzerContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "putField", "groupElements", "analyze"};
+	return ar[mid];
+}
+
 const char* QueryAnalyzerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "definePhraseType", "analyzePhrase", "analyzePhraseBulk"};
+	static const char* ar[] = { "Destructor", "addSearchIndexElement", "addMetaDataElement", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexElementFromPatternMatch", "addMetaDataElementFromPatternMatch", "createContext"};
 	return ar[mid];
 }
 
@@ -229,7 +291,7 @@ const char* QueryEvalConst::methodName( MethodId mid)
 
 const char* QueryConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "pushTerm", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "setMaxNofRanks", "setMinRank", "addUserName", "setWeightingVariableValue", "evaluate"};
+	static const char* ar[] = { "Destructor", "pushTerm", "pushDocField", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "setMaxNofRanks", "setMinRank", "addUserName", "setWeightingVariableValue", "evaluate", "tostring"};
 	return ar[mid];
 }
 
@@ -313,7 +375,7 @@ const char* StorageAlterMetaDataTableConst::methodName( MethodId mid)
 
 const char* StorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createTermPostingIterator", "createBrowsePostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "createTermTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createInitStatisticsIterator", "createUpdateStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage", "createDump"};
+	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createBrowsePostingIterator", "createFieldPostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "createTermTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createInitStatisticsIterator", "createUpdateStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage"};
 	return ar[mid];
 }
 
@@ -337,19 +399,19 @@ const char* StorageDumpConst::methodName( MethodId mid)
 
 const char* StorageConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createClient", "createStorage", "createAlterMetaDataTable", "getConfigDescription", "getConfigParameters"};
+	static const char* ar[] = { "Destructor", "createClient", "createStorage", "createAlterMetaDataTable", "getConfigDescription", "getConfigParameters", "createDump"};
 	return ar[mid];
 }
 
 const char* StorageObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "createQueryEval"};
+	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "getVectorStorage", "createQueryEval"};
 	return ar[mid];
 }
 
 const char* StorageTransactionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createDocument", "createDocumentUpdate", "deleteDocument", "deleteUserAccessRights", "updateMetaData", "commit", "rollback"};
+	static const char* ar[] = { "Destructor", "createDocument", "createDocumentUpdate", "deleteDocument", "deleteUserAccessRights", "updateMetaData", "commit", "rollback", "nofDocumentsAffected"};
 	return ar[mid];
 }
 
@@ -361,7 +423,7 @@ const char* SummarizerFunctionContextConst::methodName( MethodId mid)
 
 const char* SummarizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "createFunctionContext", "tostring"};
+	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "defineResultName", "createFunctionContext", "tostring"};
 	return ar[mid];
 }
 
@@ -373,19 +435,13 @@ const char* SummarizerFunctionConst::methodName( MethodId mid)
 
 const char* TextProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "getTokenizer", "getNormalizer", "getAggregator", "detectDocumentClass", "defineDocumentClassDetector", "defineTokenizer", "defineNormalizer", "defineAggregator", "getFunctionList"};
-	return ar[mid];
-}
-
-const char* TokenizerFunctionContextConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "tokenize"};
+	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "getPatternTermFeeder", "detectDocumentClass", "defineDocumentClassDetector", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
 	return ar[mid];
 }
 
 const char* TokenizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "concatBeforeTokenize", "createFunctionContext"};
+	static const char* ar[] = { "Destructor", "concatBeforeTokenize", "tokenize"};
 	return ar[mid];
 }
 
@@ -395,9 +451,51 @@ const char* TokenizerFunctionConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
+const char* TokenMarkupContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "putMarkup", "markupDocument"};
+	return ar[mid];
+}
+
+const char* TokenMarkupInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createContext"};
+	return ar[mid];
+}
+
 const char* ValueIteratorConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "skip", "fetchValues"};
+	return ar[mid];
+}
+
+const char* VectorStorageClientConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createSearcher", "createTransaction", "conceptClassNames", "conceptFeatures", "nofConcepts", "featureConcepts", "featureVector", "featureName", "featureIndex", "nofFeatures", "config"};
+	return ar[mid];
+}
+
+const char* VectorStorageDumpConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "nextChunk"};
+	return ar[mid];
+}
+
+const char* VectorStorageConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createStorage", "createClient", "createDump", "runBuild"};
+	return ar[mid];
+}
+
+const char* VectorStorageSearchConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "findSimilar", "findSimilarFromSelection", "close"};
+	return ar[mid];
+}
+
+const char* VectorStorageTransactionConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "addFeature", "defineFeatureConceptRelation", "commit", "rollback"};
 	return ar[mid];
 }
 

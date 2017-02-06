@@ -29,9 +29,3 @@ add_executable( strusTraceCodeGen strusTraceCodeGen.cpp ${source_files} )
 target_link_libraries( strusTraceCodeGen strus_base ${CMAKE_DL_LIBS} ${Intl_LIBRARIES} )
 
 
-# ------------------------------
-# INSTALLATION
-# ------------------------------
-install( TARGETS strusTraceCodeGen
-	   RUNTIME DESTINATION bin )
-

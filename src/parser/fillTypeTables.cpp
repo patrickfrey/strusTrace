@@ -29,8 +29,8 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("test_null", "$name < 0")
 		("pack_msg", "parambuf.packIndex($name);")
 	;
-	typesystem.defineType( "const SegmenterOptions&")
-		("pack_msg", "parambuf.packSegmenterOptions($name);")
+	typesystem.defineType( "const analyzer::SegmenterOptions&")
+		("pack_msg", "parambuf.packAnalyzerSegmenterOptions($name);")
 	;
 	typesystem.defineType( "const SegmenterPosition&")
 		("pack_msg", "parambuf.packGlobalCounter($name);")
@@ -77,6 +77,25 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const std::vector<Index>&")
 		("pack_msg", "parambuf.packIndexVector($name);")
 	;
+	typesystem.defineType( "std::vector<Index>")
+		("pack_msg", "parambuf.packIndexVector($name);")
+	;
+	typesystem.defineType( "std::vector<Result>", "VectorStorageSearchInterface")
+		("scopedtype", "std::vector<VectorStorageSearchInterface::Result>")
+		("pack_msg", "parambuf.packVectorStorageSearchResult($name);")
+	;
+	typesystem.defineType( "const std::vector<unsigned int>&")
+		("pack_msg", "parambuf.packUintVector($name);")
+	;
+	typesystem.defineType( "std::vector<unsigned int>")
+		("pack_msg", "parambuf.packUintVector($name);")
+	;
+	typesystem.defineType( "const std::vector<double>&")
+		("pack_msg", "parambuf.packFloatVector($name);")
+	;
+	typesystem.defineType( "std::vector<double>")
+		("pack_msg", "parambuf.packFloatVector($name);")
+	;
 	typesystem.defineType( "const char*")
 		("test_null", "$name == 0")
 		("pack_msg", "parambuf.packCharp($name);")
@@ -99,6 +118,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pass_param", "$bufname, $name")
 		("pack_msg", "parambuf.packBufferFloat( $bufname, $name);")
 	;
+	typesystem.defineType( "const double* $bufname, unsigned int")
+		("test_null", "$bufname == 0")
+		("pass_param", "$bufname, $name")
+		("pack_msg", "parambuf.packBufferFloat( $bufname, $name);")
+	;
 	typesystem.defineType( "const NumericVariant&")
 		("pack_msg", "parambuf.packNumericVariant($name);")
 	;
@@ -106,11 +130,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("test_null", "!$name.defined()")
 		("pack_msg", "parambuf.packNumericVariant($name);")
 	;
-	typesystem.defineType( "const DocumentClass&")
-		("pack_msg", "parambuf.packDocumentClass($name);")
+	typesystem.defineType( "const analyzer::DocumentClass&")
+		("pack_msg", "parambuf.packAnalyzerDocumentClass($name);")
 	;
-	typesystem.defineType( "DocumentClass&")
-		("pack_msg", "parambuf.packDocumentClass($name);")
+	typesystem.defineType( "analyzer::DocumentClass&")
+		("pack_msg", "parambuf.packAnalyzerDocumentClass($name);")
 	;
 	typesystem.defineType( "const TermStatistics&")
 		("pack_msg", "parambuf.packTermStatistics($name);")
@@ -133,8 +157,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const ConfigType&", "Storage")
 		("pack_msg", "parambuf.packStorageConfigType($name);")
 	;
-	typesystem.defineType( "const FeatureOptions&", "DocumentAnalyzer")
+	typesystem.defineType( "const analyzer::FeatureOptions&")
 		("pack_msg", "parambuf.packFeatureOptions($name);")
+	;
+	typesystem.defineType( "const GroupBy&", "QueryAnalyzer")
+		("pack_msg", "parambuf.packAnalyzerQueryGroupBy($name);")
 	;
 	typesystem.defineType( "const SummaryElement&")
 		("pack_msg", "parambuf.packSummaryElement($name);")
@@ -158,6 +185,15 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("scopedtype", "DatabaseCursorInterface::Slice")
 		("pack_msg", "parambuf.packSlice($name);")
 	;
+	typesystem.defineType( "const analyzer::Query&")
+		("pack_msg", "parambuf.packAnalyzerQuery($name);")
+	;
+	typesystem.defineType( "analyzer::Query&")
+		("pack_msg", "parambuf.packAnalyzerQuery($name);")
+	;
+	typesystem.defineType( "analyzer::Query")
+		("pack_msg", "parambuf.packAnalyzerQuery($name);")
+	;
 	typesystem.defineType( "const analyzer::Document&")
 		("pack_msg", "parambuf.packAnalyzerDocument($name);")
 	;
@@ -177,16 +213,46 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "parambuf.packAnalyzerTerm($name);")
 	;
 	typesystem.defineType( "std::vector<analyzer::Term>")
-		("pack_msg", "parambuf.packAnalyzerTermVector($name);")
+		("pack_msg", "parambuf.packAnalyzerTermArray($name);")
 	;
-	typesystem.defineType( "std::vector<analyzer::TermVector>")
-		("pack_msg", "parambuf.packAnalyzerTermVectorVector($name);")
+	typesystem.defineType( "const std::vector<analyzer::Term>&")
+		("pack_msg", "parambuf.packAnalyzerTermArray($name);")
+	;
+	typesystem.defineType( "std::vector<analyzer::TermArray>")
+		("pack_msg", "parambuf.packAnalyzerTermArrayArray($name);")
 	;
 	typesystem.defineType( "const analyzer::Token&")
 		("pack_msg", "parambuf.packAnalyzerToken($name);")
 	;
+	typesystem.defineType( "const analyzer::PatternLexem&")
+		("pack_msg", "parambuf.packAnalyzerPatternLexem($name);")
+	;
 	typesystem.defineType( "std::vector<analyzer::Token>")
 		("pack_msg", "parambuf.packAnalyzerTokenVector($name);")
+	;
+	typesystem.defineType( "std::vector<analyzer::PatternLexem>")
+		("pack_msg", "parambuf.packAnalyzerPatternLexemVector($name);")
+	;
+	typesystem.defineType( "analyzer::PositionBind")
+		("pack_msg", "parambuf.packAnalyzerPositionBind($name);")
+	;
+	typesystem.defineType( "const analyzer::TokenMarkup&")
+		("pack_msg", "parambuf.packAnalyzerTokenMarkup($name);")
+	;
+	typesystem.defineType( "std::vector<analyzer::PatternMatcherResult>")
+		("pack_msg", "parambuf.packAnalyzerPatternMatcherResultVector($name);")
+	;
+	typesystem.defineType( "const std::vector<analyzer::PatternMatcherResult>&")
+		("pack_msg", "parambuf.packAnalyzerPatternMatcherResultVector($name);")
+	;
+	typesystem.defineType( "analyzer::PatternMatcherStatistics")
+		("pack_msg", "parambuf.packAnalyzerPatternMatcherStatistics($name);")
+	;
+	typesystem.defineType( "PatternMatcherInstanceInterface::JoinOperation")
+		("pack_msg", "parambuf.packPatternMatcherJoinOperation($name);")
+	;
+	typesystem.defineType( "JoinOperation")
+		("pack_msg", "parambuf.packPatternMatcherJoinOperation($name);")
 	;
 	typesystem.defineType( "const WeightedDocument&")
 		("pack_msg", "parambuf.packWeightedDocument($name);")

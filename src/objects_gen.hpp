@@ -1471,6 +1471,10 @@ public:
 			const Index& p1, 
 			const std::string& p2, 
 			const NumericVariant& p3);
+	virtual void updateDocumentFrequency(
+			const std::string& p1, 
+			const std::string& p2, 
+			int p3);
 	virtual bool commit();
 	virtual void rollback();
 	virtual unsigned int nofDocumentsAffected() const;

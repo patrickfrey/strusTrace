@@ -896,9 +896,10 @@ public:
 		Method_deleteDocument=3,
 		Method_deleteUserAccessRights=4,
 		Method_updateMetaData=5,
-		Method_commit=6,
-		Method_rollback=7,
-		Method_nofDocumentsAffected=8
+		Method_updateDocumentFrequency=6,
+		Method_commit=7,
+		Method_rollback=8,
+		Method_nofDocumentsAffected=9
 	};
 	static const char* methodName( MethodId mid);
 };

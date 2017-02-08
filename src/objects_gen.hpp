@@ -1352,6 +1352,14 @@ public:
 		:TraceObject<StorageDocumentUpdateInterface>(obj_,ctx_){}
 
 	virtual ~StorageDocumentUpdateImpl();
+	virtual void addSearchIndexTerm(
+			const std::string& p1, 
+			const std::string& p2, 
+			const Index& p3);
+	virtual void addForwardIndexTerm(
+			const std::string& p1, 
+			const std::string& p2, 
+			const Index& p3);
 	virtual void setMetaData(
 			const std::string& p1, 
 			const NumericVariant& p2);

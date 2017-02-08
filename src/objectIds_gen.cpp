@@ -387,7 +387,7 @@ const char* StorageDocumentConst::methodName( MethodId mid)
 
 const char* StorageDocumentUpdateConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "setMetaData", "setAttribute", "clearAttribute", "setUserAccessRight", "clearUserAccessRight", "clearUserAccessRights", "done"};
+	static const char* ar[] = { "Destructor", "addSearchIndexTerm", "addForwardIndexTerm", "setMetaData", "setAttribute", "clearAttribute", "setUserAccessRight", "clearUserAccessRight", "clearUserAccessRights", "done"};
 	return ar[mid];
 }
 

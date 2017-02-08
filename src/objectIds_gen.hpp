@@ -829,13 +829,15 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_setMetaData=1,
-		Method_setAttribute=2,
-		Method_clearAttribute=3,
-		Method_setUserAccessRight=4,
-		Method_clearUserAccessRight=5,
-		Method_clearUserAccessRights=6,
-		Method_done=7
+		Method_addSearchIndexTerm=1,
+		Method_addForwardIndexTerm=2,
+		Method_setMetaData=3,
+		Method_setAttribute=4,
+		Method_clearAttribute=5,
+		Method_setUserAccessRight=6,
+		Method_clearUserAccessRight=7,
+		Method_clearUserAccessRights=8,
+		Method_done=9
 	};
 	static const char* methodName( MethodId mid);
 };

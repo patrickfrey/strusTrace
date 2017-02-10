@@ -831,13 +831,15 @@ public:
 		Method_Destructor=0,
 		Method_addSearchIndexTerm=1,
 		Method_addForwardIndexTerm=2,
-		Method_setMetaData=3,
-		Method_setAttribute=4,
-		Method_clearAttribute=5,
-		Method_setUserAccessRight=6,
-		Method_clearUserAccessRight=7,
-		Method_clearUserAccessRights=8,
-		Method_done=9
+		Method_clearSearchIndexTerm=3,
+		Method_clearForwardIndexTerm=4,
+		Method_setMetaData=5,
+		Method_setAttribute=6,
+		Method_clearAttribute=7,
+		Method_setUserAccessRight=8,
+		Method_clearUserAccessRight=9,
+		Method_clearUserAccessRights=10,
+		Method_done=11
 	};
 	static const char* methodName( MethodId mid);
 };

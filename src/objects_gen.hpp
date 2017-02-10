@@ -1360,6 +1360,10 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3);
+	virtual void clearSearchIndexTerm(
+			const std::string& p1);
+	virtual void clearForwardIndexTerm(
+			const std::string& p1);
 	virtual void setMetaData(
 			const std::string& p1, 
 			const NumericVariant& p2);

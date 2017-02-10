@@ -6221,6 +6221,44 @@ void StorageDocumentUpdateImpl::addForwardIndexTerm(
 	}
 }
 
+void StorageDocumentUpdateImpl::clearSearchIndexTerm(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearSearchIndexTerm), objid());
+	obj()->clearSearchIndexTerm(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void StorageDocumentUpdateImpl::clearForwardIndexTerm(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearForwardIndexTerm), objid());
+	obj()->clearForwardIndexTerm(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void StorageDocumentUpdateImpl::setMetaData(
 			const std::string& p1, 
 			const NumericVariant& p2)

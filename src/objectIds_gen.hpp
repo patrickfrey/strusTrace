@@ -829,13 +829,17 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_setMetaData=1,
-		Method_setAttribute=2,
-		Method_clearAttribute=3,
-		Method_setUserAccessRight=4,
-		Method_clearUserAccessRight=5,
-		Method_clearUserAccessRights=6,
-		Method_done=7
+		Method_addSearchIndexTerm=1,
+		Method_addForwardIndexTerm=2,
+		Method_clearSearchIndexTerm=3,
+		Method_clearForwardIndexTerm=4,
+		Method_setMetaData=5,
+		Method_setAttribute=6,
+		Method_clearAttribute=7,
+		Method_setUserAccessRight=8,
+		Method_clearUserAccessRight=9,
+		Method_clearUserAccessRights=10,
+		Method_done=11
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -894,9 +898,10 @@ public:
 		Method_deleteDocument=3,
 		Method_deleteUserAccessRights=4,
 		Method_updateMetaData=5,
-		Method_commit=6,
-		Method_rollback=7,
-		Method_nofDocumentsAffected=8
+		Method_updateDocumentFrequency=6,
+		Method_commit=7,
+		Method_rollback=8,
+		Method_nofDocumentsAffected=9
 	};
 	static const char* methodName( MethodId mid);
 };

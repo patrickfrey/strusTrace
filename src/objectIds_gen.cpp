@@ -387,7 +387,7 @@ const char* StorageDocumentConst::methodName( MethodId mid)
 
 const char* StorageDocumentUpdateConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "setMetaData", "setAttribute", "clearAttribute", "setUserAccessRight", "clearUserAccessRight", "clearUserAccessRights", "done"};
+	static const char* ar[] = { "Destructor", "addSearchIndexTerm", "addForwardIndexTerm", "clearSearchIndexTerm", "clearForwardIndexTerm", "setMetaData", "setAttribute", "clearAttribute", "setUserAccessRight", "clearUserAccessRight", "clearUserAccessRights", "done"};
 	return ar[mid];
 }
 
@@ -411,7 +411,7 @@ const char* StorageObjectBuilderConst::methodName( MethodId mid)
 
 const char* StorageTransactionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createDocument", "createDocumentUpdate", "deleteDocument", "deleteUserAccessRights", "updateMetaData", "commit", "rollback", "nofDocumentsAffected"};
+	static const char* ar[] = { "Destructor", "createDocument", "createDocumentUpdate", "deleteDocument", "deleteUserAccessRights", "updateMetaData", "updateDocumentFrequency", "commit", "rollback", "nofDocumentsAffected"};
 	return ar[mid];
 }
 

@@ -13,10 +13,12 @@ include_directories(
 	"${Boost_INCLUDE_DIRS}"
 	"${Intl_INCLUDE_DIRS}"
 	"${PROJECT_SOURCE_DIR}/include"
+	"${strusbase_INCLUDE_DIRS}"
 	"${strus_INCLUDE_DIRS}"
 	"${strusanalyzer_INCLUDE_DIRS}" )
 link_directories(
 	"${Boost_LIBRARY_DIRS}"
+	"${strusbase_LIBRARY_DIRS}"
 	"${strus_LIBRARY_DIRS}"
 	"${strusanalyzer_LIBRARY_DIRS}" )
 

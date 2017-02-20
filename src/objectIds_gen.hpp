@@ -913,7 +913,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_addSummarizationFeature=1,
-		Method_getSummary=2
+		Method_getSummary=2,
+		Method_debugCall=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1110,7 +1111,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_addWeightingFeature=1,
-		Method_call=2
+		Method_call=2,
+		Method_debugCall=3
 	};
 	static const char* methodName( MethodId mid);
 };

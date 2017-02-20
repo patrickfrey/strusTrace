@@ -1504,6 +1504,8 @@ public:
 			const TermStatistics& p5);
 	virtual std::vector<SummaryElement> getSummary(
 			const Index& p1);
+	virtual std::string debugCall(
+			const Index& p1);
 };
 
 class SummarizerFunctionInstanceImpl
@@ -1837,6 +1839,8 @@ public:
 			double p3, 
 			const TermStatistics& p4);
 	virtual double call(
+			const Index& p1);
+	virtual std::string debugCall(
 			const Index& p1);
 };
 

@@ -417,7 +417,7 @@ const char* StorageTransactionConst::methodName( MethodId mid)
 
 const char* SummarizerFunctionContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSummarizationFeature", "getSummary"};
+	static const char* ar[] = { "Destructor", "addSummarizationFeature", "getSummary", "debugCall"};
 	return ar[mid];
 }
 
@@ -501,7 +501,7 @@ const char* VectorStorageTransactionConst::methodName( MethodId mid)
 
 const char* WeightingFunctionContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addWeightingFeature", "call"};
+	static const char* ar[] = { "Destructor", "addWeightingFeature", "call", "debugCall"};
 	return ar[mid];
 }
 

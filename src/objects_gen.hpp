@@ -884,11 +884,13 @@ public:
 	virtual void addSummarizerFunction(
 			const std::string& p1, 
 			SummarizerFunctionInstanceInterface* p2, 
-			const std::vector<FeatureParameter>& p3);
+			const std::vector<FeatureParameter>& p3, 
+			const std::string& p4);
 	virtual void addWeightingFunction(
 			const std::string& p1, 
 			WeightingFunctionInstanceInterface* p2, 
-			const std::vector<FeatureParameter>& p3);
+			const std::vector<FeatureParameter>& p3, 
+			const std::string& p4);
 	virtual void defineWeightingFormula(
 			ScalarFunctionInterface* p1);
 	virtual QueryInterface* createQuery(
@@ -946,6 +948,8 @@ public:
 	virtual void setWeightingVariableValue(
 			const std::string& p1, 
 			double p2);
+	virtual void setDebugMode(
+			bool p1);
 	virtual QueryResult evaluate();
 	virtual std::string tostring() const;
 };

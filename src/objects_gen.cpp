@@ -3684,16 +3684,18 @@ void QueryEvalImpl::addExclusionFeature(
 void QueryEvalImpl::addSummarizerFunction(
 			const std::string& p1, 
 			SummarizerFunctionInstanceInterface* p2, 
-			const std::vector<FeatureParameter>& p3)
+			const std::vector<FeatureParameter>& p3, 
+			const std::string& p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addSummarizerFunction), objid());
-	obj()->addSummarizerFunction(p1, p2, p3);
+	obj()->addSummarizerFunction(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), objbase_p2->objid());
 	parambuf.packFeatureParameterVector(p3);
+	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3709,16 +3711,18 @@ void QueryEvalImpl::addSummarizerFunction(
 void QueryEvalImpl::addWeightingFunction(
 			const std::string& p1, 
 			WeightingFunctionInstanceInterface* p2, 
-			const std::vector<FeatureParameter>& p3)
+			const std::vector<FeatureParameter>& p3, 
+			const std::string& p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addWeightingFunction), objid());
-	obj()->addWeightingFunction(p1, p2, p3);
+	obj()->addWeightingFunction(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), objbase_p2->objid());
 	parambuf.packFeatureParameterVector(p3);
+	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -4052,6 +4056,25 @@ void QueryImpl::setWeightingVariableValue(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packDouble(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void QueryImpl::setDebugMode(
+			bool p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setDebugMode), objid());
+	obj()->setDebugMode(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packBool(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

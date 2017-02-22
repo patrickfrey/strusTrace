@@ -8114,6 +8114,28 @@ Index VectorStorageClientImpl::featureIndex(
 	return p0;
 }
 
+double VectorStorageClientImpl::vectorSimilarity(
+			const std::vector<double>& p1, 
+			const std::vector<double>& p2) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_vectorSimilarity), objid());
+	double p0 = obj()->vectorSimilarity(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packDouble(p0);
+	parambuf.packFloatVector(p1);
+	parambuf.packFloatVector(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 unsigned int VectorStorageClientImpl::nofFeatures() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_nofFeatures), objid());

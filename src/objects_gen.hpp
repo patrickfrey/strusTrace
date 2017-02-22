@@ -1732,6 +1732,9 @@ public:
 			const Index& p1) const;
 	virtual Index featureIndex(
 			const std::string& p1) const;
+	virtual double vectorSimilarity(
+			const std::vector<double>& p1, 
+			const std::vector<double>& p2) const;
 	virtual unsigned int nofFeatures() const;
 	virtual std::string config() const;
 };

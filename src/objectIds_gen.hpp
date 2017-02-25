@@ -122,10 +122,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_getTextProcessor=1,
-		Method_getSegmenter=2,
-		Method_findMimeTypeSegmenter=3,
-		Method_createDocumentAnalyzer=4,
-		Method_createQueryAnalyzer=5
+		Method_createDocumentAnalyzer=2,
+		Method_createQueryAnalyzer=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -955,20 +953,23 @@ public:
 		Method_Destructor=0,
 		Method_addResourcePath=1,
 		Method_getResourcePath=2,
-		Method_getTokenizer=3,
-		Method_getNormalizer=4,
-		Method_getAggregator=5,
-		Method_getPatternLexer=6,
-		Method_getPatternMatcher=7,
-		Method_getPatternTermFeeder=8,
-		Method_detectDocumentClass=9,
-		Method_defineDocumentClassDetector=10,
-		Method_defineTokenizer=11,
-		Method_defineNormalizer=12,
-		Method_defineAggregator=13,
-		Method_definePatternLexer=14,
-		Method_definePatternMatcher=15,
-		Method_getFunctionList=16
+		Method_getSegmenterByName=3,
+		Method_getSegmenterByMimeType=4,
+		Method_getTokenizer=5,
+		Method_getNormalizer=6,
+		Method_getAggregator=7,
+		Method_getPatternLexer=8,
+		Method_getPatternMatcher=9,
+		Method_getPatternTermFeeder=10,
+		Method_detectDocumentClass=11,
+		Method_defineDocumentClassDetector=12,
+		Method_defineSegmenter=13,
+		Method_defineTokenizer=14,
+		Method_defineNormalizer=15,
+		Method_defineAggregator=16,
+		Method_definePatternLexer=17,
+		Method_definePatternMatcher=18,
+		Method_getFunctionList=19
 	};
 	static const char* methodName( MethodId mid);
 };

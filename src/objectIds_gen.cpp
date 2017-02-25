@@ -105,7 +105,7 @@ const char* AggregatorFunctionConst::methodName( MethodId mid)
 
 const char* AnalyzerObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getTextProcessor", "getSegmenter", "findMimeTypeSegmenter", "createDocumentAnalyzer", "createQueryAnalyzer"};
+	static const char* ar[] = { "Destructor", "getTextProcessor", "createDocumentAnalyzer", "createQueryAnalyzer"};
 	return ar[mid];
 }
 
@@ -435,7 +435,7 @@ const char* SummarizerFunctionConst::methodName( MethodId mid)
 
 const char* TextProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "getPatternTermFeeder", "detectDocumentClass", "defineDocumentClassDetector", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
+	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "getSegmenterByName", "getSegmenterByMimeType", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "getPatternTermFeeder", "detectDocumentClass", "defineDocumentClassDetector", "defineSegmenter", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
 	return ar[mid];
 }
 

@@ -140,64 +140,6 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	return p0;
 }
 
-const SegmenterInterface* AnalyzerObjectBuilderImpl::getSegmenter(
-			const std::string& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_getSegmenter), objid());
-	const SegmenterInterface* p0 = obj()->getSegmenter(p1);
-	p0 = traceContext()->createInterfaceImpl_const<SegmenterInterface,SegmenterImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getSegmenter", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p0->objid());
-		parambuf.packString(p1);
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-const SegmenterInterface* AnalyzerObjectBuilderImpl::findMimeTypeSegmenter(
-			const std::string& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_findMimeTypeSegmenter), objid());
-	const SegmenterInterface* p0 = obj()->findMimeTypeSegmenter(p1);
-	p0 = traceContext()->createInterfaceImpl_const<SegmenterInterface,SegmenterImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "findMimeTypeSegmenter", traceContext()->errorbuf()->fetchError());
-	}
-	else
-	{
-		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p0->objid());
-		parambuf.packString(p1);
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
 DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 			const SegmenterInterface* p1, 
 			const analyzer::SegmenterOptions& p2) const
@@ -7302,6 +7244,64 @@ std::string TextProcessorImpl::getResourcePath(
 	return p0;
 }
 
+const SegmenterInterface* TextProcessorImpl::getSegmenterByName(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getSegmenterByName), objid());
+	const SegmenterInterface* p0 = obj()->getSegmenterByName(p1);
+	p0 = traceContext()->createInterfaceImpl_const<SegmenterInterface,SegmenterImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getSegmenterByName", traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p0->objid());
+		parambuf.packString(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+const SegmenterInterface* TextProcessorImpl::getSegmenterByMimeType(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getSegmenterByMimeType), objid());
+	const SegmenterInterface* p0 = obj()->getSegmenterByMimeType(p1);
+	p0 = traceContext()->createInterfaceImpl_const<SegmenterInterface,SegmenterImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getSegmenterByMimeType", traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p0->objid());
+		parambuf.packString(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 			const std::string& p1) const
 {
@@ -7509,6 +7509,29 @@ void TextProcessorImpl::defineDocumentClassDetector(
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p1) {delete p1; p1 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void TextProcessorImpl::defineSegmenter(
+			const std::string& p1, 
+			SegmenterInterface* p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_defineSegmenter), objid());
+	obj()->defineSegmenter(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
+	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p2->objid());
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

@@ -347,6 +347,9 @@ public:
 	virtual void defineSubDocument(
 			const std::string& p1, 
 			const std::string& p2);
+	virtual void defineSubContent(
+			const std::string& p1, 
+			const analyzer::DocumentClass& p2);
 	virtual void addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -1573,6 +1576,8 @@ public:
 			const std::string& p1) const;
 	virtual const SegmenterInterface* getSegmenterByMimeType(
 			const std::string& p1) const;
+	virtual analyzer::SegmenterOptions getSegmenterOptions(
+			const std::string& p1) const;
 	virtual const TokenizerFunctionInterface* getTokenizer(
 			const std::string& p1) const;
 	virtual const NormalizerFunctionInterface* getNormalizer(
@@ -1592,6 +1597,9 @@ public:
 	virtual void defineSegmenter(
 			const std::string& p1, 
 			SegmenterInterface* p2);
+	virtual void defineSegmenterOptions(
+			const std::string& p1, 
+			const analyzer::SegmenterOptions& p2);
 	virtual void defineTokenizer(
 			const std::string& p1, 
 			TokenizerFunctionInterface* p2);

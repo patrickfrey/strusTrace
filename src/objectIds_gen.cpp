@@ -153,7 +153,7 @@ const char* DocumentAnalyzerContextConst::methodName( MethodId mid)
 
 const char* DocumentAnalyzerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexFeatureFromPatternMatch", "addForwardIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "defineAttributeFromPatternMatch", "analyze", "createContext"};
+	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "defineSubContent", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexFeatureFromPatternMatch", "addForwardIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "defineAttributeFromPatternMatch", "analyze", "createContext"};
 	return ar[mid];
 }
 
@@ -435,7 +435,7 @@ const char* SummarizerFunctionConst::methodName( MethodId mid)
 
 const char* TextProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "getSegmenterByName", "getSegmenterByMimeType", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "getPatternTermFeeder", "detectDocumentClass", "defineDocumentClassDetector", "defineSegmenter", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
+	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "getSegmenterByName", "getSegmenterByMimeType", "getSegmenterOptions", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "getPatternTermFeeder", "detectDocumentClass", "defineDocumentClassDetector", "defineSegmenter", "defineSegmenterOptions", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
 	return ar[mid];
 }
 

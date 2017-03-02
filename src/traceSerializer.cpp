@@ -1039,7 +1039,12 @@ void TraceSerializer::packTextProcessorFunctionType( const TextProcessorInterfac
 void TraceSerializer::packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val)
 {
 	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.name().c_str(), val.name().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "description"));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.text().c_str(), val.text().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }
 

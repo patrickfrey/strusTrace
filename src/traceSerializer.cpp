@@ -921,11 +921,11 @@ void TraceSerializer::packQueryResult( const QueryResult& val)
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "nofranked"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.nofDocumentsRanked()));
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.nofRanked()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "nofvisited"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.nofDocumentsVisited()));
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.nofVisited()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "ranks"));

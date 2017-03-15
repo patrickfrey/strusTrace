@@ -997,15 +997,15 @@ void TraceSerializer::packStatisticsViewerDocumentFrequencyChange( const Statist
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "increment"));
-		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.increment));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.increment()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }

@@ -1025,7 +1025,7 @@ void TraceSerializer::packQueryProcessorFunctionType( const QueryProcessorInterf
 
 const char* textProcessorFunctionTypeName( const TextProcessorInterface::FunctionType& val)
 {
-	static const char* ar[] = {"Tokenizer", "Normalizer","Aggregator"};
+	static const char* ar[] = {"Segmenter","Tokenizer", "Normalizer","Aggregator","PatternLexer","PatternMatcher"};
 	return ar[val];
 }
 

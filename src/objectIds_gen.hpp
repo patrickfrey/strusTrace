@@ -682,7 +682,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_mimeType=1,
-		Method_createInstance=2
+		Method_createInstance=2,
+		Method_getDescription=3
 	};
 	static const char* methodName( MethodId mid);
 };

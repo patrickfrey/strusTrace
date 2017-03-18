@@ -333,7 +333,7 @@ const char* SegmenterInstanceConst::methodName( MethodId mid)
 
 const char* SegmenterConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "mimeType", "createInstance"};
+	static const char* ar[] = { "Destructor", "mimeType", "createInstance", "getDescription"};
 	return ar[mid];
 }
 

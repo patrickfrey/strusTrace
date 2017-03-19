@@ -165,7 +165,8 @@ public:
 		Method_writeImm=4,
 		Method_removeImm=5,
 		Method_readValue=6,
-		Method_config=7
+		Method_close=7,
+		Method_config=8
 	};
 	static const char* methodName( MethodId mid);
 };

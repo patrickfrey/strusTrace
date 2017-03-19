@@ -123,7 +123,7 @@ const char* DatabaseBackupCursorConst::methodName( MethodId mid)
 
 const char* DatabaseClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createTransaction", "createCursor", "createBackupCursor", "writeImm", "removeImm", "readValue", "config"};
+	static const char* ar[] = { "Destructor", "createTransaction", "createCursor", "createBackupCursor", "writeImm", "removeImm", "readValue", "close", "config"};
 	return ar[mid];
 }
 

@@ -203,6 +203,7 @@ public:
 			const char* key, std::size_t p1, 
 			std::string& p2, 
 			const DatabaseOptions& p3) const;
+	virtual void close();
 	virtual std::string config() const;
 };
 

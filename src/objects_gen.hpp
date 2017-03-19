@@ -1312,6 +1312,7 @@ public:
 			const std::string& p2) const;
 	virtual bool checkStorage(
 			std::ostream& p1) const;
+	virtual void close();
 };
 
 class StorageDocumentImpl

@@ -6067,6 +6067,23 @@ bool StorageClientImpl::checkStorage(
 	return p0;
 }
 
+void StorageClientImpl::close()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_close), objid());
+	obj()->close();
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 StorageDocumentImpl::~StorageDocumentImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_Destructor), objid());

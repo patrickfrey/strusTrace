@@ -804,7 +804,8 @@ public:
 		Method_createUpdateStatisticsIterator=22,
 		Method_getStatisticsProcessor=23,
 		Method_createDocumentChecker=24,
-		Method_checkStorage=25
+		Method_checkStorage=25,
+		Method_close=26
 	};
 	static const char* methodName( MethodId mid);
 };

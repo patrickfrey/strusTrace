@@ -766,6 +766,7 @@ void TraceSerializer::packAnalyzerPositionBind( const analyzer::PositionBind& va
 		case analyzer::BindContent:	valstr = "content"; break;
 		case analyzer::BindSuccessor:	valstr = "succ"; break;
 		case analyzer::BindPredecessor:	valstr = "pred"; break;
+		case analyzer::BindUnique:	valstr = "unique"; break;
 	}
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "firstpos"));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeString, valstr));

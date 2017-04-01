@@ -516,7 +516,7 @@ void TraceSerializer::packAnalyzerQuery( const analyzer::Query& val)
 		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ei->len())); 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "field"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ei->fieldNo())); 
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ei->field())); 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}

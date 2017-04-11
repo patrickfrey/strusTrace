@@ -675,8 +675,7 @@ public:
 	virtual void pushPattern(
 			const std::string& p1);
 	virtual void attachVariable(
-			const std::string& p1, 
-			float p2);
+			const std::string& p1);
 	virtual void definePattern(
 			const std::string& p1, 
 			bool p2);

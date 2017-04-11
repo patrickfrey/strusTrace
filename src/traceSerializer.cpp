@@ -840,9 +840,6 @@ void TraceSerializer::packAnalyzerPatternMatcherResult( const analyzer::PatternM
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "endpos"));
 		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ti->end_origpos()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "weight"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeDouble, ti->weight()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
 }

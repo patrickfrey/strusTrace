@@ -2612,15 +2612,13 @@ void PatternMatcherInstanceImpl::pushPattern(
 }
 
 void PatternMatcherInstanceImpl::attachVariable(
-			const std::string& p1, 
-			float p2)
+			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherInstance), PatternMatcherInstanceConst::methodName( Method_attachVariable), objid());
-	obj()->attachVariable(p1, p2);
+	obj()->attachVariable(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packFloat(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

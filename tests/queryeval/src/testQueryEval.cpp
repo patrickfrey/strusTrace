@@ -377,7 +377,7 @@ static strus::QueryInterface* createQuery(
 	// The query analysis is only rudimentary and does not make use of latest query analysis capabilities
 	// to deal with query structures (trees):
 	strus::analyzer::Query querystruct = analyzeQuery( aob, anaconfig, querystr);
-	if (querystruct.empty()) throw std::runtime_error("query is empty");
+	if (querystruct.instructions().empty()) throw std::runtime_error("query is empty");
 
 	std::vector<unsigned int> selfeat;
 	std::vector<strus::analyzer::Query::Instruction>::const_iterator
@@ -386,24 +386,25 @@ static strus::QueryInterface* createQuery(
 	{
 		switch (ei->opCode())
 		{
-			case strus::analyzer::Query::Instruction::PushMetaData:
-				throw std::runtime_error("meta data restriction feature support not complete yet in query analyzer");
-			case strus::analyzer::Query::Instruction::PushSearchIndexTerm:
+			case strus::analyzer::Query::Instruction::Term:
 			{
-				const strus::analyzer::Term& term = querystruct.searchIndexTerm( ei->idx());
+				const strus::analyzer::Term& term = querystruct.term( ei->idx());
 				query->pushTerm( term.type(), term.value(), term.len());
 				query->defineFeature( "docfeat");
 				selfeat.push_back( ei->idx());
 				break;
 			}
+			case strus::analyzer::Query::Instruction::MetaData:
+				throw std::runtime_error("no metadata support in this test yet");
+
 			case strus::analyzer::Query::Instruction::Operator:
-				throw std::runtime_error("structured query support not complete yet in query analyzer");
+				throw std::runtime_error("structured query support not complete yet in this test");
 		}
 	}
 	std::vector<unsigned int>::const_iterator si = selfeat.begin(), se = selfeat.end();
 	for (; si != se; ++si)
 	{
-		const strus::analyzer::Term& term = querystruct.searchIndexTerm( *si);
+		const strus::analyzer::Term& term = querystruct.term( *si);
 		query->pushTerm( term.type(), term.value(), term.len());
 	}
 	const strus::PostingJoinOperatorInterface* contains = qproc->getPostingJoinOperator("contains");

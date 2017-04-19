@@ -183,7 +183,7 @@ const char* InvAclIteratorConst::methodName( MethodId mid)
 
 const char* MetaDataReaderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "hasElement", "elementHandle", "nofElements", "skipDoc", "getValue", "getType", "getName"};
+	static const char* ar[] = { "Destructor", "elementHandle", "nofElements", "skipDoc", "getValue", "getType", "getName"};
 	return ar[mid];
 }
 

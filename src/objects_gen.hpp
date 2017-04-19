@@ -476,8 +476,6 @@ public:
 		:TraceObject<MetaDataReaderInterface>(obj_,ctx_){}
 
 	virtual ~MetaDataReaderImpl();
-	virtual bool hasElement(
-			const std::string& p1) const;
 	virtual Index elementHandle(
 			const std::string& p1) const;
 	virtual Index nofElements() const;
@@ -949,7 +947,7 @@ public:
 			double p2);
 	virtual void setDebugMode(
 			bool p1);
-	virtual QueryResult evaluate();
+	virtual QueryResult evaluate() const;
 	virtual std::string tostring() const;
 };
 

@@ -315,13 +315,12 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_hasElement=1,
-		Method_elementHandle=2,
-		Method_nofElements=3,
-		Method_skipDoc=4,
-		Method_getValue=5,
-		Method_getType=6,
-		Method_getName=7
+		Method_elementHandle=1,
+		Method_nofElements=2,
+		Method_skipDoc=3,
+		Method_getValue=4,
+		Method_getType=5,
+		Method_getName=6
 	};
 	static const char* methodName( MethodId mid);
 };

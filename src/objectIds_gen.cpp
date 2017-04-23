@@ -417,13 +417,13 @@ const char* StorageTransactionConst::methodName( MethodId mid)
 
 const char* SummarizerFunctionContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSummarizationFeature", "getSummary", "debugCall"};
+	static const char* ar[] = { "Destructor", "addSummarizationFeature", "setVariableValue", "getSummary", "debugCall"};
 	return ar[mid];
 }
 
 const char* SummarizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "defineResultName", "createFunctionContext", "tostring"};
+	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "defineResultName", "getVariables", "createFunctionContext", "tostring"};
 	return ar[mid];
 }
 
@@ -501,13 +501,13 @@ const char* VectorStorageTransactionConst::methodName( MethodId mid)
 
 const char* WeightingFunctionContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addWeightingFeature", "call", "debugCall"};
+	static const char* ar[] = { "Destructor", "addWeightingFeature", "setVariableValue", "call", "debugCall"};
 	return ar[mid];
 }
 
 const char* WeightingFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "createFunctionContext", "tostring"};
+	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "createFunctionContext", "getVariables", "tostring"};
 	return ar[mid];
 }
 

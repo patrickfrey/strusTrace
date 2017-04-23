@@ -1505,6 +1505,9 @@ public:
 			const std::vector<SummarizationVariable>&  p3, 
 			double p4, 
 			const TermStatistics& p5);
+	virtual void setVariableValue(
+			const std::string& p1, 
+			double p2);
 	virtual std::vector<SummaryElement> getSummary(
 			const Index& p1);
 	virtual std::string debugCall(
@@ -1532,6 +1535,7 @@ public:
 	virtual void defineResultName(
 			const std::string& p1, 
 			const std::string& p2);
+	virtual std::vector<std::string> getVariables() const;
 	virtual SummarizerFunctionContextInterface* createFunctionContext(
 			const StorageClientInterface* p1, 
 			MetaDataReaderInterface* p2, 
@@ -1856,6 +1860,9 @@ public:
 			PostingIteratorInterface* p2, 
 			double p3, 
 			const TermStatistics& p4);
+	virtual void setVariableValue(
+			const std::string& p1, 
+			double p2);
 	virtual double call(
 			const Index& p1);
 	virtual std::string debugCall(
@@ -1884,6 +1891,7 @@ public:
 			const StorageClientInterface* p1, 
 			MetaDataReaderInterface* p2, 
 			const GlobalStatistics& p3) const;
+	virtual std::vector<std::string> getVariables() const;
 	virtual std::string tostring() const;
 };
 

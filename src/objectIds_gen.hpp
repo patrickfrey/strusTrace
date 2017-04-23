@@ -915,8 +915,9 @@ public:
 	{
 		Method_Destructor=0,
 		Method_addSummarizationFeature=1,
-		Method_getSummary=2,
-		Method_debugCall=3
+		Method_setVariableValue=2,
+		Method_getSummary=3,
+		Method_debugCall=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -930,8 +931,9 @@ public:
 		Method_addStringParameter=1,
 		Method_addNumericParameter=2,
 		Method_defineResultName=3,
-		Method_createFunctionContext=4,
-		Method_tostring=5
+		Method_getVariables=4,
+		Method_createFunctionContext=5,
+		Method_tostring=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1119,8 +1121,9 @@ public:
 	{
 		Method_Destructor=0,
 		Method_addWeightingFeature=1,
-		Method_call=2,
-		Method_debugCall=3
+		Method_setVariableValue=2,
+		Method_call=3,
+		Method_debugCall=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1134,7 +1137,8 @@ public:
 		Method_addStringParameter=1,
 		Method_addNumericParameter=2,
 		Method_createFunctionContext=3,
-		Method_tostring=4
+		Method_getVariables=4,
+		Method_tostring=5
 	};
 	static const char* methodName( MethodId mid);
 };

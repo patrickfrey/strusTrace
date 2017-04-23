@@ -7040,6 +7040,27 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 	}
 }
 
+void SummarizerFunctionContextImpl::setVariableValue(
+			const std::string& p1, 
+			double p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_setVariableValue), objid());
+	obj()->setVariableValue(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packDouble(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 			const Index& p1)
 {
@@ -7147,6 +7168,24 @@ void SummarizerFunctionInstanceImpl::defineResultName(
 	{
 		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
 	}
+}
+
+std::vector<std::string> SummarizerFunctionInstanceImpl::getVariables() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_getVariables), objid());
+	std::vector<std::string> p0 = obj()->getVariables();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
 }
 
 SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFunctionContext(
@@ -8628,6 +8667,27 @@ void WeightingFunctionContextImpl::addWeightingFeature(
 	}
 }
 
+void WeightingFunctionContextImpl::setVariableValue(
+			const std::string& p1, 
+			double p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionContext), WeightingFunctionContextConst::methodName( Method_setVariableValue), objid());
+	obj()->setVariableValue(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packDouble(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 double WeightingFunctionContextImpl::call(
 			const Index& p1)
 {
@@ -8739,6 +8799,24 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataReader), objbase_p2->objid());
 		parambuf.packGlobalStatistics(p3);
 	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<std::string> WeightingFunctionInstanceImpl::getVariables() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_getVariables), objid());
+	std::vector<std::string> p0 = obj()->getVariables();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

@@ -329,7 +329,7 @@ static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBui
 	if (!wfuncinst.get()) throw std::runtime_error("failed to create weighting function instance");
 	wfuncinst->addNumericParameter( "k1", 1.2);
 	wfuncinst->addNumericParameter( "b", 0.75);
-	wfuncinst->addNumericParameter( "avgdoclen", 15);
+	wfuncinst->addNumericParameter( "avgdoclen", strus::NumericVariant::asuint( 15));
 	typedef strus::QueryEvalInterface::FeatureParameter FeatureParameter;
 	std::vector<FeatureParameter> featureParameters;
 	featureParameters.push_back( FeatureParameter( "match", "docfeat"));

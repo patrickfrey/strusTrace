@@ -1300,7 +1300,7 @@ public:
 	virtual MetaDataRestrictionInterface* createMetaDataRestriction() const;
 	virtual AttributeReaderInterface* createAttributeReader() const;
 	virtual StorageTransactionInterface* createTransaction();
-	virtual StatisticsIteratorInterface* createInitStatisticsIterator(
+	virtual StatisticsIteratorInterface* createStatisticsIterator(
 			bool p1);
 	virtual StatisticsIteratorInterface* createUpdateStatisticsIterator();
 	virtual const StatisticsProcessorInterface* getStatisticsProcessor() const;

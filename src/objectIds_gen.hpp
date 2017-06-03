@@ -799,7 +799,7 @@ public:
 		Method_createMetaDataRestriction=18,
 		Method_createAttributeReader=19,
 		Method_createTransaction=20,
-		Method_createInitStatisticsIterator=21,
+		Method_createStatisticsIterator=21,
 		Method_createUpdateStatisticsIterator=22,
 		Method_getStatisticsProcessor=23,
 		Method_createDocumentChecker=24,

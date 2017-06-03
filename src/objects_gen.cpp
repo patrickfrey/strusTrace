@@ -5908,16 +5908,16 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	return p0;
 }
 
-StatisticsIteratorInterface* StorageClientImpl::createInitStatisticsIterator(
+StatisticsIteratorInterface* StorageClientImpl::createStatisticsIterator(
 			bool p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createInitStatisticsIterator), objid());
-	StatisticsIteratorInterface* p0 = obj()->createInitStatisticsIterator(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createStatisticsIterator), objid());
+	StatisticsIteratorInterface* p0 = obj()->createStatisticsIterator(p1);
 	p0 = traceContext()->createInterfaceImpl<StatisticsIteratorInterface,StatisticsIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInitStatisticsIterator", traceContext()->errorbuf()->fetchError());
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createStatisticsIterator", traceContext()->errorbuf()->fetchError());
 	}
 	else
 	{

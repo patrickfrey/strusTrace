@@ -148,7 +148,7 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const CompareOperator&", "MetaDataRestriction")
 		("pack_msg", "parambuf.packMetaDataRestrictionCompareOperator($name);")
 	;
-	typesystem.defineType( "MetaDataRestrictionInterface::CompareOperator")
+	typesystem.defineType( "const MetaDataRestrictionInterface::CompareOperator&")
 		("pack_msg", "parambuf.packMetaDataRestrictionCompareOperator($name);")
 	;
 	typesystem.defineType( "const DatabaseOptions&")

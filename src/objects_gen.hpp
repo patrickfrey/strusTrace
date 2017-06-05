@@ -930,7 +930,7 @@ public:
 	virtual void defineGlobalStatistics(
 			const GlobalStatistics& p1);
 	virtual void addMetaDataRestrictionCondition(
-			MetaDataRestrictionInterface::CompareOperator p1, 
+			const MetaDataRestrictionInterface::CompareOperator& p1, 
 			const std::string& p2, 
 			const NumericVariant& p3, 
 			bool p4);

@@ -960,19 +960,6 @@ void TraceSerializer::packDocumentStatisticsType( const StorageClientInterface::
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packStatisticsProcessorBuilderOptions( const StatisticsProcessorInterface::BuilderOptions& val)
-{
-	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "blksize"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.maxBlockSize));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "options"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.set));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	}CATCH_ERROR
-}
-
 void TraceSerializer::packStatisticsViewerDocumentFrequencyChange( const StatisticsViewerInterface::DocumentFrequencyChange& val)
 {
 	try{

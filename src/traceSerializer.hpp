@@ -143,7 +143,6 @@ public:
 	void packFeatureParameter( const QueryEvalInterface::FeatureParameter& val);
 	void packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar);
 	void packDocumentStatisticsType( const StorageClientInterface::DocumentStatisticsType& val);
-	void packStatisticsProcessorBuilderOptions( const StatisticsProcessorInterface::BuilderOptions& val);
 	void packStatisticsViewerDocumentFrequencyChange( const StatisticsViewerInterface::DocumentFrequencyChange& val);
 	void packQueryProcessorFunctionType( const QueryProcessorInterface::FunctionType& val);
 	void packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val);

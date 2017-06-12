@@ -5116,11 +5116,10 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	return p0;
 }
 
-StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
-			const BuilderOptions& p1) const
+StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_createBuilder), objid());
-	StatisticsBuilderInterface* p0 = obj()->createBuilder(p1);
+	StatisticsBuilderInterface* p0 = obj()->createBuilder();
 	p0 = traceContext()->createInterfaceImpl<StatisticsBuilderInterface,StatisticsBuilderImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5131,7 +5130,6 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsBuilder), objbase_p0->objid());
-		parambuf.packStatisticsProcessorBuilderOptions(p1);
 	}
 	if (parambuf.hasError())
 	{

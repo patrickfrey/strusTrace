@@ -1201,8 +1201,7 @@ public:
 	virtual ~StatisticsProcessorImpl();
 	virtual StatisticsViewerInterface* createViewer(
 			const char* msgptr, std::size_t p1) const;
-	virtual StatisticsBuilderInterface* createBuilder(
-			const BuilderOptions& p1) const;
+	virtual StatisticsBuilderInterface* createBuilder() const;
 };
 
 class StatisticsViewerImpl

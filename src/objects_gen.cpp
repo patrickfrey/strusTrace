@@ -5906,16 +5906,16 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	return p0;
 }
 
-StatisticsIteratorInterface* StorageClientImpl::createStatisticsIterator(
+StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator(
 			bool p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createStatisticsIterator), objid());
-	StatisticsIteratorInterface* p0 = obj()->createStatisticsIterator(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createAllStatisticsIterator), objid());
+	StatisticsIteratorInterface* p0 = obj()->createAllStatisticsIterator(p1);
 	p0 = traceContext()->createInterfaceImpl<StatisticsIteratorInterface,StatisticsIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createStatisticsIterator", traceContext()->errorbuf()->fetchError());
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createAllStatisticsIterator", traceContext()->errorbuf()->fetchError());
 	}
 	else
 	{
@@ -5936,15 +5936,15 @@ StatisticsIteratorInterface* StorageClientImpl::createStatisticsIterator(
 	return p0;
 }
 
-StatisticsIteratorInterface* StorageClientImpl::createUpdateStatisticsIterator()
+StatisticsIteratorInterface* StorageClientImpl::createChangeStatisticsIterator()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createUpdateStatisticsIterator), objid());
-	StatisticsIteratorInterface* p0 = obj()->createUpdateStatisticsIterator();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createChangeStatisticsIterator), objid());
+	StatisticsIteratorInterface* p0 = obj()->createChangeStatisticsIterator();
 	p0 = traceContext()->createInterfaceImpl<StatisticsIteratorInterface,StatisticsIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createUpdateStatisticsIterator", traceContext()->errorbuf()->fetchError());
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createChangeStatisticsIterator", traceContext()->errorbuf()->fetchError());
 	}
 	else
 	{

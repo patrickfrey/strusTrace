@@ -3248,12 +3248,12 @@ void QueryAnalyzerContextImpl::groupElements(
 	}
 }
 
-analyzer::Query QueryAnalyzerContextImpl::analyze()
+analyzer::QueryTermExpression QueryAnalyzerContextImpl::analyze()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerContext), QueryAnalyzerContextConst::methodName( Method_analyze), objid());
-	analyzer::Query p0 = obj()->analyze();
+	analyzer::QueryTermExpression p0 = obj()->analyze();
 	TraceSerializer parambuf;
-	parambuf.packAnalyzerQuery(p0);
+	parambuf.packAnalyzerQueryTermExpression(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -3272,55 +3272,14 @@ QueryAnalyzerImpl::~QueryAnalyzerImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void QueryAnalyzerImpl::addSearchIndexElement(
+void QueryAnalyzerImpl::addElement(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addSearchIndexElement), objid());
-	obj()->addSearchIndexElement(p1, p2, p3, p4);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	parambuf.packString(p2);
-	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
-	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
-		i_p4 = p4.begin(), e_p4 = p4.end();
-	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
-	{
-		parambuf.openIndex( idx_p4); 
-		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
-		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
-		parambuf.close();
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
-			i_p4 = p4.begin(), e_p4 = p4.end();
-		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
-		{
-			delete *i_p4;
-		}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void QueryAnalyzerImpl::addMetaDataElement(
-			const std::string& p1, 
-			const std::string& p2, 
-			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addMetaDataElement), objid());
-	obj()->addMetaDataElement(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addElement), objid());
+	obj()->addElement(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3451,50 +3410,13 @@ void QueryAnalyzerImpl::definePatternMatcherPreProc(
 	}
 }
 
-void QueryAnalyzerImpl::addSearchIndexElementFromPatternMatch(
+void QueryAnalyzerImpl::addElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addSearchIndexElementFromPatternMatch), objid());
-	obj()->addSearchIndexElementFromPatternMatch(p1, p2, p3);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
-		i_p3 = p3.begin(), e_p3 = p3.end();
-	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
-	{
-		parambuf.openIndex( idx_p3); 
-		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
-		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
-		parambuf.close();
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
-			i_p3 = p3.begin(), e_p3 = p3.end();
-		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
-		{
-			delete *i_p3;
-		}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void QueryAnalyzerImpl::addMetaDataElementFromPatternMatch(
-			const std::string& p1, 
-			const std::string& p2, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addMetaDataElementFromPatternMatch), objid());
-	obj()->addMetaDataElementFromPatternMatch(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addElementFromPatternMatch), objid());
+	obj()->addElementFromPatternMatch(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);

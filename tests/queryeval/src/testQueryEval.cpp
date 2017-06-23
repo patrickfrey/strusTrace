@@ -250,7 +250,7 @@ static strus::QueryAnalyzerInterface* createQueryAnalyzer( const strus::Analyzer
 	if (!config[ai].type) throw std::runtime_error( "no search index feature defined in analyzer configuration");
 	
 	AnalyzerFunctionDef anafundef( textproc, config[ai].normalizer, config[ai].tokenizer);
-	analyzer->addSearchIndexElement( config[ai].type, "querystring", anafundef.tokenizer, anafundef.normalizers);
+	analyzer->addElement( config[ai].type, "querystring", anafundef.tokenizer, anafundef.normalizers);
 	return analyzer.release();
 }
 
@@ -285,7 +285,7 @@ static void insertDocuments(
 			anadoc = analyzer->analyze( testdocs[di].content, dclass);
 		if (g_errorhnd->hasError()) throw std::runtime_error( std::string( "analyze of document '") + testdocs[di].docid + "' failed: " + g_errorhnd->fetchError());
 
-		std::vector<strus::analyzer::Term>::const_iterator
+		std::vector<strus::analyzer::DocumentTerm>::const_iterator
 			ti = anadoc.searchIndexTerms().begin(), te = anadoc.searchIndexTerms().end();
 		for (; ti != te; ++ti)
 		{
@@ -296,13 +296,13 @@ static void insertDocuments(
 		{
 			stodoc->addForwardIndexTerm( ti->type(), ti->value(), ti->pos());
 		}
-		std::vector<strus::analyzer::Attribute>::const_iterator
+		std::vector<strus::analyzer::DocumentAttribute>::const_iterator
 			ai = anadoc.attributes().begin(), ae = anadoc.attributes().end();
 		for (; ai != ae; ++ai)
 		{
 			stodoc->setAttribute( ai->name(), ai->value());
 		}
-		std::vector<strus::analyzer::MetaData>::const_iterator
+		std::vector<strus::analyzer::DocumentMetaData>::const_iterator
 			mi = anadoc.metadata().begin(), me = anadoc.metadata().end();
 		for (; mi != me; ++mi)
 		{
@@ -352,7 +352,7 @@ static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBui
 	return qeval.release();
 }
 
-static strus::analyzer::Query analyzeQuery( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* anaconfig, const char* querystr)
+static strus::analyzer::QueryTermExpression analyzeQuery( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* anaconfig, const char* querystr)
 {
 	std::auto_ptr<strus::QueryAnalyzerInterface> qai( createQueryAnalyzer( aob, anaconfig));
 	if (!qai.get()) throw std::runtime_error("failed to create query analyzer");
@@ -376,35 +376,32 @@ static strus::QueryInterface* createQuery(
 
 	// The query analysis is only rudimentary and does not make use of latest query analysis capabilities
 	// to deal with query structures (trees):
-	strus::analyzer::Query querystruct = analyzeQuery( aob, anaconfig, querystr);
+	strus::analyzer::QueryTermExpression querystruct = analyzeQuery( aob, anaconfig, querystr);
 	if (querystruct.instructions().empty()) throw std::runtime_error("query is empty");
 
 	std::vector<unsigned int> selfeat;
-	std::vector<strus::analyzer::Query::Instruction>::const_iterator
+	std::vector<strus::analyzer::QueryTermExpression::Instruction>::const_iterator
 		ei = querystruct.instructions().begin(), ee = querystruct.instructions().end();
 	for (; ei != ee; ++ei)
 	{
 		switch (ei->opCode())
 		{
-			case strus::analyzer::Query::Instruction::Term:
+			case strus::analyzer::QueryTermExpression::Instruction::Term:
 			{
-				const strus::analyzer::Term& term = querystruct.term( ei->idx());
+				const strus::analyzer::QueryTerm& term = querystruct.term( ei->idx());
 				query->pushTerm( term.type(), term.value(), term.len());
 				query->defineFeature( "docfeat");
 				selfeat.push_back( ei->idx());
 				break;
 			}
-			case strus::analyzer::Query::Instruction::MetaData:
-				throw std::runtime_error("no metadata support in this test yet");
-
-			case strus::analyzer::Query::Instruction::Operator:
+			case strus::analyzer::QueryTermExpression::Instruction::Operator:
 				throw std::runtime_error("structured query support not complete yet in this test");
 		}
 	}
 	std::vector<unsigned int>::const_iterator si = selfeat.begin(), se = selfeat.end();
 	for (; si != se; ++si)
 	{
-		const strus::analyzer::Term& term = querystruct.term( *si);
+		const strus::analyzer::QueryTerm& term = querystruct.term( *si);
 		query->pushTerm( term.type(), term.value(), term.len());
 	}
 	const strus::PostingJoinOperatorInterface* contains = qproc->getPostingJoinOperator("contains");

@@ -188,11 +188,17 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("scopedtype", "DatabaseCursorInterface::Slice")
 		("pack_msg", "parambuf.packSlice($name);")
 	;
-	typesystem.defineType( "const analyzer::Query&")
-		("pack_msg", "parambuf.packAnalyzerQuery($name);")
+	typesystem.defineType( "const analyzer::QueryTermExpression&")
+		("pack_msg", "parambuf.packAnalyzerQueryTermExpression($name);")
 	;
-	typesystem.defineType( "analyzer::Query&")
-		("pack_msg", "parambuf.packAnalyzerQuery($name);")
+	typesystem.defineType( "analyzer::QueryTermExpression")
+		("pack_msg", "parambuf.packAnalyzerQueryTermExpression($name);")
+	;
+	typesystem.defineType( "const analyzer::QueryTerm&")
+		("pack_msg", "parambuf.packAnalyzerQueryTerm($name);")
+	;
+	typesystem.defineType( "std::vector<analyzer::QueryTerm>")
+		("pack_msg", "parambuf.packAnalyzerQueryTermArray($name);")
 	;
 	typesystem.defineType( "analyzer::Query")
 		("pack_msg", "parambuf.packAnalyzerQuery($name);")
@@ -206,23 +212,20 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "analyzer::Document")
 		("pack_msg", "parambuf.packAnalyzerDocument($name);")
 	;
-	typesystem.defineType( "const analyzer::Attribute&")
-		("pack_msg", "parambuf.packAnalyzerAttribute($name);")
+	typesystem.defineType( "const analyzer::DocumentAttribute&")
+		("pack_msg", "parambuf.packAnalyzerDocumentAttribute($name);")
 	;
-	typesystem.defineType( "const analyzer::MetaData&")
-		("pack_msg", "parambuf.packAnalyzerMetaData($name);")
+	typesystem.defineType( "const analyzer::DocumentMetaData&")
+		("pack_msg", "parambuf.packAnalyzerDocumentMetaData($name);")
 	;
-	typesystem.defineType( "const analyzer::Term&")
-		("pack_msg", "parambuf.packAnalyzerTerm($name);")
+	typesystem.defineType( "const analyzer::DocumentTerm&")
+		("pack_msg", "parambuf.packAnalyzerDocumentTerm($name);")
 	;
-	typesystem.defineType( "std::vector<analyzer::Term>")
-		("pack_msg", "parambuf.packAnalyzerTermArray($name);")
+	typesystem.defineType( "std::vector<analyzer::DocumentTerm>")
+		("pack_msg", "parambuf.packAnalyzerDocumentTermArray($name);")
 	;
-	typesystem.defineType( "const std::vector<analyzer::Term>&")
-		("pack_msg", "parambuf.packAnalyzerTermArray($name);")
-	;
-	typesystem.defineType( "std::vector<analyzer::TermArray>")
-		("pack_msg", "parambuf.packAnalyzerTermArrayArray($name);")
+	typesystem.defineType( "const std::vector<analyzer::DocumentTerm>&")
+		("pack_msg", "parambuf.packAnalyzerDocumentTermArray($name);")
 	;
 	typesystem.defineType( "const analyzer::Token&")
 		("pack_msg", "parambuf.packAnalyzerToken($name);")

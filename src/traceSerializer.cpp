@@ -490,39 +490,48 @@ void TraceSerializer::packSlice( DatabaseCursorInterface::Slice& val)
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerQuery( const analyzer::Query& val)
+
+void TraceSerializer::packAnalyzerQueryTerm( const analyzer::QueryTerm& val)
 {
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "query"));
-	std::vector<analyzer::Query::Instruction>::const_iterator
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value().c_str(), val.value().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "len"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.len()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerQueryTermExpression( const analyzer::QueryTermExpression& val)
+{
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "termexpr"));
+	std::vector<analyzer::QueryTermExpression::Instruction>::const_iterator
 		ii = val.instructions().begin(), ie = val.instructions().end();
 	for (; ii != ie; ++ii)
 	{
 		switch (ii->opCode())
 		{
-			case analyzer::Query::Instruction::MetaData:
+			case analyzer::QueryTermExpression::Instruction::Term:
 			{
-				const analyzer::MetaData& data = val.metadata( ii->idx());
-				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "metadata"));
-				packAnalyzerMetaData( data);
-				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-				break;
-			}
-			case analyzer::Query::Instruction::Term:
-			{
-				const analyzer::Term& term = val.term( ii->idx());
+				const analyzer::QueryTerm& term = val.term( ii->idx());
 				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "term"));
-				packAnalyzerTerm( term);
+				packAnalyzerQueryTerm( term);
 				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 				break;
 			}
-			case analyzer::Query::Instruction::Operator:
+			case analyzer::QueryTermExpression::Instruction::Operator:
 				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "op"));
 				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "id"));
 				m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->idx())); 
 				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "nofargs"));
 				m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->nofOperands())); 
-				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 				break;
 		}
@@ -539,50 +548,50 @@ void TraceSerializer::packAnalyzerDocument( const analyzer::Document& val)
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.subDocumentTypeName().c_str(), val.subDocumentTypeName().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
-	std::vector<analyzer::Attribute>::const_iterator ai = val.attributes().begin(), ae = val.attributes().end();
+	std::vector<analyzer::DocumentAttribute>::const_iterator ai = val.attributes().begin(), ae = val.attributes().end();
 	if (ai != ae)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "attributes"));
 		for (; ai != ae; ++ai)
 		{
 			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ai-val.attributes().begin()));
-			packAnalyzerAttribute( *ai);
+			packAnalyzerDocumentAttribute( *ai);
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
-	std::vector<analyzer::MetaData>::const_iterator mi = val.metadata().begin(), me = val.metadata().end();
+	std::vector<analyzer::DocumentMetaData>::const_iterator mi = val.metadata().begin(), me = val.metadata().end();
 	if (mi != me)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "metadata"));
 		for (; mi != me; ++mi)
 		{
 			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, mi-val.metadata().begin()));
-			packAnalyzerMetaData( *mi);
+			packAnalyzerDocumentMetaData( *mi);
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
-	std::vector<analyzer::Term>::const_iterator si = val.searchIndexTerms().begin(), se = val.searchIndexTerms().end();
+	std::vector<analyzer::DocumentTerm>::const_iterator si = val.searchIndexTerms().begin(), se = val.searchIndexTerms().end();
 	if (si != se)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "searchindex"));
 		for (; si != se; ++si)
 		{
 			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, si-val.searchIndexTerms().begin()));
-			packAnalyzerTerm( *si);
+			packAnalyzerDocumentTerm( *si);
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
-	std::vector<analyzer::Term>::const_iterator fi = val.forwardIndexTerms().begin(), fe = val.forwardIndexTerms().end();
+	std::vector<analyzer::DocumentTerm>::const_iterator fi = val.forwardIndexTerms().begin(), fe = val.forwardIndexTerms().end();
 	if (fi != fe)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "forwardindex"));
 		for (; fi != fe; ++fi)
 		{
 			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, fi-val.forwardIndexTerms().begin()));
-			packAnalyzerTerm( *fi);
+			packAnalyzerDocumentTerm( *fi);
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
@@ -590,7 +599,7 @@ void TraceSerializer::packAnalyzerDocument( const analyzer::Document& val)
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerAttribute( const analyzer::Attribute& val)
+void TraceSerializer::packAnalyzerDocumentAttribute( const analyzer::DocumentAttribute& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
@@ -603,7 +612,7 @@ void TraceSerializer::packAnalyzerAttribute( const analyzer::Attribute& val)
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerMetaData( const analyzer::MetaData& val)
+void TraceSerializer::packAnalyzerDocumentMetaData( const analyzer::DocumentMetaData& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
@@ -616,7 +625,7 @@ void TraceSerializer::packAnalyzerMetaData( const analyzer::MetaData& val)
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerTerm( const analyzer::Term& val)
+void TraceSerializer::packAnalyzerDocumentTerm( const analyzer::DocumentTerm& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
@@ -630,34 +639,17 @@ void TraceSerializer::packAnalyzerTerm( const analyzer::Term& val)
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "pos"));
 		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.pos()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "len"));
-		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.len()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerTermArray( const analyzer::TermArray& val)
+void TraceSerializer::packAnalyzerDocumentTermArray( const std::vector<analyzer::DocumentTerm>& val)
 {
 	try{
-	analyzer::TermArray::const_iterator ti = val.begin(), te = val.end();
+	std::vector<analyzer::DocumentTerm>::const_iterator ti = val.begin(), te = val.end();
 	for (; ti != te; ++ti)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ti-val.begin()));
-		packAnalyzerTerm( *ti);
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	}
-	}CATCH_ERROR
-}
-
-void TraceSerializer::packAnalyzerTermArrayArray( const std::vector<analyzer::TermArray>& val)
-{
-	try{
-	std::vector<analyzer::TermArray>::const_iterator ti = val.begin(), te = val.end();
-	for (; ti != te; ++ti)
-	{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ti-val.begin()));
-		packAnalyzerTermArray( *ti);
+		packAnalyzerDocumentTerm( *ti);
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
 	}CATCH_ERROR
@@ -711,6 +703,9 @@ void TraceSerializer::packAnalyzerQueryGroupBy( const QueryAnalyzerContextInterf
 		break;
 		case QueryAnalyzerContextInterface::GroupAll:
 			valstr = "all";
+		break;
+		case QueryAnalyzerContextInterface::GroupUnique:
+			valstr = "unique";
 		break;
 	}
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "groupby"));

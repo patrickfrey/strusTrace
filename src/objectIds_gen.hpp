@@ -535,14 +535,12 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_addSearchIndexElement=1,
-		Method_addMetaDataElement=2,
-		Method_addPatternLexem=3,
-		Method_definePatternMatcherPostProc=4,
-		Method_definePatternMatcherPreProc=5,
-		Method_addSearchIndexElementFromPatternMatch=6,
-		Method_addMetaDataElementFromPatternMatch=7,
-		Method_createContext=8
+		Method_addElement=1,
+		Method_addPatternLexem=2,
+		Method_definePatternMatcherPostProc=3,
+		Method_definePatternMatcherPreProc=4,
+		Method_addElementFromPatternMatch=5,
+		Method_createContext=6
 	};
 	static const char* methodName( MethodId mid);
 };

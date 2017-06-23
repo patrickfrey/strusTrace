@@ -806,7 +806,7 @@ public:
 			const std::vector<unsigned int>& p2, 
 			const GroupBy& p3, 
 			bool p4);
-	virtual analyzer::Query analyze();
+	virtual analyzer::QueryTermExpression analyze();
 };
 
 class QueryAnalyzerImpl
@@ -821,12 +821,7 @@ public:
 		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
 
 	virtual ~QueryAnalyzerImpl();
-	virtual void addSearchIndexElement(
-			const std::string& p1, 
-			const std::string& p2, 
-			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
-	virtual void addMetaDataElement(
+	virtual void addElement(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
@@ -845,11 +840,7 @@ public:
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
 			const std::vector<std::string>& p4);
-	virtual void addSearchIndexElementFromPatternMatch(
-			const std::string& p1, 
-			const std::string& p2, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
-	virtual void addMetaDataElementFromPatternMatch(
+	virtual void addElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3);

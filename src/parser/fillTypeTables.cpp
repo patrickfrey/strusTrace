@@ -26,7 +26,6 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "parambuf.packGlobalCounter($name);")
 	;
 	typesystem.defineType( "Index")
-		("test_null", "$name < 0")
 		("pack_msg", "parambuf.packIndex($name);")
 	;
 	typesystem.defineType( "const analyzer::SegmenterOptions&")

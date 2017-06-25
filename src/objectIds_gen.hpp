@@ -137,7 +137,7 @@ public:
 		Method_elementHandle=1,
 		Method_skipDoc=2,
 		Method_getValue=3,
-		Method_getAttributeNames=4
+		Method_getNames=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -320,7 +320,8 @@ public:
 		Method_skipDoc=3,
 		Method_getValue=4,
 		Method_getType=5,
-		Method_getName=6
+		Method_getName=6,
+		Method_getNames=7
 	};
 	static const char* methodName( MethodId mid);
 };

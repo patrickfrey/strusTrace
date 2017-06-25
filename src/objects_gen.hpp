@@ -158,7 +158,7 @@ public:
 			const Index& p1);
 	virtual std::string getValue(
 			const Index& p1) const;
-	virtual std::vector<std::string> getAttributeNames() const;
+	virtual std::vector<std::string> getNames() const;
 };
 
 class DatabaseBackupCursorImpl
@@ -487,6 +487,7 @@ public:
 			const Index& p1) const;
 	virtual const char* getName(
 			const Index& p1) const;
+	virtual std::vector<std::string> getNames() const;
 };
 
 class MetaDataRestrictionInstanceImpl

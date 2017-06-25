@@ -111,7 +111,7 @@ const char* AnalyzerObjectBuilderConst::methodName( MethodId mid)
 
 const char* AttributeReaderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "elementHandle", "skipDoc", "getValue", "getAttributeNames"};
+	static const char* ar[] = { "Destructor", "elementHandle", "skipDoc", "getValue", "getNames"};
 	return ar[mid];
 }
 
@@ -183,7 +183,7 @@ const char* InvAclIteratorConst::methodName( MethodId mid)
 
 const char* MetaDataReaderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "elementHandle", "nofElements", "skipDoc", "getValue", "getType", "getName"};
+	static const char* ar[] = { "Destructor", "elementHandle", "nofElements", "skipDoc", "getValue", "getType", "getName", "getNames"};
 	return ar[mid];
 }
 

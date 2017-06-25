@@ -266,10 +266,10 @@ std::string AttributeReaderImpl::getValue(
 	return p0;
 }
 
-std::vector<std::string> AttributeReaderImpl::getAttributeNames() const
+std::vector<std::string> AttributeReaderImpl::getNames() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_getAttributeNames), objid());
-	std::vector<std::string> p0 = obj()->getAttributeNames();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_getNames), objid());
+	std::vector<std::string> p0 = obj()->getNames();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
@@ -1890,6 +1890,24 @@ const char* MetaDataReaderImpl::getName(
 		parambuf.packCharp(p0);
 		parambuf.packIndex(p1);
 	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<std::string> MetaDataReaderImpl::getNames() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_MetaDataReader), MetaDataReaderConst::methodName( Method_getNames), objid());
+	std::vector<std::string> p0 = obj()->getNames();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

@@ -5492,6 +5492,26 @@ Index StorageClientImpl::termTypeNumber(
 	return p0;
 }
 
+bool StorageClientImpl::isForwardIndexTerm(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_isForwardIndexTerm), objid());
+	bool p0 = obj()->isForwardIndexTerm(p1);
+	TraceSerializer parambuf;
+	parambuf.packBool(p0);
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermTypeIterator), objid());

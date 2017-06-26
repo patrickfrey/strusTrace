@@ -5472,6 +5472,26 @@ Index StorageClientImpl::documentNumber(
 	return p0;
 }
 
+Index StorageClientImpl::termTypeNumber(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_termTypeNumber), objid());
+	Index p0 = obj()->termTypeNumber(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndex(p0);
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermTypeIterator), objid());

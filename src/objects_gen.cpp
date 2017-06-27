@@ -3796,6 +3796,25 @@ void QueryImpl::addDocumentEvaluationSet(
 	}
 }
 
+void QueryImpl::addAccessRestriction(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addAccessRestriction), objid());
+	obj()->addAccessRestriction(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void QueryImpl::setMaxNofRanks(
 			std::size_t p1)
 {
@@ -3823,25 +3842,6 @@ void QueryImpl::setMinRank(
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packSize( p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void QueryImpl::addUserName(
-			const std::string& p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addUserName), objid());
-	obj()->addUserName(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

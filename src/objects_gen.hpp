@@ -928,12 +928,12 @@ public:
 			bool p4);
 	virtual void addDocumentEvaluationSet(
 			const std::vector<Index>& p1);
+	virtual void addAccessRestriction(
+			const std::string& p1);
 	virtual void setMaxNofRanks(
 			std::size_t p1);
 	virtual void setMinRank(
 			std::size_t p1);
-	virtual void addUserName(
-			const std::string& p1);
 	virtual void setWeightingVariableValue(
 			const std::string& p1, 
 			double p2);

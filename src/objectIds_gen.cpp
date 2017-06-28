@@ -15,6 +15,7 @@ using namespace strus;
 const char* TraceClassNameMap::className( unsigned int classId)
 {
 	static const char* ar[] = {
+		"AclReader",
 		"AggregatorFunctionInstance",
 		"AggregatorFunction",
 		"AnalyzerObjectBuilder",
@@ -89,6 +90,12 @@ const char* TraceClassNameMap::className( unsigned int classId)
 	};
 
 	return classId?ar[ classId-1]:0;
+}
+
+const char* AclReaderConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "skipDoc", "getReadAccessList"};
+	return ar[mid];
 }
 
 const char* AggregatorFunctionInstanceConst::methodName( MethodId mid)
@@ -375,7 +382,7 @@ const char* StorageAlterMetaDataTableConst::methodName( MethodId mid)
 
 const char* StorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createBrowsePostingIterator", "createFieldPostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "termTypeNumber", "isForwardIndexTerm", "createTermTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage", "close"};
+	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createBrowsePostingIterator", "createFieldPostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "termTypeNumber", "isForwardIndexTerm", "createTermTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage", "close"};
 	return ar[mid];
 }
 

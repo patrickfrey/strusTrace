@@ -12,6 +12,7 @@
 #define _STRUS_TRACE_PARSER_objects_gen_HPP_INCLUDED
 #include "objectIds_gen.hpp"
 #include "traceObject.hpp"
+#include "strus/aclReaderInterface.hpp"
 #include "strus/aggregatorFunctionInstanceInterface.hpp"
 #include "strus/aggregatorFunctionInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
@@ -87,6 +88,23 @@
 #include <vector>
 
 namespace strus {
+
+class AclReaderImpl
+		:public TraceObject<AclReaderInterface>
+		,public AclReaderInterface
+		,public AclReaderConst
+{
+public:
+	AclReaderImpl( AclReaderInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<AclReaderInterface>(obj_,ctx_){}
+	AclReaderImpl( const AclReaderInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<AclReaderInterface>(obj_,ctx_){}
+
+	virtual ~AclReaderImpl();
+	virtual void skipDoc(
+			const Index& p1);
+	virtual std::vector<std::string> getReadAccessList() const;
+};
 
 class AggregatorFunctionInstanceImpl
 		:public TraceObject<AggregatorFunctionInstanceInterface>
@@ -1272,6 +1290,7 @@ public:
 			const std::string& p1) const;
 	virtual InvAclIteratorInterface* createInvAclIterator(
 			const std::string& p1) const;
+	virtual AclReaderInterface* createAclReader() const;
 	virtual Index nofDocumentsInserted() const;
 	virtual Index documentFrequency(
 			const std::string& p1, 

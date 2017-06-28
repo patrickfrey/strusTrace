@@ -592,7 +592,7 @@ public:
 		Method_defineGlobalStatistics=7,
 		Method_addMetaDataRestrictionCondition=8,
 		Method_addDocumentEvaluationSet=9,
-		Method_addAccessRestriction=10,
+		Method_addAccess=10,
 		Method_setMaxNofRanks=11,
 		Method_setMinRank=12,
 		Method_setWeightingVariableValue=13,

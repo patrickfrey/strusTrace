@@ -3839,11 +3839,11 @@ void QueryImpl::addDocumentEvaluationSet(
 	}
 }
 
-void QueryImpl::addAccessRestriction(
+void QueryImpl::addAccess(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addAccessRestriction), objid());
-	obj()->addAccessRestriction(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_addAccess), objid());
+	obj()->addAccess(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);

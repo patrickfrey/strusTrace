@@ -1766,6 +1766,7 @@ public:
 			const std::vector<double>& p2) const;
 	virtual unsigned int nofFeatures() const;
 	virtual std::string config() const;
+	virtual void close();
 };
 
 class VectorStorageDumpImpl

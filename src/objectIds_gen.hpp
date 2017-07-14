@@ -1072,7 +1072,8 @@ public:
 		Method_featureIndex=9,
 		Method_vectorSimilarity=10,
 		Method_nofFeatures=11,
-		Method_config=12
+		Method_config=12,
+		Method_close=13
 	};
 	static const char* methodName( MethodId mid);
 };

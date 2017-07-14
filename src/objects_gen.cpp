@@ -8249,6 +8249,23 @@ std::string VectorStorageClientImpl::config() const
 	return p0;
 }
 
+void VectorStorageClientImpl::close()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_close), objid());
+	obj()->close();
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 VectorStorageDumpImpl::~VectorStorageDumpImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageDump), VectorStorageDumpConst::methodName( Method_Destructor), objid());

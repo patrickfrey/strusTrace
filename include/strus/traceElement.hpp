@@ -63,7 +63,7 @@ struct TraceElement
 	}
 
 	/// \brief Default constructor
-	TraceElement() :m_type(TypeVoid)				{}
+	TraceElement() :m_type(TypeVoid)				{m_value.UInt = 0;}
 	/// \brief Constructor
 	TraceElement( IntType value_) :m_type(TypeInt)			{m_value.Int = value_;}
 	/// \brief Constructor
@@ -73,8 +73,7 @@ struct TraceElement
 	/// \brief Constructor
 	TraceElement( bool value_) :m_type(TypeBool)			{m_value.Bool = value_;}
 	/// \brief Constructor
-	TraceElement( Type type_, std::size_t index_)
-		:m_type(type_) {m_value.Index = index_;}
+	TraceElement( Type type_, std::size_t index_) :m_type(type_)	{m_value.Index = index_;}
 	TraceElement( Type type_, TraceObjectId oid_, const char* cid_)
 		:m_type(type_) {m_value.Obj.Class = cid_; m_value.Obj.Id = oid_;}
 	/// \brief Constructor
@@ -83,11 +82,13 @@ struct TraceElement
 	TraceElement( Type type_, const char* ptr_)
 		:m_type(type_) {m_value.String.Ptr = ptr_; m_value.String.Size = std::strlen(ptr_);}
 	TraceElement( Type type_)
-		:m_type(type_) {}
+		:m_type(type_) {m_value.UInt = 0;}
 
 	/// \brief Copy constructor
 	TraceElement( const TraceElement& o)
-		:m_type(o.m_type),m_value(o.m_value){}
+	{
+		std::memcpy( this, &o, sizeof(*this));
+	}
 
 private:
 	Type m_type;

@@ -80,7 +80,7 @@ struct TraceElement
 	TraceElement( Type type_, const char* ptr_, std::size_t size_)
 		:m_type(type_) {m_value.String.Ptr = ptr_; m_value.String.Size = size_;}
 	TraceElement( Type type_, const char* ptr_)
-		:m_type(type_) {m_value.String.Ptr = ptr_; m_value.String.Size = std::strlen(ptr_);}
+		:m_type(type_) {m_value.String.Ptr = ptr_; m_value.String.Size = ptr_?std::strlen(ptr_):0;}
 	TraceElement( Type type_)
 		:m_type(type_) {m_value.UInt = 0;}
 

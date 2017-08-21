@@ -226,7 +226,7 @@ const char* PatternLexerContextConst::methodName( MethodId mid)
 
 const char* PatternLexerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineOption", "defineLexem", "defineSymbol", "getSymbol", "compile", "createContext"};
+	static const char* ar[] = { "Destructor", "defineOption", "defineLexemName", "defineLexem", "defineSymbol", "getSymbol", "getLexemName", "compile", "createContext"};
 	return ar[mid];
 }
 

@@ -405,11 +405,13 @@ public:
 	{
 		Method_Destructor=0,
 		Method_defineOption=1,
-		Method_defineLexem=2,
-		Method_defineSymbol=3,
-		Method_getSymbol=4,
-		Method_compile=5,
-		Method_createContext=6
+		Method_defineLexemName=2,
+		Method_defineLexem=3,
+		Method_defineSymbol=4,
+		Method_getSymbol=5,
+		Method_getLexemName=6,
+		Method_compile=7,
+		Method_createContext=8
 	};
 	static const char* methodName( MethodId mid);
 };

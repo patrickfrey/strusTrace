@@ -2226,6 +2226,27 @@ void PatternLexerInstanceImpl::defineOption(
 	}
 }
 
+void PatternLexerInstanceImpl::defineLexemName(
+			unsigned int p1, 
+			const std::string& p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternLexerInstance), PatternLexerInstanceConst::methodName( Method_defineLexemName), objid());
+	obj()->defineLexemName(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packUInt(p1);
+	parambuf.packString(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void PatternLexerInstanceImpl::defineLexem(
 			unsigned int p1, 
 			const std::string& p2, 
@@ -2286,6 +2307,33 @@ unsigned int PatternLexerInstanceImpl::getSymbol(
 	parambuf.packUInt(p0);
 	parambuf.packUInt(p1);
 	parambuf.packString(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+const char* PatternLexerInstanceImpl::getLexemName(
+			unsigned int p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternLexerInstance), PatternLexerInstanceConst::methodName( Method_getLexemName), objid());
+	const char* p0 = obj()->getLexemName(p1);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getLexemName", traceContext()->errorbuf()->fetchError());
+	}
+	else
+	{
+		parambuf.packCharp(p0);
+		parambuf.packUInt(p1);
+	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

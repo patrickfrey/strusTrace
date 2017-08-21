@@ -611,6 +611,9 @@ public:
 	virtual void defineOption(
 			const std::string& p1, 
 			double p2);
+	virtual void defineLexemName(
+			unsigned int p1, 
+			const std::string& p2);
 	virtual void defineLexem(
 			unsigned int p1, 
 			const std::string& p2, 
@@ -624,6 +627,8 @@ public:
 	virtual unsigned int getSymbol(
 			unsigned int p1, 
 			const std::string& p2) const;
+	virtual const char* getLexemName(
+			unsigned int p1) const;
 	virtual bool compile();
 	virtual PatternLexerContextInterface* createContext() const;
 };

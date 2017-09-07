@@ -125,6 +125,15 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pass_param", "$bufname, $name")
 		("pack_msg", "parambuf.packBufferFloat( $bufname, $name);")
 	;
+	typesystem.defineType( "const void* $bufname, std::size_t")
+		("pass_param", "$bufname, $name")
+		("pack_msg", "parambuf.packBlob( $bufname, $name);")
+	;
+	typesystem.defineType( "const void*& $bufname, std::size_t&")
+		("test_null", "$bufname == 0")
+		("pass_param", "$bufname, $name")
+		("pack_msg", "parambuf.packBlob( $bufname, $name);")
+	;
 	typesystem.defineType( "const NumericVariant&")
 		("pack_msg", "parambuf.packNumericVariant($name);")
 	;

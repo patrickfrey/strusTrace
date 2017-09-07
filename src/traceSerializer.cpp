@@ -254,6 +254,13 @@ void TraceSerializer::packBuffer( const char* buf, std::size_t size)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packBlob( const void* buf, std::size_t size)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, (const char*)buf, size));
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packBufferFloat( const double* buf, std::size_t size)
 {
 	try{

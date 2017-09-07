@@ -4975,13 +4975,13 @@ void StatisticsBuilderImpl::rollback()
 }
 
 bool StatisticsBuilderImpl::fetchMessage(
-			const char*& blk, std::size_t& p1)
+			const void*& blk, std::size_t& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_fetchMessage), objid());
 	bool p0 = obj()->fetchMessage(blk, p1);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
-	parambuf.packBuffer( blk, p1);
+	parambuf.packBlob( blk, p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -5001,13 +5001,13 @@ StatisticsIteratorImpl::~StatisticsIteratorImpl()
 }
 
 bool StatisticsIteratorImpl::getNext(
-			const char*& msg, std::size_t& p1)
+			const void*& msg, std::size_t& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsIterator), StatisticsIteratorConst::methodName( Method_getNext), objid());
 	bool p0 = obj()->getNext(msg, p1);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
-	parambuf.packBuffer( msg, p1);
+	parambuf.packBlob( msg, p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -5027,7 +5027,7 @@ StatisticsProcessorImpl::~StatisticsProcessorImpl()
 }
 
 StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
-			const char* msgptr, std::size_t p1) const
+			const void* msgptr, std::size_t p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_createViewer), objid());
 	StatisticsViewerInterface* p0 = obj()->createViewer(msgptr, p1);
@@ -5041,7 +5041,7 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsViewer), objbase_p0->objid());
-		parambuf.packBuffer( msgptr, p1);
+		parambuf.packBlob( msgptr, p1);
 	}
 	if (parambuf.hasError())
 	{

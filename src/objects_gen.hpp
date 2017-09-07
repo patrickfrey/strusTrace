@@ -1183,7 +1183,7 @@ public:
 	virtual void start();
 	virtual void rollback();
 	virtual bool fetchMessage(
-			const char*& blk, std::size_t& p1);
+			const void*& blk, std::size_t& p1);
 };
 
 class StatisticsIteratorImpl
@@ -1199,7 +1199,7 @@ public:
 
 	virtual ~StatisticsIteratorImpl();
 	virtual bool getNext(
-			const char*& msg, std::size_t& p1);
+			const void*& msg, std::size_t& p1);
 };
 
 class StatisticsProcessorImpl
@@ -1215,7 +1215,7 @@ public:
 
 	virtual ~StatisticsProcessorImpl();
 	virtual StatisticsViewerInterface* createViewer(
-			const char* msgptr, std::size_t p1) const;
+			const void* msgptr, std::size_t p1) const;
 	virtual StatisticsBuilderInterface* createBuilder() const;
 };
 

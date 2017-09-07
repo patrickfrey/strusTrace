@@ -99,6 +99,7 @@ public:
 	void close();
 
 	void packObject( const char* classId, const TraceObjectId& objId);
+	void packBlob( const void* buf, std::size_t size);
 	void packBuffer( const char* buf, std::size_t size);
 	void packBufferFloat( const double* buf, std::size_t size);
 	void packNumericVariant( const NumericVariant& val);

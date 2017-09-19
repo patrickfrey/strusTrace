@@ -490,7 +490,7 @@ static void envelope(
 	if (sob_envelope)
 	{
 		sob.release();
-		sob = strus::local_ptr<strus::StorageObjectBuilderInterface>( sob_envelope);
+		sob.reset( sob_envelope);
 	}
 	else
 	{
@@ -507,7 +507,7 @@ static void envelope(
 	if (aob_envelope)
 	{
 		aob.release();
-		aob = strus::local_ptr<strus::AnalyzerObjectBuilderInterface>( aob_envelope);
+		aob.reset( aob_envelope);
 	}
 	else
 	{
@@ -598,8 +598,7 @@ int main( int argc, const char* argv[])
 			{
 				throw std::runtime_error("failed to create trace logger (breakpoint)");
 			}
-			traceObjectBuilder_breakpoint =
-				strus::local_ptr<strus::TraceObjectBuilderInterface>(
+			traceObjectBuilder_breakpoint.reset(
 					strus::traceCreateObjectBuilder( logger_breakpoint, g_errorhnd));
 			if (!traceObjectBuilder_breakpoint.get())
 			{

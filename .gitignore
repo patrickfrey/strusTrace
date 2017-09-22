@@ -65,6 +65,4 @@ dist/redhat/strustrace.spec
 # Suggested build directory
 build
 
-# Travis 
-.travis.yml
 

@@ -44,7 +44,7 @@ TraceLogRecordHandle
 
 		if (m_logcnt >= std::numeric_limits<TraceLogRecordHandle>::max())
 		{
-			throw strus::runtime_error(_TXT("number of logs out of log handle range"));
+			throw strus::runtime_error( "%s", _TXT("number of logs out of log handle range"));
 		}
 		++m_logcnt;
 		if (m_breakpoints.find( m_logcnt) != m_breakpoints.end())

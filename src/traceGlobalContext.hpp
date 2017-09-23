@@ -37,7 +37,7 @@ public:
 		utils::ScopedLock lock( m_mutex);
 		if (m_idcnt >= std::numeric_limits<TraceObjectId>::max())
 		{
-			throw strus::runtime_error(_TXT("number of objects created out of range"));
+			throw strus::runtime_error( "%s", _TXT("number of objects created out of range"));
 		}
 		return ++m_idcnt;
 	}

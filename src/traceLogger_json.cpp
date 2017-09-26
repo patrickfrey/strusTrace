@@ -46,7 +46,7 @@ TraceLogRecordHandle
 		m_recordar.push_back( TraceRecord( className, methodName, objId, m_recordar.size()+1));
 		if (m_recordar.size() > std::numeric_limits<TraceLogRecordHandle>::max())
 		{
-			throw strus::runtime_error(_TXT("number of logs out of log handle range"));
+			throw strus::runtime_error( "%s", _TXT("number of logs out of log handle range"));
 		}
 		return (TraceLogRecordHandle)m_recordar.size();
 	}
@@ -323,7 +323,7 @@ static void printOutputJSON( FILE* output, std::size_t ridx_start, const std::st
 	{
 		if (!ri->endTime())
 		{
-			throw strus::runtime_error(_TXT("called close without all method calls terminated"));
+			throw strus::runtime_error( "%s", _TXT("called close without all method calls terminated"));
 		}
 		::fprintf( output, "\n%s{", indentstr.c_str());
 		::fprintf( output, "\n%s\"time\":%u", indentstr.c_str(), (unsigned int)ridx);

@@ -136,9 +136,9 @@ class InterfacesDef
 {
 public:
 	InterfacesDef( const InterfacesDef& o)
-		:m_classdefar(o.m_classdefar){}
+		:m_typeSystem(o.m_typeSystem),m_classdefar(o.m_classdefar){}
 	explicit InterfacesDef( const TypeSystem* typeSystem_)
-		:m_typeSystem(typeSystem_){}
+		:m_typeSystem(typeSystem_),m_classdefar(){}
 
 	void addSource( const std::string& source);
 

@@ -15,6 +15,7 @@
 #include "strus/lib/traceobj.hpp"
 #include "strus/lib/error.hpp"
 #include "strus/base/fileio.hpp"
+#include "strus/base/local_ptr.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"
 #include "strus/queryEvalInterface.hpp"
@@ -75,7 +76,7 @@ static strus::StorageClientInterface* createStorage( const strus::StorageObjectB
 	const strus::StorageInterface* sti = sob->getStorage();
 	if (!sti) throw std::runtime_error( "failed to get storage interface");
 	if (!sti->createStorage( configstr, dbi)) throw std::runtime_error( "failed to create storage");
-	std::auto_ptr<strus::StorageClientInterface> storage( sti->createClient( configstr, dbi));
+	strus::local_ptr<strus::StorageClientInterface> storage( sti->createClient( configstr, dbi));
 	if (!storage.get()) throw std::runtime_error( "failed to get create storage client");
 	return storage.release();
 }
@@ -193,11 +194,11 @@ struct AnalyzerFunctionDef
 
 static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
 {
-	const strus::SegmenterInterface* segmenter = aob->getSegmenter("");
-	if (!segmenter) throw std::runtime_error( "failed to get document segmenter");
-	std::auto_ptr<strus::DocumentAnalyzerInterface> analyzer( aob->createDocumentAnalyzer( segmenter));
-	if (!analyzer.get()) throw std::runtime_error( "failed to create document analyzer");
 	const strus::TextProcessorInterface* textproc = aob->getTextProcessor();
+	const strus::SegmenterInterface* segmenter = textproc->getSegmenterByName("");
+	if (!segmenter) throw std::runtime_error( "failed to get document segmenter");
+	strus::local_ptr<strus::DocumentAnalyzerInterface> analyzer( aob->createDocumentAnalyzer( segmenter));
+	if (!analyzer.get()) throw std::runtime_error( "failed to create document analyzer");
 	const char* countfeatname = 0;
 
 	std::size_t ai = 0;
@@ -241,7 +242,7 @@ static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::An
 
 static strus::QueryAnalyzerInterface* createQueryAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
 {
-	std::auto_ptr<strus::QueryAnalyzerInterface> analyzer( aob->createQueryAnalyzer());
+	strus::local_ptr<strus::QueryAnalyzerInterface> analyzer( aob->createQueryAnalyzer());
 	if (!analyzer.get()) throw std::runtime_error( "failed to get create query analyzer");
 	const strus::TextProcessorInterface* textproc = aob->getTextProcessor();
 
@@ -250,7 +251,7 @@ static strus::QueryAnalyzerInterface* createQueryAnalyzer( const strus::Analyzer
 	if (!config[ai].type) throw std::runtime_error( "no search index feature defined in analyzer configuration");
 	
 	AnalyzerFunctionDef anafundef( textproc, config[ai].normalizer, config[ai].tokenizer);
-	analyzer->addSearchIndexElement( config[ai].type, "querystring", anafundef.tokenizer, anafundef.normalizers);
+	analyzer->addElement( config[ai].type, "querystring", anafundef.tokenizer, anafundef.normalizers);
 	return analyzer.release();
 }
 
@@ -267,25 +268,25 @@ static void insertDocuments(
 	const DocumentAnalyzerConfig* anaconfig,
 	const TestDocument* testdocs)
 {
-	std::auto_ptr<strus::StorageClientInterface> storage( createStorage( sob, storageconfig));
-	std::auto_ptr<strus::DocumentAnalyzerInterface> analyzer( createDocumentAnalyzer( aob, anaconfig));
+	strus::local_ptr<strus::StorageClientInterface> storage( createStorage( sob, storageconfig));
+	strus::local_ptr<strus::DocumentAnalyzerInterface> analyzer( createDocumentAnalyzer( aob, anaconfig));
 	if (g_errorhnd->hasError()) throw std::runtime_error( std::string( "create document analyzer failed: ") + g_errorhnd->fetchError());
 
-	std::auto_ptr<strus::StorageTransactionInterface> transaction( storage->createTransaction());
+	strus::local_ptr<strus::StorageTransactionInterface> transaction( storage->createTransaction());
 	if (!transaction.get()) throw std::runtime_error("create insert transaction failed");
 	strus::analyzer::DocumentClass dclass( "xml", "UTF-8");
 
 	std::size_t di = 0;
 	for (; testdocs[di].docid; ++di)
 	{
-		std::auto_ptr<strus::StorageDocumentInterface>
+		strus::local_ptr<strus::StorageDocumentInterface>
 			stodoc( transaction->createDocument( testdocs[di].docid));
 
 		strus::analyzer::Document 
 			anadoc = analyzer->analyze( testdocs[di].content, dclass);
 		if (g_errorhnd->hasError()) throw std::runtime_error( std::string( "analyze of document '") + testdocs[di].docid + "' failed: " + g_errorhnd->fetchError());
 
-		std::vector<strus::analyzer::Term>::const_iterator
+		std::vector<strus::analyzer::DocumentTerm>::const_iterator
 			ti = anadoc.searchIndexTerms().begin(), te = anadoc.searchIndexTerms().end();
 		for (; ti != te; ++ti)
 		{
@@ -296,13 +297,13 @@ static void insertDocuments(
 		{
 			stodoc->addForwardIndexTerm( ti->type(), ti->value(), ti->pos());
 		}
-		std::vector<strus::analyzer::Attribute>::const_iterator
+		std::vector<strus::analyzer::DocumentAttribute>::const_iterator
 			ai = anadoc.attributes().begin(), ae = anadoc.attributes().end();
 		for (; ai != ae; ++ai)
 		{
 			stodoc->setAttribute( ai->name(), ai->value());
 		}
-		std::vector<strus::analyzer::MetaData>::const_iterator
+		std::vector<strus::analyzer::DocumentMetaData>::const_iterator
 			mi = anadoc.metadata().begin(), me = anadoc.metadata().end();
 		for (; mi != me; ++mi)
 		{
@@ -317,7 +318,7 @@ static void insertDocuments(
 
 static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBuilderInterface* sob)
 {
-	std::auto_ptr<strus::QueryEvalInterface> qeval( sob->createQueryEval());
+	strus::local_ptr<strus::QueryEvalInterface> qeval( sob->createQueryEval());
 	if (!qeval.get()) throw std::runtime_error("failed to create query evaluation");
 	const strus::QueryProcessorInterface* qproc = sob->getQueryProcessor();
 	if (!qproc) throw std::runtime_error("failed to get query processor");
@@ -325,11 +326,11 @@ static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBui
 
 	const strus::WeightingFunctionInterface* wfunc = qproc->getWeightingFunction( "BM25");
 	if (!wfunc) throw std::runtime_error( std::string("undefined weigthing function ") + "BM25");
-	std::auto_ptr<strus::WeightingFunctionInstanceInterface> wfuncinst( wfunc->createInstance( qproc));
+	strus::local_ptr<strus::WeightingFunctionInstanceInterface> wfuncinst( wfunc->createInstance( qproc));
 	if (!wfuncinst.get()) throw std::runtime_error("failed to create weighting function instance");
 	wfuncinst->addNumericParameter( "k1", 1.2);
 	wfuncinst->addNumericParameter( "b", 0.75);
-	wfuncinst->addNumericParameter( "avgdoclen", 15);
+	wfuncinst->addNumericParameter( "avgdoclen", strus::NumericVariant::asuint( 15));
 	typedef strus::QueryEvalInterface::FeatureParameter FeatureParameter;
 	std::vector<FeatureParameter> featureParameters;
 	featureParameters.push_back( FeatureParameter( "match", "docfeat"));
@@ -337,7 +338,7 @@ static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBui
 
 	const strus::SummarizerFunctionInterface* sfunc = qproc->getSummarizerFunction( "Attribute");
 	if (!sfunc) throw std::runtime_error( std::string("undefined summarizer function ") + "Attribute");
-	std::auto_ptr<strus::SummarizerFunctionInstanceInterface> sfuncinst( sfunc->createInstance( qproc));
+	strus::local_ptr<strus::SummarizerFunctionInstanceInterface> sfuncinst( sfunc->createInstance( qproc));
 	if (!sfuncinst.get()) throw std::runtime_error(std::string("failed to create summarizer function instance ") + "Attribute");
 	sfuncinst->addStringParameter( "name", "docid");
 	qeval->addSummarizerFunction( "attribute", sfuncinst.release(), std::vector<FeatureParameter>());
@@ -352,11 +353,11 @@ static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBui
 	return qeval.release();
 }
 
-static strus::analyzer::Query analyzeQuery( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* anaconfig, const char* querystr)
+static strus::analyzer::QueryTermExpression analyzeQuery( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* anaconfig, const char* querystr)
 {
-	std::auto_ptr<strus::QueryAnalyzerInterface> qai( createQueryAnalyzer( aob, anaconfig));
+	strus::local_ptr<strus::QueryAnalyzerInterface> qai( createQueryAnalyzer( aob, anaconfig));
 	if (!qai.get()) throw std::runtime_error("failed to create query analyzer");
-	std::auto_ptr<strus::QueryAnalyzerContextInterface> qac( qai->createContext());
+	strus::local_ptr<strus::QueryAnalyzerContextInterface> qac( qai->createContext());
 	if (!qac.get()) throw std::runtime_error("failed to create query analyzer context");
 	qac->putField( 1, "querystring", querystr);
 	return qac->analyze();
@@ -372,38 +373,36 @@ static strus::QueryInterface* createQuery(
 {
 	const strus::QueryProcessorInterface* qproc = sob->getQueryProcessor();
 	if (!qproc) throw std::runtime_error("failed to get query processor");
-	std::auto_ptr<strus::QueryInterface> query( qeval->createQuery( storage));
+	strus::local_ptr<strus::QueryInterface> query( qeval->createQuery( storage));
 
 	// The query analysis is only rudimentary and does not make use of latest query analysis capabilities
 	// to deal with query structures (trees):
-	strus::analyzer::Query querystruct = analyzeQuery( aob, anaconfig, querystr);
-	if (querystruct.empty()) throw std::runtime_error("query is empty");
+	strus::analyzer::QueryTermExpression querystruct = analyzeQuery( aob, anaconfig, querystr);
+	if (querystruct.instructions().empty()) throw std::runtime_error("query is empty");
 
 	std::vector<unsigned int> selfeat;
-	std::vector<strus::analyzer::Query::Instruction>::const_iterator
+	std::vector<strus::analyzer::QueryTermExpression::Instruction>::const_iterator
 		ei = querystruct.instructions().begin(), ee = querystruct.instructions().end();
 	for (; ei != ee; ++ei)
 	{
 		switch (ei->opCode())
 		{
-			case strus::analyzer::Query::Instruction::PushMetaData:
-				throw std::runtime_error("meta data restriction feature support not complete yet in query analyzer");
-			case strus::analyzer::Query::Instruction::PushSearchIndexTerm:
+			case strus::analyzer::QueryTermExpression::Instruction::Term:
 			{
-				const strus::analyzer::Term& term = querystruct.searchIndexTerm( ei->idx());
+				const strus::analyzer::QueryTerm& term = querystruct.term( ei->idx());
 				query->pushTerm( term.type(), term.value(), term.len());
 				query->defineFeature( "docfeat");
 				selfeat.push_back( ei->idx());
 				break;
 			}
-			case strus::analyzer::Query::Instruction::Operator:
-				throw std::runtime_error("structured query support not complete yet in query analyzer");
+			case strus::analyzer::QueryTermExpression::Instruction::Operator:
+				throw std::runtime_error("structured query support not complete yet in this test");
 		}
 	}
 	std::vector<unsigned int>::const_iterator si = selfeat.begin(), se = selfeat.end();
 	for (; si != se; ++si)
 	{
-		const strus::analyzer::Term& term = querystruct.searchIndexTerm( *si);
+		const strus::analyzer::QueryTerm& term = querystruct.term( *si);
 		query->pushTerm( term.type(), term.value(), term.len());
 	}
 	const strus::PostingJoinOperatorInterface* contains = qproc->getPostingJoinOperator("contains");
@@ -426,11 +425,11 @@ static void testEvaluateQuery(
 
 	insertDocuments( sob, storageconfig, aob, analyzerconfig, testdocs);
 
-	std::auto_ptr<strus::StorageClientInterface>
+	strus::local_ptr<strus::StorageClientInterface>
 		storage( strus::createStorageClient( sob, g_errorhnd, storageconfig));
 	
-	std::auto_ptr<strus::QueryEvalInterface> qeval( createQueryEval( sob));
-	std::auto_ptr<strus::QueryInterface> query( createQuery( sob, aob, storage.get(), qeval.get(), analyzerconfig, querystr));
+	strus::local_ptr<strus::QueryEvalInterface> qeval( createQueryEval( sob));
+	strus::local_ptr<strus::QueryInterface> query( createQuery( sob, aob, storage.get(), qeval.get(), analyzerconfig, querystr));
 
 	strus::QueryResult result = query->evaluate();
 	if (g_errorhnd->hasError()) throw std::runtime_error( "failed to evaluate query");
@@ -483,7 +482,7 @@ static bool diffFiles( const char* file1, const char* file2)
 
 
 static void envelope(
-		std::auto_ptr<strus::StorageObjectBuilderInterface>& sob,
+		strus::local_ptr<strus::StorageObjectBuilderInterface>& sob,
 		strus::TraceObjectBuilderInterface* tob)
 {
 	strus::StorageObjectBuilderInterface*
@@ -491,7 +490,7 @@ static void envelope(
 	if (sob_envelope)
 	{
 		sob.release();
-		sob = std::auto_ptr<strus::StorageObjectBuilderInterface>( sob_envelope);
+		sob.reset( sob_envelope);
 	}
 	else
 	{
@@ -500,7 +499,7 @@ static void envelope(
 }
 
 static void envelope(
-		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>& aob,
+		strus::local_ptr<strus::AnalyzerObjectBuilderInterface>& aob,
 		strus::TraceObjectBuilderInterface* tob)
 {
 	strus::AnalyzerObjectBuilderInterface*
@@ -508,7 +507,7 @@ static void envelope(
 	if (aob_envelope)
 	{
 		aob.release();
-		aob = std::auto_ptr<strus::AnalyzerObjectBuilderInterface>( aob_envelope);
+		aob.reset( aob_envelope);
 	}
 	else
 	{
@@ -588,7 +587,7 @@ int main( int argc, const char* argv[])
 	{
 		{//begin scope trace processor:
 
-		std::auto_ptr<strus::TraceObjectBuilderInterface> traceObjectBuilder_breakpoint;
+		strus::local_ptr<strus::TraceObjectBuilderInterface> traceObjectBuilder_breakpoint;
 
 		// If breakpoints configured, create trace object builder 'breakpoints':
 		if (breakpoints)
@@ -599,8 +598,7 @@ int main( int argc, const char* argv[])
 			{
 				throw std::runtime_error("failed to create trace logger (breakpoint)");
 			}
-			traceObjectBuilder_breakpoint =
-				std::auto_ptr<strus::TraceObjectBuilderInterface>(
+			traceObjectBuilder_breakpoint.reset(
 					strus::traceCreateObjectBuilder( logger_breakpoint, g_errorhnd));
 			if (!traceObjectBuilder_breakpoint.get())
 			{
@@ -616,7 +614,7 @@ int main( int argc, const char* argv[])
 		{
 			throw std::runtime_error("failed to create trace logger (dump)");
 		}
-		std::auto_ptr<strus::TraceObjectBuilderInterface>
+		strus::local_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder_dump(
 				strus::traceCreateObjectBuilder( logger_dump, g_errorhnd));
 		if (!traceObjectBuilder_dump.get())
@@ -632,7 +630,7 @@ int main( int argc, const char* argv[])
 		{
 			throw std::runtime_error("failed to create trace logger (json)");
 		}
-		std::auto_ptr<strus::TraceObjectBuilderInterface>
+		strus::local_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder_json(
 				strus::traceCreateObjectBuilder(
 					logger_json, g_errorhnd));
@@ -648,7 +646,7 @@ int main( int argc, const char* argv[])
 		{
 			throw std::runtime_error("failed to create trace logger (count)");
 		}
-		std::auto_ptr<strus::TraceObjectBuilderInterface>
+		strus::local_ptr<strus::TraceObjectBuilderInterface>
 			traceObjectBuilder_count(
 				strus::traceCreateObjectBuilder( logger_count, g_errorhnd));
 		if (!traceObjectBuilder_count.get())
@@ -657,9 +655,9 @@ int main( int argc, const char* argv[])
 			throw std::runtime_error("failed to create trace object builder (count)");
 		}
 
-		std::auto_ptr<strus::AnalyzerObjectBuilderInterface>
+		strus::local_ptr<strus::AnalyzerObjectBuilderInterface>
 			aob( strus::createAnalyzerObjectBuilder_default( g_errorhnd));
-		std::auto_ptr<strus::StorageObjectBuilderInterface>
+		strus::local_ptr<strus::StorageObjectBuilderInterface>
 			sob( strus::createStorageObjectBuilder_default( g_errorhnd));
 
 		if (traceObjectBuilder_breakpoint.get())

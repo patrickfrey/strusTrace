@@ -26,10 +26,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pack_msg", "parambuf.packGlobalCounter($name);")
 	;
 	typesystem.defineType( "Index")
-		("test_null", "$name < 0")
 		("pack_msg", "parambuf.packIndex($name);")
 	;
 	typesystem.defineType( "const analyzer::SegmenterOptions&")
+		("pack_msg", "parambuf.packAnalyzerSegmenterOptions($name);")
+	;
+	typesystem.defineType( "analyzer::SegmenterOptions")
 		("pack_msg", "parambuf.packAnalyzerSegmenterOptions($name);")
 	;
 	typesystem.defineType( "const SegmenterPosition&")
@@ -123,6 +125,15 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("pass_param", "$bufname, $name")
 		("pack_msg", "parambuf.packBufferFloat( $bufname, $name);")
 	;
+	typesystem.defineType( "const void* $bufname, std::size_t")
+		("pass_param", "$bufname, $name")
+		("pack_msg", "parambuf.packBlob( $bufname, $name);")
+	;
+	typesystem.defineType( "const void*& $bufname, std::size_t&")
+		("test_null", "$bufname == 0")
+		("pass_param", "$bufname, $name")
+		("pack_msg", "parambuf.packBlob( $bufname, $name);")
+	;
 	typesystem.defineType( "const NumericVariant&")
 		("pack_msg", "parambuf.packNumericVariant($name);")
 	;
@@ -145,7 +156,7 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const CompareOperator&", "MetaDataRestriction")
 		("pack_msg", "parambuf.packMetaDataRestrictionCompareOperator($name);")
 	;
-	typesystem.defineType( "MetaDataRestrictionInterface::CompareOperator")
+	typesystem.defineType( "const MetaDataRestrictionInterface::CompareOperator&")
 		("pack_msg", "parambuf.packMetaDataRestrictionCompareOperator($name);")
 	;
 	typesystem.defineType( "const DatabaseOptions&")
@@ -185,11 +196,17 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("scopedtype", "DatabaseCursorInterface::Slice")
 		("pack_msg", "parambuf.packSlice($name);")
 	;
-	typesystem.defineType( "const analyzer::Query&")
-		("pack_msg", "parambuf.packAnalyzerQuery($name);")
+	typesystem.defineType( "const analyzer::QueryTermExpression&")
+		("pack_msg", "parambuf.packAnalyzerQueryTermExpression($name);")
 	;
-	typesystem.defineType( "analyzer::Query&")
-		("pack_msg", "parambuf.packAnalyzerQuery($name);")
+	typesystem.defineType( "analyzer::QueryTermExpression")
+		("pack_msg", "parambuf.packAnalyzerQueryTermExpression($name);")
+	;
+	typesystem.defineType( "const analyzer::QueryTerm&")
+		("pack_msg", "parambuf.packAnalyzerQueryTerm($name);")
+	;
+	typesystem.defineType( "std::vector<analyzer::QueryTerm>")
+		("pack_msg", "parambuf.packAnalyzerQueryTermArray($name);")
 	;
 	typesystem.defineType( "analyzer::Query")
 		("pack_msg", "parambuf.packAnalyzerQuery($name);")
@@ -203,23 +220,20 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "analyzer::Document")
 		("pack_msg", "parambuf.packAnalyzerDocument($name);")
 	;
-	typesystem.defineType( "const analyzer::Attribute&")
-		("pack_msg", "parambuf.packAnalyzerAttribute($name);")
+	typesystem.defineType( "const analyzer::DocumentAttribute&")
+		("pack_msg", "parambuf.packAnalyzerDocumentAttribute($name);")
 	;
-	typesystem.defineType( "const analyzer::MetaData&")
-		("pack_msg", "parambuf.packAnalyzerMetaData($name);")
+	typesystem.defineType( "const analyzer::DocumentMetaData&")
+		("pack_msg", "parambuf.packAnalyzerDocumentMetaData($name);")
 	;
-	typesystem.defineType( "const analyzer::Term&")
-		("pack_msg", "parambuf.packAnalyzerTerm($name);")
+	typesystem.defineType( "const analyzer::DocumentTerm&")
+		("pack_msg", "parambuf.packAnalyzerDocumentTerm($name);")
 	;
-	typesystem.defineType( "std::vector<analyzer::Term>")
-		("pack_msg", "parambuf.packAnalyzerTermArray($name);")
+	typesystem.defineType( "std::vector<analyzer::DocumentTerm>")
+		("pack_msg", "parambuf.packAnalyzerDocumentTermArray($name);")
 	;
-	typesystem.defineType( "const std::vector<analyzer::Term>&")
-		("pack_msg", "parambuf.packAnalyzerTermArray($name);")
-	;
-	typesystem.defineType( "std::vector<analyzer::TermArray>")
-		("pack_msg", "parambuf.packAnalyzerTermArrayArray($name);")
+	typesystem.defineType( "const std::vector<analyzer::DocumentTerm>&")
+		("pack_msg", "parambuf.packAnalyzerDocumentTermArray($name);")
 	;
 	typesystem.defineType( "const analyzer::Token&")
 		("pack_msg", "parambuf.packAnalyzerToken($name);")

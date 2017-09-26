@@ -12,7 +12,6 @@
 #include "strus/traceElement.hpp"
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/numericVariant.hpp"
-#include "strus/analyzer/documentClass.hpp"
 #include "strus/termStatistics.hpp"
 #include "strus/globalStatistics.hpp"
 #include "strus/metaDataRestrictionInterface.hpp"
@@ -48,7 +47,8 @@
 #include "strus/analyzer/patternMatcherStatistics.hpp"
 #include "strus/analyzer/positionBind.hpp"
 #include "strus/analyzer/patternMatcherResult.hpp"
-#include "strus/analyzer/term.hpp"
+#include "strus/analyzer/document.hpp"
+#include "strus/analyzer/documentClass.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include <string>
@@ -99,6 +99,7 @@ public:
 	void close();
 
 	void packObject( const char* classId, const TraceObjectId& objId);
+	void packBlob( const void* buf, std::size_t size);
 	void packBuffer( const char* buf, std::size_t size);
 	void packBufferFloat( const double* buf, std::size_t size);
 	void packNumericVariant( const NumericVariant& val);
@@ -119,13 +120,13 @@ public:
 	void packSummarizationVariableVector( const std::vector<SummarizationVariable>& val);
 	void packDocumentTermIteratorTerm( const DocumentTermIteratorInterface::Term& term);
 	void packSlice( DatabaseCursorInterface::Slice& val);
-	void packAnalyzerQuery( const analyzer::Query& val);
+	void packAnalyzerQueryTerm( const analyzer::QueryTerm& val);
+	void packAnalyzerQueryTermExpression( const analyzer::QueryTermExpression& val);
 	void packAnalyzerDocument( const analyzer::Document& val);
-	void packAnalyzerAttribute( const analyzer::Attribute& val);
-	void packAnalyzerMetaData( const analyzer::MetaData& val);
-	void packAnalyzerTerm( const analyzer::Term& val);
-	void packAnalyzerTermArray( const analyzer::TermArray& val);
-	void packAnalyzerTermArrayArray( const std::vector<analyzer::TermArray>& val);
+	void packAnalyzerDocumentAttribute( const analyzer::DocumentAttribute& val);
+	void packAnalyzerDocumentMetaData( const analyzer::DocumentMetaData& val);
+	void packAnalyzerDocumentTerm( const analyzer::DocumentTerm& val);
+	void packAnalyzerDocumentTermArray( const std::vector<analyzer::DocumentTerm>& val);
 	void packAnalyzerToken( const analyzer::Token& val);
 	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
 	void packAnalyzerQueryGroupBy( const QueryAnalyzerContextInterface::GroupBy& groupBy);
@@ -143,7 +144,6 @@ public:
 	void packFeatureParameter( const QueryEvalInterface::FeatureParameter& val);
 	void packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar);
 	void packDocumentStatisticsType( const StorageClientInterface::DocumentStatisticsType& val);
-	void packStatisticsProcessorBuilderOptions( const StatisticsProcessorInterface::BuilderOptions& val);
 	void packStatisticsViewerDocumentFrequencyChange( const StatisticsViewerInterface::DocumentFrequencyChange& val);
 	void packQueryProcessorFunctionType( const QueryProcessorInterface::FunctionType& val);
 	void packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val);

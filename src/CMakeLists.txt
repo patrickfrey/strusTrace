@@ -49,7 +49,7 @@ target_link_libraries( strus_traceobj strus_base ${Boost_LIBRARIES} ${Intl_LIBRA
 set_target_properties(
     strus_traceobj
     PROPERTIES
-    DEBUG_POSTFIX "_d"
+    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
     SOVERSION "${STRUS_MAJOR_VERSION}.${STRUS_MINOR_VERSION}"
     VERSION ${STRUS_VERSION}
 )
@@ -59,7 +59,7 @@ target_link_libraries( strus_traceproc_std strus_base  ${Boost_LIBRARIES} ${Intl
 set_target_properties(
     strus_traceproc_std
     PROPERTIES
-    DEBUG_POSTFIX "_d"
+    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
     SOVERSION "${STRUS_MAJOR_VERSION}.${STRUS_MINOR_VERSION}"
     VERSION ${STRUS_VERSION}
 )

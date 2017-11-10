@@ -82,9 +82,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "std::vector<Index>")
 		("pack_msg", "parambuf.packIndexVector($name);")
 	;
-	typesystem.defineType( "std::vector<Result>", "VectorStorageSearchInterface")
-		("scopedtype", "std::vector<VectorStorageSearchInterface::Result>")
-		("pack_msg", "parambuf.packVectorStorageSearchResult($name);")
+	typesystem.defineType( "std::vector<VectorQueryResult>")
+		("scopedtype", "std::vector<VectorQueryResult>")
+		("pack_msg", "parambuf.packVectorQueryResult($name);")
 	;
 	typesystem.defineType( "const std::vector<unsigned int>&")
 		("pack_msg", "parambuf.packUintVector($name);")
@@ -295,8 +295,8 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const BuilderOptions&", "StatisticsProcessor")
 		("pack_msg", "parambuf.packStatisticsProcessorBuilderOptions($name);")
 	;
-	typesystem.defineType( "DocumentFrequencyChange&", "StatisticsViewer")
-		("pack_msg", "parambuf.packStatisticsViewerDocumentFrequencyChange($name);")
+	typesystem.defineType( "TermStatisticsChange&")
+		("pack_msg", "parambuf.packTermStatisticsChange($name);")
 	;
 	typesystem.defineType( "const FunctionType&", "QueryProcessor")
 		("pack_msg", "parambuf.packQueryProcessorFunctionType($name);")

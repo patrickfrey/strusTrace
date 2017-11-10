@@ -962,7 +962,7 @@ void TraceSerializer::packDocumentStatisticsType( const StorageClientInterface::
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packStatisticsViewerDocumentFrequencyChange( const StatisticsViewerInterface::DocumentFrequencyChange& val)
+void TraceSerializer::packTermStatisticsChange( const TermStatisticsChange& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
@@ -1062,10 +1062,10 @@ void TraceSerializer::packFunctionDescription( const FunctionDescription& val)
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packVectorStorageSearchResult( const std::vector<VectorStorageSearchInterface::Result>& val)
+void TraceSerializer::packVectorQueryResult( const std::vector<VectorQueryResult>& val)
 {
 	try{
-	std::vector<VectorStorageSearchInterface::Result>::const_iterator ri = val.begin(), re = val.end();
+	std::vector<VectorQueryResult>::const_iterator ri = val.begin(), re = val.end();
 	for (std::size_t ridx=0; ri != re; ++ri,++ridx)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ridx));

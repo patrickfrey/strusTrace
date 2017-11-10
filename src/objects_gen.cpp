@@ -5109,13 +5109,13 @@ int StatisticsViewerImpl::nofDocumentsInsertedChange()
 }
 
 bool StatisticsViewerImpl::nextDfChange(
-			DocumentFrequencyChange& p1)
+			TermStatisticsChange& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsViewer), StatisticsViewerConst::methodName( Method_nextDfChange), objid());
 	bool p0 = obj()->nextDfChange(p1);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
-	parambuf.packStatisticsViewerDocumentFrequencyChange(p1);
+	parambuf.packTermStatisticsChange(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -8468,14 +8468,14 @@ VectorStorageSearchImpl::~VectorStorageSearchImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-std::vector<VectorStorageSearchInterface::Result> VectorStorageSearchImpl::findSimilar(
+std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilar(
 			const std::vector<double>& p1, 
 			unsigned int p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilar), objid());
-	std::vector<VectorStorageSearchInterface::Result> p0 = obj()->findSimilar(p1, p2);
+	std::vector<VectorQueryResult> p0 = obj()->findSimilar(p1, p2);
 	TraceSerializer parambuf;
-	parambuf.packVectorStorageSearchResult(p0);
+	parambuf.packVectorQueryResult(p0);
 	parambuf.packFloatVector(p1);
 	parambuf.packUInt(p2);
 	if (parambuf.hasError())
@@ -8490,15 +8490,15 @@ std::vector<VectorStorageSearchInterface::Result> VectorStorageSearchImpl::findS
 	return p0;
 }
 
-std::vector<VectorStorageSearchInterface::Result> VectorStorageSearchImpl::findSimilarFromSelection(
+std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilarFromSelection(
 			const std::vector<Index>& p1, 
 			const std::vector<double>& p2, 
 			unsigned int p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilarFromSelection), objid());
-	std::vector<VectorStorageSearchInterface::Result> p0 = obj()->findSimilarFromSelection(p1, p2, p3);
+	std::vector<VectorQueryResult> p0 = obj()->findSimilarFromSelection(p1, p2, p3);
 	TraceSerializer parambuf;
-	parambuf.packVectorStorageSearchResult(p0);
+	parambuf.packVectorQueryResult(p0);
 	parambuf.packIndexVector(p1);
 	parambuf.packFloatVector(p2);
 	parambuf.packUInt(p3);

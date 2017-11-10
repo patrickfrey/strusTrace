@@ -1233,7 +1233,7 @@ public:
 	virtual ~StatisticsViewerImpl();
 	virtual int nofDocumentsInsertedChange();
 	virtual bool nextDfChange(
-			DocumentFrequencyChange& p1);
+			TermStatisticsChange& p1);
 };
 
 class StorageAlterMetaDataTableImpl
@@ -1830,10 +1830,10 @@ public:
 		:TraceObject<VectorStorageSearchInterface>(obj_,ctx_){}
 
 	virtual ~VectorStorageSearchImpl();
-	virtual std::vector<Result> findSimilar(
+	virtual std::vector<VectorQueryResult> findSimilar(
 			const std::vector<double>& p1, 
 			unsigned int p2) const;
-	virtual std::vector<Result> findSimilarFromSelection(
+	virtual std::vector<VectorQueryResult> findSimilarFromSelection(
 			const std::vector<Index>& p1, 
 			const std::vector<double>& p2, 
 			unsigned int p3) const;

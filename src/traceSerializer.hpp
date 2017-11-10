@@ -144,12 +144,12 @@ public:
 	void packFeatureParameter( const QueryEvalInterface::FeatureParameter& val);
 	void packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar);
 	void packDocumentStatisticsType( const StorageClientInterface::DocumentStatisticsType& val);
-	void packStatisticsViewerDocumentFrequencyChange( const StatisticsViewerInterface::DocumentFrequencyChange& val);
+	void packTermStatisticsChange( const TermStatisticsChange& val);
 	void packQueryProcessorFunctionType( const QueryProcessorInterface::FunctionType& val);
 	void packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val);
 	void packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val);
 	void packFunctionDescription( const FunctionDescription& val);
-	void packVectorStorageSearchResult( const std::vector<VectorStorageSearchInterface::Result>& val);
+	void packVectorQueryResult( const std::vector<VectorQueryResult>& val);
 
 	bool hasError() const
 	{

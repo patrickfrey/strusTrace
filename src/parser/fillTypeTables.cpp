@@ -345,11 +345,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("objid", "objbase_$name->objid()")
 	;
 	typesystem.defineType( "const std::vector<Reference<$objid~Interface> >&")
-		("pack_msg", "std::vector<Reference<$objid~Interface> >::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tparambuf.openIndex( idx_$name); \n\tconst TraceObjectBase* objbase = dynamic_cast<const TraceObjectBase*>( i_$name->get());\n\tif (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_$objid), objbase->objid());\n\tparambuf.close();\n}")
+		("pack_msg", "{std::vector<Reference<$objid~Interface> >::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tparambuf.openIndex( idx_$name); \n\tconst TraceObjectBase* objbase = dynamic_cast<const TraceObjectBase*>( i_$name->get());\n\tif (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_$objid), objbase->objid());\n\tparambuf.close();\n}}")
 	;
 	typesystem.defineType( "const std::vector<$objid~Interface*>&")
-		("pack_msg", "std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tparambuf.openIndex( idx_$name); \n\tTraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_$name);\n\tif (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_$objid), objbase->objid());\n\tparambuf.close();\n}")
-		("delete", "std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tdelete *i_$name;\n}")
+		("pack_msg", "{std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tparambuf.openIndex( idx_$name); \n\tTraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_$name);\n\tif (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_$objid), objbase->objid());\n\tparambuf.close();\n}}")
+		("delete", "{std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tdelete *i_$name;\n}}")
 	;
 	typesystem.defineType( "const char*&")
 		("test_null", "$name == 0")

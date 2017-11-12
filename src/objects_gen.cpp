@@ -553,14 +553,14 @@ DatabaseCursorImpl::~DatabaseCursorImpl()
 }
 
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
-			const char* key, std::size_t p1, 
+			const char* keystr, std::size_t p1, 
 			std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekUpperBound), objid());
-	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBound(key, p1, p2);
+	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBound(keystr, p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
-	parambuf.packBuffer( key, p1);
+	parambuf.packBuffer( keystr, p1);
 	parambuf.packSize( p2);
 	if (parambuf.hasError())
 	{
@@ -575,14 +575,14 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
 }
 
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBoundRestricted(
-			const char* key, std::size_t p1, 
+			const char* keystr, std::size_t p1, 
 			const char* upkey, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekUpperBoundRestricted), objid());
-	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBoundRestricted(key, p1, upkey, p2);
+	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBoundRestricted(keystr, p1, upkey, p2);
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
-	parambuf.packBuffer( key, p1);
+	parambuf.packBuffer( keystr, p1);
 	parambuf.packBuffer( upkey, p2);
 	if (parambuf.hasError())
 	{
@@ -1079,7 +1079,7 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1087,18 +1087,18 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	parambuf.packFeatureOptions(p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1122,7 +1122,7 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1130,18 +1130,18 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	parambuf.packFeatureOptions(p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1164,7 +1164,7 @@ void DocumentAnalyzerImpl::defineMetaData(
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1172,17 +1172,17 @@ void DocumentAnalyzerImpl::defineMetaData(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1228,7 +1228,7 @@ void DocumentAnalyzerImpl::defineAttribute(
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1236,17 +1236,17 @@ void DocumentAnalyzerImpl::defineAttribute(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1311,7 +1311,7 @@ void DocumentAnalyzerImpl::addPatternLexem(
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1319,17 +1319,17 @@ void DocumentAnalyzerImpl::addPatternLexem(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1406,7 +1406,7 @@ void DocumentAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -1414,17 +1414,17 @@ void DocumentAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	parambuf.packFeatureOptions(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1445,7 +1445,7 @@ void DocumentAnalyzerImpl::addForwardIndexFeatureFromPatternMatch(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -1453,17 +1453,17 @@ void DocumentAnalyzerImpl::addForwardIndexFeatureFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	parambuf.packFeatureOptions(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1483,7 +1483,7 @@ void DocumentAnalyzerImpl::defineMetaDataFromPatternMatch(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -1491,16 +1491,16 @@ void DocumentAnalyzerImpl::defineMetaDataFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1520,7 +1520,7 @@ void DocumentAnalyzerImpl::defineAttributeFromPatternMatch(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -1528,16 +1528,16 @@ void DocumentAnalyzerImpl::defineAttributeFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3169,7 +3169,7 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p0->objid());
-		std::vector<Reference<PostingIteratorInterface> >::const_iterator
+		{std::vector<Reference<PostingIteratorInterface> >::const_iterator
 			i_p1 = p1.begin(), e_p1 = p1.end();
 		for (std::size_t idx_p1=0; i_p1 != e_p1; ++i_p1,++idx_p1)
 		{
@@ -3177,7 +3177,7 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 			const TraceObjectBase* objbase = dynamic_cast<const TraceObjectBase*>( i_p1->get());
 			if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase->objid());
 			parambuf.close();
-		}
+		}}
 		parambuf.packInt(p2);
 		parambuf.packUInt(p3);
 	}
@@ -3304,7 +3304,7 @@ void QueryAnalyzerImpl::addElement(
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -3312,17 +3312,17 @@ void QueryAnalyzerImpl::addElement(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3345,7 +3345,7 @@ void QueryAnalyzerImpl::addPatternLexem(
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -3353,17 +3353,17 @@ void QueryAnalyzerImpl::addPatternLexem(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3439,7 +3439,7 @@ void QueryAnalyzerImpl::addElementFromPatternMatch(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -3447,16 +3447,16 @@ void QueryAnalyzerImpl::addElementFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

@@ -238,10 +238,10 @@ public:
 
 	virtual ~DatabaseCursorImpl();
 	virtual Slice seekUpperBound(
-			const char* key, std::size_t p1, 
+			const char* keystr, std::size_t p1, 
 			std::size_t p2);
 	virtual Slice seekUpperBoundRestricted(
-			const char* key, std::size_t p1, 
+			const char* keystr, std::size_t p1, 
 			const char* upkey, std::size_t p2);
 	virtual Slice seekFirst(
 			const char* domainkey, std::size_t p1);

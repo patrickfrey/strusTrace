@@ -422,7 +422,8 @@ public:
 	virtual ~DocumentClassDetectorImpl();
 	virtual bool detect(
 			analyzer::DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2) const;
+			const char* contentBegin, std::size_t p2, 
+			bool p3) const;
 };
 
 class DocumentTermIteratorImpl
@@ -1614,7 +1615,8 @@ public:
 	virtual const PatternTermFeederInterface* getPatternTermFeeder() const;
 	virtual bool detectDocumentClass(
 			analyzer::DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2) const;
+			const char* contentBegin, std::size_t p2, 
+			bool p3) const;
 	virtual void defineDocumentClassDetector(
 			DocumentClassDetectorInterface* p1);
 	virtual void defineSegmenter(

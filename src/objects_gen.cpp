@@ -1606,14 +1606,16 @@ DocumentClassDetectorImpl::~DocumentClassDetectorImpl()
 
 bool DocumentClassDetectorImpl::detect(
 			analyzer::DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2) const
+			const char* contentBegin, std::size_t p2, 
+			bool p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_detect), objid());
-	bool p0 = obj()->detect(p1, contentBegin, p2);
+	bool p0 = obj()->detect(p1, contentBegin, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packAnalyzerDocumentClass(p1);
 	parambuf.packBuffer( contentBegin, p2);
+	parambuf.packBool(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
@@ -7564,14 +7566,16 @@ const PatternTermFeederInterface* TextProcessorImpl::getPatternTermFeeder() cons
 
 bool TextProcessorImpl::detectDocumentClass(
 			analyzer::DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2) const
+			const char* contentBegin, std::size_t p2, 
+			bool p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_detectDocumentClass), objid());
-	bool p0 = obj()->detectDocumentClass(p1, contentBegin, p2);
+	bool p0 = obj()->detectDocumentClass(p1, contentBegin, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packAnalyzerDocumentClass(p1);
 	parambuf.packBuffer( contentBegin, p2);
+	parambuf.packBool(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));

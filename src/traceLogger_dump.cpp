@@ -63,7 +63,7 @@ TraceLogRecordHandle
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		if (!m_output)
 		{
@@ -88,7 +88,7 @@ void TraceLogger_dump::logMethodTermination(
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		if (m_indentstr.size() < std::strlen(INDENT_STEP))
 		{
@@ -168,7 +168,7 @@ void TraceLogger_dump::logMethodTermination(
 
 bool TraceLogger_dump::close()
 {
-	utils::ScopedLock lock( m_mutex);
+	strus::scoped_lock lock( m_mutex);
 
 	if (m_output && m_output != stderr && m_output != stdout)
 	{

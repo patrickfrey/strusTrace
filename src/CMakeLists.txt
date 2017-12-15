@@ -25,7 +25,7 @@ set( source_files_obj
 )
 
 include_directories(
-	"${Boost_INCLUDE_DIRS}"
+	${Boost_INCLUDE_DIRS}
 	"${Intl_INCLUDE_DIRS}"
 	"${TRACE_INCLUDE_DIRS}"
 	"${strusbase_INCLUDE_DIRS}"
@@ -34,7 +34,7 @@ include_directories(
 )
 
 link_directories(
-	"${Boost_LIBRARY_DIRS}"
+	${Boost_LIBRARY_DIRS}
 	"${strusbase_LIBRARY_DIRS}"
 	"${strus_LIBRARY_DIRS}"
 	"${strusanalyzer_LIBRARY_DIRS}" 

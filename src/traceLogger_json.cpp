@@ -41,7 +41,7 @@ TraceLogRecordHandle
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		m_recordar.push_back( TraceRecord( className, methodName, objId, m_recordar.size()+1));
 		if (m_recordar.size() > std::numeric_limits<TraceLogRecordHandle>::max())
@@ -83,7 +83,7 @@ void TraceLogger_json::logMethodTermination(
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		if (loghnd == 0 || loghnd > m_recordar.size())
 		{
@@ -375,7 +375,7 @@ bool TraceLogger_json::close()
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		FileRAII output;
 		if (m_filename == "-" || m_filename == "stdout")

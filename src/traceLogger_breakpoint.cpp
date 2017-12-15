@@ -40,7 +40,7 @@ TraceLogRecordHandle
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		if (m_logcnt >= std::numeric_limits<TraceLogRecordHandle>::max())
 		{

@@ -12,8 +12,8 @@
 #include "strus/reference.hpp"
 #include "strus/errorBufferInterface.hpp"
 #include "strus/traceLoggerInterface.hpp"
+#include "strus/base/thread.hpp"
 #include "internationalization.hpp"
-#include "utils.hpp"
 #include <limits>
 
 namespace strus
@@ -34,7 +34,7 @@ public:
 	/// \brief Create a new object id (unique for this trace context)
 	TraceObjectId createId()
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 		if (m_idcnt >= std::numeric_limits<TraceObjectId>::max())
 		{
 			throw strus::runtime_error( "%s", _TXT("number of objects created out of range"));
@@ -58,7 +58,7 @@ public:
 			if (!wrapped) return 0;
 			InterfaceImpl* rt = new InterfaceImpl( wrapped, this);
 
-			utils::ScopedLock lock( m_mutex);
+			strus::scoped_lock lock( m_mutex);
 			m_const_objects.push_back( Reference<TraceObjectBase>( rt));
 			return rt;
 		}
@@ -92,7 +92,7 @@ private:
 
 private:
 	ErrorBufferInterface* m_errhnd;				///< error buffer interface for exception handling
-	utils::Mutex m_mutex;					///< mutex for critical sections
+	strus::mutex m_mutex;					///< mutex for critical sections
 	TraceLoggerInterface* m_logger;
 	TraceObjectId m_idcnt;					///< counter for allocating unique object idetifiers
 	mutable std::vector<Reference<TraceObjectBase> > m_const_objects;

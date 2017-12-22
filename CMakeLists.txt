@@ -25,7 +25,7 @@ find_strus_package( core )
 find_strus_package( analyzer )
 
 set( CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" )
-configure_file( "${PROJECT_SOURCE_DIR}/include/strus/versionTrace.hpp.in"  "${PROJECT_SOURCE_DIR}/include/strus/versionTrace.hpp"  @ONLY )
+configure_file( "${PROJECT_SOURCE_DIR}/include/strus/versionTrace.hpp.in"  "${CMAKE_CURRENT_BINARY_DIR}/include/strus/versionTrace.hpp"  @ONLY )
 configure_file( "${PROJECT_SOURCE_DIR}/dist/obs/deploy_to_obs.sh.in"  "${PROJECT_SOURCE_DIR}/dist/obs/deploy_to_obs.sh"  @ONLY )
 configure_file( "${PROJECT_SOURCE_DIR}/dist/archlinux/PKGBUILD.in"  "${PROJECT_SOURCE_DIR}/dist/archlinux/PKGBUILD"  @ONLY )
 configure_file( "${PROJECT_SOURCE_DIR}/dist/obs/strustrace.dsc.in"  "${PROJECT_SOURCE_DIR}/dist/obs/strustrace.dsc"  @ONLY )
@@ -55,6 +55,9 @@ endif()
 install(DIRECTORY include/strus
           DESTINATION include
           FILES_MATCHING PATTERN "*.hpp")
+install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/include/strus"
+          DESTINATION include
+          FILES_MATCHING PATTERN "versionTrace.hpp")
 install(DIRECTORY include/strus
           DESTINATION include
           FILES_MATCHING PATTERN "*.h")

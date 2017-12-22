@@ -62,7 +62,8 @@ dist/obs/strustrace-Debian_7.0.dsc
 dist/obs/strustrace-xUbuntu_12.04.dsc
 dist/redhat/strustrace.spec
 
-# Suggested build directory
+# Suggested build directories
 build
+build_clang
 
 

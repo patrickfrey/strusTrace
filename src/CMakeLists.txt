@@ -7,7 +7,7 @@ add_subdirectory( parser )
 # SOURCES AND INCLUDES
 # --------------------------------------
 set( source_files_proc
-	internationalization.cpp
+	${CMAKE_CURRENT_BINARY_DIR}/internationalization.cpp
 	logUtils.cpp
 	traceLogger_json.cpp
 	traceLogger_dump.cpp

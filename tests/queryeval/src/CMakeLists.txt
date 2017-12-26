@@ -12,6 +12,7 @@ include_directories(
 
 link_directories(
    ${Boost_LIBRARY_DIRS}
+   "${Intl_INCLUDE_DIRS}"
    "${TRACE_LIBRARY_DIRS}"
    "${strusbase_LIBRARY_DIRS}"
    "${strus_LIBRARY_DIRS}"

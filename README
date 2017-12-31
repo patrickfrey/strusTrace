@@ -1,17 +1,19 @@
-* Generation of method call traces as aspect of Strus.
-* Create a proxy for each class that logs all method calls.
-* API for querying these call traces with enough information to build a call tree.
-* Different logging interface implementations for different use cases.
-* Helper for debugging: Set breakpoint at a specific method call in the call tree.
+Generation of method call traces as aspect of Strus.
+Create a proxy for each class that logs all method calls.
+API for querying these call traces with enough information to build a call tree.
+Different logging interface implementations for different use cases.
+Helper for debugging: Set breakpoint at a specific method call in the call tree.
 
 Licenced as MPLv2 (Mozilla Public License, Version 2 - https://www.mozilla.org/en-US/MPL/2.0)
+For 3rdParty licenses see LICENSE.3rdParty
 
+The project Strus implements a set of libraries, tools for building a competitive, 
+scalable search engine for text retrieval.
+It is a solution for small projects as well as larger scale applications.
 Strus project homepage at http://project-strus.net with articles, links, documentation.
-Binary packages available.
 
-* Contributors welcome
-* Open for sharing ideas
-* Open for interesting projects
+For installation see description files INSTALL.<platform> in the top level directory of the project.
 
-
+The project is built regularly with Travis (https://travis-ci.org/patrickfrey/strusTrace) 
+and with OpenSuse (https://build.opensuse.org/package/show/home:PatrickFrey/strustrace):
 

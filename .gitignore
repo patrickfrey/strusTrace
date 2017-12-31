@@ -66,4 +66,7 @@ dist/redhat/strustrace.spec
 build
 build_clang
 
+# deploy to obs tar:
+strustrace-*.tar.gz
+
 

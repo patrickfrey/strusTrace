@@ -1,7 +1,0 @@
-Library dependencies of strusTrace:
-	- boost (headers and -lboost_system)
-
-Ubuntu:
-	sudo apt-get install liboost-all-dev
-
-

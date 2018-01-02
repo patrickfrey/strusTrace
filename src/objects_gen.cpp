@@ -3221,7 +3221,7 @@ QueryAnalyzerContextImpl::~QueryAnalyzerContextImpl()
 }
 
 void QueryAnalyzerContextImpl::putField(
-			unsigned int p1, 
+			int p1, 
 			const std::string& p2, 
 			const std::string& p3)
 {
@@ -3229,7 +3229,7 @@ void QueryAnalyzerContextImpl::putField(
 	obj()->putField(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packUInt(p1);
+	parambuf.packInt(p1);
 	parambuf.packString(p2);
 	parambuf.packString(p3);
 	if (parambuf.hasError())
@@ -3244,8 +3244,8 @@ void QueryAnalyzerContextImpl::putField(
 }
 
 void QueryAnalyzerContextImpl::groupElements(
-			unsigned int p1, 
-			const std::vector<unsigned int>& p2, 
+			int p1, 
+			const std::vector<int>& p2, 
 			const GroupBy& p3, 
 			bool p4)
 {
@@ -3253,8 +3253,8 @@ void QueryAnalyzerContextImpl::groupElements(
 	obj()->groupElements(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packUInt(p1);
-	parambuf.packUintVector(p2);
+	parambuf.packInt(p1);
+	parambuf.packIntVector(p2);
 	parambuf.packAnalyzerQueryGroupBy(p3);
 	parambuf.packBool(p4);
 	if (parambuf.hasError())

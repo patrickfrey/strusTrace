@@ -186,6 +186,19 @@ void TraceSerializer::packUintVector( const std::vector<unsigned int>& ar)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packIntVector( const std::vector<int>& ar)
+{
+	try{
+	std::vector<int>::const_iterator ai = ar.begin(), ae = ar.end();
+	for (std::size_t aidx=0; ai != ae; ++ai,++aidx)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex,aidx));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)*ai));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packFloatVector( const std::vector<double>& ar)
 {
 	try{

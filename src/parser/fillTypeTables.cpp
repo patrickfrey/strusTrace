@@ -92,6 +92,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "std::vector<unsigned int>")
 		("pack_msg", "parambuf.packUintVector($name);")
 	;
+	typesystem.defineType( "const std::vector<int>&")
+		("pack_msg", "parambuf.packIntVector($name);")
+	;
+	typesystem.defineType( "std::vector<int>")
+		("pack_msg", "parambuf.packIntVector($name);")
+	;
 	typesystem.defineType( "const std::vector<double>&")
 		("pack_msg", "parambuf.packFloatVector($name);")
 	;

@@ -823,12 +823,12 @@ public:
 
 	virtual ~QueryAnalyzerContextImpl();
 	virtual void putField(
-			unsigned int p1, 
+			int p1, 
 			const std::string& p2, 
 			const std::string& p3);
 	virtual void groupElements(
-			unsigned int p1, 
-			const std::vector<unsigned int>& p2, 
+			int p1, 
+			const std::vector<int>& p2, 
 			const GroupBy& p3, 
 			bool p4);
 	virtual analyzer::QueryTermExpression analyze();

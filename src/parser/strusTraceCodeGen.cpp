@@ -329,7 +329,9 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 					out
 					<< expandIndent( "\t", std::string("if (") + test_null + ")") << std::endl
 					<< "\t{" << std::endl
-					<< "\t\ttraceContext()->errorbuf()->report(_TXT(\"method call '%s' failed: %s\"), \"" << mi->name() << "\", traceContext()->errorbuf()->fetchError());" << std::endl
+					<< "\t\tchar fmtbuf[ 1024];" << std::endl
+					<< "\t\tstd::snprintf( fmtbuf, sizeof(fmtbuf), _TXT(\"method call '%s' failed: %%s\"), \"" << mi->name() << "\");" << std::endl
+					<< "\t\ttraceContext()->errorbuf()->explain( fmtbuf);" << std::endl
 					<< "\t}" << std::endl
 					<< "\telse" << std::endl
 					<< "\t{" << std::endl
@@ -349,7 +351,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			out
 			<< "\tif (parambuf.hasError())" << std::endl
 			<< "\t{" << std::endl
-			<< "\t\ttraceContext()->errorbuf()->report( _TXT(\"memory allocation error when logging trace\"));" << std::endl;
+			<< "\t\ttraceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT(\"memory allocation error when logging trace\"));" << std::endl;
 			std::string deleteInstr( mi->returnValue().expand( "delete", "p0"));
 			if (!deleteInstr.empty())
 			{

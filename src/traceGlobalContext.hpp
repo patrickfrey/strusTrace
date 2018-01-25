@@ -64,7 +64,7 @@ public:
 		}
 		catch (const std::bad_alloc&)
 		{
-			m_errhnd->report(_TXT("memory allocation error"));
+			m_errhnd->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error"));
 			delete wrapped;
 			return 0;
 		}
@@ -80,7 +80,7 @@ public:
 		}
 		catch (const std::bad_alloc&)
 		{
-			m_errhnd->report(_TXT("memory allocation error"));
+			m_errhnd->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error"));
 			delete wrapped;
 			return 0;
 		}

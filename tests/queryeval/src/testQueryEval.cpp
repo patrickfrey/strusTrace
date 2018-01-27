@@ -658,7 +658,7 @@ int main( int argc, const char* argv[])
 		strus::local_ptr<strus::AnalyzerObjectBuilderInterface>
 			aob( strus::createAnalyzerObjectBuilder_default( g_errorhnd));
 		strus::local_ptr<strus::StorageObjectBuilderInterface>
-			sob( strus::createStorageObjectBuilder_default( g_errorhnd));
+			sob( strus::createStorageObjectBuilder_default( "", g_errorhnd));
 
 		if (traceObjectBuilder_breakpoint.get())
 		{

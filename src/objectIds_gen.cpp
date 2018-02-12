@@ -322,7 +322,7 @@ const char* ScalarFunctionConst::methodName( MethodId mid)
 
 const char* ScalarFunctionParserConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createFunction"};
+	static const char* ar[] = { "Destructor", "createFunction", "getDescription"};
 	return ar[mid];
 }
 

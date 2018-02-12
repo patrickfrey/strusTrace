@@ -658,7 +658,8 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_createFunction=1
+		Method_createFunction=1,
+		Method_getDescription=2
 	};
 	static const char* methodName( MethodId mid);
 };

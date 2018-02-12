@@ -186,6 +186,8 @@ static void skipStructure( char const*& si, const char* se)
 	{
 		parseIdentifier( si, se);
 		skipSpacesAndComments( si, se);
+		while (*si == '*' || *si == ':') ++si;
+		skipSpacesAndComments( si, se);
 	}
 	if (si == se)
 	{
@@ -750,6 +752,10 @@ void InterfacesDef::addSource( const std::string& source)
 				{
 					skipStructure( si, se);
 				}
+				else if (ident == "static")
+				{
+					skipStructure( si, se);
+				}
 				else if (ident == "class")
 				{
 					skipSpacesAndComments( si, se);
@@ -851,6 +857,10 @@ void InterfacesDef::parseClass( const std::string& className, char const*& si, c
 				skipStructure( si, se);
 			}
 			else if (ident == "class")
+			{
+				skipStructure( si, se);
+			}
+			else if (ident == "static")
 			{
 				skipStructure( si, se);
 			}

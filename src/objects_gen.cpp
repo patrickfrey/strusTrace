@@ -4544,6 +4544,33 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	return p0;
 }
 
+const char* ScalarFunctionParserImpl::getDescription() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionParser), ScalarFunctionParserConst::methodName( Method_getDescription), objid());
+	const char* p0 = obj()->getDescription();
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		parambuf.packCharp(p0);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 SegmenterContextImpl::~SegmenterContextImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterContext), SegmenterContextConst::methodName( Method_Destructor), objid());

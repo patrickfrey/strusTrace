@@ -46,6 +46,9 @@ link_directories(
 # -------------------------------------------
 # STRUS TRACE LIBRARIES
 # -------------------------------------------
+add_cppcheck( strus_traceobj  ${source_files_obj} )
+add_cppcheck( strus_traceproc_std  libstrus_traceproc_std.cpp ${source_files_proc} )
+
 add_library( strus_traceobj SHARED libstrus_traceobj.cpp ${source_files_obj} )
 target_link_libraries( strus_traceobj strus_base ${Boost_LIBRARIES} ${Intl_LIBRARIES} )
 set_target_properties(

@@ -472,7 +472,7 @@ const char* TokenMarkupInstanceConst::methodName( MethodId mid)
 
 const char* ValueIteratorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "skip", "fetchValues"};
+	static const char* ar[] = { "Destructor", "skip", "skipPrefix", "fetchValues"};
 	return ar[mid];
 }
 

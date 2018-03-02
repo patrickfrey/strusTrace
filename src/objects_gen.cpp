@@ -8222,6 +8222,25 @@ void ValueIteratorImpl::skip(
 	}
 }
 
+void ValueIteratorImpl::skipPrefix(
+			const char* value, std::size_t p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ValueIterator), ValueIteratorConst::methodName( Method_skipPrefix), objid());
+	obj()->skipPrefix(value, p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packBuffer( value, p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 std::vector<std::string> ValueIteratorImpl::fetchValues(
 			std::size_t p1)
 {

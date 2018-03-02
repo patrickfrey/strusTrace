@@ -1053,7 +1053,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_skip=1,
-		Method_fetchValues=2
+		Method_skipPrefix=2,
+		Method_fetchValues=3
 	};
 	static const char* methodName( MethodId mid);
 };

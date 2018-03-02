@@ -1734,6 +1734,8 @@ public:
 	virtual ~ValueIteratorImpl();
 	virtual void skip(
 			const char* value, std::size_t p1);
+	virtual void skipPrefix(
+			const char* value, std::size_t p1);
 	virtual std::vector<std::string> fetchValues(
 			std::size_t p1);
 };

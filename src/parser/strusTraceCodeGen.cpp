@@ -351,7 +351,7 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 			out
 			<< "\tif (parambuf.hasError())" << std::endl
 			<< "\t{" << std::endl
-			<< "\t\ttraceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT(\"memory allocation error when logging trace\"));" << std::endl;
+			<< "\t\ttraceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT(\"memory allocation error when logging trace\"));" << std::endl;
 			std::string deleteInstr( mi->returnValue().expand( "delete", "p0"));
 			if (!deleteInstr.empty())
 			{

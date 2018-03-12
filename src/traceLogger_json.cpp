@@ -87,7 +87,7 @@ void TraceLogger_json::logMethodTermination(
 
 		if (loghnd == 0 || loghnd > m_recordar.size())
 		{
-			m_errorhnd->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseInvalidArgument), _TXT("call log method termination with illegal log handle"));
+			m_errorhnd->report( ErrorCodeInvalidArgument, _TXT("call log method termination with illegal log handle"));
 			return;
 		}
 		std::size_t paramidx = m_parameterbuf.size();

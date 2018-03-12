@@ -29,7 +29,7 @@ void AclReaderImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -46,7 +46,7 @@ std::vector<std::string> AclReaderImpl::getReadAccessList() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -81,7 +81,7 @@ NumericVariant AggregatorFunctionInstanceImpl::evaluate(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -118,7 +118,7 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -146,7 +146,7 @@ const char* AggregatorFunctionImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -181,7 +181,7 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -215,7 +215,7 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -245,7 +245,7 @@ QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -272,7 +272,7 @@ Index AttributeReaderImpl::elementHandle(
 	parambuf.packCharp(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -292,7 +292,7 @@ void AttributeReaderImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -311,7 +311,7 @@ std::string AttributeReaderImpl::getValue(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -329,7 +329,7 @@ std::vector<std::string> AttributeReaderImpl::getNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -357,7 +357,7 @@ bool DatabaseBackupCursorImpl::fetch(
 	parambuf.packBuffer( blk, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -392,7 +392,7 @@ DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -424,7 +424,7 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -454,7 +454,7 @@ DatabaseBackupCursorInterface* DatabaseClientImpl::createBackupCursor() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -477,7 +477,7 @@ void DatabaseClientImpl::writeImm(
 	parambuf.packBuffer( value, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -496,7 +496,7 @@ void DatabaseClientImpl::removeImm(
 	parambuf.packBuffer( key, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -519,7 +519,7 @@ bool DatabaseClientImpl::readValue(
 	parambuf.packDatabaseOptions(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -537,7 +537,7 @@ void DatabaseClientImpl::close()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -554,7 +554,7 @@ std::string DatabaseClientImpl::config() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -582,7 +582,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
 	parambuf.packSize( p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -604,7 +604,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBoundRestricted(
 	parambuf.packBuffer( upkey, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -624,7 +624,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekFirst(
 	parambuf.packBuffer( domainkey, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -644,7 +644,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekLast(
 	parambuf.packBuffer( domainkey, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -662,7 +662,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekNext()
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -680,7 +680,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekPrev()
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -698,7 +698,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::key() const
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -716,7 +716,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::value() const
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -742,7 +742,7 @@ bool DatabaseImpl::exists(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -773,7 +773,7 @@ DatabaseClientInterface* DatabaseImpl::createClient(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -794,7 +794,7 @@ bool DatabaseImpl::createDatabase(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -817,7 +817,7 @@ bool DatabaseImpl::restoreDatabase(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseBackupCursor), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -837,7 +837,7 @@ bool DatabaseImpl::destroyDatabase(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -866,7 +866,7 @@ const char* DatabaseImpl::getConfigDescription(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -895,7 +895,7 @@ const char** DatabaseImpl::getConfigParameters(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -932,7 +932,7 @@ DatabaseCursorInterface* DatabaseTransactionImpl::createCursor(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -955,7 +955,7 @@ void DatabaseTransactionImpl::write(
 	parambuf.packBuffer( value, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -974,7 +974,7 @@ void DatabaseTransactionImpl::remove(
 	parambuf.packBuffer( key, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -993,7 +993,7 @@ void DatabaseTransactionImpl::removeSubTree(
 	parambuf.packBuffer( domainkey, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1010,7 +1010,7 @@ bool DatabaseTransactionImpl::commit()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1028,7 +1028,7 @@ void DatabaseTransactionImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1055,7 +1055,7 @@ void DocumentAnalyzerContextImpl::putInput(
 	parambuf.packBool(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1074,7 +1074,7 @@ bool DocumentAnalyzerContextImpl::analyzeNext(
 	parambuf.packAnalyzerDocument(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1117,7 +1117,7 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 	parambuf.packFeatureOptions(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
@@ -1160,7 +1160,7 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 	parambuf.packFeatureOptions(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
@@ -1201,7 +1201,7 @@ void DocumentAnalyzerImpl::defineMetaData(
 	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
@@ -1230,7 +1230,7 @@ void DocumentAnalyzerImpl::defineAggregatedMetaData(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_AggregatorFunctionInstance), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -1265,7 +1265,7 @@ void DocumentAnalyzerImpl::defineAttribute(
 	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
@@ -1293,7 +1293,7 @@ void DocumentAnalyzerImpl::defineSubDocument(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1314,7 +1314,7 @@ void DocumentAnalyzerImpl::defineSubContent(
 	parambuf.packAnalyzerDocumentClass(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1348,7 +1348,7 @@ void DocumentAnalyzerImpl::addPatternLexem(
 	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
@@ -1380,7 +1380,7 @@ void DocumentAnalyzerImpl::definePatternMatcherPostProc(
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternTermFeederInstance), objbase_p3->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		if (p3) {delete p3; p3 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
@@ -1409,7 +1409,7 @@ void DocumentAnalyzerImpl::definePatternMatcherPreProc(
 	parambuf.packStringVector(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		if (p3) {delete p3; p3 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
@@ -1444,7 +1444,7 @@ void DocumentAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
 	parambuf.packFeatureOptions(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
@@ -1483,7 +1483,7 @@ void DocumentAnalyzerImpl::addForwardIndexFeatureFromPatternMatch(
 	parambuf.packFeatureOptions(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
@@ -1520,7 +1520,7 @@ void DocumentAnalyzerImpl::defineMetaDataFromPatternMatch(
 	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
@@ -1557,7 +1557,7 @@ void DocumentAnalyzerImpl::defineAttributeFromPatternMatch(
 	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
@@ -1584,7 +1584,7 @@ analyzer::Document DocumentAnalyzerImpl::analyze(
 	parambuf.packAnalyzerDocumentClass(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1615,7 +1615,7 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -1646,7 +1646,7 @@ bool DocumentClassDetectorImpl::detect(
 	parambuf.packBool(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1672,7 +1672,7 @@ Index DocumentTermIteratorImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1692,7 +1692,7 @@ bool DocumentTermIteratorImpl::nextTerm(
 	parambuf.packDocumentTermIteratorTerm(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1712,7 +1712,7 @@ unsigned int DocumentTermIteratorImpl::termDocumentFrequency(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1732,7 +1732,7 @@ std::string DocumentTermIteratorImpl::termValue(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1758,7 +1758,7 @@ void ForwardIteratorImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1777,7 +1777,7 @@ Index ForwardIteratorImpl::skipPos(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1795,7 +1795,7 @@ std::string ForwardIteratorImpl::fetch()
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1821,7 +1821,7 @@ Index InvAclIteratorImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1847,7 +1847,7 @@ Index MetaDataReaderImpl::elementHandle(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1865,7 +1865,7 @@ Index MetaDataReaderImpl::nofElements() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1885,7 +1885,7 @@ void MetaDataReaderImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1913,7 +1913,7 @@ NumericVariant MetaDataReaderImpl::getValue(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1942,7 +1942,7 @@ const char* MetaDataReaderImpl::getType(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1971,7 +1971,7 @@ const char* MetaDataReaderImpl::getName(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1989,7 +1989,7 @@ std::vector<std::string> MetaDataReaderImpl::getNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2015,7 +2015,7 @@ bool MetaDataRestrictionInstanceImpl::match(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2047,7 +2047,7 @@ void MetaDataRestrictionImpl::addCondition(
 	parambuf.packBool(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2075,7 +2075,7 @@ MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance() 
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2094,7 +2094,7 @@ std::string MetaDataRestrictionImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2120,7 +2120,7 @@ std::string NormalizerFunctionInstanceImpl::normalize(
 	parambuf.packBuffer( src, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2160,7 +2160,7 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2188,7 +2188,7 @@ const char* NormalizerFunctionImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2214,7 +2214,7 @@ std::vector<analyzer::PatternLexem> PatternLexerContextImpl::match(
 	parambuf.packBuffer( src, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2232,7 +2232,7 @@ void PatternLexerContextImpl::reset()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2259,7 +2259,7 @@ void PatternLexerInstanceImpl::defineOption(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2280,7 +2280,7 @@ void PatternLexerInstanceImpl::defineLexemName(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2307,7 +2307,7 @@ void PatternLexerInstanceImpl::defineLexem(
 	parambuf.packAnalyzerPositionBind(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2330,7 +2330,7 @@ void PatternLexerInstanceImpl::defineSymbol(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2351,7 +2351,7 @@ unsigned int PatternLexerInstanceImpl::getSymbol(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2380,7 +2380,7 @@ const char* PatternLexerInstanceImpl::getLexemName(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2398,7 +2398,7 @@ bool PatternLexerInstanceImpl::compile()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2427,7 +2427,7 @@ PatternLexerContextInterface* PatternLexerInstanceImpl::createContext() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2452,7 +2452,7 @@ std::vector<std::string> PatternLexerImpl::getCompileOptionNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2481,7 +2481,7 @@ PatternLexerInstanceInterface* PatternLexerImpl::createInstance() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2509,7 +2509,7 @@ const char* PatternLexerImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2535,7 +2535,7 @@ void PatternMatcherContextImpl::putInput(
 	parambuf.packAnalyzerPatternLexem(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2552,7 +2552,7 @@ std::vector<analyzer::PatternMatcherResult> PatternMatcherContextImpl::fetchResu
 	parambuf.packAnalyzerPatternMatcherResultVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2570,7 +2570,7 @@ analyzer::PatternMatcherStatistics PatternMatcherContextImpl::getStatistics() co
 	parambuf.packAnalyzerPatternMatcherStatistics(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2588,7 +2588,7 @@ void PatternMatcherContextImpl::reset()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2615,7 +2615,7 @@ void PatternMatcherInstanceImpl::defineOption(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2636,7 +2636,7 @@ void PatternMatcherInstanceImpl::defineTermFrequency(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2655,7 +2655,7 @@ void PatternMatcherInstanceImpl::pushTerm(
 	parambuf.packUInt(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2680,7 +2680,7 @@ void PatternMatcherInstanceImpl::pushExpression(
 	parambuf.packUInt(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2699,7 +2699,7 @@ void PatternMatcherInstanceImpl::pushPattern(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2718,7 +2718,7 @@ void PatternMatcherInstanceImpl::attachVariable(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2739,7 +2739,7 @@ void PatternMatcherInstanceImpl::definePattern(
 	parambuf.packBool(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2756,7 +2756,7 @@ bool PatternMatcherInstanceImpl::compile()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2785,7 +2785,7 @@ PatternMatcherContextInterface* PatternMatcherInstanceImpl::createContext() cons
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2810,7 +2810,7 @@ std::vector<std::string> PatternMatcherImpl::getCompileOptionNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2839,7 +2839,7 @@ PatternMatcherInstanceInterface* PatternMatcherImpl::createInstance() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2867,7 +2867,7 @@ const char* PatternMatcherImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2895,7 +2895,7 @@ void PatternTermFeederInstanceImpl::defineLexem(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2918,7 +2918,7 @@ void PatternTermFeederInstanceImpl::defineSymbol(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2937,7 +2937,7 @@ unsigned int PatternTermFeederInstanceImpl::getLexem(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2955,7 +2955,7 @@ std::vector<std::string> PatternTermFeederInstanceImpl::lexemTypes() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2977,7 +2977,7 @@ unsigned int PatternTermFeederInstanceImpl::getSymbol(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3012,7 +3012,7 @@ PatternTermFeederInstanceInterface* PatternTermFeederImpl::createInstance() cons
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3039,7 +3039,7 @@ Index PostingIteratorImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3059,7 +3059,7 @@ Index PostingIteratorImpl::skipDocCandidate(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3079,7 +3079,7 @@ Index PostingIteratorImpl::skipPos(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3106,7 +3106,7 @@ const char* PostingIteratorImpl::featureid() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3124,7 +3124,7 @@ Index PostingIteratorImpl::documentFrequency() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3142,7 +3142,7 @@ unsigned int PostingIteratorImpl::frequency()
 	parambuf.packUInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3160,7 +3160,7 @@ Index PostingIteratorImpl::docno() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3178,7 +3178,7 @@ Index PostingIteratorImpl::posno() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3196,7 +3196,7 @@ Index PostingIteratorImpl::length() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3245,7 +3245,7 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3264,7 +3264,7 @@ PostingJoinOperatorInterface::Description PostingJoinOperatorImpl::getDescriptio
 	parambuf.packPostingJoinOperatorDescription(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3294,7 +3294,7 @@ void QueryAnalyzerContextImpl::putField(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3319,7 +3319,7 @@ void QueryAnalyzerContextImpl::groupElements(
 	parambuf.packBool(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3336,7 +3336,7 @@ analyzer::QueryTermExpression QueryAnalyzerContextImpl::analyze()
 	parambuf.packAnalyzerQueryTermExpression(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3377,7 +3377,7 @@ void QueryAnalyzerImpl::addElement(
 	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
@@ -3418,7 +3418,7 @@ void QueryAnalyzerImpl::addPatternLexem(
 	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
@@ -3450,7 +3450,7 @@ void QueryAnalyzerImpl::definePatternMatcherPostProc(
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternTermFeederInstance), objbase_p3->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		if (p3) {delete p3; p3 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
@@ -3479,7 +3479,7 @@ void QueryAnalyzerImpl::definePatternMatcherPreProc(
 	parambuf.packStringVector(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		if (p3) {delete p3; p3 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
@@ -3512,7 +3512,7 @@ void QueryAnalyzerImpl::addElementFromPatternMatch(
 	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
@@ -3546,7 +3546,7 @@ QueryAnalyzerContextInterface* QueryAnalyzerImpl::createContext() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3577,7 +3577,7 @@ void QueryEvalImpl::addTerm(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3596,7 +3596,7 @@ void QueryEvalImpl::addSelectionFeature(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3615,7 +3615,7 @@ void QueryEvalImpl::addRestrictionFeature(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3634,7 +3634,7 @@ void QueryEvalImpl::addExclusionFeature(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3660,7 +3660,7 @@ void QueryEvalImpl::addSummarizerFunction(
 	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3687,7 +3687,7 @@ void QueryEvalImpl::addWeightingFunction(
 	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3708,7 +3708,7 @@ void QueryEvalImpl::defineWeightingFormula(
 	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ScalarFunction), objbase_p1->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3740,7 +3740,7 @@ QueryInterface* QueryEvalImpl::createQuery(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3771,7 +3771,7 @@ void QueryImpl::pushTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3792,7 +3792,7 @@ void QueryImpl::pushDocField(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3818,7 +3818,7 @@ void QueryImpl::pushExpression(
 	parambuf.packUInt(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3837,7 +3837,7 @@ void QueryImpl::attachVariable(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3858,7 +3858,7 @@ void QueryImpl::defineFeature(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3881,7 +3881,7 @@ void QueryImpl::defineTermStatistics(
 	parambuf.packTermStatistics(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3900,7 +3900,7 @@ void QueryImpl::defineGlobalStatistics(
 	parambuf.packGlobalStatistics(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3925,7 +3925,7 @@ void QueryImpl::addMetaDataRestrictionCondition(
 	parambuf.packBool(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3944,7 +3944,7 @@ void QueryImpl::addDocumentEvaluationSet(
 	parambuf.packIndexVector(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3963,7 +3963,7 @@ void QueryImpl::addAccess(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3982,7 +3982,7 @@ void QueryImpl::setMaxNofRanks(
 	parambuf.packSize( p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4001,7 +4001,7 @@ void QueryImpl::setMinRank(
 	parambuf.packSize( p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4022,7 +4022,7 @@ void QueryImpl::setWeightingVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4041,7 +4041,7 @@ void QueryImpl::setDebugMode(
 	parambuf.packBool(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4058,7 +4058,7 @@ QueryResult QueryImpl::evaluate() const
 	parambuf.packQueryResult(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4076,7 +4076,7 @@ std::string QueryImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4105,7 +4105,7 @@ void QueryProcessorImpl::definePostingJoinOperator(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingJoinOperator), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4136,7 +4136,7 @@ const PostingJoinOperatorInterface* QueryProcessorImpl::getPostingJoinOperator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4159,7 +4159,7 @@ void QueryProcessorImpl::defineWeightingFunction(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4190,7 +4190,7 @@ const WeightingFunctionInterface* QueryProcessorImpl::getWeightingFunction(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4213,7 +4213,7 @@ void QueryProcessorImpl::defineSummarizerFunction(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4244,7 +4244,7 @@ const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4264,7 +4264,7 @@ std::vector<std::string> QueryProcessorImpl::getFunctionList(
 	parambuf.packQueryProcessorFunctionType(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4287,7 +4287,7 @@ void QueryProcessorImpl::defineScalarFunctionParser(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ScalarFunctionParser), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4318,7 +4318,7 @@ const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4346,7 +4346,7 @@ void ScalarFunctionInstanceImpl::setVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4365,7 +4365,7 @@ double ScalarFunctionInstanceImpl::call(
 	parambuf.packBufferFloat( args, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4383,7 +4383,7 @@ std::string ScalarFunctionInstanceImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4407,7 +4407,7 @@ std::vector<std::string> ScalarFunctionImpl::getVariables() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4425,7 +4425,7 @@ unsigned int ScalarFunctionImpl::getNofArguments() const
 	parambuf.packUInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4447,7 +4447,7 @@ void ScalarFunctionImpl::setDefaultVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4475,7 +4475,7 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4494,7 +4494,7 @@ std::string ScalarFunctionImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4533,7 +4533,7 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4561,7 +4561,7 @@ const char* ScalarFunctionParserImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4589,7 +4589,7 @@ void SegmenterContextImpl::putInput(
 	parambuf.packBool(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4612,7 +4612,7 @@ bool SegmenterContextImpl::getNext(
 	parambuf.packBuffer( segment, p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4640,7 +4640,7 @@ void SegmenterInstanceImpl::defineSelectorExpression(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4663,7 +4663,7 @@ void SegmenterInstanceImpl::defineSubSection(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4693,7 +4693,7 @@ SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4727,7 +4727,7 @@ SegmenterMarkupContextInterface* SegmenterInstanceImpl::createMarkupContext(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4761,7 +4761,7 @@ const char* SegmenterImpl::mimeType() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4792,7 +4792,7 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4820,7 +4820,7 @@ const char* SegmenterImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4848,7 +4848,7 @@ bool SegmenterMarkupContextImpl::getNext(
 	parambuf.packBuffer( segment, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4868,7 +4868,7 @@ unsigned int SegmenterMarkupContextImpl::segmentSize(
 	parambuf.packGlobalCounter(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4888,7 +4888,7 @@ std::string SegmenterMarkupContextImpl::tagName(
 	parambuf.packGlobalCounter(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4908,7 +4908,7 @@ int SegmenterMarkupContextImpl::tagLevel(
 	parambuf.packGlobalCounter(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4932,7 +4932,7 @@ void SegmenterMarkupContextImpl::putOpenTag(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4957,7 +4957,7 @@ void SegmenterMarkupContextImpl::putAttribute(
 	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4980,7 +4980,7 @@ void SegmenterMarkupContextImpl::putCloseTag(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4997,7 +4997,7 @@ std::string SegmenterMarkupContextImpl::getContent() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5023,7 +5023,7 @@ void StatisticsBuilderImpl::setNofDocumentsInsertedChange(
 	parambuf.packInt(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5046,7 +5046,7 @@ void StatisticsBuilderImpl::addDfChange(
 	parambuf.packInt(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5063,7 +5063,7 @@ void StatisticsBuilderImpl::start()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5080,7 +5080,7 @@ void StatisticsBuilderImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5099,7 +5099,7 @@ bool StatisticsBuilderImpl::fetchMessage(
 	parambuf.packBlob( blk, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5125,7 +5125,7 @@ bool StatisticsIteratorImpl::getNext(
 	parambuf.packBlob( msg, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5162,7 +5162,7 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5192,7 +5192,7 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5217,7 +5217,7 @@ int StatisticsViewerImpl::nofDocumentsInsertedChange()
 	parambuf.packInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5237,7 +5237,7 @@ bool StatisticsViewerImpl::nextDfChange(
 	parambuf.packTermStatisticsChange(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5265,7 +5265,7 @@ void StorageAlterMetaDataTableImpl::addElement(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5288,7 +5288,7 @@ void StorageAlterMetaDataTableImpl::alterElement(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5309,7 +5309,7 @@ void StorageAlterMetaDataTableImpl::renameElement(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5328,7 +5328,7 @@ void StorageAlterMetaDataTableImpl::deleteElement(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5347,7 +5347,7 @@ void StorageAlterMetaDataTableImpl::clearElement(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5364,7 +5364,7 @@ bool StorageAlterMetaDataTableImpl::commit()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5382,7 +5382,7 @@ void StorageAlterMetaDataTableImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5405,7 +5405,7 @@ std::string StorageClientImpl::config() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5440,7 +5440,7 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5475,7 +5475,7 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5509,7 +5509,7 @@ PostingIteratorInterface* StorageClientImpl::createFieldPostingIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5541,7 +5541,7 @@ ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5573,7 +5573,7 @@ DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5605,7 +5605,7 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5635,7 +5635,7 @@ AclReaderInterface* StorageClientImpl::createAclReader() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5654,7 +5654,7 @@ Index StorageClientImpl::nofDocumentsInserted() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5676,7 +5676,7 @@ Index StorageClientImpl::documentFrequency(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5694,7 +5694,7 @@ Index StorageClientImpl::maxDocumentNumber() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5714,7 +5714,7 @@ Index StorageClientImpl::documentNumber(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5734,7 +5734,7 @@ Index StorageClientImpl::termTypeNumber(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5754,7 +5754,7 @@ bool StorageClientImpl::isForwardIndexTerm(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5783,7 +5783,7 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5813,7 +5813,7 @@ ValueIteratorInterface* StorageClientImpl::createTermValueIterator() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5843,7 +5843,7 @@ ValueIteratorInterface* StorageClientImpl::createDocIdIterator() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5873,7 +5873,7 @@ ValueIteratorInterface* StorageClientImpl::createUserNameIterator() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5898,7 +5898,7 @@ Index StorageClientImpl::documentStatistics(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5927,7 +5927,7 @@ MetaDataReaderInterface* StorageClientImpl::createMetaDataReader() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5957,7 +5957,7 @@ MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction() con
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5987,7 +5987,7 @@ AttributeReaderInterface* StorageClientImpl::createAttributeReader() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6017,7 +6017,7 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6049,7 +6049,7 @@ StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6079,7 +6079,7 @@ StatisticsIteratorInterface* StorageClientImpl::createChangeStatisticsIterator()
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6109,7 +6109,7 @@ const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor() 
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6142,7 +6142,7 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6163,7 +6163,7 @@ bool StorageClientImpl::checkStorage(
 	
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6181,7 +6181,7 @@ void StorageClientImpl::close()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6210,7 +6210,7 @@ void StorageDocumentImpl::addSearchIndexTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6233,7 +6233,7 @@ void StorageDocumentImpl::addForwardIndexTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6254,7 +6254,7 @@ void StorageDocumentImpl::setMetaData(
 	parambuf.packNumericVariant(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6275,7 +6275,7 @@ void StorageDocumentImpl::setAttribute(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6294,7 +6294,7 @@ void StorageDocumentImpl::setUserAccessRight(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6311,7 +6311,7 @@ void StorageDocumentImpl::done()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6340,7 +6340,7 @@ void StorageDocumentUpdateImpl::addSearchIndexTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6363,7 +6363,7 @@ void StorageDocumentUpdateImpl::addForwardIndexTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6382,7 +6382,7 @@ void StorageDocumentUpdateImpl::clearSearchIndexTerm(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6401,7 +6401,7 @@ void StorageDocumentUpdateImpl::clearForwardIndexTerm(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6422,7 +6422,7 @@ void StorageDocumentUpdateImpl::setMetaData(
 	parambuf.packNumericVariant(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6443,7 +6443,7 @@ void StorageDocumentUpdateImpl::setAttribute(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6462,7 +6462,7 @@ void StorageDocumentUpdateImpl::clearAttribute(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6481,7 +6481,7 @@ void StorageDocumentUpdateImpl::setUserAccessRight(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6500,7 +6500,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRight(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6517,7 +6517,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRights()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6534,7 +6534,7 @@ void StorageDocumentUpdateImpl::done()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6559,7 +6559,7 @@ bool StorageDumpImpl::nextChunk(
 	parambuf.packBuffer( chunk, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6602,7 +6602,7 @@ StorageClientInterface* StorageImpl::createClient(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6626,7 +6626,7 @@ bool StorageImpl::createStorage(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6660,7 +6660,7 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6690,7 +6690,7 @@ const char* StorageImpl::getConfigDescription(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6719,7 +6719,7 @@ const char** StorageImpl::getConfigParameters(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6755,7 +6755,7 @@ StorageDumpInterface* StorageImpl::createDump(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6791,7 +6791,7 @@ const StorageInterface* StorageObjectBuilderImpl::getStorage() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6822,7 +6822,7 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6851,7 +6851,7 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() con
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6882,7 +6882,7 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6913,7 +6913,7 @@ const VectorStorageInterface* StorageObjectBuilderImpl::getVectorStorage(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6942,7 +6942,7 @@ QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6980,7 +6980,7 @@ StorageDocumentInterface* StorageTransactionImpl::createDocument(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7012,7 +7012,7 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7033,7 +7033,7 @@ void StorageTransactionImpl::deleteDocument(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7052,7 +7052,7 @@ void StorageTransactionImpl::deleteUserAccessRights(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7075,7 +7075,7 @@ void StorageTransactionImpl::updateMetaData(
 	parambuf.packNumericVariant(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7098,7 +7098,7 @@ void StorageTransactionImpl::updateDocumentFrequency(
 	parambuf.packInt(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7115,7 +7115,7 @@ bool StorageTransactionImpl::commit()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7133,7 +7133,7 @@ void StorageTransactionImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7150,7 +7150,7 @@ unsigned int StorageTransactionImpl::nofDocumentsAffected() const
 	parambuf.packUInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7185,7 +7185,7 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 	parambuf.packTermStatistics(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7206,7 +7206,7 @@ void SummarizerFunctionContextImpl::setVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7225,7 +7225,7 @@ std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7245,7 +7245,7 @@ std::string SummarizerFunctionContextImpl::debugCall(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7273,7 +7273,7 @@ void SummarizerFunctionInstanceImpl::addStringParameter(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7294,7 +7294,7 @@ void SummarizerFunctionInstanceImpl::addNumericParameter(
 	parambuf.packNumericVariant(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7315,7 +7315,7 @@ void SummarizerFunctionInstanceImpl::defineResultName(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7332,7 +7332,7 @@ std::vector<std::string> SummarizerFunctionInstanceImpl::getVariables() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7369,7 +7369,7 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7387,7 +7387,7 @@ std::string SummarizerFunctionInstanceImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7425,7 +7425,7 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7444,7 +7444,7 @@ FunctionDescription SummarizerFunctionImpl::getDescription() const
 	parambuf.packFunctionDescription(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7470,7 +7470,7 @@ void TextProcessorImpl::addResourcePath(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7489,7 +7489,7 @@ std::string TextProcessorImpl::getResourcePath(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7520,7 +7520,7 @@ const SegmenterInterface* TextProcessorImpl::getSegmenterByName(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7551,7 +7551,7 @@ const SegmenterInterface* TextProcessorImpl::getSegmenterByMimeType(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7571,7 +7571,7 @@ analyzer::SegmenterOptions TextProcessorImpl::getSegmenterOptions(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7602,7 +7602,7 @@ const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7633,7 +7633,7 @@ const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7664,7 +7664,7 @@ const AggregatorFunctionInterface* TextProcessorImpl::getAggregator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7695,7 +7695,7 @@ const PatternLexerInterface* TextProcessorImpl::getPatternLexer(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7726,7 +7726,7 @@ const PatternMatcherInterface* TextProcessorImpl::getPatternMatcher(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7755,7 +7755,7 @@ const PatternTermFeederInterface* TextProcessorImpl::getPatternTermFeeder() cons
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7779,7 +7779,7 @@ bool TextProcessorImpl::detectDocumentClass(
 	parambuf.packBool(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7800,7 +7800,7 @@ void TextProcessorImpl::defineDocumentClassDetector(
 	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentClassDetector), objbase_p1->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7823,7 +7823,7 @@ void TextProcessorImpl::defineSegmenter(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7845,7 +7845,7 @@ void TextProcessorImpl::defineSegmenterOptions(
 	parambuf.packAnalyzerSegmenterOptions(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7867,7 +7867,7 @@ void TextProcessorImpl::defineTokenizer(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7890,7 +7890,7 @@ void TextProcessorImpl::defineNormalizer(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7913,7 +7913,7 @@ void TextProcessorImpl::defineAggregator(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_AggregatorFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7936,7 +7936,7 @@ void TextProcessorImpl::definePatternLexer(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternLexer), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7959,7 +7959,7 @@ void TextProcessorImpl::definePatternMatcher(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternMatcher), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7979,7 +7979,7 @@ std::vector<std::string> TextProcessorImpl::getFunctionList(
 	parambuf.packTextProcessorFunctionType(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8003,7 +8003,7 @@ bool TokenizerFunctionInstanceImpl::concatBeforeTokenize() const
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8023,7 +8023,7 @@ std::vector<analyzer::Token> TokenizerFunctionInstanceImpl::tokenize(
 	parambuf.packBuffer( src, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8063,7 +8063,7 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8091,7 +8091,7 @@ const char* TokenizerFunctionImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8127,7 +8127,7 @@ void TokenMarkupContextImpl::putMarkup(
 	parambuf.packUInt(p6);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8151,7 +8151,7 @@ std::string TokenMarkupContextImpl::markupDocument(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8186,7 +8186,7 @@ TokenMarkupContextInterface* TokenMarkupInstanceImpl::createContext() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8213,7 +8213,7 @@ void ValueIteratorImpl::skip(
 	parambuf.packBuffer( value, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8232,7 +8232,7 @@ void ValueIteratorImpl::skipPrefix(
 	parambuf.packBuffer( value, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8251,7 +8251,7 @@ std::vector<std::string> ValueIteratorImpl::fetchValues(
 	parambuf.packSize( p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8290,7 +8290,7 @@ VectorStorageSearchInterface* VectorStorageClientImpl::createSearcher(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8320,7 +8320,7 @@ VectorStorageTransactionInterface* VectorStorageClientImpl::createTransaction()
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8339,7 +8339,7 @@ std::vector<std::string> VectorStorageClientImpl::conceptClassNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8361,7 +8361,7 @@ std::vector<Index> VectorStorageClientImpl::conceptFeatures(
 	parambuf.packIndex(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8381,7 +8381,7 @@ unsigned int VectorStorageClientImpl::nofConcepts(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8403,7 +8403,7 @@ std::vector<Index> VectorStorageClientImpl::featureConcepts(
 	parambuf.packIndex(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8423,7 +8423,7 @@ std::vector<double> VectorStorageClientImpl::featureVector(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8443,7 +8443,7 @@ std::string VectorStorageClientImpl::featureName(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8463,7 +8463,7 @@ Index VectorStorageClientImpl::featureIndex(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8485,7 +8485,7 @@ double VectorStorageClientImpl::vectorSimilarity(
 	parambuf.packFloatVector(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8503,7 +8503,7 @@ unsigned int VectorStorageClientImpl::nofFeatures() const
 	parambuf.packUInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8521,7 +8521,7 @@ std::string VectorStorageClientImpl::config() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8539,7 +8539,7 @@ void VectorStorageClientImpl::close()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8564,7 +8564,7 @@ bool VectorStorageDumpImpl::nextChunk(
 	parambuf.packBuffer( chunk, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8593,7 +8593,7 @@ bool VectorStorageImpl::createStorage(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8627,7 +8627,7 @@ VectorStorageClientInterface* VectorStorageImpl::createClient(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8664,7 +8664,7 @@ VectorStorageDumpInterface* VectorStorageImpl::createDump(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8690,7 +8690,7 @@ bool VectorStorageImpl::runBuild(
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p3->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8718,7 +8718,7 @@ std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilar(
 	parambuf.packUInt(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8742,7 +8742,7 @@ std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilarFromSelection
 	parambuf.packUInt(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8760,7 +8760,7 @@ void VectorStorageSearchImpl::close()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8787,7 +8787,7 @@ void VectorStorageTransactionImpl::addFeature(
 	parambuf.packFloatVector(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8810,7 +8810,7 @@ void VectorStorageTransactionImpl::defineFeatureConceptRelation(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8827,7 +8827,7 @@ bool VectorStorageTransactionImpl::commit()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8845,7 +8845,7 @@ void VectorStorageTransactionImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8877,7 +8877,7 @@ void WeightingFunctionContextImpl::addWeightingFeature(
 	parambuf.packTermStatistics(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8898,7 +8898,7 @@ void WeightingFunctionContextImpl::setVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8917,7 +8917,7 @@ double WeightingFunctionContextImpl::call(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8937,7 +8937,7 @@ std::string WeightingFunctionContextImpl::debugCall(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8965,7 +8965,7 @@ void WeightingFunctionInstanceImpl::addStringParameter(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8986,7 +8986,7 @@ void WeightingFunctionInstanceImpl::addNumericParameter(
 	parambuf.packNumericVariant(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -9022,7 +9022,7 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -9040,7 +9040,7 @@ std::vector<std::string> WeightingFunctionInstanceImpl::getVariables() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -9058,7 +9058,7 @@ std::string WeightingFunctionInstanceImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -9096,7 +9096,7 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -9115,7 +9115,7 @@ FunctionDescription WeightingFunctionImpl::getDescription() const
 	parambuf.packFunctionDescription(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( *ErrorCode(StrusComponentTrace,ErrorOperationBuildData,ErrorCauseOutOfMem), _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

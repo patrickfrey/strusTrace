@@ -53,8 +53,6 @@ DartConfiguration.tcl
 Testing/
 tests/cmake_install.cmake.user
 cmake/build_rules.cmake.user
-include/strus/versionTrace.hpp
-src/internationalization.cpp
 dist/obs/deploy_to_obs.sh
 dist/archlinux/PKGBUILD
 dist/obs/strustrace.dsc

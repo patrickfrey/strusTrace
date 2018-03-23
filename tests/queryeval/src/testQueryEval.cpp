@@ -577,7 +577,7 @@ int main( int argc, const char* argv[])
 
 	const char* breakpoints = argc>4?argv[4]:(const char*)0;
 
-	g_errorhnd = strus::createErrorBuffer_standard( stderr, 1);
+	g_errorhnd = strus::createErrorBuffer_standard( stderr, 1, NULL/*debug trace interface*/);
 	if (!g_errorhnd)
 	{
 		std::cerr << "error allocating error buffer";

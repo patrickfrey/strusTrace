@@ -17,7 +17,6 @@
 #include <cstring>
 
 using namespace strus;
-#undef STRUS_LOWLEVEL_DEBUG
 
 #define CATCH_ERROR catch (const std::bad_alloc&){m_error=true;}
 

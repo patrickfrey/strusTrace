@@ -67,11 +67,11 @@ TraceLogRecordHandle
 
 		if (!m_output)
 		{
-			throw strus::runtime_error( "%s", _TXT("logged to file already closed"));
+			throw std::runtime_error( _TXT("logged to file already closed"));
 		}
 		if (m_logcnt >= std::numeric_limits<TraceLogRecordHandle>::max())
 		{
-			throw strus::runtime_error( "%s", _TXT("number of logs out of log handle range"));
+			throw std::runtime_error( _TXT("number of logs out of log handle range"));
 		}
 		++m_logcnt;
 		fprintf( m_output, "[%u] %s%s<%u>::%s\n", (unsigned int)m_logcnt, m_indentstr.c_str(), className, (unsigned int)objId, methodName);
@@ -92,12 +92,12 @@ void TraceLogger_dump::logMethodTermination(
 
 		if (m_indentstr.size() < std::strlen(INDENT_STEP))
 		{
-			throw strus::runtime_error( "%s", _TXT("illegal call of log method termination (tag hierarchy broken)"));
+			throw std::runtime_error( _TXT("illegal call of log method termination (tag hierarchy broken)"));
 		}
 		m_indentstr.resize( m_indentstr.size() - std::strlen(INDENT_STEP));
 		if (!m_output)
 		{
-			throw strus::runtime_error( "%s", _TXT("logged to file already closed"));
+			throw std::runtime_error( _TXT("logged to file already closed"));
 		}
 		std::ostringstream buf;
 		bool delim = false;

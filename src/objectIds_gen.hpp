@@ -270,7 +270,8 @@ public:
 		Method_defineMetaDataFromPatternMatch=13,
 		Method_defineAttributeFromPatternMatch=14,
 		Method_analyze=15,
-		Method_createContext=16
+		Method_createContext=16,
+		Method_createIntrospection=17
 	};
 	static const char* methodName( MethodId mid);
 };

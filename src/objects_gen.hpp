@@ -408,6 +408,7 @@ public:
 			const analyzer::DocumentClass& p2) const;
 	virtual DocumentAnalyzerContextInterface* createContext(
 			const analyzer::DocumentClass& p1) const;
+	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class DocumentClassDetectorImpl

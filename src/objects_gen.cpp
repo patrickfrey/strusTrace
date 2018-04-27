@@ -1656,6 +1656,36 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 	return p0;
 }
 
+IntrospectionInterface* DocumentAnalyzerImpl::createIntrospection() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_createIntrospection), objid());
+	IntrospectionInterface* p0 = obj()->createIntrospection();
+	p0 = traceContext()->createInterfaceImpl<IntrospectionInterface,IntrospectionImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createIntrospection");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Introspection), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 DocumentClassDetectorImpl::~DocumentClassDetectorImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_Destructor), objid());

@@ -259,6 +259,24 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const analyzer::TokenMarkup&")
 		("pack_msg", "parambuf.packAnalyzerTokenMarkup($name);")
 	;
+	typesystem.defineType( "analyzer::FunctionView")
+		("pack_msg", "parambuf.packAnalyzerFunctionView($name);")
+	;
+	typesystem.defineType( "analyzer::FeatureView")
+		("pack_msg", "parambuf.packAnalyzerFeatureView($name);")
+	;
+	typesystem.defineType( "analyzer::DocumentAnalyzerView")
+		("pack_msg", "parambuf.packAnalyzerDocumentAnalyzerView($name);")
+	;
+	typesystem.defineType( "analyzer::AggregatorView")
+		("pack_msg", "parambuf.packAnalyzerAggregatorView($name);")
+	;
+	typesystem.defineType( "analyzer::SubDocumentDefinitionView")
+		("pack_msg", "parambuf.packAnalyzerSubDocumentDefinitionView($name);")
+	;
+	typesystem.defineType( "analyzer::SubContentDefinitionView")
+		("pack_msg", "parambuf.packAnalyzerSubContentDefinitionView($name);")
+	;
 	typesystem.defineType( "std::vector<analyzer::PatternMatcherResult>")
 		("pack_msg", "parambuf.packAnalyzerPatternMatcherResultVector($name);")
 	;

@@ -1092,3 +1092,58 @@ void TraceSerializer::packVectorQueryResult( const std::vector<VectorQueryResult
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packAnalyzerFunctionView( const analyzer::FunctionView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.name().c_str(), val.name().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+void TraceSerializer::packAnalyzerFeatureView( const analyzer::FeatureView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "select"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.selectexpr().c_str(), val.selectexpr().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "analyzer"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerAggregatorView( const analyzer::AggregatorView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerSubDocumentDefinitionView( const analyzer::SubDocumentDefinitionView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "select"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.selection().c_str(), val.selection().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerSubContentDefinitionView( const analyzer::SubContentDefinitionView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "select"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.selection().c_str(), val.selection().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+

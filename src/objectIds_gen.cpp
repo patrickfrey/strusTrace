@@ -101,7 +101,7 @@ const char* AclReaderConst::methodName( MethodId mid)
 
 const char* AggregatorFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "evaluate", "createIntrospection"};
+	static const char* ar[] = { "Destructor", "evaluate", "view", "createIntrospection"};
 	return ar[mid];
 }
 
@@ -161,7 +161,7 @@ const char* DocumentAnalyzerContextConst::methodName( MethodId mid)
 
 const char* DocumentAnalyzerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "defineSubContent", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexFeatureFromPatternMatch", "addForwardIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "defineAttributeFromPatternMatch", "analyze", "createContext", "createIntrospection"};
+	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "defineSubContent", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexFeatureFromPatternMatch", "addForwardIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "defineAttributeFromPatternMatch", "analyze", "createContext", "view", "createIntrospection"};
 	return ar[mid];
 }
 
@@ -215,7 +215,7 @@ const char* MetaDataRestrictionConst::methodName( MethodId mid)
 
 const char* NormalizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "normalize", "createIntrospection"};
+	static const char* ar[] = { "Destructor", "normalize", "view", "createIntrospection"};
 	return ar[mid];
 }
 
@@ -233,7 +233,7 @@ const char* PatternLexerContextConst::methodName( MethodId mid)
 
 const char* PatternLexerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineOption", "defineLexemName", "defineLexem", "defineSymbol", "getSymbol", "getLexemName", "compile", "createContext", "createIntrospection"};
+	static const char* ar[] = { "Destructor", "defineOption", "defineLexemName", "defineLexem", "defineSymbol", "getSymbol", "getLexemName", "compile", "createContext", "view", "createIntrospection"};
 	return ar[mid];
 }
 
@@ -251,7 +251,7 @@ const char* PatternMatcherContextConst::methodName( MethodId mid)
 
 const char* PatternMatcherInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineOption", "defineTermFrequency", "pushTerm", "pushExpression", "pushPattern", "attachVariable", "definePattern", "compile", "createContext", "createIntrospection"};
+	static const char* ar[] = { "Destructor", "defineOption", "defineTermFrequency", "pushTerm", "pushExpression", "pushPattern", "attachVariable", "definePattern", "compile", "createContext", "view", "createIntrospection"};
 	return ar[mid];
 }
 
@@ -263,7 +263,7 @@ const char* PatternMatcherConst::methodName( MethodId mid)
 
 const char* PatternTermFeederInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getLexem", "lexemTypes", "getSymbol", "createIntrospection"};
+	static const char* ar[] = { "Destructor", "defineLexem", "defineSymbol", "getLexem", "lexemTypes", "getSymbol", "view", "createIntrospection"};
 	return ar[mid];
 }
 
@@ -341,7 +341,7 @@ const char* SegmenterContextConst::methodName( MethodId mid)
 
 const char* SegmenterInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineSelectorExpression", "defineSubSection", "createContext", "createMarkupContext", "createIntrospection"};
+	static const char* ar[] = { "Destructor", "defineSelectorExpression", "defineSubSection", "createContext", "createMarkupContext", "view", "createIntrospection"};
 	return ar[mid];
 }
 
@@ -455,7 +455,7 @@ const char* TextProcessorConst::methodName( MethodId mid)
 
 const char* TokenizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "concatBeforeTokenize", "tokenize", "createIntrospection"};
+	static const char* ar[] = { "Destructor", "concatBeforeTokenize", "tokenize", "view", "createIntrospection"};
 	return ar[mid];
 }
 
@@ -473,7 +473,7 @@ const char* TokenMarkupContextConst::methodName( MethodId mid)
 
 const char* TokenMarkupInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createContext", "createIntrospection"};
+	static const char* ar[] = { "Destructor", "createContext", "view", "createIntrospection"};
 	return ar[mid];
 }
 

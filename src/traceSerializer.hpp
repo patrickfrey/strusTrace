@@ -151,6 +151,12 @@ public:
 	void packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val);
 	void packFunctionDescription( const FunctionDescription& val);
 	void packVectorQueryResult( const std::vector<VectorQueryResult>& val);
+	void packAnalyzerFunctionView( const analyzer::FunctionView& val);
+	void packAnalyzerFeatureView( const analyzer::FeatureView& val);
+	void packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val);
+	void packAnalyzerAggregatorView( const analyzer::AggregatorView& val);
+	void packAnalyzerSubDocumentDefinitionView( const analyzer::SubDocumentDefinitionView& val);
+	void packAnalyzerSubContentDefinitionView( const analyzer::SubContentDefinitionView& val);
 
 	bool hasError() const
 	{

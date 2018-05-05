@@ -121,6 +121,7 @@ public:
 	virtual ~AggregatorFunctionInstanceImpl();
 	virtual NumericVariant evaluate(
 			const analyzer::Document& p1) const;
+	virtual analyzer::FunctionView view() const;
 	virtual IntrospectionInterface* createIntrospection() const;
 };
 
@@ -408,6 +409,7 @@ public:
 			const analyzer::DocumentClass& p2) const;
 	virtual DocumentAnalyzerContextInterface* createContext(
 			const analyzer::DocumentClass& p1) const;
+	virtual analyzer::DocumentAnalyzerView view() const;
 	virtual IntrospectionInterface* createIntrospection() const;
 };
 
@@ -581,6 +583,7 @@ public:
 	virtual ~NormalizerFunctionInstanceImpl();
 	virtual std::string normalize(
 			const char* src, std::size_t p1) const;
+	virtual analyzer::FunctionView view() const;
 	virtual IntrospectionInterface* createIntrospection() const;
 };
 
@@ -654,6 +657,7 @@ public:
 			unsigned int p1) const;
 	virtual bool compile();
 	virtual PatternLexerContextInterface* createContext() const;
+	virtual analyzer::FunctionView view() const;
 	virtual IntrospectionInterface* createIntrospection() const;
 };
 
@@ -727,6 +731,7 @@ public:
 			bool p2);
 	virtual bool compile();
 	virtual PatternMatcherContextInterface* createContext() const;
+	virtual analyzer::FunctionView view() const;
 	virtual IntrospectionInterface* createIntrospection() const;
 };
 
@@ -772,6 +777,7 @@ public:
 	virtual unsigned int getSymbol(
 			unsigned int p1, 
 			const std::string& p2) const;
+	virtual analyzer::FunctionView view() const;
 	virtual IntrospectionInterface* createIntrospection() const;
 };
 
@@ -1132,6 +1138,7 @@ public:
 	virtual SegmenterMarkupContextInterface* createMarkupContext(
 			const analyzer::DocumentClass& p1, 
 			const std::string& p2) const;
+	virtual analyzer::FunctionView view() const;
 	virtual IntrospectionInterface* createIntrospection() const;
 };
 
@@ -1686,6 +1693,7 @@ public:
 	virtual bool concatBeforeTokenize() const;
 	virtual std::vector<analyzer::Token> tokenize(
 			const char* src, std::size_t p1) const;
+	virtual analyzer::FunctionView view() const;
 	virtual IntrospectionInterface* createIntrospection() const;
 };
 
@@ -1745,6 +1753,7 @@ public:
 
 	virtual ~TokenMarkupInstanceImpl();
 	virtual TokenMarkupContextInterface* createContext() const;
+	virtual analyzer::FunctionView view() const;
 	virtual IntrospectionInterface* createIntrospection() const;
 };
 

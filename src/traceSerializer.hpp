@@ -152,6 +152,7 @@ public:
 	void packFunctionDescription( const FunctionDescription& val);
 	void packVectorQueryResult( const std::vector<VectorQueryResult>& val);
 	void packAnalyzerFunctionView( const analyzer::FunctionView& val);
+	void packAnalyzerFeatureViewList( const char* name, const std::vector<analyzer::FeatureView>& val);
 	void packAnalyzerFeatureView( const analyzer::FeatureView& val);
 	void packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val);
 	void packAnalyzerAggregatorView( const analyzer::AggregatorView& val);

@@ -3889,12 +3889,12 @@ void QueryAnalyzerImpl::addElementFromPatternMatch(
 	}
 }
 
-void QueryAnalyzerImpl::declareFeaturePriority(
+void QueryAnalyzerImpl::declareElementPriority(
 			const std::string& p1, 
 			int p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_declareFeaturePriority), objid());
-	obj()->declareFeaturePriority(p1, p2);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_declareElementPriority), objid());
+	obj()->declareElementPriority(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);

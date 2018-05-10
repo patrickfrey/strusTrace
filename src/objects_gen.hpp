@@ -900,7 +900,7 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
-	virtual void declareFeaturePriority(
+	virtual void declareElementPriority(
 			const std::string& p1, 
 			int p2);
 	virtual QueryAnalyzerContextInterface* createContext() const;

@@ -27,7 +27,6 @@
 #include "strus/documentClassDetectorInterface.hpp"
 #include "strus/documentTermIteratorInterface.hpp"
 #include "strus/forwardIteratorInterface.hpp"
-#include "strus/introspectionInterface.hpp"
 #include "strus/invAclIteratorInterface.hpp"
 #include "strus/metaDataReaderInterface.hpp"
 #include "strus/metaDataRestrictionInstanceInterface.hpp"
@@ -122,7 +121,6 @@ public:
 	virtual NumericVariant evaluate(
 			const analyzer::Document& p1) const;
 	virtual analyzer::FunctionView view() const;
-	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class AggregatorFunctionImpl
@@ -410,7 +408,6 @@ public:
 	virtual DocumentAnalyzerContextInterface* createContext(
 			const analyzer::DocumentClass& p1) const;
 	virtual analyzer::DocumentAnalyzerView view() const;
-	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class DocumentClassDetectorImpl
@@ -470,24 +467,6 @@ public:
 	virtual Index skipPos(
 			const Index& p1);
 	virtual std::string fetch();
-};
-
-class IntrospectionImpl
-		:public TraceObject<IntrospectionInterface>
-		,public IntrospectionInterface
-		,public IntrospectionConst
-{
-public:
-	IntrospectionImpl( IntrospectionInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<IntrospectionInterface>(obj_,ctx_){}
-	IntrospectionImpl( const IntrospectionInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<IntrospectionInterface>(obj_,ctx_){}
-
-	virtual ~IntrospectionImpl();
-	virtual IntrospectionInterface* open(
-			const std::string& p1) const;
-	virtual std::string value() const;
-	virtual std::vector<std::string> list() const;
 };
 
 class InvAclIteratorImpl
@@ -584,7 +563,6 @@ public:
 	virtual std::string normalize(
 			const char* src, std::size_t p1) const;
 	virtual analyzer::FunctionView view() const;
-	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class NormalizerFunctionImpl
@@ -658,7 +636,6 @@ public:
 	virtual bool compile();
 	virtual PatternLexerContextInterface* createContext() const;
 	virtual analyzer::FunctionView view() const;
-	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class PatternLexerImpl
@@ -732,7 +709,6 @@ public:
 	virtual bool compile();
 	virtual PatternMatcherContextInterface* createContext() const;
 	virtual analyzer::FunctionView view() const;
-	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class PatternMatcherImpl
@@ -778,7 +754,6 @@ public:
 			unsigned int p1, 
 			const std::string& p2) const;
 	virtual analyzer::FunctionView view() const;
-	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class PatternTermFeederImpl
@@ -1142,7 +1117,6 @@ public:
 			const analyzer::DocumentClass& p1, 
 			const std::string& p2) const;
 	virtual analyzer::FunctionView view() const;
-	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class SegmenterImpl
@@ -1697,7 +1671,6 @@ public:
 	virtual std::vector<analyzer::Token> tokenize(
 			const char* src, std::size_t p1) const;
 	virtual analyzer::FunctionView view() const;
-	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class TokenizerFunctionImpl
@@ -1757,7 +1730,6 @@ public:
 	virtual ~TokenMarkupInstanceImpl();
 	virtual TokenMarkupContextInterface* createContext() const;
 	virtual analyzer::FunctionView view() const;
-	virtual IntrospectionInterface* createIntrospection() const;
 };
 
 class ValueIteratorImpl

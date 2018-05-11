@@ -29,64 +29,63 @@ enum ClassId
 	ClassId_DocumentClassDetector=13,
 	ClassId_DocumentTermIterator=14,
 	ClassId_ForwardIterator=15,
-	ClassId_Introspection=16,
-	ClassId_InvAclIterator=17,
-	ClassId_MetaDataReader=18,
-	ClassId_MetaDataRestrictionInstance=19,
-	ClassId_MetaDataRestriction=20,
-	ClassId_NormalizerFunctionInstance=21,
-	ClassId_NormalizerFunction=22,
-	ClassId_PatternLexerContext=23,
-	ClassId_PatternLexerInstance=24,
-	ClassId_PatternLexer=25,
-	ClassId_PatternMatcherContext=26,
-	ClassId_PatternMatcherInstance=27,
-	ClassId_PatternMatcher=28,
-	ClassId_PatternTermFeederInstance=29,
-	ClassId_PatternTermFeeder=30,
-	ClassId_PostingIterator=31,
-	ClassId_PostingJoinOperator=32,
-	ClassId_QueryAnalyzerContext=33,
-	ClassId_QueryAnalyzer=34,
-	ClassId_QueryEval=35,
-	ClassId_Query=36,
-	ClassId_QueryProcessor=37,
-	ClassId_ScalarFunctionInstance=38,
-	ClassId_ScalarFunction=39,
-	ClassId_ScalarFunctionParser=40,
-	ClassId_SegmenterContext=41,
-	ClassId_SegmenterInstance=42,
-	ClassId_Segmenter=43,
-	ClassId_SegmenterMarkupContext=44,
-	ClassId_StatisticsBuilder=45,
-	ClassId_StatisticsIterator=46,
-	ClassId_StatisticsProcessor=47,
-	ClassId_StatisticsViewer=48,
-	ClassId_StorageAlterMetaDataTable=49,
-	ClassId_StorageClient=50,
-	ClassId_StorageDocument=51,
-	ClassId_StorageDocumentUpdate=52,
-	ClassId_StorageDump=53,
-	ClassId_Storage=54,
-	ClassId_StorageObjectBuilder=55,
-	ClassId_StorageTransaction=56,
-	ClassId_SummarizerFunctionContext=57,
-	ClassId_SummarizerFunctionInstance=58,
-	ClassId_SummarizerFunction=59,
-	ClassId_TextProcessor=60,
-	ClassId_TokenizerFunctionInstance=61,
-	ClassId_TokenizerFunction=62,
-	ClassId_TokenMarkupContext=63,
-	ClassId_TokenMarkupInstance=64,
-	ClassId_ValueIterator=65,
-	ClassId_VectorStorageClient=66,
-	ClassId_VectorStorageDump=67,
-	ClassId_VectorStorage=68,
-	ClassId_VectorStorageSearch=69,
-	ClassId_VectorStorageTransaction=70,
-	ClassId_WeightingFunctionContext=71,
-	ClassId_WeightingFunctionInstance=72,
-	ClassId_WeightingFunction=73
+	ClassId_InvAclIterator=16,
+	ClassId_MetaDataReader=17,
+	ClassId_MetaDataRestrictionInstance=18,
+	ClassId_MetaDataRestriction=19,
+	ClassId_NormalizerFunctionInstance=20,
+	ClassId_NormalizerFunction=21,
+	ClassId_PatternLexerContext=22,
+	ClassId_PatternLexerInstance=23,
+	ClassId_PatternLexer=24,
+	ClassId_PatternMatcherContext=25,
+	ClassId_PatternMatcherInstance=26,
+	ClassId_PatternMatcher=27,
+	ClassId_PatternTermFeederInstance=28,
+	ClassId_PatternTermFeeder=29,
+	ClassId_PostingIterator=30,
+	ClassId_PostingJoinOperator=31,
+	ClassId_QueryAnalyzerContext=32,
+	ClassId_QueryAnalyzer=33,
+	ClassId_QueryEval=34,
+	ClassId_Query=35,
+	ClassId_QueryProcessor=36,
+	ClassId_ScalarFunctionInstance=37,
+	ClassId_ScalarFunction=38,
+	ClassId_ScalarFunctionParser=39,
+	ClassId_SegmenterContext=40,
+	ClassId_SegmenterInstance=41,
+	ClassId_Segmenter=42,
+	ClassId_SegmenterMarkupContext=43,
+	ClassId_StatisticsBuilder=44,
+	ClassId_StatisticsIterator=45,
+	ClassId_StatisticsProcessor=46,
+	ClassId_StatisticsViewer=47,
+	ClassId_StorageAlterMetaDataTable=48,
+	ClassId_StorageClient=49,
+	ClassId_StorageDocument=50,
+	ClassId_StorageDocumentUpdate=51,
+	ClassId_StorageDump=52,
+	ClassId_Storage=53,
+	ClassId_StorageObjectBuilder=54,
+	ClassId_StorageTransaction=55,
+	ClassId_SummarizerFunctionContext=56,
+	ClassId_SummarizerFunctionInstance=57,
+	ClassId_SummarizerFunction=58,
+	ClassId_TextProcessor=59,
+	ClassId_TokenizerFunctionInstance=60,
+	ClassId_TokenizerFunction=61,
+	ClassId_TokenMarkupContext=62,
+	ClassId_TokenMarkupInstance=63,
+	ClassId_ValueIterator=64,
+	ClassId_VectorStorageClient=65,
+	ClassId_VectorStorageDump=66,
+	ClassId_VectorStorage=67,
+	ClassId_VectorStorageSearch=68,
+	ClassId_VectorStorageTransaction=69,
+	ClassId_WeightingFunctionContext=70,
+	ClassId_WeightingFunctionInstance=71,
+	ClassId_WeightingFunction=72
 };
 
 struct TraceClassNameMap
@@ -113,8 +112,7 @@ public:
 	{
 		Method_Destructor=0,
 		Method_evaluate=1,
-		Method_view=2,
-		Method_createIntrospection=3
+		Method_view=2
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -272,8 +270,7 @@ public:
 		Method_defineAttributeFromPatternMatch=14,
 		Method_analyze=15,
 		Method_createContext=16,
-		Method_view=17,
-		Method_createIntrospection=18
+		Method_view=17
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -312,19 +309,6 @@ public:
 		Method_skipDoc=1,
 		Method_skipPos=2,
 		Method_fetch=3
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class IntrospectionConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_open=1,
-		Method_value=2,
-		Method_list=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -388,8 +372,7 @@ public:
 	{
 		Method_Destructor=0,
 		Method_normalize=1,
-		Method_view=2,
-		Method_createIntrospection=3
+		Method_view=2
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -432,8 +415,7 @@ public:
 		Method_getLexemName=6,
 		Method_compile=7,
 		Method_createContext=8,
-		Method_view=9,
-		Method_createIntrospection=10
+		Method_view=9
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -480,8 +462,7 @@ public:
 		Method_definePattern=7,
 		Method_compile=8,
 		Method_createContext=9,
-		Method_view=10,
-		Method_createIntrospection=11
+		Method_view=10
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -510,8 +491,7 @@ public:
 		Method_getLexem=3,
 		Method_lexemTypes=4,
 		Method_getSymbol=5,
-		Method_view=6,
-		Method_createIntrospection=7
+		Method_view=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -713,8 +693,7 @@ public:
 		Method_defineSubSection=2,
 		Method_createContext=3,
 		Method_createMarkupContext=4,
-		Method_view=5,
-		Method_createIntrospection=6
+		Method_view=5
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1036,8 +1015,7 @@ public:
 		Method_Destructor=0,
 		Method_concatBeforeTokenize=1,
 		Method_tokenize=2,
-		Method_view=3,
-		Method_createIntrospection=4
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1073,8 +1051,7 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createContext=1,
-		Method_view=2,
-		Method_createIntrospection=3
+		Method_view=2
 	};
 	static const char* methodName( MethodId mid);
 };

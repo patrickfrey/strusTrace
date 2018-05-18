@@ -1155,6 +1155,42 @@ void TraceSerializer::packAnalyzerFeatureViewList( const char* name, const std::
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
+void TraceSerializer::packAnalyzerAggregatorView( const analyzer::AggregatorView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "function"));
+		packAnalyzerFunctionView( val.function());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerSubDocumentDefinitionView( const analyzer::SubDocumentDefinitionView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "select"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.selection().c_str(), val.selection().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.subDocumentTypeName().c_str(), val.subDocumentTypeName().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerSubContentDefinitionView( const analyzer::SubContentDefinitionView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "select"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.selection().c_str(), val.selection().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "doctype"));
+		packAnalyzerDocumentClass( val.documentClass());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val)
 {
 	try{
@@ -1202,38 +1238,66 @@ void TraceSerializer::packAnalyzerDocumentAnalyzerView( const analyzer::Document
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerAggregatorView( const analyzer::AggregatorView& val)
+void TraceSerializer::packAnalyzerQueryElementView( const analyzer::QueryElementView& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "function"));
-		packAnalyzerFunctionView( val.function());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "field"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.field().c_str(), val.field().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "tokenizer"));
+		packAnalyzerFunctionView( val.tokenizer());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "normalizer"));
+		std::vector<analyzer::FunctionView>::const_iterator vi = val.normalizer().begin(), ve = val.normalizer().end();
+		for (std::size_t vidx=0; vi != ve; ++vi,++vidx)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, vidx));
+			packAnalyzerFunctionView( *vi);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packAnalyzerSubDocumentDefinitionView( const analyzer::SubDocumentDefinitionView& val)
+void TraceSerializer::packAnalyzerQueryAnalyzerView( const analyzer::QueryAnalyzerView& val)
 {
-	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "select"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.selection().c_str(), val.selection().size()));
+	try
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "analyzer"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "elements"));
+		std::vector<analyzer::QueryElementView>::const_iterator ei = val.elements().begin(), ee = val.elements().end();
+		for (std::size_t eidx=0; ei != ee; ++ei,++eidx)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, eidx));
+			packAnalyzerQueryElementView( *ei);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.subDocumentTypeName().c_str(), val.subDocumentTypeName().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "lexems"));
+		ei = val.patternLexems().begin(), ee = val.patternLexems().end();
+		for (std::size_t eidx=0; ei != ee; ++ei,++eidx)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, eidx));
+			packAnalyzerQueryElementView( *ei);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	}CATCH_ERROR
-}
-
-void TraceSerializer::packAnalyzerSubContentDefinitionView( const analyzer::SubContentDefinitionView& val)
-{
-	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "select"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.selection().c_str(), val.selection().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "priorities"));
+		std::map<std::string,int>::const_iterator pi = val.priorities().begin(), pe = val.priorities().end();
+		for (; pi != pe; ++pi)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeString, pi->first.c_str(), pi->first.size()));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "priority"));
+			m_elembuf.push_back( TraceElement( (TraceElement::IntType)pi->second));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "doctype"));
-		packAnalyzerDocumentClass( val.documentClass());
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }

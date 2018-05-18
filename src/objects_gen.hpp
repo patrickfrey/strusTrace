@@ -879,6 +879,7 @@ public:
 			const std::string& p1, 
 			int p2);
 	virtual QueryAnalyzerContextInterface* createContext() const;
+	virtual analyzer::QueryAnalyzerView view() const;
 };
 
 class QueryEvalImpl

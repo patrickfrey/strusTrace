@@ -49,7 +49,9 @@
 #include "strus/analyzer/patternMatcherResult.hpp"
 #include "strus/analyzer/document.hpp"
 #include "strus/analyzer/documentClass.hpp"
-#include "strus/statisticsProcessorInterface.hpp"
+#include "strus/analyzer/documentClass.hpp"
+#include "strus/analyzer/queryElementView.hpp"
+#include "strus/analyzer/documentAnalyzerView.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include <string>
 #include <vector>
@@ -154,11 +156,14 @@ public:
 	void packAnalyzerFunctionView( const analyzer::FunctionView& val);
 	void packAnalyzerFeatureViewList( const char* name, const std::vector<analyzer::FeatureView>& val);
 	void packAnalyzerFeatureView( const analyzer::FeatureView& val);
-	void packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val);
 	void packAnalyzerAggregatorView( const analyzer::AggregatorView& val);
 	void packAnalyzerSubDocumentDefinitionView( const analyzer::SubDocumentDefinitionView& val);
 	void packAnalyzerSubContentDefinitionView( const analyzer::SubContentDefinitionView& val);
+	void packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val);
+	void packAnalyzerQueryElementView( const analyzer::QueryElementView& val);
+	void packAnalyzerQueryAnalyzerView( const analyzer::QueryAnalyzerView& val);
 
+	
 	bool hasError() const
 	{
 		return m_error;

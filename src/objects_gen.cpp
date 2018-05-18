@@ -3686,6 +3686,24 @@ QueryAnalyzerContextInterface* QueryAnalyzerImpl::createContext() const
 	return p0;
 }
 
+analyzer::QueryAnalyzerView QueryAnalyzerImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_view), objid());
+	analyzer::QueryAnalyzerView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerQueryAnalyzerView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 QueryEvalImpl::~QueryEvalImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_Destructor), objid());

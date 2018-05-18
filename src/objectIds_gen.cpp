@@ -286,7 +286,7 @@ const char* QueryAnalyzerContextConst::methodName( MethodId mid)
 
 const char* QueryAnalyzerConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addElement", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addElementFromPatternMatch", "declareElementPriority", "createContext"};
+	static const char* ar[] = { "Destructor", "addElement", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addElementFromPatternMatch", "declareElementPriority", "createContext", "view"};
 	return ar[mid];
 }
 

@@ -702,11 +702,11 @@ public:
 	virtual void pushPattern(
 			const std::string& p1);
 	virtual void attachVariable(
-			const std::string& p1, 
-			const std::string& p2);
+			const std::string& p1);
 	virtual void definePattern(
 			const std::string& p1, 
-			bool p2);
+			const std::string& p2, 
+			bool p3);
 	virtual bool compile();
 	virtual PatternMatcherContextInterface* createContext() const;
 	virtual analyzer::FunctionView view() const;

@@ -2781,15 +2781,13 @@ void PatternMatcherInstanceImpl::pushPattern(
 }
 
 void PatternMatcherInstanceImpl::attachVariable(
-			const std::string& p1, 
-			const std::string& p2)
+			const std::string& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherInstance), PatternMatcherInstanceConst::methodName( Method_attachVariable), objid());
-	obj()->attachVariable(p1, p2);
+	obj()->attachVariable(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -2803,14 +2801,16 @@ void PatternMatcherInstanceImpl::attachVariable(
 
 void PatternMatcherInstanceImpl::definePattern(
 			const std::string& p1, 
-			bool p2)
+			const std::string& p2, 
+			bool p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherInstance), PatternMatcherInstanceConst::methodName( Method_definePattern), objid());
-	obj()->definePattern(p1, p2);
+	obj()->definePattern(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packBool(p2);
+	parambuf.packString(p2);
+	parambuf.packBool(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

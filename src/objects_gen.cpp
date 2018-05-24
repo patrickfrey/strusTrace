@@ -2616,7 +2616,7 @@ void PatternMatcherContextImpl::putInput(
 	}
 }
 
-std::vector<analyzer::PatternMatcherResult> PatternMatcherContextImpl::fetchResults() const
+std::vector<analyzer::PatternMatcherResult> PatternMatcherContextImpl::fetchResults()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherContext), PatternMatcherContextConst::methodName( Method_fetchResults), objid());
 	std::vector<analyzer::PatternMatcherResult> p0 = obj()->fetchResults();

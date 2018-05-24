@@ -789,6 +789,9 @@ void TraceSerializer::packAnalyzerPatternMatcherResult( const analyzer::PatternM
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.name()));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "start_ordpos"));
 	m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.start_ordpos()));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));

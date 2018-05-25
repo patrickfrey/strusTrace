@@ -1668,6 +1668,31 @@ DocumentClassDetectorImpl::~DocumentClassDetectorImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
+void DocumentClassDetectorImpl::defineDocumentSchemeDetector(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<std::string>& p3, 
+			const std::vector<std::string>& p4)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_defineDocumentSchemeDetector), objid());
+	obj()->defineDocumentSchemeDetector(p1, p2, p3, p4);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	parambuf.packStringVector(p3);
+	parambuf.packStringVector(p4);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 bool DocumentClassDetectorImpl::detect(
 			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2, 

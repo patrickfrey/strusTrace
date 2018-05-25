@@ -422,6 +422,11 @@ public:
 		:TraceObject<DocumentClassDetectorInterface>(obj_,ctx_){}
 
 	virtual ~DocumentClassDetectorImpl();
+	virtual void defineDocumentSchemeDetector(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<std::string>& p3, 
+			const std::vector<std::string>& p4);
 	virtual bool detect(
 			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2, 

@@ -281,7 +281,8 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_detect=1
+		Method_defineDocumentSchemeDetector=1,
+		Method_detect=2
 	};
 	static const char* methodName( MethodId mid);
 };

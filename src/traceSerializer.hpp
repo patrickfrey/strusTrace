@@ -52,6 +52,8 @@
 #include "strus/analyzer/documentClass.hpp"
 #include "strus/analyzer/queryElementView.hpp"
 #include "strus/analyzer/documentAnalyzerView.hpp"
+#include "strus/analyzer/contentStatisticsView.hpp"
+#include "strus/analyzer/contentStatisticsItem.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include <string>
 #include <vector>
@@ -162,8 +164,11 @@ public:
 	void packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val);
 	void packAnalyzerQueryElementView( const analyzer::QueryElementView& val);
 	void packAnalyzerQueryAnalyzerView( const analyzer::QueryAnalyzerView& val);
+	void packAnalyzerContentStatisticsElementView( const analyzer::ContentStatisticsElementView& val);
+	void packAnalyzerContentStatisticsView( const analyzer::ContentStatisticsView& val);
+	void packAnalyzerContentStatisticsItem( const analyzer::ContentStatisticsItem& val);
+	void packAnalyzerContentStatisticsItemVector( const std::vector<analyzer::ContentStatisticsItem>& val);
 
-	
 	bool hasError() const
 	{
 		return m_error;

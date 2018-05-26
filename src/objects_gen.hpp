@@ -17,6 +17,8 @@
 #include "strus/aggregatorFunctionInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/attributeReaderInterface.hpp"
+#include "strus/contentStatisticsContextInterface.hpp"
+#include "strus/contentStatisticsInterface.hpp"
 #include "strus/databaseBackupCursorInterface.hpp"
 #include "strus/databaseClientInterface.hpp"
 #include "strus/databaseCursorInterface.hpp"
@@ -178,6 +180,49 @@ public:
 	virtual std::string getValue(
 			const Index& p1) const;
 	virtual std::vector<std::string> getNames() const;
+};
+
+class ContentStatisticsContextImpl
+		:public TraceObject<ContentStatisticsContextInterface>
+		,public ContentStatisticsContextInterface
+		,public ContentStatisticsContextConst
+{
+public:
+	ContentStatisticsContextImpl( ContentStatisticsContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentStatisticsContextInterface>(obj_,ctx_){}
+	ContentStatisticsContextImpl( const ContentStatisticsContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentStatisticsContextInterface>(obj_,ctx_){}
+
+	virtual ~ContentStatisticsContextImpl();
+	virtual void putContent(
+			const std::string& p1, 
+			const std::string& p2, 
+			const analyzer::DocumentClass& p3);
+	virtual std::vector<analyzer::ContentStatisticsItem> statistics();
+	virtual int nofDocuments() const;
+};
+
+class ContentStatisticsImpl
+		:public TraceObject<ContentStatisticsInterface>
+		,public ContentStatisticsInterface
+		,public ContentStatisticsConst
+{
+public:
+	ContentStatisticsImpl( ContentStatisticsInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentStatisticsInterface>(obj_,ctx_){}
+	ContentStatisticsImpl( const ContentStatisticsInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentStatisticsInterface>(obj_,ctx_){}
+
+	virtual ~ContentStatisticsImpl();
+	virtual void addLibraryElement(
+			const std::string& p1, 
+			const std::string& p2, 
+			int p3, 
+			int p4, 
+			TokenizerFunctionInstanceInterface* p5, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p6);
+	virtual ContentStatisticsContextInterface* createContext() const;
+	virtual analyzer::ContentStatisticsView view() const;
 };
 
 class DatabaseBackupCursorImpl

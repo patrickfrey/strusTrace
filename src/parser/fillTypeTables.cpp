@@ -283,6 +283,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "analyzer::QueryAnalyzerView")
 		("pack_msg", "parambuf.packAnalyzerQueryAnalyzerView($name);")
 	;
+	typesystem.defineType( "analyzer::ContentStatisticsElementView")
+		("pack_msg", "parambuf.packAnalyzerContentStatisticsElementView($name);")
+	;
+	typesystem.defineType( "analyzer::ContentStatisticsView")
+		("pack_msg", "parambuf.packAnalyzerContentStatisticsView($name);")
+	;
 	typesystem.defineType( "std::vector<analyzer::PatternMatcherResult>")
 		("pack_msg", "parambuf.packAnalyzerPatternMatcherResultVector($name);")
 	;
@@ -390,6 +396,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	;
 	typesystem.defineType( "std::ostream&")
 		("pack_msg", "")
+	;
+	typesystem.defineType( "std::vector<analyzer::ContentStatisticsItem>")
+		("pack_msg", "parambuf.packAnalyzerContentStatisticsItemVector($name);")
 	;
 }
 

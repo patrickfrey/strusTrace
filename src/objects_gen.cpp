@@ -357,6 +357,34 @@ std::vector<std::string> AttributeReaderImpl::getNames() const
 	return p0;
 }
 
+ContentIteratorImpl::~ContentIteratorImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentIterator), ContentIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+bool ContentIteratorImpl::getNext(
+			const char*& expression, std::size_t& p1, 
+			const char*& segment, std::size_t& p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentIterator), ContentIteratorConst::methodName( Method_getNext), objid());
+	bool p0 = obj()->getNext(expression, p1, segment, p2);
+	TraceSerializer parambuf;
+	parambuf.packBool(p0);
+	parambuf.packBuffer( expression, p1);
+	parambuf.packBuffer( segment, p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 ContentStatisticsContextImpl::~ContentStatisticsContextImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatisticsContext), ContentStatisticsContextConst::methodName( Method_Destructor), objid());
@@ -5145,6 +5173,42 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance(
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SegmenterInstance), objbase_p0->objid());
 		parambuf.packAnalyzerSegmenterOptions(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+ContentIteratorInterface* SegmenterImpl::createContentIterator(
+			const char* content, std::size_t p1, 
+			const analyzer::DocumentClass& p2, 
+			const analyzer::SegmenterOptions& p3) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Segmenter), SegmenterConst::methodName( Method_createContentIterator), objid());
+	ContentIteratorInterface* p0 = obj()->createContentIterator(content, p1, p2, p3);
+	p0 = traceContext()->createInterfaceImpl<ContentIteratorInterface,ContentIteratorImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContentIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ContentIterator), objbase_p0->objid());
+		parambuf.packBuffer( content, p1);
+		parambuf.packAnalyzerDocumentClass(p2);
+		parambuf.packAnalyzerSegmenterOptions(p3);
 	}
 	if (parambuf.hasError())
 	{

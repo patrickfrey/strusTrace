@@ -20,6 +20,7 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"AggregatorFunction",
 		"AnalyzerObjectBuilder",
 		"AttributeReader",
+		"ContentIterator",
 		"ContentStatisticsContext",
 		"ContentStatistics",
 		"DatabaseBackupCursor",
@@ -121,6 +122,12 @@ const char* AnalyzerObjectBuilderConst::methodName( MethodId mid)
 const char* AttributeReaderConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "elementHandle", "skipDoc", "getValue", "getNames"};
+	return ar[mid];
+}
+
+const char* ContentIteratorConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "getNext"};
 	return ar[mid];
 }
 
@@ -354,7 +361,7 @@ const char* SegmenterInstanceConst::methodName( MethodId mid)
 
 const char* SegmenterConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "mimeType", "createInstance", "getDescription"};
+	static const char* ar[] = { "Destructor", "mimeType", "createInstance", "createContentIterator", "getDescription"};
 	return ar[mid];
 }
 

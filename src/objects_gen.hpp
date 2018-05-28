@@ -17,6 +17,7 @@
 #include "strus/aggregatorFunctionInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/attributeReaderInterface.hpp"
+#include "strus/contentIteratorInterface.hpp"
 #include "strus/contentStatisticsContextInterface.hpp"
 #include "strus/contentStatisticsInterface.hpp"
 #include "strus/databaseBackupCursorInterface.hpp"
@@ -180,6 +181,23 @@ public:
 	virtual std::string getValue(
 			const Index& p1) const;
 	virtual std::vector<std::string> getNames() const;
+};
+
+class ContentIteratorImpl
+		:public TraceObject<ContentIteratorInterface>
+		,public ContentIteratorInterface
+		,public ContentIteratorConst
+{
+public:
+	ContentIteratorImpl( ContentIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentIteratorInterface>(obj_,ctx_){}
+	ContentIteratorImpl( const ContentIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentIteratorInterface>(obj_,ctx_){}
+
+	virtual ~ContentIteratorImpl();
+	virtual bool getNext(
+			const char*& expression, std::size_t& p1, 
+			const char*& segment, std::size_t& p2);
 };
 
 class ContentStatisticsContextImpl
@@ -1186,6 +1204,10 @@ public:
 	virtual const char* mimeType() const;
 	virtual SegmenterInstanceInterface* createInstance(
 			const analyzer::SegmenterOptions& p1) const;
+	virtual ContentIteratorInterface* createContentIterator(
+			const char* content, std::size_t p1, 
+			const analyzer::DocumentClass& p2, 
+			const analyzer::SegmenterOptions& p3) const;
 	virtual const char* getDescription() const;
 };
 

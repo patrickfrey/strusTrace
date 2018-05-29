@@ -461,37 +461,39 @@ void ContentStatisticsImpl::addLibraryElement(
 			const std::string& p2, 
 			int p3, 
 			int p4, 
-			TokenizerFunctionInstanceInterface* p5, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p6)
+			int p5, 
+			TokenizerFunctionInstanceInterface* p6, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p7)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatistics), ContentStatisticsConst::methodName( Method_addLibraryElement), objid());
-	obj()->addLibraryElement(p1, p2, p3, p4, p5, p6);
+	obj()->addLibraryElement(p1, p2, p3, p4, p5, p6, p7);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	parambuf.packInt(p3);
 	parambuf.packInt(p4);
-	TraceObjectBase* objbase_p5 = dynamic_cast<TraceObjectBase*>( p5);
-	if (!objbase_p5) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p5->objid());
+	parambuf.packInt(p5);
+	TraceObjectBase* objbase_p6 = dynamic_cast<TraceObjectBase*>( p6);
+	if (!objbase_p6) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p6->objid());
 	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
-		i_p6 = p6.begin(), e_p6 = p6.end();
-	for (std::size_t idx_p6=0; i_p6 != e_p6; ++i_p6,++idx_p6)
+		i_p7 = p7.begin(), e_p7 = p7.end();
+	for (std::size_t idx_p7=0; i_p7 != e_p7; ++i_p7,++idx_p7)
 	{
-		parambuf.openIndex( idx_p6); 
-		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p6);
+		parambuf.openIndex( idx_p7); 
+		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p7);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		if (p5) {delete p5; p5 = 0;}
+		if (p6) {delete p6; p6 = 0;}
 		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
-			i_p6 = p6.begin(), e_p6 = p6.end();
-		for (std::size_t idx_p6=0; i_p6 != e_p6; ++i_p6,++idx_p6)
+			i_p7 = p7.begin(), e_p7 = p7.end();
+		for (std::size_t idx_p7=0; i_p7 != e_p7; ++i_p7,++idx_p7)
 		{
-			delete *i_p6;
+			delete *i_p7;
 		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}

@@ -237,8 +237,9 @@ public:
 			const std::string& p2, 
 			int p3, 
 			int p4, 
-			TokenizerFunctionInstanceInterface* p5, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p6);
+			int p5, 
+			TokenizerFunctionInstanceInterface* p6, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p7);
 	virtual ContentStatisticsContextInterface* createContext() const;
 	virtual analyzer::ContentStatisticsView view() const;
 };

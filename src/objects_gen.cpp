@@ -414,12 +414,12 @@ void ContentStatisticsContextImpl::putContent(
 	}
 }
 
-std::vector<analyzer::ContentStatisticsItem> ContentStatisticsContextImpl::statistics()
+analyzer::ContentStatisticsResult ContentStatisticsContextImpl::statistics()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatisticsContext), ContentStatisticsContextConst::methodName( Method_statistics), objid());
-	std::vector<analyzer::ContentStatisticsItem> p0 = obj()->statistics();
+	analyzer::ContentStatisticsResult p0 = obj()->statistics();
 	TraceSerializer parambuf;
-	parambuf.packAnalyzerContentStatisticsItemVector(p0);
+	parambuf.packAnalyzerContentStatisticsResult(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

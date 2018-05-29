@@ -216,7 +216,7 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const analyzer::DocumentClass& p3);
-	virtual std::vector<analyzer::ContentStatisticsItem> statistics();
+	virtual analyzer::ContentStatisticsResult statistics();
 	virtual int nofDocuments() const;
 };
 

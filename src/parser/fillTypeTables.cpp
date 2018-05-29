@@ -400,5 +400,8 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "std::vector<analyzer::ContentStatisticsItem>")
 		("pack_msg", "parambuf.packAnalyzerContentStatisticsItemVector($name);")
 	;
+	typesystem.defineType( "analyzer::ContentStatisticsResult")
+		("pack_msg", "parambuf.packAnalyzerContentStatisticsResult($name);")
+	;
 }
 

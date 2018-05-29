@@ -1314,6 +1314,15 @@ void TraceSerializer::packAnalyzerContentStatisticsElementView( const analyzer::
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "regex"));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.regex().c_str(), val.regex().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "priority"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.priority()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "minlen"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.minLen()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "maxlen"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.maxLen()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "tokenizer"));
 		packAnalyzerFunctionView( val.tokenizer());
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
@@ -1373,7 +1382,7 @@ void TraceSerializer::packAnalyzerContentStatisticsItem( const analyzer::Content
 void TraceSerializer::packAnalyzerContentStatisticsItemVector( const std::vector<analyzer::ContentStatisticsItem>& val)
 {
 	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "stats"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "items"));
 		std::vector<analyzer::ContentStatisticsItem>::const_iterator ei = val.begin(), ee = val.end();
 		for (std::size_t eidx=0; ei != ee; ++ei,++eidx)
 		{
@@ -1384,3 +1393,14 @@ void TraceSerializer::packAnalyzerContentStatisticsItemVector( const std::vector
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }
+
+void TraceSerializer::packAnalyzerContentStatisticsResult( const analyzer::ContentStatisticsResult& val)
+{
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "stats"));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "nofdocs"));
+	m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.nofDocuments()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	packAnalyzerContentStatisticsItemVector( val.items());
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+}
+

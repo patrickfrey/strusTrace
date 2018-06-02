@@ -1241,6 +1241,27 @@ void TraceSerializer::packAnalyzerDocumentAnalyzerView( const analyzer::Document
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packAnalyzerDocumentAnalyzerMapView( const analyzer::DocumentAnalyzerMapView& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "analyzermap"));
+		std::vector<analyzer::DocumentAnalyzerMapElementView>::const_iterator di = val.definitions().begin(), de = val.definitions().end();
+		for (std::size_t didx=0; di != de; ++di,++didx)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, didx));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "mimetype"));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeString, di->mimeType().c_str(), di->mimeType().size()));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "scheme"));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeString, di->scheme().c_str(), di->scheme().size()));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+			packAnalyzerDocumentAnalyzerView( di->analyzer());
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packAnalyzerQueryElementView( const analyzer::QueryElementView& val)
 {
 	try{

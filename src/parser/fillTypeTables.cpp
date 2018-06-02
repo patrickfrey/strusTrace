@@ -277,6 +277,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "analyzer::DocumentAnalyzerView")
 		("pack_msg", "parambuf.packAnalyzerDocumentAnalyzerView($name);")
 	;
+	typesystem.defineType( "analyzer::DocumentAnalyzerMapView")
+		("pack_msg", "parambuf.packAnalyzerDocumentAnalyzerMapView($name);")
+	;
 	typesystem.defineType( "analyzer::QueryElementView")
 		("pack_msg", "parambuf.packAnalyzerQueryElementView($name);")
 	;

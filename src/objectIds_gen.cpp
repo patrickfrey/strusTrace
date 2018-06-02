@@ -30,6 +30,7 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"DatabaseTransaction",
 		"DocumentAnalyzerContext",
 		"DocumentAnalyzer",
+		"DocumentAnalyzerMap",
 		"DocumentClassDetector",
 		"DocumentTermIterator",
 		"ForwardIterator",
@@ -115,7 +116,7 @@ const char* AggregatorFunctionConst::methodName( MethodId mid)
 
 const char* AnalyzerObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getTextProcessor", "createDocumentAnalyzer", "createQueryAnalyzer"};
+	static const char* ar[] = { "Destructor", "getTextProcessor", "createDocumentAnalyzer", "createQueryAnalyzer", "createDocumentAnalyzerMap", "createDocumentClassDetector", "createContentStatistics"};
 	return ar[mid];
 }
 
@@ -182,6 +183,12 @@ const char* DocumentAnalyzerContextConst::methodName( MethodId mid)
 const char* DocumentAnalyzerConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "defineSubContent", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexFeatureFromPatternMatch", "addForwardIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "defineAttributeFromPatternMatch", "analyze", "createContext", "view"};
+	return ar[mid];
+}
+
+const char* DocumentAnalyzerMapConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "addAnalyzer", "analyze", "createContext", "view"};
 	return ar[mid];
 }
 

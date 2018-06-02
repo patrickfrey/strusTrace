@@ -52,6 +52,7 @@
 #include "strus/analyzer/documentClass.hpp"
 #include "strus/analyzer/queryElementView.hpp"
 #include "strus/analyzer/documentAnalyzerView.hpp"
+#include "strus/analyzer/documentAnalyzerMapView.hpp"
 #include "strus/analyzer/contentStatisticsView.hpp"
 #include "strus/analyzer/contentStatisticsItem.hpp"
 #include "strus/analyzer/contentStatisticsResult.hpp"
@@ -163,6 +164,7 @@ public:
 	void packAnalyzerSubDocumentDefinitionView( const analyzer::SubDocumentDefinitionView& val);
 	void packAnalyzerSubContentDefinitionView( const analyzer::SubContentDefinitionView& val);
 	void packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val);
+	void packAnalyzerDocumentAnalyzerMapView( const analyzer::DocumentAnalyzerMapView& val);
 	void packAnalyzerQueryElementView( const analyzer::QueryElementView& val);
 	void packAnalyzerQueryAnalyzerView( const analyzer::QueryAnalyzerView& val);
 	void packAnalyzerContentStatisticsElementView( const analyzer::ContentStatisticsElementView& val);

@@ -28,7 +28,7 @@ enum ClassId
 	ClassId_Database=12,
 	ClassId_DatabaseTransaction=13,
 	ClassId_DocumentAnalyzerContext=14,
-	ClassId_DocumentAnalyzer=15,
+	ClassId_DocumentAnalyzerInstance=15,
 	ClassId_DocumentAnalyzerMap=16,
 	ClassId_DocumentClassDetector=17,
 	ClassId_DocumentTermIterator=18,
@@ -50,7 +50,7 @@ enum ClassId
 	ClassId_PostingIterator=34,
 	ClassId_PostingJoinOperator=35,
 	ClassId_QueryAnalyzerContext=36,
-	ClassId_QueryAnalyzer=37,
+	ClassId_QueryAnalyzerInstance=37,
 	ClassId_QueryEval=38,
 	ClassId_Query=39,
 	ClassId_QueryProcessor=40,
@@ -292,7 +292,7 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class DocumentAnalyzerConst
+class DocumentAnalyzerInstanceConst
 {
 public:
 	enum MethodId
@@ -611,7 +611,7 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class QueryAnalyzerConst
+class QueryAnalyzerInstanceConst
 {
 public:
 	enum MethodId

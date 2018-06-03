@@ -29,7 +29,7 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"Database",
 		"DatabaseTransaction",
 		"DocumentAnalyzerContext",
-		"DocumentAnalyzer",
+		"DocumentAnalyzerInstance",
 		"DocumentAnalyzerMap",
 		"DocumentClassDetector",
 		"DocumentTermIterator",
@@ -51,7 +51,7 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"PostingIterator",
 		"PostingJoinOperator",
 		"QueryAnalyzerContext",
-		"QueryAnalyzer",
+		"QueryAnalyzerInstance",
 		"QueryEval",
 		"Query",
 		"QueryProcessor",
@@ -180,7 +180,7 @@ const char* DocumentAnalyzerContextConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* DocumentAnalyzerConst::methodName( MethodId mid)
+const char* DocumentAnalyzerInstanceConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "defineSubContent", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addSearchIndexFeatureFromPatternMatch", "addForwardIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "defineAttributeFromPatternMatch", "analyze", "createContext", "view"};
 	return ar[mid];
@@ -312,7 +312,7 @@ const char* QueryAnalyzerContextConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* QueryAnalyzerConst::methodName( MethodId mid)
+const char* QueryAnalyzerInstanceConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "addElement", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addElementFromPatternMatch", "declareElementPriority", "createContext", "view"};
 	return ar[mid];

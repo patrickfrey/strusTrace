@@ -209,13 +209,13 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	return p0;
 }
 
-DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
+DocumentAnalyzerInstanceInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 			const SegmenterInterface* p1, 
 			const analyzer::SegmenterOptions& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createDocumentAnalyzer), objid());
-	DocumentAnalyzerInterface* p0 = obj()->createDocumentAnalyzer(p1, p2);
-	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerInterface,DocumentAnalyzerImpl>( p0);
+	DocumentAnalyzerInstanceInterface* p0 = obj()->createDocumentAnalyzer(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerInstanceInterface,DocumentAnalyzerInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -226,7 +226,7 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzer), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p1->objid());
 		parambuf.packAnalyzerSegmenterOptions(p2);
@@ -244,11 +244,11 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	return p0;
 }
 
-QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
+QueryAnalyzerInstanceInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createQueryAnalyzer), objid());
-	QueryAnalyzerInterface* p0 = obj()->createQueryAnalyzer();
-	p0 = traceContext()->createInterfaceImpl<QueryAnalyzerInterface,QueryAnalyzerImpl>( p0);
+	QueryAnalyzerInstanceInterface* p0 = obj()->createQueryAnalyzer();
+	p0 = traceContext()->createInterfaceImpl<QueryAnalyzerInstanceInterface,QueryAnalyzerInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -259,7 +259,7 @@ QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_QueryAnalyzer), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
@@ -1386,20 +1386,20 @@ bool DocumentAnalyzerContextImpl::analyzeNext(
 	return p0;
 }
 
-DocumentAnalyzerImpl::~DocumentAnalyzerImpl()
+DocumentAnalyzerInstanceImpl::~DocumentAnalyzerInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void DocumentAnalyzerImpl::addSearchIndexFeature(
+void DocumentAnalyzerInstanceImpl::addSearchIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
 			const analyzer::FeatureOptions& p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addSearchIndexFeature), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addSearchIndexFeature), objid());
 	obj()->addSearchIndexFeature(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1435,14 +1435,14 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 	}
 }
 
-void DocumentAnalyzerImpl::addForwardIndexFeature(
+void DocumentAnalyzerInstanceImpl::addForwardIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
 			const analyzer::FeatureOptions& p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addForwardIndexFeature), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addForwardIndexFeature), objid());
 	obj()->addForwardIndexFeature(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1478,13 +1478,13 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 	}
 }
 
-void DocumentAnalyzerImpl::defineMetaData(
+void DocumentAnalyzerInstanceImpl::defineMetaData(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineMetaData), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineMetaData), objid());
 	obj()->defineMetaData(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1519,11 +1519,11 @@ void DocumentAnalyzerImpl::defineMetaData(
 	}
 }
 
-void DocumentAnalyzerImpl::defineAggregatedMetaData(
+void DocumentAnalyzerInstanceImpl::defineAggregatedMetaData(
 			const std::string& p1, 
 			AggregatorFunctionInstanceInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAggregatedMetaData), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineAggregatedMetaData), objid());
 	obj()->defineAggregatedMetaData(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1542,13 +1542,13 @@ void DocumentAnalyzerImpl::defineAggregatedMetaData(
 	}
 }
 
-void DocumentAnalyzerImpl::defineAttribute(
+void DocumentAnalyzerInstanceImpl::defineAttribute(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAttribute), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineAttribute), objid());
 	obj()->defineAttribute(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1583,11 +1583,11 @@ void DocumentAnalyzerImpl::defineAttribute(
 	}
 }
 
-void DocumentAnalyzerImpl::defineSubDocument(
+void DocumentAnalyzerInstanceImpl::defineSubDocument(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineSubDocument), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineSubDocument), objid());
 	obj()->defineSubDocument(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1604,11 +1604,11 @@ void DocumentAnalyzerImpl::defineSubDocument(
 	}
 }
 
-void DocumentAnalyzerImpl::defineSubContent(
+void DocumentAnalyzerInstanceImpl::defineSubContent(
 			const std::string& p1, 
 			const analyzer::DocumentClass& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineSubContent), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineSubContent), objid());
 	obj()->defineSubContent(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1625,13 +1625,13 @@ void DocumentAnalyzerImpl::defineSubContent(
 	}
 }
 
-void DocumentAnalyzerImpl::addPatternLexem(
+void DocumentAnalyzerInstanceImpl::addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addPatternLexem), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addPatternLexem), objid());
 	obj()->addPatternLexem(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1666,12 +1666,12 @@ void DocumentAnalyzerImpl::addPatternLexem(
 	}
 }
 
-void DocumentAnalyzerImpl::definePatternMatcherPostProc(
+void DocumentAnalyzerInstanceImpl::definePatternMatcherPostProc(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_definePatternMatcherPostProc), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_definePatternMatcherPostProc), objid());
 	obj()->definePatternMatcherPostProc(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1693,13 +1693,13 @@ void DocumentAnalyzerImpl::definePatternMatcherPostProc(
 	}
 }
 
-void DocumentAnalyzerImpl::definePatternMatcherPreProc(
+void DocumentAnalyzerInstanceImpl::definePatternMatcherPreProc(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
 			const std::vector<std::string>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_definePatternMatcherPreProc), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_definePatternMatcherPreProc), objid());
 	obj()->definePatternMatcherPreProc(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1722,13 +1722,13 @@ void DocumentAnalyzerImpl::definePatternMatcherPreProc(
 	}
 }
 
-void DocumentAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
+void DocumentAnalyzerInstanceImpl::addSearchIndexFeatureFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
 			const analyzer::FeatureOptions& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addSearchIndexFeatureFromPatternMatch), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addSearchIndexFeatureFromPatternMatch), objid());
 	obj()->addSearchIndexFeatureFromPatternMatch(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1761,13 +1761,13 @@ void DocumentAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
 	}
 }
 
-void DocumentAnalyzerImpl::addForwardIndexFeatureFromPatternMatch(
+void DocumentAnalyzerInstanceImpl::addForwardIndexFeatureFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
 			const analyzer::FeatureOptions& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addForwardIndexFeatureFromPatternMatch), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addForwardIndexFeatureFromPatternMatch), objid());
 	obj()->addForwardIndexFeatureFromPatternMatch(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1800,12 +1800,12 @@ void DocumentAnalyzerImpl::addForwardIndexFeatureFromPatternMatch(
 	}
 }
 
-void DocumentAnalyzerImpl::defineMetaDataFromPatternMatch(
+void DocumentAnalyzerInstanceImpl::defineMetaDataFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineMetaDataFromPatternMatch), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineMetaDataFromPatternMatch), objid());
 	obj()->defineMetaDataFromPatternMatch(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1837,12 +1837,12 @@ void DocumentAnalyzerImpl::defineMetaDataFromPatternMatch(
 	}
 }
 
-void DocumentAnalyzerImpl::defineAttributeFromPatternMatch(
+void DocumentAnalyzerInstanceImpl::defineAttributeFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAttributeFromPatternMatch), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineAttributeFromPatternMatch), objid());
 	obj()->defineAttributeFromPatternMatch(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1874,11 +1874,11 @@ void DocumentAnalyzerImpl::defineAttributeFromPatternMatch(
 	}
 }
 
-analyzer::Document DocumentAnalyzerImpl::analyze(
+analyzer::Document DocumentAnalyzerInstanceImpl::analyze(
 			const std::string& p1, 
 			const analyzer::DocumentClass& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_analyze), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_analyze), objid());
 	analyzer::Document p0 = obj()->analyze(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packAnalyzerDocument(p0);
@@ -1896,10 +1896,10 @@ analyzer::Document DocumentAnalyzerImpl::analyze(
 	return p0;
 }
 
-DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
+DocumentAnalyzerContextInterface* DocumentAnalyzerInstanceImpl::createContext(
 			const analyzer::DocumentClass& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_createContext), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_createContext), objid());
 	DocumentAnalyzerContextInterface* p0 = obj()->createContext(p1);
 	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerContextInterface,DocumentAnalyzerContextImpl>( p0);
 	TraceSerializer parambuf;
@@ -1928,9 +1928,9 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 	return p0;
 }
 
-analyzer::DocumentAnalyzerView DocumentAnalyzerImpl::view() const
+analyzer::DocumentAnalyzerView DocumentAnalyzerInstanceImpl::view() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_view), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_view), objid());
 	analyzer::DocumentAnalyzerView p0 = obj()->view();
 	TraceSerializer parambuf;
 	parambuf.packAnalyzerDocumentAnalyzerView(p0);
@@ -1952,13 +1952,13 @@ DocumentAnalyzerMapImpl::~DocumentAnalyzerMapImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-DocumentAnalyzerInterface* DocumentAnalyzerMapImpl::createAnalyzer(
+DocumentAnalyzerInstanceInterface* DocumentAnalyzerMapImpl::createAnalyzer(
 			const std::string& p1, 
 			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_createAnalyzer), objid());
-	DocumentAnalyzerInterface* p0 = obj()->createAnalyzer(p1, p2);
-	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerInterface,DocumentAnalyzerImpl>( p0);
+	DocumentAnalyzerInstanceInterface* p0 = obj()->createAnalyzer(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerInstanceInterface,DocumentAnalyzerInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -1969,7 +1969,7 @@ DocumentAnalyzerInterface* DocumentAnalyzerMapImpl::createAnalyzer(
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzer), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), objbase_p0->objid());
 		parambuf.packString(p1);
 		parambuf.packString(p2);
 	}
@@ -1989,7 +1989,7 @@ DocumentAnalyzerInterface* DocumentAnalyzerMapImpl::createAnalyzer(
 void DocumentAnalyzerMapImpl::addAnalyzer(
 			const std::string& p1, 
 			const std::string& p2, 
-			DocumentAnalyzerInterface* p3)
+			DocumentAnalyzerInstanceInterface* p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_addAnalyzer), objid());
 	obj()->addAnalyzer(p1, p2, p3);
@@ -1998,7 +1998,7 @@ void DocumentAnalyzerMapImpl::addAnalyzer(
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
-	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzer), objbase_p3->objid());
+	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), objbase_p3->objid());
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -3902,19 +3902,19 @@ analyzer::QueryTermExpression QueryAnalyzerContextImpl::analyze()
 	return p0;
 }
 
-QueryAnalyzerImpl::~QueryAnalyzerImpl()
+QueryAnalyzerInstanceImpl::~QueryAnalyzerInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void QueryAnalyzerImpl::addElement(
+void QueryAnalyzerInstanceImpl::addElement(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addElement), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_addElement), objid());
 	obj()->addElement(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -3949,13 +3949,13 @@ void QueryAnalyzerImpl::addElement(
 	}
 }
 
-void QueryAnalyzerImpl::addPatternLexem(
+void QueryAnalyzerInstanceImpl::addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addPatternLexem), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_addPatternLexem), objid());
 	obj()->addPatternLexem(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -3990,12 +3990,12 @@ void QueryAnalyzerImpl::addPatternLexem(
 	}
 }
 
-void QueryAnalyzerImpl::definePatternMatcherPostProc(
+void QueryAnalyzerInstanceImpl::definePatternMatcherPostProc(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_definePatternMatcherPostProc), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_definePatternMatcherPostProc), objid());
 	obj()->definePatternMatcherPostProc(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -4017,13 +4017,13 @@ void QueryAnalyzerImpl::definePatternMatcherPostProc(
 	}
 }
 
-void QueryAnalyzerImpl::definePatternMatcherPreProc(
+void QueryAnalyzerInstanceImpl::definePatternMatcherPreProc(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
 			const std::vector<std::string>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_definePatternMatcherPreProc), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_definePatternMatcherPreProc), objid());
 	obj()->definePatternMatcherPreProc(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -4046,12 +4046,12 @@ void QueryAnalyzerImpl::definePatternMatcherPreProc(
 	}
 }
 
-void QueryAnalyzerImpl::addElementFromPatternMatch(
+void QueryAnalyzerInstanceImpl::addElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addElementFromPatternMatch), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_addElementFromPatternMatch), objid());
 	obj()->addElementFromPatternMatch(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -4083,11 +4083,11 @@ void QueryAnalyzerImpl::addElementFromPatternMatch(
 	}
 }
 
-void QueryAnalyzerImpl::declareElementPriority(
+void QueryAnalyzerInstanceImpl::declareElementPriority(
 			const std::string& p1, 
 			int p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_declareElementPriority), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_declareElementPriority), objid());
 	obj()->declareElementPriority(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -4104,9 +4104,9 @@ void QueryAnalyzerImpl::declareElementPriority(
 	}
 }
 
-QueryAnalyzerContextInterface* QueryAnalyzerImpl::createContext() const
+QueryAnalyzerContextInterface* QueryAnalyzerInstanceImpl::createContext() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_createContext), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_createContext), objid());
 	QueryAnalyzerContextInterface* p0 = obj()->createContext();
 	p0 = traceContext()->createInterfaceImpl<QueryAnalyzerContextInterface,QueryAnalyzerContextImpl>( p0);
 	TraceSerializer parambuf;
@@ -4134,9 +4134,9 @@ QueryAnalyzerContextInterface* QueryAnalyzerImpl::createContext() const
 	return p0;
 }
 
-analyzer::QueryAnalyzerView QueryAnalyzerImpl::view() const
+analyzer::QueryAnalyzerView QueryAnalyzerInstanceImpl::view() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_view), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_view), objid());
 	analyzer::QueryAnalyzerView p0 = obj()->view();
 	TraceSerializer parambuf;
 	parambuf.packAnalyzerQueryAnalyzerView(p0);

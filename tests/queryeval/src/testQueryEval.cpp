@@ -33,8 +33,8 @@
 #include "strus/summarizerFunctionInstanceInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
-#include "strus/documentAnalyzerInterface.hpp"
-#include "strus/queryAnalyzerInterface.hpp"
+#include "strus/documentAnalyzerInstanceInterface.hpp"
+#include "strus/queryAnalyzerInstanceInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
 #include "strus/normalizerFunctionInterface.hpp"
 #include "strus/normalizerFunctionInstanceInterface.hpp"
@@ -192,12 +192,12 @@ struct AnalyzerFunctionDef
 	strus::TokenizerFunctionInstanceInterface* tokenizer;
 };
 
-static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
+static strus::DocumentAnalyzerInstanceInterface* createDocumentAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
 {
 	const strus::TextProcessorInterface* textproc = aob->getTextProcessor();
 	const strus::SegmenterInterface* segmenter = textproc->getSegmenterByName("");
 	if (!segmenter) throw std::runtime_error( "failed to get document segmenter");
-	strus::local_ptr<strus::DocumentAnalyzerInterface> analyzer( aob->createDocumentAnalyzer( segmenter));
+	strus::local_ptr<strus::DocumentAnalyzerInstanceInterface> analyzer( aob->createDocumentAnalyzer( segmenter));
 	if (!analyzer.get()) throw std::runtime_error( "failed to create document analyzer");
 	const char* countfeatname = 0;
 
@@ -240,9 +240,9 @@ static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::An
 	return analyzer.release();
 }
 
-static strus::QueryAnalyzerInterface* createQueryAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
+static strus::QueryAnalyzerInstanceInterface* createQueryAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
 {
-	strus::local_ptr<strus::QueryAnalyzerInterface> analyzer( aob->createQueryAnalyzer());
+	strus::local_ptr<strus::QueryAnalyzerInstanceInterface> analyzer( aob->createQueryAnalyzer());
 	if (!analyzer.get()) throw std::runtime_error( "failed to get create query analyzer");
 	const strus::TextProcessorInterface* textproc = aob->getTextProcessor();
 
@@ -269,7 +269,7 @@ static void insertDocuments(
 	const TestDocument* testdocs)
 {
 	strus::local_ptr<strus::StorageClientInterface> storage( createStorage( sob, storageconfig));
-	strus::local_ptr<strus::DocumentAnalyzerInterface> analyzer( createDocumentAnalyzer( aob, anaconfig));
+	strus::local_ptr<strus::DocumentAnalyzerInstanceInterface> analyzer( createDocumentAnalyzer( aob, anaconfig));
 	if (g_errorhnd->hasError()) throw std::runtime_error( std::string( "create document analyzer failed: ") + g_errorhnd->fetchError());
 
 	strus::local_ptr<strus::StorageTransactionInterface> transaction( storage->createTransaction());
@@ -355,7 +355,7 @@ static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBui
 
 static strus::analyzer::QueryTermExpression analyzeQuery( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* anaconfig, const char* querystr)
 {
-	strus::local_ptr<strus::QueryAnalyzerInterface> qai( createQueryAnalyzer( aob, anaconfig));
+	strus::local_ptr<strus::QueryAnalyzerInstanceInterface> qai( createQueryAnalyzer( aob, anaconfig));
 	if (!qai.get()) throw std::runtime_error("failed to create query analyzer");
 	strus::local_ptr<strus::QueryAnalyzerContextInterface> qac( qai->createContext());
 	if (!qac.get()) throw std::runtime_error("failed to create query analyzer context");

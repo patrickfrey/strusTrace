@@ -26,7 +26,7 @@
 #include "strus/databaseInterface.hpp"
 #include "strus/databaseTransactionInterface.hpp"
 #include "strus/documentAnalyzerContextInterface.hpp"
-#include "strus/documentAnalyzerInterface.hpp"
+#include "strus/documentAnalyzerInstanceInterface.hpp"
 #include "strus/documentAnalyzerMapInterface.hpp"
 #include "strus/documentClassDetectorInterface.hpp"
 #include "strus/documentTermIteratorInterface.hpp"
@@ -48,7 +48,7 @@
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
-#include "strus/queryAnalyzerInterface.hpp"
+#include "strus/queryAnalyzerInstanceInterface.hpp"
 #include "strus/queryEvalInterface.hpp"
 #include "strus/queryInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"
@@ -157,10 +157,10 @@ public:
 
 	virtual ~AnalyzerObjectBuilderImpl();
 	virtual const TextProcessorInterface* getTextProcessor() const;
-	virtual DocumentAnalyzerInterface* createDocumentAnalyzer(
+	virtual DocumentAnalyzerInstanceInterface* createDocumentAnalyzer(
 			const SegmenterInterface* p1, 
 			const analyzer::SegmenterOptions& p2) const;
-	virtual QueryAnalyzerInterface* createQueryAnalyzer() const;
+	virtual QueryAnalyzerInstanceInterface* createQueryAnalyzer() const;
 	virtual DocumentAnalyzerMapInterface* createDocumentAnalyzerMap() const;
 	virtual DocumentClassDetectorInterface* createDocumentClassDetector() const;
 	virtual ContentStatisticsInterface* createContentStatistics() const;
@@ -395,18 +395,18 @@ public:
 			analyzer::Document& p1);
 };
 
-class DocumentAnalyzerImpl
-		:public TraceObject<DocumentAnalyzerInterface>
-		,public DocumentAnalyzerInterface
-		,public DocumentAnalyzerConst
+class DocumentAnalyzerInstanceImpl
+		:public TraceObject<DocumentAnalyzerInstanceInterface>
+		,public DocumentAnalyzerInstanceInterface
+		,public DocumentAnalyzerInstanceConst
 {
 public:
-	DocumentAnalyzerImpl( DocumentAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<DocumentAnalyzerInterface>(obj_,ctx_){}
-	DocumentAnalyzerImpl( const DocumentAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<DocumentAnalyzerInterface>(obj_,ctx_){}
+	DocumentAnalyzerInstanceImpl( DocumentAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentAnalyzerInstanceInterface>(obj_,ctx_){}
+	DocumentAnalyzerInstanceImpl( const DocumentAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentAnalyzerInstanceInterface>(obj_,ctx_){}
 
-	virtual ~DocumentAnalyzerImpl();
+	virtual ~DocumentAnalyzerInstanceImpl();
 	virtual void addSearchIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -490,13 +490,13 @@ public:
 		:TraceObject<DocumentAnalyzerMapInterface>(obj_,ctx_){}
 
 	virtual ~DocumentAnalyzerMapImpl();
-	virtual DocumentAnalyzerInterface* createAnalyzer(
+	virtual DocumentAnalyzerInstanceInterface* createAnalyzer(
 			const std::string& p1, 
 			const std::string& p2) const;
 	virtual void addAnalyzer(
 			const std::string& p1, 
 			const std::string& p2, 
-			DocumentAnalyzerInterface* p3);
+			DocumentAnalyzerInstanceInterface* p3);
 	virtual analyzer::Document analyze(
 			const std::string& p1, 
 			const analyzer::DocumentClass& p2) const;
@@ -941,18 +941,18 @@ public:
 	virtual analyzer::QueryTermExpression analyze();
 };
 
-class QueryAnalyzerImpl
-		:public TraceObject<QueryAnalyzerInterface>
-		,public QueryAnalyzerInterface
-		,public QueryAnalyzerConst
+class QueryAnalyzerInstanceImpl
+		:public TraceObject<QueryAnalyzerInstanceInterface>
+		,public QueryAnalyzerInstanceInterface
+		,public QueryAnalyzerInstanceConst
 {
 public:
-	QueryAnalyzerImpl( QueryAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
-	QueryAnalyzerImpl( const QueryAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
+	QueryAnalyzerInstanceImpl( QueryAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryAnalyzerInstanceInterface>(obj_,ctx_){}
+	QueryAnalyzerInstanceImpl( const QueryAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryAnalyzerInstanceInterface>(obj_,ctx_){}
 
-	virtual ~QueryAnalyzerImpl();
+	virtual ~QueryAnalyzerInstanceImpl();
 	virtual void addElement(
 			const std::string& p1, 
 			const std::string& p2, 

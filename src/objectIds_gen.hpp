@@ -325,10 +325,11 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_addAnalyzer=1,
-		Method_analyze=2,
-		Method_createContext=3,
-		Method_view=4
+		Method_createAnalyzer=1,
+		Method_addAnalyzer=2,
+		Method_analyze=3,
+		Method_createContext=4,
+		Method_view=5
 	};
 	static const char* methodName( MethodId mid);
 };

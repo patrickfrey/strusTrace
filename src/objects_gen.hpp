@@ -490,6 +490,9 @@ public:
 		:TraceObject<DocumentAnalyzerMapInterface>(obj_,ctx_){}
 
 	virtual ~DocumentAnalyzerMapImpl();
+	virtual DocumentAnalyzerInterface* createAnalyzer(
+			const std::string& p1, 
+			const std::string& p2) const;
 	virtual void addAnalyzer(
 			const std::string& p1, 
 			const std::string& p2, 

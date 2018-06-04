@@ -2011,6 +2011,37 @@ void DocumentAnalyzerMapImpl::addAnalyzer(
 	}
 }
 
+const DocumentAnalyzerInstanceInterface* DocumentAnalyzerMapImpl::getAnalyzer(
+			const analyzer::DocumentClass& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_getAnalyzer), objid());
+	const DocumentAnalyzerInstanceInterface* p0 = obj()->getAnalyzer(p1);
+	p0 = traceContext()->createInterfaceImpl_const<DocumentAnalyzerInstanceInterface,DocumentAnalyzerInstanceImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getAnalyzer");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), objbase_p0->objid());
+		parambuf.packAnalyzerDocumentClass(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 analyzer::Document DocumentAnalyzerMapImpl::analyze(
 			const std::string& p1, 
 			const analyzer::DocumentClass& p2) const

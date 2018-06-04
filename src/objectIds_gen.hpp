@@ -327,9 +327,10 @@ public:
 		Method_Destructor=0,
 		Method_createAnalyzer=1,
 		Method_addAnalyzer=2,
-		Method_analyze=3,
-		Method_createContext=4,
-		Method_view=5
+		Method_getAnalyzer=3,
+		Method_analyze=4,
+		Method_createContext=5,
+		Method_view=6
 	};
 	static const char* methodName( MethodId mid);
 };

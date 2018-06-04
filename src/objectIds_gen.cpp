@@ -188,7 +188,7 @@ const char* DocumentAnalyzerInstanceConst::methodName( MethodId mid)
 
 const char* DocumentAnalyzerMapConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createAnalyzer", "addAnalyzer", "analyze", "createContext", "view"};
+	static const char* ar[] = { "Destructor", "createAnalyzer", "addAnalyzer", "getAnalyzer", "analyze", "createContext", "view"};
 	return ar[mid];
 }
 

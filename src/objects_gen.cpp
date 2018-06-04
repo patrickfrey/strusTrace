@@ -2012,10 +2012,11 @@ void DocumentAnalyzerMapImpl::addAnalyzer(
 }
 
 const DocumentAnalyzerInstanceInterface* DocumentAnalyzerMapImpl::getAnalyzer(
-			const analyzer::DocumentClass& p1) const
+			const std::string& p1, 
+			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_getAnalyzer), objid());
-	const DocumentAnalyzerInstanceInterface* p0 = obj()->getAnalyzer(p1);
+	const DocumentAnalyzerInstanceInterface* p0 = obj()->getAnalyzer(p1, p2);
 	p0 = traceContext()->createInterfaceImpl_const<DocumentAnalyzerInstanceInterface,DocumentAnalyzerInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -2028,7 +2029,8 @@ const DocumentAnalyzerInstanceInterface* DocumentAnalyzerMapImpl::getAnalyzer(
 	{
 		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), objbase_p0->objid());
-		parambuf.packAnalyzerDocumentClass(p1);
+		parambuf.packString(p1);
+		parambuf.packString(p2);
 	}
 	if (parambuf.hasError())
 	{

@@ -498,7 +498,8 @@ public:
 			const std::string& p2, 
 			DocumentAnalyzerInstanceInterface* p3);
 	virtual const DocumentAnalyzerInstanceInterface* getAnalyzer(
-			const analyzer::DocumentClass& p1) const;
+			const std::string& p1, 
+			const std::string& p2) const;
 	virtual analyzer::Document analyze(
 			const std::string& p1, 
 			const analyzer::DocumentClass& p2) const;

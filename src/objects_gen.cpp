@@ -4116,12 +4116,12 @@ void QueryAnalyzerInstanceImpl::addElementFromPatternMatch(
 	}
 }
 
-void QueryAnalyzerInstanceImpl::declareElementPriority(
+void QueryAnalyzerInstanceImpl::declareTermPriority(
 			const std::string& p1, 
 			int p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_declareElementPriority), objid());
-	obj()->declareElementPriority(p1, p2);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_declareTermPriority), objid());
+	obj()->declareTermPriority(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4135,6 +4135,42 @@ void QueryAnalyzerInstanceImpl::declareElementPriority(
 	{
 		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
 	}
+}
+
+std::vector<std::string> QueryAnalyzerInstanceImpl::queryTermTypes() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_queryTermTypes), objid());
+	std::vector<std::string> p0 = obj()->queryTermTypes();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<std::string> QueryAnalyzerInstanceImpl::queryFieldTypes() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_queryFieldTypes), objid());
+	std::vector<std::string> p0 = obj()->queryFieldTypes();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
 }
 
 QueryAnalyzerContextInterface* QueryAnalyzerInstanceImpl::createContext() const

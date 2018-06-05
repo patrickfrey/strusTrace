@@ -979,9 +979,11 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
-	virtual void declareElementPriority(
+	virtual void declareTermPriority(
 			const std::string& p1, 
 			int p2);
+	virtual std::vector<std::string> queryTermTypes() const;
+	virtual std::vector<std::string> queryFieldTypes() const;
 	virtual QueryAnalyzerContextInterface* createContext() const;
 	virtual analyzer::QueryAnalyzerView view() const;
 };

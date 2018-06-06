@@ -568,11 +568,12 @@ public:
 	virtual ~FileLocatorImpl();
 	virtual void addResourcePath(
 			const std::string& p1);
-	virtual std::string getResourcePath(
+	virtual std::string getResourceFilePath(
 			const std::string& p1) const;
 	virtual void defineWorkDir(
 			const std::string& p1);
 	virtual std::string getWorkDir() const;
+	virtual std::vector<std::string> getResourcePaths() const;
 };
 
 class ForwardIteratorImpl
@@ -1736,7 +1737,7 @@ public:
 		:TraceObject<TextProcessorInterface>(obj_,ctx_){}
 
 	virtual ~TextProcessorImpl();
-	virtual std::string getResourcePath(
+	virtual std::string getResourceFilePath(
 			const std::string& p1) const;
 	virtual const SegmenterInterface* getSegmenterByName(
 			const std::string& p1) const;

@@ -2282,11 +2282,11 @@ void FileLocatorImpl::addResourcePath(
 	}
 }
 
-std::string FileLocatorImpl::getResourcePath(
+std::string FileLocatorImpl::getResourceFilePath(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getResourcePath), objid());
-	std::string p0 = obj()->getResourcePath(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getResourceFilePath), objid());
+	std::string p0 = obj()->getResourceFilePath(p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	parambuf.packString(p1);
@@ -2327,6 +2327,24 @@ std::string FileLocatorImpl::getWorkDir() const
 	std::string p0 = obj()->getWorkDir();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<std::string> FileLocatorImpl::getResourcePaths() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getResourcePaths), objid());
+	std::vector<std::string> p0 = obj()->getResourcePaths();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -8260,11 +8278,11 @@ TextProcessorImpl::~TextProcessorImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-std::string TextProcessorImpl::getResourcePath(
+std::string TextProcessorImpl::getResourceFilePath(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getResourcePath), objid());
-	std::string p0 = obj()->getResourcePath(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getResourceFilePath), objid());
+	std::string p0 = obj()->getResourceFilePath(p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	parambuf.packString(p1);

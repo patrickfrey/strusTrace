@@ -33,6 +33,7 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"DocumentAnalyzerMap",
 		"DocumentClassDetector",
 		"DocumentTermIterator",
+		"FileLocator",
 		"ForwardIterator",
 		"InvAclIterator",
 		"MetaDataReader",
@@ -201,6 +202,12 @@ const char* DocumentClassDetectorConst::methodName( MethodId mid)
 const char* DocumentTermIteratorConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "skipDoc", "nextTerm", "termDocumentFrequency", "termValue"};
+	return ar[mid];
+}
+
+const char* FileLocatorConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "defineWorkDir", "getWorkDir"};
 	return ar[mid];
 }
 
@@ -470,7 +477,7 @@ const char* SummarizerFunctionConst::methodName( MethodId mid)
 
 const char* TextProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addResourcePath", "getResourcePath", "getSegmenterByName", "getSegmenterByMimeType", "getSegmenterOptions", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "getPatternTermFeeder", "detectDocumentClass", "defineDocumentClassDetector", "defineSegmenter", "defineSegmenterOptions", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
+	static const char* ar[] = { "Destructor", "getResourcePath", "getSegmenterByName", "getSegmenterByMimeType", "getSegmenterOptions", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "getPatternTermFeeder", "detectDocumentClass", "defineDocumentClassDetector", "defineSegmenter", "defineSegmenterOptions", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
 	return ar[mid];
 }
 

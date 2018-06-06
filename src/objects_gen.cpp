@@ -2257,6 +2257,88 @@ std::string DocumentTermIteratorImpl::termValue(
 	return p0;
 }
 
+FileLocatorImpl::~FileLocatorImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+void FileLocatorImpl::addResourcePath(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_addResourcePath), objid());
+	obj()->addResourcePath(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+std::string FileLocatorImpl::getResourcePath(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getResourcePath), objid());
+	std::string p0 = obj()->getResourcePath(p1);
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+void FileLocatorImpl::defineWorkDir(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_defineWorkDir), objid());
+	obj()->defineWorkDir(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+std::string FileLocatorImpl::getWorkDir() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getWorkDir), objid());
+	std::string p0 = obj()->getWorkDir();
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 ForwardIteratorImpl::~ForwardIteratorImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ForwardIterator), ForwardIteratorConst::methodName( Method_Destructor), objid());
@@ -8176,25 +8258,6 @@ TextProcessorImpl::~TextProcessorImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-}
-
-void TextProcessorImpl::addResourcePath(
-			const std::string& p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_addResourcePath), objid());
-	obj()->addResourcePath(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
 }
 
 std::string TextProcessorImpl::getResourcePath(

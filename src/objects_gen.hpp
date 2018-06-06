@@ -30,6 +30,7 @@
 #include "strus/documentAnalyzerMapInterface.hpp"
 #include "strus/documentClassDetectorInterface.hpp"
 #include "strus/documentTermIteratorInterface.hpp"
+#include "strus/fileLocatorInterface.hpp"
 #include "strus/forwardIteratorInterface.hpp"
 #include "strus/invAclIteratorInterface.hpp"
 #include "strus/metaDataReaderInterface.hpp"
@@ -551,6 +552,27 @@ public:
 			const Index& p1) const;
 	virtual std::string termValue(
 			const Index& p1) const;
+};
+
+class FileLocatorImpl
+		:public TraceObject<FileLocatorInterface>
+		,public FileLocatorInterface
+		,public FileLocatorConst
+{
+public:
+	FileLocatorImpl( FileLocatorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<FileLocatorInterface>(obj_,ctx_){}
+	FileLocatorImpl( const FileLocatorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<FileLocatorInterface>(obj_,ctx_){}
+
+	virtual ~FileLocatorImpl();
+	virtual void addResourcePath(
+			const std::string& p1);
+	virtual std::string getResourcePath(
+			const std::string& p1) const;
+	virtual void defineWorkDir(
+			const std::string& p1);
+	virtual std::string getWorkDir() const;
 };
 
 class ForwardIteratorImpl
@@ -1714,8 +1736,6 @@ public:
 		:TraceObject<TextProcessorInterface>(obj_,ctx_){}
 
 	virtual ~TextProcessorImpl();
-	virtual void addResourcePath(
-			const std::string& p1);
 	virtual std::string getResourcePath(
 			const std::string& p1) const;
 	virtual const SegmenterInterface* getSegmenterByName(

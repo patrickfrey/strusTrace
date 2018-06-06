@@ -14,6 +14,8 @@
 #include "strus/lib/traceproc_std.hpp"
 #include "strus/lib/traceobj.hpp"
 #include "strus/lib/error.hpp"
+#include "strus/lib/filelocator.hpp"
+#include "strus/fileLocatorInterface.hpp"
 #include "strus/base/fileio.hpp"
 #include "strus/base/local_ptr.hpp"
 #include "strus/errorBufferInterface.hpp"
@@ -58,6 +60,7 @@
 #include <memory>
 
 static strus::ErrorBufferInterface* g_errorhnd = 0;
+static strus::FileLocatorInterface* g_fileLocator = 0;
 
 static strus::StorageClientInterface* createStorage( const strus::StorageObjectBuilderInterface* sob, const char* storageconfig)
 {
@@ -585,6 +588,9 @@ int main( int argc, const char* argv[])
 	}
 	try
 	{
+		g_fileLocator = strus::createFileLocator_std( g_errorhnd);
+		if (!g_fileLocator) throw std::runtime_error("failed to create file locator");
+
 		{//begin scope trace processor:
 
 		strus::local_ptr<strus::TraceObjectBuilderInterface> traceObjectBuilder_breakpoint;
@@ -656,7 +662,7 @@ int main( int argc, const char* argv[])
 		}
 
 		strus::local_ptr<strus::AnalyzerObjectBuilderInterface>
-			aob( strus::createAnalyzerObjectBuilder_default( g_errorhnd));
+			aob( strus::createAnalyzerObjectBuilder_default( g_fileLocator, g_errorhnd));
 		strus::local_ptr<strus::StorageObjectBuilderInterface>
 			sob( strus::createStorageObjectBuilder_default( "", g_errorhnd));
 

@@ -4407,6 +4407,24 @@ void QueryEvalImpl::addExclusionFeature(
 	}
 }
 
+std::vector<std::string> QueryEvalImpl::getWeightingFeatureSets() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_getWeightingFeatureSets), objid());
+	std::vector<std::string> p0 = obj()->getWeightingFeatureSets();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 std::vector<std::string> QueryEvalImpl::getSelectionFeatureSets() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_getSelectionFeatureSets), objid());

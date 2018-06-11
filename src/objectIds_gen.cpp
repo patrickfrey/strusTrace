@@ -327,7 +327,7 @@ const char* QueryAnalyzerInstanceConst::methodName( MethodId mid)
 
 const char* QueryEvalConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addTerm", "addSelectionFeature", "addRestrictionFeature", "addExclusionFeature", "getSelectionFeatureSets", "getRestrictionFeatureSets", "getExclusionFeatureSets", "addSummarizerFunction", "addWeightingFunction", "defineWeightingFormula", "createQuery"};
+	static const char* ar[] = { "Destructor", "addTerm", "addSelectionFeature", "addRestrictionFeature", "addExclusionFeature", "getWeightingFeatureSets", "getSelectionFeatureSets", "getRestrictionFeatureSets", "getExclusionFeatureSets", "addSummarizerFunction", "addWeightingFunction", "defineWeightingFormula", "createQuery"};
 	return ar[mid];
 }
 

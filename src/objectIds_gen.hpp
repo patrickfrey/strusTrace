@@ -658,13 +658,14 @@ public:
 		Method_addSelectionFeature=2,
 		Method_addRestrictionFeature=3,
 		Method_addExclusionFeature=4,
-		Method_getSelectionFeatureSets=5,
-		Method_getRestrictionFeatureSets=6,
-		Method_getExclusionFeatureSets=7,
-		Method_addSummarizerFunction=8,
-		Method_addWeightingFunction=9,
-		Method_defineWeightingFormula=10,
-		Method_createQuery=11
+		Method_getWeightingFeatureSets=5,
+		Method_getSelectionFeatureSets=6,
+		Method_getRestrictionFeatureSets=7,
+		Method_getExclusionFeatureSets=8,
+		Method_addSummarizerFunction=9,
+		Method_addWeightingFunction=10,
+		Method_defineWeightingFormula=11,
+		Method_createQuery=12
 	};
 	static const char* methodName( MethodId mid);
 };

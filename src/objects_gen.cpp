@@ -2302,11 +2302,11 @@ std::string FileLocatorImpl::getResourceFilePath(
 	return p0;
 }
 
-void FileLocatorImpl::defineWorkDir(
+void FileLocatorImpl::defineWorkingDirectory(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_defineWorkDir), objid());
-	obj()->defineWorkDir(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_defineWorkingDirectory), objid());
+	obj()->defineWorkingDirectory(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -2321,10 +2321,10 @@ void FileLocatorImpl::defineWorkDir(
 	}
 }
 
-std::string FileLocatorImpl::getWorkDir() const
+std::string FileLocatorImpl::getWorkingDirectory() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getWorkDir), objid());
-	std::string p0 = obj()->getWorkDir();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getWorkingDirectory), objid());
+	std::string p0 = obj()->getWorkingDirectory();
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	if (parambuf.hasError())

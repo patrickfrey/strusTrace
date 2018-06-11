@@ -207,7 +207,7 @@ const char* DocumentTermIteratorConst::methodName( MethodId mid)
 
 const char* FileLocatorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addResourcePath", "getResourceFilePath", "defineWorkDir", "getWorkDir", "getResourcePaths"};
+	static const char* ar[] = { "Destructor", "addResourcePath", "getResourceFilePath", "defineWorkingDirectory", "getWorkingDirectory", "getResourcePaths"};
 	return ar[mid];
 }
 

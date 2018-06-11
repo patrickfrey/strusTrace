@@ -570,9 +570,9 @@ public:
 			const std::string& p1);
 	virtual std::string getResourceFilePath(
 			const std::string& p1) const;
-	virtual void defineWorkDir(
+	virtual void defineWorkingDirectory(
 			const std::string& p1);
-	virtual std::string getWorkDir() const;
+	virtual std::string getWorkingDirectory() const;
 	virtual std::vector<std::string> getResourcePaths() const;
 };
 

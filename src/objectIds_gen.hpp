@@ -370,8 +370,8 @@ public:
 		Method_Destructor=0,
 		Method_addResourcePath=1,
 		Method_getResourceFilePath=2,
-		Method_defineWorkDir=3,
-		Method_getWorkDir=4,
+		Method_defineWorkingDirectory=3,
+		Method_getWorkingDirectory=4,
 		Method_getResourcePaths=5
 	};
 	static const char* methodName( MethodId mid);

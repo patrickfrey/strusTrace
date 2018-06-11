@@ -4856,6 +4856,26 @@ QueryProcessorImpl::~QueryProcessorImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
+std::string QueryProcessorImpl::getResourceFilePath(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getResourceFilePath), objid());
+	std::string p0 = obj()->getResourceFilePath(p1);
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 void QueryProcessorImpl::definePostingJoinOperator(
 			const std::string& p1, 
 			PostingJoinOperatorInterface* p2)

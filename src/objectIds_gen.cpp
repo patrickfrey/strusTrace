@@ -339,7 +339,7 @@ const char* QueryConst::methodName( MethodId mid)
 
 const char* QueryProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "definePostingJoinOperator", "getPostingJoinOperator", "defineWeightingFunction", "getWeightingFunction", "defineSummarizerFunction", "getSummarizerFunction", "getFunctionList", "defineScalarFunctionParser", "getScalarFunctionParser"};
+	static const char* ar[] = { "Destructor", "getResourceFilePath", "definePostingJoinOperator", "getPostingJoinOperator", "defineWeightingFunction", "getWeightingFunction", "defineSummarizerFunction", "getSummarizerFunction", "getFunctionList", "defineScalarFunctionParser", "getScalarFunctionParser"};
 	return ar[mid];
 }
 

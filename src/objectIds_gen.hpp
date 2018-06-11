@@ -698,15 +698,16 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_definePostingJoinOperator=1,
-		Method_getPostingJoinOperator=2,
-		Method_defineWeightingFunction=3,
-		Method_getWeightingFunction=4,
-		Method_defineSummarizerFunction=5,
-		Method_getSummarizerFunction=6,
-		Method_getFunctionList=7,
-		Method_defineScalarFunctionParser=8,
-		Method_getScalarFunctionParser=9
+		Method_getResourceFilePath=1,
+		Method_definePostingJoinOperator=2,
+		Method_getPostingJoinOperator=3,
+		Method_defineWeightingFunction=4,
+		Method_getWeightingFunction=5,
+		Method_defineSummarizerFunction=6,
+		Method_getSummarizerFunction=7,
+		Method_getFunctionList=8,
+		Method_defineScalarFunctionParser=9,
+		Method_getScalarFunctionParser=10
 	};
 	static const char* methodName( MethodId mid);
 };

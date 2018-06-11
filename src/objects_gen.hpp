@@ -1118,6 +1118,8 @@ public:
 		:TraceObject<QueryProcessorInterface>(obj_,ctx_){}
 
 	virtual ~QueryProcessorImpl();
+	virtual std::string getResourceFilePath(
+			const std::string& p1) const;
 	virtual void definePostingJoinOperator(
 			const std::string& p1, 
 			PostingJoinOperatorInterface* p2);

@@ -658,10 +658,13 @@ public:
 		Method_addSelectionFeature=2,
 		Method_addRestrictionFeature=3,
 		Method_addExclusionFeature=4,
-		Method_addSummarizerFunction=5,
-		Method_addWeightingFunction=6,
-		Method_defineWeightingFormula=7,
-		Method_createQuery=8
+		Method_getSelectionFeatureSets=5,
+		Method_getRestrictionFeatureSets=6,
+		Method_getExclusionFeatureSets=7,
+		Method_addSummarizerFunction=8,
+		Method_addWeightingFunction=9,
+		Method_defineWeightingFormula=10,
+		Method_createQuery=11
 	};
 	static const char* methodName( MethodId mid);
 };

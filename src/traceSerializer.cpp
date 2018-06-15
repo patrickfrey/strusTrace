@@ -674,6 +674,19 @@ void TraceSerializer::packAnalyzerDocumentTermArray( const std::vector<analyzer:
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packAnalyzerPosition( const analyzer::Position& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "seg"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.seg()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "ofs"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.ofs()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packAnalyzerToken( const analyzer::Token& val)
 {
 	try{
@@ -681,12 +694,8 @@ void TraceSerializer::packAnalyzerToken( const analyzer::Token& val)
 		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.ordpos()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "origseg"));
-		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.origseg()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "origpos"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.origpos()));
+		packAnalyzerPosition( val.origpos());
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "origsize"));
@@ -756,6 +765,7 @@ void TraceSerializer::packAnalyzerPatternLexemVector( const std::vector<analyzer
 
 void TraceSerializer::packAnalyzerPositionBind( const analyzer::PositionBind& val)
 {
+	try{
 	const char* valstr = "";
 	switch (val)
 	{
@@ -767,10 +777,12 @@ void TraceSerializer::packAnalyzerPositionBind( const analyzer::PositionBind& va
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "firstpos"));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeString, valstr));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
 }
 
 void TraceSerializer::packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val)
 {
+	try{
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.name().c_str()));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
@@ -782,62 +794,45 @@ void TraceSerializer::packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val)
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, ai->value().c_str()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerPatternMatcherResultItem( const analyzer::PatternMatcherResultItem& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.name()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "ordpos"));
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.ordpos()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "ordend"));
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.ordend()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "origpos"));
+		packAnalyzerPosition( val.origpos());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "origend"));
+		packAnalyzerPosition( val.origend());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
 }
 
 void TraceSerializer::packAnalyzerPatternMatcherResult( const analyzer::PatternMatcherResult& val)
 {
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.name()));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value()));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "start_ordpos"));
-	m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.start_ordpos()));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "end_ordpos"));
-	m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.end_ordpos()));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "startseg"));
-	m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.start_origseg()));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "startpos"));
-	m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.start_origpos()));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "endseg"));
-	m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.end_origseg()));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "endpos"));
-	m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.end_origpos()));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-
+	try{
+	packAnalyzerPatternMatcherResultItem( val);
 	std::vector<analyzer::PatternMatcherResult::Item>::const_iterator ti = val.items().begin(), te = val.items().end();
 	for (; ti != te; ++ti)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "item"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, ti->name()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "start_ordpos"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ti->start_ordpos()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "end_ordpos"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ti->end_ordpos()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "startseg"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ti->start_origseg()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "startpos"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ti->start_origpos()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "endseg"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ti->end_origseg()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "endpos"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ti->end_origpos()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		packAnalyzerPatternMatcherResultItem( *ti);
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
+	}CATCH_ERROR
 }
 
 void TraceSerializer::packAnalyzerPatternMatcherResultVector( const std::vector<analyzer::PatternMatcherResult>& val)

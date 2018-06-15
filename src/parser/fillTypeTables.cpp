@@ -241,6 +241,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const std::vector<analyzer::DocumentTerm>&")
 		("pack_msg", "parambuf.packAnalyzerDocumentTermArray($name);")
 	;
+	typesystem.defineType( "const analyzer::Position&")
+		("pack_msg", "parambuf.packAnalyzerPosition($name);")
+	;
 	typesystem.defineType( "const analyzer::Token&")
 		("pack_msg", "parambuf.packAnalyzerToken($name);")
 	;

@@ -9017,23 +9017,19 @@ TokenMarkupContextImpl::~TokenMarkupContextImpl()
 }
 
 void TokenMarkupContextImpl::putMarkup(
-			const SegmenterPosition& p1, 
-			std::size_t p2, 
-			const SegmenterPosition& p3, 
-			std::size_t p4, 
-			const analyzer::TokenMarkup& p5, 
-			unsigned int p6)
+			const analyzer::Position& p1, 
+			const analyzer::Position& p2, 
+			const analyzer::TokenMarkup& p3, 
+			unsigned int p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenMarkupContext), TokenMarkupContextConst::methodName( Method_putMarkup), objid());
-	obj()->putMarkup(p1, p2, p3, p4, p5, p6);
+	obj()->putMarkup(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packGlobalCounter(p1);
-	parambuf.packSize( p2);
-	parambuf.packGlobalCounter(p3);
-	parambuf.packSize( p4);
-	parambuf.packAnalyzerTokenMarkup(p5);
-	parambuf.packUInt(p6);
+	parambuf.packAnalyzerPosition(p1);
+	parambuf.packAnalyzerPosition(p2);
+	parambuf.packAnalyzerTokenMarkup(p3);
+	parambuf.packUInt(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

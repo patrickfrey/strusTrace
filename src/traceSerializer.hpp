@@ -134,6 +134,7 @@ public:
 	void packAnalyzerDocumentMetaData( const analyzer::DocumentMetaData& val);
 	void packAnalyzerDocumentTerm( const analyzer::DocumentTerm& val);
 	void packAnalyzerDocumentTermArray( const std::vector<analyzer::DocumentTerm>& val);
+	void packAnalyzerPosition( const analyzer::Position& val);
 	void packAnalyzerToken( const analyzer::Token& val);
 	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
 	void packAnalyzerQueryGroupBy( const QueryAnalyzerContextInterface::GroupBy& groupBy);
@@ -141,6 +142,7 @@ public:
 	void packAnalyzerPatternLexemVector( const std::vector<analyzer::PatternLexem>& val);
 	void packAnalyzerPositionBind( const analyzer::PositionBind& posbind);
 	void packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val);
+	void packAnalyzerPatternMatcherResultItem( const analyzer::PatternMatcherResultItem& val);
 	void packAnalyzerPatternMatcherResult( const analyzer::PatternMatcherResult& val);
 	void packAnalyzerPatternMatcherResultVector( const std::vector<analyzer::PatternMatcherResult>& val);
 	void packAnalyzerPatternMatcherStatistics( const analyzer::PatternMatcherStatistics& val);

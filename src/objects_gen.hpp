@@ -1842,12 +1842,10 @@ public:
 
 	virtual ~TokenMarkupContextImpl();
 	virtual void putMarkup(
-			const SegmenterPosition& p1, 
-			std::size_t p2, 
-			const SegmenterPosition& p3, 
-			std::size_t p4, 
-			const analyzer::TokenMarkup& p5, 
-			unsigned int p6);
+			const analyzer::Position& p1, 
+			const analyzer::Position& p2, 
+			const analyzer::TokenMarkup& p3, 
+			unsigned int p4);
 	virtual std::string markupDocument(
 			const SegmenterInstanceInterface* p1, 
 			const analyzer::DocumentClass& p2, 

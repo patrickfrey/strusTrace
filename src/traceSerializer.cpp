@@ -1133,6 +1133,9 @@ void TraceSerializer::packAnalyzerFeatureView( const analyzer::FeatureView& val)
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "priority"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.priority()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "opt"));
 		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.options().opt()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
@@ -1278,6 +1281,9 @@ void TraceSerializer::packAnalyzerQueryElementView( const analyzer::QueryElement
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "priority"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.priority()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }
@@ -1302,18 +1308,6 @@ void TraceSerializer::packAnalyzerQueryAnalyzerView( const analyzer::QueryAnalyz
 		{
 			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, eidx));
 			packAnalyzerQueryElementView( *ei);
-			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		}
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "priorities"));
-		std::map<std::string,int>::const_iterator pi = val.priorities().begin(), pe = val.priorities().end();
-		for (; pi != pe; ++pi)
-		{
-			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeString, pi->first.c_str(), pi->first.size()));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "priority"));
-			m_elembuf.push_back( TraceElement( (TraceElement::IntType)pi->second));
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));

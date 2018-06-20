@@ -413,13 +413,15 @@ public:
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const analyzer::FeatureOptions& p5);
+			int p5, 
+			const analyzer::FeatureOptions& p6);
 	virtual void addForwardIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const analyzer::FeatureOptions& p5);
+			int p5, 
+			const analyzer::FeatureOptions& p6);
 	virtual void defineMetaData(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -457,12 +459,14 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
-			const analyzer::FeatureOptions& p4);
+			int p4, 
+			const analyzer::FeatureOptions& p5);
 	virtual void addForwardIndexFeatureFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
-			const analyzer::FeatureOptions& p4);
+			int p4, 
+			const analyzer::FeatureOptions& p5);
 	virtual void defineMetaDataFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -983,7 +987,8 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5);
 	virtual void addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -1001,10 +1006,8 @@ public:
 	virtual void addElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
-	virtual void declareTermPriority(
-			const std::string& p1, 
-			int p2);
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
+			int p4);
 	virtual std::vector<std::string> queryTermTypes() const;
 	virtual std::vector<std::string> queryFieldTypes() const;
 	virtual QueryAnalyzerContextInterface* createContext() const;

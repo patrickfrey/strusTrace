@@ -213,11 +213,11 @@ static strus::DocumentAnalyzerInstanceInterface* createDocumentAnalyzer( const s
 			case SearchIndex:
 				if (!countfeatname) countfeatname = config[ai].type;
 				analyzer->addSearchIndexFeature(
-					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, strus::analyzer::FeatureOptions());
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, 0/*priority*/, strus::analyzer::FeatureOptions());
 				break;
 			case ForwardIndex:
 				analyzer->addForwardIndexFeature(
-					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, strus::analyzer::FeatureOptions());
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, 0/*priority*/, strus::analyzer::FeatureOptions());
 				break;
 			case MetaData:
 				analyzer->defineMetaData(
@@ -254,7 +254,7 @@ static strus::QueryAnalyzerInstanceInterface* createQueryAnalyzer( const strus::
 	if (!config[ai].type) throw std::runtime_error( "no search index feature defined in analyzer configuration");
 	
 	AnalyzerFunctionDef anafundef( textproc, config[ai].normalizer, config[ai].tokenizer);
-	analyzer->addElement( config[ai].type, "querystring", anafundef.tokenizer, anafundef.normalizers);
+	analyzer->addElement( config[ai].type, "querystring", anafundef.tokenizer, anafundef.normalizers, 0/*priority*/);
 	return analyzer.release();
 }
 

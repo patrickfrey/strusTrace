@@ -321,7 +321,7 @@ const char* QueryAnalyzerContextConst::methodName( MethodId mid)
 
 const char* QueryAnalyzerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addElement", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addElementFromPatternMatch", "declareTermPriority", "queryTermTypes", "queryFieldTypes", "createContext", "view"};
+	static const char* ar[] = { "Destructor", "addElement", "addPatternLexem", "definePatternMatcherPostProc", "definePatternMatcherPreProc", "addElementFromPatternMatch", "queryTermTypes", "queryFieldTypes", "createContext", "view"};
 	return ar[mid];
 }
 

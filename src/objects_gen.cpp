@@ -1397,10 +1397,11 @@ void DocumentAnalyzerInstanceImpl::addSearchIndexFeature(
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const analyzer::FeatureOptions& p5)
+			int p5, 
+			const analyzer::FeatureOptions& p6)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addSearchIndexFeature), objid());
-	obj()->addSearchIndexFeature(p1, p2, p3, p4, p5);
+	obj()->addSearchIndexFeature(p1, p2, p3, p4, p5, p6);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1416,7 +1417,8 @@ void DocumentAnalyzerInstanceImpl::addSearchIndexFeature(
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}}
-	parambuf.packFeatureOptions(p5);
+	parambuf.packInt(p5);
+	parambuf.packFeatureOptions(p6);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -1440,10 +1442,11 @@ void DocumentAnalyzerInstanceImpl::addForwardIndexFeature(
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const analyzer::FeatureOptions& p5)
+			int p5, 
+			const analyzer::FeatureOptions& p6)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addForwardIndexFeature), objid());
-	obj()->addForwardIndexFeature(p1, p2, p3, p4, p5);
+	obj()->addForwardIndexFeature(p1, p2, p3, p4, p5, p6);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1459,7 +1462,8 @@ void DocumentAnalyzerInstanceImpl::addForwardIndexFeature(
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}}
-	parambuf.packFeatureOptions(p5);
+	parambuf.packInt(p5);
+	parambuf.packFeatureOptions(p6);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -1726,10 +1730,11 @@ void DocumentAnalyzerInstanceImpl::addSearchIndexFeatureFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
-			const analyzer::FeatureOptions& p4)
+			int p4, 
+			const analyzer::FeatureOptions& p5)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addSearchIndexFeatureFromPatternMatch), objid());
-	obj()->addSearchIndexFeatureFromPatternMatch(p1, p2, p3, p4);
+	obj()->addSearchIndexFeatureFromPatternMatch(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1743,7 +1748,8 @@ void DocumentAnalyzerInstanceImpl::addSearchIndexFeatureFromPatternMatch(
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}}
-	parambuf.packFeatureOptions(p4);
+	parambuf.packInt(p4);
+	parambuf.packFeatureOptions(p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -1765,10 +1771,11 @@ void DocumentAnalyzerInstanceImpl::addForwardIndexFeatureFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
-			const analyzer::FeatureOptions& p4)
+			int p4, 
+			const analyzer::FeatureOptions& p5)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addForwardIndexFeatureFromPatternMatch), objid());
-	obj()->addForwardIndexFeatureFromPatternMatch(p1, p2, p3, p4);
+	obj()->addForwardIndexFeatureFromPatternMatch(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1782,7 +1789,8 @@ void DocumentAnalyzerInstanceImpl::addForwardIndexFeatureFromPatternMatch(
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}}
-	parambuf.packFeatureOptions(p4);
+	parambuf.packInt(p4);
+	parambuf.packFeatureOptions(p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -4045,10 +4053,11 @@ void QueryAnalyzerInstanceImpl::addElement(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_addElement), objid());
-	obj()->addElement(p1, p2, p3, p4);
+	obj()->addElement(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4064,6 +4073,7 @@ void QueryAnalyzerInstanceImpl::addElement(
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}}
+	parambuf.packInt(p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -4182,10 +4192,11 @@ void QueryAnalyzerInstanceImpl::definePatternMatcherPreProc(
 void QueryAnalyzerInstanceImpl::addElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
+			int p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_addElementFromPatternMatch), objid());
-	obj()->addElementFromPatternMatch(p1, p2, p3);
+	obj()->addElementFromPatternMatch(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4199,6 +4210,7 @@ void QueryAnalyzerInstanceImpl::addElementFromPatternMatch(
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}}
+	parambuf.packInt(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -4208,27 +4220,6 @@ void QueryAnalyzerInstanceImpl::addElementFromPatternMatch(
 		{
 			delete *i_p3;
 		}}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void QueryAnalyzerInstanceImpl::declareTermPriority(
-			const std::string& p1, 
-			int p2)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_declareTermPriority), objid());
-	obj()->declareTermPriority(p1, p2);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	parambuf.packInt(p2);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

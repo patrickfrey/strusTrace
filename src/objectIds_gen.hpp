@@ -639,11 +639,10 @@ public:
 		Method_definePatternMatcherPostProc=3,
 		Method_definePatternMatcherPreProc=4,
 		Method_addElementFromPatternMatch=5,
-		Method_declareTermPriority=6,
-		Method_queryTermTypes=7,
-		Method_queryFieldTypes=8,
-		Method_createContext=9,
-		Method_view=10
+		Method_queryTermTypes=6,
+		Method_queryFieldTypes=7,
+		Method_createContext=8,
+		Method_view=9
 	};
 	static const char* methodName( MethodId mid);
 };

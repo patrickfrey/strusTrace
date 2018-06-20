@@ -447,11 +447,11 @@ public:
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
 			int p5);
-	virtual void definePatternMatcherPostProc(
+	virtual void defineTokenPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3);
-	virtual void definePatternMatcherPreProc(
+	virtual void defineContentPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
@@ -996,11 +996,11 @@ public:
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
 			int p5);
-	virtual void definePatternMatcherPostProc(
+	virtual void defineTokenPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3);
-	virtual void definePatternMatcherPreProc(
+	virtual void defineContentPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 

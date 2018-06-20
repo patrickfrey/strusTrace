@@ -1672,13 +1672,13 @@ void DocumentAnalyzerInstanceImpl::addPatternLexem(
 	}
 }
 
-void DocumentAnalyzerInstanceImpl::definePatternMatcherPostProc(
+void DocumentAnalyzerInstanceImpl::defineTokenPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_definePatternMatcherPostProc), objid());
-	obj()->definePatternMatcherPostProc(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineTokenPatternMatcher), objid());
+	obj()->defineTokenPatternMatcher(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1699,14 +1699,14 @@ void DocumentAnalyzerInstanceImpl::definePatternMatcherPostProc(
 	}
 }
 
-void DocumentAnalyzerInstanceImpl::definePatternMatcherPreProc(
+void DocumentAnalyzerInstanceImpl::defineContentPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
 			const std::vector<std::string>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_definePatternMatcherPreProc), objid());
-	obj()->definePatternMatcherPreProc(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineContentPatternMatcher), objid());
+	obj()->defineContentPatternMatcher(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4137,13 +4137,13 @@ void QueryAnalyzerInstanceImpl::addPatternLexem(
 	}
 }
 
-void QueryAnalyzerInstanceImpl::definePatternMatcherPostProc(
+void QueryAnalyzerInstanceImpl::defineTokenPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_definePatternMatcherPostProc), objid());
-	obj()->definePatternMatcherPostProc(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_defineTokenPatternMatcher), objid());
+	obj()->defineTokenPatternMatcher(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4164,14 +4164,14 @@ void QueryAnalyzerInstanceImpl::definePatternMatcherPostProc(
 	}
 }
 
-void QueryAnalyzerInstanceImpl::definePatternMatcherPreProc(
+void QueryAnalyzerInstanceImpl::defineContentPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
 			const std::vector<std::string>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_definePatternMatcherPreProc), objid());
-	obj()->definePatternMatcherPreProc(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_defineContentPatternMatcher), objid());
+	obj()->defineContentPatternMatcher(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);

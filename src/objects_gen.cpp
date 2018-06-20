@@ -1633,10 +1633,11 @@ void DocumentAnalyzerInstanceImpl::addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addPatternLexem), objid());
-	obj()->addPatternLexem(p1, p2, p3, p4);
+	obj()->addPatternLexem(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1652,6 +1653,7 @@ void DocumentAnalyzerInstanceImpl::addPatternLexem(
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}}
+	parambuf.packInt(p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -4096,10 +4098,11 @@ void QueryAnalyzerInstanceImpl::addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_addPatternLexem), objid());
-	obj()->addPatternLexem(p1, p2, p3, p4);
+	obj()->addPatternLexem(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -4115,6 +4118,7 @@ void QueryAnalyzerInstanceImpl::addPatternLexem(
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
 	}}
+	parambuf.packInt(p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

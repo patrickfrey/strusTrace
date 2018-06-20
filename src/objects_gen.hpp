@@ -445,7 +445,8 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5);
 	virtual void definePatternMatcherPostProc(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
@@ -993,7 +994,8 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5);
 	virtual void definePatternMatcherPostProc(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 

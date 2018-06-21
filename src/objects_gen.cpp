@@ -9331,11 +9331,11 @@ std::vector<Index> VectorStorageClientImpl::featureConcepts(
 	return p0;
 }
 
-std::vector<double> VectorStorageClientImpl::featureVector(
+std::vector<float> VectorStorageClientImpl::featureVector(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureVector), objid());
-	std::vector<double> p0 = obj()->featureVector(p1);
+	std::vector<float> p0 = obj()->featureVector(p1);
 	TraceSerializer parambuf;
 	parambuf.packFloatVector(p0);
 	parambuf.packIndex(p1);
@@ -9392,8 +9392,8 @@ Index VectorStorageClientImpl::featureIndex(
 }
 
 double VectorStorageClientImpl::vectorSimilarity(
-			const std::vector<double>& p1, 
-			const std::vector<double>& p2) const
+			const std::vector<float>& p1, 
+			const std::vector<float>& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_vectorSimilarity), objid());
 	double p0 = obj()->vectorSimilarity(p1, p2);
@@ -9625,7 +9625,7 @@ VectorStorageSearchImpl::~VectorStorageSearchImpl()
 }
 
 std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilar(
-			const std::vector<double>& p1, 
+			const std::vector<float>& p1, 
 			unsigned int p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilar), objid());
@@ -9648,7 +9648,7 @@ std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilar(
 
 std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilarFromSelection(
 			const std::vector<Index>& p1, 
-			const std::vector<double>& p2, 
+			const std::vector<float>& p2, 
 			unsigned int p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilarFromSelection), objid());
@@ -9695,7 +9695,7 @@ VectorStorageTransactionImpl::~VectorStorageTransactionImpl()
 
 void VectorStorageTransactionImpl::addFeature(
 			const std::string& p1, 
-			const std::vector<double>& p2)
+			const std::vector<float>& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_addFeature), objid());
 	obj()->addFeature(p1, p2);

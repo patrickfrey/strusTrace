@@ -71,6 +71,8 @@ struct TraceElement
 	/// \brief Constructor
 	TraceElement( double value_) :m_type(TypeDouble)		{m_value.Double = value_;}
 	/// \brief Constructor
+	TraceElement( float value_) :m_type(TypeDouble)			{m_value.Double = value_;}
+	/// \brief Constructor
 	TraceElement( bool value_) :m_type(TypeBool)			{m_value.Bool = value_;}
 	/// \brief Constructor
 	TraceElement( Type type_, std::size_t index_) :m_type(type_)	{m_value.Index = index_;}

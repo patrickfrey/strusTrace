@@ -1918,15 +1918,15 @@ public:
 	virtual std::vector<Index> featureConcepts(
 			const std::string& p1, 
 			const Index& p2) const;
-	virtual std::vector<double> featureVector(
+	virtual std::vector<float> featureVector(
 			const Index& p1) const;
 	virtual std::string featureName(
 			const Index& p1) const;
 	virtual Index featureIndex(
 			const std::string& p1) const;
 	virtual double vectorSimilarity(
-			const std::vector<double>& p1, 
-			const std::vector<double>& p2) const;
+			const std::vector<float>& p1, 
+			const std::vector<float>& p2) const;
 	virtual unsigned int nofFeatures() const;
 	virtual std::string config() const;
 	virtual void close();
@@ -1989,11 +1989,11 @@ public:
 
 	virtual ~VectorStorageSearchImpl();
 	virtual std::vector<VectorQueryResult> findSimilar(
-			const std::vector<double>& p1, 
+			const std::vector<float>& p1, 
 			unsigned int p2) const;
 	virtual std::vector<VectorQueryResult> findSimilarFromSelection(
 			const std::vector<Index>& p1, 
-			const std::vector<double>& p2, 
+			const std::vector<float>& p2, 
 			unsigned int p3) const;
 	virtual void close();
 };
@@ -2012,7 +2012,7 @@ public:
 	virtual ~VectorStorageTransactionImpl();
 	virtual void addFeature(
 			const std::string& p1, 
-			const std::vector<double>& p2);
+			const std::vector<float>& p2);
 	virtual void defineFeatureConceptRelation(
 			const std::string& p1, 
 			const Index& p2, 

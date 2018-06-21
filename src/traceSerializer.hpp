@@ -98,7 +98,8 @@ public:
 	void packIndexVector( const std::vector<Index>& ar);
 	void packUintVector( const std::vector<unsigned int>& ar);
 	void packIntVector( const std::vector<int>& ar);
-	void packFloatVector( const std::vector<double>& ar);
+	void packDoubleVector( const std::vector<double>& ar);
+	void packFloatVector( const std::vector<float>& ar);
 	void packCharp( const char* buf);
 	void packCharpp( const char** buf);
 	void openIndex( const std::size_t& value);

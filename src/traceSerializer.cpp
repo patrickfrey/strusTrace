@@ -1427,3 +1427,26 @@ void TraceSerializer::packAnalyzerContentStatisticsResult( const analyzer::Conte
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
+void TraceSerializer::packPosTaggerDataElement( const PosTaggerDataInterface::Element& val)
+{
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value().c_str(), val.value().size()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+}
+
+void TraceSerializer::packPosTaggerDataElementVector( const std::vector<PosTaggerDataInterface::Element>& val)
+{
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "stats"));
+	std::vector<PosTaggerDataInterface::Element>::const_iterator ei = val.begin(), ee = val.end();
+	for (std::size_t eidx=0; ei != ee; ++ei,++eidx)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, eidx));
+		packPosTaggerDataElement( *ei);
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+}
+

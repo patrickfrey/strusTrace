@@ -46,6 +46,10 @@
 #include "strus/patternMatcherInterface.hpp"
 #include "strus/patternTermFeederInstanceInterface.hpp"
 #include "strus/patternTermFeederInterface.hpp"
+#include "strus/posTaggerContextInterface.hpp"
+#include "strus/posTaggerDataInterface.hpp"
+#include "strus/posTaggerInstanceInterface.hpp"
+#include "strus/posTaggerInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
@@ -901,6 +905,90 @@ public:
 
 	virtual ~PatternTermFeederImpl();
 	virtual PatternTermFeederInstanceInterface* createInstance() const;
+};
+
+class PosTaggerContextImpl
+		:public TraceObject<PosTaggerContextInterface>
+		,public PosTaggerContextInterface
+		,public PosTaggerContextConst
+{
+public:
+	PosTaggerContextImpl( PosTaggerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerContextInterface>(obj_,ctx_){}
+	PosTaggerContextImpl( const PosTaggerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerContextInterface>(obj_,ctx_){}
+
+	virtual ~PosTaggerContextImpl();
+	virtual std::string markupDocument(
+			int p1, 
+			const analyzer::DocumentClass& p2, 
+			const std::string& p3);
+};
+
+class PosTaggerDataImpl
+		:public TraceObject<PosTaggerDataInterface>
+		,public PosTaggerDataInterface
+		,public PosTaggerDataConst
+{
+public:
+	PosTaggerDataImpl( PosTaggerDataInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerDataInterface>(obj_,ctx_){}
+	PosTaggerDataImpl( const PosTaggerDataInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerDataInterface>(obj_,ctx_){}
+
+	virtual ~PosTaggerDataImpl();
+	virtual void defineTag(
+			const std::string& p1, 
+			const std::string& p2);
+	virtual void insert(
+			int p1, 
+			const std::vector<Element>& p2);
+	virtual void markupSegment(
+			TokenMarkupContextInterface* p1, 
+			int p2, 
+			const SegmenterPosition& p3, 
+			const char* segmentptr, std::size_t p4);
+};
+
+class PosTaggerInstanceImpl
+		:public TraceObject<PosTaggerInstanceInterface>
+		,public PosTaggerInstanceInterface
+		,public PosTaggerInstanceConst
+{
+public:
+	PosTaggerInstanceImpl( PosTaggerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerInstanceInterface>(obj_,ctx_){}
+	PosTaggerInstanceImpl( const PosTaggerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PosTaggerInstanceImpl();
+	virtual void addContentExpression(
+			const std::string& p1);
+	virtual void addPosTaggerInputPunctuation(
+			const std::string& p1, 
+			const std::string& p2);
+	virtual std::string getPosTaggerInput(
+			const analyzer::DocumentClass& p1, 
+			const std::string& p2) const;
+	virtual PosTaggerContextInterface* createContext(
+			const PosTaggerDataInterface* p1) const;
+};
+
+class PosTaggerImpl
+		:public TraceObject<PosTaggerInterface>
+		,public PosTaggerInterface
+		,public PosTaggerConst
+{
+public:
+	PosTaggerImpl( PosTaggerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerInterface>(obj_,ctx_){}
+	PosTaggerImpl( const PosTaggerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerInterface>(obj_,ctx_){}
+
+	virtual ~PosTaggerImpl();
+	virtual PosTaggerInstanceInterface* createInstance(
+			const SegmenterInterface* p1, 
+			const analyzer::SegmenterOptions& p2) const;
 };
 
 class PostingIteratorImpl
@@ -1852,9 +1940,8 @@ public:
 			const analyzer::TokenMarkup& p3, 
 			unsigned int p4);
 	virtual std::string markupDocument(
-			const SegmenterInstanceInterface* p1, 
-			const analyzer::DocumentClass& p2, 
-			const std::string& p3) const;
+			const analyzer::DocumentClass& p1, 
+			const std::string& p2) const;
 };
 
 class TokenMarkupInstanceImpl
@@ -1869,7 +1956,8 @@ public:
 		:TraceObject<TokenMarkupInstanceInterface>(obj_,ctx_){}
 
 	virtual ~TokenMarkupInstanceImpl();
-	virtual TokenMarkupContextInterface* createContext() const;
+	virtual TokenMarkupContextInterface* createContext(
+			const SegmenterInstanceInterface* p1) const;
 	virtual analyzer::FunctionView view() const;
 };
 

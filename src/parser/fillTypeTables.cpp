@@ -343,6 +343,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const BuilderOptions&", "StatisticsProcessor")
 		("pack_msg", "parambuf.packStatisticsProcessorBuilderOptions($name);")
 	;
+	typesystem.defineType( "const std::vector<Element>&", "PosTaggerDataInterface")
+		("pack_msg", "parambuf.packPosTaggerDataElementVector($name);")
+	;
 	typesystem.defineType( "TermStatisticsChange&")
 		("pack_msg", "parambuf.packTermStatisticsChange($name);")
 	;

@@ -56,6 +56,7 @@
 #include "strus/analyzer/contentStatisticsView.hpp"
 #include "strus/analyzer/contentStatisticsItem.hpp"
 #include "strus/analyzer/contentStatisticsResult.hpp"
+#include "strus/posTaggerDataInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include <string>
 #include <vector>
@@ -175,6 +176,8 @@ public:
 	void packAnalyzerContentStatisticsItem( const analyzer::ContentStatisticsItem& val);
 	void packAnalyzerContentStatisticsItemVector( const std::vector<analyzer::ContentStatisticsItem>& val);
 	void packAnalyzerContentStatisticsResult( const analyzer::ContentStatisticsResult& val);
+	void packPosTaggerDataElement( const PosTaggerDataInterface::Element& val);
+	void packPosTaggerDataElementVector( const std::vector<PosTaggerDataInterface::Element>& val);
 
 	bool hasError() const
 	{

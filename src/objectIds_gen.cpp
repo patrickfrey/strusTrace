@@ -49,6 +49,10 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"PatternMatcher",
 		"PatternTermFeederInstance",
 		"PatternTermFeeder",
+		"PosTaggerContext",
+		"PosTaggerData",
+		"PosTaggerInstance",
+		"PosTagger",
 		"PostingIterator",
 		"PostingJoinOperator",
 		"QueryAnalyzerContext",
@@ -296,6 +300,30 @@ const char* PatternTermFeederInstanceConst::methodName( MethodId mid)
 }
 
 const char* PatternTermFeederConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createInstance"};
+	return ar[mid];
+}
+
+const char* PosTaggerContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "markupDocument"};
+	return ar[mid];
+}
+
+const char* PosTaggerDataConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "defineTag", "insert", "markupSegment"};
+	return ar[mid];
+}
+
+const char* PosTaggerInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "addContentExpression", "addPosTaggerInputPunctuation", "getPosTaggerInput", "createContext"};
+	return ar[mid];
+}
+
+const char* PosTaggerConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "createInstance"};
 	return ar[mid];

@@ -1130,16 +1130,19 @@ public:
 		Method_getPatternLexer=8,
 		Method_getPatternMatcher=9,
 		Method_getPatternTermFeeder=10,
-		Method_detectDocumentClass=11,
-		Method_defineDocumentClassDetector=12,
-		Method_defineSegmenter=13,
-		Method_defineSegmenterOptions=14,
-		Method_defineTokenizer=15,
-		Method_defineNormalizer=16,
-		Method_defineAggregator=17,
-		Method_definePatternLexer=18,
-		Method_definePatternMatcher=19,
-		Method_getFunctionList=20
+		Method_createPosTaggerData=11,
+		Method_createPosTagger=12,
+		Method_createTokenMarkupInstance=13,
+		Method_detectDocumentClass=14,
+		Method_defineDocumentClassDetector=15,
+		Method_defineSegmenter=16,
+		Method_defineSegmenterOptions=17,
+		Method_defineTokenizer=18,
+		Method_defineNormalizer=19,
+		Method_defineAggregator=20,
+		Method_definePatternLexer=21,
+		Method_definePatternMatcher=22,
+		Method_getFunctionList=23
 	};
 	static const char* methodName( MethodId mid);
 };

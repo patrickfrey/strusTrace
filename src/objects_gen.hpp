@@ -1856,6 +1856,11 @@ public:
 	virtual const PatternMatcherInterface* getPatternMatcher(
 			const std::string& p1) const;
 	virtual const PatternTermFeederInterface* getPatternTermFeeder() const;
+	virtual PosTaggerDataInterface* createPosTaggerData(
+			const std::string& p1, 
+			const std::vector<std::string>& p2) const;
+	virtual PosTaggerInterface* createPosTagger() const;
+	virtual TokenMarkupInstanceInterface* createTokenMarkupInstance() const;
 	virtual bool detectDocumentClass(
 			analyzer::DocumentClass& p1, 
 			const char* contentBegin, std::size_t p2, 

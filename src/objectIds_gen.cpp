@@ -505,7 +505,7 @@ const char* SummarizerFunctionConst::methodName( MethodId mid)
 
 const char* TextProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getResourceFilePath", "getSegmenterByName", "getSegmenterByMimeType", "getSegmenterOptions", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "getPatternTermFeeder", "detectDocumentClass", "defineDocumentClassDetector", "defineSegmenter", "defineSegmenterOptions", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
+	static const char* ar[] = { "Destructor", "getResourceFilePath", "getSegmenterByName", "getSegmenterByMimeType", "getSegmenterOptions", "getTokenizer", "getNormalizer", "getAggregator", "getPatternLexer", "getPatternMatcher", "getPatternTermFeeder", "createPosTaggerData", "createPosTagger", "createTokenMarkupInstance", "detectDocumentClass", "defineDocumentClassDetector", "defineSegmenter", "defineSegmenterOptions", "defineTokenizer", "defineNormalizer", "defineAggregator", "definePatternLexer", "definePatternMatcher", "getFunctionList"};
 	return ar[mid];
 }
 

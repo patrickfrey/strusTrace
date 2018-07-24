@@ -922,7 +922,7 @@ public:
 	virtual std::string markupDocument(
 			int p1, 
 			const analyzer::DocumentClass& p2, 
-			const std::string& p3);
+			const std::string& p3) const;
 };
 
 class PosTaggerDataImpl
@@ -946,8 +946,9 @@ public:
 	virtual void markupSegment(
 			TokenMarkupContextInterface* p1, 
 			int p2, 
-			const SegmenterPosition& p3, 
-			const char* segmentptr, std::size_t p4);
+			int& p3, 
+			const SegmenterPosition& p4, 
+			const char* segmentptr, std::size_t p5) const;
 };
 
 class PosTaggerInstanceImpl

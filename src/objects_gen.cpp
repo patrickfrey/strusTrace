@@ -3731,7 +3731,7 @@ PosTaggerContextImpl::~PosTaggerContextImpl()
 std::string PosTaggerContextImpl::markupDocument(
 			int p1, 
 			const analyzer::DocumentClass& p2, 
-			const std::string& p3)
+			const std::string& p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerContext), PosTaggerContextConst::methodName( Method_markupDocument), objid());
 	std::string p0 = obj()->markupDocument(p1, p2, p3);
@@ -3803,18 +3803,20 @@ void PosTaggerDataImpl::insert(
 void PosTaggerDataImpl::markupSegment(
 			TokenMarkupContextInterface* p1, 
 			int p2, 
-			const SegmenterPosition& p3, 
-			const char* segmentptr, std::size_t p4)
+			int& p3, 
+			const SegmenterPosition& p4, 
+			const char* segmentptr, std::size_t p5) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerData), PosTaggerDataConst::methodName( Method_markupSegment), objid());
-	obj()->markupSegment(p1, p2, p3, segmentptr, p4);
+	obj()->markupSegment(p1, p2, p3, p4, segmentptr, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
 	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenMarkupContext), objbase_p1->objid());
 	parambuf.packInt(p2);
-	parambuf.packGlobalCounter(p3);
-	parambuf.packBuffer( segmentptr, p4);
+	parambuf.packInt(p3);
+	parambuf.packGlobalCounter(p4);
+	parambuf.packBuffer( segmentptr, p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

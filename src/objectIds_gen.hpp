@@ -146,10 +146,11 @@ public:
 		Method_Destructor=0,
 		Method_getTextProcessor=1,
 		Method_createDocumentAnalyzer=2,
-		Method_createQueryAnalyzer=3,
-		Method_createDocumentAnalyzerMap=4,
-		Method_createDocumentClassDetector=5,
-		Method_createContentStatistics=6
+		Method_createPosTaggerInstance=3,
+		Method_createQueryAnalyzer=4,
+		Method_createDocumentAnalyzerMap=5,
+		Method_createDocumentClassDetector=6,
+		Method_createContentStatistics=7
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -621,7 +622,7 @@ public:
 		Method_addContentExpression=1,
 		Method_addPosTaggerInputPunctuation=2,
 		Method_getPosTaggerInput=3,
-		Method_createContext=4
+		Method_markupDocument=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1131,7 +1132,7 @@ public:
 		Method_getPatternMatcher=9,
 		Method_getPatternTermFeeder=10,
 		Method_createPosTaggerData=11,
-		Method_createPosTagger=12,
+		Method_getPosTagger=12,
 		Method_createTokenMarkupInstance=13,
 		Method_detectDocumentClass=14,
 		Method_defineDocumentClassDetector=15,

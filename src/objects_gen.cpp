@@ -244,6 +244,41 @@ DocumentAnalyzerInstanceInterface* AnalyzerObjectBuilderImpl::createDocumentAnal
 	return p0;
 }
 
+PosTaggerInstanceInterface* AnalyzerObjectBuilderImpl::createPosTaggerInstance(
+			const SegmenterInterface* p1, 
+			const analyzer::SegmenterOptions& p2) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createPosTaggerInstance), objid());
+	PosTaggerInstanceInterface* p0 = obj()->createPosTaggerInstance(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<PosTaggerInstanceInterface,PosTaggerInstanceImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createPosTaggerInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTaggerInstance), objbase_p0->objid());
+		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p1->objid());
+		parambuf.packAnalyzerSegmenterOptions(p2);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 QueryAnalyzerInstanceInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createQueryAnalyzer), objid());
@@ -3897,30 +3932,24 @@ std::string PosTaggerInstanceImpl::getPosTaggerInput(
 	return p0;
 }
 
-PosTaggerContextInterface* PosTaggerInstanceImpl::createContext(
-			const PosTaggerDataInterface* p1) const
+std::string PosTaggerInstanceImpl::markupDocument(
+			const PosTaggerDataInterface* p1, 
+			int p2, 
+			const analyzer::DocumentClass& p3, 
+			const std::string& p4) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerInstance), PosTaggerInstanceConst::methodName( Method_createContext), objid());
-	PosTaggerContextInterface* p0 = obj()->createContext(p1);
-	p0 = traceContext()->createInterfaceImpl<PosTaggerContextInterface,PosTaggerContextImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerInstance), PosTaggerInstanceConst::methodName( Method_markupDocument), objid());
+	std::string p0 = obj()->markupDocument(p1, p2, p3, p4);
 	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		char fmtbuf[ 1024];
-		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContext");
-		traceContext()->errorbuf()->explain( fmtbuf);
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTaggerContext), objbase_p0->objid());
-		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTaggerData), objbase_p1->objid());
-	}
+	parambuf.packString(p0);
+	const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTaggerData), objbase_p1->objid());
+	parambuf.packInt(p2);
+	parambuf.packAnalyzerDocumentClass(p3);
+	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8934,27 +8963,26 @@ PosTaggerDataInterface* TextProcessorImpl::createPosTaggerData(
 	return p0;
 }
 
-PosTaggerInterface* TextProcessorImpl::createPosTagger() const
+const PosTaggerInterface* TextProcessorImpl::getPosTagger() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_createPosTagger), objid());
-	PosTaggerInterface* p0 = obj()->createPosTagger();
-	p0 = traceContext()->createInterfaceImpl<PosTaggerInterface,PosTaggerImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getPosTagger), objid());
+	const PosTaggerInterface* p0 = obj()->getPosTagger();
+	p0 = traceContext()->createInterfaceImpl_const<PosTaggerInterface,PosTaggerImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
 		char fmtbuf[ 1024];
-		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createPosTagger");
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getPosTagger");
 		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTagger), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

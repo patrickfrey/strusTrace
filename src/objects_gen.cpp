@@ -8930,11 +8930,10 @@ const PatternTermFeederInterface* TextProcessorImpl::getPatternTermFeeder() cons
 }
 
 PosTaggerDataInterface* TextProcessorImpl::createPosTaggerData(
-			const std::string& p1, 
-			const std::vector<std::string>& p2) const
+			TokenizerFunctionInstanceInterface* p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_createPosTaggerData), objid());
-	PosTaggerDataInterface* p0 = obj()->createPosTaggerData(p1, p2);
+	PosTaggerDataInterface* p0 = obj()->createPosTaggerData(p1);
 	p0 = traceContext()->createInterfaceImpl<PosTaggerDataInterface,PosTaggerDataImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -8947,13 +8946,14 @@ PosTaggerDataInterface* TextProcessorImpl::createPosTaggerData(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTaggerData), objbase_p0->objid());
-		parambuf.packString(p1);
-		parambuf.packStringVector(p2);
+		TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p1->objid());
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
+		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

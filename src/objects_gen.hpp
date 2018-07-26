@@ -1863,8 +1863,7 @@ public:
 			const std::string& p1) const;
 	virtual const PatternTermFeederInterface* getPatternTermFeeder() const;
 	virtual PosTaggerDataInterface* createPosTaggerData(
-			const std::string& p1, 
-			const std::vector<std::string>& p2) const;
+			TokenizerFunctionInstanceInterface* p1) const;
 	virtual const PosTaggerInterface* getPosTagger() const;
 	virtual TokenMarkupInstanceInterface* createTokenMarkupInstance() const;
 	virtual bool detectDocumentClass(

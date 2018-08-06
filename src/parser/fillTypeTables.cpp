@@ -21,12 +21,18 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const Index&")
 		("pack_msg", "parambuf.packIndex($name);")
 	;
+	typesystem.defineType( "const IndexRange&")
+		("pack_msg", "parambuf.packIndexRange($name);")
+	;
 	typesystem.defineType( "const GlobalCounter&")
 		("test_null", "$name < 0")
 		("pack_msg", "parambuf.packGlobalCounter($name);")
 	;
 	typesystem.defineType( "Index")
 		("pack_msg", "parambuf.packIndex($name);")
+	;
+	typesystem.defineType( "IndexRange")
+		("pack_msg", "parambuf.packIndexRange($name);")
 	;
 	typesystem.defineType( "const analyzer::SegmenterOptions&")
 		("pack_msg", "parambuf.packAnalyzerSegmenterOptions($name);")

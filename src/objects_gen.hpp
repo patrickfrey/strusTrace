@@ -76,6 +76,7 @@
 #include "strus/storageInterface.hpp"
 #include "strus/storageObjectBuilderInterface.hpp"
 #include "strus/storageTransactionInterface.hpp"
+#include "strus/structIteratorInterface.hpp"
 #include "strus/summarizerFunctionContextInterface.hpp"
 #include "strus/summarizerFunctionInstanceInterface.hpp"
 #include "strus/summarizerFunctionInterface.hpp"
@@ -1535,6 +1536,8 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3) const;
+	virtual StructIteratorInterface* createStructIterator(
+			const std::string& p1) const;
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const;
@@ -1560,6 +1563,7 @@ public:
 	virtual bool isForwardIndexTerm(
 			const std::string& p1) const;
 	virtual ValueIteratorInterface* createTermTypeIterator() const;
+	virtual ValueIteratorInterface* createStructTypeIterator() const;
 	virtual ValueIteratorInterface* createTermValueIterator() const;
 	virtual ValueIteratorInterface* createDocIdIterator() const;
 	virtual ValueIteratorInterface* createUserNameIterator() const;
@@ -1599,6 +1603,10 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3);
+	virtual void addSearchIndexStructure(
+			const std::string& p1, 
+			const IndexRange& p2, 
+			const IndexRange& p3);
 	virtual void addForwardIndexTerm(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -1630,11 +1638,17 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3);
+	virtual void addSearchIndexStructure(
+			const std::string& p1, 
+			const IndexRange& p2, 
+			const IndexRange& p3);
 	virtual void addForwardIndexTerm(
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3);
 	virtual void clearSearchIndexTerm(
+			const std::string& p1);
+	virtual void clearSearchIndexStructure(
 			const std::string& p1);
 	virtual void clearForwardIndexTerm(
 			const std::string& p1);
@@ -1756,6 +1770,28 @@ public:
 	virtual bool commit();
 	virtual void rollback();
 	virtual unsigned int nofDocumentsAffected() const;
+};
+
+class StructIteratorImpl
+		:public TraceObject<StructIteratorInterface>
+		,public StructIteratorInterface
+		,public StructIteratorConst
+{
+public:
+	StructIteratorImpl( StructIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StructIteratorInterface>(obj_,ctx_){}
+	StructIteratorImpl( const StructIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StructIteratorInterface>(obj_,ctx_){}
+
+	virtual ~StructIteratorImpl();
+	virtual Index skipDoc(
+			const Index& p1);
+	virtual IndexRange skipPosSource(
+			const Index& p1);
+	virtual IndexRange skipPosSink(
+			const Index& p1);
+	virtual IndexRange source() const;
+	virtual IndexRange sink() const;
 };
 
 class SummarizerFunctionContextImpl

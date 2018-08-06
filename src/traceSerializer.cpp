@@ -111,6 +111,14 @@ void TraceSerializer::packIndex( const Index& value)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packIndexRange( const IndexRange& value)
+{
+	try{
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)value.start()));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)value.end()));
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packGlobalCounter( const GlobalCounter& value)
 {
 	try{

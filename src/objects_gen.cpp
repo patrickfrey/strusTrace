@@ -6634,6 +6634,38 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 	return p0;
 }
 
+StructIteratorInterface* StorageClientImpl::createStructIterator(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createStructIterator), objid());
+	StructIteratorInterface* p0 = obj()->createStructIterator(p1);
+	p0 = traceContext()->createInterfaceImpl<StructIteratorInterface,StructIteratorImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createStructIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StructIterator), objbase_p0->objid());
+		parambuf.packString(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const
@@ -6957,6 +6989,36 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 	{
 		char fmtbuf[ 1024];
 		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createTermTypeIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ValueIterator), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+ValueIteratorInterface* StorageClientImpl::createStructTypeIterator() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createStructTypeIterator), objid());
+	ValueIteratorInterface* p0 = obj()->createStructTypeIterator();
+	p0 = traceContext()->createInterfaceImpl<ValueIteratorInterface,ValueIteratorImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createStructTypeIterator");
 		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
@@ -7402,6 +7464,29 @@ void StorageDocumentImpl::addSearchIndexTerm(
 	}
 }
 
+void StorageDocumentImpl::addSearchIndexStructure(
+			const std::string& p1, 
+			const IndexRange& p2, 
+			const IndexRange& p3)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_addSearchIndexStructure), objid());
+	obj()->addSearchIndexStructure(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packIndexRange(p2);
+	parambuf.packIndexRange(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void StorageDocumentImpl::addForwardIndexTerm(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -7532,6 +7617,29 @@ void StorageDocumentUpdateImpl::addSearchIndexTerm(
 	}
 }
 
+void StorageDocumentUpdateImpl::addSearchIndexStructure(
+			const std::string& p1, 
+			const IndexRange& p2, 
+			const IndexRange& p3)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_addSearchIndexStructure), objid());
+	obj()->addSearchIndexStructure(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packIndexRange(p2);
+	parambuf.packIndexRange(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void StorageDocumentUpdateImpl::addForwardIndexTerm(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -7560,6 +7668,25 @@ void StorageDocumentUpdateImpl::clearSearchIndexTerm(
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearSearchIndexTerm), objid());
 	obj()->clearSearchIndexTerm(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void StorageDocumentUpdateImpl::clearSearchIndexStructure(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearSearchIndexStructure), objid());
+	obj()->clearSearchIndexStructure(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -8331,6 +8458,108 @@ unsigned int StorageTransactionImpl::nofDocumentsAffected() const
 	unsigned int p0 = obj()->nofDocumentsAffected();
 	TraceSerializer parambuf;
 	parambuf.packUInt(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+StructIteratorImpl::~StructIteratorImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+Index StructIteratorImpl::skipDoc(
+			const Index& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_skipDoc), objid());
+	Index p0 = obj()->skipDoc(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndex(p0);
+	parambuf.packIndex(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+IndexRange StructIteratorImpl::skipPosSource(
+			const Index& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_skipPosSource), objid());
+	IndexRange p0 = obj()->skipPosSource(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndexRange(p0);
+	parambuf.packIndex(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+IndexRange StructIteratorImpl::skipPosSink(
+			const Index& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_skipPosSink), objid());
+	IndexRange p0 = obj()->skipPosSink(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndexRange(p0);
+	parambuf.packIndex(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+IndexRange StructIteratorImpl::source() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_source), objid());
+	IndexRange p0 = obj()->source();
+	TraceSerializer parambuf;
+	parambuf.packIndexRange(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+IndexRange StructIteratorImpl::sink() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_sink), objid());
+	IndexRange p0 = obj()->sink();
+	TraceSerializer parambuf;
+	parambuf.packIndexRange(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

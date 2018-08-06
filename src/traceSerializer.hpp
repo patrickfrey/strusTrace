@@ -90,6 +90,7 @@ public:
 	void packUInt64( const uint64_t& value);
 	void packSize( const std::size_t& value);
 	void packIndex( const Index& value);
+	void packIndexRange( const IndexRange& value);
 	void packGlobalCounter( const GlobalCounter& value);
 	void packFloat( const float& value);
 	void packDouble( const double& value);

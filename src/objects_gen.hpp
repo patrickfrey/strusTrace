@@ -17,15 +17,20 @@
 #include "strus/aggregatorFunctionInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/attributeReaderInterface.hpp"
+#include "strus/contentIteratorInterface.hpp"
+#include "strus/contentStatisticsContextInterface.hpp"
+#include "strus/contentStatisticsInterface.hpp"
 #include "strus/databaseBackupCursorInterface.hpp"
 #include "strus/databaseClientInterface.hpp"
 #include "strus/databaseCursorInterface.hpp"
 #include "strus/databaseInterface.hpp"
 #include "strus/databaseTransactionInterface.hpp"
 #include "strus/documentAnalyzerContextInterface.hpp"
-#include "strus/documentAnalyzerInterface.hpp"
+#include "strus/documentAnalyzerInstanceInterface.hpp"
+#include "strus/documentAnalyzerMapInterface.hpp"
 #include "strus/documentClassDetectorInterface.hpp"
 #include "strus/documentTermIteratorInterface.hpp"
+#include "strus/fileLocatorInterface.hpp"
 #include "strus/forwardIteratorInterface.hpp"
 #include "strus/invAclIteratorInterface.hpp"
 #include "strus/metaDataReaderInterface.hpp"
@@ -41,10 +46,14 @@
 #include "strus/patternMatcherInterface.hpp"
 #include "strus/patternTermFeederInstanceInterface.hpp"
 #include "strus/patternTermFeederInterface.hpp"
+#include "strus/posTaggerContextInterface.hpp"
+#include "strus/posTaggerDataInterface.hpp"
+#include "strus/posTaggerInstanceInterface.hpp"
+#include "strus/posTaggerInterface.hpp"
 #include "strus/postingIteratorInterface.hpp"
 #include "strus/postingJoinOperatorInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
-#include "strus/queryAnalyzerInterface.hpp"
+#include "strus/queryAnalyzerInstanceInterface.hpp"
 #include "strus/queryEvalInterface.hpp"
 #include "strus/queryInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"
@@ -67,6 +76,7 @@
 #include "strus/storageInterface.hpp"
 #include "strus/storageObjectBuilderInterface.hpp"
 #include "strus/storageTransactionInterface.hpp"
+#include "strus/structIteratorInterface.hpp"
 #include "strus/summarizerFunctionContextInterface.hpp"
 #include "strus/summarizerFunctionInstanceInterface.hpp"
 #include "strus/summarizerFunctionInterface.hpp"
@@ -120,6 +130,7 @@ public:
 	virtual ~AggregatorFunctionInstanceImpl();
 	virtual NumericVariant evaluate(
 			const analyzer::Document& p1) const;
+	virtual analyzer::FunctionView view() const;
 };
 
 class AggregatorFunctionImpl
@@ -152,10 +163,16 @@ public:
 
 	virtual ~AnalyzerObjectBuilderImpl();
 	virtual const TextProcessorInterface* getTextProcessor() const;
-	virtual DocumentAnalyzerInterface* createDocumentAnalyzer(
+	virtual DocumentAnalyzerInstanceInterface* createDocumentAnalyzer(
 			const SegmenterInterface* p1, 
 			const analyzer::SegmenterOptions& p2) const;
-	virtual QueryAnalyzerInterface* createQueryAnalyzer() const;
+	virtual PosTaggerInstanceInterface* createPosTaggerInstance(
+			const SegmenterInterface* p1, 
+			const analyzer::SegmenterOptions& p2) const;
+	virtual QueryAnalyzerInstanceInterface* createQueryAnalyzer() const;
+	virtual DocumentAnalyzerMapInterface* createDocumentAnalyzerMap() const;
+	virtual DocumentClassDetectorInterface* createDocumentClassDetector() const;
+	virtual ContentStatisticsInterface* createContentStatistics() const;
 };
 
 class AttributeReaderImpl
@@ -177,6 +194,67 @@ public:
 	virtual std::string getValue(
 			const Index& p1) const;
 	virtual std::vector<std::string> getNames() const;
+};
+
+class ContentIteratorImpl
+		:public TraceObject<ContentIteratorInterface>
+		,public ContentIteratorInterface
+		,public ContentIteratorConst
+{
+public:
+	ContentIteratorImpl( ContentIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentIteratorInterface>(obj_,ctx_){}
+	ContentIteratorImpl( const ContentIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentIteratorInterface>(obj_,ctx_){}
+
+	virtual ~ContentIteratorImpl();
+	virtual bool getNext(
+			const char*& expression, std::size_t& p1, 
+			const char*& segment, std::size_t& p2);
+};
+
+class ContentStatisticsContextImpl
+		:public TraceObject<ContentStatisticsContextInterface>
+		,public ContentStatisticsContextInterface
+		,public ContentStatisticsContextConst
+{
+public:
+	ContentStatisticsContextImpl( ContentStatisticsContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentStatisticsContextInterface>(obj_,ctx_){}
+	ContentStatisticsContextImpl( const ContentStatisticsContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentStatisticsContextInterface>(obj_,ctx_){}
+
+	virtual ~ContentStatisticsContextImpl();
+	virtual void putContent(
+			const std::string& p1, 
+			const std::string& p2, 
+			const analyzer::DocumentClass& p3);
+	virtual analyzer::ContentStatisticsResult statistics();
+	virtual int nofDocuments() const;
+};
+
+class ContentStatisticsImpl
+		:public TraceObject<ContentStatisticsInterface>
+		,public ContentStatisticsInterface
+		,public ContentStatisticsConst
+{
+public:
+	ContentStatisticsImpl( ContentStatisticsInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentStatisticsInterface>(obj_,ctx_){}
+	ContentStatisticsImpl( const ContentStatisticsInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<ContentStatisticsInterface>(obj_,ctx_){}
+
+	virtual ~ContentStatisticsImpl();
+	virtual void addLibraryElement(
+			const std::string& p1, 
+			const std::string& p2, 
+			int p3, 
+			int p4, 
+			int p5, 
+			TokenizerFunctionInstanceInterface* p6, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p7);
+	virtual ContentStatisticsContextInterface* createContext() const;
+	virtual analyzer::ContentStatisticsView view() const;
 };
 
 class DatabaseBackupCursorImpl
@@ -238,10 +316,10 @@ public:
 
 	virtual ~DatabaseCursorImpl();
 	virtual Slice seekUpperBound(
-			const char* key, std::size_t p1, 
+			const char* keystr, std::size_t p1, 
 			std::size_t p2);
 	virtual Slice seekUpperBoundRestricted(
-			const char* key, std::size_t p1, 
+			const char* keystr, std::size_t p1, 
 			const char* upkey, std::size_t p2);
 	virtual Slice seekFirst(
 			const char* domainkey, std::size_t p1);
@@ -326,30 +404,32 @@ public:
 			analyzer::Document& p1);
 };
 
-class DocumentAnalyzerImpl
-		:public TraceObject<DocumentAnalyzerInterface>
-		,public DocumentAnalyzerInterface
-		,public DocumentAnalyzerConst
+class DocumentAnalyzerInstanceImpl
+		:public TraceObject<DocumentAnalyzerInstanceInterface>
+		,public DocumentAnalyzerInstanceInterface
+		,public DocumentAnalyzerInstanceConst
 {
 public:
-	DocumentAnalyzerImpl( DocumentAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<DocumentAnalyzerInterface>(obj_,ctx_){}
-	DocumentAnalyzerImpl( const DocumentAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<DocumentAnalyzerInterface>(obj_,ctx_){}
+	DocumentAnalyzerInstanceImpl( DocumentAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentAnalyzerInstanceInterface>(obj_,ctx_){}
+	DocumentAnalyzerInstanceImpl( const DocumentAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentAnalyzerInstanceInterface>(obj_,ctx_){}
 
-	virtual ~DocumentAnalyzerImpl();
+	virtual ~DocumentAnalyzerInstanceImpl();
 	virtual void addSearchIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const analyzer::FeatureOptions& p5);
+			int p5, 
+			const analyzer::FeatureOptions& p6);
 	virtual void addForwardIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const analyzer::FeatureOptions& p5);
+			int p5, 
+			const analyzer::FeatureOptions& p6);
 	virtual void defineMetaData(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -373,12 +453,13 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
-	virtual void definePatternMatcherPostProc(
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5);
+	virtual void defineTokenPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3);
-	virtual void definePatternMatcherPreProc(
+	virtual void defineContentPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
@@ -387,12 +468,14 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
-			const analyzer::FeatureOptions& p4);
+			int p4, 
+			const analyzer::FeatureOptions& p5);
 	virtual void addForwardIndexFeatureFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
-			const analyzer::FeatureOptions& p4);
+			int p4, 
+			const analyzer::FeatureOptions& p5);
 	virtual void defineMetaDataFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -406,6 +489,37 @@ public:
 			const analyzer::DocumentClass& p2) const;
 	virtual DocumentAnalyzerContextInterface* createContext(
 			const analyzer::DocumentClass& p1) const;
+	virtual analyzer::DocumentAnalyzerView view() const;
+};
+
+class DocumentAnalyzerMapImpl
+		:public TraceObject<DocumentAnalyzerMapInterface>
+		,public DocumentAnalyzerMapInterface
+		,public DocumentAnalyzerMapConst
+{
+public:
+	DocumentAnalyzerMapImpl( DocumentAnalyzerMapInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentAnalyzerMapInterface>(obj_,ctx_){}
+	DocumentAnalyzerMapImpl( const DocumentAnalyzerMapInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<DocumentAnalyzerMapInterface>(obj_,ctx_){}
+
+	virtual ~DocumentAnalyzerMapImpl();
+	virtual DocumentAnalyzerInstanceInterface* createAnalyzer(
+			const std::string& p1, 
+			const std::string& p2) const;
+	virtual void addAnalyzer(
+			const std::string& p1, 
+			const std::string& p2, 
+			DocumentAnalyzerInstanceInterface* p3);
+	virtual const DocumentAnalyzerInstanceInterface* getAnalyzer(
+			const std::string& p1, 
+			const std::string& p2) const;
+	virtual analyzer::Document analyze(
+			const std::string& p1, 
+			const analyzer::DocumentClass& p2) const;
+	virtual DocumentAnalyzerContextInterface* createContext(
+			const analyzer::DocumentClass& p1) const;
+	virtual analyzer::DocumentAnalyzerMapView view() const;
 };
 
 class DocumentClassDetectorImpl
@@ -420,9 +534,15 @@ public:
 		:TraceObject<DocumentClassDetectorInterface>(obj_,ctx_){}
 
 	virtual ~DocumentClassDetectorImpl();
+	virtual void defineDocumentSchemeDetector(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<std::string>& p3, 
+			const std::vector<std::string>& p4);
 	virtual bool detect(
 			analyzer::DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2) const;
+			const char* contentBegin, std::size_t p2, 
+			bool p3) const;
 };
 
 class DocumentTermIteratorImpl
@@ -445,6 +565,28 @@ public:
 			const Index& p1) const;
 	virtual std::string termValue(
 			const Index& p1) const;
+};
+
+class FileLocatorImpl
+		:public TraceObject<FileLocatorInterface>
+		,public FileLocatorInterface
+		,public FileLocatorConst
+{
+public:
+	FileLocatorImpl( FileLocatorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<FileLocatorInterface>(obj_,ctx_){}
+	FileLocatorImpl( const FileLocatorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<FileLocatorInterface>(obj_,ctx_){}
+
+	virtual ~FileLocatorImpl();
+	virtual void addResourcePath(
+			const std::string& p1);
+	virtual std::string getResourceFilePath(
+			const std::string& p1) const;
+	virtual void defineWorkingDirectory(
+			const std::string& p1);
+	virtual std::string getWorkingDirectory() const;
+	virtual std::vector<std::string> getResourcePaths() const;
 };
 
 class ForwardIteratorImpl
@@ -559,6 +701,7 @@ public:
 	virtual ~NormalizerFunctionInstanceImpl();
 	virtual std::string normalize(
 			const char* src, std::size_t p1) const;
+	virtual analyzer::FunctionView view() const;
 };
 
 class NormalizerFunctionImpl
@@ -631,6 +774,7 @@ public:
 			unsigned int p1) const;
 	virtual bool compile();
 	virtual PatternLexerContextInterface* createContext() const;
+	virtual analyzer::FunctionView view() const;
 };
 
 class PatternLexerImpl
@@ -664,7 +808,7 @@ public:
 	virtual ~PatternMatcherContextImpl();
 	virtual void putInput(
 			const analyzer::PatternLexem& p1);
-	virtual std::vector<analyzer::PatternMatcherResult> fetchResults() const;
+	virtual std::vector<analyzer::PatternMatcherResult> fetchResults();
 	virtual analyzer::PatternMatcherStatistics getStatistics() const;
 	virtual void reset();
 };
@@ -700,9 +844,11 @@ public:
 			const std::string& p1);
 	virtual void definePattern(
 			const std::string& p1, 
-			bool p2);
+			const std::string& p2, 
+			bool p3);
 	virtual bool compile();
 	virtual PatternMatcherContextInterface* createContext() const;
+	virtual analyzer::FunctionView view() const;
 };
 
 class PatternMatcherImpl
@@ -747,6 +893,7 @@ public:
 	virtual unsigned int getSymbol(
 			unsigned int p1, 
 			const std::string& p2) const;
+	virtual analyzer::FunctionView view() const;
 };
 
 class PatternTermFeederImpl
@@ -762,6 +909,94 @@ public:
 
 	virtual ~PatternTermFeederImpl();
 	virtual PatternTermFeederInstanceInterface* createInstance() const;
+};
+
+class PosTaggerContextImpl
+		:public TraceObject<PosTaggerContextInterface>
+		,public PosTaggerContextInterface
+		,public PosTaggerContextConst
+{
+public:
+	PosTaggerContextImpl( PosTaggerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerContextInterface>(obj_,ctx_){}
+	PosTaggerContextImpl( const PosTaggerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerContextInterface>(obj_,ctx_){}
+
+	virtual ~PosTaggerContextImpl();
+	virtual std::string markupDocument(
+			int p1, 
+			const analyzer::DocumentClass& p2, 
+			const std::string& p3) const;
+};
+
+class PosTaggerDataImpl
+		:public TraceObject<PosTaggerDataInterface>
+		,public PosTaggerDataInterface
+		,public PosTaggerDataConst
+{
+public:
+	PosTaggerDataImpl( PosTaggerDataInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerDataInterface>(obj_,ctx_){}
+	PosTaggerDataImpl( const PosTaggerDataInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerDataInterface>(obj_,ctx_){}
+
+	virtual ~PosTaggerDataImpl();
+	virtual void defineTag(
+			const std::string& p1, 
+			const std::string& p2);
+	virtual void insert(
+			int p1, 
+			const std::vector<Element>& p2);
+	virtual void markupSegment(
+			TokenMarkupContextInterface* p1, 
+			int p2, 
+			int& p3, 
+			const SegmenterPosition& p4, 
+			const char* segmentptr, std::size_t p5) const;
+};
+
+class PosTaggerInstanceImpl
+		:public TraceObject<PosTaggerInstanceInterface>
+		,public PosTaggerInstanceInterface
+		,public PosTaggerInstanceConst
+{
+public:
+	PosTaggerInstanceImpl( PosTaggerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerInstanceInterface>(obj_,ctx_){}
+	PosTaggerInstanceImpl( const PosTaggerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerInstanceInterface>(obj_,ctx_){}
+
+	virtual ~PosTaggerInstanceImpl();
+	virtual void addContentExpression(
+			const std::string& p1);
+	virtual void addPosTaggerInputPunctuation(
+			const std::string& p1, 
+			const std::string& p2);
+	virtual std::string getPosTaggerInput(
+			const analyzer::DocumentClass& p1, 
+			const std::string& p2) const;
+	virtual std::string markupDocument(
+			const PosTaggerDataInterface* p1, 
+			int p2, 
+			const analyzer::DocumentClass& p3, 
+			const std::string& p4) const;
+};
+
+class PosTaggerImpl
+		:public TraceObject<PosTaggerInterface>
+		,public PosTaggerInterface
+		,public PosTaggerConst
+{
+public:
+	PosTaggerImpl( PosTaggerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerInterface>(obj_,ctx_){}
+	PosTaggerImpl( const PosTaggerInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<PosTaggerInterface>(obj_,ctx_){}
+
+	virtual ~PosTaggerImpl();
+	virtual PosTaggerInstanceInterface* createInstance(
+			const SegmenterInterface* p1, 
+			const analyzer::SegmenterOptions& p2) const;
 };
 
 class PostingIteratorImpl
@@ -822,44 +1057,46 @@ public:
 
 	virtual ~QueryAnalyzerContextImpl();
 	virtual void putField(
-			unsigned int p1, 
+			int p1, 
 			const std::string& p2, 
 			const std::string& p3);
 	virtual void groupElements(
-			unsigned int p1, 
-			const std::vector<unsigned int>& p2, 
+			int p1, 
+			const std::vector<int>& p2, 
 			const GroupBy& p3, 
 			bool p4);
 	virtual analyzer::QueryTermExpression analyze();
 };
 
-class QueryAnalyzerImpl
-		:public TraceObject<QueryAnalyzerInterface>
-		,public QueryAnalyzerInterface
-		,public QueryAnalyzerConst
+class QueryAnalyzerInstanceImpl
+		:public TraceObject<QueryAnalyzerInstanceInterface>
+		,public QueryAnalyzerInstanceInterface
+		,public QueryAnalyzerInstanceConst
 {
 public:
-	QueryAnalyzerImpl( QueryAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
-	QueryAnalyzerImpl( const QueryAnalyzerInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<QueryAnalyzerInterface>(obj_,ctx_){}
+	QueryAnalyzerInstanceImpl( QueryAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryAnalyzerInstanceInterface>(obj_,ctx_){}
+	QueryAnalyzerInstanceImpl( const QueryAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<QueryAnalyzerInstanceInterface>(obj_,ctx_){}
 
-	virtual ~QueryAnalyzerImpl();
+	virtual ~QueryAnalyzerInstanceImpl();
 	virtual void addElement(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5);
 	virtual void addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4);
-	virtual void definePatternMatcherPostProc(
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5);
+	virtual void defineTokenPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3);
-	virtual void definePatternMatcherPreProc(
+	virtual void defineContentPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
@@ -867,8 +1104,12 @@ public:
 	virtual void addElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p3);
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
+			int p4);
+	virtual std::vector<std::string> queryTermTypes() const;
+	virtual std::vector<std::string> queryFieldTypes() const;
 	virtual QueryAnalyzerContextInterface* createContext() const;
+	virtual analyzer::QueryAnalyzerView view() const;
 };
 
 class QueryEvalImpl
@@ -893,6 +1134,10 @@ public:
 			const std::string& p1);
 	virtual void addExclusionFeature(
 			const std::string& p1);
+	virtual std::vector<std::string> getWeightingFeatureSets() const;
+	virtual std::vector<std::string> getSelectionFeatureSets() const;
+	virtual std::vector<std::string> getRestrictionFeatureSets() const;
+	virtual std::vector<std::string> getExclusionFeatureSets() const;
 	virtual void addSummarizerFunction(
 			const std::string& p1, 
 			SummarizerFunctionInstanceInterface* p2, 
@@ -978,6 +1223,8 @@ public:
 		:TraceObject<QueryProcessorInterface>(obj_,ctx_){}
 
 	virtual ~QueryProcessorImpl();
+	virtual std::string getResourceFilePath(
+			const std::string& p1) const;
 	virtual void definePostingJoinOperator(
 			const std::string& p1, 
 			PostingJoinOperatorInterface* p2);
@@ -1058,6 +1305,7 @@ public:
 	virtual ScalarFunctionInterface* createFunction(
 			const std::string& p1, 
 			const std::vector<std::string>& p2) const;
+	virtual const char* getDescription() const;
 };
 
 class SegmenterContextImpl
@@ -1105,6 +1353,7 @@ public:
 	virtual SegmenterMarkupContextInterface* createMarkupContext(
 			const analyzer::DocumentClass& p1, 
 			const std::string& p2) const;
+	virtual analyzer::FunctionView view() const;
 };
 
 class SegmenterImpl
@@ -1122,6 +1371,10 @@ public:
 	virtual const char* mimeType() const;
 	virtual SegmenterInstanceInterface* createInstance(
 			const analyzer::SegmenterOptions& p1) const;
+	virtual ContentIteratorInterface* createContentIterator(
+			const char* content, std::size_t p1, 
+			const analyzer::DocumentClass& p2, 
+			const analyzer::SegmenterOptions& p3) const;
 	virtual const char* getDescription() const;
 };
 
@@ -1233,7 +1486,7 @@ public:
 	virtual ~StatisticsViewerImpl();
 	virtual int nofDocumentsInsertedChange();
 	virtual bool nextDfChange(
-			DocumentFrequencyChange& p1);
+			TermStatisticsChange& p1);
 };
 
 class StorageAlterMetaDataTableImpl
@@ -1283,6 +1536,8 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3) const;
+	virtual StructIteratorInterface* createStructIterator(
+			const std::string& p1) const;
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const;
@@ -1308,6 +1563,7 @@ public:
 	virtual bool isForwardIndexTerm(
 			const std::string& p1) const;
 	virtual ValueIteratorInterface* createTermTypeIterator() const;
+	virtual ValueIteratorInterface* createStructTypeIterator() const;
 	virtual ValueIteratorInterface* createTermValueIterator() const;
 	virtual ValueIteratorInterface* createDocIdIterator() const;
 	virtual ValueIteratorInterface* createUserNameIterator() const;
@@ -1347,6 +1603,10 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3);
+	virtual void addSearchIndexStructure(
+			const std::string& p1, 
+			const IndexRange& p2, 
+			const IndexRange& p3);
 	virtual void addForwardIndexTerm(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -1378,11 +1638,17 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3);
+	virtual void addSearchIndexStructure(
+			const std::string& p1, 
+			const IndexRange& p2, 
+			const IndexRange& p3);
 	virtual void addForwardIndexTerm(
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3);
 	virtual void clearSearchIndexTerm(
+			const std::string& p1);
+	virtual void clearSearchIndexStructure(
 			const std::string& p1);
 	virtual void clearForwardIndexTerm(
 			const std::string& p1);
@@ -1506,6 +1772,28 @@ public:
 	virtual unsigned int nofDocumentsAffected() const;
 };
 
+class StructIteratorImpl
+		:public TraceObject<StructIteratorInterface>
+		,public StructIteratorInterface
+		,public StructIteratorConst
+{
+public:
+	StructIteratorImpl( StructIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StructIteratorInterface>(obj_,ctx_){}
+	StructIteratorImpl( const StructIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StructIteratorInterface>(obj_,ctx_){}
+
+	virtual ~StructIteratorImpl();
+	virtual Index skipDoc(
+			const Index& p1);
+	virtual IndexRange skipPosSource(
+			const Index& p1);
+	virtual IndexRange skipPosSink(
+			const Index& p1);
+	virtual IndexRange source() const;
+	virtual IndexRange sink() const;
+};
+
 class SummarizerFunctionContextImpl
 		:public TraceObject<SummarizerFunctionContextInterface>
 		,public SummarizerFunctionContextInterface
@@ -1591,9 +1879,7 @@ public:
 		:TraceObject<TextProcessorInterface>(obj_,ctx_){}
 
 	virtual ~TextProcessorImpl();
-	virtual void addResourcePath(
-			const std::string& p1);
-	virtual std::string getResourcePath(
+	virtual std::string getResourceFilePath(
 			const std::string& p1) const;
 	virtual const SegmenterInterface* getSegmenterByName(
 			const std::string& p1) const;
@@ -1612,9 +1898,14 @@ public:
 	virtual const PatternMatcherInterface* getPatternMatcher(
 			const std::string& p1) const;
 	virtual const PatternTermFeederInterface* getPatternTermFeeder() const;
+	virtual PosTaggerDataInterface* createPosTaggerData(
+			TokenizerFunctionInstanceInterface* p1) const;
+	virtual const PosTaggerInterface* getPosTagger() const;
+	virtual TokenMarkupInstanceInterface* createTokenMarkupInstance() const;
 	virtual bool detectDocumentClass(
 			analyzer::DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2) const;
+			const char* contentBegin, std::size_t p2, 
+			bool p3) const;
 	virtual void defineDocumentClassDetector(
 			DocumentClassDetectorInterface* p1);
 	virtual void defineSegmenter(
@@ -1657,6 +1948,7 @@ public:
 	virtual bool concatBeforeTokenize() const;
 	virtual std::vector<analyzer::Token> tokenize(
 			const char* src, std::size_t p1) const;
+	virtual analyzer::FunctionView view() const;
 };
 
 class TokenizerFunctionImpl
@@ -1690,16 +1982,13 @@ public:
 
 	virtual ~TokenMarkupContextImpl();
 	virtual void putMarkup(
-			const SegmenterPosition& p1, 
-			std::size_t p2, 
-			const SegmenterPosition& p3, 
-			std::size_t p4, 
-			const analyzer::TokenMarkup& p5, 
-			unsigned int p6);
+			const analyzer::Position& p1, 
+			const analyzer::Position& p2, 
+			const analyzer::TokenMarkup& p3, 
+			unsigned int p4);
 	virtual std::string markupDocument(
-			const SegmenterInstanceInterface* p1, 
-			const analyzer::DocumentClass& p2, 
-			const std::string& p3) const;
+			const analyzer::DocumentClass& p1, 
+			const std::string& p2) const;
 };
 
 class TokenMarkupInstanceImpl
@@ -1714,7 +2003,9 @@ public:
 		:TraceObject<TokenMarkupInstanceInterface>(obj_,ctx_){}
 
 	virtual ~TokenMarkupInstanceImpl();
-	virtual TokenMarkupContextInterface* createContext() const;
+	virtual TokenMarkupContextInterface* createContext(
+			const SegmenterInstanceInterface* p1) const;
+	virtual analyzer::FunctionView view() const;
 };
 
 class ValueIteratorImpl
@@ -1730,6 +2021,8 @@ public:
 
 	virtual ~ValueIteratorImpl();
 	virtual void skip(
+			const char* value, std::size_t p1);
+	virtual void skipPrefix(
 			const char* value, std::size_t p1);
 	virtual std::vector<std::string> fetchValues(
 			std::size_t p1);
@@ -1760,15 +2053,15 @@ public:
 	virtual std::vector<Index> featureConcepts(
 			const std::string& p1, 
 			const Index& p2) const;
-	virtual std::vector<double> featureVector(
+	virtual std::vector<float> featureVector(
 			const Index& p1) const;
 	virtual std::string featureName(
 			const Index& p1) const;
 	virtual Index featureIndex(
 			const std::string& p1) const;
 	virtual double vectorSimilarity(
-			const std::vector<double>& p1, 
-			const std::vector<double>& p2) const;
+			const std::vector<float>& p1, 
+			const std::vector<float>& p2) const;
 	virtual unsigned int nofFeatures() const;
 	virtual std::string config() const;
 	virtual void close();
@@ -1830,12 +2123,12 @@ public:
 		:TraceObject<VectorStorageSearchInterface>(obj_,ctx_){}
 
 	virtual ~VectorStorageSearchImpl();
-	virtual std::vector<Result> findSimilar(
-			const std::vector<double>& p1, 
+	virtual std::vector<VectorQueryResult> findSimilar(
+			const std::vector<float>& p1, 
 			unsigned int p2) const;
-	virtual std::vector<Result> findSimilarFromSelection(
+	virtual std::vector<VectorQueryResult> findSimilarFromSelection(
 			const std::vector<Index>& p1, 
-			const std::vector<double>& p2, 
+			const std::vector<float>& p2, 
 			unsigned int p3) const;
 	virtual void close();
 };
@@ -1854,7 +2147,7 @@ public:
 	virtual ~VectorStorageTransactionImpl();
 	virtual void addFeature(
 			const std::string& p1, 
-			const std::vector<double>& p2);
+			const std::vector<float>& p2);
 	virtual void defineFeatureConceptRelation(
 			const std::string& p1, 
 			const Index& p2, 

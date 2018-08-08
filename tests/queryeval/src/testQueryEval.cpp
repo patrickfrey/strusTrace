@@ -14,6 +14,8 @@
 #include "strus/lib/traceproc_std.hpp"
 #include "strus/lib/traceobj.hpp"
 #include "strus/lib/error.hpp"
+#include "strus/lib/filelocator.hpp"
+#include "strus/fileLocatorInterface.hpp"
 #include "strus/base/fileio.hpp"
 #include "strus/base/local_ptr.hpp"
 #include "strus/errorBufferInterface.hpp"
@@ -33,8 +35,8 @@
 #include "strus/summarizerFunctionInstanceInterface.hpp"
 #include "strus/analyzerObjectBuilderInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
-#include "strus/documentAnalyzerInterface.hpp"
-#include "strus/queryAnalyzerInterface.hpp"
+#include "strus/documentAnalyzerInstanceInterface.hpp"
+#include "strus/queryAnalyzerInstanceInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
 #include "strus/normalizerFunctionInterface.hpp"
 #include "strus/normalizerFunctionInstanceInterface.hpp"
@@ -58,6 +60,7 @@
 #include <memory>
 
 static strus::ErrorBufferInterface* g_errorhnd = 0;
+static strus::FileLocatorInterface* g_fileLocator = 0;
 
 static strus::StorageClientInterface* createStorage( const strus::StorageObjectBuilderInterface* sob, const char* storageconfig)
 {
@@ -192,12 +195,12 @@ struct AnalyzerFunctionDef
 	strus::TokenizerFunctionInstanceInterface* tokenizer;
 };
 
-static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
+static strus::DocumentAnalyzerInstanceInterface* createDocumentAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
 {
 	const strus::TextProcessorInterface* textproc = aob->getTextProcessor();
 	const strus::SegmenterInterface* segmenter = textproc->getSegmenterByName("");
 	if (!segmenter) throw std::runtime_error( "failed to get document segmenter");
-	strus::local_ptr<strus::DocumentAnalyzerInterface> analyzer( aob->createDocumentAnalyzer( segmenter));
+	strus::local_ptr<strus::DocumentAnalyzerInstanceInterface> analyzer( aob->createDocumentAnalyzer( segmenter));
 	if (!analyzer.get()) throw std::runtime_error( "failed to create document analyzer");
 	const char* countfeatname = 0;
 
@@ -210,11 +213,11 @@ static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::An
 			case SearchIndex:
 				if (!countfeatname) countfeatname = config[ai].type;
 				analyzer->addSearchIndexFeature(
-					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, strus::analyzer::FeatureOptions());
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, 0/*priority*/, strus::analyzer::FeatureOptions());
 				break;
 			case ForwardIndex:
 				analyzer->addForwardIndexFeature(
-					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, strus::analyzer::FeatureOptions());
+					config[ai].type, config[ai].path, anafundef.tokenizer, anafundef.normalizers, 0/*priority*/, strus::analyzer::FeatureOptions());
 				break;
 			case MetaData:
 				analyzer->defineMetaData(
@@ -240,9 +243,9 @@ static strus::DocumentAnalyzerInterface* createDocumentAnalyzer( const strus::An
 	return analyzer.release();
 }
 
-static strus::QueryAnalyzerInterface* createQueryAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
+static strus::QueryAnalyzerInstanceInterface* createQueryAnalyzer( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* config)
 {
-	strus::local_ptr<strus::QueryAnalyzerInterface> analyzer( aob->createQueryAnalyzer());
+	strus::local_ptr<strus::QueryAnalyzerInstanceInterface> analyzer( aob->createQueryAnalyzer());
 	if (!analyzer.get()) throw std::runtime_error( "failed to get create query analyzer");
 	const strus::TextProcessorInterface* textproc = aob->getTextProcessor();
 
@@ -251,7 +254,7 @@ static strus::QueryAnalyzerInterface* createQueryAnalyzer( const strus::Analyzer
 	if (!config[ai].type) throw std::runtime_error( "no search index feature defined in analyzer configuration");
 	
 	AnalyzerFunctionDef anafundef( textproc, config[ai].normalizer, config[ai].tokenizer);
-	analyzer->addElement( config[ai].type, "querystring", anafundef.tokenizer, anafundef.normalizers);
+	analyzer->addElement( config[ai].type, "querystring", anafundef.tokenizer, anafundef.normalizers, 0/*priority*/);
 	return analyzer.release();
 }
 
@@ -269,7 +272,7 @@ static void insertDocuments(
 	const TestDocument* testdocs)
 {
 	strus::local_ptr<strus::StorageClientInterface> storage( createStorage( sob, storageconfig));
-	strus::local_ptr<strus::DocumentAnalyzerInterface> analyzer( createDocumentAnalyzer( aob, anaconfig));
+	strus::local_ptr<strus::DocumentAnalyzerInstanceInterface> analyzer( createDocumentAnalyzer( aob, anaconfig));
 	if (g_errorhnd->hasError()) throw std::runtime_error( std::string( "create document analyzer failed: ") + g_errorhnd->fetchError());
 
 	strus::local_ptr<strus::StorageTransactionInterface> transaction( storage->createTransaction());
@@ -355,7 +358,7 @@ static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBui
 
 static strus::analyzer::QueryTermExpression analyzeQuery( const strus::AnalyzerObjectBuilderInterface* aob, const DocumentAnalyzerConfig* anaconfig, const char* querystr)
 {
-	strus::local_ptr<strus::QueryAnalyzerInterface> qai( createQueryAnalyzer( aob, anaconfig));
+	strus::local_ptr<strus::QueryAnalyzerInstanceInterface> qai( createQueryAnalyzer( aob, anaconfig));
 	if (!qai.get()) throw std::runtime_error("failed to create query analyzer");
 	strus::local_ptr<strus::QueryAnalyzerContextInterface> qac( qai->createContext());
 	if (!qac.get()) throw std::runtime_error("failed to create query analyzer context");
@@ -577,7 +580,7 @@ int main( int argc, const char* argv[])
 
 	const char* breakpoints = argc>4?argv[4]:(const char*)0;
 
-	g_errorhnd = strus::createErrorBuffer_standard( stderr, 1);
+	g_errorhnd = strus::createErrorBuffer_standard( stderr, 1, NULL/*debug trace interface*/);
 	if (!g_errorhnd)
 	{
 		std::cerr << "error allocating error buffer";
@@ -585,6 +588,9 @@ int main( int argc, const char* argv[])
 	}
 	try
 	{
+		g_fileLocator = strus::createFileLocator_std( g_errorhnd);
+		if (!g_fileLocator) throw std::runtime_error("failed to create file locator");
+
 		{//begin scope trace processor:
 
 		strus::local_ptr<strus::TraceObjectBuilderInterface> traceObjectBuilder_breakpoint;
@@ -656,9 +662,9 @@ int main( int argc, const char* argv[])
 		}
 
 		strus::local_ptr<strus::AnalyzerObjectBuilderInterface>
-			aob( strus::createAnalyzerObjectBuilder_default( g_errorhnd));
+			aob( strus::createAnalyzerObjectBuilder_default( g_fileLocator, g_errorhnd));
 		strus::local_ptr<strus::StorageObjectBuilderInterface>
-			sob( strus::createStorageObjectBuilder_default( g_errorhnd));
+			sob( strus::createStorageObjectBuilder_default( g_fileLocator, g_errorhnd));
 
 		if (traceObjectBuilder_breakpoint.get())
 		{

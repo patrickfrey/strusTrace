@@ -7,7 +7,7 @@ add_subdirectory( parser )
 # SOURCES AND INCLUDES
 # --------------------------------------
 set( source_files_proc
-	internationalization.cpp
+	${CMAKE_CURRENT_BINARY_DIR}/internationalization.cpp
 	logUtils.cpp
 	traceLogger_json.cpp
 	traceLogger_dump.cpp
@@ -25,16 +25,18 @@ set( source_files_obj
 )
 
 include_directories(
-	"${Boost_INCLUDE_DIRS}"
+	${Boost_INCLUDE_DIRS}
 	"${Intl_INCLUDE_DIRS}"
 	"${TRACE_INCLUDE_DIRS}"
 	"${strusbase_INCLUDE_DIRS}"
 	"${strus_INCLUDE_DIRS}"
 	"${strusanalyzer_INCLUDE_DIRS}" 
+	"${CMAKE_CURRENT_BINARY_DIR}"
+	"${MAIN_SOURCE_DIR}"
 )
 
 link_directories(
-	"${Boost_LIBRARY_DIRS}"
+	${Boost_LIBRARY_DIRS}
 	"${strusbase_LIBRARY_DIRS}"
 	"${strus_LIBRARY_DIRS}"
 	"${strusanalyzer_LIBRARY_DIRS}" 
@@ -44,12 +46,15 @@ link_directories(
 # -------------------------------------------
 # STRUS TRACE LIBRARIES
 # -------------------------------------------
+add_cppcheck( strus_traceobj  ${source_files_obj} )
+add_cppcheck( strus_traceproc_std  libstrus_traceproc_std.cpp ${source_files_proc} )
+
 add_library( strus_traceobj SHARED libstrus_traceobj.cpp ${source_files_obj} )
 target_link_libraries( strus_traceobj strus_base ${Boost_LIBRARIES} ${Intl_LIBRARIES} )
 set_target_properties(
     strus_traceobj
     PROPERTIES
-    DEBUG_POSTFIX "_d"
+    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
     SOVERSION "${STRUS_MAJOR_VERSION}.${STRUS_MINOR_VERSION}"
     VERSION ${STRUS_VERSION}
 )
@@ -59,7 +64,7 @@ target_link_libraries( strus_traceproc_std strus_base  ${Boost_LIBRARIES} ${Intl
 set_target_properties(
     strus_traceproc_std
     PROPERTIES
-    DEBUG_POSTFIX "_d"
+    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
     SOVERSION "${STRUS_MAJOR_VERSION}.${STRUS_MINOR_VERSION}"
     VERSION ${STRUS_VERSION}
 )

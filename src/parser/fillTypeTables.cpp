@@ -21,12 +21,18 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const Index&")
 		("pack_msg", "parambuf.packIndex($name);")
 	;
+	typesystem.defineType( "const IndexRange&")
+		("pack_msg", "parambuf.packIndexRange($name);")
+	;
 	typesystem.defineType( "const GlobalCounter&")
 		("test_null", "$name < 0")
 		("pack_msg", "parambuf.packGlobalCounter($name);")
 	;
 	typesystem.defineType( "Index")
 		("pack_msg", "parambuf.packIndex($name);")
+	;
+	typesystem.defineType( "IndexRange")
+		("pack_msg", "parambuf.packIndexRange($name);")
 	;
 	typesystem.defineType( "const analyzer::SegmenterOptions&")
 		("pack_msg", "parambuf.packAnalyzerSegmenterOptions($name);")
@@ -82,9 +88,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "std::vector<Index>")
 		("pack_msg", "parambuf.packIndexVector($name);")
 	;
-	typesystem.defineType( "std::vector<Result>", "VectorStorageSearchInterface")
-		("scopedtype", "std::vector<VectorStorageSearchInterface::Result>")
-		("pack_msg", "parambuf.packVectorStorageSearchResult($name);")
+	typesystem.defineType( "std::vector<VectorQueryResult>")
+		("scopedtype", "std::vector<VectorQueryResult>")
+		("pack_msg", "parambuf.packVectorQueryResult($name);")
 	;
 	typesystem.defineType( "const std::vector<unsigned int>&")
 		("pack_msg", "parambuf.packUintVector($name);")
@@ -92,10 +98,22 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "std::vector<unsigned int>")
 		("pack_msg", "parambuf.packUintVector($name);")
 	;
+	typesystem.defineType( "const std::vector<int>&")
+		("pack_msg", "parambuf.packIntVector($name);")
+	;
+	typesystem.defineType( "std::vector<int>")
+		("pack_msg", "parambuf.packIntVector($name);")
+	;
 	typesystem.defineType( "const std::vector<double>&")
-		("pack_msg", "parambuf.packFloatVector($name);")
+		("pack_msg", "parambuf.packDoubleVector($name);")
 	;
 	typesystem.defineType( "std::vector<double>")
+		("pack_msg", "parambuf.packDoubleVector($name);")
+	;
+	typesystem.defineType( "const std::vector<float>&")
+		("pack_msg", "parambuf.packFloatVector($name);")
+	;
+	typesystem.defineType( "std::vector<float>")
 		("pack_msg", "parambuf.packFloatVector($name);")
 	;
 	typesystem.defineType( "const char*")
@@ -235,6 +253,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const std::vector<analyzer::DocumentTerm>&")
 		("pack_msg", "parambuf.packAnalyzerDocumentTermArray($name);")
 	;
+	typesystem.defineType( "const analyzer::Position&")
+		("pack_msg", "parambuf.packAnalyzerPosition($name);")
+	;
 	typesystem.defineType( "const analyzer::Token&")
 		("pack_msg", "parambuf.packAnalyzerToken($name);")
 	;
@@ -252,6 +273,39 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	;
 	typesystem.defineType( "const analyzer::TokenMarkup&")
 		("pack_msg", "parambuf.packAnalyzerTokenMarkup($name);")
+	;
+	typesystem.defineType( "analyzer::FunctionView")
+		("pack_msg", "parambuf.packAnalyzerFunctionView($name);")
+	;
+	typesystem.defineType( "analyzer::FeatureView")
+		("pack_msg", "parambuf.packAnalyzerFeatureView($name);")
+	;
+	typesystem.defineType( "analyzer::AggregatorView")
+		("pack_msg", "parambuf.packAnalyzerAggregatorView($name);")
+	;
+	typesystem.defineType( "analyzer::SubDocumentDefinitionView")
+		("pack_msg", "parambuf.packAnalyzerSubDocumentDefinitionView($name);")
+	;
+	typesystem.defineType( "analyzer::SubContentDefinitionView")
+		("pack_msg", "parambuf.packAnalyzerSubContentDefinitionView($name);")
+	;
+	typesystem.defineType( "analyzer::DocumentAnalyzerView")
+		("pack_msg", "parambuf.packAnalyzerDocumentAnalyzerView($name);")
+	;
+	typesystem.defineType( "analyzer::DocumentAnalyzerMapView")
+		("pack_msg", "parambuf.packAnalyzerDocumentAnalyzerMapView($name);")
+	;
+	typesystem.defineType( "analyzer::QueryElementView")
+		("pack_msg", "parambuf.packAnalyzerQueryElementView($name);")
+	;
+	typesystem.defineType( "analyzer::QueryAnalyzerView")
+		("pack_msg", "parambuf.packAnalyzerQueryAnalyzerView($name);")
+	;
+	typesystem.defineType( "analyzer::ContentStatisticsElementView")
+		("pack_msg", "parambuf.packAnalyzerContentStatisticsElementView($name);")
+	;
+	typesystem.defineType( "analyzer::ContentStatisticsView")
+		("pack_msg", "parambuf.packAnalyzerContentStatisticsView($name);")
 	;
 	typesystem.defineType( "std::vector<analyzer::PatternMatcherResult>")
 		("pack_msg", "parambuf.packAnalyzerPatternMatcherResultVector($name);")
@@ -295,8 +349,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const BuilderOptions&", "StatisticsProcessor")
 		("pack_msg", "parambuf.packStatisticsProcessorBuilderOptions($name);")
 	;
-	typesystem.defineType( "DocumentFrequencyChange&", "StatisticsViewer")
-		("pack_msg", "parambuf.packStatisticsViewerDocumentFrequencyChange($name);")
+	typesystem.defineType( "const std::vector<Element>&", "PosTaggerDataInterface")
+		("pack_msg", "parambuf.packPosTaggerDataElementVector($name);")
+	;
+	typesystem.defineType( "TermStatisticsChange&")
+		("pack_msg", "parambuf.packTermStatisticsChange($name);")
 	;
 	typesystem.defineType( "const FunctionType&", "QueryProcessor")
 		("pack_msg", "parambuf.packQueryProcessorFunctionType($name);")
@@ -345,11 +402,11 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("objid", "objbase_$name->objid()")
 	;
 	typesystem.defineType( "const std::vector<Reference<$objid~Interface> >&")
-		("pack_msg", "std::vector<Reference<$objid~Interface> >::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tparambuf.openIndex( idx_$name); \n\tconst TraceObjectBase* objbase = dynamic_cast<const TraceObjectBase*>( i_$name->get());\n\tif (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_$objid), objbase->objid());\n\tparambuf.close();\n}")
+		("pack_msg", "{std::vector<Reference<$objid~Interface> >::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tparambuf.openIndex( idx_$name); \n\tconst TraceObjectBase* objbase = dynamic_cast<const TraceObjectBase*>( i_$name->get());\n\tif (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_$objid), objbase->objid());\n\tparambuf.close();\n}}")
 	;
 	typesystem.defineType( "const std::vector<$objid~Interface*>&")
-		("pack_msg", "std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tparambuf.openIndex( idx_$name); \n\tTraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_$name);\n\tif (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_$objid), objbase->objid());\n\tparambuf.close();\n}")
-		("delete", "std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tdelete *i_$name;\n}")
+		("pack_msg", "{std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tparambuf.openIndex( idx_$name); \n\tTraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_$name);\n\tif (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_$objid), objbase->objid());\n\tparambuf.close();\n}}")
+		("delete", "{std::vector<$objid~Interface*>::const_iterator\n\ti_$name = $name.begin(), e_$name = $name.end();\nfor (std::size_t idx_$name=0; i_$name != e_$name; ++i_$name,++idx_$name)\n{\n\tdelete *i_$name;\n}}")
 	;
 	typesystem.defineType( "const char*&")
 		("test_null", "$name == 0")
@@ -360,6 +417,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	;
 	typesystem.defineType( "std::ostream&")
 		("pack_msg", "")
+	;
+	typesystem.defineType( "std::vector<analyzer::ContentStatisticsItem>")
+		("pack_msg", "parambuf.packAnalyzerContentStatisticsItemVector($name);")
+	;
+	typesystem.defineType( "analyzer::ContentStatisticsResult")
+		("pack_msg", "parambuf.packAnalyzerContentStatisticsResult($name);")
 	;
 }
 

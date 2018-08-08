@@ -42,7 +42,7 @@ TraceLogRecordHandle
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		++m_logcnt;
 		if (m_className.empty() && m_methodName.empty()) return m_logcnt;
@@ -103,7 +103,7 @@ void TraceLogger_count::logMethodTermination(
 		const TraceLogRecordHandle& loghnd,
 		const std::vector<TraceElement>&)
 {
-	utils::ScopedLock lock( m_mutex);
+	strus::scoped_lock lock( m_mutex);
 
 	GroupMap::iterator gi = m_currentGroupMap.find( loghnd);
 	if (gi != m_currentGroupMap.end())
@@ -129,7 +129,7 @@ struct FileRAII
 
 bool TraceLogger_count::close()
 {
-	utils::ScopedLock lock( m_mutex);
+	strus::scoped_lock lock( m_mutex);
 
 	FileRAII output;
 	if (m_filename == "-" || m_filename == "stdout")

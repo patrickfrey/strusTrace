@@ -11,7 +11,7 @@
 #define _STRUS_TRACE_LOGGER_COUNT_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/traceElement.hpp"
-#include "utils.hpp"
+#include "strus/base/thread.hpp"
 #include <string>
 #include <vector>
 #include <map>
@@ -59,7 +59,7 @@ public:
 
 private:
 	ErrorBufferInterface* m_errorhnd;			///< error buffer interface
-	utils::Mutex m_mutex;					///< mutex for critical sections
+	strus::mutex m_mutex;					///< mutex for critical sections
 	std::string m_filename;					///< file to write output to
 	std::string m_className_groupBy;			///< class name to group results by
 	std::string m_methodName_groupBy;			///< method name to group results by

@@ -53,8 +53,6 @@ DartConfiguration.tcl
 Testing/
 tests/cmake_install.cmake.user
 cmake/build_rules.cmake.user
-include/strus/versionTrace.hpp
-src/internationalization.cpp
 dist/obs/deploy_to_obs.sh
 dist/archlinux/PKGBUILD
 dist/obs/strustrace.dsc
@@ -62,7 +60,11 @@ dist/obs/strustrace-Debian_7.0.dsc
 dist/obs/strustrace-xUbuntu_12.04.dsc
 dist/redhat/strustrace.spec
 
-# Suggested build directory
+# Suggested build directories
 build
+build_clang
+
+# deploy to obs tar:
+strustrace-*.tar.gz
 
 

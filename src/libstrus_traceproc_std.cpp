@@ -75,7 +75,7 @@ static TraceTimeCounter parseTimeCounter( char const* si, const char* se)
 	}
 	if (si != se || rt == 0)
 	{
-		throw strus::runtime_error( "%s", _TXT("illegal breakpoint index in configuration string"));
+		throw std::runtime_error( _TXT("illegal breakpoint index in configuration string"));
 	}
 	return rt;
 }

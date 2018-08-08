@@ -11,7 +11,7 @@
 #define _STRUS_TRACE_LOGGER_DUMP_IMPLEMENTATION_HPP_INCLUDED
 #include "strus/traceLoggerInterface.hpp"
 #include "strus/traceElement.hpp"
-#include "utils.hpp"
+#include "strus/base/thread.hpp"
 #include <string>
 #include <cstdlib>
 
@@ -45,7 +45,7 @@ public:
 
 private:
 	ErrorBufferInterface* m_errorhnd;	///< error buffer interface
-	utils::Mutex m_mutex;			///< mutex for critical sections
+	strus::mutex m_mutex;			///< mutex for critical sections
 	FILE* m_output;				///< file to write output to
 	std::string m_indentstr;		///< current indentiation string
 	TraceLogRecordHandle m_logcnt;		///< counter for log handles

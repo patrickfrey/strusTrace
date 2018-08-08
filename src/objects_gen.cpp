@@ -29,7 +29,7 @@ void AclReaderImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -46,7 +46,7 @@ std::vector<std::string> AclReaderImpl::getReadAccessList() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -70,7 +70,9 @@ NumericVariant AggregatorFunctionInstanceImpl::evaluate(
 	TraceSerializer parambuf;
 	if (!p0.defined())
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "evaluate", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "evaluate");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -79,7 +81,25 @@ NumericVariant AggregatorFunctionInstanceImpl::evaluate(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::FunctionView AggregatorFunctionInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AggregatorFunctionInstance), AggregatorFunctionInstanceConst::methodName( Method_view), objid());
+	analyzer::FunctionView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerFunctionView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -104,7 +124,9 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -114,7 +136,7 @@ AggregatorFunctionInstanceInterface* AggregatorFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -132,7 +154,9 @@ const char* AggregatorFunctionImpl::getDescription() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getDescription", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -140,7 +164,7 @@ const char* AggregatorFunctionImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -164,7 +188,9 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getTextProcessor", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getTextProcessor");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -173,7 +199,7 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -183,29 +209,31 @@ const TextProcessorInterface* AnalyzerObjectBuilderImpl::getTextProcessor() cons
 	return p0;
 }
 
-DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
+DocumentAnalyzerInstanceInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 			const SegmenterInterface* p1, 
 			const analyzer::SegmenterOptions& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createDocumentAnalyzer), objid());
-	DocumentAnalyzerInterface* p0 = obj()->createDocumentAnalyzer(p1, p2);
-	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerInterface,DocumentAnalyzerImpl>( p0);
+	DocumentAnalyzerInstanceInterface* p0 = obj()->createDocumentAnalyzer(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerInstanceInterface,DocumentAnalyzerInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDocumentAnalyzer", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDocumentAnalyzer");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzer), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p1->objid());
 		parambuf.packAnalyzerSegmenterOptions(p2);
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -216,24 +244,151 @@ DocumentAnalyzerInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzer(
 	return p0;
 }
 
-QueryAnalyzerInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
+PosTaggerInstanceInterface* AnalyzerObjectBuilderImpl::createPosTaggerInstance(
+			const SegmenterInterface* p1, 
+			const analyzer::SegmenterOptions& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createQueryAnalyzer), objid());
-	QueryAnalyzerInterface* p0 = obj()->createQueryAnalyzer();
-	p0 = traceContext()->createInterfaceImpl<QueryAnalyzerInterface,QueryAnalyzerImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createPosTaggerInstance), objid());
+	PosTaggerInstanceInterface* p0 = obj()->createPosTaggerInstance(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<PosTaggerInstanceInterface,PosTaggerInstanceImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createQueryAnalyzer", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createPosTaggerInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_QueryAnalyzer), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTaggerInstance), objbase_p0->objid());
+		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p1->objid());
+		parambuf.packAnalyzerSegmenterOptions(p2);
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+QueryAnalyzerInstanceInterface* AnalyzerObjectBuilderImpl::createQueryAnalyzer() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createQueryAnalyzer), objid());
+	QueryAnalyzerInstanceInterface* p0 = obj()->createQueryAnalyzer();
+	p0 = traceContext()->createInterfaceImpl<QueryAnalyzerInstanceInterface,QueryAnalyzerInstanceImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createQueryAnalyzer");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+DocumentAnalyzerMapInterface* AnalyzerObjectBuilderImpl::createDocumentAnalyzerMap() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createDocumentAnalyzerMap), objid());
+	DocumentAnalyzerMapInterface* p0 = obj()->createDocumentAnalyzerMap();
+	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerMapInterface,DocumentAnalyzerMapImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDocumentAnalyzerMap");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+DocumentClassDetectorInterface* AnalyzerObjectBuilderImpl::createDocumentClassDetector() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createDocumentClassDetector), objid());
+	DocumentClassDetectorInterface* p0 = obj()->createDocumentClassDetector();
+	p0 = traceContext()->createInterfaceImpl<DocumentClassDetectorInterface,DocumentClassDetectorImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDocumentClassDetector");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentClassDetector), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+ContentStatisticsInterface* AnalyzerObjectBuilderImpl::createContentStatistics() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AnalyzerObjectBuilder), AnalyzerObjectBuilderConst::methodName( Method_createContentStatistics), objid());
+	ContentStatisticsInterface* p0 = obj()->createContentStatistics();
+	p0 = traceContext()->createInterfaceImpl<ContentStatisticsInterface,ContentStatisticsImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContentStatistics");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ContentStatistics), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -260,7 +415,7 @@ Index AttributeReaderImpl::elementHandle(
 	parambuf.packCharp(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -280,7 +435,7 @@ void AttributeReaderImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -299,7 +454,7 @@ std::string AttributeReaderImpl::getValue(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -317,7 +472,201 @@ std::vector<std::string> AttributeReaderImpl::getNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+ContentIteratorImpl::~ContentIteratorImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentIterator), ContentIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+bool ContentIteratorImpl::getNext(
+			const char*& expression, std::size_t& p1, 
+			const char*& segment, std::size_t& p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentIterator), ContentIteratorConst::methodName( Method_getNext), objid());
+	bool p0 = obj()->getNext(expression, p1, segment, p2);
+	TraceSerializer parambuf;
+	parambuf.packBool(p0);
+	parambuf.packBuffer( expression, p1);
+	parambuf.packBuffer( segment, p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+ContentStatisticsContextImpl::~ContentStatisticsContextImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatisticsContext), ContentStatisticsContextConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+void ContentStatisticsContextImpl::putContent(
+			const std::string& p1, 
+			const std::string& p2, 
+			const analyzer::DocumentClass& p3)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatisticsContext), ContentStatisticsContextConst::methodName( Method_putContent), objid());
+	obj()->putContent(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	parambuf.packAnalyzerDocumentClass(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+analyzer::ContentStatisticsResult ContentStatisticsContextImpl::statistics()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatisticsContext), ContentStatisticsContextConst::methodName( Method_statistics), objid());
+	analyzer::ContentStatisticsResult p0 = obj()->statistics();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerContentStatisticsResult(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+int ContentStatisticsContextImpl::nofDocuments() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatisticsContext), ContentStatisticsContextConst::methodName( Method_nofDocuments), objid());
+	int p0 = obj()->nofDocuments();
+	TraceSerializer parambuf;
+	parambuf.packInt(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+ContentStatisticsImpl::~ContentStatisticsImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatistics), ContentStatisticsConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+void ContentStatisticsImpl::addLibraryElement(
+			const std::string& p1, 
+			const std::string& p2, 
+			int p3, 
+			int p4, 
+			int p5, 
+			TokenizerFunctionInstanceInterface* p6, 
+			const std::vector<NormalizerFunctionInstanceInterface*>& p7)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatistics), ContentStatisticsConst::methodName( Method_addLibraryElement), objid());
+	obj()->addLibraryElement(p1, p2, p3, p4, p5, p6, p7);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	parambuf.packInt(p3);
+	parambuf.packInt(p4);
+	parambuf.packInt(p5);
+	TraceObjectBase* objbase_p6 = dynamic_cast<TraceObjectBase*>( p6);
+	if (!objbase_p6) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p6->objid());
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		i_p7 = p7.begin(), e_p7 = p7.end();
+	for (std::size_t idx_p7=0; i_p7 != e_p7; ++i_p7,++idx_p7)
+	{
+		parambuf.openIndex( idx_p7); 
+		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p7);
+		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
+		parambuf.close();
+	}}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p6) {delete p6; p6 = 0;}
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+			i_p7 = p7.begin(), e_p7 = p7.end();
+		for (std::size_t idx_p7=0; i_p7 != e_p7; ++i_p7,++idx_p7)
+		{
+			delete *i_p7;
+		}}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+ContentStatisticsContextInterface* ContentStatisticsImpl::createContext() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatistics), ContentStatisticsConst::methodName( Method_createContext), objid());
+	ContentStatisticsContextInterface* p0 = obj()->createContext();
+	p0 = traceContext()->createInterfaceImpl<ContentStatisticsContextInterface,ContentStatisticsContextImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ContentStatisticsContext), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::ContentStatisticsView ContentStatisticsImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatistics), ContentStatisticsConst::methodName( Method_view), objid());
+	analyzer::ContentStatisticsView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerContentStatisticsView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -345,7 +694,7 @@ bool DatabaseBackupCursorImpl::fetch(
 	parambuf.packBuffer( blk, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -369,7 +718,9 @@ DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createTransaction", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createTransaction");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -378,7 +729,7 @@ DatabaseTransactionInterface* DatabaseClientImpl::createTransaction()
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -398,7 +749,9 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createCursor", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createCursor");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -408,7 +761,7 @@ DatabaseCursorInterface* DatabaseClientImpl::createCursor(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -427,7 +780,9 @@ DatabaseBackupCursorInterface* DatabaseClientImpl::createBackupCursor() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createBackupCursor", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createBackupCursor");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -436,7 +791,7 @@ DatabaseBackupCursorInterface* DatabaseClientImpl::createBackupCursor() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -459,7 +814,7 @@ void DatabaseClientImpl::writeImm(
 	parambuf.packBuffer( value, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -478,7 +833,7 @@ void DatabaseClientImpl::removeImm(
 	parambuf.packBuffer( key, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -501,7 +856,7 @@ bool DatabaseClientImpl::readValue(
 	parambuf.packDatabaseOptions(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -519,7 +874,7 @@ void DatabaseClientImpl::close()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -536,7 +891,7 @@ std::string DatabaseClientImpl::config() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -553,18 +908,18 @@ DatabaseCursorImpl::~DatabaseCursorImpl()
 }
 
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
-			const char* key, std::size_t p1, 
+			const char* keystr, std::size_t p1, 
 			std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekUpperBound), objid());
-	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBound(key, p1, p2);
+	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBound(keystr, p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
-	parambuf.packBuffer( key, p1);
+	parambuf.packBuffer( keystr, p1);
 	parambuf.packSize( p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -575,18 +930,18 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBound(
 }
 
 DatabaseCursorInterface::Slice DatabaseCursorImpl::seekUpperBoundRestricted(
-			const char* key, std::size_t p1, 
+			const char* keystr, std::size_t p1, 
 			const char* upkey, std::size_t p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseCursor), DatabaseCursorConst::methodName( Method_seekUpperBoundRestricted), objid());
-	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBoundRestricted(key, p1, upkey, p2);
+	DatabaseCursorInterface::Slice p0 = obj()->seekUpperBoundRestricted(keystr, p1, upkey, p2);
 	TraceSerializer parambuf;
 	parambuf.packSlice(p0);
-	parambuf.packBuffer( key, p1);
+	parambuf.packBuffer( keystr, p1);
 	parambuf.packBuffer( upkey, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -606,7 +961,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekFirst(
 	parambuf.packBuffer( domainkey, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -626,7 +981,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekLast(
 	parambuf.packBuffer( domainkey, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -644,7 +999,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekNext()
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -662,7 +1017,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::seekPrev()
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -680,7 +1035,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::key() const
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -698,7 +1053,7 @@ DatabaseCursorInterface::Slice DatabaseCursorImpl::value() const
 	parambuf.packSlice(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -724,7 +1079,7 @@ bool DatabaseImpl::exists(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -743,7 +1098,9 @@ DatabaseClientInterface* DatabaseImpl::createClient(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createClient", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createClient");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -753,7 +1110,7 @@ DatabaseClientInterface* DatabaseImpl::createClient(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -774,7 +1131,7 @@ bool DatabaseImpl::createDatabase(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -797,7 +1154,7 @@ bool DatabaseImpl::restoreDatabase(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DatabaseBackupCursor), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -817,7 +1174,7 @@ bool DatabaseImpl::destroyDatabase(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -835,7 +1192,9 @@ const char* DatabaseImpl::getConfigDescription(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getConfigDescription", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getConfigDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -844,7 +1203,7 @@ const char* DatabaseImpl::getConfigDescription(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -862,7 +1221,9 @@ const char** DatabaseImpl::getConfigParameters(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getConfigParameters", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getConfigParameters");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -871,7 +1232,7 @@ const char** DatabaseImpl::getConfigParameters(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -896,7 +1257,9 @@ DatabaseCursorInterface* DatabaseTransactionImpl::createCursor(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createCursor", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createCursor");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -906,7 +1269,7 @@ DatabaseCursorInterface* DatabaseTransactionImpl::createCursor(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -929,7 +1292,7 @@ void DatabaseTransactionImpl::write(
 	parambuf.packBuffer( value, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -948,7 +1311,7 @@ void DatabaseTransactionImpl::remove(
 	parambuf.packBuffer( key, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -967,7 +1330,7 @@ void DatabaseTransactionImpl::removeSubTree(
 	parambuf.packBuffer( domainkey, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -984,7 +1347,7 @@ bool DatabaseTransactionImpl::commit()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1002,7 +1365,7 @@ void DatabaseTransactionImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1029,7 +1392,7 @@ void DocumentAnalyzerContextImpl::putInput(
 	parambuf.packBool(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1048,7 +1411,7 @@ bool DocumentAnalyzerContextImpl::analyzeNext(
 	parambuf.packAnalyzerDocument(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1058,28 +1421,29 @@ bool DocumentAnalyzerContextImpl::analyzeNext(
 	return p0;
 }
 
-DocumentAnalyzerImpl::~DocumentAnalyzerImpl()
+DocumentAnalyzerInstanceImpl::~DocumentAnalyzerInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void DocumentAnalyzerImpl::addSearchIndexFeature(
+void DocumentAnalyzerInstanceImpl::addSearchIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const analyzer::FeatureOptions& p5)
+			int p5, 
+			const analyzer::FeatureOptions& p6)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addSearchIndexFeature), objid());
-	obj()->addSearchIndexFeature(p1, p2, p3, p4, p5);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addSearchIndexFeature), objid());
+	obj()->addSearchIndexFeature(p1, p2, p3, p4, p5, p6);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1087,18 +1451,19 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
-	parambuf.packFeatureOptions(p5);
+	}}
+	parambuf.packInt(p5);
+	parambuf.packFeatureOptions(p6);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1107,22 +1472,23 @@ void DocumentAnalyzerImpl::addSearchIndexFeature(
 	}
 }
 
-void DocumentAnalyzerImpl::addForwardIndexFeature(
+void DocumentAnalyzerInstanceImpl::addForwardIndexFeature(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
-			const analyzer::FeatureOptions& p5)
+			int p5, 
+			const analyzer::FeatureOptions& p6)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addForwardIndexFeature), objid());
-	obj()->addForwardIndexFeature(p1, p2, p3, p4, p5);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addForwardIndexFeature), objid());
+	obj()->addForwardIndexFeature(p1, p2, p3, p4, p5, p6);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1130,18 +1496,19 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
-	parambuf.packFeatureOptions(p5);
+	}}
+	parambuf.packInt(p5);
+	parambuf.packFeatureOptions(p6);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1150,13 +1517,13 @@ void DocumentAnalyzerImpl::addForwardIndexFeature(
 	}
 }
 
-void DocumentAnalyzerImpl::defineMetaData(
+void DocumentAnalyzerInstanceImpl::defineMetaData(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineMetaData), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineMetaData), objid());
 	obj()->defineMetaData(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1164,7 +1531,7 @@ void DocumentAnalyzerImpl::defineMetaData(
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1172,17 +1539,17 @@ void DocumentAnalyzerImpl::defineMetaData(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1191,11 +1558,11 @@ void DocumentAnalyzerImpl::defineMetaData(
 	}
 }
 
-void DocumentAnalyzerImpl::defineAggregatedMetaData(
+void DocumentAnalyzerInstanceImpl::defineAggregatedMetaData(
 			const std::string& p1, 
 			AggregatorFunctionInstanceInterface* p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAggregatedMetaData), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineAggregatedMetaData), objid());
 	obj()->defineAggregatedMetaData(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1204,7 +1571,7 @@ void DocumentAnalyzerImpl::defineAggregatedMetaData(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_AggregatorFunctionInstance), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -1214,13 +1581,13 @@ void DocumentAnalyzerImpl::defineAggregatedMetaData(
 	}
 }
 
-void DocumentAnalyzerImpl::defineAttribute(
+void DocumentAnalyzerInstanceImpl::defineAttribute(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAttribute), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineAttribute), objid());
 	obj()->defineAttribute(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1228,7 +1595,7 @@ void DocumentAnalyzerImpl::defineAttribute(
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1236,17 +1603,17 @@ void DocumentAnalyzerImpl::defineAttribute(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1255,11 +1622,11 @@ void DocumentAnalyzerImpl::defineAttribute(
 	}
 }
 
-void DocumentAnalyzerImpl::defineSubDocument(
+void DocumentAnalyzerInstanceImpl::defineSubDocument(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineSubDocument), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineSubDocument), objid());
 	obj()->defineSubDocument(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1267,7 +1634,7 @@ void DocumentAnalyzerImpl::defineSubDocument(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1276,11 +1643,11 @@ void DocumentAnalyzerImpl::defineSubDocument(
 	}
 }
 
-void DocumentAnalyzerImpl::defineSubContent(
+void DocumentAnalyzerInstanceImpl::defineSubContent(
 			const std::string& p1, 
 			const analyzer::DocumentClass& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineSubContent), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineSubContent), objid());
 	obj()->defineSubContent(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -1288,7 +1655,7 @@ void DocumentAnalyzerImpl::defineSubContent(
 	parambuf.packAnalyzerDocumentClass(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1297,21 +1664,22 @@ void DocumentAnalyzerImpl::defineSubContent(
 	}
 }
 
-void DocumentAnalyzerImpl::addPatternLexem(
+void DocumentAnalyzerInstanceImpl::addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addPatternLexem), objid());
-	obj()->addPatternLexem(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addPatternLexem), objid());
+	obj()->addPatternLexem(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -1319,17 +1687,18 @@ void DocumentAnalyzerImpl::addPatternLexem(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
+	parambuf.packInt(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1338,13 +1707,13 @@ void DocumentAnalyzerImpl::addPatternLexem(
 	}
 }
 
-void DocumentAnalyzerImpl::definePatternMatcherPostProc(
+void DocumentAnalyzerInstanceImpl::defineTokenPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_definePatternMatcherPostProc), objid());
-	obj()->definePatternMatcherPostProc(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineTokenPatternMatcher), objid());
+	obj()->defineTokenPatternMatcher(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1354,7 +1723,7 @@ void DocumentAnalyzerImpl::definePatternMatcherPostProc(
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternTermFeederInstance), objbase_p3->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		if (p3) {delete p3; p3 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
@@ -1365,14 +1734,14 @@ void DocumentAnalyzerImpl::definePatternMatcherPostProc(
 	}
 }
 
-void DocumentAnalyzerImpl::definePatternMatcherPreProc(
+void DocumentAnalyzerInstanceImpl::defineContentPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
 			const std::vector<std::string>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_definePatternMatcherPreProc), objid());
-	obj()->definePatternMatcherPreProc(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineContentPatternMatcher), objid());
+	obj()->defineContentPatternMatcher(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -1383,7 +1752,7 @@ void DocumentAnalyzerImpl::definePatternMatcherPreProc(
 	parambuf.packStringVector(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		if (p3) {delete p3; p3 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
@@ -1394,19 +1763,20 @@ void DocumentAnalyzerImpl::definePatternMatcherPreProc(
 	}
 }
 
-void DocumentAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
+void DocumentAnalyzerInstanceImpl::addSearchIndexFeatureFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
-			const analyzer::FeatureOptions& p4)
+			int p4, 
+			const analyzer::FeatureOptions& p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addSearchIndexFeatureFromPatternMatch), objid());
-	obj()->addSearchIndexFeatureFromPatternMatch(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addSearchIndexFeatureFromPatternMatch), objid());
+	obj()->addSearchIndexFeatureFromPatternMatch(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -1414,17 +1784,18 @@ void DocumentAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
-	parambuf.packFeatureOptions(p4);
+	}}
+	parambuf.packInt(p4);
+	parambuf.packFeatureOptions(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1433,19 +1804,20 @@ void DocumentAnalyzerImpl::addSearchIndexFeatureFromPatternMatch(
 	}
 }
 
-void DocumentAnalyzerImpl::addForwardIndexFeatureFromPatternMatch(
+void DocumentAnalyzerInstanceImpl::addForwardIndexFeatureFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
-			const analyzer::FeatureOptions& p4)
+			int p4, 
+			const analyzer::FeatureOptions& p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_addForwardIndexFeatureFromPatternMatch), objid());
-	obj()->addForwardIndexFeatureFromPatternMatch(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addForwardIndexFeatureFromPatternMatch), objid());
+	obj()->addForwardIndexFeatureFromPatternMatch(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -1453,17 +1825,18 @@ void DocumentAnalyzerImpl::addForwardIndexFeatureFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
-	parambuf.packFeatureOptions(p4);
+	}}
+	parambuf.packInt(p4);
+	parambuf.packFeatureOptions(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1472,18 +1845,18 @@ void DocumentAnalyzerImpl::addForwardIndexFeatureFromPatternMatch(
 	}
 }
 
-void DocumentAnalyzerImpl::defineMetaDataFromPatternMatch(
+void DocumentAnalyzerInstanceImpl::defineMetaDataFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineMetaDataFromPatternMatch), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineMetaDataFromPatternMatch), objid());
 	obj()->defineMetaDataFromPatternMatch(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -1491,16 +1864,16 @@ void DocumentAnalyzerImpl::defineMetaDataFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1509,18 +1882,18 @@ void DocumentAnalyzerImpl::defineMetaDataFromPatternMatch(
 	}
 }
 
-void DocumentAnalyzerImpl::defineAttributeFromPatternMatch(
+void DocumentAnalyzerInstanceImpl::defineAttributeFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_defineAttributeFromPatternMatch), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_defineAttributeFromPatternMatch), objid());
 	obj()->defineAttributeFromPatternMatch(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -1528,16 +1901,16 @@ void DocumentAnalyzerImpl::defineAttributeFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1546,11 +1919,11 @@ void DocumentAnalyzerImpl::defineAttributeFromPatternMatch(
 	}
 }
 
-analyzer::Document DocumentAnalyzerImpl::analyze(
+analyzer::Document DocumentAnalyzerInstanceImpl::analyze(
 			const std::string& p1, 
 			const analyzer::DocumentClass& p2) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_analyze), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_analyze), objid());
 	analyzer::Document p0 = obj()->analyze(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packAnalyzerDocument(p0);
@@ -1558,7 +1931,7 @@ analyzer::Document DocumentAnalyzerImpl::analyze(
 	parambuf.packAnalyzerDocumentClass(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1568,16 +1941,18 @@ analyzer::Document DocumentAnalyzerImpl::analyze(
 	return p0;
 }
 
-DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
+DocumentAnalyzerContextInterface* DocumentAnalyzerInstanceImpl::createContext(
 			const analyzer::DocumentClass& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzer), DocumentAnalyzerConst::methodName( Method_createContext), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_createContext), objid());
 	DocumentAnalyzerContextInterface* p0 = obj()->createContext(p1);
 	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerContextInterface,DocumentAnalyzerContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createContext", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -1587,8 +1962,196 @@ DocumentAnalyzerContextInterface* DocumentAnalyzerImpl::createContext(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::DocumentAnalyzerView DocumentAnalyzerInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_view), objid());
+	analyzer::DocumentAnalyzerView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerDocumentAnalyzerView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+DocumentAnalyzerMapImpl::~DocumentAnalyzerMapImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+DocumentAnalyzerInstanceInterface* DocumentAnalyzerMapImpl::createAnalyzer(
+			const std::string& p1, 
+			const std::string& p2) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_createAnalyzer), objid());
+	DocumentAnalyzerInstanceInterface* p0 = obj()->createAnalyzer(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerInstanceInterface,DocumentAnalyzerInstanceImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createAnalyzer");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), objbase_p0->objid());
+		parambuf.packString(p1);
+		parambuf.packString(p2);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+void DocumentAnalyzerMapImpl::addAnalyzer(
+			const std::string& p1, 
+			const std::string& p2, 
+			DocumentAnalyzerInstanceInterface* p3)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_addAnalyzer), objid());
+	obj()->addAnalyzer(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
+	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), objbase_p3->objid());
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p3) {delete p3; p3 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+const DocumentAnalyzerInstanceInterface* DocumentAnalyzerMapImpl::getAnalyzer(
+			const std::string& p1, 
+			const std::string& p2) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_getAnalyzer), objid());
+	const DocumentAnalyzerInstanceInterface* p0 = obj()->getAnalyzer(p1, p2);
+	p0 = traceContext()->createInterfaceImpl_const<DocumentAnalyzerInstanceInterface,DocumentAnalyzerInstanceImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getAnalyzer");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), objbase_p0->objid());
+		parambuf.packString(p1);
+		parambuf.packString(p2);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::Document DocumentAnalyzerMapImpl::analyze(
+			const std::string& p1, 
+			const analyzer::DocumentClass& p2) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_analyze), objid());
+	analyzer::Document p0 = obj()->analyze(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerDocument(p0);
+	parambuf.packString(p1);
+	parambuf.packAnalyzerDocumentClass(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+DocumentAnalyzerContextInterface* DocumentAnalyzerMapImpl::createContext(
+			const analyzer::DocumentClass& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_createContext), objid());
+	DocumentAnalyzerContextInterface* p0 = obj()->createContext(p1);
+	p0 = traceContext()->createInterfaceImpl<DocumentAnalyzerContextInterface,DocumentAnalyzerContextImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentAnalyzerContext), objbase_p0->objid());
+		parambuf.packAnalyzerDocumentClass(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::DocumentAnalyzerMapView DocumentAnalyzerMapImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerMap), DocumentAnalyzerMapConst::methodName( Method_view), objid());
+	analyzer::DocumentAnalyzerMapView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerDocumentAnalyzerMapView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1604,19 +2167,46 @@ DocumentClassDetectorImpl::~DocumentClassDetectorImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
+void DocumentClassDetectorImpl::defineDocumentSchemeDetector(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::vector<std::string>& p3, 
+			const std::vector<std::string>& p4)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_defineDocumentSchemeDetector), objid());
+	obj()->defineDocumentSchemeDetector(p1, p2, p3, p4);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	parambuf.packStringVector(p3);
+	parambuf.packStringVector(p4);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 bool DocumentClassDetectorImpl::detect(
 			analyzer::DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2) const
+			const char* contentBegin, std::size_t p2, 
+			bool p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_detect), objid());
-	bool p0 = obj()->detect(p1, contentBegin, p2);
+	bool p0 = obj()->detect(p1, contentBegin, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packAnalyzerDocumentClass(p1);
 	parambuf.packBuffer( contentBegin, p2);
+	parambuf.packBool(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1642,7 +2232,7 @@ Index DocumentTermIteratorImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1662,7 +2252,7 @@ bool DocumentTermIteratorImpl::nextTerm(
 	parambuf.packDocumentTermIteratorTerm(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1682,7 +2272,7 @@ unsigned int DocumentTermIteratorImpl::termDocumentFrequency(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1702,7 +2292,107 @@ std::string DocumentTermIteratorImpl::termValue(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+FileLocatorImpl::~FileLocatorImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+void FileLocatorImpl::addResourcePath(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_addResourcePath), objid());
+	obj()->addResourcePath(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+std::string FileLocatorImpl::getResourceFilePath(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getResourceFilePath), objid());
+	std::string p0 = obj()->getResourceFilePath(p1);
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+void FileLocatorImpl::defineWorkingDirectory(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_defineWorkingDirectory), objid());
+	obj()->defineWorkingDirectory(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+std::string FileLocatorImpl::getWorkingDirectory() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getWorkingDirectory), objid());
+	std::string p0 = obj()->getWorkingDirectory();
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<std::string> FileLocatorImpl::getResourcePaths() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_FileLocator), FileLocatorConst::methodName( Method_getResourcePaths), objid());
+	std::vector<std::string> p0 = obj()->getResourcePaths();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1728,7 +2418,7 @@ void ForwardIteratorImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1747,7 +2437,7 @@ Index ForwardIteratorImpl::skipPos(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1765,7 +2455,7 @@ std::string ForwardIteratorImpl::fetch()
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1791,7 +2481,7 @@ Index InvAclIteratorImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1817,7 +2507,7 @@ Index MetaDataReaderImpl::elementHandle(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1835,7 +2525,7 @@ Index MetaDataReaderImpl::nofElements() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1855,7 +2545,7 @@ void MetaDataReaderImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1872,7 +2562,9 @@ NumericVariant MetaDataReaderImpl::getValue(
 	TraceSerializer parambuf;
 	if (!p0.defined())
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getValue", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getValue");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -1881,7 +2573,7 @@ NumericVariant MetaDataReaderImpl::getValue(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1899,7 +2591,9 @@ const char* MetaDataReaderImpl::getType(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getType", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getType");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -1908,7 +2602,7 @@ const char* MetaDataReaderImpl::getType(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1926,7 +2620,9 @@ const char* MetaDataReaderImpl::getName(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getName", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getName");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -1935,7 +2631,7 @@ const char* MetaDataReaderImpl::getName(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1953,7 +2649,7 @@ std::vector<std::string> MetaDataReaderImpl::getNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -1979,7 +2675,7 @@ bool MetaDataRestrictionInstanceImpl::match(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2011,7 +2707,7 @@ void MetaDataRestrictionImpl::addCondition(
 	parambuf.packBool(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2028,7 +2724,9 @@ MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance() 
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2037,7 +2735,7 @@ MetaDataRestrictionInstanceInterface* MetaDataRestrictionImpl::createInstance() 
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2056,7 +2754,7 @@ std::string MetaDataRestrictionImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2082,7 +2780,25 @@ std::string NormalizerFunctionInstanceImpl::normalize(
 	parambuf.packBuffer( src, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::FunctionView NormalizerFunctionInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), NormalizerFunctionInstanceConst::methodName( Method_view), objid());
+	analyzer::FunctionView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerFunctionView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2108,7 +2824,9 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2120,7 +2838,7 @@ NormalizerFunctionInstanceInterface* NormalizerFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2138,7 +2856,9 @@ const char* NormalizerFunctionImpl::getDescription() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getDescription", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2146,7 +2866,7 @@ const char* NormalizerFunctionImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2172,7 +2892,7 @@ std::vector<analyzer::PatternLexem> PatternLexerContextImpl::match(
 	parambuf.packBuffer( src, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2190,7 +2910,7 @@ void PatternLexerContextImpl::reset()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2217,7 +2937,7 @@ void PatternLexerInstanceImpl::defineOption(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2238,7 +2958,7 @@ void PatternLexerInstanceImpl::defineLexemName(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2265,7 +2985,7 @@ void PatternLexerInstanceImpl::defineLexem(
 	parambuf.packAnalyzerPositionBind(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2288,7 +3008,7 @@ void PatternLexerInstanceImpl::defineSymbol(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2309,7 +3029,7 @@ unsigned int PatternLexerInstanceImpl::getSymbol(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2327,7 +3047,9 @@ const char* PatternLexerInstanceImpl::getLexemName(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getLexemName", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getLexemName");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2336,7 +3058,7 @@ const char* PatternLexerInstanceImpl::getLexemName(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2354,7 +3076,7 @@ bool PatternLexerInstanceImpl::compile()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2372,7 +3094,9 @@ PatternLexerContextInterface* PatternLexerInstanceImpl::createContext() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createContext", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2381,8 +3105,26 @@ PatternLexerContextInterface* PatternLexerInstanceImpl::createContext() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::FunctionView PatternLexerInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternLexerInstance), PatternLexerInstanceConst::methodName( Method_view), objid());
+	analyzer::FunctionView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerFunctionView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2406,7 +3148,7 @@ std::vector<std::string> PatternLexerImpl::getCompileOptionNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2424,7 +3166,9 @@ PatternLexerInstanceInterface* PatternLexerImpl::createInstance() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2433,7 +3177,7 @@ PatternLexerInstanceInterface* PatternLexerImpl::createInstance() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2451,7 +3195,9 @@ const char* PatternLexerImpl::getDescription() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getDescription", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2459,7 +3205,7 @@ const char* PatternLexerImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2485,7 +3231,7 @@ void PatternMatcherContextImpl::putInput(
 	parambuf.packAnalyzerPatternLexem(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2494,7 +3240,7 @@ void PatternMatcherContextImpl::putInput(
 	}
 }
 
-std::vector<analyzer::PatternMatcherResult> PatternMatcherContextImpl::fetchResults() const
+std::vector<analyzer::PatternMatcherResult> PatternMatcherContextImpl::fetchResults()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherContext), PatternMatcherContextConst::methodName( Method_fetchResults), objid());
 	std::vector<analyzer::PatternMatcherResult> p0 = obj()->fetchResults();
@@ -2502,7 +3248,7 @@ std::vector<analyzer::PatternMatcherResult> PatternMatcherContextImpl::fetchResu
 	parambuf.packAnalyzerPatternMatcherResultVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2520,7 +3266,7 @@ analyzer::PatternMatcherStatistics PatternMatcherContextImpl::getStatistics() co
 	parambuf.packAnalyzerPatternMatcherStatistics(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2538,7 +3284,7 @@ void PatternMatcherContextImpl::reset()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2565,7 +3311,7 @@ void PatternMatcherInstanceImpl::defineOption(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2586,7 +3332,7 @@ void PatternMatcherInstanceImpl::defineTermFrequency(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2605,7 +3351,7 @@ void PatternMatcherInstanceImpl::pushTerm(
 	parambuf.packUInt(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2630,7 +3376,7 @@ void PatternMatcherInstanceImpl::pushExpression(
 	parambuf.packUInt(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2649,7 +3395,7 @@ void PatternMatcherInstanceImpl::pushPattern(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2668,7 +3414,7 @@ void PatternMatcherInstanceImpl::attachVariable(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2679,17 +3425,19 @@ void PatternMatcherInstanceImpl::attachVariable(
 
 void PatternMatcherInstanceImpl::definePattern(
 			const std::string& p1, 
-			bool p2)
+			const std::string& p2, 
+			bool p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherInstance), PatternMatcherInstanceConst::methodName( Method_definePattern), objid());
-	obj()->definePattern(p1, p2);
+	obj()->definePattern(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packBool(p2);
+	parambuf.packString(p2);
+	parambuf.packBool(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2706,7 +3454,7 @@ bool PatternMatcherInstanceImpl::compile()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2724,7 +3472,9 @@ PatternMatcherContextInterface* PatternMatcherInstanceImpl::createContext() cons
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createContext", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2733,8 +3483,26 @@ PatternMatcherContextInterface* PatternMatcherInstanceImpl::createContext() cons
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::FunctionView PatternMatcherInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternMatcherInstance), PatternMatcherInstanceConst::methodName( Method_view), objid());
+	analyzer::FunctionView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerFunctionView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2758,7 +3526,7 @@ std::vector<std::string> PatternMatcherImpl::getCompileOptionNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2776,7 +3544,9 @@ PatternMatcherInstanceInterface* PatternMatcherImpl::createInstance() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2785,7 +3555,7 @@ PatternMatcherInstanceInterface* PatternMatcherImpl::createInstance() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2803,7 +3573,9 @@ const char* PatternMatcherImpl::getDescription() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getDescription", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2811,7 +3583,7 @@ const char* PatternMatcherImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2839,7 +3611,7 @@ void PatternTermFeederInstanceImpl::defineLexem(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2862,7 +3634,7 @@ void PatternTermFeederInstanceImpl::defineSymbol(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2881,7 +3653,7 @@ unsigned int PatternTermFeederInstanceImpl::getLexem(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2899,7 +3671,7 @@ std::vector<std::string> PatternTermFeederInstanceImpl::lexemTypes() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2921,7 +3693,25 @@ unsigned int PatternTermFeederInstanceImpl::getSymbol(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::FunctionView PatternTermFeederInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PatternTermFeederInstance), PatternTermFeederInstanceConst::methodName( Method_view), objid());
+	analyzer::FunctionView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerFunctionView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -2945,7 +3735,9 @@ PatternTermFeederInstanceInterface* PatternTermFeederImpl::createInstance() cons
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -2954,7 +3746,250 @@ PatternTermFeederInstanceInterface* PatternTermFeederImpl::createInstance() cons
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+PosTaggerContextImpl::~PosTaggerContextImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerContext), PosTaggerContextConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+std::string PosTaggerContextImpl::markupDocument(
+			int p1, 
+			const analyzer::DocumentClass& p2, 
+			const std::string& p3) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerContext), PosTaggerContextConst::methodName( Method_markupDocument), objid());
+	std::string p0 = obj()->markupDocument(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	parambuf.packInt(p1);
+	parambuf.packAnalyzerDocumentClass(p2);
+	parambuf.packString(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+PosTaggerDataImpl::~PosTaggerDataImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerData), PosTaggerDataConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+void PosTaggerDataImpl::defineTag(
+			const std::string& p1, 
+			const std::string& p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerData), PosTaggerDataConst::methodName( Method_defineTag), objid());
+	obj()->defineTag(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void PosTaggerDataImpl::insert(
+			int p1, 
+			const std::vector<Element>& p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerData), PosTaggerDataConst::methodName( Method_insert), objid());
+	obj()->insert(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packInt(p1);
+	parambuf.packPosTaggerDataElementVector(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void PosTaggerDataImpl::markupSegment(
+			TokenMarkupContextInterface* p1, 
+			int p2, 
+			int& p3, 
+			const SegmenterPosition& p4, 
+			const char* segmentptr, std::size_t p5) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerData), PosTaggerDataConst::methodName( Method_markupSegment), objid());
+	obj()->markupSegment(p1, p2, p3, p4, segmentptr, p5);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
+	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenMarkupContext), objbase_p1->objid());
+	parambuf.packInt(p2);
+	parambuf.packInt(p3);
+	parambuf.packGlobalCounter(p4);
+	parambuf.packBuffer( segmentptr, p5);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p1) {delete p1; p1 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+PosTaggerInstanceImpl::~PosTaggerInstanceImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerInstance), PosTaggerInstanceConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+void PosTaggerInstanceImpl::addContentExpression(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerInstance), PosTaggerInstanceConst::methodName( Method_addContentExpression), objid());
+	obj()->addContentExpression(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void PosTaggerInstanceImpl::addPosTaggerInputPunctuation(
+			const std::string& p1, 
+			const std::string& p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerInstance), PosTaggerInstanceConst::methodName( Method_addPosTaggerInputPunctuation), objid());
+	obj()->addPosTaggerInputPunctuation(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+std::string PosTaggerInstanceImpl::getPosTaggerInput(
+			const analyzer::DocumentClass& p1, 
+			const std::string& p2) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerInstance), PosTaggerInstanceConst::methodName( Method_getPosTaggerInput), objid());
+	std::string p0 = obj()->getPosTaggerInput(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	parambuf.packAnalyzerDocumentClass(p1);
+	parambuf.packString(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::string PosTaggerInstanceImpl::markupDocument(
+			const PosTaggerDataInterface* p1, 
+			int p2, 
+			const analyzer::DocumentClass& p3, 
+			const std::string& p4) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerInstance), PosTaggerInstanceConst::methodName( Method_markupDocument), objid());
+	std::string p0 = obj()->markupDocument(p1, p2, p3, p4);
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTaggerData), objbase_p1->objid());
+	parambuf.packInt(p2);
+	parambuf.packAnalyzerDocumentClass(p3);
+	parambuf.packString(p4);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+PosTaggerImpl::~PosTaggerImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTagger), PosTaggerConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+PosTaggerInstanceInterface* PosTaggerImpl::createInstance(
+			const SegmenterInterface* p1, 
+			const analyzer::SegmenterOptions& p2) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTagger), PosTaggerConst::methodName( Method_createInstance), objid());
+	PosTaggerInstanceInterface* p0 = obj()->createInstance(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<PosTaggerInstanceInterface,PosTaggerInstanceImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTaggerInstance), objbase_p0->objid());
+		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p1->objid());
+		parambuf.packAnalyzerSegmenterOptions(p2);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -2981,7 +4016,7 @@ Index PostingIteratorImpl::skipDoc(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3001,7 +4036,7 @@ Index PostingIteratorImpl::skipDocCandidate(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3021,7 +4056,7 @@ Index PostingIteratorImpl::skipPos(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3038,7 +4073,9 @@ const char* PostingIteratorImpl::featureid() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "featureid", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "featureid");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -3046,7 +4083,7 @@ const char* PostingIteratorImpl::featureid() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3064,7 +4101,7 @@ Index PostingIteratorImpl::documentFrequency() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3082,7 +4119,7 @@ unsigned int PostingIteratorImpl::frequency()
 	parambuf.packUInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3100,7 +4137,7 @@ Index PostingIteratorImpl::docno() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3118,7 +4155,7 @@ Index PostingIteratorImpl::posno() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3136,7 +4173,7 @@ Index PostingIteratorImpl::length() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3163,13 +4200,15 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createResultIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createResultIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p0->objid());
-		std::vector<Reference<PostingIteratorInterface> >::const_iterator
+		{std::vector<Reference<PostingIteratorInterface> >::const_iterator
 			i_p1 = p1.begin(), e_p1 = p1.end();
 		for (std::size_t idx_p1=0; i_p1 != e_p1; ++i_p1,++idx_p1)
 		{
@@ -3177,13 +4216,13 @@ PostingIteratorInterface* PostingJoinOperatorImpl::createResultIterator(
 			const TraceObjectBase* objbase = dynamic_cast<const TraceObjectBase*>( i_p1->get());
 			if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase->objid());
 			parambuf.close();
-		}
+		}}
 		parambuf.packInt(p2);
 		parambuf.packUInt(p3);
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3202,7 +4241,7 @@ PostingJoinOperatorInterface::Description PostingJoinOperatorImpl::getDescriptio
 	parambuf.packPostingJoinOperatorDescription(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3219,7 +4258,7 @@ QueryAnalyzerContextImpl::~QueryAnalyzerContextImpl()
 }
 
 void QueryAnalyzerContextImpl::putField(
-			unsigned int p1, 
+			int p1, 
 			const std::string& p2, 
 			const std::string& p3)
 {
@@ -3227,12 +4266,12 @@ void QueryAnalyzerContextImpl::putField(
 	obj()->putField(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packUInt(p1);
+	parambuf.packInt(p1);
 	parambuf.packString(p2);
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3242,8 +4281,8 @@ void QueryAnalyzerContextImpl::putField(
 }
 
 void QueryAnalyzerContextImpl::groupElements(
-			unsigned int p1, 
-			const std::vector<unsigned int>& p2, 
+			int p1, 
+			const std::vector<int>& p2, 
 			const GroupBy& p3, 
 			bool p4)
 {
@@ -3251,13 +4290,13 @@ void QueryAnalyzerContextImpl::groupElements(
 	obj()->groupElements(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packUInt(p1);
-	parambuf.packUintVector(p2);
+	parambuf.packInt(p1);
+	parambuf.packIntVector(p2);
 	parambuf.packAnalyzerQueryGroupBy(p3);
 	parambuf.packBool(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3274,7 +4313,7 @@ analyzer::QueryTermExpression QueryAnalyzerContextImpl::analyze()
 	parambuf.packAnalyzerQueryTermExpression(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3284,27 +4323,28 @@ analyzer::QueryTermExpression QueryAnalyzerContextImpl::analyze()
 	return p0;
 }
 
-QueryAnalyzerImpl::~QueryAnalyzerImpl()
+QueryAnalyzerInstanceImpl::~QueryAnalyzerInstanceImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void QueryAnalyzerImpl::addElement(
+void QueryAnalyzerInstanceImpl::addElement(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addElement), objid());
-	obj()->addElement(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_addElement), objid());
+	obj()->addElement(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -3312,17 +4352,18 @@ void QueryAnalyzerImpl::addElement(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
+	parambuf.packInt(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3331,21 +4372,22 @@ void QueryAnalyzerImpl::addElement(
 	}
 }
 
-void QueryAnalyzerImpl::addPatternLexem(
+void QueryAnalyzerInstanceImpl::addPatternLexem(
 			const std::string& p1, 
 			const std::string& p2, 
 			TokenizerFunctionInstanceInterface* p3, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p4)
+			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
+			int p5)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addPatternLexem), objid());
-	obj()->addPatternLexem(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_addPatternLexem), objid());
+	obj()->addPatternLexem(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
 	TraceObjectBase* objbase_p3 = dynamic_cast<TraceObjectBase*>( p3);
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p3->objid());
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p4 = p4.begin(), e_p4 = p4.end();
 	for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 	{
@@ -3353,17 +4395,18 @@ void QueryAnalyzerImpl::addPatternLexem(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p4);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
+	parambuf.packInt(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p3) {delete p3; p3 = 0;}
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p4 = p4.begin(), e_p4 = p4.end();
 		for (std::size_t idx_p4=0; i_p4 != e_p4; ++i_p4,++idx_p4)
 		{
 			delete *i_p4;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3372,13 +4415,13 @@ void QueryAnalyzerImpl::addPatternLexem(
 	}
 }
 
-void QueryAnalyzerImpl::definePatternMatcherPostProc(
+void QueryAnalyzerInstanceImpl::defineTokenPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternTermFeederInstanceInterface* p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_definePatternMatcherPostProc), objid());
-	obj()->definePatternMatcherPostProc(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_defineTokenPatternMatcher), objid());
+	obj()->defineTokenPatternMatcher(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3388,7 +4431,7 @@ void QueryAnalyzerImpl::definePatternMatcherPostProc(
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternTermFeederInstance), objbase_p3->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		if (p3) {delete p3; p3 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
@@ -3399,14 +4442,14 @@ void QueryAnalyzerImpl::definePatternMatcherPostProc(
 	}
 }
 
-void QueryAnalyzerImpl::definePatternMatcherPreProc(
+void QueryAnalyzerInstanceImpl::defineContentPatternMatcher(
 			const std::string& p1, 
 			PatternMatcherInstanceInterface* p2, 
 			PatternLexerInstanceInterface* p3, 
 			const std::vector<std::string>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_definePatternMatcherPreProc), objid());
-	obj()->definePatternMatcherPreProc(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_defineContentPatternMatcher), objid());
+	obj()->defineContentPatternMatcher(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -3417,7 +4460,7 @@ void QueryAnalyzerImpl::definePatternMatcherPreProc(
 	parambuf.packStringVector(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		if (p3) {delete p3; p3 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
@@ -3428,18 +4471,19 @@ void QueryAnalyzerImpl::definePatternMatcherPreProc(
 	}
 }
 
-void QueryAnalyzerImpl::addElementFromPatternMatch(
+void QueryAnalyzerInstanceImpl::addElementFromPatternMatch(
 			const std::string& p1, 
 			const std::string& p2, 
-			const std::vector<NormalizerFunctionInstanceInterface*>& p3)
+			const std::vector<NormalizerFunctionInstanceInterface*>& p3, 
+			int p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_addElementFromPatternMatch), objid());
-	obj()->addElementFromPatternMatch(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_addElementFromPatternMatch), objid());
+	obj()->addElementFromPatternMatch(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+	{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 		i_p3 = p3.begin(), e_p3 = p3.end();
 	for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 	{
@@ -3447,16 +4491,17 @@ void QueryAnalyzerImpl::addElementFromPatternMatch(
 		TraceObjectBase* objbase = dynamic_cast<TraceObjectBase*>( *i_p3);
 		if (!objbase) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunctionInstance), objbase->objid());
 		parambuf.close();
-	}
+	}}
+	parambuf.packInt(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		{std::vector<NormalizerFunctionInstanceInterface*>::const_iterator
 			i_p3 = p3.begin(), e_p3 = p3.end();
 		for (std::size_t idx_p3=0; i_p3 != e_p3; ++i_p3,++idx_p3)
 		{
 			delete *i_p3;
-		}
+		}}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3465,15 +4510,53 @@ void QueryAnalyzerImpl::addElementFromPatternMatch(
 	}
 }
 
-QueryAnalyzerContextInterface* QueryAnalyzerImpl::createContext() const
+std::vector<std::string> QueryAnalyzerInstanceImpl::queryTermTypes() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzer), QueryAnalyzerConst::methodName( Method_createContext), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_queryTermTypes), objid());
+	std::vector<std::string> p0 = obj()->queryTermTypes();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<std::string> QueryAnalyzerInstanceImpl::queryFieldTypes() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_queryFieldTypes), objid());
+	std::vector<std::string> p0 = obj()->queryFieldTypes();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+QueryAnalyzerContextInterface* QueryAnalyzerInstanceImpl::createContext() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_createContext), objid());
 	QueryAnalyzerContextInterface* p0 = obj()->createContext();
 	p0 = traceContext()->createInterfaceImpl<QueryAnalyzerContextInterface,QueryAnalyzerContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createContext", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -3482,8 +4565,26 @@ QueryAnalyzerContextInterface* QueryAnalyzerImpl::createContext() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::QueryAnalyzerView QueryAnalyzerInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryAnalyzerInstance), QueryAnalyzerInstanceConst::methodName( Method_view), objid());
+	analyzer::QueryAnalyzerView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerQueryAnalyzerView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3513,7 +4614,7 @@ void QueryEvalImpl::addTerm(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3532,7 +4633,7 @@ void QueryEvalImpl::addSelectionFeature(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3551,7 +4652,7 @@ void QueryEvalImpl::addRestrictionFeature(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3570,13 +4671,85 @@ void QueryEvalImpl::addExclusionFeature(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
 	{
 		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
 	}
+}
+
+std::vector<std::string> QueryEvalImpl::getWeightingFeatureSets() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_getWeightingFeatureSets), objid());
+	std::vector<std::string> p0 = obj()->getWeightingFeatureSets();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<std::string> QueryEvalImpl::getSelectionFeatureSets() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_getSelectionFeatureSets), objid());
+	std::vector<std::string> p0 = obj()->getSelectionFeatureSets();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<std::string> QueryEvalImpl::getRestrictionFeatureSets() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_getRestrictionFeatureSets), objid());
+	std::vector<std::string> p0 = obj()->getRestrictionFeatureSets();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<std::string> QueryEvalImpl::getExclusionFeatureSets() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_getExclusionFeatureSets), objid());
+	std::vector<std::string> p0 = obj()->getExclusionFeatureSets();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
 }
 
 void QueryEvalImpl::addSummarizerFunction(
@@ -3596,7 +4769,7 @@ void QueryEvalImpl::addSummarizerFunction(
 	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3623,7 +4796,7 @@ void QueryEvalImpl::addWeightingFunction(
 	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3644,7 +4817,7 @@ void QueryEvalImpl::defineWeightingFormula(
 	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ScalarFunction), objbase_p1->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3663,7 +4836,9 @@ QueryInterface* QueryEvalImpl::createQuery(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createQuery", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createQuery");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -3674,7 +4849,7 @@ QueryInterface* QueryEvalImpl::createQuery(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -3705,7 +4880,7 @@ void QueryImpl::pushTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3726,7 +4901,7 @@ void QueryImpl::pushDocField(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3752,7 +4927,7 @@ void QueryImpl::pushExpression(
 	parambuf.packUInt(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3771,7 +4946,7 @@ void QueryImpl::attachVariable(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3792,7 +4967,7 @@ void QueryImpl::defineFeature(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3815,7 +4990,7 @@ void QueryImpl::defineTermStatistics(
 	parambuf.packTermStatistics(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3834,7 +5009,7 @@ void QueryImpl::defineGlobalStatistics(
 	parambuf.packGlobalStatistics(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3859,7 +5034,7 @@ void QueryImpl::addMetaDataRestrictionCondition(
 	parambuf.packBool(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3878,7 +5053,7 @@ void QueryImpl::addDocumentEvaluationSet(
 	parambuf.packIndexVector(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3897,7 +5072,7 @@ void QueryImpl::addAccess(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3916,7 +5091,7 @@ void QueryImpl::setMaxNofRanks(
 	parambuf.packSize( p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3935,7 +5110,7 @@ void QueryImpl::setMinRank(
 	parambuf.packSize( p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3956,7 +5131,7 @@ void QueryImpl::setWeightingVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3975,7 +5150,7 @@ void QueryImpl::setDebugMode(
 	parambuf.packBool(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -3992,7 +5167,7 @@ QueryResult QueryImpl::evaluate() const
 	parambuf.packQueryResult(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4010,7 +5185,7 @@ std::string QueryImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4026,6 +5201,26 @@ QueryProcessorImpl::~QueryProcessorImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
+std::string QueryProcessorImpl::getResourceFilePath(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryProcessor), QueryProcessorConst::methodName( Method_getResourceFilePath), objid());
+	std::string p0 = obj()->getResourceFilePath(p1);
+	TraceSerializer parambuf;
+	parambuf.packString(p0);
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 void QueryProcessorImpl::definePostingJoinOperator(
 			const std::string& p1, 
 			PostingJoinOperatorInterface* p2)
@@ -4039,7 +5234,7 @@ void QueryProcessorImpl::definePostingJoinOperator(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingJoinOperator), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4058,7 +5253,9 @@ const PostingJoinOperatorInterface* QueryProcessorImpl::getPostingJoinOperator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getPostingJoinOperator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getPostingJoinOperator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4068,7 +5265,7 @@ const PostingJoinOperatorInterface* QueryProcessorImpl::getPostingJoinOperator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4091,7 +5288,7 @@ void QueryProcessorImpl::defineWeightingFunction(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4110,7 +5307,9 @@ const WeightingFunctionInterface* QueryProcessorImpl::getWeightingFunction(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getWeightingFunction", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getWeightingFunction");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4120,7 +5319,7 @@ const WeightingFunctionInterface* QueryProcessorImpl::getWeightingFunction(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4143,7 +5342,7 @@ void QueryProcessorImpl::defineSummarizerFunction(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4162,7 +5361,9 @@ const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getSummarizerFunction", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getSummarizerFunction");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4172,7 +5373,7 @@ const SummarizerFunctionInterface* QueryProcessorImpl::getSummarizerFunction(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4192,7 +5393,7 @@ std::vector<std::string> QueryProcessorImpl::getFunctionList(
 	parambuf.packQueryProcessorFunctionType(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4215,7 +5416,7 @@ void QueryProcessorImpl::defineScalarFunctionParser(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ScalarFunctionParser), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4234,7 +5435,9 @@ const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getScalarFunctionParser", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getScalarFunctionParser");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4244,7 +5447,7 @@ const ScalarFunctionParserInterface* QueryProcessorImpl::getScalarFunctionParser
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4272,7 +5475,7 @@ void ScalarFunctionInstanceImpl::setVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4291,7 +5494,7 @@ double ScalarFunctionInstanceImpl::call(
 	parambuf.packBufferFloat( args, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4309,7 +5512,7 @@ std::string ScalarFunctionInstanceImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4333,7 +5536,7 @@ std::vector<std::string> ScalarFunctionImpl::getVariables() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4351,7 +5554,7 @@ unsigned int ScalarFunctionImpl::getNofArguments() const
 	parambuf.packUInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4373,7 +5576,7 @@ void ScalarFunctionImpl::setDefaultVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4390,7 +5593,9 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4399,7 +5604,7 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4418,7 +5623,7 @@ std::string ScalarFunctionImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4444,7 +5649,9 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createFunction", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createFunction");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4455,8 +5662,35 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+const char* ScalarFunctionParserImpl::getDescription() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionParser), ScalarFunctionParserConst::methodName( Method_getDescription), objid());
+	const char* p0 = obj()->getDescription();
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		parambuf.packCharp(p0);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4484,7 +5718,7 @@ void SegmenterContextImpl::putInput(
 	parambuf.packBool(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4507,7 +5741,7 @@ bool SegmenterContextImpl::getNext(
 	parambuf.packBuffer( segment, p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4535,7 +5769,7 @@ void SegmenterInstanceImpl::defineSelectorExpression(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4558,7 +5792,7 @@ void SegmenterInstanceImpl::defineSubSection(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4576,7 +5810,9 @@ SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createContext", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4586,7 +5822,7 @@ SegmenterContextInterface* SegmenterInstanceImpl::createContext(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4607,7 +5843,9 @@ SegmenterMarkupContextInterface* SegmenterInstanceImpl::createMarkupContext(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createMarkupContext", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createMarkupContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4618,8 +5856,26 @@ SegmenterMarkupContextInterface* SegmenterInstanceImpl::createMarkupContext(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::FunctionView SegmenterInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SegmenterInstance), SegmenterInstanceConst::methodName( Method_view), objid());
+	analyzer::FunctionView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerFunctionView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4642,7 +5898,9 @@ const char* SegmenterImpl::mimeType() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "mimeType", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "mimeType");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4650,7 +5908,7 @@ const char* SegmenterImpl::mimeType() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4669,7 +5927,9 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4679,7 +5939,43 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+ContentIteratorInterface* SegmenterImpl::createContentIterator(
+			const char* content, std::size_t p1, 
+			const analyzer::DocumentClass& p2, 
+			const analyzer::SegmenterOptions& p3) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Segmenter), SegmenterConst::methodName( Method_createContentIterator), objid());
+	ContentIteratorInterface* p0 = obj()->createContentIterator(content, p1, p2, p3);
+	p0 = traceContext()->createInterfaceImpl<ContentIteratorInterface,ContentIteratorImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContentIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ContentIterator), objbase_p0->objid());
+		parambuf.packBuffer( content, p1);
+		parambuf.packAnalyzerDocumentClass(p2);
+		parambuf.packAnalyzerSegmenterOptions(p3);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -4697,7 +5993,9 @@ const char* SegmenterImpl::getDescription() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getDescription", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -4705,7 +6003,7 @@ const char* SegmenterImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4733,7 +6031,7 @@ bool SegmenterMarkupContextImpl::getNext(
 	parambuf.packBuffer( segment, p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4753,7 +6051,7 @@ unsigned int SegmenterMarkupContextImpl::segmentSize(
 	parambuf.packGlobalCounter(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4773,7 +6071,7 @@ std::string SegmenterMarkupContextImpl::tagName(
 	parambuf.packGlobalCounter(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4793,7 +6091,7 @@ int SegmenterMarkupContextImpl::tagLevel(
 	parambuf.packGlobalCounter(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4817,7 +6115,7 @@ void SegmenterMarkupContextImpl::putOpenTag(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4842,7 +6140,7 @@ void SegmenterMarkupContextImpl::putAttribute(
 	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4865,7 +6163,7 @@ void SegmenterMarkupContextImpl::putCloseTag(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4882,7 +6180,7 @@ std::string SegmenterMarkupContextImpl::getContent() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4908,7 +6206,7 @@ void StatisticsBuilderImpl::setNofDocumentsInsertedChange(
 	parambuf.packInt(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4931,7 +6229,7 @@ void StatisticsBuilderImpl::addDfChange(
 	parambuf.packInt(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4948,7 +6246,7 @@ void StatisticsBuilderImpl::start()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4965,7 +6263,7 @@ void StatisticsBuilderImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -4984,7 +6282,7 @@ bool StatisticsBuilderImpl::fetchMessage(
 	parambuf.packBlob( blk, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5010,7 +6308,7 @@ bool StatisticsIteratorImpl::getNext(
 	parambuf.packBlob( msg, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5035,7 +6333,9 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createViewer", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createViewer");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5045,7 +6345,7 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5064,7 +6364,9 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createBuilder", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createBuilder");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5073,7 +6375,7 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5098,7 +6400,7 @@ int StatisticsViewerImpl::nofDocumentsInsertedChange()
 	parambuf.packInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5109,16 +6411,16 @@ int StatisticsViewerImpl::nofDocumentsInsertedChange()
 }
 
 bool StatisticsViewerImpl::nextDfChange(
-			DocumentFrequencyChange& p1)
+			TermStatisticsChange& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsViewer), StatisticsViewerConst::methodName( Method_nextDfChange), objid());
 	bool p0 = obj()->nextDfChange(p1);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
-	parambuf.packStatisticsViewerDocumentFrequencyChange(p1);
+	parambuf.packTermStatisticsChange(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5146,7 +6448,7 @@ void StorageAlterMetaDataTableImpl::addElement(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5169,7 +6471,7 @@ void StorageAlterMetaDataTableImpl::alterElement(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5190,7 +6492,7 @@ void StorageAlterMetaDataTableImpl::renameElement(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5209,7 +6511,7 @@ void StorageAlterMetaDataTableImpl::deleteElement(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5228,7 +6530,7 @@ void StorageAlterMetaDataTableImpl::clearElement(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5245,7 +6547,7 @@ bool StorageAlterMetaDataTableImpl::commit()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5263,7 +6565,7 @@ void StorageAlterMetaDataTableImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5286,7 +6588,7 @@ std::string StorageClientImpl::config() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5307,7 +6609,9 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createTermPostingIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createTermPostingIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5319,7 +6623,39 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+StructIteratorInterface* StorageClientImpl::createStructIterator(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createStructIterator), objid());
+	StructIteratorInterface* p0 = obj()->createStructIterator(p1);
+	p0 = traceContext()->createInterfaceImpl<StructIteratorInterface,StructIteratorImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createStructIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StructIterator), objbase_p0->objid());
+		parambuf.packString(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5340,7 +6676,9 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createBrowsePostingIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createBrowsePostingIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5352,7 +6690,7 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5373,7 +6711,9 @@ PostingIteratorInterface* StorageClientImpl::createFieldPostingIterator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createFieldPostingIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createFieldPostingIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5384,7 +6724,7 @@ PostingIteratorInterface* StorageClientImpl::createFieldPostingIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5404,7 +6744,9 @@ ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createForwardIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createForwardIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5414,7 +6756,7 @@ ForwardIteratorInterface* StorageClientImpl::createForwardIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5434,7 +6776,9 @@ DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDocumentTermIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDocumentTermIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5444,7 +6788,7 @@ DocumentTermIteratorInterface* StorageClientImpl::createDocumentTermIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5464,7 +6808,9 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInvAclIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInvAclIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5474,7 +6820,7 @@ InvAclIteratorInterface* StorageClientImpl::createInvAclIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5493,7 +6839,9 @@ AclReaderInterface* StorageClientImpl::createAclReader() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createAclReader", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createAclReader");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5502,7 +6850,7 @@ AclReaderInterface* StorageClientImpl::createAclReader() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5521,7 +6869,7 @@ Index StorageClientImpl::nofDocumentsInserted() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5543,7 +6891,7 @@ Index StorageClientImpl::documentFrequency(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5561,7 +6909,7 @@ Index StorageClientImpl::maxDocumentNumber() const
 	parambuf.packIndex(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5581,7 +6929,7 @@ Index StorageClientImpl::documentNumber(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5601,7 +6949,7 @@ Index StorageClientImpl::termTypeNumber(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5621,7 +6969,7 @@ bool StorageClientImpl::isForwardIndexTerm(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5639,7 +6987,9 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createTermTypeIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createTermTypeIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5648,7 +6998,37 @@ ValueIteratorInterface* StorageClientImpl::createTermTypeIterator() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+ValueIteratorInterface* StorageClientImpl::createStructTypeIterator() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createStructTypeIterator), objid());
+	ValueIteratorInterface* p0 = obj()->createStructTypeIterator();
+	p0 = traceContext()->createInterfaceImpl<ValueIteratorInterface,ValueIteratorImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createStructTypeIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ValueIterator), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5667,7 +7047,9 @@ ValueIteratorInterface* StorageClientImpl::createTermValueIterator() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createTermValueIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createTermValueIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5676,7 +7058,7 @@ ValueIteratorInterface* StorageClientImpl::createTermValueIterator() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5695,7 +7077,9 @@ ValueIteratorInterface* StorageClientImpl::createDocIdIterator() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDocIdIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDocIdIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5704,7 +7088,7 @@ ValueIteratorInterface* StorageClientImpl::createDocIdIterator() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5723,7 +7107,9 @@ ValueIteratorInterface* StorageClientImpl::createUserNameIterator() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createUserNameIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createUserNameIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5732,7 +7118,7 @@ ValueIteratorInterface* StorageClientImpl::createUserNameIterator() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5757,7 +7143,7 @@ Index StorageClientImpl::documentStatistics(
 	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5775,7 +7161,9 @@ MetaDataReaderInterface* StorageClientImpl::createMetaDataReader() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createMetaDataReader", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createMetaDataReader");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5784,7 +7172,7 @@ MetaDataReaderInterface* StorageClientImpl::createMetaDataReader() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5803,7 +7191,9 @@ MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction() con
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createMetaDataRestriction", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createMetaDataRestriction");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5812,7 +7202,7 @@ MetaDataRestrictionInterface* StorageClientImpl::createMetaDataRestriction() con
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5831,7 +7221,9 @@ AttributeReaderInterface* StorageClientImpl::createAttributeReader() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createAttributeReader", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createAttributeReader");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5840,7 +7232,7 @@ AttributeReaderInterface* StorageClientImpl::createAttributeReader() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5859,7 +7251,9 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createTransaction", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createTransaction");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5868,7 +7262,7 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5888,7 +7282,9 @@ StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createAllStatisticsIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createAllStatisticsIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5898,7 +7294,7 @@ StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5917,7 +7313,9 @@ StatisticsIteratorInterface* StorageClientImpl::createChangeStatisticsIterator()
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createChangeStatisticsIterator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createChangeStatisticsIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5926,7 +7324,7 @@ StatisticsIteratorInterface* StorageClientImpl::createChangeStatisticsIterator()
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -5945,7 +7343,9 @@ const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor() 
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getStatisticsProcessor", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getStatisticsProcessor");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5954,7 +7354,7 @@ const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor() 
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -5974,7 +7374,9 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDocumentChecker", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDocumentChecker");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -5985,7 +7387,7 @@ StorageDocumentInterface* StorageClientImpl::createDocumentChecker(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6006,7 +7408,7 @@ bool StorageClientImpl::checkStorage(
 	
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6024,7 +7426,7 @@ void StorageClientImpl::close()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6053,7 +7455,30 @@ void StorageDocumentImpl::addSearchIndexTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void StorageDocumentImpl::addSearchIndexStructure(
+			const std::string& p1, 
+			const IndexRange& p2, 
+			const IndexRange& p3)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocument), StorageDocumentConst::methodName( Method_addSearchIndexStructure), objid());
+	obj()->addSearchIndexStructure(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packIndexRange(p2);
+	parambuf.packIndexRange(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6076,7 +7501,7 @@ void StorageDocumentImpl::addForwardIndexTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6097,7 +7522,7 @@ void StorageDocumentImpl::setMetaData(
 	parambuf.packNumericVariant(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6118,7 +7543,7 @@ void StorageDocumentImpl::setAttribute(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6137,7 +7562,7 @@ void StorageDocumentImpl::setUserAccessRight(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6154,7 +7579,7 @@ void StorageDocumentImpl::done()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6183,7 +7608,30 @@ void StorageDocumentUpdateImpl::addSearchIndexTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void StorageDocumentUpdateImpl::addSearchIndexStructure(
+			const std::string& p1, 
+			const IndexRange& p2, 
+			const IndexRange& p3)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_addSearchIndexStructure), objid());
+	obj()->addSearchIndexStructure(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packIndexRange(p2);
+	parambuf.packIndexRange(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6206,7 +7654,7 @@ void StorageDocumentUpdateImpl::addForwardIndexTerm(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6225,7 +7673,26 @@ void StorageDocumentUpdateImpl::clearSearchIndexTerm(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void StorageDocumentUpdateImpl::clearSearchIndexStructure(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageDocumentUpdate), StorageDocumentUpdateConst::methodName( Method_clearSearchIndexStructure), objid());
+	obj()->clearSearchIndexStructure(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6244,7 +7711,7 @@ void StorageDocumentUpdateImpl::clearForwardIndexTerm(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6265,7 +7732,7 @@ void StorageDocumentUpdateImpl::setMetaData(
 	parambuf.packNumericVariant(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6286,7 +7753,7 @@ void StorageDocumentUpdateImpl::setAttribute(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6305,7 +7772,7 @@ void StorageDocumentUpdateImpl::clearAttribute(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6324,7 +7791,7 @@ void StorageDocumentUpdateImpl::setUserAccessRight(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6343,7 +7810,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRight(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6360,7 +7827,7 @@ void StorageDocumentUpdateImpl::clearUserAccessRights()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6377,7 +7844,7 @@ void StorageDocumentUpdateImpl::done()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6402,7 +7869,7 @@ bool StorageDumpImpl::nextChunk(
 	parambuf.packBuffer( chunk, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6429,7 +7896,9 @@ StorageClientInterface* StorageImpl::createClient(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createClient", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createClient");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6443,7 +7912,7 @@ StorageClientInterface* StorageImpl::createClient(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6467,7 +7936,7 @@ bool StorageImpl::createStorage(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6487,7 +7956,9 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createAlterMetaDataTable", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createAlterMetaDataTable");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6499,7 +7970,7 @@ StorageAlterMetaDataTableInterface* StorageImpl::createAlterMetaDataTable(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6518,7 +7989,9 @@ const char* StorageImpl::getConfigDescription(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getConfigDescription", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getConfigDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6527,7 +8000,7 @@ const char* StorageImpl::getConfigDescription(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6545,7 +8018,9 @@ const char** StorageImpl::getConfigParameters(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getConfigParameters", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getConfigParameters");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6554,7 +8029,7 @@ const char** StorageImpl::getConfigParameters(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6575,7 +8050,9 @@ StorageDumpInterface* StorageImpl::createDump(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDump", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDump");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6588,7 +8065,7 @@ StorageDumpInterface* StorageImpl::createDump(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6613,7 +8090,9 @@ const StorageInterface* StorageObjectBuilderImpl::getStorage() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getStorage", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getStorage");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6622,7 +8101,7 @@ const StorageInterface* StorageObjectBuilderImpl::getStorage() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6641,7 +8120,9 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getDatabase", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDatabase");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6651,7 +8132,7 @@ const DatabaseInterface* StorageObjectBuilderImpl::getDatabase(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6669,7 +8150,9 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() con
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getQueryProcessor", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getQueryProcessor");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6678,7 +8161,7 @@ const QueryProcessorInterface* StorageObjectBuilderImpl::getQueryProcessor() con
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6697,7 +8180,9 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getStatisticsProcessor", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getStatisticsProcessor");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6707,7 +8192,7 @@ const StatisticsProcessorInterface* StorageObjectBuilderImpl::getStatisticsProce
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6726,7 +8211,9 @@ const VectorStorageInterface* StorageObjectBuilderImpl::getVectorStorage(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getVectorStorage", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getVectorStorage");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6736,7 +8223,7 @@ const VectorStorageInterface* StorageObjectBuilderImpl::getVectorStorage(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6754,7 +8241,9 @@ QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createQueryEval", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createQueryEval");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6763,7 +8252,7 @@ QueryEvalInterface* StorageObjectBuilderImpl::createQueryEval() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6789,7 +8278,9 @@ StorageDocumentInterface* StorageTransactionImpl::createDocument(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDocument", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDocument");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6799,7 +8290,7 @@ StorageDocumentInterface* StorageTransactionImpl::createDocument(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6819,7 +8310,9 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDocumentUpdate", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDocumentUpdate");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -6829,7 +8322,7 @@ StorageDocumentUpdateInterface* StorageTransactionImpl::createDocumentUpdate(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -6850,7 +8343,7 @@ void StorageTransactionImpl::deleteDocument(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6869,7 +8362,7 @@ void StorageTransactionImpl::deleteUserAccessRights(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6892,7 +8385,7 @@ void StorageTransactionImpl::updateMetaData(
 	parambuf.packNumericVariant(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6915,7 +8408,7 @@ void StorageTransactionImpl::updateDocumentFrequency(
 	parambuf.packInt(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6932,7 +8425,7 @@ bool StorageTransactionImpl::commit()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6950,7 +8443,7 @@ void StorageTransactionImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6967,7 +8460,109 @@ unsigned int StorageTransactionImpl::nofDocumentsAffected() const
 	parambuf.packUInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+StructIteratorImpl::~StructIteratorImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+Index StructIteratorImpl::skipDoc(
+			const Index& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_skipDoc), objid());
+	Index p0 = obj()->skipDoc(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndex(p0);
+	parambuf.packIndex(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+IndexRange StructIteratorImpl::skipPosSource(
+			const Index& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_skipPosSource), objid());
+	IndexRange p0 = obj()->skipPosSource(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndexRange(p0);
+	parambuf.packIndex(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+IndexRange StructIteratorImpl::skipPosSink(
+			const Index& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_skipPosSink), objid());
+	IndexRange p0 = obj()->skipPosSink(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndexRange(p0);
+	parambuf.packIndex(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+IndexRange StructIteratorImpl::source() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_source), objid());
+	IndexRange p0 = obj()->source();
+	TraceSerializer parambuf;
+	parambuf.packIndexRange(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+IndexRange StructIteratorImpl::sink() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_sink), objid());
+	IndexRange p0 = obj()->sink();
+	TraceSerializer parambuf;
+	parambuf.packIndexRange(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7002,7 +8597,7 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 	parambuf.packTermStatistics(p5);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7023,7 +8618,7 @@ void SummarizerFunctionContextImpl::setVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7042,7 +8637,7 @@ std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7062,7 +8657,7 @@ std::string SummarizerFunctionContextImpl::debugCall(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7090,7 +8685,7 @@ void SummarizerFunctionInstanceImpl::addStringParameter(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7111,7 +8706,7 @@ void SummarizerFunctionInstanceImpl::addNumericParameter(
 	parambuf.packNumericVariant(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7132,7 +8727,7 @@ void SummarizerFunctionInstanceImpl::defineResultName(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7149,7 +8744,7 @@ std::vector<std::string> SummarizerFunctionInstanceImpl::getVariables() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7170,7 +8765,9 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createFunctionContext", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createFunctionContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7184,7 +8781,7 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7202,7 +8799,7 @@ std::string SummarizerFunctionInstanceImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7227,7 +8824,9 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7238,7 +8837,7 @@ SummarizerFunctionInstanceInterface* SummarizerFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7257,7 +8856,7 @@ FunctionDescription SummarizerFunctionImpl::getDescription() const
 	parambuf.packFunctionDescription(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7273,36 +8872,17 @@ TextProcessorImpl::~TextProcessorImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void TextProcessorImpl::addResourcePath(
-			const std::string& p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_addResourcePath), objid());
-	obj()->addResourcePath(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-std::string TextProcessorImpl::getResourcePath(
+std::string TextProcessorImpl::getResourceFilePath(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getResourcePath), objid());
-	std::string p0 = obj()->getResourcePath(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getResourceFilePath), objid());
+	std::string p0 = obj()->getResourceFilePath(p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7321,7 +8901,9 @@ const SegmenterInterface* TextProcessorImpl::getSegmenterByName(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getSegmenterByName", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getSegmenterByName");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7331,7 +8913,7 @@ const SegmenterInterface* TextProcessorImpl::getSegmenterByName(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7350,7 +8932,9 @@ const SegmenterInterface* TextProcessorImpl::getSegmenterByMimeType(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getSegmenterByMimeType", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getSegmenterByMimeType");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7360,7 +8944,7 @@ const SegmenterInterface* TextProcessorImpl::getSegmenterByMimeType(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7380,7 +8964,7 @@ analyzer::SegmenterOptions TextProcessorImpl::getSegmenterOptions(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7399,7 +8983,9 @@ const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getTokenizer", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getTokenizer");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7409,7 +8995,7 @@ const TokenizerFunctionInterface* TextProcessorImpl::getTokenizer(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7428,7 +9014,9 @@ const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getNormalizer", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getNormalizer");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7438,7 +9026,7 @@ const NormalizerFunctionInterface* TextProcessorImpl::getNormalizer(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7457,7 +9045,9 @@ const AggregatorFunctionInterface* TextProcessorImpl::getAggregator(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getAggregator", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getAggregator");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7467,7 +9057,7 @@ const AggregatorFunctionInterface* TextProcessorImpl::getAggregator(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7486,7 +9076,9 @@ const PatternLexerInterface* TextProcessorImpl::getPatternLexer(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getPatternLexer", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getPatternLexer");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7496,7 +9088,7 @@ const PatternLexerInterface* TextProcessorImpl::getPatternLexer(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7515,7 +9107,9 @@ const PatternMatcherInterface* TextProcessorImpl::getPatternMatcher(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getPatternMatcher", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getPatternMatcher");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7525,7 +9119,7 @@ const PatternMatcherInterface* TextProcessorImpl::getPatternMatcher(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7543,7 +9137,9 @@ const PatternTermFeederInterface* TextProcessorImpl::getPatternTermFeeder() cons
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getPatternTermFeeder", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getPatternTermFeeder");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7552,7 +9148,100 @@ const PatternTermFeederInterface* TextProcessorImpl::getPatternTermFeeder() cons
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+PosTaggerDataInterface* TextProcessorImpl::createPosTaggerData(
+			TokenizerFunctionInstanceInterface* p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_createPosTaggerData), objid());
+	PosTaggerDataInterface* p0 = obj()->createPosTaggerData(p1);
+	p0 = traceContext()->createInterfaceImpl<PosTaggerDataInterface,PosTaggerDataImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createPosTaggerData");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTaggerData), objbase_p0->objid());
+		TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), objbase_p1->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		if (p1) {delete p1; p1 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+const PosTaggerInterface* TextProcessorImpl::getPosTagger() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_getPosTagger), objid());
+	const PosTaggerInterface* p0 = obj()->getPosTagger();
+	p0 = traceContext()->createInterfaceImpl_const<PosTaggerInterface,PosTaggerImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getPosTagger");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		const TraceObjectBase* objbase_p0 = dynamic_cast<const TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PosTagger), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+TokenMarkupInstanceInterface* TextProcessorImpl::createTokenMarkupInstance() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_createTokenMarkupInstance), objid());
+	TokenMarkupInstanceInterface* p0 = obj()->createTokenMarkupInstance();
+	p0 = traceContext()->createInterfaceImpl<TokenMarkupInstanceInterface,TokenMarkupInstanceImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createTokenMarkupInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenMarkupInstance), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7564,17 +9253,19 @@ const PatternTermFeederInterface* TextProcessorImpl::getPatternTermFeeder() cons
 
 bool TextProcessorImpl::detectDocumentClass(
 			analyzer::DocumentClass& p1, 
-			const char* contentBegin, std::size_t p2) const
+			const char* contentBegin, std::size_t p2, 
+			bool p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TextProcessor), TextProcessorConst::methodName( Method_detectDocumentClass), objid());
-	bool p0 = obj()->detectDocumentClass(p1, contentBegin, p2);
+	bool p0 = obj()->detectDocumentClass(p1, contentBegin, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packAnalyzerDocumentClass(p1);
 	parambuf.packBuffer( contentBegin, p2);
+	parambuf.packBool(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7595,7 +9286,7 @@ void TextProcessorImpl::defineDocumentClassDetector(
 	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_DocumentClassDetector), objbase_p1->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7618,7 +9309,7 @@ void TextProcessorImpl::defineSegmenter(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Segmenter), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7640,7 +9331,7 @@ void TextProcessorImpl::defineSegmenterOptions(
 	parambuf.packAnalyzerSegmenterOptions(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7662,7 +9353,7 @@ void TextProcessorImpl::defineTokenizer(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenizerFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7685,7 +9376,7 @@ void TextProcessorImpl::defineNormalizer(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_NormalizerFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7708,7 +9399,7 @@ void TextProcessorImpl::defineAggregator(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_AggregatorFunction), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7731,7 +9422,7 @@ void TextProcessorImpl::definePatternLexer(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternLexer), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7754,7 +9445,7 @@ void TextProcessorImpl::definePatternMatcher(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PatternMatcher), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p2) {delete p2; p2 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7774,7 +9465,7 @@ std::vector<std::string> TextProcessorImpl::getFunctionList(
 	parambuf.packTextProcessorFunctionType(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7798,7 +9489,7 @@ bool TokenizerFunctionInstanceImpl::concatBeforeTokenize() const
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7818,7 +9509,25 @@ std::vector<analyzer::Token> TokenizerFunctionInstanceImpl::tokenize(
 	parambuf.packBuffer( src, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::FunctionView TokenizerFunctionInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenizerFunctionInstance), TokenizerFunctionInstanceConst::methodName( Method_view), objid());
+	analyzer::FunctionView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerFunctionView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7844,7 +9553,9 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7856,7 +9567,7 @@ TokenizerFunctionInstanceInterface* TokenizerFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -7874,7 +9585,9 @@ const char* TokenizerFunctionImpl::getDescription() const
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "getDescription", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -7882,7 +9595,7 @@ const char* TokenizerFunctionImpl::getDescription() const
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7899,26 +9612,22 @@ TokenMarkupContextImpl::~TokenMarkupContextImpl()
 }
 
 void TokenMarkupContextImpl::putMarkup(
-			const SegmenterPosition& p1, 
-			std::size_t p2, 
-			const SegmenterPosition& p3, 
-			std::size_t p4, 
-			const analyzer::TokenMarkup& p5, 
-			unsigned int p6)
+			const analyzer::Position& p1, 
+			const analyzer::Position& p2, 
+			const analyzer::TokenMarkup& p3, 
+			unsigned int p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenMarkupContext), TokenMarkupContextConst::methodName( Method_putMarkup), objid());
-	obj()->putMarkup(p1, p2, p3, p4, p5, p6);
+	obj()->putMarkup(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packGlobalCounter(p1);
-	parambuf.packSize( p2);
-	parambuf.packGlobalCounter(p3);
-	parambuf.packSize( p4);
-	parambuf.packAnalyzerTokenMarkup(p5);
-	parambuf.packUInt(p6);
+	parambuf.packAnalyzerPosition(p1);
+	parambuf.packAnalyzerPosition(p2);
+	parambuf.packAnalyzerTokenMarkup(p3);
+	parambuf.packUInt(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7928,21 +9637,18 @@ void TokenMarkupContextImpl::putMarkup(
 }
 
 std::string TokenMarkupContextImpl::markupDocument(
-			const SegmenterInstanceInterface* p1, 
-			const analyzer::DocumentClass& p2, 
-			const std::string& p3) const
+			const analyzer::DocumentClass& p1, 
+			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenMarkupContext), TokenMarkupContextConst::methodName( Method_markupDocument), objid());
-	std::string p0 = obj()->markupDocument(p1, p2, p3);
+	std::string p0 = obj()->markupDocument(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
-	const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
-	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SegmenterInstance), objbase_p1->objid());
-	parambuf.packAnalyzerDocumentClass(p2);
-	parambuf.packString(p3);
+	parambuf.packAnalyzerDocumentClass(p1);
+	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7958,25 +9664,48 @@ TokenMarkupInstanceImpl::~TokenMarkupInstanceImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-TokenMarkupContextInterface* TokenMarkupInstanceImpl::createContext() const
+TokenMarkupContextInterface* TokenMarkupInstanceImpl::createContext(
+			const SegmenterInstanceInterface* p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenMarkupInstance), TokenMarkupInstanceConst::methodName( Method_createContext), objid());
-	TokenMarkupContextInterface* p0 = obj()->createContext();
+	TokenMarkupContextInterface* p0 = obj()->createContext(p1);
 	p0 = traceContext()->createInterfaceImpl<TokenMarkupContextInterface,TokenMarkupContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createContext", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_TokenMarkupContext), objbase_p0->objid());
+		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
+		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SegmenterInstance), objbase_p1->objid());
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+analyzer::FunctionView TokenMarkupInstanceImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_TokenMarkupInstance), TokenMarkupInstanceConst::methodName( Method_view), objid());
+	analyzer::FunctionView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packAnalyzerFunctionView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8002,7 +9731,26 @@ void ValueIteratorImpl::skip(
 	parambuf.packBuffer( value, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void ValueIteratorImpl::skipPrefix(
+			const char* value, std::size_t p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ValueIterator), ValueIteratorConst::methodName( Method_skipPrefix), objid());
+	obj()->skipPrefix(value, p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packBuffer( value, p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8021,7 +9769,7 @@ std::vector<std::string> ValueIteratorImpl::fetchValues(
 	parambuf.packSize( p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8047,7 +9795,9 @@ VectorStorageSearchInterface* VectorStorageClientImpl::createSearcher(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createSearcher", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createSearcher");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -8058,7 +9808,7 @@ VectorStorageSearchInterface* VectorStorageClientImpl::createSearcher(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8077,7 +9827,9 @@ VectorStorageTransactionInterface* VectorStorageClientImpl::createTransaction()
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createTransaction", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createTransaction");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -8086,7 +9838,7 @@ VectorStorageTransactionInterface* VectorStorageClientImpl::createTransaction()
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8105,7 +9857,7 @@ std::vector<std::string> VectorStorageClientImpl::conceptClassNames() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8127,7 +9879,7 @@ std::vector<Index> VectorStorageClientImpl::conceptFeatures(
 	parambuf.packIndex(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8147,7 +9899,7 @@ unsigned int VectorStorageClientImpl::nofConcepts(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8169,7 +9921,7 @@ std::vector<Index> VectorStorageClientImpl::featureConcepts(
 	parambuf.packIndex(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8179,17 +9931,17 @@ std::vector<Index> VectorStorageClientImpl::featureConcepts(
 	return p0;
 }
 
-std::vector<double> VectorStorageClientImpl::featureVector(
+std::vector<float> VectorStorageClientImpl::featureVector(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureVector), objid());
-	std::vector<double> p0 = obj()->featureVector(p1);
+	std::vector<float> p0 = obj()->featureVector(p1);
 	TraceSerializer parambuf;
 	parambuf.packFloatVector(p0);
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8209,7 +9961,7 @@ std::string VectorStorageClientImpl::featureName(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8229,7 +9981,7 @@ Index VectorStorageClientImpl::featureIndex(
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8240,8 +9992,8 @@ Index VectorStorageClientImpl::featureIndex(
 }
 
 double VectorStorageClientImpl::vectorSimilarity(
-			const std::vector<double>& p1, 
-			const std::vector<double>& p2) const
+			const std::vector<float>& p1, 
+			const std::vector<float>& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_vectorSimilarity), objid());
 	double p0 = obj()->vectorSimilarity(p1, p2);
@@ -8251,7 +10003,7 @@ double VectorStorageClientImpl::vectorSimilarity(
 	parambuf.packFloatVector(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8269,7 +10021,7 @@ unsigned int VectorStorageClientImpl::nofFeatures() const
 	parambuf.packUInt(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8287,7 +10039,7 @@ std::string VectorStorageClientImpl::config() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8305,7 +10057,7 @@ void VectorStorageClientImpl::close()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8330,7 +10082,7 @@ bool VectorStorageDumpImpl::nextChunk(
 	parambuf.packBuffer( chunk, p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8359,7 +10111,7 @@ bool VectorStorageImpl::createStorage(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8379,7 +10131,9 @@ VectorStorageClientInterface* VectorStorageImpl::createClient(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createClient", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createClient");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -8391,7 +10145,7 @@ VectorStorageClientInterface* VectorStorageImpl::createClient(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8413,7 +10167,9 @@ VectorStorageDumpInterface* VectorStorageImpl::createDump(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createDump", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createDump");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -8426,7 +10182,7 @@ VectorStorageDumpInterface* VectorStorageImpl::createDump(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8452,7 +10208,7 @@ bool VectorStorageImpl::runBuild(
 	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p3->objid());
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8468,19 +10224,19 @@ VectorStorageSearchImpl::~VectorStorageSearchImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-std::vector<VectorStorageSearchInterface::Result> VectorStorageSearchImpl::findSimilar(
-			const std::vector<double>& p1, 
+std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilar(
+			const std::vector<float>& p1, 
 			unsigned int p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilar), objid());
-	std::vector<VectorStorageSearchInterface::Result> p0 = obj()->findSimilar(p1, p2);
+	std::vector<VectorQueryResult> p0 = obj()->findSimilar(p1, p2);
 	TraceSerializer parambuf;
-	parambuf.packVectorStorageSearchResult(p0);
+	parambuf.packVectorQueryResult(p0);
 	parambuf.packFloatVector(p1);
 	parambuf.packUInt(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8490,21 +10246,21 @@ std::vector<VectorStorageSearchInterface::Result> VectorStorageSearchImpl::findS
 	return p0;
 }
 
-std::vector<VectorStorageSearchInterface::Result> VectorStorageSearchImpl::findSimilarFromSelection(
+std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilarFromSelection(
 			const std::vector<Index>& p1, 
-			const std::vector<double>& p2, 
+			const std::vector<float>& p2, 
 			unsigned int p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilarFromSelection), objid());
-	std::vector<VectorStorageSearchInterface::Result> p0 = obj()->findSimilarFromSelection(p1, p2, p3);
+	std::vector<VectorQueryResult> p0 = obj()->findSimilarFromSelection(p1, p2, p3);
 	TraceSerializer parambuf;
-	parambuf.packVectorStorageSearchResult(p0);
+	parambuf.packVectorQueryResult(p0);
 	parambuf.packIndexVector(p1);
 	parambuf.packFloatVector(p2);
 	parambuf.packUInt(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8522,7 +10278,7 @@ void VectorStorageSearchImpl::close()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8539,7 +10295,7 @@ VectorStorageTransactionImpl::~VectorStorageTransactionImpl()
 
 void VectorStorageTransactionImpl::addFeature(
 			const std::string& p1, 
-			const std::vector<double>& p2)
+			const std::vector<float>& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_addFeature), objid());
 	obj()->addFeature(p1, p2);
@@ -8549,7 +10305,7 @@ void VectorStorageTransactionImpl::addFeature(
 	parambuf.packFloatVector(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8572,7 +10328,7 @@ void VectorStorageTransactionImpl::defineFeatureConceptRelation(
 	parambuf.packIndex(p3);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8589,7 +10345,7 @@ bool VectorStorageTransactionImpl::commit()
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8607,7 +10363,7 @@ void VectorStorageTransactionImpl::rollback()
 	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8639,7 +10395,7 @@ void WeightingFunctionContextImpl::addWeightingFeature(
 	parambuf.packTermStatistics(p4);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8660,7 +10416,7 @@ void WeightingFunctionContextImpl::setVariableValue(
 	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8679,7 +10435,7 @@ double WeightingFunctionContextImpl::call(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8699,7 +10455,7 @@ std::string WeightingFunctionContextImpl::debugCall(
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8727,7 +10483,7 @@ void WeightingFunctionInstanceImpl::addStringParameter(
 	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8748,7 +10504,7 @@ void WeightingFunctionInstanceImpl::addNumericParameter(
 	parambuf.packNumericVariant(p2);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8768,7 +10524,9 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createFunctionContext", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createFunctionContext");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -8782,7 +10540,7 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8800,7 +10558,7 @@ std::vector<std::string> WeightingFunctionInstanceImpl::getVariables() const
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8818,7 +10576,7 @@ std::string WeightingFunctionInstanceImpl::tostring() const
 	parambuf.packString(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -8843,7 +10601,9 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
-		traceContext()->errorbuf()->report(_TXT("method call '%s' failed: %s"), "createInstance", traceContext()->errorbuf()->fetchError());
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createInstance");
+		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
@@ -8854,7 +10614,7 @@ WeightingFunctionInstanceInterface* WeightingFunctionImpl::createInstance(
 	}
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
@@ -8873,7 +10633,7 @@ FunctionDescription WeightingFunctionImpl::getDescription() const
 	parambuf.packFunctionDescription(p0);
 	if (parambuf.hasError())
 	{
-		traceContext()->errorbuf()->report( _TXT("memory allocation error when logging trace"));
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

@@ -13,8 +13,8 @@
 #include <cstdlib>
 #include <cstdio>
 
-#define STRUS_GETTEXT_PACKAGE		"@STRUS_GETTEXT_PACKAGE@"
-#define STRUS_GETTEXT_LOCALEDIR		"@STRUS_GETTEXT_LOCALEDIR@"
+#define STRUS_GETTEXT_PACKAGE		"strustrace-dom"
+#define STRUS_GETTEXT_LOCALEDIR		""
 
 enum {MsgBufSize=4096};
 
@@ -35,7 +35,7 @@ std::runtime_error strus::runtime_error( const char* format, ...)
 	return rt;
 }
 
-std::runtime_error strus::runtime_error_ec( int apperrno, const char* format, ...)
+std::runtime_error strus::runtime_error( int apperrno, const char* format, ...)
 {
 	char buffer[ MsgBufSize];
 	std::size_t buffersize = 0;

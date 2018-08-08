@@ -36,9 +36,9 @@
 #include "strus/patternLexerContextInterface.hpp"
 #include "strus/patternLexerInstanceInterface.hpp"
 #include "strus/patternLexerInterface.hpp"
-#include "strus/documentAnalyzerInterface.hpp"
+#include "strus/documentAnalyzerInstanceInterface.hpp"
 #include "strus/documentAnalyzerContextInterface.hpp"
-#include "strus/queryAnalyzerInterface.hpp"
+#include "strus/queryAnalyzerInstanceInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
 #include "strus/vectorStorageSearchInterface.hpp"
 #include "strus/analyzer/token.hpp"
@@ -49,7 +49,14 @@
 #include "strus/analyzer/patternMatcherResult.hpp"
 #include "strus/analyzer/document.hpp"
 #include "strus/analyzer/documentClass.hpp"
-#include "strus/statisticsProcessorInterface.hpp"
+#include "strus/analyzer/documentClass.hpp"
+#include "strus/analyzer/queryElementView.hpp"
+#include "strus/analyzer/documentAnalyzerView.hpp"
+#include "strus/analyzer/documentAnalyzerMapView.hpp"
+#include "strus/analyzer/contentStatisticsView.hpp"
+#include "strus/analyzer/contentStatisticsItem.hpp"
+#include "strus/analyzer/contentStatisticsResult.hpp"
+#include "strus/posTaggerDataInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include <string>
 #include <vector>
@@ -83,6 +90,7 @@ public:
 	void packUInt64( const uint64_t& value);
 	void packSize( const std::size_t& value);
 	void packIndex( const Index& value);
+	void packIndexRange( const IndexRange& value);
 	void packGlobalCounter( const GlobalCounter& value);
 	void packFloat( const float& value);
 	void packDouble( const double& value);
@@ -91,7 +99,9 @@ public:
 	void packStringVector( const std::vector<std::string>& ar);
 	void packIndexVector( const std::vector<Index>& ar);
 	void packUintVector( const std::vector<unsigned int>& ar);
-	void packFloatVector( const std::vector<double>& ar);
+	void packIntVector( const std::vector<int>& ar);
+	void packDoubleVector( const std::vector<double>& ar);
+	void packFloatVector( const std::vector<float>& ar);
 	void packCharp( const char* buf);
 	void packCharpp( const char** buf);
 	void openIndex( const std::size_t& value);
@@ -127,6 +137,7 @@ public:
 	void packAnalyzerDocumentMetaData( const analyzer::DocumentMetaData& val);
 	void packAnalyzerDocumentTerm( const analyzer::DocumentTerm& val);
 	void packAnalyzerDocumentTermArray( const std::vector<analyzer::DocumentTerm>& val);
+	void packAnalyzerPosition( const analyzer::Position& val);
 	void packAnalyzerToken( const analyzer::Token& val);
 	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
 	void packAnalyzerQueryGroupBy( const QueryAnalyzerContextInterface::GroupBy& groupBy);
@@ -134,6 +145,7 @@ public:
 	void packAnalyzerPatternLexemVector( const std::vector<analyzer::PatternLexem>& val);
 	void packAnalyzerPositionBind( const analyzer::PositionBind& posbind);
 	void packAnalyzerTokenMarkup( const analyzer::TokenMarkup& val);
+	void packAnalyzerPatternMatcherResultItem( const analyzer::PatternMatcherResultItem& val);
 	void packAnalyzerPatternMatcherResult( const analyzer::PatternMatcherResult& val);
 	void packAnalyzerPatternMatcherResultVector( const std::vector<analyzer::PatternMatcherResult>& val);
 	void packAnalyzerPatternMatcherStatistics( const analyzer::PatternMatcherStatistics& val);
@@ -144,12 +156,29 @@ public:
 	void packFeatureParameter( const QueryEvalInterface::FeatureParameter& val);
 	void packFeatureParameterVector( const std::vector<QueryEvalInterface::FeatureParameter>& ar);
 	void packDocumentStatisticsType( const StorageClientInterface::DocumentStatisticsType& val);
-	void packStatisticsViewerDocumentFrequencyChange( const StatisticsViewerInterface::DocumentFrequencyChange& val);
+	void packTermStatisticsChange( const TermStatisticsChange& val);
 	void packQueryProcessorFunctionType( const QueryProcessorInterface::FunctionType& val);
 	void packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val);
 	void packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val);
 	void packFunctionDescription( const FunctionDescription& val);
-	void packVectorStorageSearchResult( const std::vector<VectorStorageSearchInterface::Result>& val);
+	void packVectorQueryResult( const std::vector<VectorQueryResult>& val);
+	void packAnalyzerFunctionView( const analyzer::FunctionView& val);
+	void packAnalyzerFeatureViewList( const char* name, const std::vector<analyzer::FeatureView>& val);
+	void packAnalyzerFeatureView( const analyzer::FeatureView& val);
+	void packAnalyzerAggregatorView( const analyzer::AggregatorView& val);
+	void packAnalyzerSubDocumentDefinitionView( const analyzer::SubDocumentDefinitionView& val);
+	void packAnalyzerSubContentDefinitionView( const analyzer::SubContentDefinitionView& val);
+	void packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val);
+	void packAnalyzerDocumentAnalyzerMapView( const analyzer::DocumentAnalyzerMapView& val);
+	void packAnalyzerQueryElementView( const analyzer::QueryElementView& val);
+	void packAnalyzerQueryAnalyzerView( const analyzer::QueryAnalyzerView& val);
+	void packAnalyzerContentStatisticsElementView( const analyzer::ContentStatisticsElementView& val);
+	void packAnalyzerContentStatisticsView( const analyzer::ContentStatisticsView& val);
+	void packAnalyzerContentStatisticsItem( const analyzer::ContentStatisticsItem& val);
+	void packAnalyzerContentStatisticsItemVector( const std::vector<analyzer::ContentStatisticsItem>& val);
+	void packAnalyzerContentStatisticsResult( const analyzer::ContentStatisticsResult& val);
+	void packPosTaggerDataElement( const PosTaggerDataInterface::Element& val);
+	void packPosTaggerDataElementVector( const std::vector<PosTaggerDataInterface::Element>& val);
 
 	bool hasError() const
 	{

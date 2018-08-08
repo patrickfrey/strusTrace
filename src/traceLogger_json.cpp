@@ -41,12 +41,12 @@ TraceLogRecordHandle
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		m_recordar.push_back( TraceRecord( className, methodName, objId, m_recordar.size()+1));
 		if (m_recordar.size() > std::numeric_limits<TraceLogRecordHandle>::max())
 		{
-			throw strus::runtime_error( "%s", _TXT("number of logs out of log handle range"));
+			throw std::runtime_error( _TXT("number of logs out of log handle range"));
 		}
 		return (TraceLogRecordHandle)m_recordar.size();
 	}
@@ -83,11 +83,11 @@ void TraceLogger_json::logMethodTermination(
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		if (loghnd == 0 || loghnd > m_recordar.size())
 		{
-			m_errorhnd->report(_TXT("call log method termination with illegal log handle"));
+			m_errorhnd->report( ErrorCodeInvalidArgument, _TXT("call log method termination with illegal log handle"));
 			return;
 		}
 		std::size_t paramidx = m_parameterbuf.size();
@@ -323,7 +323,7 @@ static void printOutputJSON( FILE* output, std::size_t ridx_start, const std::st
 	{
 		if (!ri->endTime())
 		{
-			throw strus::runtime_error( "%s", _TXT("called close without all method calls terminated"));
+			throw std::runtime_error( _TXT("called close without all method calls terminated"));
 		}
 		::fprintf( output, "\n%s{", indentstr.c_str());
 		::fprintf( output, "\n%s\"time\":%u", indentstr.c_str(), (unsigned int)ridx);
@@ -375,7 +375,7 @@ bool TraceLogger_json::close()
 {
 	try
 	{
-		utils::ScopedLock lock( m_mutex);
+		strus::scoped_lock lock( m_mutex);
 
 		FileRAII output;
 		if (m_filename == "-" || m_filename == "stdout")

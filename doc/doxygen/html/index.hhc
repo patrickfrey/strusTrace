@@ -58,6 +58,7 @@
         <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a5edf2b69d2ae6fad18814eb14cc7a19a"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a9a30cae736f59481eca45f2b5e6f4e36"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a769aa8391ad6b3445cc96a1a89422642"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a4c8876f09f9ffcc9f2703ad6b63ed35c"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#afec9451095176fc85a9911b480f445ed"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a88867e62be004d8816b538d756935215"><param name="ImageNumber" value="11"></OBJECT>
         <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a3de07ede263fefc6fbf94b38e408e56d"><param name="ImageNumber" value="11"></OBJECT>
@@ -153,6 +154,7 @@
             <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a5edf2b69d2ae6fad18814eb14cc7a19a"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a9a30cae736f59481eca45f2b5e6f4e36"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a769aa8391ad6b3445cc96a1a89422642"><param name="ImageNumber" value="11"></OBJECT>
+            <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a4c8876f09f9ffcc9f2703ad6b63ed35c"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#afec9451095176fc85a9911b480f445ed"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a88867e62be004d8816b538d756935215"><param name="ImageNumber" value="11"></OBJECT>
             <LI><OBJECT type="text/sitemap"><param name="Name" value="TraceElement"><param name="Local" value="structstrus_1_1TraceElement.html#a3de07ede263fefc6fbf94b38e408e56d"><param name="ImageNumber" value="11"></OBJECT>
@@ -200,20 +202,8 @@
             <LI><OBJECT type="text/sitemap"><param name="Name" value="createStorageObjectBuilder"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#ab6f372d1904c5ffd3ada2574aa72b7d9"><param name="ImageNumber" value="11"></OBJECT>
             </UL>
           </UL>
-        <LI><OBJECT type="text/sitemap"><param name="Name" value="versionTrace.hpp"><param name="ImageNumber" value="1"></OBJECT>
-          <UL>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="STRUS_TRACE_VERSION"><param name="Local" value="versionTrace_8hpp.html#ac56d8f95eda712e2574b58f0a0b5a72d"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="STRUS_TRACE_VERSION_MAJOR"><param name="Local" value="versionTrace_8hpp.html#ad0d397492550b7a013443c8219baa156"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="STRUS_TRACE_VERSION_MINOR"><param name="Local" value="versionTrace_8hpp.html#a38a273739fcb690609c688c31de1c336"><param name="ImageNumber" value="11"></OBJECT>
-          <LI><OBJECT type="text/sitemap"><param name="Name" value="STRUS_TRACE_VERSION_STRING"><param name="Local" value="versionTrace_8hpp.html#a42e37d87a86a57db781331388e09e089"><param name="ImageNumber" value="11"></OBJECT>
-          </UL>
         </UL>
       </UL>
-    </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="File Members"><param name="Local" value="globals.html"><param name="ImageNumber" value="11"></OBJECT>
-    <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="All"><param name="Local" value="globals.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="Macros"><param name="Local" value="globals_defs.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   </UL>
 </UL>

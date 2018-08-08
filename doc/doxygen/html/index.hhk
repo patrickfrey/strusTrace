@@ -90,10 +90,6 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a1604aac14a6a28c5174cdb57844eb670"><param name="Name" value="TraceObjectId"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#aca14baf53ffd5c28c5a7e2a1a8743fec"><param name="Name" value="TraceTimeCounter"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#ac56d8f95eda712e2574b58f0a0b5a72d"><param name="Name" value="STRUS_TRACE_VERSION"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#ad0d397492550b7a013443c8219baa156"><param name="Name" value="STRUS_TRACE_VERSION_MAJOR"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#a38a273739fcb690609c688c31de1c336"><param name="Name" value="STRUS_TRACE_VERSION_MINOR"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#a42e37d87a86a57db781331388e09e089"><param name="Name" value="STRUS_TRACE_VERSION_STRING"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a909710b0722482290f718819e9cb44f9"><param name="Name" value="traceCreateObjectBuilder"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacestrus.html#a909710b0722482290f718819e9cb44f9"><param name="Name" value="strus"></OBJECT>
@@ -143,13 +139,6 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="unionstrus_1_1TraceElement_1_1Value.html#a548478656e662a2250586b6ec690934e"><param name="Name" value="UInt"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a08218a7389ea5a0c3099e23dd5211146"><param name="Name" value="UIntType"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structstrus_1_1TraceElement.html#a8df5d80ead4498ac1e1719c7340bc4be"><param name="Name" value="value"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html"><param name="Name" value="versionTrace.hpp"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#ac56d8f95eda712e2574b58f0a0b5a72d"><param name="Name" value="STRUS_TRACE_VERSION"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#ad0d397492550b7a013443c8219baa156"><param name="Name" value="STRUS_TRACE_VERSION_MAJOR"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#a38a273739fcb690609c688c31de1c336"><param name="Name" value="STRUS_TRACE_VERSION_MINOR"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="versionTrace_8hpp.html#a42e37d87a86a57db781331388e09e089"><param name="Name" value="STRUS_TRACE_VERSION_STRING"></OBJECT>
-  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceLoggerInterface.html#a308959c087eda08c515c82ac52372c90"><param name="Name" value="~TraceLoggerInterface"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classstrus_1_1TraceObjectBuilderInterface.html#af6821356209a708a961b4e62048bdbd5"><param name="Name" value="~TraceObjectBuilderInterface"></OBJECT>
 </UL>

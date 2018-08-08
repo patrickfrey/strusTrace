@@ -18,14 +18,12 @@ traceproc__std_8hpp_source.html
 traceElement_8hpp_source.html
 traceLoggerInterface_8hpp_source.html
 traceObjectBuilderInterface_8hpp_source.html
-versionTrace_8hpp_source.html
 strus_8md.html
 traceobj_8hpp.html
 traceproc__std_8hpp.html
 traceElement_8hpp.html
 traceLoggerInterface_8hpp.html
 traceObjectBuilderInterface_8hpp.html
-versionTrace_8hpp.html
 namespacestrus.html
 structstrus_1_1TraceElement.html
 structstrus_1_1TraceElement-members.html
@@ -52,8 +50,6 @@ functions_type.html
 functions_enum.html
 functions_eval.html
 files.html
-globals.html
-globals_defs.html
 tab_a.png
 tab_b.png
 tab_h.png

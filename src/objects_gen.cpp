@@ -5952,11 +5952,12 @@ SegmenterInstanceInterface* SegmenterImpl::createInstance(
 
 ContentIteratorInterface* SegmenterImpl::createContentIterator(
 			const char* content, std::size_t p1, 
-			const analyzer::DocumentClass& p2, 
-			const analyzer::SegmenterOptions& p3) const
+			const std::vector<std::string>& p2, 
+			const analyzer::DocumentClass& p3, 
+			const analyzer::SegmenterOptions& p4) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Segmenter), SegmenterConst::methodName( Method_createContentIterator), objid());
-	ContentIteratorInterface* p0 = obj()->createContentIterator(content, p1, p2, p3);
+	ContentIteratorInterface* p0 = obj()->createContentIterator(content, p1, p2, p3, p4);
 	p0 = traceContext()->createInterfaceImpl<ContentIteratorInterface,ContentIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -5970,8 +5971,9 @@ ContentIteratorInterface* SegmenterImpl::createContentIterator(
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ContentIterator), objbase_p0->objid());
 		parambuf.packBuffer( content, p1);
-		parambuf.packAnalyzerDocumentClass(p2);
-		parambuf.packAnalyzerSegmenterOptions(p3);
+		parambuf.packStringVector(p2);
+		parambuf.packAnalyzerDocumentClass(p3);
+		parambuf.packAnalyzerSegmenterOptions(p4);
 	}
 	if (parambuf.hasError())
 	{

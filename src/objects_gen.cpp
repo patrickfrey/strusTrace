@@ -628,6 +628,25 @@ void ContentStatisticsImpl::addLibraryElement(
 	}
 }
 
+void ContentStatisticsImpl::addCollectedAttribute(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatistics), ContentStatisticsConst::methodName( Method_addCollectedAttribute), objid());
+	obj()->addCollectedAttribute(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 ContentStatisticsContextInterface* ContentStatisticsImpl::createContext() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatistics), ContentStatisticsConst::methodName( Method_createContext), objid());

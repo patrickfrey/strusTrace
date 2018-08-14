@@ -201,8 +201,9 @@ public:
 	{
 		Method_Destructor=0,
 		Method_addLibraryElement=1,
-		Method_createContext=2,
-		Method_view=3
+		Method_addCollectedAttribute=2,
+		Method_createContext=3,
+		Method_view=4
 	};
 	static const char* methodName( MethodId mid);
 };

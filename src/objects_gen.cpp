@@ -628,11 +628,11 @@ void ContentStatisticsImpl::addLibraryElement(
 	}
 }
 
-void ContentStatisticsImpl::addCollectedAttribute(
+void ContentStatisticsImpl::addVisibleAttribute(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatistics), ContentStatisticsConst::methodName( Method_addCollectedAttribute), objid());
-	obj()->addCollectedAttribute(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ContentStatistics), ContentStatisticsConst::methodName( Method_addVisibleAttribute), objid());
+	obj()->addVisibleAttribute(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);

@@ -253,7 +253,7 @@ public:
 			int p5, 
 			TokenizerFunctionInstanceInterface* p6, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p7);
-	virtual void addCollectedAttribute(
+	virtual void addVisibleAttribute(
 			const std::string& p1);
 	virtual ContentStatisticsContextInterface* createContext() const;
 	virtual analyzer::ContentStatisticsView view() const;

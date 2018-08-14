@@ -146,7 +146,7 @@ const char* ContentStatisticsContextConst::methodName( MethodId mid)
 
 const char* ContentStatisticsConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addLibraryElement", "addCollectedAttribute", "createContext", "view"};
+	static const char* ar[] = { "Destructor", "addLibraryElement", "addVisibleAttribute", "createContext", "view"};
 	return ar[mid];
 }
 

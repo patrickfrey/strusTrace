@@ -314,7 +314,7 @@ const char* PosTaggerContextConst::methodName( MethodId mid)
 
 const char* PosTaggerDataConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineTag", "insert", "markupSegment"};
+	static const char* ar[] = { "Destructor", "insert", "markupSegment"};
 	return ar[mid];
 }
 

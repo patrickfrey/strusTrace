@@ -943,9 +943,6 @@ public:
 		:TraceObject<PosTaggerDataInterface>(obj_,ctx_){}
 
 	virtual ~PosTaggerDataImpl();
-	virtual void defineTag(
-			const std::string& p1, 
-			const std::string& p2);
 	virtual void insert(
 			int p1, 
 			const std::vector<Element>& p2);

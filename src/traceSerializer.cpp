@@ -1438,7 +1438,10 @@ void TraceSerializer::packAnalyzerContentStatisticsResult( const analyzer::Conte
 void TraceSerializer::packPosTaggerDataElement( const PosTaggerDataInterface::Element& val)
 {
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.typeName( val.type())));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "tag"));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.tag().c_str(), val.tag().size()));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value().c_str(), val.value().size()));

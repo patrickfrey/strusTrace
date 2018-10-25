@@ -608,9 +608,8 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_defineTag=1,
-		Method_insert=2,
-		Method_markupSegment=3
+		Method_insert=1,
+		Method_markupSegment=2
 	};
 	static const char* methodName( MethodId mid);
 };

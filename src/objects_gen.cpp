@@ -3812,27 +3812,6 @@ PosTaggerDataImpl::~PosTaggerDataImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void PosTaggerDataImpl::defineTag(
-			const std::string& p1, 
-			const std::string& p2)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerData), PosTaggerDataConst::methodName( Method_defineTag), objid());
-	obj()->defineTag(p1, p2);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	parambuf.packString(p2);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
 void PosTaggerDataImpl::insert(
 			int p1, 
 			const std::vector<Element>& p2)

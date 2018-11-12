@@ -943,6 +943,8 @@ public:
 		:TraceObject<PosTaggerDataInterface>(obj_,ctx_){}
 
 	virtual ~PosTaggerDataImpl();
+	virtual void declareIgnoredToken(
+			const std::string& p1);
 	virtual void insert(
 			int p1, 
 			const std::vector<Element>& p2);
@@ -970,7 +972,8 @@ public:
 			const std::string& p1);
 	virtual void addPosTaggerInputPunctuation(
 			const std::string& p1, 
-			const std::string& p2);
+			const std::string& p2, 
+			int p3);
 	virtual std::string getPosTaggerInput(
 			const analyzer::DocumentClass& p1, 
 			const std::string& p2) const;

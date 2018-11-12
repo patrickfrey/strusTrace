@@ -3812,6 +3812,25 @@ PosTaggerDataImpl::~PosTaggerDataImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
+void PosTaggerDataImpl::declareIgnoredToken(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerData), PosTaggerDataConst::methodName( Method_declareIgnoredToken), objid());
+	obj()->declareIgnoredToken(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void PosTaggerDataImpl::insert(
 			int p1, 
 			const std::vector<Element>& p2)
@@ -3889,14 +3908,16 @@ void PosTaggerInstanceImpl::addContentExpression(
 
 void PosTaggerInstanceImpl::addPosTaggerInputPunctuation(
 			const std::string& p1, 
-			const std::string& p2)
+			const std::string& p2, 
+			int p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PosTaggerInstance), PosTaggerInstanceConst::methodName( Method_addPosTaggerInputPunctuation), objid());
-	obj()->addPosTaggerInputPunctuation(p1, p2);
+	obj()->addPosTaggerInputPunctuation(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
+	parambuf.packInt(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

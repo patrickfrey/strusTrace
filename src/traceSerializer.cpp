@@ -1446,6 +1446,9 @@ void TraceSerializer::packPosTaggerDataElement( const PosTaggerDataInterface::El
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value().c_str(), val.value().size()));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "ref"));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.ref().c_str(), val.ref().size()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
 void TraceSerializer::packPosTaggerDataElementVector( const std::vector<PosTaggerDataInterface::Element>& val)

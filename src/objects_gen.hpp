@@ -255,6 +255,8 @@ public:
 			const std::vector<NormalizerFunctionInstanceInterface*>& p7);
 	virtual void addVisibleAttribute(
 			const std::string& p1);
+	virtual void addSelectorExpression(
+			const std::string& p1);
 	virtual ContentStatisticsContextInterface* createContext() const;
 	virtual analyzer::ContentStatisticsView view() const;
 };
@@ -1376,8 +1378,9 @@ public:
 	virtual ContentIteratorInterface* createContentIterator(
 			const char* content, std::size_t p1, 
 			const std::vector<std::string>& p2, 
-			const analyzer::DocumentClass& p3, 
-			const analyzer::SegmenterOptions& p4) const;
+			const std::vector<std::string>& p3, 
+			const analyzer::DocumentClass& p4, 
+			const analyzer::SegmenterOptions& p5) const;
 	virtual const char* getDescription() const;
 };
 

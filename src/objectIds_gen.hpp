@@ -202,8 +202,9 @@ public:
 		Method_Destructor=0,
 		Method_addLibraryElement=1,
 		Method_addVisibleAttribute=2,
-		Method_createContext=3,
-		Method_view=4
+		Method_addSelectorExpression=3,
+		Method_createContext=4,
+		Method_view=5
 	};
 	static const char* methodName( MethodId mid);
 };

@@ -1100,8 +1100,8 @@ void TraceSerializer::packVectorQueryResult( const std::vector<VectorQueryResult
 	for (std::size_t ridx=0; ri != re; ++ri,++ridx)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ridx));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "featidx"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ri->featidx()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+		m_elembuf.push_back( TraceElement( (TraceElement::TypeString), ri->value().c_str(), ri->value().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "weight"));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeDouble, ri->weight()));

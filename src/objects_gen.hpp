@@ -2047,28 +2047,25 @@ public:
 
 	virtual ~VectorStorageClientImpl();
 	virtual VectorStorageSearchInterface* createSearcher(
-			const Index& p1, 
-			const Index& p2) const;
+			const std::string& p1, 
+			int p2, 
+			int p3, 
+			bool p4) const;
 	virtual VectorStorageTransactionInterface* createTransaction();
-	virtual std::vector<std::string> conceptClassNames() const;
-	virtual std::vector<Index> conceptFeatures(
-			const std::string& p1, 
-			const Index& p2) const;
-	virtual unsigned int nofConcepts(
+	virtual std::vector<std::string> getTypes() const;
+	virtual ValueIteratorInterface* createFeatureValueIterator() const;
+	virtual std::vector<std::string> getFeatureTypes(
 			const std::string& p1) const;
-	virtual std::vector<Index> featureConcepts(
-			const std::string& p1, 
-			const Index& p2) const;
-	virtual std::vector<float> featureVector(
-			const Index& p1) const;
-	virtual std::string featureName(
-			const Index& p1) const;
-	virtual Index featureIndex(
+	virtual int nofVectors(
 			const std::string& p1) const;
+	virtual WordVector featureVector(
+			const std::string& p1, 
+			const std::string& p2) const;
 	virtual double vectorSimilarity(
-			const std::vector<float>& p1, 
-			const std::vector<float>& p2) const;
-	virtual unsigned int nofFeatures() const;
+			const WordVector& p1, 
+			const WordVector& p2) const;
+	virtual WordVector normalize(
+			const WordVector& p1) const;
 	virtual std::string config() const;
 	virtual void close();
 };
@@ -2109,12 +2106,7 @@ public:
 			const DatabaseInterface* p2) const;
 	virtual VectorStorageDumpInterface* createDump(
 			const std::string& p1, 
-			const DatabaseInterface* p2, 
-			const std::string& p3) const;
-	virtual bool runBuild(
-			const std::string& p1, 
-			const std::string& p2, 
-			const DatabaseInterface* p3) const;
+			const DatabaseInterface* p2) const;
 };
 
 class VectorStorageSearchImpl
@@ -2130,12 +2122,9 @@ public:
 
 	virtual ~VectorStorageSearchImpl();
 	virtual std::vector<VectorQueryResult> findSimilar(
-			const std::vector<float>& p1, 
-			unsigned int p2) const;
-	virtual std::vector<VectorQueryResult> findSimilarFromSelection(
-			const std::vector<Index>& p1, 
-			const std::vector<float>& p2, 
-			unsigned int p3) const;
+			const WordVector& p1, 
+			int p2, 
+			double p3) const;
 	virtual void close();
 };
 
@@ -2151,13 +2140,17 @@ public:
 		:TraceObject<VectorStorageTransactionInterface>(obj_,ctx_){}
 
 	virtual ~VectorStorageTransactionImpl();
-	virtual void addFeature(
+	virtual void defineVector(
 			const std::string& p1, 
-			const std::vector<float>& p2);
-	virtual void defineFeatureConceptRelation(
+			const std::string& p2, 
+			const WordVector& p3);
+	virtual void defineFeature(
 			const std::string& p1, 
-			const Index& p2, 
-			const Index& p3);
+			const std::string& p2);
+	virtual void defineScalar(
+			const std::string& p1, 
+			double p2);
+	virtual void clear();
 	virtual bool commit();
 	virtual void rollback();
 };

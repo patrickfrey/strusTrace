@@ -1241,17 +1241,15 @@ public:
 		Method_Destructor=0,
 		Method_createSearcher=1,
 		Method_createTransaction=2,
-		Method_conceptClassNames=3,
-		Method_conceptFeatures=4,
-		Method_nofConcepts=5,
-		Method_featureConcepts=6,
+		Method_getTypes=3,
+		Method_createFeatureValueIterator=4,
+		Method_getFeatureTypes=5,
+		Method_nofVectors=6,
 		Method_featureVector=7,
-		Method_featureName=8,
-		Method_featureIndex=9,
-		Method_vectorSimilarity=10,
-		Method_nofFeatures=11,
-		Method_config=12,
-		Method_close=13
+		Method_vectorSimilarity=8,
+		Method_normalize=9,
+		Method_config=10,
+		Method_close=11
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1275,8 +1273,7 @@ public:
 		Method_Destructor=0,
 		Method_createStorage=1,
 		Method_createClient=2,
-		Method_createDump=3,
-		Method_runBuild=4
+		Method_createDump=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1288,8 +1285,7 @@ public:
 	{
 		Method_Destructor=0,
 		Method_findSimilar=1,
-		Method_findSimilarFromSelection=2,
-		Method_close=3
+		Method_close=2
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1300,10 +1296,12 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_addFeature=1,
-		Method_defineFeatureConceptRelation=2,
-		Method_commit=3,
-		Method_rollback=4
+		Method_defineVector=1,
+		Method_defineFeature=2,
+		Method_defineScalar=3,
+		Method_clear=4,
+		Method_commit=5,
+		Method_rollback=6
 	};
 	static const char* methodName( MethodId mid);
 };

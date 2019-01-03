@@ -9828,11 +9828,13 @@ VectorStorageClientImpl::~VectorStorageClientImpl()
 }
 
 VectorStorageSearchInterface* VectorStorageClientImpl::createSearcher(
-			const Index& p1, 
-			const Index& p2) const
+			const std::string& p1, 
+			int p2, 
+			int p3, 
+			bool p4) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_createSearcher), objid());
-	VectorStorageSearchInterface* p0 = obj()->createSearcher(p1, p2);
+	VectorStorageSearchInterface* p0 = obj()->createSearcher(p1, p2, p3, p4);
 	p0 = traceContext()->createInterfaceImpl<VectorStorageSearchInterface,VectorStorageSearchImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -9845,8 +9847,10 @@ VectorStorageSearchInterface* VectorStorageClientImpl::createSearcher(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_VectorStorageSearch), objbase_p0->objid());
-		parambuf.packIndex(p1);
-		parambuf.packIndex(p2);
+		parambuf.packString(p1);
+		parambuf.packInt(p2);
+		parambuf.packInt(p3);
+		parambuf.packBool(p4);
 	}
 	if (parambuf.hasError())
 	{
@@ -9891,10 +9895,10 @@ VectorStorageTransactionInterface* VectorStorageClientImpl::createTransaction()
 	return p0;
 }
 
-std::vector<std::string> VectorStorageClientImpl::conceptClassNames() const
+std::vector<std::string> VectorStorageClientImpl::getTypes() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_conceptClassNames), objid());
-	std::vector<std::string> p0 = obj()->conceptClassNames();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_getTypes), objid());
+	std::vector<std::string> p0 = obj()->getTypes();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
@@ -9909,19 +9913,27 @@ std::vector<std::string> VectorStorageClientImpl::conceptClassNames() const
 	return p0;
 }
 
-std::vector<Index> VectorStorageClientImpl::conceptFeatures(
-			const std::string& p1, 
-			const Index& p2) const
+ValueIteratorInterface* VectorStorageClientImpl::createFeatureValueIterator() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_conceptFeatures), objid());
-	std::vector<Index> p0 = obj()->conceptFeatures(p1, p2);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_createFeatureValueIterator), objid());
+	ValueIteratorInterface* p0 = obj()->createFeatureValueIterator();
+	p0 = traceContext()->createInterfaceImpl<ValueIteratorInterface,ValueIteratorImpl>( p0);
 	TraceSerializer parambuf;
-	parambuf.packIndexVector(p0);
-	parambuf.packString(p1);
-	parambuf.packIndex(p2);
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createFeatureValueIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_ValueIterator), objbase_p0->objid());
+	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -9931,13 +9943,13 @@ std::vector<Index> VectorStorageClientImpl::conceptFeatures(
 	return p0;
 }
 
-unsigned int VectorStorageClientImpl::nofConcepts(
+std::vector<std::string> VectorStorageClientImpl::getFeatureTypes(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_nofConcepts), objid());
-	unsigned int p0 = obj()->nofConcepts(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_getFeatureTypes), objid());
+	std::vector<std::string> p0 = obj()->getFeatureTypes(p1);
 	TraceSerializer parambuf;
-	parambuf.packUInt(p0);
+	parambuf.packStringVector(p0);
 	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
@@ -9951,16 +9963,14 @@ unsigned int VectorStorageClientImpl::nofConcepts(
 	return p0;
 }
 
-std::vector<Index> VectorStorageClientImpl::featureConcepts(
-			const std::string& p1, 
-			const Index& p2) const
+int VectorStorageClientImpl::nofVectors(
+			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureConcepts), objid());
-	std::vector<Index> p0 = obj()->featureConcepts(p1, p2);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_nofVectors), objid());
+	int p0 = obj()->nofVectors(p1);
 	TraceSerializer parambuf;
-	parambuf.packIndexVector(p0);
+	parambuf.packInt(p0);
 	parambuf.packString(p1);
-	parambuf.packIndex(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -9973,54 +9983,16 @@ std::vector<Index> VectorStorageClientImpl::featureConcepts(
 	return p0;
 }
 
-std::vector<float> VectorStorageClientImpl::featureVector(
-			const Index& p1) const
+WordVector VectorStorageClientImpl::featureVector(
+			const std::string& p1, 
+			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureVector), objid());
-	std::vector<float> p0 = obj()->featureVector(p1);
+	WordVector p0 = obj()->featureVector(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packFloatVector(p0);
-	parambuf.packIndex(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-std::string VectorStorageClientImpl::featureName(
-			const Index& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureName), objid());
-	std::string p0 = obj()->featureName(p1);
-	TraceSerializer parambuf;
-	parambuf.packString(p0);
-	parambuf.packIndex(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-Index VectorStorageClientImpl::featureIndex(
-			const std::string& p1) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureIndex), objid());
-	Index p0 = obj()->featureIndex(p1);
-	TraceSerializer parambuf;
-	parambuf.packIndex(p0);
 	parambuf.packString(p1);
+	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -10034,8 +10006,8 @@ Index VectorStorageClientImpl::featureIndex(
 }
 
 double VectorStorageClientImpl::vectorSimilarity(
-			const std::vector<float>& p1, 
-			const std::vector<float>& p2) const
+			const WordVector& p1, 
+			const WordVector& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_vectorSimilarity), objid());
 	double p0 = obj()->vectorSimilarity(p1, p2);
@@ -10055,12 +10027,14 @@ double VectorStorageClientImpl::vectorSimilarity(
 	return p0;
 }
 
-unsigned int VectorStorageClientImpl::nofFeatures() const
+WordVector VectorStorageClientImpl::normalize(
+			const WordVector& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_nofFeatures), objid());
-	unsigned int p0 = obj()->nofFeatures();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_normalize), objid());
+	WordVector p0 = obj()->normalize(p1);
 	TraceSerializer parambuf;
-	parambuf.packUInt(p0);
+	parambuf.packFloatVector(p0);
+	parambuf.packFloatVector(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -10200,11 +10174,10 @@ VectorStorageClientInterface* VectorStorageImpl::createClient(
 
 VectorStorageDumpInterface* VectorStorageImpl::createDump(
 			const std::string& p1, 
-			const DatabaseInterface* p2, 
-			const std::string& p3) const
+			const DatabaseInterface* p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_createDump), objid());
-	VectorStorageDumpInterface* p0 = obj()->createDump(p1, p2, p3);
+	VectorStorageDumpInterface* p0 = obj()->createDump(p1, p2);
 	p0 = traceContext()->createInterfaceImpl<VectorStorageDumpInterface,VectorStorageDumpImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -10220,37 +10193,11 @@ VectorStorageDumpInterface* VectorStorageImpl::createDump(
 		parambuf.packString(p1);
 		const TraceObjectBase* objbase_p2 = dynamic_cast<const TraceObjectBase*>( p2);
 		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p2->objid());
-		parambuf.packString(p3);
 	}
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-bool VectorStorageImpl::runBuild(
-			const std::string& p1, 
-			const std::string& p2, 
-			const DatabaseInterface* p3) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_runBuild), objid());
-	bool p0 = obj()->runBuild(p1, p2, p3);
-	TraceSerializer parambuf;
-	parambuf.packBool(p0);
-	parambuf.packString(p1);
-	parambuf.packString(p2);
-	const TraceObjectBase* objbase_p3 = dynamic_cast<const TraceObjectBase*>( p3);
-	if (!objbase_p3) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_Database), objbase_p3->objid());
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -10267,39 +10214,17 @@ VectorStorageSearchImpl::~VectorStorageSearchImpl()
 }
 
 std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilar(
-			const std::vector<float>& p1, 
-			unsigned int p2) const
+			const WordVector& p1, 
+			int p2, 
+			double p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilar), objid());
-	std::vector<VectorQueryResult> p0 = obj()->findSimilar(p1, p2);
+	std::vector<VectorQueryResult> p0 = obj()->findSimilar(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVectorQueryResult(p0);
 	parambuf.packFloatVector(p1);
-	parambuf.packUInt(p2);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilarFromSelection(
-			const std::vector<Index>& p1, 
-			const std::vector<float>& p2, 
-			unsigned int p3) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilarFromSelection), objid());
-	std::vector<VectorQueryResult> p0 = obj()->findSimilarFromSelection(p1, p2, p3);
-	TraceSerializer parambuf;
-	parambuf.packVectorQueryResult(p0);
-	parambuf.packIndexVector(p1);
-	parambuf.packFloatVector(p2);
-	parambuf.packUInt(p3);
+	parambuf.packInt(p2);
+	parambuf.packDouble(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -10335,16 +10260,18 @@ VectorStorageTransactionImpl::~VectorStorageTransactionImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void VectorStorageTransactionImpl::addFeature(
+void VectorStorageTransactionImpl::defineVector(
 			const std::string& p1, 
-			const std::vector<float>& p2)
+			const std::string& p2, 
+			const WordVector& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_addFeature), objid());
-	obj()->addFeature(p1, p2);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_defineVector), objid());
+	obj()->defineVector(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packFloatVector(p2);
+	parambuf.packString(p2);
+	parambuf.packFloatVector(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -10356,18 +10283,54 @@ void VectorStorageTransactionImpl::addFeature(
 	}
 }
 
-void VectorStorageTransactionImpl::defineFeatureConceptRelation(
+void VectorStorageTransactionImpl::defineFeature(
 			const std::string& p1, 
-			const Index& p2, 
-			const Index& p3)
+			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_defineFeatureConceptRelation), objid());
-	obj()->defineFeatureConceptRelation(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_defineFeature), objid());
+	obj()->defineFeature(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packIndex(p2);
-	parambuf.packIndex(p3);
+	parambuf.packString(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void VectorStorageTransactionImpl::defineScalar(
+			const std::string& p1, 
+			double p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_defineScalar), objid());
+	obj()->defineScalar(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packDouble(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void VectorStorageTransactionImpl::clear()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_clear), objid());
+	obj()->clear();
+	TraceSerializer parambuf;
+	parambuf.packVoid();
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

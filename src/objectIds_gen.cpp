@@ -548,7 +548,7 @@ const char* ValueIteratorConst::methodName( MethodId mid)
 
 const char* VectorStorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createSearcher", "createTransaction", "conceptClassNames", "conceptFeatures", "nofConcepts", "featureConcepts", "featureVector", "featureName", "featureIndex", "vectorSimilarity", "nofFeatures", "config", "close"};
+	static const char* ar[] = { "Destructor", "createSearcher", "createTransaction", "getTypes", "createFeatureValueIterator", "getFeatureTypes", "nofVectors", "featureVector", "vectorSimilarity", "normalize", "config", "close"};
 	return ar[mid];
 }
 
@@ -560,19 +560,19 @@ const char* VectorStorageDumpConst::methodName( MethodId mid)
 
 const char* VectorStorageConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createStorage", "createClient", "createDump", "runBuild"};
+	static const char* ar[] = { "Destructor", "createStorage", "createClient", "createDump"};
 	return ar[mid];
 }
 
 const char* VectorStorageSearchConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "findSimilar", "findSimilarFromSelection", "close"};
+	static const char* ar[] = { "Destructor", "findSimilar", "close"};
 	return ar[mid];
 }
 
 const char* VectorStorageTransactionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addFeature", "defineFeatureConceptRelation", "commit", "rollback"};
+	static const char* ar[] = { "Destructor", "defineVector", "defineFeature", "defineScalar", "clear", "commit", "rollback"};
 	return ar[mid];
 }
 

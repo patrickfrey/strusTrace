@@ -9830,11 +9830,10 @@ VectorStorageClientImpl::~VectorStorageClientImpl()
 VectorStorageSearchInterface* VectorStorageClientImpl::createSearcher(
 			const std::string& p1, 
 			int p2, 
-			int p3, 
-			bool p4) const
+			int p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_createSearcher), objid());
-	VectorStorageSearchInterface* p0 = obj()->createSearcher(p1, p2, p3, p4);
+	VectorStorageSearchInterface* p0 = obj()->createSearcher(p1, p2, p3);
 	p0 = traceContext()->createInterfaceImpl<VectorStorageSearchInterface,VectorStorageSearchImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -9850,7 +9849,6 @@ VectorStorageSearchInterface* VectorStorageClientImpl::createSearcher(
 		parambuf.packString(p1);
 		parambuf.packInt(p2);
 		parambuf.packInt(p3);
-		parambuf.packBool(p4);
 	}
 	if (parambuf.hasError())
 	{
@@ -10216,15 +10214,17 @@ VectorStorageSearchImpl::~VectorStorageSearchImpl()
 std::vector<VectorQueryResult> VectorStorageSearchImpl::findSimilar(
 			const WordVector& p1, 
 			int p2, 
-			double p3) const
+			double p3, 
+			bool p4) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageSearch), VectorStorageSearchConst::methodName( Method_findSimilar), objid());
-	std::vector<VectorQueryResult> p0 = obj()->findSimilar(p1, p2, p3);
+	std::vector<VectorQueryResult> p0 = obj()->findSimilar(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVectorQueryResult(p0);
 	parambuf.packFloatVector(p1);
 	parambuf.packInt(p2);
 	parambuf.packDouble(p3);
+	parambuf.packBool(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

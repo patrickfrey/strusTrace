@@ -2052,9 +2052,9 @@ public:
 			int p3, 
 			bool p4) const;
 	virtual VectorStorageTransactionInterface* createTransaction();
-	virtual std::vector<std::string> getTypes() const;
+	virtual std::vector<std::string> types() const;
 	virtual ValueIteratorInterface* createFeatureValueIterator() const;
-	virtual std::vector<std::string> getFeatureTypes(
+	virtual std::vector<std::string> featureTypes(
 			const std::string& p1) const;
 	virtual int nofVectors(
 			const std::string& p1) const;

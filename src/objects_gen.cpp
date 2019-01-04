@@ -9895,10 +9895,10 @@ VectorStorageTransactionInterface* VectorStorageClientImpl::createTransaction()
 	return p0;
 }
 
-std::vector<std::string> VectorStorageClientImpl::getTypes() const
+std::vector<std::string> VectorStorageClientImpl::types() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_getTypes), objid());
-	std::vector<std::string> p0 = obj()->getTypes();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_types), objid());
+	std::vector<std::string> p0 = obj()->types();
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
 	if (parambuf.hasError())
@@ -9943,11 +9943,11 @@ ValueIteratorInterface* VectorStorageClientImpl::createFeatureValueIterator() co
 	return p0;
 }
 
-std::vector<std::string> VectorStorageClientImpl::getFeatureTypes(
+std::vector<std::string> VectorStorageClientImpl::featureTypes(
 			const std::string& p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_getFeatureTypes), objid());
-	std::vector<std::string> p0 = obj()->getFeatureTypes(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_featureTypes), objid());
+	std::vector<std::string> p0 = obj()->featureTypes(p1);
 	TraceSerializer parambuf;
 	parambuf.packStringVector(p0);
 	parambuf.packString(p1);

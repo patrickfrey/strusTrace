@@ -89,7 +89,6 @@
 #include "strus/vectorStorageClientInterface.hpp"
 #include "strus/vectorStorageDumpInterface.hpp"
 #include "strus/vectorStorageInterface.hpp"
-#include "strus/vectorStorageSearchInterface.hpp"
 #include "strus/vectorStorageTransactionInterface.hpp"
 #include "strus/weightingFunctionContextInterface.hpp"
 #include "strus/weightingFunctionInstanceInterface.hpp"
@@ -2047,10 +2046,14 @@ public:
 		:TraceObject<VectorStorageClientInterface>(obj_,ctx_){}
 
 	virtual ~VectorStorageClientImpl();
-	virtual VectorStorageSearchInterface* createSearcher(
+	virtual void prepareSearch(
+			const std::string& p1);
+	virtual std::vector<VectorQueryResult> findSimilar(
 			const std::string& p1, 
-			int p2, 
-			int p3) const;
+			const WordVector& p2, 
+			int p3, 
+			double p4, 
+			bool p5) const;
 	virtual VectorStorageTransactionInterface* createTransaction();
 	virtual std::vector<std::string> types() const;
 	virtual ValueIteratorInterface* createFeatureValueIterator() const;
@@ -2107,26 +2110,6 @@ public:
 	virtual VectorStorageDumpInterface* createDump(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
-};
-
-class VectorStorageSearchImpl
-		:public TraceObject<VectorStorageSearchInterface>
-		,public VectorStorageSearchInterface
-		,public VectorStorageSearchConst
-{
-public:
-	VectorStorageSearchImpl( VectorStorageSearchInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorStorageSearchInterface>(obj_,ctx_){}
-	VectorStorageSearchImpl( const VectorStorageSearchInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorStorageSearchInterface>(obj_,ctx_){}
-
-	virtual ~VectorStorageSearchImpl();
-	virtual std::vector<VectorQueryResult> findSimilar(
-			const WordVector& p1, 
-			int p2, 
-			double p3, 
-			bool p4) const;
-	virtual void close();
 };
 
 class VectorStorageTransactionImpl

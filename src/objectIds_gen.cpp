@@ -92,7 +92,6 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"VectorStorageClient",
 		"VectorStorageDump",
 		"VectorStorage",
-		"VectorStorageSearch",
 		"VectorStorageTransaction",
 		"WeightingFunctionContext",
 		"WeightingFunctionInstance",
@@ -548,7 +547,7 @@ const char* ValueIteratorConst::methodName( MethodId mid)
 
 const char* VectorStorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createSearcher", "createTransaction", "types", "createFeatureValueIterator", "featureTypes", "nofVectors", "featureVector", "vectorSimilarity", "normalize", "config", "close"};
+	static const char* ar[] = { "Destructor", "prepareSearch", "findSimilar", "createTransaction", "types", "createFeatureValueIterator", "featureTypes", "nofVectors", "featureVector", "vectorSimilarity", "normalize", "config", "close"};
 	return ar[mid];
 }
 
@@ -561,12 +560,6 @@ const char* VectorStorageDumpConst::methodName( MethodId mid)
 const char* VectorStorageConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "createStorage", "createClient", "createDump"};
-	return ar[mid];
-}
-
-const char* VectorStorageSearchConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "findSimilar", "close"};
 	return ar[mid];
 }
 

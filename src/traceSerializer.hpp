@@ -40,7 +40,7 @@
 #include "strus/documentAnalyzerContextInterface.hpp"
 #include "strus/queryAnalyzerInstanceInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
-#include "strus/vectorStorageSearchInterface.hpp"
+#include "strus/vectorQueryResult.hpp"
 #include "strus/analyzer/token.hpp"
 #include "strus/analyzer/patternLexem.hpp"
 #include "strus/analyzer/tokenMarkup.hpp"

@@ -91,11 +91,10 @@ enum ClassId
 	ClassId_VectorStorageClient=75,
 	ClassId_VectorStorageDump=76,
 	ClassId_VectorStorage=77,
-	ClassId_VectorStorageSearch=78,
-	ClassId_VectorStorageTransaction=79,
-	ClassId_WeightingFunctionContext=80,
-	ClassId_WeightingFunctionInstance=81,
-	ClassId_WeightingFunction=82
+	ClassId_VectorStorageTransaction=78,
+	ClassId_WeightingFunctionContext=79,
+	ClassId_WeightingFunctionInstance=80,
+	ClassId_WeightingFunction=81
 };
 
 struct TraceClassNameMap
@@ -1240,17 +1239,18 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_createSearcher=1,
-		Method_createTransaction=2,
-		Method_types=3,
-		Method_createFeatureValueIterator=4,
-		Method_featureTypes=5,
-		Method_nofVectors=6,
-		Method_featureVector=7,
-		Method_vectorSimilarity=8,
-		Method_normalize=9,
-		Method_config=10,
-		Method_close=11
+		Method_prepareSearch=1,
+		Method_findSimilar=2,
+		Method_createTransaction=3,
+		Method_types=4,
+		Method_createFeatureValueIterator=5,
+		Method_featureTypes=6,
+		Method_nofVectors=7,
+		Method_featureVector=8,
+		Method_vectorSimilarity=9,
+		Method_normalize=10,
+		Method_config=11,
+		Method_close=12
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1275,18 +1275,6 @@ public:
 		Method_createStorage=1,
 		Method_createClient=2,
 		Method_createDump=3
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class VectorStorageSearchConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_findSimilar=1,
-		Method_close=2
 	};
 	static const char* methodName( MethodId mid);
 };

@@ -9892,32 +9892,6 @@ std::vector<VectorQueryResult> VectorStorageClientImpl::findSimilar(
 	return p0;
 }
 
-VectorSearchStatistics VectorStorageClientImpl::findSimilarWithStats(
-			const std::string& p1, 
-			const WordVector& p2, 
-			int p3, 
-			double p4) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_findSimilarWithStats), objid());
-	VectorSearchStatistics p0 = obj()->findSimilarWithStats(p1, p2, p3, p4);
-	TraceSerializer parambuf;
-	parambuf.packVectorSearchStatistics(p0);
-	parambuf.packString(p1);
-	parambuf.packFloatVector(p2);
-	parambuf.packInt(p3);
-	parambuf.packDouble(p4);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
 VectorStorageTransactionInterface* VectorStorageClientImpl::createTransaction()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_createTransaction), objid());

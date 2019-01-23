@@ -1241,16 +1241,17 @@ public:
 		Method_Destructor=0,
 		Method_prepareSearch=1,
 		Method_findSimilar=2,
-		Method_createTransaction=3,
-		Method_types=4,
-		Method_createFeatureValueIterator=5,
-		Method_featureTypes=6,
-		Method_nofVectors=7,
-		Method_featureVector=8,
-		Method_vectorSimilarity=9,
-		Method_normalize=10,
-		Method_config=11,
-		Method_close=12
+		Method_findSimilarWithStats=3,
+		Method_createTransaction=4,
+		Method_types=5,
+		Method_createFeatureValueIterator=6,
+		Method_featureTypes=7,
+		Method_nofVectors=8,
+		Method_featureVector=9,
+		Method_vectorSimilarity=10,
+		Method_normalize=11,
+		Method_config=12,
+		Method_close=13
 	};
 	static const char* methodName( MethodId mid);
 };

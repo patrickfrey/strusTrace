@@ -92,6 +92,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("scopedtype", "std::vector<VectorQueryResult>")
 		("pack_msg", "parambuf.packVectorQueryResult($name);")
 	;
+	typesystem.defineType( "VectorSearchStatistics")
+		("pack_msg", "parambuf.packVectorSearchStatistics($name);")
+	;
 	typesystem.defineType( "const std::vector<unsigned int>&")
 		("pack_msg", "parambuf.packUintVector($name);")
 	;

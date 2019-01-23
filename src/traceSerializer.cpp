@@ -1111,6 +1111,25 @@ void TraceSerializer::packVectorQueryResult( const std::vector<VectorQueryResult
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packVectorSearchStatistics( const VectorSearchStatistics& val)
+{
+	try{
+	packVectorQueryResult( val.results());
+	VectorSearchStatistics::const_iterator ii = val.begin(), ie = val.end();
+	for (std::size_t iidx=0; ii != ie; ++ii,++iidx)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, iidx));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
+		m_elembuf.push_back( TraceElement( (TraceElement::TypeString), ii->name().c_str(), ii->name().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+		packNumericVariant( ii->value());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packAnalyzerFunctionView( const analyzer::FunctionView& val)
 {
 	try{

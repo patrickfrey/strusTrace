@@ -547,7 +547,7 @@ const char* ValueIteratorConst::methodName( MethodId mid)
 
 const char* VectorStorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "prepareSearch", "findSimilar", "createTransaction", "types", "createFeatureValueIterator", "featureTypes", "nofVectors", "featureVector", "vectorSimilarity", "normalize", "config", "close"};
+	static const char* ar[] = { "Destructor", "prepareSearch", "findSimilar", "findSimilarWithStats", "createTransaction", "types", "createFeatureValueIterator", "featureTypes", "nofVectors", "featureVector", "vectorSimilarity", "normalize", "config", "close"};
 	return ar[mid];
 }
 

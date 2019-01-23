@@ -2054,6 +2054,11 @@ public:
 			int p3, 
 			double p4, 
 			bool p5) const;
+	virtual VectorSearchStatistics findSimilarWithStats(
+			const std::string& p1, 
+			const WordVector& p2, 
+			int p3, 
+			double p4) const;
 	virtual VectorStorageTransactionInterface* createTransaction();
 	virtual std::vector<std::string> types() const;
 	virtual ValueIteratorInterface* createFeatureValueIterator() const;

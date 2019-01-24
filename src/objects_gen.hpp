@@ -89,7 +89,6 @@
 #include "strus/vectorStorageClientInterface.hpp"
 #include "strus/vectorStorageDumpInterface.hpp"
 #include "strus/vectorStorageInterface.hpp"
-#include "strus/vectorStorageSearchInterface.hpp"
 #include "strus/vectorStorageTransactionInterface.hpp"
 #include "strus/weightingFunctionContextInterface.hpp"
 #include "strus/weightingFunctionInstanceInterface.hpp"
@@ -253,6 +252,10 @@ public:
 			int p5, 
 			TokenizerFunctionInstanceInterface* p6, 
 			const std::vector<NormalizerFunctionInstanceInterface*>& p7);
+	virtual void addVisibleAttribute(
+			const std::string& p1);
+	virtual void addSelectorExpression(
+			const std::string& p1);
 	virtual ContentStatisticsContextInterface* createContext() const;
 	virtual analyzer::ContentStatisticsView view() const;
 };
@@ -299,8 +302,9 @@ public:
 			const char* key, std::size_t p1, 
 			std::string& p2, 
 			const DatabaseOptions& p3) const;
-	virtual void close();
 	virtual std::string config() const;
+	virtual bool compactDatabase();
+	virtual void close();
 };
 
 class DatabaseCursorImpl
@@ -941,9 +945,8 @@ public:
 		:TraceObject<PosTaggerDataInterface>(obj_,ctx_){}
 
 	virtual ~PosTaggerDataImpl();
-	virtual void defineTag(
-			const std::string& p1, 
-			const std::string& p2);
+	virtual void declareIgnoredToken(
+			const std::string& p1);
 	virtual void insert(
 			int p1, 
 			const std::vector<Element>& p2);
@@ -971,7 +974,8 @@ public:
 			const std::string& p1);
 	virtual void addPosTaggerInputPunctuation(
 			const std::string& p1, 
-			const std::string& p2);
+			const std::string& p2, 
+			int p3);
 	virtual std::string getPosTaggerInput(
 			const analyzer::DocumentClass& p1, 
 			const std::string& p2) const;
@@ -1373,8 +1377,10 @@ public:
 			const analyzer::SegmenterOptions& p1) const;
 	virtual ContentIteratorInterface* createContentIterator(
 			const char* content, std::size_t p1, 
-			const analyzer::DocumentClass& p2, 
-			const analyzer::SegmenterOptions& p3) const;
+			const std::vector<std::string>& p2, 
+			const std::vector<std::string>& p3, 
+			const analyzer::DocumentClass& p4, 
+			const analyzer::SegmenterOptions& p5) const;
 	virtual const char* getDescription() const;
 };
 
@@ -2040,29 +2046,29 @@ public:
 		:TraceObject<VectorStorageClientInterface>(obj_,ctx_){}
 
 	virtual ~VectorStorageClientImpl();
-	virtual VectorStorageSearchInterface* createSearcher(
-			const Index& p1, 
-			const Index& p2) const;
+	virtual void prepareSearch(
+			const std::string& p1);
+	virtual std::vector<VectorQueryResult> findSimilar(
+			const std::string& p1, 
+			const WordVector& p2, 
+			int p3, 
+			double p4, 
+			bool p5) const;
 	virtual VectorStorageTransactionInterface* createTransaction();
-	virtual std::vector<std::string> conceptClassNames() const;
-	virtual std::vector<Index> conceptFeatures(
-			const std::string& p1, 
-			const Index& p2) const;
-	virtual unsigned int nofConcepts(
+	virtual std::vector<std::string> types() const;
+	virtual ValueIteratorInterface* createFeatureValueIterator() const;
+	virtual std::vector<std::string> featureTypes(
 			const std::string& p1) const;
-	virtual std::vector<Index> featureConcepts(
-			const std::string& p1, 
-			const Index& p2) const;
-	virtual std::vector<float> featureVector(
-			const Index& p1) const;
-	virtual std::string featureName(
-			const Index& p1) const;
-	virtual Index featureIndex(
+	virtual int nofVectors(
 			const std::string& p1) const;
+	virtual WordVector featureVector(
+			const std::string& p1, 
+			const std::string& p2) const;
 	virtual double vectorSimilarity(
-			const std::vector<float>& p1, 
-			const std::vector<float>& p2) const;
-	virtual unsigned int nofFeatures() const;
+			const WordVector& p1, 
+			const WordVector& p2) const;
+	virtual WordVector normalize(
+			const WordVector& p1) const;
 	virtual std::string config() const;
 	virtual void close();
 };
@@ -2103,34 +2109,7 @@ public:
 			const DatabaseInterface* p2) const;
 	virtual VectorStorageDumpInterface* createDump(
 			const std::string& p1, 
-			const DatabaseInterface* p2, 
-			const std::string& p3) const;
-	virtual bool runBuild(
-			const std::string& p1, 
-			const std::string& p2, 
-			const DatabaseInterface* p3) const;
-};
-
-class VectorStorageSearchImpl
-		:public TraceObject<VectorStorageSearchInterface>
-		,public VectorStorageSearchInterface
-		,public VectorStorageSearchConst
-{
-public:
-	VectorStorageSearchImpl( VectorStorageSearchInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorStorageSearchInterface>(obj_,ctx_){}
-	VectorStorageSearchImpl( const VectorStorageSearchInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<VectorStorageSearchInterface>(obj_,ctx_){}
-
-	virtual ~VectorStorageSearchImpl();
-	virtual std::vector<VectorQueryResult> findSimilar(
-			const std::vector<float>& p1, 
-			unsigned int p2) const;
-	virtual std::vector<VectorQueryResult> findSimilarFromSelection(
-			const std::vector<Index>& p1, 
-			const std::vector<float>& p2, 
-			unsigned int p3) const;
-	virtual void close();
+			const DatabaseInterface* p2) const;
 };
 
 class VectorStorageTransactionImpl
@@ -2145,13 +2124,17 @@ public:
 		:TraceObject<VectorStorageTransactionInterface>(obj_,ctx_){}
 
 	virtual ~VectorStorageTransactionImpl();
-	virtual void addFeature(
+	virtual void defineVector(
 			const std::string& p1, 
-			const std::vector<float>& p2);
-	virtual void defineFeatureConceptRelation(
+			const std::string& p2, 
+			const WordVector& p3);
+	virtual void defineFeature(
 			const std::string& p1, 
-			const Index& p2, 
-			const Index& p3);
+			const std::string& p2);
+	virtual void defineScalar(
+			const std::string& p1, 
+			double p2);
+	virtual void clear();
 	virtual bool commit();
 	virtual void rollback();
 };

@@ -116,6 +116,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "std::vector<float>")
 		("pack_msg", "parambuf.packFloatVector($name);")
 	;
+	typesystem.defineType( "const WordVector&")
+		("pack_msg", "parambuf.packFloatVector($name);")
+	;
+	typesystem.defineType( "WordVector")
+		("pack_msg", "parambuf.packFloatVector($name);")
+	;
 	typesystem.defineType( "const char*")
 		("test_null", "$name == 0")
 		("pack_msg", "parambuf.packCharp($name);")

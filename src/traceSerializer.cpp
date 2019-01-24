@@ -1100,8 +1100,8 @@ void TraceSerializer::packVectorQueryResult( const std::vector<VectorQueryResult
 	for (std::size_t ridx=0; ri != re; ++ri,++ridx)
 	{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ridx));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "featidx"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)ri->featidx()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+		m_elembuf.push_back( TraceElement( (TraceElement::TypeString), ri->value().c_str(), ri->value().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "weight"));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeDouble, ri->weight()));
@@ -1438,10 +1438,16 @@ void TraceSerializer::packAnalyzerContentStatisticsResult( const analyzer::Conte
 void TraceSerializer::packPosTaggerDataElement( const PosTaggerDataInterface::Element& val)
 {
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
-	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.typeName( val.type())));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "tag"));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.tag().c_str(), val.tag().size()));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value().c_str(), val.value().size()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "ref"));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.ref().c_str(), val.ref().size()));
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 

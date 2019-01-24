@@ -92,7 +92,6 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"VectorStorageClient",
 		"VectorStorageDump",
 		"VectorStorage",
-		"VectorStorageSearch",
 		"VectorStorageTransaction",
 		"WeightingFunctionContext",
 		"WeightingFunctionInstance",
@@ -146,7 +145,7 @@ const char* ContentStatisticsContextConst::methodName( MethodId mid)
 
 const char* ContentStatisticsConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addLibraryElement", "createContext", "view"};
+	static const char* ar[] = { "Destructor", "addLibraryElement", "addVisibleAttribute", "addSelectorExpression", "createContext", "view"};
 	return ar[mid];
 }
 
@@ -158,7 +157,7 @@ const char* DatabaseBackupCursorConst::methodName( MethodId mid)
 
 const char* DatabaseClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createTransaction", "createCursor", "createBackupCursor", "writeImm", "removeImm", "readValue", "close", "config"};
+	static const char* ar[] = { "Destructor", "createTransaction", "createCursor", "createBackupCursor", "writeImm", "removeImm", "readValue", "config", "compactDatabase", "close"};
 	return ar[mid];
 }
 
@@ -314,7 +313,7 @@ const char* PosTaggerContextConst::methodName( MethodId mid)
 
 const char* PosTaggerDataConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineTag", "insert", "markupSegment"};
+	static const char* ar[] = { "Destructor", "declareIgnoredToken", "insert", "markupSegment"};
 	return ar[mid];
 }
 
@@ -548,7 +547,7 @@ const char* ValueIteratorConst::methodName( MethodId mid)
 
 const char* VectorStorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createSearcher", "createTransaction", "conceptClassNames", "conceptFeatures", "nofConcepts", "featureConcepts", "featureVector", "featureName", "featureIndex", "vectorSimilarity", "nofFeatures", "config", "close"};
+	static const char* ar[] = { "Destructor", "prepareSearch", "findSimilar", "createTransaction", "types", "createFeatureValueIterator", "featureTypes", "nofVectors", "featureVector", "vectorSimilarity", "normalize", "config", "close"};
 	return ar[mid];
 }
 
@@ -560,19 +559,13 @@ const char* VectorStorageDumpConst::methodName( MethodId mid)
 
 const char* VectorStorageConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createStorage", "createClient", "createDump", "runBuild"};
-	return ar[mid];
-}
-
-const char* VectorStorageSearchConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "findSimilar", "findSimilarFromSelection", "close"};
+	static const char* ar[] = { "Destructor", "createStorage", "createClient", "createDump"};
 	return ar[mid];
 }
 
 const char* VectorStorageTransactionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addFeature", "defineFeatureConceptRelation", "commit", "rollback"};
+	static const char* ar[] = { "Destructor", "defineVector", "defineFeature", "defineScalar", "clear", "commit", "rollback"};
 	return ar[mid];
 }
 

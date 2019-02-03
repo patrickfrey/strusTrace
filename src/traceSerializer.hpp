@@ -41,6 +41,7 @@
 #include "strus/queryAnalyzerInstanceInterface.hpp"
 #include "strus/queryAnalyzerContextInterface.hpp"
 #include "strus/vectorQueryResult.hpp"
+#include "strus/sentenceTerm.hpp"
 #include "strus/analyzer/token.hpp"
 #include "strus/analyzer/patternLexem.hpp"
 #include "strus/analyzer/tokenMarkup.hpp"
@@ -162,6 +163,10 @@ public:
 	void packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val);
 	void packFunctionDescription( const FunctionDescription& val);
 	void packVectorQueryResult( const std::vector<VectorQueryResult>& val);
+	void packSentenceTerm( const SentenceTerm& val);
+	void packSentenceTermVector( const std::vector<SentenceTerm>& val);
+	void packSentenceGuess( const SentenceGuess& val);
+	void packSentenceGuessVector( const std::vector<SentenceGuess>& val);
 	void packAnalyzerFunctionView( const analyzer::FunctionView& val);
 	void packAnalyzerFeatureViewList( const char* name, const std::vector<analyzer::FeatureView>& val);
 	void packAnalyzerFeatureView( const analyzer::FeatureView& val);

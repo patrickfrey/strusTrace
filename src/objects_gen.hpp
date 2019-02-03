@@ -64,6 +64,9 @@
 #include "strus/segmenterInstanceInterface.hpp"
 #include "strus/segmenterInterface.hpp"
 #include "strus/segmenterMarkupContextInterface.hpp"
+#include "strus/sentenceAnalyzerInstanceInterface.hpp"
+#include "strus/sentenceLexerContextInterface.hpp"
+#include "strus/sentenceLexerInstanceInterface.hpp"
 #include "strus/statisticsBuilderInterface.hpp"
 #include "strus/statisticsIteratorInterface.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
@@ -1421,6 +1424,76 @@ public:
 	virtual std::string getContent() const;
 };
 
+class SentenceAnalyzerInstanceImpl
+		:public TraceObject<SentenceAnalyzerInstanceInterface>
+		,public SentenceAnalyzerInstanceInterface
+		,public SentenceAnalyzerInstanceConst
+{
+public:
+	SentenceAnalyzerInstanceImpl( SentenceAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SentenceAnalyzerInstanceInterface>(obj_,ctx_){}
+	SentenceAnalyzerInstanceImpl( const SentenceAnalyzerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SentenceAnalyzerInstanceInterface>(obj_,ctx_){}
+
+	virtual ~SentenceAnalyzerInstanceImpl();
+	virtual void pushTerm(
+			const std::string& p1, 
+			const std::string& p2, 
+			int p3);
+	virtual void pushAlt(
+			int p1, 
+			bool p2, 
+			int p3);
+	virtual void pushSequenceImm(
+			int p1, 
+			int p2);
+	virtual void pushRepeat(
+			int p1) const;
+	virtual void defineSentence(
+			const std::string& p1, 
+			int p2);
+	virtual std::vector<SentenceGuess> analyzeSentence(
+			const SentenceLexerInstanceInterface* p1, 
+			const std::string& p2) const;
+};
+
+class SentenceLexerContextImpl
+		:public TraceObject<SentenceLexerContextInterface>
+		,public SentenceLexerContextInterface
+		,public SentenceLexerContextConst
+{
+public:
+	SentenceLexerContextImpl( SentenceLexerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SentenceLexerContextInterface>(obj_,ctx_){}
+	SentenceLexerContextImpl( const SentenceLexerContextInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SentenceLexerContextInterface>(obj_,ctx_){}
+
+	virtual ~SentenceLexerContextImpl();
+	virtual std::vector<SentenceTerm> altLexems() const;
+	virtual bool skipToFollow(
+			int p1);
+	virtual void skipBack();
+};
+
+class SentenceLexerInstanceImpl
+		:public TraceObject<SentenceLexerInstanceInterface>
+		,public SentenceLexerInstanceInterface
+		,public SentenceLexerInstanceConst
+{
+public:
+	SentenceLexerInstanceImpl( SentenceLexerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SentenceLexerInstanceInterface>(obj_,ctx_){}
+	SentenceLexerInstanceImpl( const SentenceLexerInstanceInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<SentenceLexerInstanceInterface>(obj_,ctx_){}
+
+	virtual ~SentenceLexerInstanceImpl();
+	virtual SentenceLexerContextInterface* createLexer(
+			const std::string& p1) const;
+	virtual double getSimilarity(
+			const SentenceTerm& p1, 
+			const SentenceTerm& p2) const;
+};
+
 class StatisticsBuilderImpl
 		:public TraceObject<StatisticsBuilderInterface>
 		,public StatisticsBuilderInterface
@@ -1743,6 +1816,8 @@ public:
 	virtual const VectorStorageInterface* getVectorStorage(
 			const std::string& p1) const;
 	virtual QueryEvalInterface* createQueryEval() const;
+	virtual SentenceAnalyzerInstanceInterface* createSentenceAnalyzer(
+			const std::string& p1) const;
 };
 
 class StorageTransactionImpl
@@ -2069,6 +2144,7 @@ public:
 			const WordVector& p2) const;
 	virtual WordVector normalize(
 			const WordVector& p1) const;
+	virtual SentenceLexerInstanceInterface* createSentenceLexer() const;
 	virtual std::string config() const;
 	virtual void close();
 };

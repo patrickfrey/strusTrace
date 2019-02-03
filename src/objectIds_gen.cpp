@@ -67,6 +67,9 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"SegmenterInstance",
 		"Segmenter",
 		"SegmenterMarkupContext",
+		"SentenceAnalyzerInstance",
+		"SentenceLexerContext",
+		"SentenceLexerInstance",
 		"StatisticsBuilder",
 		"StatisticsIterator",
 		"StatisticsProcessor",
@@ -413,6 +416,24 @@ const char* SegmenterMarkupContextConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
+const char* SentenceAnalyzerInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "pushTerm", "pushAlt", "pushSequenceImm", "pushRepeat", "defineSentence", "analyzeSentence"};
+	return ar[mid];
+}
+
+const char* SentenceLexerContextConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "altLexems", "skipToFollow", "skipBack"};
+	return ar[mid];
+}
+
+const char* SentenceLexerInstanceConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createLexer", "getSimilarity"};
+	return ar[mid];
+}
+
 const char* StatisticsBuilderConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "setNofDocumentsInsertedChange", "addDfChange", "start", "rollback", "fetchMessage"};
@@ -475,7 +496,7 @@ const char* StorageConst::methodName( MethodId mid)
 
 const char* StorageObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "getVectorStorage", "createQueryEval"};
+	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "getVectorStorage", "createQueryEval", "createSentenceAnalyzer"};
 	return ar[mid];
 }
 
@@ -547,7 +568,7 @@ const char* ValueIteratorConst::methodName( MethodId mid)
 
 const char* VectorStorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "prepareSearch", "findSimilar", "createTransaction", "types", "createFeatureValueIterator", "featureTypes", "nofVectors", "featureVector", "vectorSimilarity", "normalize", "config", "close"};
+	static const char* ar[] = { "Destructor", "prepareSearch", "findSimilar", "createTransaction", "types", "createFeatureValueIterator", "featureTypes", "nofVectors", "featureVector", "vectorSimilarity", "normalize", "createSentenceLexer", "config", "close"};
 	return ar[mid];
 }
 

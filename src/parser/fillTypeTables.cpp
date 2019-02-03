@@ -92,6 +92,30 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 		("scopedtype", "std::vector<VectorQueryResult>")
 		("pack_msg", "parambuf.packVectorQueryResult($name);")
 	;
+	typesystem.defineType( "SentenceTerm")
+		("pack_msg", "parambuf.packSentenceTerm($name);")
+	;
+	typesystem.defineType( "const SentenceTerm&")
+		("pack_msg", "parambuf.packSentenceTerm($name);")
+	;
+	typesystem.defineType( "std::vector<SentenceTerm>")
+		("pack_msg", "parambuf.packSentenceTermVector($name);")
+	;
+	typesystem.defineType( "const std::vector<SentenceTerm>&")
+		("pack_msg", "parambuf.packSentenceTermVector($name);")
+	;
+	typesystem.defineType( "SentenceGuess")
+		("pack_msg", "parambuf.packSentenceGuess($name);")
+	;
+	typesystem.defineType( "const SentenceGuess&")
+		("pack_msg", "parambuf.packSentenceGuess($name);")
+	;
+	typesystem.defineType( "std::vector<SentenceGuess>")
+		("pack_msg", "parambuf.packSentenceGuessVector($name);")
+	;
+	typesystem.defineType( "const std::vector<SentenceGuess>&")
+		("pack_msg", "parambuf.packSentenceGuessVector($name);")
+	;
 	typesystem.defineType( "const std::vector<unsigned int>&")
 		("pack_msg", "parambuf.packUintVector($name);")
 	;

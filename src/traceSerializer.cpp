@@ -1111,6 +1111,55 @@ void TraceSerializer::packVectorQueryResult( const std::vector<VectorQueryResult
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packSentenceTerm( const SentenceTerm& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value().c_str(), val.value().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "origsize"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.origsize()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packSentenceTermVector( const std::vector<SentenceTerm>& val)
+{
+	std::vector<SentenceTerm>::const_iterator ti = val.begin(), te = val.end();
+	for (std::size_t tidx=0; ti != te; ++ti,++tidx)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, tidx));
+		packSentenceTerm( *ti);
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+}
+
+void TraceSerializer::packSentenceGuess( const SentenceGuess& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "classname"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.classname().c_str(), val.classname().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "termlist"));
+		packSentenceTermVector( val.terms());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packSentenceGuessVector( const std::vector<SentenceGuess>& val)
+{
+	std::vector<SentenceGuess>::const_iterator gi = val.begin(), ge = val.end();
+	for (std::size_t gidx=0; gi != ge; ++gi,++gidx)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, gidx));
+		packSentenceGuess( *gi);
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+}
+
 void TraceSerializer::packAnalyzerFunctionView( const analyzer::FunctionView& val)
 {
 	try{

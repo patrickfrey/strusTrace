@@ -1120,9 +1120,6 @@ void TraceSerializer::packSentenceTerm( const SentenceTerm& val)
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value().c_str(), val.value().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "origsize"));
-		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.origsize()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }
 

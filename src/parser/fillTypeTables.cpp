@@ -46,6 +46,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "SegmenterPosition&")
 		("pack_msg", "parambuf.packGlobalCounter($name);")
 	;
+	typesystem.defineType( "unsigned char")
+		("pack_msg", "parambuf.packUInt8($name);")
+	;
+	typesystem.defineType( "char")
+		("pack_msg", "parambuf.packInt8($name);")
+	;
 	typesystem.defineType( "unsigned int")
 		("pack_msg", "parambuf.packUInt($name);")
 	;

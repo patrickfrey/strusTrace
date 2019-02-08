@@ -1469,10 +1469,13 @@ public:
 		:TraceObject<SentenceLexerContextInterface>(obj_,ctx_){}
 
 	virtual ~SentenceLexerContextImpl();
-	virtual std::vector<SentenceTerm> altLexems() const;
-	virtual bool skipToFollow(
+	virtual bool fetchFirstSplit();
+	virtual bool fetchNextSplit();
+	virtual int nofTokens() const;
+	virtual std::string featureValue(
 			int p1);
-	virtual void skipBack();
+	virtual std::vector<std::string> featureTypes(
+			int p1);
 };
 
 class SentenceLexerInstanceImpl
@@ -1487,7 +1490,13 @@ public:
 		:TraceObject<SentenceLexerInstanceInterface>(obj_,ctx_){}
 
 	virtual ~SentenceLexerInstanceImpl();
-	virtual SentenceLexerContextInterface* createLexer(
+	virtual void addSeparator(
+			int p1);
+	virtual void addLink(
+			int p1, 
+			char p2, 
+			int p3);
+	virtual SentenceLexerContextInterface* createContext(
 			const std::string& p1) const;
 	virtual double getSimilarity(
 			const SentenceTerm& p1, 

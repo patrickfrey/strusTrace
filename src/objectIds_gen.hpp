@@ -896,9 +896,11 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_altLexems=1,
-		Method_skipToFollow=2,
-		Method_skipBack=3
+		Method_fetchFirstSplit=1,
+		Method_fetchNextSplit=2,
+		Method_nofTokens=3,
+		Method_featureValue=4,
+		Method_featureTypes=5
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -909,8 +911,10 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_createLexer=1,
-		Method_getSimilarity=2
+		Method_addSeparator=1,
+		Method_addLink=2,
+		Method_createContext=3,
+		Method_getSimilarity=4
 	};
 	static const char* methodName( MethodId mid);
 };

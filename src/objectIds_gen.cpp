@@ -424,13 +424,13 @@ const char* SentenceAnalyzerInstanceConst::methodName( MethodId mid)
 
 const char* SentenceLexerContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "altLexems", "skipToFollow", "skipBack"};
+	static const char* ar[] = { "Destructor", "fetchFirstSplit", "fetchNextSplit", "nofTokens", "featureValue", "featureTypes"};
 	return ar[mid];
 }
 
 const char* SentenceLexerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createLexer", "getSimilarity"};
+	static const char* ar[] = { "Destructor", "addSeparator", "addLink", "createContext", "getSimilarity"};
 	return ar[mid];
 }
 

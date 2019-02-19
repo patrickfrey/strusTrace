@@ -430,7 +430,7 @@ const char* SentenceLexerContextConst::methodName( MethodId mid)
 
 const char* SentenceLexerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSeparator", "addLink", "createContext", "getSimilarity"};
+	static const char* ar[] = { "Destructor", "addSeparator", "addSpace", "addLink", "createContext", "getSimilarity"};
 	return ar[mid];
 }
 

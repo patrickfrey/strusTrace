@@ -1492,10 +1492,11 @@ public:
 	virtual ~SentenceLexerInstanceImpl();
 	virtual void addSeparator(
 			int p1);
+	virtual void addSpace(
+			int p1);
 	virtual void addLink(
 			int p1, 
-			char p2, 
-			int p3);
+			char p2);
 	virtual SentenceLexerContextInterface* createContext(
 			const std::string& p1) const;
 	virtual double getSimilarity(

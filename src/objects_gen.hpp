@@ -2196,6 +2196,10 @@ public:
 	virtual VectorStorageDumpInterface* createDump(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
+	virtual const char* getConfigDescription(
+			const ConfigType& p1) const;
+	virtual const char** getConfigParameters(
+			const ConfigType& p1) const;
 };
 
 class VectorStorageTransactionImpl

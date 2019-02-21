@@ -1325,7 +1325,9 @@ public:
 		Method_Destructor=0,
 		Method_createStorage=1,
 		Method_createClient=2,
-		Method_createDump=3
+		Method_createDump=3,
+		Method_getConfigDescription=4,
+		Method_getConfigParameters=5
 	};
 	static const char* methodName( MethodId mid);
 };

@@ -10651,6 +10651,64 @@ VectorStorageDumpInterface* VectorStorageImpl::createDump(
 	return p0;
 }
 
+const char* VectorStorageImpl::getConfigDescription(
+			const ConfigType& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_getConfigDescription), objid());
+	const char* p0 = obj()->getConfigDescription(p1);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getConfigDescription");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		parambuf.packCharp(p0);
+		parambuf.packVectorStorageConfigType(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+const char** VectorStorageImpl::getConfigParameters(
+			const ConfigType& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_getConfigParameters), objid());
+	const char** p0 = obj()->getConfigParameters(p1);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getConfigParameters");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		parambuf.packCharpp(p0);
+		parambuf.packVectorStorageConfigType(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 VectorStorageTransactionImpl::~VectorStorageTransactionImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_Destructor), objid());

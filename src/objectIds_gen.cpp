@@ -580,7 +580,7 @@ const char* VectorStorageDumpConst::methodName( MethodId mid)
 
 const char* VectorStorageConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createStorage", "createClient", "createDump"};
+	static const char* ar[] = { "Destructor", "createStorage", "createClient", "createDump", "getConfigDescription", "getConfigParameters"};
 	return ar[mid];
 }
 

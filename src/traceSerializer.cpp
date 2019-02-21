@@ -420,10 +420,23 @@ static const char* storageConfigTypeName( StorageInterface::ConfigType tp)
 	return ar[ tp];
 }
 
+static const char* vectorStorageConfigTypeName( VectorStorageInterface::ConfigType tp)
+{
+	static const char* ar[] = {"CreateClient", "CmdCreate"};
+	return ar[ tp];
+}
+
 void TraceSerializer::packStorageConfigType( const StorageInterface::ConfigType& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, storageConfigTypeName( val)));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packVectorStorageConfigType( const VectorStorageInterface::ConfigType& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, vectorStorageConfigTypeName( val)));
 	}CATCH_ERROR
 }
 

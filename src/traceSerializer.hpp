@@ -20,6 +20,7 @@
 #include "strus/databaseCursorInterface.hpp"
 #include "strus/storageInterface.hpp"
 #include "strus/storageClientInterface.hpp"
+#include "strus/vectorStorageInterface.hpp"
 #include "strus/summaryElement.hpp"
 #include "strus/summarizationVariable.hpp"
 #include "strus/documentTermIteratorInterface.hpp"
@@ -124,6 +125,7 @@ public:
 	void packDatabaseOptions( const DatabaseOptions& val);
 	void packDatabaseConfigType( const DatabaseInterface::ConfigType& val);
 	void packStorageConfigType( const StorageInterface::ConfigType& val);
+	void packVectorStorageConfigType( const VectorStorageInterface::ConfigType& val);
 	void packFeatureOptions( const analyzer::FeatureOptions& val);
 	void packSummaryElement( const SummaryElement& val);
 	void packSummaryElementVector( const std::vector<SummaryElement>& val);

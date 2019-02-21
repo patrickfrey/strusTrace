@@ -6486,6 +6486,26 @@ std::vector<std::string> SentenceLexerContextImpl::featureTypes(
 	return p0;
 }
 
+double SentenceLexerContextImpl::getWeight(
+			const std::vector<SentenceTerm>& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceLexerContext), SentenceLexerContextConst::methodName( Method_getWeight), objid());
+	double p0 = obj()->getWeight(p1);
+	TraceSerializer parambuf;
+	parambuf.packDouble(p0);
+	parambuf.packSentenceTermVector(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 SentenceLexerInstanceImpl::~SentenceLexerInstanceImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceLexerInstance), SentenceLexerInstanceConst::methodName( Method_Destructor), objid());
@@ -6574,28 +6594,6 @@ SentenceLexerContextInterface* SentenceLexerInstanceImpl::createContext(
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-double SentenceLexerInstanceImpl::getSimilarity(
-			const SentenceTerm& p1, 
-			const SentenceTerm& p2) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceLexerInstance), SentenceLexerInstanceConst::methodName( Method_getSimilarity), objid());
-	double p0 = obj()->getSimilarity(p1, p2);
-	TraceSerializer parambuf;
-	parambuf.packDouble(p0);
-	parambuf.packSentenceTerm(p1);
-	parambuf.packSentenceTerm(p2);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

@@ -424,13 +424,13 @@ const char* SentenceAnalyzerInstanceConst::methodName( MethodId mid)
 
 const char* SentenceLexerContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "fetchFirstSplit", "fetchNextSplit", "nofTokens", "featureValue", "featureTypes"};
+	static const char* ar[] = { "Destructor", "fetchFirstSplit", "fetchNextSplit", "nofTokens", "featureValue", "featureTypes", "getWeight"};
 	return ar[mid];
 }
 
 const char* SentenceLexerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSeparator", "addSpace", "addLink", "createContext", "getSimilarity"};
+	static const char* ar[] = { "Destructor", "addSeparator", "addSpace", "addLink", "createContext"};
 	return ar[mid];
 }
 

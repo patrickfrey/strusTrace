@@ -900,7 +900,8 @@ public:
 		Method_fetchNextSplit=2,
 		Method_nofTokens=3,
 		Method_featureValue=4,
-		Method_featureTypes=5
+		Method_featureTypes=5,
+		Method_getWeight=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -914,8 +915,7 @@ public:
 		Method_addSeparator=1,
 		Method_addSpace=2,
 		Method_addLink=3,
-		Method_createContext=4,
-		Method_getSimilarity=5
+		Method_createContext=4
 	};
 	static const char* methodName( MethodId mid);
 };

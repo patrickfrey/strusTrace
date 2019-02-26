@@ -418,13 +418,13 @@ const char* SegmenterMarkupContextConst::methodName( MethodId mid)
 
 const char* SentenceAnalyzerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "pushTerm", "pushAlt", "pushSequenceImm", "pushRepeat", "defineSentence", "analyzeSentence"};
+	static const char* ar[] = { "Destructor", "pushTerm", "pushAlt", "pushSequenceImm", "pushRepeat", "defineSentence", "compile", "analyzeSentence"};
 	return ar[mid];
 }
 
 const char* SentenceLexerContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "fetchFirstSplit", "fetchNextSplit", "nofTokens", "featureValue", "featureTypes", "getWeight"};
+	static const char* ar[] = { "Destructor", "fetchFirstSplit", "fetchNextSplit", "nofTokens", "featureValue", "featureTypes", "rankSentences"};
 	return ar[mid];
 }
 

@@ -104,11 +104,17 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const SentenceTerm&")
 		("pack_msg", "parambuf.packSentenceTerm($name);")
 	;
-	typesystem.defineType( "std::vector<SentenceTerm>")
+	typesystem.defineType( "SentenceTermList")
 		("pack_msg", "parambuf.packSentenceTermVector($name);")
 	;
-	typesystem.defineType( "const std::vector<SentenceTerm>&")
+	typesystem.defineType( "const SentenceTermList&")
 		("pack_msg", "parambuf.packSentenceTermVector($name);")
+	;
+	typesystem.defineType( "std::vector<SentenceTermList>")
+		("pack_msg", "parambuf.packSentenceTermListVector($name);")
+	;
+	typesystem.defineType( "const std::vector<SentenceTermList>&")
+		("pack_msg", "parambuf.packSentenceTermListVector($name);")
 	;
 	typesystem.defineType( "SentenceGuess")
 		("pack_msg", "parambuf.packSentenceGuess($name);")

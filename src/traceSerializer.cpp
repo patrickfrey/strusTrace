@@ -1136,7 +1136,7 @@ void TraceSerializer::packSentenceTerm( const SentenceTerm& val)
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packSentenceTermVector( const std::vector<SentenceTerm>& val)
+void TraceSerializer::packSentenceTermVector( const SentenceTermList& val)
 {
 	std::vector<SentenceTerm>::const_iterator ti = val.begin(), te = val.end();
 	for (std::size_t tidx=0; ti != te; ++ti,++tidx)
@@ -1147,14 +1147,28 @@ void TraceSerializer::packSentenceTermVector( const std::vector<SentenceTerm>& v
 	}
 }
 
+void TraceSerializer::packSentenceTermListVector( const std::vector<SentenceTermList>& val)
+{
+	std::vector<SentenceTermList>::const_iterator ti = val.begin(), te = val.end();
+	for (std::size_t tidx=0; ti != te; ++ti,++tidx)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, tidx));
+		packSentenceTermVector( *ti);
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+}
+
 void TraceSerializer::packSentenceGuess( const SentenceGuess& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "classname"));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.classname().c_str(), val.classname().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "termlist"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "terms"));
 		packSentenceTermVector( val.terms());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "weight"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeDouble, val.weight()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }

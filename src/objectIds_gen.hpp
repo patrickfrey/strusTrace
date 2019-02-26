@@ -885,7 +885,8 @@ public:
 		Method_pushSequenceImm=3,
 		Method_pushRepeat=4,
 		Method_defineSentence=5,
-		Method_analyzeSentence=6
+		Method_compile=6,
+		Method_analyzeSentence=7
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -901,7 +902,7 @@ public:
 		Method_nofTokens=3,
 		Method_featureValue=4,
 		Method_featureTypes=5,
-		Method_getWeight=6
+		Method_rankSentences=6
 	};
 	static const char* methodName( MethodId mid);
 };

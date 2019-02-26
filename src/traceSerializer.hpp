@@ -43,6 +43,7 @@
 #include "strus/queryAnalyzerContextInterface.hpp"
 #include "strus/vectorQueryResult.hpp"
 #include "strus/sentenceTerm.hpp"
+#include "strus/sentenceGuess.hpp"
 #include "strus/analyzer/token.hpp"
 #include "strus/analyzer/patternLexem.hpp"
 #include "strus/analyzer/tokenMarkup.hpp"
@@ -166,7 +167,8 @@ public:
 	void packFunctionDescription( const FunctionDescription& val);
 	void packVectorQueryResult( const std::vector<VectorQueryResult>& val);
 	void packSentenceTerm( const SentenceTerm& val);
-	void packSentenceTermVector( const std::vector<SentenceTerm>& val);
+	void packSentenceTermVector( const SentenceTermList& val);
+	void packSentenceTermListVector( const std::vector<SentenceTermList>& val);
 	void packSentenceGuess( const SentenceGuess& val);
 	void packSentenceGuessVector( const std::vector<SentenceGuess>& val);
 	void packAnalyzerFunctionView( const analyzer::FunctionView& val);

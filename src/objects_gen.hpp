@@ -1471,12 +1471,12 @@ public:
 	virtual bool fetchNextSplit();
 	virtual int nofTokens() const;
 	virtual std::string featureValue(
-			int p1);
+			int p1) const;
 	virtual std::vector<std::string> featureTypes(
-			int p1);
+			int p1) const;
 	virtual std::vector<SentenceGuess> rankSentences(
-			const std::vector<SentenceTermList>& p1, 
-			int p2);
+			const std::vector<SentenceGuess>& p1, 
+			int p2) const;
 };
 
 class SentenceLexerInstanceImpl

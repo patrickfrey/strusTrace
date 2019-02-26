@@ -6459,7 +6459,7 @@ int SentenceLexerContextImpl::nofTokens() const
 }
 
 std::string SentenceLexerContextImpl::featureValue(
-			int p1)
+			int p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceLexerContext), SentenceLexerContextConst::methodName( Method_featureValue), objid());
 	std::string p0 = obj()->featureValue(p1);
@@ -6479,7 +6479,7 @@ std::string SentenceLexerContextImpl::featureValue(
 }
 
 std::vector<std::string> SentenceLexerContextImpl::featureTypes(
-			int p1)
+			int p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceLexerContext), SentenceLexerContextConst::methodName( Method_featureTypes), objid());
 	std::vector<std::string> p0 = obj()->featureTypes(p1);
@@ -6499,14 +6499,14 @@ std::vector<std::string> SentenceLexerContextImpl::featureTypes(
 }
 
 std::vector<SentenceGuess> SentenceLexerContextImpl::rankSentences(
-			const std::vector<SentenceTermList>& p1, 
-			int p2)
+			const std::vector<SentenceGuess>& p1, 
+			int p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceLexerContext), SentenceLexerContextConst::methodName( Method_rankSentences), objid());
 	std::vector<SentenceGuess> p0 = obj()->rankSentences(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packSentenceGuessVector(p0);
-	parambuf.packSentenceTermListVector(p1);
+	parambuf.packSentenceGuessVector(p1);
 	parambuf.packInt(p2);
 	if (parambuf.hasError())
 	{

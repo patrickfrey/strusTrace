@@ -1452,7 +1452,8 @@ public:
 	virtual bool compile();
 	virtual std::vector<SentenceGuess> analyzeSentence(
 			const SentenceLexerInstanceInterface* p1, 
-			const std::string& p2) const;
+			const std::string& p2, 
+			int p3) const;
 };
 
 class SentenceLexerContextImpl

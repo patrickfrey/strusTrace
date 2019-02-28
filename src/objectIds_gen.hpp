@@ -881,12 +881,13 @@ public:
 	{
 		Method_Destructor=0,
 		Method_pushTerm=1,
-		Method_pushAlt=2,
-		Method_pushSequenceImm=3,
-		Method_pushRepeat=4,
-		Method_defineSentence=5,
-		Method_compile=6,
-		Method_analyzeSentence=7
+		Method_pushNone=2,
+		Method_pushAlt=3,
+		Method_pushSequenceImm=4,
+		Method_pushRepeat=5,
+		Method_defineSentence=6,
+		Method_compile=7,
+		Method_analyzeSentence=8
 	};
 	static const char* methodName( MethodId mid);
 };

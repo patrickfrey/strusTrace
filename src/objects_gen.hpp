@@ -1440,6 +1440,8 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			float p3);
+	virtual void pushNone(
+			float p1);
 	virtual void pushAlt(
 			int p1);
 	virtual void pushSequenceImm(

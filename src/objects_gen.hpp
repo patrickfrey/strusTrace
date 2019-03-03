@@ -1447,7 +1447,8 @@ public:
 	virtual void pushSequenceImm(
 			int p1);
 	virtual void pushRepeat(
-			int p1);
+			int p1, 
+			int p2);
 	virtual void defineSentence(
 			const std::string& p1, 
 			float p2);

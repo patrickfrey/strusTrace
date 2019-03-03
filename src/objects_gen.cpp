@@ -6337,13 +6337,15 @@ void SentenceAnalyzerInstanceImpl::pushSequenceImm(
 }
 
 void SentenceAnalyzerInstanceImpl::pushRepeat(
-			int p1)
+			int p1, 
+			int p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_pushRepeat), objid());
-	obj()->pushRepeat(p1);
+	obj()->pushRepeat(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packInt(p1);
+	parambuf.packInt(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

@@ -1342,10 +1342,9 @@ public:
 		Method_Destructor=0,
 		Method_defineVector=1,
 		Method_defineFeature=2,
-		Method_defineScalar=3,
-		Method_clear=4,
-		Method_commit=5,
-		Method_rollback=6
+		Method_clear=3,
+		Method_commit=4,
+		Method_rollback=5
 	};
 	static const char* methodName( MethodId mid);
 };

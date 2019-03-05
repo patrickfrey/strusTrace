@@ -10291,17 +10291,19 @@ std::vector<VectorQueryResult> VectorStorageClientImpl::findSimilar(
 			const WordVector& p2, 
 			int p3, 
 			double p4, 
-			bool p5) const
+			double p5, 
+			bool p6) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_findSimilar), objid());
-	std::vector<VectorQueryResult> p0 = obj()->findSimilar(p1, p2, p3, p4, p5);
+	std::vector<VectorQueryResult> p0 = obj()->findSimilar(p1, p2, p3, p4, p5, p6);
 	TraceSerializer parambuf;
 	parambuf.packVectorQueryResult(p0);
 	parambuf.packString(p1);
 	parambuf.packFloatVector(p2);
 	parambuf.packInt(p3);
 	parambuf.packDouble(p4);
-	parambuf.packBool(p5);
+	parambuf.packDouble(p5);
+	parambuf.packBool(p6);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -10783,27 +10785,6 @@ void VectorStorageTransactionImpl::defineFeature(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packString(p2);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void VectorStorageTransactionImpl::defineScalar(
-			const std::string& p1, 
-			double p2)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_defineScalar), objid());
-	obj()->defineScalar(p1, p2);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	parambuf.packDouble(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

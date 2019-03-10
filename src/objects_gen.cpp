@@ -6399,16 +6399,18 @@ bool SentenceAnalyzerInstanceImpl::compile()
 std::vector<SentenceGuess> SentenceAnalyzerInstanceImpl::analyzeSentence(
 			const SentenceLexerInstanceInterface* p1, 
 			const std::string& p2, 
-			int p3) const
+			int p3, 
+			double p4) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_analyzeSentence), objid());
-	std::vector<SentenceGuess> p0 = obj()->analyzeSentence(p1, p2, p3);
+	std::vector<SentenceGuess> p0 = obj()->analyzeSentence(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packSentenceGuessVector(p0);
 	const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SentenceLexerInstance), objbase_p1->objid());
 	parambuf.packString(p2);
 	parambuf.packInt(p3);
+	parambuf.packDouble(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

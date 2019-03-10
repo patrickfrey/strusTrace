@@ -1456,7 +1456,8 @@ public:
 	virtual std::vector<SentenceGuess> analyzeSentence(
 			const SentenceLexerInstanceInterface* p1, 
 			const std::string& p2, 
-			int p3) const;
+			int p3, 
+			double p4) const;
 };
 
 class SentenceLexerContextImpl

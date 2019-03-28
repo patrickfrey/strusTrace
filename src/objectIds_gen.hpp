@@ -1304,7 +1304,8 @@ public:
 		Method_normalize=10,
 		Method_createSentenceLexer=11,
 		Method_config=12,
-		Method_close=13
+		Method_close=13,
+		Method_compaction=14
 	};
 	static const char* methodName( MethodId mid);
 };

@@ -466,7 +466,7 @@ const char* StorageAlterMetaDataTableConst::methodName( MethodId mid)
 
 const char* StorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createStructIterator", "createBrowsePostingIterator", "createFieldPostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "termTypeNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage", "close"};
+	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createStructIterator", "createBrowsePostingIterator", "createFieldPostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "termTypeNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage", "close", "compaction"};
 	return ar[mid];
 }
 

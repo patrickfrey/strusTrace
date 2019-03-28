@@ -1677,6 +1677,7 @@ public:
 	virtual bool checkStorage(
 			std::ostream& p1) const;
 	virtual void close();
+	virtual void compaction();
 };
 
 class StorageDocumentImpl

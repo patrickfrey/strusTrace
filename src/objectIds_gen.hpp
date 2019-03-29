@@ -1298,14 +1298,16 @@ public:
 		Method_types=4,
 		Method_createFeatureValueIterator=5,
 		Method_featureTypes=6,
-		Method_nofVectors=7,
-		Method_featureVector=8,
-		Method_vectorSimilarity=9,
-		Method_normalize=10,
-		Method_createSentenceLexer=11,
-		Method_config=12,
-		Method_close=13,
-		Method_compaction=14
+		Method_nofTypes=7,
+		Method_nofFeatures=8,
+		Method_nofVectors=9,
+		Method_featureVector=10,
+		Method_vectorSimilarity=11,
+		Method_normalize=12,
+		Method_createSentenceLexer=13,
+		Method_config=14,
+		Method_close=15,
+		Method_compaction=16
 	};
 	static const char* methodName( MethodId mid);
 };

@@ -2149,6 +2149,8 @@ public:
 	virtual ValueIteratorInterface* createFeatureValueIterator() const;
 	virtual std::vector<std::string> featureTypes(
 			const std::string& p1) const;
+	virtual int nofTypes() const;
+	virtual int nofFeatures() const;
 	virtual int nofVectors(
 			const std::string& p1) const;
 	virtual WordVector featureVector(

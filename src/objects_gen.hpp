@@ -1503,6 +1503,8 @@ public:
 	virtual void addLink(
 			int p1, 
 			char p2);
+	virtual void defineGroupSimilarityDistance(
+			double p1);
 	virtual SentenceLexerContextInterface* createContext(
 			const std::string& p1) const;
 };

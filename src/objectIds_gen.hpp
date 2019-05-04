@@ -917,7 +917,8 @@ public:
 		Method_addSeparator=1,
 		Method_addSpace=2,
 		Method_addLink=3,
-		Method_createContext=4
+		Method_defineGroupSimilarityDistance=4,
+		Method_createContext=5
 	};
 	static const char* methodName( MethodId mid);
 };

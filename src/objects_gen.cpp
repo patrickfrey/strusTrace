@@ -6610,6 +6610,25 @@ void SentenceLexerInstanceImpl::addLink(
 	}
 }
 
+void SentenceLexerInstanceImpl::defineGroupSimilarityDistance(
+			double p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceLexerInstance), SentenceLexerInstanceConst::methodName( Method_defineGroupSimilarityDistance), objid());
+	obj()->defineGroupSimilarityDistance(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packDouble(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 SentenceLexerContextInterface* SentenceLexerInstanceImpl::createContext(
 			const std::string& p1) const
 {

@@ -24,6 +24,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const IndexRange&")
 		("pack_msg", "parambuf.packIndexRange($name);")
 	;
+	typesystem.defineType( "GlobalCounter")
+		("pack_msg", "parambuf.packGlobalCounter($name);")
+	;
 	typesystem.defineType( "const GlobalCounter&")
 		("test_null", "$name < 0")
 		("pack_msg", "parambuf.packGlobalCounter($name);")
@@ -258,6 +261,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "Slice", "DatabaseCursor")
 		("scopedtype", "DatabaseCursorInterface::Slice")
 		("pack_msg", "parambuf.packSlice($name);")
+	;
+	typesystem.defineType( "const TimeStamp&")
+		("pack_msg", "parambuf.packTimeStamp($name);")
+	;
+	typesystem.defineType( "StatisticsMessage")
+		("pack_msg", "parambuf.packStatisticsMessage($name);")
 	;
 	typesystem.defineType( "const analyzer::QueryTermExpression&")
 		("pack_msg", "parambuf.packAnalyzerQueryTermExpression($name);")

@@ -6709,12 +6709,42 @@ void StatisticsBuilderImpl::addDfChange(
 	}
 }
 
-void StatisticsBuilderImpl::start()
+StatisticsIteratorInterface* StatisticsBuilderImpl::createIteratorAndRollback()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_start), objid());
-	obj()->start();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_createIteratorAndRollback), objid());
+	StatisticsIteratorInterface* p0 = obj()->createIteratorAndRollback();
+	p0 = traceContext()->createInterfaceImpl<StatisticsIteratorInterface,StatisticsIteratorImpl>( p0);
 	TraceSerializer parambuf;
-	parambuf.packVoid();
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createIteratorAndRollback");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsIterator), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+bool StatisticsBuilderImpl::commit()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_commit), objid());
+	bool p0 = obj()->commit();
+	TraceSerializer parambuf;
+	parambuf.packBool(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -6724,6 +6754,7 @@ void StatisticsBuilderImpl::start()
 	{
 		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
 	}
+	return p0;
 }
 
 void StatisticsBuilderImpl::rollback()
@@ -6743,17 +6774,48 @@ void StatisticsBuilderImpl::rollback()
 	}
 }
 
-bool StatisticsBuilderImpl::fetchMessage(
-			const void*& blk, std::size_t& p1)
+void StatisticsBuilderImpl::releaseStatistics(
+			const TimeStamp& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_fetchMessage), objid());
-	bool p0 = obj()->fetchMessage(blk, p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_releaseStatistics), objid());
+	obj()->releaseStatistics(p1);
 	TraceSerializer parambuf;
-	parambuf.packBool(p0);
-	parambuf.packBlob( blk, p1);
+	parambuf.packVoid();
+	parambuf.packTimeStamp(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+StatisticsIteratorInterface* StatisticsBuilderImpl::createIterator(
+			const TimeStamp& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_createIterator), objid());
+	StatisticsIteratorInterface* p0 = obj()->createIterator(p1);
+	p0 = traceContext()->createInterfaceImpl<StatisticsIteratorInterface,StatisticsIteratorImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsIterator), objbase_p0->objid());
+		parambuf.packTimeStamp(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -6769,14 +6831,120 @@ StatisticsIteratorImpl::~StatisticsIteratorImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-bool StatisticsIteratorImpl::getNext(
-			const void*& msg, std::size_t& p1)
+StatisticsMessage StatisticsIteratorImpl::getNext()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsIterator), StatisticsIteratorConst::methodName( Method_getNext), objid());
-	bool p0 = obj()->getNext(msg, p1);
+	StatisticsMessage p0 = obj()->getNext();
+	TraceSerializer parambuf;
+	parambuf.packStatisticsMessage(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+StatisticsMapImpl::~StatisticsMapImpl()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_Destructor), objid());
+	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+void StatisticsMapImpl::setNofDocumentsInsertedChange(
+			int p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_setNofDocumentsInsertedChange), objid());
+	obj()->setNofDocumentsInsertedChange(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packInt(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void StatisticsMapImpl::addDfChange(
+			const char* p1, 
+			const char* p2, 
+			int p3)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_addDfChange), objid());
+	obj()->addDfChange(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packCharp(p1);
+	parambuf.packCharp(p2);
+	parambuf.packInt(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+bool StatisticsMapImpl::processStatisticsMessage(
+			const void* msgptr, std::size_t p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_processStatisticsMessage), objid());
+	bool p0 = obj()->processStatisticsMessage(msgptr, p1);
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
-	parambuf.packBlob( msg, p1);
+	parambuf.packBlob( msgptr, p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+GlobalCounter StatisticsMapImpl::nofDocuments()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_nofDocuments), objid());
+	GlobalCounter p0 = obj()->nofDocuments();
+	TraceSerializer parambuf;
+	parambuf.packGlobalCounter(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+GlobalCounter StatisticsMapImpl::df(
+			const std::string& p1, 
+			const std::string& p2)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_df), objid());
+	GlobalCounter p0 = obj()->df(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packGlobalCounter(p0);
+	parambuf.packString(p1);
+	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -6827,10 +6995,11 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 	return p0;
 }
 
-StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder() const
+StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
+			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_createBuilder), objid());
-	StatisticsBuilderInterface* p0 = obj()->createBuilder();
+	StatisticsBuilderInterface* p0 = obj()->createBuilder(p1);
 	p0 = traceContext()->createInterfaceImpl<StatisticsBuilderInterface,StatisticsBuilderImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -6843,6 +7012,37 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder() const
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsBuilder), objbase_p0->objid());
+		parambuf.packString(p1);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+StatisticsMapInterface* StatisticsProcessorImpl::createMap() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_createMap), objid());
+	StatisticsMapInterface* p0 = obj()->createMap();
+	p0 = traceContext()->createInterfaceImpl<StatisticsMapInterface,StatisticsMapImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createMap");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsMap), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
@@ -7776,10 +7976,11 @@ StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator(
 	return p0;
 }
 
-StatisticsIteratorInterface* StorageClientImpl::createChangeStatisticsIterator()
+StatisticsIteratorInterface* StorageClientImpl::createChangeStatisticsIterator(
+			const TimeStamp& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createChangeStatisticsIterator), objid());
-	StatisticsIteratorInterface* p0 = obj()->createChangeStatisticsIterator();
+	StatisticsIteratorInterface* p0 = obj()->createChangeStatisticsIterator(p1);
 	p0 = traceContext()->createInterfaceImpl<StatisticsIteratorInterface,StatisticsIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -7792,6 +7993,7 @@ StatisticsIteratorInterface* StorageClientImpl::createChangeStatisticsIterator()
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsIterator), objbase_p0->objid());
+		parambuf.packTimeStamp(p1);
 	}
 	if (parambuf.hasError())
 	{

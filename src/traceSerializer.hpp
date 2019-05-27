@@ -133,7 +133,9 @@ public:
 	void packSummarizationVariable( const SummarizationVariable& val);
 	void packSummarizationVariableVector( const std::vector<SummarizationVariable>& val);
 	void packDocumentTermIteratorTerm( const DocumentTermIteratorInterface::Term& term);
-	void packSlice( DatabaseCursorInterface::Slice& val);
+	void packSlice( const DatabaseCursorInterface::Slice& val);
+	void packTimeStamp( const TimeStamp& val);
+	void packStatisticsMessage( const StatisticsMessage& val);
 	void packAnalyzerQueryTerm( const analyzer::QueryTerm& val);
 	void packAnalyzerQueryTermExpression( const analyzer::QueryTermExpression& val);
 	void packAnalyzerDocument( const analyzer::Document& val);

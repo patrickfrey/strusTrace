@@ -69,6 +69,7 @@
 #include "strus/sentenceLexerInstanceInterface.hpp"
 #include "strus/statisticsBuilderInterface.hpp"
 #include "strus/statisticsIteratorInterface.hpp"
+#include "strus/statisticsMapInterface.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include "strus/storageAlterMetaDataTableInterface.hpp"
@@ -1527,10 +1528,13 @@ public:
 			const char* p1, 
 			const char* p2, 
 			int p3);
-	virtual void start();
+	virtual StatisticsIteratorInterface* createIteratorAndRollback();
+	virtual bool commit();
 	virtual void rollback();
-	virtual bool fetchMessage(
-			const void*& blk, std::size_t& p1);
+	virtual void releaseStatistics(
+			const TimeStamp& p1);
+	virtual StatisticsIteratorInterface* createIterator(
+			const TimeStamp& p1);
 };
 
 class StatisticsIteratorImpl
@@ -1545,8 +1549,33 @@ public:
 		:TraceObject<StatisticsIteratorInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsIteratorImpl();
-	virtual bool getNext(
-			const void*& msg, std::size_t& p1);
+	virtual StatisticsMessage getNext();
+};
+
+class StatisticsMapImpl
+		:public TraceObject<StatisticsMapInterface>
+		,public StatisticsMapInterface
+		,public StatisticsMapConst
+{
+public:
+	StatisticsMapImpl( StatisticsMapInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsMapInterface>(obj_,ctx_){}
+	StatisticsMapImpl( const StatisticsMapInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsMapInterface>(obj_,ctx_){}
+
+	virtual ~StatisticsMapImpl();
+	virtual void setNofDocumentsInsertedChange(
+			int p1);
+	virtual void addDfChange(
+			const char* p1, 
+			const char* p2, 
+			int p3);
+	virtual bool processStatisticsMessage(
+			const void* msgptr, std::size_t p1);
+	virtual GlobalCounter nofDocuments();
+	virtual GlobalCounter df(
+			const std::string& p1, 
+			const std::string& p2);
 };
 
 class StatisticsProcessorImpl
@@ -1563,7 +1592,9 @@ public:
 	virtual ~StatisticsProcessorImpl();
 	virtual StatisticsViewerInterface* createViewer(
 			const void* msgptr, std::size_t p1) const;
-	virtual StatisticsBuilderInterface* createBuilder() const;
+	virtual StatisticsBuilderInterface* createBuilder(
+			const std::string& p1) const;
+	virtual StatisticsMapInterface* createMap() const;
 };
 
 class StatisticsViewerImpl
@@ -1671,7 +1702,8 @@ public:
 	virtual StorageTransactionInterface* createTransaction();
 	virtual StatisticsIteratorInterface* createAllStatisticsIterator(
 			bool p1);
-	virtual StatisticsIteratorInterface* createChangeStatisticsIterator();
+	virtual StatisticsIteratorInterface* createChangeStatisticsIterator(
+			const TimeStamp& p1);
 	virtual const StatisticsProcessorInterface* getStatisticsProcessor() const;
 	virtual StorageDocumentInterface* createDocumentChecker(
 			const std::string& p1, 

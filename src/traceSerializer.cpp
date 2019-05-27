@@ -536,13 +536,38 @@ void TraceSerializer::packDocumentTermIteratorTerm( const DocumentTermIteratorIn
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packSlice( DatabaseCursorInterface::Slice& val)
+void TraceSerializer::packSlice( const DatabaseCursorInterface::Slice& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.ptr(), val.size()));
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packTimeStamp( const TimeStamp& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "unixtime"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.unixtime()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "counter"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.counter()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packStatisticsMessage( const StatisticsMessage& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "timestamp"));
+		packTimeStamp( val.timestamp());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "size"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	} CATCH_ERROR
+}
 
 void TraceSerializer::packAnalyzerQueryTerm( const analyzer::QueryTerm& val)
 {

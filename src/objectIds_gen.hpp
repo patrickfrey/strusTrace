@@ -71,33 +71,34 @@ enum ClassId
 	ClassId_SentenceLexerInstance=55,
 	ClassId_StatisticsBuilder=56,
 	ClassId_StatisticsIterator=57,
-	ClassId_StatisticsProcessor=58,
-	ClassId_StatisticsViewer=59,
-	ClassId_StorageAlterMetaDataTable=60,
-	ClassId_StorageClient=61,
-	ClassId_StorageDocument=62,
-	ClassId_StorageDocumentUpdate=63,
-	ClassId_StorageDump=64,
-	ClassId_Storage=65,
-	ClassId_StorageObjectBuilder=66,
-	ClassId_StorageTransaction=67,
-	ClassId_StructIterator=68,
-	ClassId_SummarizerFunctionContext=69,
-	ClassId_SummarizerFunctionInstance=70,
-	ClassId_SummarizerFunction=71,
-	ClassId_TextProcessor=72,
-	ClassId_TokenizerFunctionInstance=73,
-	ClassId_TokenizerFunction=74,
-	ClassId_TokenMarkupContext=75,
-	ClassId_TokenMarkupInstance=76,
-	ClassId_ValueIterator=77,
-	ClassId_VectorStorageClient=78,
-	ClassId_VectorStorageDump=79,
-	ClassId_VectorStorage=80,
-	ClassId_VectorStorageTransaction=81,
-	ClassId_WeightingFunctionContext=82,
-	ClassId_WeightingFunctionInstance=83,
-	ClassId_WeightingFunction=84
+	ClassId_StatisticsMap=58,
+	ClassId_StatisticsProcessor=59,
+	ClassId_StatisticsViewer=60,
+	ClassId_StorageAlterMetaDataTable=61,
+	ClassId_StorageClient=62,
+	ClassId_StorageDocument=63,
+	ClassId_StorageDocumentUpdate=64,
+	ClassId_StorageDump=65,
+	ClassId_Storage=66,
+	ClassId_StorageObjectBuilder=67,
+	ClassId_StorageTransaction=68,
+	ClassId_StructIterator=69,
+	ClassId_SummarizerFunctionContext=70,
+	ClassId_SummarizerFunctionInstance=71,
+	ClassId_SummarizerFunction=72,
+	ClassId_TextProcessor=73,
+	ClassId_TokenizerFunctionInstance=74,
+	ClassId_TokenizerFunction=75,
+	ClassId_TokenMarkupContext=76,
+	ClassId_TokenMarkupInstance=77,
+	ClassId_ValueIterator=78,
+	ClassId_VectorStorageClient=79,
+	ClassId_VectorStorageDump=80,
+	ClassId_VectorStorage=81,
+	ClassId_VectorStorageTransaction=82,
+	ClassId_WeightingFunctionContext=83,
+	ClassId_WeightingFunctionInstance=84,
+	ClassId_WeightingFunction=85
 };
 
 struct TraceClassNameMap
@@ -931,9 +932,11 @@ public:
 		Method_Destructor=0,
 		Method_setNofDocumentsInsertedChange=1,
 		Method_addDfChange=2,
-		Method_start=3,
-		Method_rollback=4,
-		Method_fetchMessage=5
+		Method_createIteratorAndRollback=3,
+		Method_commit=4,
+		Method_rollback=5,
+		Method_releaseStatistics=6,
+		Method_createIterator=7
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -949,6 +952,21 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
+class StatisticsMapConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_setNofDocumentsInsertedChange=1,
+		Method_addDfChange=2,
+		Method_processStatisticsMessage=3,
+		Method_nofDocuments=4,
+		Method_df=5
+	};
+	static const char* methodName( MethodId mid);
+};
+
 class StatisticsProcessorConst
 {
 public:
@@ -956,7 +974,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createViewer=1,
-		Method_createBuilder=2
+		Method_createBuilder=2,
+		Method_createMap=3
 	};
 	static const char* methodName( MethodId mid);
 };

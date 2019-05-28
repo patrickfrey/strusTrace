@@ -14,6 +14,7 @@
 #include "strus/numericVariant.hpp"
 #include "strus/termStatistics.hpp"
 #include "strus/globalStatistics.hpp"
+#include "strus/statisticsMessage.hpp"
 #include "strus/metaDataRestrictionInterface.hpp"
 #include "strus/databaseOptions.hpp"
 #include "strus/databaseInterface.hpp"

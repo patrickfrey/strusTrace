@@ -7944,11 +7944,10 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	return p0;
 }
 
-StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator(
-			bool p1)
+StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createAllStatisticsIterator), objid());
-	StatisticsIteratorInterface* p0 = obj()->createAllStatisticsIterator(p1);
+	StatisticsIteratorInterface* p0 = obj()->createAllStatisticsIterator();
 	p0 = traceContext()->createInterfaceImpl<StatisticsIteratorInterface,StatisticsIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -7961,7 +7960,6 @@ StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator(
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsIterator), objbase_p0->objid());
-		parambuf.packBool(p1);
 	}
 	if (parambuf.hasError())
 	{

@@ -1533,8 +1533,6 @@ public:
 	virtual void rollback();
 	virtual void releaseStatistics(
 			const TimeStamp& p1);
-	virtual StatisticsIteratorInterface* createIterator(
-			const TimeStamp& p1);
 };
 
 class StatisticsIteratorImpl
@@ -1592,6 +1590,9 @@ public:
 	virtual ~StatisticsProcessorImpl();
 	virtual StatisticsViewerInterface* createViewer(
 			const void* msgptr, std::size_t p1) const;
+	virtual StatisticsIteratorInterface* createIterator(
+			const std::string& p1, 
+			const TimeStamp& p2) const;
 	virtual StatisticsBuilderInterface* createBuilder(
 			const std::string& p1) const;
 	virtual StatisticsMapInterface* createMap() const;

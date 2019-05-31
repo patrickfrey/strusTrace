@@ -935,8 +935,7 @@ public:
 		Method_createIteratorAndRollback=3,
 		Method_commit=4,
 		Method_rollback=5,
-		Method_releaseStatistics=6,
-		Method_createIterator=7
+		Method_releaseStatistics=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -974,8 +973,9 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createViewer=1,
-		Method_createBuilder=2,
-		Method_createMap=3
+		Method_createIterator=2,
+		Method_createBuilder=3,
+		Method_createMap=4
 	};
 	static const char* methodName( MethodId mid);
 };

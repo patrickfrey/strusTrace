@@ -1710,6 +1710,8 @@ public:
 	virtual StatisticsIteratorInterface* createChangeStatisticsIterator(
 			const TimeStamp& p1);
 	virtual std::vector<TimeStamp> getChangeStatisticTimeStamps() const;
+	virtual StatisticsMessage loadChangeStatisticsMessage(
+			const TimeStamp& p1) const;
 	virtual const StatisticsProcessorInterface* getStatisticsProcessor() const;
 	virtual StorageDocumentInterface* createDocumentChecker(
 			const std::string& p1, 

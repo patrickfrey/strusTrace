@@ -8068,6 +8068,26 @@ std::vector<TimeStamp> StorageClientImpl::getChangeStatisticTimeStamps() const
 	return p0;
 }
 
+StatisticsMessage StorageClientImpl::loadChangeStatisticsMessage(
+			const TimeStamp& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_loadChangeStatisticsMessage), objid());
+	StatisticsMessage p0 = obj()->loadChangeStatisticsMessage(p1);
+	TraceSerializer parambuf;
+	parambuf.packStatisticsMessage(p0);
+	parambuf.packTimeStamp(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 const StatisticsProcessorInterface* StorageClientImpl::getStatisticsProcessor() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_getStatisticsProcessor), objid());

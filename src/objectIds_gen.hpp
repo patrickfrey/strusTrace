@@ -1045,11 +1045,12 @@ public:
 		Method_createAllStatisticsIterator=26,
 		Method_createChangeStatisticsIterator=27,
 		Method_getChangeStatisticTimeStamps=28,
-		Method_getStatisticsProcessor=29,
-		Method_createDocumentChecker=30,
-		Method_checkStorage=31,
-		Method_close=32,
-		Method_compaction=33
+		Method_loadChangeStatisticsMessage=29,
+		Method_getStatisticsProcessor=30,
+		Method_createDocumentChecker=31,
+		Method_checkStorage=32,
+		Method_close=33,
+		Method_compaction=34
 	};
 	static const char* methodName( MethodId mid);
 };

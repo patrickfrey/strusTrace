@@ -7988,7 +7988,7 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	return p0;
 }
 
-StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator()
+StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createAllStatisticsIterator), objid());
 	StatisticsIteratorInterface* p0 = obj()->createAllStatisticsIterator();
@@ -8019,7 +8019,7 @@ StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator()
 }
 
 StatisticsIteratorInterface* StorageClientImpl::createChangeStatisticsIterator(
-			const TimeStamp& p1)
+			const TimeStamp& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createChangeStatisticsIterator), objid());
 	StatisticsIteratorInterface* p0 = obj()->createChangeStatisticsIterator(p1);

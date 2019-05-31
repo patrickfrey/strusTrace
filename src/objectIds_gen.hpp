@@ -930,7 +930,7 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_setNofDocumentsInsertedChange=1,
+		Method_addNofDocumentsInsertedChange=1,
 		Method_addDfChange=2,
 		Method_createIteratorAndRollback=3,
 		Method_commit=4,
@@ -957,7 +957,7 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_setNofDocumentsInsertedChange=1,
+		Method_addNofDocumentsInsertedChange=1,
 		Method_addDfChange=2,
 		Method_processStatisticsMessage=3,
 		Method_nofDocuments=4,

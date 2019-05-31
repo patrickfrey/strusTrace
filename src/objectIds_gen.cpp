@@ -437,7 +437,7 @@ const char* SentenceLexerInstanceConst::methodName( MethodId mid)
 
 const char* StatisticsBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "setNofDocumentsInsertedChange", "addDfChange", "createIteratorAndRollback", "commit", "rollback", "releaseStatistics"};
+	static const char* ar[] = { "Destructor", "addNofDocumentsInsertedChange", "addDfChange", "createIteratorAndRollback", "commit", "rollback", "releaseStatistics"};
 	return ar[mid];
 }
 
@@ -449,7 +449,7 @@ const char* StatisticsIteratorConst::methodName( MethodId mid)
 
 const char* StatisticsMapConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "setNofDocumentsInsertedChange", "addDfChange", "processStatisticsMessage", "nofDocuments", "df"};
+	static const char* ar[] = { "Destructor", "addNofDocumentsInsertedChange", "addDfChange", "processStatisticsMessage", "nofDocuments", "df"};
 	return ar[mid];
 }
 

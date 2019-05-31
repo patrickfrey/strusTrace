@@ -1522,7 +1522,7 @@ public:
 		:TraceObject<StatisticsBuilderInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsBuilderImpl();
-	virtual void setNofDocumentsInsertedChange(
+	virtual void addNofDocumentsInsertedChange(
 			int p1);
 	virtual void addDfChange(
 			const char* p1, 
@@ -1562,7 +1562,7 @@ public:
 		:TraceObject<StatisticsMapInterface>(obj_,ctx_){}
 
 	virtual ~StatisticsMapImpl();
-	virtual void setNofDocumentsInsertedChange(
+	virtual void addNofDocumentsInsertedChange(
 			int p1);
 	virtual void addDfChange(
 			const char* p1, 

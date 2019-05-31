@@ -6667,11 +6667,11 @@ StatisticsBuilderImpl::~StatisticsBuilderImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void StatisticsBuilderImpl::setNofDocumentsInsertedChange(
+void StatisticsBuilderImpl::addNofDocumentsInsertedChange(
 			int p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_setNofDocumentsInsertedChange), objid());
-	obj()->setNofDocumentsInsertedChange(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_addNofDocumentsInsertedChange), objid());
+	obj()->addNofDocumentsInsertedChange(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packInt(p1);
@@ -6823,11 +6823,11 @@ StatisticsMapImpl::~StatisticsMapImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void StatisticsMapImpl::setNofDocumentsInsertedChange(
+void StatisticsMapImpl::addNofDocumentsInsertedChange(
 			int p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_setNofDocumentsInsertedChange), objid());
-	obj()->setNofDocumentsInsertedChange(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_addNofDocumentsInsertedChange), objid());
+	obj()->addNofDocumentsInsertedChange(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packInt(p1);

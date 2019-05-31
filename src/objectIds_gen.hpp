@@ -974,8 +974,9 @@ public:
 		Method_Destructor=0,
 		Method_createViewer=1,
 		Method_createIterator=2,
-		Method_createBuilder=3,
-		Method_createMap=4
+		Method_getChangeTimeStamps=3,
+		Method_createBuilder=4,
+		Method_createMap=5
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1042,11 +1043,12 @@ public:
 		Method_createTransaction=25,
 		Method_createAllStatisticsIterator=26,
 		Method_createChangeStatisticsIterator=27,
-		Method_getStatisticsProcessor=28,
-		Method_createDocumentChecker=29,
-		Method_checkStorage=30,
-		Method_close=31,
-		Method_compaction=32
+		Method_getChangeStatisticTimeStamps=28,
+		Method_getStatisticsProcessor=29,
+		Method_createDocumentChecker=30,
+		Method_checkStorage=31,
+		Method_close=32,
+		Method_compaction=33
 	};
 	static const char* methodName( MethodId mid);
 };

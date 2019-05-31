@@ -265,6 +265,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const TimeStamp&")
 		("pack_msg", "parambuf.packTimeStamp($name);")
 	;
+	typesystem.defineType( "const std::vector<TimeStamp>&")
+		("pack_msg", "parambuf.packTimeStampVector($name);")
+	;
+	typesystem.defineType( "std::vector<TimeStamp>")
+		("pack_msg", "parambuf.packTimeStampVector($name);")
+	;
 	typesystem.defineType( "StatisticsMessage")
 		("pack_msg", "parambuf.packStatisticsMessage($name);")
 	;

@@ -556,6 +556,19 @@ void TraceSerializer::packTimeStamp( const TimeStamp& val)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packTimeStampVector( const std::vector<TimeStamp>& val)
+{
+	try{
+	std::vector<TimeStamp>::const_iterator ti = val.begin(), te = val.end();
+	for (; ti != te; ++ti)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ti-val.begin()));
+		packTimeStamp( *ti);
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packStatisticsMessage( const StatisticsMessage& val)
 {
 	try{

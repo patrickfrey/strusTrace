@@ -455,7 +455,7 @@ const char* StatisticsMapConst::methodName( MethodId mid)
 
 const char* StatisticsProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createViewer", "createIterator", "createBuilder", "createMap"};
+	static const char* ar[] = { "Destructor", "createViewer", "createIterator", "getChangeTimeStamps", "createBuilder", "createMap"};
 	return ar[mid];
 }
 
@@ -473,7 +473,7 @@ const char* StorageAlterMetaDataTableConst::methodName( MethodId mid)
 
 const char* StorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createStructIterator", "createBrowsePostingIterator", "createFieldPostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "termTypeNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getStatisticsProcessor", "createDocumentChecker", "checkStorage", "close", "compaction"};
+	static const char* ar[] = { "Destructor", "config", "createTermPostingIterator", "createStructIterator", "createBrowsePostingIterator", "createFieldPostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "termTypeNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getChangeStatisticTimeStamps", "getStatisticsProcessor", "createDocumentChecker", "checkStorage", "close", "compaction"};
 	return ar[mid];
 }
 

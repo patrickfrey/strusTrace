@@ -136,6 +136,7 @@ public:
 	void packDocumentTermIteratorTerm( const DocumentTermIteratorInterface::Term& term);
 	void packSlice( const DatabaseCursorInterface::Slice& val);
 	void packTimeStamp( const TimeStamp& val);
+	void packTimeStampVector( const std::vector<TimeStamp>& val);
 	void packStatisticsMessage( const StatisticsMessage& val);
 	void packAnalyzerQueryTerm( const analyzer::QueryTerm& val);
 	void packAnalyzerQueryTermExpression( const analyzer::QueryTermExpression& val);

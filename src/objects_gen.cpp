@@ -6997,6 +6997,26 @@ StatisticsIteratorInterface* StatisticsProcessorImpl::createIterator(
 	return p0;
 }
 
+std::vector<TimeStamp> StatisticsProcessorImpl::getChangeTimeStamps(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_getChangeTimeStamps), objid());
+	std::vector<TimeStamp> p0 = obj()->getChangeTimeStamps(p1);
+	TraceSerializer parambuf;
+	parambuf.packTimeStampVector(p0);
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 			const std::string& p1) const
 {
@@ -7999,6 +8019,24 @@ StatisticsIteratorInterface* StorageClientImpl::createChangeStatisticsIterator(
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+std::vector<TimeStamp> StorageClientImpl::getChangeStatisticTimeStamps() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_getChangeStatisticTimeStamps), objid());
+	std::vector<TimeStamp> p0 = obj()->getChangeStatisticTimeStamps();
+	TraceSerializer parambuf;
+	parambuf.packTimeStampVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else

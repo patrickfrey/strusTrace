@@ -975,8 +975,9 @@ public:
 		Method_createViewer=1,
 		Method_createIterator=2,
 		Method_getChangeTimeStamps=3,
-		Method_createBuilder=4,
-		Method_createMap=5
+		Method_loadChangeMessage=4,
+		Method_createBuilder=5,
+		Method_createMap=6
 	};
 	static const char* methodName( MethodId mid);
 };

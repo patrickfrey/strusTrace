@@ -7017,6 +7017,28 @@ std::vector<TimeStamp> StatisticsProcessorImpl::getChangeTimeStamps(
 	return p0;
 }
 
+StatisticsMessage StatisticsProcessorImpl::loadChangeMessage(
+			const std::string& p1, 
+			const TimeStamp& p2) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_loadChangeMessage), objid());
+	StatisticsMessage p0 = obj()->loadChangeMessage(p1, p2);
+	TraceSerializer parambuf;
+	parambuf.packStatisticsMessage(p0);
+	parambuf.packString(p1);
+	parambuf.packTimeStamp(p2);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 			const std::string& p1) const
 {

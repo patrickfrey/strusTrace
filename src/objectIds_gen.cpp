@@ -455,7 +455,7 @@ const char* StatisticsMapConst::methodName( MethodId mid)
 
 const char* StatisticsProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createViewer", "createIterator", "getChangeTimeStamps", "createBuilder", "createMap"};
+	static const char* ar[] = { "Destructor", "createViewer", "createIterator", "getChangeTimeStamps", "loadChangeMessage", "createBuilder", "createMap"};
 	return ar[mid];
 }
 

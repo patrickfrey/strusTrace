@@ -6885,7 +6885,7 @@ bool StatisticsMapImpl::processStatisticsMessage(
 	return p0;
 }
 
-GlobalCounter StatisticsMapImpl::nofDocuments()
+GlobalCounter StatisticsMapImpl::nofDocuments() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_nofDocuments), objid());
 	GlobalCounter p0 = obj()->nofDocuments();
@@ -6905,7 +6905,7 @@ GlobalCounter StatisticsMapImpl::nofDocuments()
 
 GlobalCounter StatisticsMapImpl::df(
 			const std::string& p1, 
-			const std::string& p2)
+			const std::string& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_df), objid());
 	GlobalCounter p0 = obj()->df(p1, p2);

@@ -1570,10 +1570,10 @@ public:
 			int p3);
 	virtual bool processStatisticsMessage(
 			const void* msgptr, std::size_t p1);
-	virtual GlobalCounter nofDocuments();
+	virtual GlobalCounter nofDocuments() const;
 	virtual GlobalCounter df(
 			const std::string& p1, 
-			const std::string& p2);
+			const std::string& p2) const;
 };
 
 class StatisticsProcessorImpl

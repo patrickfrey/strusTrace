@@ -7071,10 +7071,11 @@ StatisticsBuilderInterface* StatisticsProcessorImpl::createBuilder(
 	return p0;
 }
 
-StatisticsMapInterface* StatisticsProcessorImpl::createMap() const
+StatisticsMapInterface* StatisticsProcessorImpl::createMap(
+			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_createMap), objid());
-	StatisticsMapInterface* p0 = obj()->createMap();
+	StatisticsMapInterface* p0 = obj()->createMap(p1);
 	p0 = traceContext()->createInterfaceImpl<StatisticsMapInterface,StatisticsMapImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -7087,6 +7088,7 @@ StatisticsMapInterface* StatisticsProcessorImpl::createMap() const
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StatisticsMap), objbase_p0->objid());
+		parambuf.packString(p1);
 	}
 	if (parambuf.hasError())
 	{

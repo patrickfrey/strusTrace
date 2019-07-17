@@ -203,7 +203,7 @@ const char* DocumentAnalyzerMapConst::methodName( MethodId mid)
 
 const char* DocumentClassDetectorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineDocumentSchemeDetector", "detect"};
+	static const char* ar[] = { "Destructor", "defineDocumentSchemaDetector", "detect"};
 	return ar[mid];
 }
 

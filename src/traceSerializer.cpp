@@ -344,7 +344,7 @@ void TraceSerializer::packAnalyzerDocumentClass( const analyzer::DocumentClass& 
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, dclass.mimeType().c_str(), dclass.mimeType().size()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, dclass.scheme().c_str(), dclass.scheme().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, dclass.schema().c_str(), dclass.schema().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeString, dclass.encoding().c_str(), dclass.encoding().size()));
 	}CATCH_ERROR
 }
@@ -1382,8 +1382,8 @@ void TraceSerializer::packAnalyzerDocumentAnalyzerMapView( const analyzer::Docum
 			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "mimetype"));
 			m_elembuf.push_back( TraceElement( TraceElement::TypeString, di->mimeType().c_str(), di->mimeType().size()));
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "scheme"));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeString, di->scheme().c_str(), di->scheme().size()));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "schema"));
+			m_elembuf.push_back( TraceElement( TraceElement::TypeString, di->schema().c_str(), di->schema().size()));
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 			packAnalyzerDocumentAnalyzerView( di->analyzer());
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));

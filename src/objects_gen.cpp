@@ -2223,14 +2223,14 @@ DocumentClassDetectorImpl::~DocumentClassDetectorImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void DocumentClassDetectorImpl::defineDocumentSchemeDetector(
+void DocumentClassDetectorImpl::defineDocumentSchemaDetector(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::vector<std::string>& p3, 
 			const std::vector<std::string>& p4)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_defineDocumentSchemeDetector), objid());
-	obj()->defineDocumentSchemeDetector(p1, p2, p3, p4);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentClassDetector), DocumentClassDetectorConst::methodName( Method_defineDocumentSchemaDetector), objid());
+	obj()->defineDocumentSchemaDetector(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);

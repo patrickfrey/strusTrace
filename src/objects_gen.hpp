@@ -1217,7 +1217,7 @@ public:
 	virtual void setDebugMode(
 			bool p1);
 	virtual QueryResult evaluate() const;
-	virtual std::string tostring() const;
+	virtual StructView view() const;
 };
 
 class QueryProcessorImpl
@@ -1275,7 +1275,7 @@ public:
 			double p2);
 	virtual double call(
 			const double* args, unsigned int p1) const;
-	virtual std::string tostring() const;
+	virtual StructView view() const;
 };
 
 class ScalarFunctionImpl
@@ -1296,7 +1296,7 @@ public:
 			const std::string& p1, 
 			double p2);
 	virtual ScalarFunctionInstanceInterface* createInstance() const;
-	virtual std::string tostring() const;
+	virtual StructView view() const;
 };
 
 class ScalarFunctionParserImpl

@@ -752,7 +752,7 @@ public:
 		Method_setWeightingVariableValue=13,
 		Method_setDebugMode=14,
 		Method_evaluate=15,
-		Method_tostring=16
+		Method_view=16
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -785,7 +785,7 @@ public:
 		Method_Destructor=0,
 		Method_setVariableValue=1,
 		Method_call=2,
-		Method_tostring=3
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -800,7 +800,7 @@ public:
 		Method_getNofArguments=2,
 		Method_setDefaultVariableValue=3,
 		Method_createInstance=4,
-		Method_tostring=5
+		Method_view=5
 	};
 	static const char* methodName( MethodId mid);
 };

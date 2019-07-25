@@ -365,7 +365,7 @@ const char* QueryEvalConst::methodName( MethodId mid)
 
 const char* QueryConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "pushTerm", "pushDocField", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "addAccess", "setMaxNofRanks", "setMinRank", "setWeightingVariableValue", "setDebugMode", "evaluate", "tostring"};
+	static const char* ar[] = { "Destructor", "pushTerm", "pushDocField", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "addAccess", "setMaxNofRanks", "setMinRank", "setWeightingVariableValue", "setDebugMode", "evaluate", "view"};
 	return ar[mid];
 }
 
@@ -377,13 +377,13 @@ const char* QueryProcessorConst::methodName( MethodId mid)
 
 const char* ScalarFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "setVariableValue", "call", "tostring"};
+	static const char* ar[] = { "Destructor", "setVariableValue", "call", "view"};
 	return ar[mid];
 }
 
 const char* ScalarFunctionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getVariables", "getNofArguments", "setDefaultVariableValue", "createInstance", "tostring"};
+	static const char* ar[] = { "Destructor", "getVariables", "getNofArguments", "setDefaultVariableValue", "createInstance", "view"};
 	return ar[mid];
 }
 

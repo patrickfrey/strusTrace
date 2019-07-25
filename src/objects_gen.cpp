@@ -5251,12 +5251,12 @@ QueryResult QueryImpl::evaluate() const
 	return p0;
 }
 
-std::string QueryImpl::tostring() const
+StructView QueryImpl::view() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_tostring), objid());
-	std::string p0 = obj()->tostring();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_view), objid());
+	StructView p0 = obj()->view();
 	TraceSerializer parambuf;
-	parambuf.packString(p0);
+	parambuf.packStructView(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -5578,12 +5578,12 @@ double ScalarFunctionInstanceImpl::call(
 	return p0;
 }
 
-std::string ScalarFunctionInstanceImpl::tostring() const
+StructView ScalarFunctionInstanceImpl::view() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), ScalarFunctionInstanceConst::methodName( Method_tostring), objid());
-	std::string p0 = obj()->tostring();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionInstance), ScalarFunctionInstanceConst::methodName( Method_view), objid());
+	StructView p0 = obj()->view();
 	TraceSerializer parambuf;
-	parambuf.packString(p0);
+	parambuf.packStructView(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -5689,12 +5689,12 @@ ScalarFunctionInstanceInterface* ScalarFunctionImpl::createInstance() const
 	return p0;
 }
 
-std::string ScalarFunctionImpl::tostring() const
+StructView ScalarFunctionImpl::view() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_tostring), objid());
-	std::string p0 = obj()->tostring();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunction), ScalarFunctionConst::methodName( Method_view), objid());
+	StructView p0 = obj()->view();
 	TraceSerializer parambuf;
-	parambuf.packString(p0);
+	parambuf.packStructView(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

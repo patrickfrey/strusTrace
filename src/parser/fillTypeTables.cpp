@@ -428,6 +428,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "FunctionDescription")
 		("pack_msg", "parambuf.packFunctionDescription($name);")
 	;
+	typesystem.defineType( "StructView")
+		("pack_msg", "parambuf.packStructView($name);")
+	;
 	typesystem.defineType( "$objid~Interface*")
 		("wrap_return", "$name = traceContext()->createInterfaceImpl<$objid~Interface,$objid~Impl>( $name);")
 		("test_null", "$name == 0")

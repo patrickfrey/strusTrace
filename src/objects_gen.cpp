@@ -4916,6 +4916,24 @@ QueryInterface* QueryEvalImpl::createQuery(
 	return p0;
 }
 
+StructView QueryEvalImpl::view() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_view), objid());
+	StructView p0 = obj()->view();
+	TraceSerializer parambuf;
+	parambuf.packStructView(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 QueryImpl::~QueryImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_Destructor), objid());
@@ -9595,12 +9613,12 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 	return p0;
 }
 
-std::string SummarizerFunctionInstanceImpl::tostring() const
+StructView SummarizerFunctionInstanceImpl::view() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_tostring), objid());
-	std::string p0 = obj()->tostring();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_view), objid());
+	StructView p0 = obj()->view();
 	TraceSerializer parambuf;
-	parambuf.packString(p0);
+	parambuf.packStructView(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -11419,12 +11437,12 @@ std::vector<std::string> WeightingFunctionInstanceImpl::getVariables() const
 	return p0;
 }
 
-std::string WeightingFunctionInstanceImpl::tostring() const
+StructView WeightingFunctionInstanceImpl::view() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_tostring), objid());
-	std::string p0 = obj()->tostring();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_view), objid());
+	StructView p0 = obj()->view();
 	TraceSerializer parambuf;
-	parambuf.packString(p0);
+	parambuf.packStructView(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

@@ -725,7 +725,8 @@ public:
 		Method_addSummarizerFunction=9,
 		Method_addWeightingFunction=10,
 		Method_defineWeightingFormula=11,
-		Method_createQuery=12
+		Method_createQuery=12,
+		Method_view=13
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1198,7 +1199,7 @@ public:
 		Method_defineResultName=3,
 		Method_getVariables=4,
 		Method_createFunctionContext=5,
-		Method_tostring=6
+		Method_view=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1401,7 +1402,7 @@ public:
 		Method_addNumericParameter=2,
 		Method_createFunctionContext=3,
 		Method_getVariables=4,
-		Method_tostring=5
+		Method_view=5
 	};
 	static const char* methodName( MethodId mid);
 };

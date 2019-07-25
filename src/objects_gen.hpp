@@ -1160,6 +1160,7 @@ public:
 			ScalarFunctionInterface* p1);
 	virtual QueryInterface* createQuery(
 			const StorageClientInterface* p1) const;
+	virtual StructView view() const;
 };
 
 class QueryImpl
@@ -1985,7 +1986,7 @@ public:
 			const StorageClientInterface* p1, 
 			MetaDataReaderInterface* p2, 
 			const GlobalStatistics& p3) const;
-	virtual std::string tostring() const;
+	virtual StructView view() const;
 };
 
 class SummarizerFunctionImpl
@@ -2326,7 +2327,7 @@ public:
 			MetaDataReaderInterface* p2, 
 			const GlobalStatistics& p3) const;
 	virtual std::vector<std::string> getVariables() const;
-	virtual std::string tostring() const;
+	virtual StructView view() const;
 };
 
 class WeightingFunctionImpl

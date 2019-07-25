@@ -28,6 +28,7 @@
 #include "strus/weightedDocument.hpp"
 #include "strus/resultDocument.hpp"
 #include "strus/queryResult.hpp"
+#include "strus/structView.hpp"
 #include "strus/queryEvalInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
@@ -169,6 +170,7 @@ public:
 	void packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val);
 	void packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val);
 	void packFunctionDescription( const FunctionDescription& val);
+	void packStructView( const StructView& val);
 	void packVectorQueryResult( const std::vector<VectorQueryResult>& val);
 	void packSentenceTerm( const SentenceTerm& val);
 	void packSentenceTermVector( const SentenceTermList& val);

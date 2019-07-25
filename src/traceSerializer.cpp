@@ -1144,6 +1144,57 @@ void TraceSerializer::packFunctionDescription( const FunctionDescription& val)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packStructView( const StructView& val)
+{
+	try{
+		switch (val.type())
+		{
+			case StructView::Null: 
+				break;
+			case StructView::String:
+			{
+				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "string"));
+				packString( val.asstring());
+				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+				break;
+			}
+			case StructView::Numeric:
+			{
+				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "number"));
+				packNumericVariant( val.asnumeric());
+				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+				break;
+			}
+			case StructView::Structure:
+			{
+				if (val.isArray())
+				{
+					m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "array"));
+					std::size_t ai = 0, ae = val.arraySize();
+					for (; ai != ae; ++ai)
+					{
+						packStructView( *val.get( ai));
+					}
+					m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+				}
+				else
+				{
+					m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "dict"));
+					StructView::dict_iterator di =  val.dict_begin(), de =  val.dict_end();
+					for (; di != de; ++di)
+					{
+						m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, di->first.c_str()));
+						packStructView( di->second);
+						m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+					}
+					m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+				}
+				break;
+			}
+		}
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packVectorQueryResult( const std::vector<VectorQueryResult>& val)
 {
 	try{

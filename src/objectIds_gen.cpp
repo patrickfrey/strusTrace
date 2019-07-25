@@ -359,7 +359,7 @@ const char* QueryAnalyzerInstanceConst::methodName( MethodId mid)
 
 const char* QueryEvalConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addTerm", "addSelectionFeature", "addRestrictionFeature", "addExclusionFeature", "getWeightingFeatureSets", "getSelectionFeatureSets", "getRestrictionFeatureSets", "getExclusionFeatureSets", "addSummarizerFunction", "addWeightingFunction", "defineWeightingFormula", "createQuery"};
+	static const char* ar[] = { "Destructor", "addTerm", "addSelectionFeature", "addRestrictionFeature", "addExclusionFeature", "getWeightingFeatureSets", "getSelectionFeatureSets", "getRestrictionFeatureSets", "getExclusionFeatureSets", "addSummarizerFunction", "addWeightingFunction", "defineWeightingFormula", "createQuery", "view"};
 	return ar[mid];
 }
 
@@ -527,7 +527,7 @@ const char* SummarizerFunctionContextConst::methodName( MethodId mid)
 
 const char* SummarizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "defineResultName", "getVariables", "createFunctionContext", "tostring"};
+	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "defineResultName", "getVariables", "createFunctionContext", "view"};
 	return ar[mid];
 }
 
@@ -605,7 +605,7 @@ const char* WeightingFunctionContextConst::methodName( MethodId mid)
 
 const char* WeightingFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "createFunctionContext", "getVariables", "tostring"};
+	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "createFunctionContext", "getVariables", "view"};
 	return ar[mid];
 }
 

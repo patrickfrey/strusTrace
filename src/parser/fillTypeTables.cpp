@@ -421,13 +421,6 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const FunctionType&", "TextProcessor")
 		("pack_msg", "parambuf.packTextProcessorFunctionType($name);")
 	;
-	typesystem.defineType( "Description", "PostingJoinOperator")
-		("scopedtype", "PostingJoinOperatorInterface::Description")
-		("pack_msg", "parambuf.packPostingJoinOperatorDescription($name);")
-	;
-	typesystem.defineType( "FunctionDescription")
-		("pack_msg", "parambuf.packFunctionDescription($name);")
-	;
 	typesystem.defineType( "StructView")
 		("pack_msg", "parambuf.packStructView($name);")
 	;

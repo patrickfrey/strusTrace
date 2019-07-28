@@ -5828,21 +5828,12 @@ ScalarFunctionInterface* ScalarFunctionParserImpl::createFunction(
 	return p0;
 }
 
-const char* ScalarFunctionParserImpl::getDescription() const
+StructView ScalarFunctionParserImpl::view() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionParser), ScalarFunctionParserConst::methodName( Method_getDescription), objid());
-	const char* p0 = obj()->getDescription();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_ScalarFunctionParser), ScalarFunctionParserConst::methodName( Method_view), objid());
+	StructView p0 = obj()->view();
 	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		char fmtbuf[ 1024];
-		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "getDescription");
-		traceContext()->errorbuf()->explain( fmtbuf);
-	}
-	else
-	{
-		parambuf.packCharp(p0);
-	}
+	parambuf.packStructView(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

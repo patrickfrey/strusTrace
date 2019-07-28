@@ -671,7 +671,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createResultIterator=1,
-		Method_getDescription=2
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -785,7 +786,8 @@ public:
 		Method_Destructor=0,
 		Method_setVariableValue=1,
 		Method_call=2,
-		Method_view=3
+		Method_name=3,
+		Method_view=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -800,7 +802,8 @@ public:
 		Method_getNofArguments=2,
 		Method_setDefaultVariableValue=3,
 		Method_createInstance=4,
-		Method_view=5
+		Method_name=5,
+		Method_view=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1199,7 +1202,8 @@ public:
 		Method_defineResultName=3,
 		Method_getVariables=4,
 		Method_createFunctionContext=5,
-		Method_view=6
+		Method_name=6,
+		Method_view=7
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1211,7 +1215,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createInstance=1,
-		Method_getDescription=2
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1402,7 +1407,8 @@ public:
 		Method_addNumericParameter=2,
 		Method_createFunctionContext=3,
 		Method_getVariables=4,
-		Method_view=5
+		Method_name=5,
+		Method_view=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1414,7 +1420,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createInstance=1,
-		Method_getDescription=2
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };

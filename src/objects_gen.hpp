@@ -1049,7 +1049,8 @@ public:
 			const std::vector<Reference<PostingIteratorInterface> >& p1, 
 			int p2, 
 			unsigned int p3) const;
-	virtual Description getDescription() const;
+	virtual const char* name() const;
+	virtual StructView view() const;
 };
 
 class QueryAnalyzerContextImpl
@@ -1275,6 +1276,7 @@ public:
 			double p2);
 	virtual double call(
 			const double* args, unsigned int p1) const;
+	virtual const char* name() const;
 	virtual StructView view() const;
 };
 
@@ -1296,6 +1298,7 @@ public:
 			const std::string& p1, 
 			double p2);
 	virtual ScalarFunctionInstanceInterface* createInstance() const;
+	virtual const char* name() const;
 	virtual StructView view() const;
 };
 
@@ -1986,6 +1989,7 @@ public:
 			const StorageClientInterface* p1, 
 			MetaDataReaderInterface* p2, 
 			const GlobalStatistics& p3) const;
+	virtual const char* name() const;
 	virtual StructView view() const;
 };
 
@@ -2003,7 +2007,8 @@ public:
 	virtual ~SummarizerFunctionImpl();
 	virtual SummarizerFunctionInstanceInterface* createInstance(
 			const QueryProcessorInterface* p1) const;
-	virtual FunctionDescription getDescription() const;
+	virtual const char* name() const;
+	virtual StructView view() const;
 };
 
 class TextProcessorImpl
@@ -2327,6 +2332,7 @@ public:
 			MetaDataReaderInterface* p2, 
 			const GlobalStatistics& p3) const;
 	virtual std::vector<std::string> getVariables() const;
+	virtual const char* name() const;
 	virtual StructView view() const;
 };
 
@@ -2344,7 +2350,8 @@ public:
 	virtual ~WeightingFunctionImpl();
 	virtual WeightingFunctionInstanceInterface* createInstance(
 			const QueryProcessorInterface* p1) const;
-	virtual FunctionDescription getDescription() const;
+	virtual const char* name() const;
+	virtual StructView view() const;
 };
 
 

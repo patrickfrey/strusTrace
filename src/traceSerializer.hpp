@@ -168,8 +168,6 @@ public:
 	void packTermStatisticsChange( const TermStatisticsChange& val);
 	void packQueryProcessorFunctionType( const QueryProcessorInterface::FunctionType& val);
 	void packTextProcessorFunctionType( const TextProcessorInterface::FunctionType& val);
-	void packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val);
-	void packFunctionDescription( const FunctionDescription& val);
 	void packStructView( const StructView& val);
 	void packVectorQueryResult( const std::vector<VectorQueryResult>& val);
 	void packSentenceTerm( const SentenceTerm& val);

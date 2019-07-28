@@ -341,7 +341,7 @@ const char* PostingIteratorConst::methodName( MethodId mid)
 
 const char* PostingJoinOperatorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createResultIterator", "getDescription"};
+	static const char* ar[] = { "Destructor", "createResultIterator", "name", "view"};
 	return ar[mid];
 }
 
@@ -377,13 +377,13 @@ const char* QueryProcessorConst::methodName( MethodId mid)
 
 const char* ScalarFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "setVariableValue", "call", "view"};
+	static const char* ar[] = { "Destructor", "setVariableValue", "call", "name", "view"};
 	return ar[mid];
 }
 
 const char* ScalarFunctionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getVariables", "getNofArguments", "setDefaultVariableValue", "createInstance", "view"};
+	static const char* ar[] = { "Destructor", "getVariables", "getNofArguments", "setDefaultVariableValue", "createInstance", "name", "view"};
 	return ar[mid];
 }
 
@@ -527,13 +527,13 @@ const char* SummarizerFunctionContextConst::methodName( MethodId mid)
 
 const char* SummarizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "defineResultName", "getVariables", "createFunctionContext", "view"};
+	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "defineResultName", "getVariables", "createFunctionContext", "name", "view"};
 	return ar[mid];
 }
 
 const char* SummarizerFunctionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createInstance", "getDescription"};
+	static const char* ar[] = { "Destructor", "createInstance", "name", "view"};
 	return ar[mid];
 }
 
@@ -605,13 +605,13 @@ const char* WeightingFunctionContextConst::methodName( MethodId mid)
 
 const char* WeightingFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "createFunctionContext", "getVariables", "view"};
+	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "createFunctionContext", "getVariables", "name", "view"};
 	return ar[mid];
 }
 
 const char* WeightingFunctionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createInstance", "getDescription"};
+	static const char* ar[] = { "Destructor", "createInstance", "name", "view"};
 	return ar[mid];
 }
 

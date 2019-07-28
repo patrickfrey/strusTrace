@@ -1087,63 +1087,6 @@ void TraceSerializer::packTextProcessorFunctionType( const TextProcessorInterfac
 	}CATCH_ERROR
 }
 
-void TraceSerializer::packPostingJoinOperatorDescription( const PostingJoinOperatorInterface::Description& val)
-{
-	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.name().c_str(), val.name().size()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "description"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.text().c_str(), val.text().size()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	}CATCH_ERROR
-}
-
-static const char* functionDescriptionTypeName( const FunctionDescription::Parameter::Type& val)
-{
-	static const char* ar[] = {"Feature", "Attribute","Metadata","Numeric","String"};
-	return ar[val];
-}
-
-void TraceSerializer::packFunctionDescription( const FunctionDescription& val)
-{
-	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "text"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.text().c_str(), val.text().size()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "size"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType)val.parameter().size()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "param"));
-		std::vector<FunctionDescription::Parameter>::const_iterator vi = val.parameter().begin(), ve = val.parameter().end();
-		for (; vi != ve; ++vi)
-		{
-			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, vi-val.parameter().begin()));
-
-			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeString, functionDescriptionTypeName(vi->type())));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-			
-			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeString, vi->name().c_str(), vi->name().size()));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-			
-			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "text"));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeString, vi->text().c_str(), vi->text().size()));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-
-			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "domain"));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeString, vi->domain().c_str(), vi->domain().size()));
-			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-
-			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-		}
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	}CATCH_ERROR
-}
-
 void TraceSerializer::packStructView( const StructView& val)
 {
 	try{

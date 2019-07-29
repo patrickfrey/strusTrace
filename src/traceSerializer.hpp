@@ -55,10 +55,6 @@
 #include "strus/analyzer/document.hpp"
 #include "strus/analyzer/documentClass.hpp"
 #include "strus/analyzer/documentClass.hpp"
-#include "strus/analyzer/queryElementView.hpp"
-#include "strus/analyzer/documentAnalyzerView.hpp"
-#include "strus/analyzer/documentAnalyzerMapView.hpp"
-#include "strus/analyzer/contentStatisticsView.hpp"
 #include "strus/analyzer/contentStatisticsItem.hpp"
 #include "strus/analyzer/contentStatisticsResult.hpp"
 #include "strus/posTaggerDataInterface.hpp"
@@ -175,18 +171,6 @@ public:
 	void packSentenceTermListVector( const std::vector<SentenceTermList>& val);
 	void packSentenceGuess( const SentenceGuess& val);
 	void packSentenceGuessVector( const std::vector<SentenceGuess>& val);
-	void packAnalyzerFunctionView( const analyzer::FunctionView& val);
-	void packAnalyzerFeatureViewList( const char* name, const std::vector<analyzer::FeatureView>& val);
-	void packAnalyzerFeatureView( const analyzer::FeatureView& val);
-	void packAnalyzerAggregatorView( const analyzer::AggregatorView& val);
-	void packAnalyzerSubDocumentDefinitionView( const analyzer::SubDocumentDefinitionView& val);
-	void packAnalyzerSubContentDefinitionView( const analyzer::SubContentDefinitionView& val);
-	void packAnalyzerDocumentAnalyzerView( const analyzer::DocumentAnalyzerView& val);
-	void packAnalyzerDocumentAnalyzerMapView( const analyzer::DocumentAnalyzerMapView& val);
-	void packAnalyzerQueryElementView( const analyzer::QueryElementView& val);
-	void packAnalyzerQueryAnalyzerView( const analyzer::QueryAnalyzerView& val);
-	void packAnalyzerContentStatisticsElementView( const analyzer::ContentStatisticsElementView& val);
-	void packAnalyzerContentStatisticsView( const analyzer::ContentStatisticsView& val);
 	void packAnalyzerContentStatisticsItem( const analyzer::ContentStatisticsItem& val);
 	void packAnalyzerContentStatisticsItemVector( const std::vector<analyzer::ContentStatisticsItem>& val);
 	void packAnalyzerContentStatisticsResult( const analyzer::ContentStatisticsResult& val);

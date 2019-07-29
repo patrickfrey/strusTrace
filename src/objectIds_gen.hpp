@@ -125,7 +125,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_evaluate=1,
-		Method_view=2
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -137,7 +138,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createInstance=1,
-		Method_getDescription=2
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -355,7 +357,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_defineDocumentSchemaDetector=1,
-		Method_detect=2
+		Method_detect=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -461,7 +464,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_normalize=1,
-		Method_view=2
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -473,7 +477,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createInstance=1,
-		Method_getDescription=2
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -504,7 +509,8 @@ public:
 		Method_getLexemName=6,
 		Method_compile=7,
 		Method_createContext=8,
-		Method_view=9
+		Method_name=9,
+		Method_view=10
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -517,7 +523,8 @@ public:
 		Method_Destructor=0,
 		Method_getCompileOptionNames=1,
 		Method_createInstance=2,
-		Method_getDescription=3
+		Method_name=3,
+		Method_view=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -551,7 +558,8 @@ public:
 		Method_definePattern=7,
 		Method_compile=8,
 		Method_createContext=9,
-		Method_view=10
+		Method_name=10,
+		Method_view=11
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -564,7 +572,8 @@ public:
 		Method_Destructor=0,
 		Method_getCompileOptionNames=1,
 		Method_createInstance=2,
-		Method_getDescription=3
+		Method_name=3,
+		Method_view=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -580,7 +589,8 @@ public:
 		Method_getLexem=3,
 		Method_lexemTypes=4,
 		Method_getSymbol=5,
-		Method_view=6
+		Method_name=6,
+		Method_view=7
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -591,7 +601,9 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_createInstance=1
+		Method_createInstance=1,
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -842,7 +854,8 @@ public:
 		Method_defineSubSection=2,
 		Method_createContext=3,
 		Method_createMarkupContext=4,
-		Method_view=5
+		Method_name=5,
+		Method_view=6
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -856,7 +869,8 @@ public:
 		Method_mimeType=1,
 		Method_createInstance=2,
 		Method_createContentIterator=3,
-		Method_getDescription=4
+		Method_name=4,
+		Method_view=5
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1262,7 +1276,8 @@ public:
 		Method_Destructor=0,
 		Method_concatBeforeTokenize=1,
 		Method_tokenize=2,
-		Method_view=3
+		Method_name=3,
+		Method_view=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1274,7 +1289,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createInstance=1,
-		Method_getDescription=2
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1298,7 +1314,8 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createContext=1,
-		Method_view=2
+		Method_name=2,
+		Method_view=3
 	};
 	static const char* methodName( MethodId mid);
 };

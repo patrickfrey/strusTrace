@@ -1009,7 +1009,7 @@ void TraceSerializer::packFeatureParameter( const QueryEvalInterface::FeaturePar
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "name"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.parameterName().c_str(), val.parameterName().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.featureRole().c_str(), val.featureRole().size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "featset"));

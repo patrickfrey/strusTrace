@@ -1592,6 +1592,7 @@ public:
 	virtual GlobalCounter df(
 			const std::string& p1, 
 			const std::string& p2) const;
+	virtual std::vector<std::string> types() const;
 };
 
 class StatisticsProcessorImpl

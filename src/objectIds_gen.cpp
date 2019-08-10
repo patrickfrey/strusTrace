@@ -449,7 +449,7 @@ const char* StatisticsIteratorConst::methodName( MethodId mid)
 
 const char* StatisticsMapConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addNofDocumentsInsertedChange", "addDfChange", "processStatisticsMessage", "nofDocuments", "df"};
+	static const char* ar[] = { "Destructor", "addNofDocumentsInsertedChange", "addDfChange", "processStatisticsMessage", "nofDocuments", "df", "types"};
 	return ar[mid];
 }
 

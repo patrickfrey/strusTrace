@@ -7330,6 +7330,24 @@ GlobalCounter StatisticsMapImpl::df(
 	return p0;
 }
 
+std::vector<std::string> StatisticsMapImpl::types() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsMap), StatisticsMapConst::methodName( Method_types), objid());
+	std::vector<std::string> p0 = obj()->types();
+	TraceSerializer parambuf;
+	parambuf.packStringVector(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 StatisticsProcessorImpl::~StatisticsProcessorImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_Destructor), objid());

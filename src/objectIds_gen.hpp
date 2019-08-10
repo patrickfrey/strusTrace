@@ -979,7 +979,8 @@ public:
 		Method_addDfChange=2,
 		Method_processStatisticsMessage=3,
 		Method_nofDocuments=4,
-		Method_df=5
+		Method_df=5,
+		Method_types=6
 	};
 	static const char* methodName( MethodId mid);
 };

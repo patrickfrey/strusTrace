@@ -760,12 +760,10 @@ public:
 		Method_addMetaDataRestrictionCondition=8,
 		Method_addDocumentEvaluationSet=9,
 		Method_addAccess=10,
-		Method_setMaxNofRanks=11,
-		Method_setMinRank=12,
-		Method_setWeightingVariableValue=13,
-		Method_setDebugMode=14,
-		Method_evaluate=15,
-		Method_view=16
+		Method_setWeightingVariableValue=11,
+		Method_setDebugMode=12,
+		Method_evaluate=13,
+		Method_view=14
 	};
 	static const char* methodName( MethodId mid);
 };

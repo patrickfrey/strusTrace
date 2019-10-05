@@ -1220,16 +1220,14 @@ public:
 			const std::vector<Index>& p1);
 	virtual void addAccess(
 			const std::string& p1);
-	virtual void setMaxNofRanks(
-			std::size_t p1);
-	virtual void setMinRank(
-			std::size_t p1);
 	virtual void setWeightingVariableValue(
 			const std::string& p1, 
 			double p2);
 	virtual void setDebugMode(
 			bool p1);
-	virtual QueryResult evaluate() const;
+	virtual QueryResult evaluate(
+			int p1, 
+			int p2) const;
 	virtual StructView view() const;
 };
 

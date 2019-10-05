@@ -5452,44 +5452,6 @@ void QueryImpl::addAccess(
 	}
 }
 
-void QueryImpl::setMaxNofRanks(
-			std::size_t p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setMaxNofRanks), objid());
-	obj()->setMaxNofRanks(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packSize( p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void QueryImpl::setMinRank(
-			std::size_t p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setMinRank), objid());
-	obj()->setMinRank(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packSize( p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
 void QueryImpl::setWeightingVariableValue(
 			const std::string& p1, 
 			double p2)
@@ -5530,12 +5492,16 @@ void QueryImpl::setDebugMode(
 	}
 }
 
-QueryResult QueryImpl::evaluate() const
+QueryResult QueryImpl::evaluate(
+			int p1, 
+			int p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_evaluate), objid());
-	QueryResult p0 = obj()->evaluate();
+	QueryResult p0 = obj()->evaluate(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packQueryResult(p0);
+	parambuf.packInt(p1);
+	parambuf.packInt(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

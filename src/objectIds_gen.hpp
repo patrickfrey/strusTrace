@@ -74,12 +74,12 @@ enum ClassId
 	ClassId_StatisticsMap=58,
 	ClassId_StatisticsProcessor=59,
 	ClassId_StatisticsViewer=60,
-	ClassId_StorageAlterMetaDataTable=61,
-	ClassId_StorageClient=62,
-	ClassId_StorageDocument=63,
-	ClassId_StorageDocumentUpdate=64,
-	ClassId_StorageDump=65,
-	ClassId_Storage=66,
+	ClassId_StorageClient=61,
+	ClassId_StorageDocument=62,
+	ClassId_StorageDocumentUpdate=63,
+	ClassId_StorageDump=64,
+	ClassId_Storage=65,
+	ClassId_StorageMetaDataTransaction=66,
 	ClassId_StorageObjectBuilder=67,
 	ClassId_StorageTransaction=68,
 	ClassId_StructIterator=69,
@@ -1011,23 +1011,6 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class StorageAlterMetaDataTableConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_addElement=1,
-		Method_alterElement=2,
-		Method_renameElement=3,
-		Method_deleteElement=4,
-		Method_clearElement=5,
-		Method_commit=6,
-		Method_rollback=7
-	};
-	static const char* methodName( MethodId mid);
-};
-
 class StorageClientConst
 {
 public:
@@ -1059,15 +1042,17 @@ public:
 		Method_createMetaDataRestriction=23,
 		Method_createAttributeReader=24,
 		Method_createTransaction=25,
-		Method_createAllStatisticsIterator=26,
-		Method_createChangeStatisticsIterator=27,
-		Method_getChangeStatisticTimeStamps=28,
-		Method_loadChangeStatisticsMessage=29,
-		Method_getStatisticsProcessor=30,
-		Method_createDocumentChecker=31,
-		Method_checkStorage=32,
-		Method_close=33,
-		Method_compaction=34
+		Method_createMetaDataTransaction=26,
+		Method_createAllStatisticsIterator=27,
+		Method_createChangeStatisticsIterator=28,
+		Method_getChangeStatisticTimeStamps=29,
+		Method_loadChangeStatisticsMessage=30,
+		Method_getStatisticsProcessor=31,
+		Method_createDocumentChecker=32,
+		Method_createDump=33,
+		Method_checkStorage=34,
+		Method_close=35,
+		Method_compaction=36
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1131,10 +1116,25 @@ public:
 		Method_Destructor=0,
 		Method_createClient=1,
 		Method_createStorage=2,
-		Method_createAlterMetaDataTable=3,
-		Method_getConfigDescription=4,
-		Method_getConfigParameters=5,
-		Method_createDump=6
+		Method_getConfigDescription=3,
+		Method_getConfigParameters=4
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class StorageMetaDataTransactionConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_addElement=1,
+		Method_alterElement=2,
+		Method_renameElement=3,
+		Method_deleteElement=4,
+		Method_clearElement=5,
+		Method_commit=6,
+		Method_rollback=7
 	};
 	static const char* methodName( MethodId mid);
 };

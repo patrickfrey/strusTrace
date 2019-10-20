@@ -72,12 +72,12 @@
 #include "strus/statisticsMapInterface.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
-#include "strus/storageAlterMetaDataTableInterface.hpp"
 #include "strus/storageClientInterface.hpp"
 #include "strus/storageDocumentInterface.hpp"
 #include "strus/storageDocumentUpdateInterface.hpp"
 #include "strus/storageDumpInterface.hpp"
 #include "strus/storageInterface.hpp"
+#include "strus/storageMetaDataTransactionInterface.hpp"
 #include "strus/storageObjectBuilderInterface.hpp"
 #include "strus/storageTransactionInterface.hpp"
 #include "strus/structIteratorInterface.hpp"
@@ -1638,36 +1638,6 @@ public:
 			TermStatisticsChange& p1);
 };
 
-class StorageAlterMetaDataTableImpl
-		:public TraceObject<StorageAlterMetaDataTableInterface>
-		,public StorageAlterMetaDataTableInterface
-		,public StorageAlterMetaDataTableConst
-{
-public:
-	StorageAlterMetaDataTableImpl( StorageAlterMetaDataTableInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StorageAlterMetaDataTableInterface>(obj_,ctx_){}
-	StorageAlterMetaDataTableImpl( const StorageAlterMetaDataTableInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StorageAlterMetaDataTableInterface>(obj_,ctx_){}
-
-	virtual ~StorageAlterMetaDataTableImpl();
-	virtual void addElement(
-			const std::string& p1, 
-			const std::string& p2);
-	virtual void alterElement(
-			const std::string& p1, 
-			const std::string& p2, 
-			const std::string& p3);
-	virtual void renameElement(
-			const std::string& p1, 
-			const std::string& p2);
-	virtual void deleteElement(
-			const std::string& p1);
-	virtual void clearElement(
-			const std::string& p1);
-	virtual bool commit();
-	virtual void rollback();
-};
-
 class StorageClientImpl
 		:public TraceObject<StorageClientInterface>
 		,public StorageClientInterface
@@ -1724,6 +1694,7 @@ public:
 	virtual MetaDataRestrictionInterface* createMetaDataRestriction() const;
 	virtual AttributeReaderInterface* createAttributeReader() const;
 	virtual StorageTransactionInterface* createTransaction();
+	virtual StorageMetaDataTransactionInterface* createMetaDataTransaction();
 	virtual StatisticsIteratorInterface* createAllStatisticsIterator() const;
 	virtual StatisticsIteratorInterface* createChangeStatisticsIterator(
 			const TimeStamp& p1) const;
@@ -1734,6 +1705,8 @@ public:
 	virtual StorageDocumentInterface* createDocumentChecker(
 			const std::string& p1, 
 			const std::string& p2) const;
+	virtual StorageDumpInterface* createDump(
+			const std::string& p1) const;
 	virtual bool checkStorage(
 			std::ostream& p1) const;
 	virtual void close();
@@ -1856,17 +1829,40 @@ public:
 	virtual bool createStorage(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
-	virtual StorageAlterMetaDataTableInterface* createAlterMetaDataTable(
-			const std::string& p1, 
-			const DatabaseInterface* p2) const;
 	virtual const char* getConfigDescription(
 			const ConfigType& p1) const;
 	virtual const char** getConfigParameters(
 			const ConfigType& p1) const;
-	virtual StorageDumpInterface* createDump(
+};
+
+class StorageMetaDataTransactionImpl
+		:public TraceObject<StorageMetaDataTransactionInterface>
+		,public StorageMetaDataTransactionInterface
+		,public StorageMetaDataTransactionConst
+{
+public:
+	StorageMetaDataTransactionImpl( StorageMetaDataTransactionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageMetaDataTransactionInterface>(obj_,ctx_){}
+	StorageMetaDataTransactionImpl( const StorageMetaDataTransactionInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageMetaDataTransactionInterface>(obj_,ctx_){}
+
+	virtual ~StorageMetaDataTransactionImpl();
+	virtual void addElement(
 			const std::string& p1, 
-			const DatabaseInterface* p2, 
-			const std::string& p3) const;
+			const std::string& p2);
+	virtual void alterElement(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::string& p3);
+	virtual void renameElement(
+			const std::string& p1, 
+			const std::string& p2);
+	virtual void deleteElement(
+			const std::string& p1);
+	virtual void clearElement(
+			const std::string& p1);
+	virtual bool commit();
+	virtual void rollback();
 };
 
 class StorageObjectBuilderImpl

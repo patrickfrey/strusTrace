@@ -1650,6 +1650,8 @@ public:
 		:TraceObject<StorageClientInterface>(obj_,ctx_){}
 
 	virtual ~StorageClientImpl();
+	virtual bool reload(
+			const std::string& p1);
 	virtual std::string config() const;
 	virtual PostingIteratorInterface* createTermPostingIterator(
 			const std::string& p1, 

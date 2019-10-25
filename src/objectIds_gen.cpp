@@ -497,7 +497,7 @@ const char* StorageConst::methodName( MethodId mid)
 
 const char* StorageMetaDataTransactionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addElement", "alterElement", "renameElement", "deleteElement", "clearElement", "commit", "rollback"};
+	static const char* ar[] = { "Destructor", "addElement", "alterElement", "renameElement", "deleteElement", "deleteElements", "clearElement", "commit", "rollback"};
 	return ar[mid];
 }
 

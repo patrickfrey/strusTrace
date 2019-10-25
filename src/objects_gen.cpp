@@ -9193,6 +9193,23 @@ void StorageMetaDataTransactionImpl::deleteElement(
 	}
 }
 
+void StorageMetaDataTransactionImpl::deleteElements()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_deleteElements), objid());
+	obj()->deleteElements();
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void StorageMetaDataTransactionImpl::clearElement(
 			const std::string& p1)
 {

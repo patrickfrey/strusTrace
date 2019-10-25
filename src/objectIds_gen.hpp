@@ -1133,9 +1133,10 @@ public:
 		Method_alterElement=2,
 		Method_renameElement=3,
 		Method_deleteElement=4,
-		Method_clearElement=5,
-		Method_commit=6,
-		Method_rollback=7
+		Method_deleteElements=5,
+		Method_clearElement=6,
+		Method_commit=7,
+		Method_rollback=8
 	};
 	static const char* methodName( MethodId mid);
 };

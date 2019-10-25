@@ -1861,6 +1861,7 @@ public:
 			const std::string& p2);
 	virtual void deleteElement(
 			const std::string& p1);
+	virtual void deleteElements();
 	virtual void clearElement(
 			const std::string& p1);
 	virtual bool commit();

@@ -1051,9 +1051,10 @@ public:
 		Method_getStatisticsProcessor=32,
 		Method_createDocumentChecker=33,
 		Method_createDump=34,
-		Method_checkStorage=35,
-		Method_close=36,
-		Method_compaction=37
+		Method_getConfigParameters=35,
+		Method_checkStorage=36,
+		Method_close=37,
+		Method_compaction=38
 	};
 	static const char* methodName( MethodId mid);
 };

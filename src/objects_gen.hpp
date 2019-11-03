@@ -77,7 +77,7 @@
 #include "strus/storageDocumentUpdateInterface.hpp"
 #include "strus/storageDumpInterface.hpp"
 #include "strus/storageInterface.hpp"
-#include "strus/storageMetaDataTransactionInterface.hpp"
+#include "strus/storageMetaDataTableUpdateInterface.hpp"
 #include "strus/storageObjectBuilderInterface.hpp"
 #include "strus/storageTransactionInterface.hpp"
 #include "strus/structIteratorInterface.hpp"
@@ -1696,7 +1696,6 @@ public:
 	virtual MetaDataRestrictionInterface* createMetaDataRestriction() const;
 	virtual AttributeReaderInterface* createAttributeReader() const;
 	virtual StorageTransactionInterface* createTransaction();
-	virtual StorageMetaDataTransactionInterface* createMetaDataTransaction();
 	virtual StatisticsIteratorInterface* createAllStatisticsIterator() const;
 	virtual StatisticsIteratorInterface* createChangeStatisticsIterator(
 			const TimeStamp& p1) const;
@@ -1838,18 +1837,18 @@ public:
 			const ConfigType& p1) const;
 };
 
-class StorageMetaDataTransactionImpl
-		:public TraceObject<StorageMetaDataTransactionInterface>
-		,public StorageMetaDataTransactionInterface
-		,public StorageMetaDataTransactionConst
+class StorageMetaDataTableUpdateImpl
+		:public TraceObject<StorageMetaDataTableUpdateInterface>
+		,public StorageMetaDataTableUpdateInterface
+		,public StorageMetaDataTableUpdateConst
 {
 public:
-	StorageMetaDataTransactionImpl( StorageMetaDataTransactionInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StorageMetaDataTransactionInterface>(obj_,ctx_){}
-	StorageMetaDataTransactionImpl( const StorageMetaDataTransactionInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StorageMetaDataTransactionInterface>(obj_,ctx_){}
+	StorageMetaDataTableUpdateImpl( StorageMetaDataTableUpdateInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageMetaDataTableUpdateInterface>(obj_,ctx_){}
+	StorageMetaDataTableUpdateImpl( const StorageMetaDataTableUpdateInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StorageMetaDataTableUpdateInterface>(obj_,ctx_){}
 
-	virtual ~StorageMetaDataTransactionImpl();
+	virtual ~StorageMetaDataTableUpdateImpl();
 	virtual void addElement(
 			const std::string& p1, 
 			const std::string& p2);
@@ -1865,8 +1864,7 @@ public:
 	virtual void deleteElements();
 	virtual void clearElement(
 			const std::string& p1);
-	virtual bool commit();
-	virtual void rollback();
+	virtual bool done();
 };
 
 class StorageObjectBuilderImpl
@@ -1922,9 +1920,9 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			int p3);
-	virtual bool commit();
+	virtual StorageMetaDataTableUpdateInterface* createMetaDataTableUpdate();
+	virtual StorageCommitResult commit();
 	virtual void rollback();
-	virtual unsigned int nofDocumentsAffected() const;
 };
 
 class StructIteratorImpl

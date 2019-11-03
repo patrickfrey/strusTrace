@@ -29,6 +29,7 @@
 #include "strus/resultDocument.hpp"
 #include "strus/queryResult.hpp"
 #include "strus/structView.hpp"
+#include "strus/storageCommitResult.hpp"
 #include "strus/queryEvalInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"
 #include "strus/textProcessorInterface.hpp"
@@ -176,6 +177,7 @@ public:
 	void packAnalyzerContentStatisticsResult( const analyzer::ContentStatisticsResult& val);
 	void packPosTaggerDataElement( const PosTaggerDataInterface::Element& val);
 	void packPosTaggerDataElementVector( const std::vector<PosTaggerDataInterface::Element>& val);
+	void packStorageCommitResult( const StorageCommitResult& res);
 
 	bool hasError() const
 	{

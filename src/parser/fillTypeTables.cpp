@@ -349,6 +349,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "JoinOperation")
 		("pack_msg", "parambuf.packPatternMatcherJoinOperation($name);")
 	;
+	typesystem.defineType( "StorageCommitResult")
+		("pack_msg", "parambuf.packStorageCommitResult($name);")
+	;
 	typesystem.defineType( "const WeightedDocument&")
 		("pack_msg", "parambuf.packWeightedDocument($name);")
 	;

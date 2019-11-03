@@ -8255,36 +8255,6 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 	return p0;
 }
 
-StorageMetaDataTransactionInterface* StorageClientImpl::createMetaDataTransaction()
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createMetaDataTransaction), objid());
-	StorageMetaDataTransactionInterface* p0 = obj()->createMetaDataTransaction();
-	p0 = traceContext()->createInterfaceImpl<StorageMetaDataTransactionInterface,StorageMetaDataTransactionImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		char fmtbuf[ 1024];
-		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createMetaDataTransaction");
-		traceContext()->errorbuf()->explain( fmtbuf);
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), objbase_p0->objid());
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
 StatisticsIteratorInterface* StorageClientImpl::createAllStatisticsIterator() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createAllStatisticsIterator), objid());
@@ -9130,17 +9100,17 @@ const char** StorageImpl::getConfigParameters(
 	return p0;
 }
 
-StorageMetaDataTransactionImpl::~StorageMetaDataTransactionImpl()
+StorageMetaDataTableUpdateImpl::~StorageMetaDataTableUpdateImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTableUpdate), StorageMetaDataTableUpdateConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void StorageMetaDataTransactionImpl::addElement(
+void StorageMetaDataTableUpdateImpl::addElement(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_addElement), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTableUpdate), StorageMetaDataTableUpdateConst::methodName( Method_addElement), objid());
 	obj()->addElement(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -9157,12 +9127,12 @@ void StorageMetaDataTransactionImpl::addElement(
 	}
 }
 
-void StorageMetaDataTransactionImpl::alterElement(
+void StorageMetaDataTableUpdateImpl::alterElement(
 			const std::string& p1, 
 			const std::string& p2, 
 			const std::string& p3)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_alterElement), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTableUpdate), StorageMetaDataTableUpdateConst::methodName( Method_alterElement), objid());
 	obj()->alterElement(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -9180,11 +9150,11 @@ void StorageMetaDataTransactionImpl::alterElement(
 	}
 }
 
-void StorageMetaDataTransactionImpl::renameElement(
+void StorageMetaDataTableUpdateImpl::renameElement(
 			const std::string& p1, 
 			const std::string& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_renameElement), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTableUpdate), StorageMetaDataTableUpdateConst::methodName( Method_renameElement), objid());
 	obj()->renameElement(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -9201,10 +9171,10 @@ void StorageMetaDataTransactionImpl::renameElement(
 	}
 }
 
-void StorageMetaDataTransactionImpl::deleteElement(
+void StorageMetaDataTableUpdateImpl::deleteElement(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_deleteElement), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTableUpdate), StorageMetaDataTableUpdateConst::methodName( Method_deleteElement), objid());
 	obj()->deleteElement(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -9220,9 +9190,9 @@ void StorageMetaDataTransactionImpl::deleteElement(
 	}
 }
 
-void StorageMetaDataTransactionImpl::deleteElements()
+void StorageMetaDataTableUpdateImpl::deleteElements()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_deleteElements), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTableUpdate), StorageMetaDataTableUpdateConst::methodName( Method_deleteElements), objid());
 	obj()->deleteElements();
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -9237,10 +9207,10 @@ void StorageMetaDataTransactionImpl::deleteElements()
 	}
 }
 
-void StorageMetaDataTransactionImpl::clearElement(
+void StorageMetaDataTableUpdateImpl::clearElement(
 			const std::string& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_clearElement), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTableUpdate), StorageMetaDataTableUpdateConst::methodName( Method_clearElement), objid());
 	obj()->clearElement(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -9256,10 +9226,10 @@ void StorageMetaDataTransactionImpl::clearElement(
 	}
 }
 
-bool StorageMetaDataTransactionImpl::commit()
+bool StorageMetaDataTableUpdateImpl::done()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_commit), objid());
-	bool p0 = obj()->commit();
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTableUpdate), StorageMetaDataTableUpdateConst::methodName( Method_done), objid());
+	bool p0 = obj()->done();
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	if (parambuf.hasError())
@@ -9272,23 +9242,6 @@ bool StorageMetaDataTransactionImpl::commit()
 		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
 	}
 	return p0;
-}
-
-void StorageMetaDataTransactionImpl::rollback()
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageMetaDataTransaction), StorageMetaDataTransactionConst::methodName( Method_rollback), objid());
-	obj()->rollback();
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
 }
 
 StorageObjectBuilderImpl::~StorageObjectBuilderImpl()
@@ -9664,12 +9617,42 @@ void StorageTransactionImpl::updateDocumentFrequency(
 	}
 }
 
-bool StorageTransactionImpl::commit()
+StorageMetaDataTableUpdateInterface* StorageTransactionImpl::createMetaDataTableUpdate()
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_createMetaDataTableUpdate), objid());
+	StorageMetaDataTableUpdateInterface* p0 = obj()->createMetaDataTableUpdate();
+	p0 = traceContext()->createInterfaceImpl<StorageMetaDataTableUpdateInterface,StorageMetaDataTableUpdateImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createMetaDataTableUpdate");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageMetaDataTableUpdate), objbase_p0->objid());
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+StorageCommitResult StorageTransactionImpl::commit()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_commit), objid());
-	bool p0 = obj()->commit();
+	StorageCommitResult p0 = obj()->commit();
 	TraceSerializer parambuf;
-	parambuf.packBool(p0);
+	parambuf.packStorageCommitResult(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -9697,24 +9680,6 @@ void StorageTransactionImpl::rollback()
 	{
 		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
 	}
-}
-
-unsigned int StorageTransactionImpl::nofDocumentsAffected() const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageTransaction), StorageTransactionConst::methodName( Method_nofDocumentsAffected), objid());
-	unsigned int p0 = obj()->nofDocumentsAffected();
-	TraceSerializer parambuf;
-	parambuf.packUInt(p0);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
 }
 
 StructIteratorImpl::~StructIteratorImpl()

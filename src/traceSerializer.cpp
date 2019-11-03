@@ -1293,3 +1293,15 @@ void TraceSerializer::packPosTaggerDataElementVector( const std::vector<PosTagge
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
+void TraceSerializer::packStorageCommitResult( const StorageCommitResult& res)
+{
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "success"));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeBool, res.success()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "affected"));
+	m_elembuf.push_back( TraceElement( (TraceElement::IntType)res.nofDocumentsAffected()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+}
+
+
+

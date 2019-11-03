@@ -79,7 +79,7 @@ enum ClassId
 	ClassId_StorageDocumentUpdate=63,
 	ClassId_StorageDump=64,
 	ClassId_Storage=65,
-	ClassId_StorageMetaDataTransaction=66,
+	ClassId_StorageMetaDataTableUpdate=66,
 	ClassId_StorageObjectBuilder=67,
 	ClassId_StorageTransaction=68,
 	ClassId_StructIterator=69,
@@ -1043,18 +1043,17 @@ public:
 		Method_createMetaDataRestriction=24,
 		Method_createAttributeReader=25,
 		Method_createTransaction=26,
-		Method_createMetaDataTransaction=27,
-		Method_createAllStatisticsIterator=28,
-		Method_createChangeStatisticsIterator=29,
-		Method_getChangeStatisticTimeStamps=30,
-		Method_loadChangeStatisticsMessage=31,
-		Method_getStatisticsProcessor=32,
-		Method_createDocumentChecker=33,
-		Method_createDump=34,
-		Method_getConfigParameters=35,
-		Method_checkStorage=36,
-		Method_close=37,
-		Method_compaction=38
+		Method_createAllStatisticsIterator=27,
+		Method_createChangeStatisticsIterator=28,
+		Method_getChangeStatisticTimeStamps=29,
+		Method_loadChangeStatisticsMessage=30,
+		Method_getStatisticsProcessor=31,
+		Method_createDocumentChecker=32,
+		Method_createDump=33,
+		Method_getConfigParameters=34,
+		Method_checkStorage=35,
+		Method_close=36,
+		Method_compaction=37
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1124,7 +1123,7 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class StorageMetaDataTransactionConst
+class StorageMetaDataTableUpdateConst
 {
 public:
 	enum MethodId
@@ -1136,8 +1135,7 @@ public:
 		Method_deleteElement=4,
 		Method_deleteElements=5,
 		Method_clearElement=6,
-		Method_commit=7,
-		Method_rollback=8
+		Method_done=7
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1171,9 +1169,9 @@ public:
 		Method_deleteUserAccessRights=4,
 		Method_updateMetaData=5,
 		Method_updateDocumentFrequency=6,
-		Method_commit=7,
-		Method_rollback=8,
-		Method_nofDocumentsAffected=9
+		Method_createMetaDataTableUpdate=7,
+		Method_commit=8,
+		Method_rollback=9
 	};
 	static const char* methodName( MethodId mid);
 };

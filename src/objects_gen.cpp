@@ -5260,27 +5260,6 @@ void QueryImpl::pushTerm(
 	}
 }
 
-void QueryImpl::pushDocField(
-			const std::string& p1, 
-			const std::string& p2)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_pushDocField), objid());
-	obj()->pushDocField(p1, p2);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	parambuf.packString(p2);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
 void QueryImpl::pushExpression(
 			const PostingJoinOperatorInterface* p1, 
 			unsigned int p2, 
@@ -7669,40 +7648,6 @@ PostingIteratorInterface* StorageClientImpl::createBrowsePostingIterator(
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataRestriction), objbase_p1->objid());
 		parambuf.packIndex(p2);
-	}
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		if (p0) {delete p0; p0 = 0;}
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-PostingIteratorInterface* StorageClientImpl::createFieldPostingIterator(
-			const std::string& p1, 
-			const std::string& p2) const
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createFieldPostingIterator), objid());
-	PostingIteratorInterface* p0 = obj()->createFieldPostingIterator(p1, p2);
-	p0 = traceContext()->createInterfaceImpl<PostingIteratorInterface,PostingIteratorImpl>( p0);
-	TraceSerializer parambuf;
-	if (p0 == 0)
-	{
-		char fmtbuf[ 1024];
-		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createFieldPostingIterator");
-		traceContext()->errorbuf()->explain( fmtbuf);
-	}
-	else
-	{
-		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p0->objid());
-		parambuf.packString(p1);
-		parambuf.packString(p2);
 	}
 	if (parambuf.hasError())
 	{

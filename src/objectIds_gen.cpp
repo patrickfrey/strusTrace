@@ -365,7 +365,7 @@ const char* QueryEvalConst::methodName( MethodId mid)
 
 const char* QueryConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "pushTerm", "pushDocField", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "addAccess", "setWeightingVariableValue", "setDebugMode", "evaluate", "view"};
+	static const char* ar[] = { "Destructor", "pushTerm", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "addAccess", "setWeightingVariableValue", "setDebugMode", "evaluate", "view"};
 	return ar[mid];
 }
 
@@ -467,7 +467,7 @@ const char* StatisticsViewerConst::methodName( MethodId mid)
 
 const char* StorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "reload", "config", "createTermPostingIterator", "createStructIterator", "createBrowsePostingIterator", "createFieldPostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "termTypeNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getChangeStatisticTimeStamps", "loadChangeStatisticsMessage", "getStatisticsProcessor", "createDocumentChecker", "createDump", "getConfigParameters", "checkStorage", "close", "compaction"};
+	static const char* ar[] = { "Destructor", "reload", "config", "createTermPostingIterator", "createStructIterator", "createBrowsePostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "termTypeNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getChangeStatisticTimeStamps", "loadChangeStatisticsMessage", "getStatisticsProcessor", "createDocumentChecker", "createDump", "getConfigParameters", "checkStorage", "close", "compaction"};
 	return ar[mid];
 }
 

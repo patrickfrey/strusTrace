@@ -1192,9 +1192,6 @@ public:
 			const std::string& p1, 
 			const std::string& p2, 
 			const Index& p3);
-	virtual void pushDocField(
-			const std::string& p1, 
-			const std::string& p2);
 	virtual void pushExpression(
 			const PostingJoinOperatorInterface* p1, 
 			unsigned int p2, 
@@ -1662,9 +1659,6 @@ public:
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const;
-	virtual PostingIteratorInterface* createFieldPostingIterator(
-			const std::string& p1, 
-			const std::string& p2) const;
 	virtual ForwardIteratorInterface* createForwardIterator(
 			const std::string& p1) const;
 	virtual DocumentTermIteratorInterface* createDocumentTermIterator(

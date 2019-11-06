@@ -440,6 +440,16 @@ public:
 			const std::vector<NormalizerFunctionInstanceInterface*>& p4, 
 			int p5, 
 			const analyzer::FeatureOptions& p6);
+	virtual void addSearchIndexField(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::string& p3, 
+			const std::string& p4);
+	virtual void addSearchIndexStructure(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::string& p3, 
+			const StructureType& p4);
 	virtual void defineMetaData(
 			const std::string& p1, 
 			const std::string& p2, 

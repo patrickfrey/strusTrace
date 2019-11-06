@@ -789,6 +789,16 @@ void TraceSerializer::packAnalyzerTokenVector( const std::vector<analyzer::Token
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packDocumentAnalyzerStructureType( const DocumentAnalyzerInstanceInterface::StructureType& val)
+{
+	try{
+		const char* nam = DocumentAnalyzerInstanceInterface::structureTypeName( val);
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "structType"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, nam, std::strlen(nam)));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packAnalyzerQueryGroupBy( const QueryAnalyzerContextInterface::GroupBy& groupBy)
 {
 	try{

@@ -1618,6 +1618,56 @@ void DocumentAnalyzerInstanceImpl::addForwardIndexFeature(
 	}
 }
 
+void DocumentAnalyzerInstanceImpl::addSearchIndexField(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::string& p3, 
+			const std::string& p4)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addSearchIndexField), objid());
+	obj()->addSearchIndexField(p1, p2, p3, p4);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	parambuf.packString(p3);
+	parambuf.packString(p4);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void DocumentAnalyzerInstanceImpl::addSearchIndexStructure(
+			const std::string& p1, 
+			const std::string& p2, 
+			const std::string& p3, 
+			const StructureType& p4)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentAnalyzerInstance), DocumentAnalyzerInstanceConst::methodName( Method_addSearchIndexStructure), objid());
+	obj()->addSearchIndexStructure(p1, p2, p3, p4);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	parambuf.packString(p3);
+	parambuf.packDocumentAnalyzerStructureType(p4);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void DocumentAnalyzerInstanceImpl::defineMetaData(
 			const std::string& p1, 
 			const std::string& p2, 

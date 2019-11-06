@@ -146,6 +146,7 @@ public:
 	void packAnalyzerPosition( const analyzer::Position& val);
 	void packAnalyzerToken( const analyzer::Token& val);
 	void packAnalyzerTokenVector( const std::vector<analyzer::Token>& val);
+	void packDocumentAnalyzerStructureType( const DocumentAnalyzerInstanceInterface::StructureType& val);
 	void packAnalyzerQueryGroupBy( const QueryAnalyzerContextInterface::GroupBy& groupBy);
 	void packAnalyzerPatternLexem( const analyzer::PatternLexem& val);
 	void packAnalyzerPatternLexemVector( const std::vector<analyzer::PatternLexem>& val);

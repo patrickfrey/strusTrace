@@ -727,6 +727,18 @@ void TraceSerializer::packAnalyzerDocument( const analyzer::Document& val)
 		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}
+	std::vector<std::string>::const_iterator ri = val.accessList().begin(), re = val.accessList().end();
+	if (ri != re)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "access"));
+		for (; ri != re; ++ri)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ri-val.accessList().begin()));
+			packString( *ri);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
 	}CATCH_ERROR
 }
 

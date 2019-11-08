@@ -601,33 +601,61 @@ void TraceSerializer::packAnalyzerQueryTerm( const analyzer::QueryTerm& val)
 
 void TraceSerializer::packAnalyzerQueryTermExpression( const analyzer::QueryTermExpression& val)
 {
-	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "termexpr"));
-	std::vector<analyzer::QueryTermExpression::Instruction>::const_iterator
-		ii = val.instructions().begin(), ie = val.instructions().end();
-	for (; ii != ie; ++ii)
-	{
-		switch (ii->opCode())
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "termexpr"));
+		std::vector<analyzer::QueryTermExpression::Instruction>::const_iterator
+			ii = val.instructions().begin(), ie = val.instructions().end();
+		for (; ii != ie; ++ii)
 		{
-			case analyzer::QueryTermExpression::Instruction::Term:
+			switch (ii->opCode())
 			{
-				const analyzer::QueryTerm& term = val.term( ii->idx());
-				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "term"));
-				packAnalyzerQueryTerm( term);
-				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-				break;
+				case analyzer::QueryTermExpression::Instruction::Term:
+				{
+					const analyzer::QueryTerm& term = val.term( ii->idx());
+					m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "term"));
+					packAnalyzerQueryTerm( term);
+					m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+					break;
+				}
+				case analyzer::QueryTermExpression::Instruction::Operator:
+					m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "op"));
+					m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "id"));
+					m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->idx())); 
+					m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+					m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "nofargs"));
+					m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->nofOperands())); 
+					m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+					break;
 			}
-			case analyzer::QueryTermExpression::Instruction::Operator:
-				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "op"));
-				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "id"));
-				m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->idx())); 
-				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-				m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "nofargs"));
-				m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->nofOperands())); 
-				m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-				break;
 		}
-	}
-	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packAnalyzerDocumentStructure( const analyzer::DocumentStructure& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "struct"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.name().c_str(), val.name().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "source"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "from"));
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.source().start())); 
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "to"));
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.source().end())); 
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "sink"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "from"));
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.sink().start())); 
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "to"));
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.sink().end())); 
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+			
+	}CATCH_ERROR
 }
 
 void TraceSerializer::packAnalyzerDocument( const analyzer::Document& val)
@@ -671,6 +699,18 @@ void TraceSerializer::packAnalyzerDocument( const analyzer::Document& val)
 		{
 			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, si-val.searchIndexTerms().begin()));
 			packAnalyzerDocumentTerm( *si);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+	std::vector<analyzer::DocumentStructure>::const_iterator xi = val.searchIndexStructures().begin(), xe = val.searchIndexStructures().end();
+	if (xi != xe)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "searchstruct"));
+		for (; xi != xe; ++xi)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, xi-val.searchIndexStructures().begin()));
+			packAnalyzerDocumentStructure( *xi);
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));

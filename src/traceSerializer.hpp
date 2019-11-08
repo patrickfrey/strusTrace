@@ -138,6 +138,7 @@ public:
 	void packStatisticsMessage( const StatisticsMessage& val);
 	void packAnalyzerQueryTerm( const analyzer::QueryTerm& val);
 	void packAnalyzerQueryTermExpression( const analyzer::QueryTermExpression& val);
+	void packAnalyzerDocumentStructure( const analyzer::DocumentStructure& val);
 	void packAnalyzerDocument( const analyzer::Document& val);
 	void packAnalyzerDocumentAttribute( const analyzer::DocumentAttribute& val);
 	void packAnalyzerDocumentMetaData( const analyzer::DocumentMetaData& val);
@@ -190,6 +191,7 @@ public:
 		return m_elembuf;
 	}
 
+private:
 private:
 	bool m_error;
 	std::vector<TraceElement> m_elembuf;

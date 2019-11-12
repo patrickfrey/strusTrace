@@ -9963,11 +9963,10 @@ std::vector<std::string> SummarizerFunctionInstanceImpl::getVariables() const
 
 SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFunctionContext(
 			const StorageClientInterface* p1, 
-			MetaDataReaderInterface* p2, 
-			const GlobalStatistics& p3) const
+			const GlobalStatistics& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
-	SummarizerFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2, p3);
+	SummarizerFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2);
 	p0 = traceContext()->createInterfaceImpl<SummarizerFunctionContextInterface,SummarizerFunctionContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -9982,9 +9981,7 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p1->objid());
-		TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataReader), objbase_p2->objid());
-		parambuf.packGlobalStatistics(p3);
+		parambuf.packGlobalStatistics(p2);
 	}
 	if (parambuf.hasError())
 	{
@@ -11895,11 +11892,10 @@ void WeightingFunctionInstanceImpl::addNumericParameter(
 
 WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunctionContext(
 			const StorageClientInterface* p1, 
-			MetaDataReaderInterface* p2, 
-			const GlobalStatistics& p3) const
+			const GlobalStatistics& p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), WeightingFunctionInstanceConst::methodName( Method_createFunctionContext), objid());
-	WeightingFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2, p3);
+	WeightingFunctionContextInterface* p0 = obj()->createFunctionContext(p1, p2);
 	p0 = traceContext()->createInterfaceImpl<WeightingFunctionContextInterface,WeightingFunctionContextImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -11914,9 +11910,7 @@ WeightingFunctionContextInterface* WeightingFunctionInstanceImpl::createFunction
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunctionContext), objbase_p0->objid());
 		const TraceObjectBase* objbase_p1 = dynamic_cast<const TraceObjectBase*>( p1);
 		if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StorageClient), objbase_p1->objid());
-		TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-		if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_MetaDataReader), objbase_p2->objid());
-		parambuf.packGlobalStatistics(p3);
+		parambuf.packGlobalStatistics(p2);
 	}
 	if (parambuf.hasError())
 	{

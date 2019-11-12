@@ -2002,8 +2002,7 @@ public:
 	virtual std::vector<std::string> getVariables() const;
 	virtual SummarizerFunctionContextInterface* createFunctionContext(
 			const StorageClientInterface* p1, 
-			MetaDataReaderInterface* p2, 
-			const GlobalStatistics& p3) const;
+			const GlobalStatistics& p2) const;
 	virtual const char* name() const;
 	virtual StructView view() const;
 };
@@ -2347,8 +2346,7 @@ public:
 			const NumericVariant& p2);
 	virtual WeightingFunctionContextInterface* createFunctionContext(
 			const StorageClientInterface* p1, 
-			MetaDataReaderInterface* p2, 
-			const GlobalStatistics& p3) const;
+			const GlobalStatistics& p2) const;
 	virtual std::vector<std::string> getVariables() const;
 	virtual const char* name() const;
 	virtual StructView view() const;

@@ -1175,10 +1175,9 @@ public:
 			const std::vector<FeatureParameter>& p3, 
 			const std::string& p4);
 	virtual void addWeightingFunction(
-			const std::string& p1, 
-			WeightingFunctionInstanceInterface* p2, 
-			const std::vector<FeatureParameter>& p3, 
-			const std::string& p4);
+			WeightingFunctionInstanceInterface* p1, 
+			const std::vector<FeatureParameter>& p2, 
+			const std::string& p3);
 	virtual void defineWeightingFormula(
 			ScalarFunctionInterface* p1);
 	virtual QueryInterface* createQuery(
@@ -1996,9 +1995,6 @@ public:
 	virtual void addNumericParameter(
 			const std::string& p1, 
 			const NumericVariant& p2);
-	virtual void defineResultName(
-			const std::string& p1, 
-			const std::string& p2);
 	virtual std::vector<std::string> getVariables() const;
 	virtual SummarizerFunctionContextInterface* createFunctionContext(
 			const StorageClientInterface* p1, 

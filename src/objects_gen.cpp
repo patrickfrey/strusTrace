@@ -5183,24 +5183,22 @@ void QueryEvalImpl::addSummarizerFunction(
 }
 
 void QueryEvalImpl::addWeightingFunction(
-			const std::string& p1, 
-			WeightingFunctionInstanceInterface* p2, 
-			const std::vector<FeatureParameter>& p3, 
-			const std::string& p4)
+			WeightingFunctionInstanceInterface* p1, 
+			const std::vector<FeatureParameter>& p2, 
+			const std::string& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addWeightingFunction), objid());
-	obj()->addWeightingFunction(p1, p2, p3, p4);
+	obj()->addWeightingFunction(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packString(p1);
-	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
-	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), objbase_p2->objid());
-	parambuf.packFeatureParameterVector(p3);
-	parambuf.packString(p4);
+	TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
+	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), objbase_p1->objid());
+	parambuf.packFeatureParameterVector(p2);
+	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		if (p2) {delete p2; p2 = 0;}
+		if (p1) {delete p1; p1 = 0;}
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -9911,27 +9909,6 @@ void SummarizerFunctionInstanceImpl::addNumericParameter(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packNumericVariant(p2);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void SummarizerFunctionInstanceImpl::defineResultName(
-			const std::string& p1, 
-			const std::string& p2)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_defineResultName), objid());
-	obj()->defineResultName(p1, p2);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	parambuf.packString(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

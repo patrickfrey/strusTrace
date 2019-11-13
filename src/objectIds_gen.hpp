@@ -1213,11 +1213,10 @@ public:
 		Method_Destructor=0,
 		Method_addStringParameter=1,
 		Method_addNumericParameter=2,
-		Method_defineResultName=3,
-		Method_getVariables=4,
-		Method_createFunctionContext=5,
-		Method_name=6,
-		Method_view=7
+		Method_getVariables=3,
+		Method_createFunctionContext=4,
+		Method_name=5,
+		Method_view=6
 	};
 	static const char* methodName( MethodId mid);
 };

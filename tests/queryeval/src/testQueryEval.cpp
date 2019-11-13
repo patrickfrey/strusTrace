@@ -337,7 +337,7 @@ static strus::QueryEvalInterface* createQueryEval( const strus::StorageObjectBui
 	typedef strus::QueryEvalInterface::FeatureParameter FeatureParameter;
 	std::vector<FeatureParameter> featureParameters;
 	featureParameters.push_back( FeatureParameter( "match", "docfeat"));
-	qeval->addWeightingFunction( "BM25", wfuncinst.release(), featureParameters);
+	qeval->addWeightingFunction( wfuncinst.release(), featureParameters);
 
 	const strus::SummarizerFunctionInterface* sfunc = qproc->getSummarizerFunction( "Attribute");
 	if (!sfunc) throw std::runtime_error( std::string("undefined summarizer function ") + "Attribute");

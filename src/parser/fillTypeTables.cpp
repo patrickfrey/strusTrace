@@ -64,6 +64,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "int&")
 		("pack_msg", "parambuf.packInt($name);")
 	;
+	typesystem.defineType( "long")
+		("pack_msg", "parambuf.packInt64($name);")
+	;
 	typesystem.defineType( "std::size_t")
 		("pack_msg", "parambuf.packSize( $name);")
 	;

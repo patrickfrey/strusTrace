@@ -308,6 +308,7 @@ public:
 			const char* key, std::size_t p1, 
 			std::string& p2, 
 			const DatabaseOptions& p3) const;
+	virtual long diskUsage() const;
 	virtual std::string config() const;
 	virtual bool compactDatabase();
 	virtual void close();
@@ -1658,6 +1659,7 @@ public:
 	virtual ~StorageClientImpl();
 	virtual bool reload(
 			const std::string& p1);
+	virtual long diskUsage() const;
 	virtual std::string config() const;
 	virtual PostingIteratorInterface* createTermPostingIterator(
 			const std::string& p1, 

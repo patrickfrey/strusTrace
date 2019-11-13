@@ -949,6 +949,24 @@ bool DatabaseClientImpl::readValue(
 	return p0;
 }
 
+long DatabaseClientImpl::diskUsage() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_diskUsage), objid());
+	long p0 = obj()->diskUsage();
+	TraceSerializer parambuf;
+	parambuf.packInt64(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 std::string DatabaseClientImpl::config() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DatabaseClient), DatabaseClientConst::methodName( Method_config), objid());
@@ -7577,6 +7595,24 @@ bool StorageClientImpl::reload(
 	TraceSerializer parambuf;
 	parambuf.packBool(p0);
 	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+long StorageClientImpl::diskUsage() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_diskUsage), objid());
+	long p0 = obj()->diskUsage();
+	TraceSerializer parambuf;
+	parambuf.packInt64(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

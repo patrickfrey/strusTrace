@@ -193,7 +193,7 @@ public:
 
 	virtual ~AttributeReaderImpl();
 	virtual Index elementHandle(
-			const char* p1) const;
+			const std::string& p1) const;
 	virtual void skipDoc(
 			const Index& p1);
 	virtual std::string getValue(
@@ -1685,6 +1685,8 @@ public:
 	virtual Index documentNumber(
 			const std::string& p1) const;
 	virtual Index termTypeNumber(
+			const std::string& p1) const;
+	virtual Index termValueNumber(
 			const std::string& p1) const;
 	virtual bool isForwardIndexTerm(
 			const std::string& p1) const;

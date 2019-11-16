@@ -451,13 +451,13 @@ AttributeReaderImpl::~AttributeReaderImpl()
 }
 
 Index AttributeReaderImpl::elementHandle(
-			const char* p1) const
+			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AttributeReader), AttributeReaderConst::methodName( Method_elementHandle), objid());
 	Index p0 = obj()->elementHandle(p1);
 	TraceSerializer parambuf;
 	parambuf.packIndex(p0);
-	parambuf.packCharp(p1);
+	parambuf.packString(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -7955,6 +7955,26 @@ Index StorageClientImpl::termTypeNumber(
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_termTypeNumber), objid());
 	Index p0 = obj()->termTypeNumber(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndex(p0);
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+Index StorageClientImpl::termValueNumber(
+			const std::string& p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_termValueNumber), objid());
+	Index p0 = obj()->termValueNumber(p1);
 	TraceSerializer parambuf;
 	parambuf.packIndex(p0);
 	parambuf.packString(p1);

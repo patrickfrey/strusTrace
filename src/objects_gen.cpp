@@ -4505,12 +4505,12 @@ Index PostingIteratorImpl::documentFrequency() const
 	return p0;
 }
 
-unsigned int PostingIteratorImpl::frequency()
+int PostingIteratorImpl::frequency()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_frequency), objid());
-	unsigned int p0 = obj()->frequency();
+	int p0 = obj()->frequency();
 	TraceSerializer parambuf;
-	parambuf.packUInt(p0);
+	parambuf.packInt(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -5238,6 +5238,25 @@ void QueryEvalImpl::defineWeightingFormula(
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		if (p1) {delete p1; p1 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void QueryEvalImpl::usePositionInformation(
+			bool p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_usePositionInformation), objid());
+	obj()->usePositionInformation(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packBool(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
 		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 	}
 	else
@@ -7665,6 +7684,40 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 		parambuf.packString(p1);
 		parambuf.packString(p2);
 		parambuf.packIndex(p3);
+	}
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		if (p0) {delete p0; p0 = 0;}
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
+PostingIteratorInterface* StorageClientImpl::createFrequencyPostingIterator(
+			const std::string& p1, 
+			const std::string& p2) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createFrequencyPostingIterator), objid());
+	PostingIteratorInterface* p0 = obj()->createFrequencyPostingIterator(p1, p2);
+	p0 = traceContext()->createInterfaceImpl<PostingIteratorInterface,PostingIteratorImpl>( p0);
+	TraceSerializer parambuf;
+	if (p0 == 0)
+	{
+		char fmtbuf[ 1024];
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createFrequencyPostingIterator");
+		traceContext()->errorbuf()->explain( fmtbuf);
+	}
+	else
+	{
+		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p0->objid());
+		parambuf.packString(p1);
+		parambuf.packString(p2);
 	}
 	if (parambuf.hasError())
 	{

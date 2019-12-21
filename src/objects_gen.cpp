@@ -7644,6 +7644,24 @@ long StorageClientImpl::diskUsage() const
 	return p0;
 }
 
+BlockStatistics StorageClientImpl::blockStatistics() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_blockStatistics), objid());
+	BlockStatistics p0 = obj()->blockStatistics();
+	TraceSerializer parambuf;
+	parambuf.packBlockStatistics(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 std::string StorageClientImpl::config() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_config), objid());

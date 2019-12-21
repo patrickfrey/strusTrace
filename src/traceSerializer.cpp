@@ -381,6 +381,32 @@ void TraceSerializer::packGlobalStatistics( const GlobalStatistics& stats)
 	}CATCH_ERROR
 }
 
+void TraceSerializer::packBlockStatisticsElement( const BlockStatistics::Element& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str(), val.type().size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "size"));
+		m_elembuf.push_back( TraceElement( val.size()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packBlockStatistics( const BlockStatistics& stats)
+{
+	try{
+		std::vector<BlockStatistics::Element>::const_iterator
+			ei = stats.elements().begin(), ee = stats.elements().end();
+		for (std::size_t eidx=0; ei != ee; ++ei,++eidx)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, eidx));
+			packBlockStatisticsElement( *ei);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+	}CATCH_ERROR
+}
+
 static const char* compareOperatorName( MetaDataRestrictionInterface::CompareOperator op)
 {
 	static const char* ar[] = {"<", "<=", "==", "!=", ">", ">="};

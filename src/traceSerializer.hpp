@@ -14,6 +14,7 @@
 #include "strus/numericVariant.hpp"
 #include "strus/termStatistics.hpp"
 #include "strus/globalStatistics.hpp"
+#include "strus/blockStatistics.hpp"
 #include "strus/statisticsMessage.hpp"
 #include "strus/metaDataRestrictionInterface.hpp"
 #include "strus/databaseOptions.hpp"
@@ -120,6 +121,8 @@ public:
 	void packAnalyzerDocumentClass( const analyzer::DocumentClass& prop);
 	void packTermStatistics( const TermStatistics& stats);
 	void packGlobalStatistics( const GlobalStatistics& stats);
+	void packBlockStatisticsElement( const BlockStatistics::Element& elem);
+	void packBlockStatistics( const BlockStatistics& stats);
 	void packMetaDataRestrictionCompareOperator( MetaDataRestrictionInterface::CompareOperator val);
 
 	void packDatabaseOptions( const DatabaseOptions& val);

@@ -219,6 +219,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const GlobalStatistics&")
 		("pack_msg", "parambuf.packGlobalStatistics($name);")
 	;
+	typesystem.defineType( "BlockStatistics")
+		("pack_msg", "parambuf.packBlockStatistics($name);")
+	;
 	typesystem.defineType( "const CompareOperator&", "MetaDataRestriction")
 		("pack_msg", "parambuf.packMetaDataRestrictionCompareOperator($name);")
 	;

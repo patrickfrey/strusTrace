@@ -1671,8 +1671,7 @@ public:
 	virtual PostingIteratorInterface* createFrequencyPostingIterator(
 			const std::string& p1, 
 			const std::string& p2) const;
-	virtual StructIteratorInterface* createStructIterator(
-			const std::string& p1) const;
+	virtual StructIteratorInterface* createStructIterator() const;
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const;
@@ -1689,6 +1688,8 @@ public:
 			const std::string& p2) const;
 	virtual Index maxDocumentNumber() const;
 	virtual Index documentNumber(
+			const std::string& p1) const;
+	virtual Index structTypeNumber(
 			const std::string& p1) const;
 	virtual Index termTypeNumber(
 			const std::string& p1) const;
@@ -1789,8 +1790,7 @@ public:
 			const Index& p3);
 	virtual void clearSearchIndexTerm(
 			const std::string& p1);
-	virtual void clearSearchIndexStructure(
-			const std::string& p1);
+	virtual void clearSearchIndexStructures();
 	virtual void clearForwardIndexTerm(
 			const std::string& p1);
 	virtual void setMetaData(
@@ -1950,14 +1950,17 @@ public:
 		:TraceObject<StructIteratorInterface>(obj_,ctx_){}
 
 	virtual ~StructIteratorImpl();
-	virtual Index skipDoc(
+	virtual void skipDoc(
 			const Index& p1);
-	virtual IndexRange skipPosSource(
-			const Index& p1);
-	virtual IndexRange skipPosSink(
-			const Index& p1);
-	virtual IndexRange source() const;
-	virtual IndexRange sink() const;
+	virtual int levels() const;
+	virtual Index docno() const;
+	virtual IndexRange skipPos(
+			int p1, 
+			const Index& p2);
+	virtual IndexRange field(
+			int p1) const;
+	virtual StructureLinkArray links(
+			int p1) const;
 };
 
 class SummarizerFunctionContextImpl

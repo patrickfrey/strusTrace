@@ -370,6 +370,9 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const FeatureParameter&", "QueryEval")
 		("pack_msg", "parambuf.packFeatureParameter($name);")
 	;
+	typesystem.defineType( "StructureLinkArray")
+		("pack_msg", "parambuf.packStructureLinkArray($name);")
+	;
 	typesystem.defineType( "const std::vector<FeatureParameter>&", "QueryEval")
 		("pack_msg", "parambuf.packFeatureParameterVector($name);")
 	;

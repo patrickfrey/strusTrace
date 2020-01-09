@@ -1391,5 +1391,30 @@ void TraceSerializer::packStorageCommitResult( const StorageCommitResult& res)
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
+void TraceSerializer::packStructureLinkArray( const StructureLinkArray& lar)
+{
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "links"));
+	int ei = 0, ee = lar.nofLinks();
+	for (; ei != ee; ++ei)
+	{
+		const StructureLink& link = lar[ ei];
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ei));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "header"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeBool, link.header()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "structno"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)link.structno()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "index"));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)link.index()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+}
 
 

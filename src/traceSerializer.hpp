@@ -30,6 +30,8 @@
 #include "strus/resultDocument.hpp"
 #include "strus/queryResult.hpp"
 #include "strus/structView.hpp"
+#include "strus/structIteratorInterface.hpp"
+#include "strus/structureLink.hpp"
 #include "strus/storageCommitResult.hpp"
 #include "strus/queryEvalInterface.hpp"
 #include "strus/queryProcessorInterface.hpp"
@@ -183,6 +185,7 @@ public:
 	void packPosTaggerDataElement( const PosTaggerDataInterface::Element& val);
 	void packPosTaggerDataElementVector( const std::vector<PosTaggerDataInterface::Element>& val);
 	void packStorageCommitResult( const StorageCommitResult& res);
+	void packStructureLinkArray( const StructureLinkArray& lar);
 
 	bool hasError() const
 	{

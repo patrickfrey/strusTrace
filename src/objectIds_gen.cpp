@@ -191,7 +191,7 @@ const char* DocumentAnalyzerContextConst::methodName( MethodId mid)
 
 const char* DocumentAnalyzerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "addSearchIndexField", "addSearchIndexStructure", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "defineSubContent", "addPatternLexem", "defineTokenPatternMatcher", "defineContentPatternMatcher", "addSearchIndexFeatureFromPatternMatch", "addForwardIndexFeatureFromPatternMatch", "defineMetaDataFromPatternMatch", "defineAttributeFromPatternMatch", "analyze", "createContext", "view"};
+	static const char* ar[] = { "Destructor", "addSearchIndexFeature", "addForwardIndexFeature", "addSearchIndexField", "addSearchIndexStructure", "defineMetaData", "defineAggregatedMetaData", "defineAttribute", "defineSubDocument", "defineSubContent", "analyze", "createContext", "view"};
 	return ar[mid];
 }
 
@@ -353,7 +353,7 @@ const char* QueryAnalyzerContextConst::methodName( MethodId mid)
 
 const char* QueryAnalyzerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addElement", "addPatternLexem", "defineTokenPatternMatcher", "defineContentPatternMatcher", "addElementFromPatternMatch", "queryTermTypes", "queryFieldTypes", "createContext", "view"};
+	static const char* ar[] = { "Destructor", "addElement", "queryTermTypes", "queryFieldTypes", "createContext", "view"};
 	return ar[mid];
 }
 

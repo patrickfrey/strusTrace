@@ -323,16 +323,9 @@ public:
 		Method_defineAttribute=7,
 		Method_defineSubDocument=8,
 		Method_defineSubContent=9,
-		Method_addPatternLexem=10,
-		Method_defineTokenPatternMatcher=11,
-		Method_defineContentPatternMatcher=12,
-		Method_addSearchIndexFeatureFromPatternMatch=13,
-		Method_addForwardIndexFeatureFromPatternMatch=14,
-		Method_defineMetaDataFromPatternMatch=15,
-		Method_defineAttributeFromPatternMatch=16,
-		Method_analyze=17,
-		Method_createContext=18,
-		Method_view=19
+		Method_analyze=10,
+		Method_createContext=11,
+		Method_view=12
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -712,14 +705,10 @@ public:
 	{
 		Method_Destructor=0,
 		Method_addElement=1,
-		Method_addPatternLexem=2,
-		Method_defineTokenPatternMatcher=3,
-		Method_defineContentPatternMatcher=4,
-		Method_addElementFromPatternMatch=5,
-		Method_queryTermTypes=6,
-		Method_queryFieldTypes=7,
-		Method_createContext=8,
-		Method_view=9
+		Method_queryTermTypes=2,
+		Method_queryFieldTypes=3,
+		Method_createContext=4,
+		Method_view=5
 	};
 	static const char* methodName( MethodId mid);
 };

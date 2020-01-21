@@ -26,6 +26,7 @@
 #include "strus/summaryElement.hpp"
 #include "strus/summarizationVariable.hpp"
 #include "strus/documentTermIteratorInterface.hpp"
+#include "strus/weightedField.hpp"
 #include "strus/weightedDocument.hpp"
 #include "strus/resultDocument.hpp"
 #include "strus/queryResult.hpp"
@@ -163,6 +164,8 @@ public:
 	void packAnalyzerPatternMatcherResultVector( const std::vector<analyzer::PatternMatcherResult>& val);
 	void packAnalyzerPatternMatcherStatistics( const analyzer::PatternMatcherStatistics& val);
 	void packPatternMatcherJoinOperation( const PatternMatcherInstanceInterface::JoinOperation& val);
+	void packWeightedField( const WeightedField& val);
+	void packWeightedFieldArray( const std::vector<WeightedField>& val);
 	void packWeightedDocument( const WeightedDocument& val);
 	void packResultDocument( const ResultDocument& val);
 	void packQueryResult( const QueryResult& val);

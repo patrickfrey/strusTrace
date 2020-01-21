@@ -9604,13 +9604,13 @@ void SummarizerFunctionContextImpl::setVariableValue(
 }
 
 std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
-			const Index& p1)
+			const WeightedDocument& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_getSummary), objid());
 	std::vector<SummaryElement> p0 = obj()->getSummary(p1);
 	TraceSerializer parambuf;
 	parambuf.packSummaryElementVector(p0);
-	parambuf.packIndex(p1);
+	parambuf.packWeightedDocument(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -9624,13 +9624,13 @@ std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 }
 
 std::string SummarizerFunctionContextImpl::debugCall(
-			const Index& p1)
+			const WeightedDocument& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_debugCall), objid());
 	std::string p0 = obj()->debugCall(p1);
 	TraceSerializer parambuf;
 	parambuf.packString(p0);
-	parambuf.packIndex(p1);
+	parambuf.packWeightedDocument(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -11550,13 +11550,13 @@ void WeightingFunctionContextImpl::setVariableValue(
 	}
 }
 
-double WeightingFunctionContextImpl::call(
+const std::vector<WeightedField>& WeightingFunctionContextImpl::call(
 			const Index& p1)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionContext), WeightingFunctionContextConst::methodName( Method_call), objid());
-	double p0 = obj()->call(p1);
+	const std::vector<WeightedField>& p0 = obj()->call(p1);
 	TraceSerializer parambuf;
-	parambuf.packDouble(p0);
+	parambuf.packWeightedFieldArray(p0);
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{

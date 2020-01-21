@@ -24,6 +24,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const IndexRange&")
 		("pack_msg", "parambuf.packIndexRange($name);")
 	;
+	typesystem.defineType( "const strus::Index&")
+		("pack_msg", "parambuf.packIndex($name);")
+	;
+	typesystem.defineType( "const strus::IndexRange&")
+		("pack_msg", "parambuf.packIndexRange($name);")
+	;
 	typesystem.defineType( "GlobalCounter")
 		("pack_msg", "parambuf.packGlobalCounter($name);")
 	;
@@ -358,7 +364,13 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "StorageCommitResult")
 		("pack_msg", "parambuf.packStorageCommitResult($name);")
 	;
+	typesystem.defineType( "const std::vector<WeightedField>&")
+		("pack_msg", "parambuf.packWeightedFieldArray($name);")
+		;
 	typesystem.defineType( "const WeightedDocument&")
+		("pack_msg", "parambuf.packWeightedDocument($name);")
+	;
+	typesystem.defineType( "const strus::WeightedDocument&")
 		("pack_msg", "parambuf.packWeightedDocument($name);")
 	;
 	typesystem.defineType( "const ResultDocument&")

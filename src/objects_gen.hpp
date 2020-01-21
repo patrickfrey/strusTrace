@@ -1930,9 +1930,9 @@ public:
 			const std::string& p1, 
 			double p2);
 	virtual std::vector<SummaryElement> getSummary(
-			const Index& p1);
+			const WeightedDocument& p1);
 	virtual std::string debugCall(
-			const Index& p1);
+			const WeightedDocument& p1);
 };
 
 class SummarizerFunctionInstanceImpl
@@ -2274,7 +2274,7 @@ public:
 	virtual void setVariableValue(
 			const std::string& p1, 
 			double p2);
-	virtual double call(
+	virtual const std::vector<WeightedField>& call(
 			const Index& p1);
 	virtual std::string debugCall(
 			const Index& p1);

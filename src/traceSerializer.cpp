@@ -1035,6 +1035,31 @@ void TraceSerializer::packPatternMatcherJoinOperation( const PatternMatcherInsta
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
+void TraceSerializer::packWeightedField( const WeightedField& val)
+{
+	try{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "weight"));
+		m_elembuf.push_back( TraceElement( val.weight()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "field"));
+		packIndexRange( val.field());
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packWeightedFieldArray( const std::vector<WeightedField>& val)
+{
+	try
+	{
+		std::vector<WeightedField>::const_iterator wi = val.begin(), we = val.end();
+		for (; wi != we; ++wi)
+		{
+			packWeightedField( *wi);
+		}
+	}CATCH_ERROR
+}
+
 void TraceSerializer::packWeightedDocument( const WeightedDocument& val)
 {
 	try{

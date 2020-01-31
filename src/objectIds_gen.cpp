@@ -515,7 +515,7 @@ const char* StorageTransactionConst::methodName( MethodId mid)
 
 const char* StructIteratorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "skipDoc", "levels", "docno", "skipPos", "field", "links"};
+	static const char* ar[] = { "Destructor", "skipDoc", "levels", "docno", "skipPos", "field", "links", "headerField"};
 	return ar[mid];
 }
 

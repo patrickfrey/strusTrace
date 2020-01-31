@@ -9548,6 +9548,26 @@ StructureLinkArray StructIteratorImpl::links(
 	return p0;
 }
 
+IndexRange StructIteratorImpl::headerField(
+			int p1) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_headerField), objid());
+	IndexRange p0 = obj()->headerField(p1);
+	TraceSerializer parambuf;
+	parambuf.packIndexRange(p0);
+	parambuf.packInt(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 SummarizerFunctionContextImpl::~SummarizerFunctionContextImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_Destructor), objid());

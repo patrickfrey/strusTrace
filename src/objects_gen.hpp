@@ -1906,6 +1906,8 @@ public:
 			int p1) const;
 	virtual StructureLinkArray links(
 			int p1) const;
+	virtual IndexRange headerField(
+			int p1) const;
 };
 
 class SummarizerFunctionContextImpl

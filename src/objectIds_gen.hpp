@@ -1183,7 +1183,8 @@ public:
 		Method_docno=3,
 		Method_skipPos=4,
 		Method_field=5,
-		Method_links=6
+		Method_links=6,
+		Method_headerField=7
 	};
 	static const char* methodName( MethodId mid);
 };

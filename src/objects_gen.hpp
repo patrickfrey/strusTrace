@@ -1177,8 +1177,6 @@ public:
 	virtual void setWeightingVariableValue(
 			const std::string& p1, 
 			double p2);
-	virtual void setDebugMode(
-			bool p1);
 	virtual QueryResult evaluate(
 			int p1, 
 			int p2) const;
@@ -1933,8 +1931,6 @@ public:
 			double p2);
 	virtual std::vector<SummaryElement> getSummary(
 			const WeightedDocument& p1);
-	virtual std::string debugCall(
-			const WeightedDocument& p1);
 };
 
 class SummarizerFunctionInstanceImpl
@@ -2277,8 +2273,6 @@ public:
 			const std::string& p1, 
 			double p2);
 	virtual const std::vector<WeightedField>& call(
-			const Index& p1);
-	virtual std::string debugCall(
 			const Index& p1);
 };
 

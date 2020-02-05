@@ -365,7 +365,7 @@ const char* QueryEvalConst::methodName( MethodId mid)
 
 const char* QueryConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "pushTerm", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "addAccess", "setWeightingVariableValue", "setDebugMode", "evaluate", "view"};
+	static const char* ar[] = { "Destructor", "pushTerm", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "addAccess", "setWeightingVariableValue", "evaluate", "view"};
 	return ar[mid];
 }
 
@@ -521,7 +521,7 @@ const char* StructIteratorConst::methodName( MethodId mid)
 
 const char* SummarizerFunctionContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSummarizationFeature", "setVariableValue", "getSummary", "debugCall"};
+	static const char* ar[] = { "Destructor", "addSummarizationFeature", "setVariableValue", "getSummary"};
 	return ar[mid];
 }
 
@@ -599,7 +599,7 @@ const char* VectorStorageTransactionConst::methodName( MethodId mid)
 
 const char* WeightingFunctionContextConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addWeightingFeature", "setVariableValue", "call", "debugCall"};
+	static const char* ar[] = { "Destructor", "addWeightingFeature", "setVariableValue", "call"};
 	return ar[mid];
 }
 

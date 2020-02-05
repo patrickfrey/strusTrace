@@ -753,9 +753,8 @@ public:
 		Method_addDocumentEvaluationSet=8,
 		Method_addAccess=9,
 		Method_setWeightingVariableValue=10,
-		Method_setDebugMode=11,
-		Method_evaluate=12,
-		Method_view=13
+		Method_evaluate=11,
+		Method_view=12
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1197,8 +1196,7 @@ public:
 		Method_Destructor=0,
 		Method_addSummarizationFeature=1,
 		Method_setVariableValue=2,
-		Method_getSummary=3,
-		Method_debugCall=4
+		Method_getSummary=3
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1405,8 +1403,7 @@ public:
 		Method_Destructor=0,
 		Method_addWeightingFeature=1,
 		Method_setVariableValue=2,
-		Method_call=3,
-		Method_debugCall=4
+		Method_call=3
 	};
 	static const char* methodName( MethodId mid);
 };

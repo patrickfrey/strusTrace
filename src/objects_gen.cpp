@@ -5144,25 +5144,6 @@ void QueryImpl::setWeightingVariableValue(
 	}
 }
 
-void QueryImpl::setDebugMode(
-			bool p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_setDebugMode), objid());
-	obj()->setDebugMode(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packBool(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
 QueryResult QueryImpl::evaluate(
 			int p1, 
 			int p2) const
@@ -9643,26 +9624,6 @@ std::vector<SummaryElement> SummarizerFunctionContextImpl::getSummary(
 	return p0;
 }
 
-std::string SummarizerFunctionContextImpl::debugCall(
-			const WeightedDocument& p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_debugCall), objid());
-	std::string p0 = obj()->debugCall(p1);
-	TraceSerializer parambuf;
-	parambuf.packString(p0);
-	parambuf.packWeightedDocument(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
 SummarizerFunctionInstanceImpl::~SummarizerFunctionInstanceImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_Destructor), objid());
@@ -11577,26 +11538,6 @@ const std::vector<WeightedField>& WeightingFunctionContextImpl::call(
 	const std::vector<WeightedField>& p0 = obj()->call(p1);
 	TraceSerializer parambuf;
 	parambuf.packWeightedFieldArray(p0);
-	parambuf.packIndex(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
-}
-
-std::string WeightingFunctionContextImpl::debugCall(
-			const Index& p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionContext), WeightingFunctionContextConst::methodName( Method_debugCall), objid());
-	std::string p0 = obj()->debugCall(p1);
-	TraceSerializer parambuf;
-	parambuf.packString(p0);
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{

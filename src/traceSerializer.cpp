@@ -1442,4 +1442,15 @@ void TraceSerializer::packStructureLinkArray( const StructureLinkArray& lar)
 	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 }
 
+void TraceSerializer::packStructureHeaderField( const StructureHeaderField& val)
+{
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "field"));
+	packIndexRange( val.field());
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+
+	m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "hierarchy"));
+	m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.hierarchy()));
+	m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+}
+
 

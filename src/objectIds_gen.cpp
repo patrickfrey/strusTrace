@@ -83,7 +83,7 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"StorageMetaDataTableUpdate",
 		"StorageObjectBuilder",
 		"StorageTransaction",
-		"StructIterator",
+		"StructureIterator",
 		"SummarizerFunctionContext",
 		"SummarizerFunctionInstance",
 		"SummarizerFunction",
@@ -365,7 +365,7 @@ const char* QueryEvalConst::methodName( MethodId mid)
 
 const char* QueryConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "pushTerm", "pushExpression", "attachVariable", "defineFeature", "defineTermStatistics", "defineGlobalStatistics", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "addAccess", "setWeightingVariableValue", "evaluate", "view"};
+	static const char* ar[] = { "Destructor", "defineTermStatistics", "defineGlobalStatistics", "pushTerm", "pushExpression", "attachVariable", "defineFeature", "addMetaDataRestrictionCondition", "addDocumentEvaluationSet", "addAccess", "setWeightingVariableValue", "evaluate", "view"};
 	return ar[mid];
 }
 
@@ -467,7 +467,7 @@ const char* StatisticsViewerConst::methodName( MethodId mid)
 
 const char* StorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "reload", "diskUsage", "blockStatistics", "config", "createTermPostingIterator", "createFrequencyPostingIterator", "createStructIterator", "createBrowsePostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "structTypeNumber", "termTypeNumber", "termValueNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getChangeStatisticTimeStamps", "loadChangeStatisticsMessage", "getStatisticsProcessor", "createDocumentChecker", "createDump", "getConfigParameters", "checkStorage", "close", "compaction"};
+	static const char* ar[] = { "Destructor", "reload", "diskUsage", "blockStatistics", "config", "createTermPostingIterator", "createFrequencyPostingIterator", "createStructureIterator", "createBrowsePostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "structTypeNumber", "termTypeNumber", "termValueNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getChangeStatisticTimeStamps", "loadChangeStatisticsMessage", "getStatisticsProcessor", "createDocumentChecker", "createDump", "getConfigParameters", "checkStorage", "close", "compaction"};
 	return ar[mid];
 }
 
@@ -513,7 +513,7 @@ const char* StorageTransactionConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* StructIteratorConst::methodName( MethodId mid)
+const char* StructureIteratorConst::methodName( MethodId mid)
 {
 	static const char* ar[] = { "Destructor", "skipDoc", "levels", "docno", "skipPos", "field", "links", "headerField"};
 	return ar[mid];

@@ -4854,13 +4854,15 @@ void QueryEvalImpl::defineWeightingFormula(
 }
 
 void QueryEvalImpl::usePositionInformation(
-			bool p1)
+			const std::string& p1, 
+			bool p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_usePositionInformation), objid());
-	obj()->usePositionInformation(p1);
+	obj()->usePositionInformation(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
-	parambuf.packBool(p1);
+	parambuf.packString(p1);
+	parambuf.packBool(p2);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -4927,6 +4929,48 @@ QueryImpl::~QueryImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+}
+
+void QueryImpl::defineTermStatistics(
+			const std::string& p1, 
+			const std::string& p2, 
+			const TermStatistics& p3)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineTermStatistics), objid());
+	obj()->defineTermStatistics(p1, p2, p3);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	parambuf.packString(p2);
+	parambuf.packTermStatistics(p3);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
+void QueryImpl::defineGlobalStatistics(
+			const GlobalStatistics& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineGlobalStatistics), objid());
+	obj()->defineGlobalStatistics(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packGlobalStatistics(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
 }
 
 void QueryImpl::pushTerm(
@@ -5007,48 +5051,6 @@ void QueryImpl::defineFeature(
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	parambuf.packDouble(p2);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void QueryImpl::defineTermStatistics(
-			const std::string& p1, 
-			const std::string& p2, 
-			const TermStatistics& p3)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineTermStatistics), objid());
-	obj()->defineTermStatistics(p1, p2, p3);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	parambuf.packString(p2);
-	parambuf.packTermStatistics(p3);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void QueryImpl::defineGlobalStatistics(
-			const GlobalStatistics& p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_Query), QueryConst::methodName( Method_defineGlobalStatistics), objid());
-	obj()->defineGlobalStatistics(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packGlobalStatistics(p1);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -7338,22 +7340,22 @@ PostingIteratorInterface* StorageClientImpl::createFrequencyPostingIterator(
 	return p0;
 }
 
-StructIteratorInterface* StorageClientImpl::createStructIterator() const
+StructureIteratorInterface* StorageClientImpl::createStructureIterator() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createStructIterator), objid());
-	StructIteratorInterface* p0 = obj()->createStructIterator();
-	p0 = traceContext()->createInterfaceImpl<StructIteratorInterface,StructIteratorImpl>( p0);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createStructureIterator), objid());
+	StructureIteratorInterface* p0 = obj()->createStructureIterator();
+	p0 = traceContext()->createInterfaceImpl<StructureIteratorInterface,StructureIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
 		char fmtbuf[ 1024];
-		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createStructIterator");
+		std::snprintf( fmtbuf, sizeof(fmtbuf), _TXT("method call '%s' failed: %%s"), "createStructureIterator");
 		traceContext()->errorbuf()->explain( fmtbuf);
 	}
 	else
 	{
 		TraceObjectBase* objbase_p0 = dynamic_cast<TraceObjectBase*>( p0);
-		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StructIterator), objbase_p0->objid());
+		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_StructureIterator), objbase_p0->objid());
 	}
 	if (parambuf.hasError())
 	{
@@ -9406,16 +9408,16 @@ void StorageTransactionImpl::rollback()
 	}
 }
 
-StructIteratorImpl::~StructIteratorImpl()
+StructureIteratorImpl::~StructureIteratorImpl()
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_Destructor), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructureIterator), StructureIteratorConst::methodName( Method_Destructor), objid());
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void StructIteratorImpl::skipDoc(
+void StructureIteratorImpl::skipDoc(
 			const Index& p1)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_skipDoc), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructureIterator), StructureIteratorConst::methodName( Method_skipDoc), objid());
 	obj()->skipDoc(p1);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
@@ -9431,9 +9433,9 @@ void StructIteratorImpl::skipDoc(
 	}
 }
 
-int StructIteratorImpl::levels() const
+int StructureIteratorImpl::levels() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_levels), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructureIterator), StructureIteratorConst::methodName( Method_levels), objid());
 	int p0 = obj()->levels();
 	TraceSerializer parambuf;
 	parambuf.packInt(p0);
@@ -9449,9 +9451,9 @@ int StructIteratorImpl::levels() const
 	return p0;
 }
 
-Index StructIteratorImpl::docno() const
+Index StructureIteratorImpl::docno() const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_docno), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructureIterator), StructureIteratorConst::methodName( Method_docno), objid());
 	Index p0 = obj()->docno();
 	TraceSerializer parambuf;
 	parambuf.packIndex(p0);
@@ -9467,11 +9469,11 @@ Index StructIteratorImpl::docno() const
 	return p0;
 }
 
-IndexRange StructIteratorImpl::skipPos(
+IndexRange StructureIteratorImpl::skipPos(
 			int p1, 
 			const Index& p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_skipPos), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructureIterator), StructureIteratorConst::methodName( Method_skipPos), objid());
 	IndexRange p0 = obj()->skipPos(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packIndexRange(p0);
@@ -9489,10 +9491,10 @@ IndexRange StructIteratorImpl::skipPos(
 	return p0;
 }
 
-IndexRange StructIteratorImpl::field(
+IndexRange StructureIteratorImpl::field(
 			int p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_field), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructureIterator), StructureIteratorConst::methodName( Method_field), objid());
 	IndexRange p0 = obj()->field(p1);
 	TraceSerializer parambuf;
 	parambuf.packIndexRange(p0);
@@ -9509,10 +9511,10 @@ IndexRange StructIteratorImpl::field(
 	return p0;
 }
 
-StructureLinkArray StructIteratorImpl::links(
+StructureLinkArray StructureIteratorImpl::links(
 			int p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_links), objid());
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructureIterator), StructureIteratorConst::methodName( Method_links), objid());
 	StructureLinkArray p0 = obj()->links(p1);
 	TraceSerializer parambuf;
 	parambuf.packStructureLinkArray(p0);
@@ -9529,13 +9531,13 @@ StructureLinkArray StructIteratorImpl::links(
 	return p0;
 }
 
-IndexRange StructIteratorImpl::headerField(
+StructureHeaderField StructureIteratorImpl::headerField(
 			int p1) const
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructIterator), StructIteratorConst::methodName( Method_headerField), objid());
-	IndexRange p0 = obj()->headerField(p1);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StructureIterator), StructureIteratorConst::methodName( Method_headerField), objid());
+	StructureHeaderField p0 = obj()->headerField(p1);
 	TraceSerializer parambuf;
-	parambuf.packIndexRange(p0);
+	parambuf.packStructureHeaderField(p0);
 	parambuf.packInt(p1);
 	if (parambuf.hasError())
 	{

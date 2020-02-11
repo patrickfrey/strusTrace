@@ -80,7 +80,7 @@
 #include "strus/storageMetaDataTableUpdateInterface.hpp"
 #include "strus/storageObjectBuilderInterface.hpp"
 #include "strus/storageTransactionInterface.hpp"
-#include "strus/structIteratorInterface.hpp"
+#include "strus/structureIteratorInterface.hpp"
 #include "strus/summarizerFunctionContextInterface.hpp"
 #include "strus/summarizerFunctionInstanceInterface.hpp"
 #include "strus/summarizerFunctionInterface.hpp"
@@ -1127,7 +1127,8 @@ public:
 	virtual void defineWeightingFormula(
 			ScalarFunctionInterface* p1);
 	virtual void usePositionInformation(
-			bool p1);
+			const std::string& p1, 
+			bool p2);
 	virtual QueryInterface* createQuery(
 			const StorageClientInterface* p1) const;
 	virtual StructView view() const;
@@ -1145,6 +1146,12 @@ public:
 		:TraceObject<QueryInterface>(obj_,ctx_){}
 
 	virtual ~QueryImpl();
+	virtual void defineTermStatistics(
+			const std::string& p1, 
+			const std::string& p2, 
+			const TermStatistics& p3);
+	virtual void defineGlobalStatistics(
+			const GlobalStatistics& p1);
 	virtual void pushTerm(
 			const std::string& p1, 
 			const std::string& p2, 
@@ -1159,12 +1166,6 @@ public:
 	virtual void defineFeature(
 			const std::string& p1, 
 			double p2);
-	virtual void defineTermStatistics(
-			const std::string& p1, 
-			const std::string& p2, 
-			const TermStatistics& p3);
-	virtual void defineGlobalStatistics(
-			const GlobalStatistics& p1);
 	virtual void addMetaDataRestrictionCondition(
 			const MetaDataRestrictionInterface::CompareOperator& p1, 
 			const std::string& p2, 
@@ -1614,7 +1615,7 @@ public:
 	virtual PostingIteratorInterface* createFrequencyPostingIterator(
 			const std::string& p1, 
 			const std::string& p2) const;
-	virtual StructIteratorInterface* createStructIterator() const;
+	virtual StructureIteratorInterface* createStructureIterator() const;
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
 			const Index& p2) const;
@@ -1881,18 +1882,18 @@ public:
 	virtual void rollback();
 };
 
-class StructIteratorImpl
-		:public TraceObject<StructIteratorInterface>
-		,public StructIteratorInterface
-		,public StructIteratorConst
+class StructureIteratorImpl
+		:public TraceObject<StructureIteratorInterface>
+		,public StructureIteratorInterface
+		,public StructureIteratorConst
 {
 public:
-	StructIteratorImpl( StructIteratorInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StructIteratorInterface>(obj_,ctx_){}
-	StructIteratorImpl( const StructIteratorInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StructIteratorInterface>(obj_,ctx_){}
+	StructureIteratorImpl( StructureIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StructureIteratorInterface>(obj_,ctx_){}
+	StructureIteratorImpl( const StructureIteratorInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StructureIteratorInterface>(obj_,ctx_){}
 
-	virtual ~StructIteratorImpl();
+	virtual ~StructureIteratorImpl();
 	virtual void skipDoc(
 			const Index& p1);
 	virtual int levels() const;
@@ -1904,7 +1905,7 @@ public:
 			int p1) const;
 	virtual StructureLinkArray links(
 			int p1) const;
-	virtual IndexRange headerField(
+	virtual StructureHeaderField headerField(
 			int p1) const;
 };
 

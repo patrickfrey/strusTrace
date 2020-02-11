@@ -82,7 +82,7 @@ enum ClassId
 	ClassId_StorageMetaDataTableUpdate=66,
 	ClassId_StorageObjectBuilder=67,
 	ClassId_StorageTransaction=68,
-	ClassId_StructIterator=69,
+	ClassId_StructureIterator=69,
 	ClassId_SummarizerFunctionContext=70,
 	ClassId_SummarizerFunctionInstance=71,
 	ClassId_SummarizerFunction=72,
@@ -743,12 +743,12 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_pushTerm=1,
-		Method_pushExpression=2,
-		Method_attachVariable=3,
-		Method_defineFeature=4,
-		Method_defineTermStatistics=5,
-		Method_defineGlobalStatistics=6,
+		Method_defineTermStatistics=1,
+		Method_defineGlobalStatistics=2,
+		Method_pushTerm=3,
+		Method_pushExpression=4,
+		Method_attachVariable=5,
+		Method_defineFeature=6,
 		Method_addMetaDataRestrictionCondition=7,
 		Method_addDocumentEvaluationSet=8,
 		Method_addAccess=9,
@@ -1014,7 +1014,7 @@ public:
 		Method_config=4,
 		Method_createTermPostingIterator=5,
 		Method_createFrequencyPostingIterator=6,
-		Method_createStructIterator=7,
+		Method_createStructureIterator=7,
 		Method_createBrowsePostingIterator=8,
 		Method_createForwardIterator=9,
 		Method_createDocumentTermIterator=10,
@@ -1171,7 +1171,7 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class StructIteratorConst
+class StructureIteratorConst
 {
 public:
 	enum MethodId

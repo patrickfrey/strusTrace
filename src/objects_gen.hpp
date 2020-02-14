@@ -1118,12 +1118,10 @@ public:
 	virtual void addSummarizerFunction(
 			const std::string& p1, 
 			SummarizerFunctionInstanceInterface* p2, 
-			const std::vector<FeatureParameter>& p3, 
-			const std::string& p4);
+			const std::vector<FeatureParameter>& p3);
 	virtual void addWeightingFunction(
 			WeightingFunctionInstanceInterface* p1, 
-			const std::vector<FeatureParameter>& p2, 
-			const std::string& p3);
+			const std::vector<FeatureParameter>& p2);
 	virtual void defineWeightingFormula(
 			ScalarFunctionInterface* p1);
 	virtual void usePositionInformation(

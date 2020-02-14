@@ -4783,18 +4783,16 @@ std::vector<std::string> QueryEvalImpl::getExclusionFeatureSets() const
 void QueryEvalImpl::addSummarizerFunction(
 			const std::string& p1, 
 			SummarizerFunctionInstanceInterface* p2, 
-			const std::vector<FeatureParameter>& p3, 
-			const std::string& p4)
+			const std::vector<FeatureParameter>& p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addSummarizerFunction), objid());
-	obj()->addSummarizerFunction(p1, p2, p3, p4);
+	obj()->addSummarizerFunction(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), objbase_p2->objid());
 	parambuf.packFeatureParameterVector(p3);
-	parambuf.packString(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -4809,17 +4807,15 @@ void QueryEvalImpl::addSummarizerFunction(
 
 void QueryEvalImpl::addWeightingFunction(
 			WeightingFunctionInstanceInterface* p1, 
-			const std::vector<FeatureParameter>& p2, 
-			const std::string& p3)
+			const std::vector<FeatureParameter>& p2)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_QueryEval), QueryEvalConst::methodName( Method_addWeightingFunction), objid());
-	obj()->addWeightingFunction(p1, p2, p3);
+	obj()->addWeightingFunction(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	TraceObjectBase* objbase_p1 = dynamic_cast<TraceObjectBase*>( p1);
 	if (!objbase_p1) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_WeightingFunctionInstance), objbase_p1->objid());
 	parambuf.packFeatureParameterVector(p2);
-	parambuf.packString(p3);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

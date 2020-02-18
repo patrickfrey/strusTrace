@@ -1114,6 +1114,14 @@ void TraceSerializer::packQueryResult( const QueryResult& val)
 			packResultDocument( *ri);
 			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		}
+		std::vector<SummaryElement>::const_iterator
+			si = val.summaryElements().begin(), se = val.summaryElements().end();
+		for (; si != se; ++si)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, si-val.summaryElements().begin()));
+			packSummaryElement( *si);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	}CATCH_ERROR
 }

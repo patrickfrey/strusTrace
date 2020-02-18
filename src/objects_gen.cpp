@@ -9722,6 +9722,24 @@ SummarizerFunctionContextInterface* SummarizerFunctionInstanceImpl::createFuncti
 	return p0;
 }
 
+bool SummarizerFunctionInstanceImpl::doPopulate() const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_doPopulate), objid());
+	bool p0 = obj()->doPopulate();
+	TraceSerializer parambuf;
+	parambuf.packBool(p0);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 const char* SummarizerFunctionInstanceImpl::name() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionInstance), SummarizerFunctionInstanceConst::methodName( Method_name), objid());

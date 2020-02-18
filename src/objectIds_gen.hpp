@@ -1211,8 +1211,9 @@ public:
 		Method_addNumericParameter=2,
 		Method_getVariables=3,
 		Method_createFunctionContext=4,
-		Method_name=5,
-		Method_view=6
+		Method_doPopulate=5,
+		Method_name=6,
+		Method_view=7
 	};
 	static const char* methodName( MethodId mid);
 };

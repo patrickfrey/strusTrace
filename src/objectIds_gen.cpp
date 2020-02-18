@@ -527,7 +527,7 @@ const char* SummarizerFunctionContextConst::methodName( MethodId mid)
 
 const char* SummarizerFunctionInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "getVariables", "createFunctionContext", "name", "view"};
+	static const char* ar[] = { "Destructor", "addStringParameter", "addNumericParameter", "getVariables", "createFunctionContext", "doPopulate", "name", "view"};
 	return ar[mid];
 }
 

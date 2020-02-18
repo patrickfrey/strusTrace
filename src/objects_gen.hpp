@@ -1954,6 +1954,7 @@ public:
 	virtual SummarizerFunctionContextInterface* createFunctionContext(
 			const StorageClientInterface* p1, 
 			const GlobalStatistics& p2) const;
+	virtual bool doPopulate() const;
 	virtual const char* name() const;
 	virtual StructView view() const;
 };

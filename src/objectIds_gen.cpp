@@ -419,7 +419,7 @@ const char* SegmenterMarkupContextConst::methodName( MethodId mid)
 
 const char* SentenceAnalyzerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "pushTerm", "pushNone", "pushAlt", "pushSequenceImm", "pushRepeat", "defineSentence", "compile", "analyzeSentence"};
+	static const char* ar[] = { "Destructor", "defineType", "analyzeSentence"};
 	return ar[mid];
 }
 

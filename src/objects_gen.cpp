@@ -6277,95 +6277,15 @@ SentenceAnalyzerInstanceImpl::~SentenceAnalyzerInstanceImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void SentenceAnalyzerInstanceImpl::pushTerm(
+void SentenceAnalyzerInstanceImpl::defineType(
 			const std::string& p1, 
-			const std::string& p2, 
-			float p3)
+			int p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_pushTerm), objid());
-	obj()->pushTerm(p1, p2, p3);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_defineType), objid());
+	obj()->defineType(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
-	parambuf.packString(p2);
-	parambuf.packFloat(p3);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void SentenceAnalyzerInstanceImpl::pushNone(
-			float p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_pushNone), objid());
-	obj()->pushNone(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packFloat(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void SentenceAnalyzerInstanceImpl::pushAlt(
-			int p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_pushAlt), objid());
-	obj()->pushAlt(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packInt(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void SentenceAnalyzerInstanceImpl::pushSequenceImm(
-			int p1)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_pushSequenceImm), objid());
-	obj()->pushSequenceImm(p1);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packInt(p1);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-void SentenceAnalyzerInstanceImpl::pushRepeat(
-			int p1, 
-			int p2)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_pushRepeat), objid());
-	obj()->pushRepeat(p1, p2);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packInt(p1);
 	parambuf.packInt(p2);
 	if (parambuf.hasError())
 	{
@@ -6376,45 +6296,6 @@ void SentenceAnalyzerInstanceImpl::pushRepeat(
 	{
 		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
 	}
-}
-
-void SentenceAnalyzerInstanceImpl::defineSentence(
-			const std::string& p1, 
-			float p2)
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_defineSentence), objid());
-	obj()->defineSentence(p1, p2);
-	TraceSerializer parambuf;
-	parambuf.packVoid();
-	parambuf.packString(p1);
-	parambuf.packFloat(p2);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-}
-
-bool SentenceAnalyzerInstanceImpl::compile()
-{
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_compile), objid());
-	bool p0 = obj()->compile();
-	TraceSerializer parambuf;
-	parambuf.packBool(p0);
-	if (parambuf.hasError())
-	{
-		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
-		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
-	}
-	else
-	{
-		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
-	}
-	return p0;
 }
 
 std::vector<SentenceGuess> SentenceAnalyzerInstanceImpl::analyzeSentence(

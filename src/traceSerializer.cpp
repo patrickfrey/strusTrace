@@ -1314,9 +1314,6 @@ void TraceSerializer::packSentenceTermListVector( const std::vector<SentenceTerm
 void TraceSerializer::packSentenceGuess( const SentenceGuess& val)
 {
 	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "classname"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.classname().c_str(), val.classname().size()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "terms"));
 		packSentenceTermVector( val.terms());
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));

@@ -888,14 +888,8 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_pushTerm=1,
-		Method_pushNone=2,
-		Method_pushAlt=3,
-		Method_pushSequenceImm=4,
-		Method_pushRepeat=5,
-		Method_defineSentence=6,
-		Method_compile=7,
-		Method_analyzeSentence=8
+		Method_defineType=1,
+		Method_analyzeSentence=2
 	};
 	static const char* methodName( MethodId mid);
 };

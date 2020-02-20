@@ -1404,7 +1404,7 @@ public:
 		:TraceObject<SentenceAnalyzerInstanceInterface>(obj_,ctx_){}
 
 	virtual ~SentenceAnalyzerInstanceImpl();
-	virtual void defineType(
+	virtual void defineWordType(
 			const std::string& p1, 
 			int p2);
 	virtual std::vector<SentenceGuess> analyzeSentence(

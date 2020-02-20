@@ -888,7 +888,7 @@ public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_defineType=1,
+		Method_defineWordType=1,
 		Method_analyzeSentence=2
 	};
 	static const char* methodName( MethodId mid);

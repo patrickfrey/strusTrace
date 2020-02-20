@@ -6277,12 +6277,12 @@ SentenceAnalyzerInstanceImpl::~SentenceAnalyzerInstanceImpl()
 	traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
 }
 
-void SentenceAnalyzerInstanceImpl::defineType(
+void SentenceAnalyzerInstanceImpl::defineWordType(
 			const std::string& p1, 
 			int p2)
 {
-	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_defineType), objid());
-	obj()->defineType(p1, p2);
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceAnalyzerInstance), SentenceAnalyzerInstanceConst::methodName( Method_defineWordType), objid());
+	obj()->defineWordType(p1, p2);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);

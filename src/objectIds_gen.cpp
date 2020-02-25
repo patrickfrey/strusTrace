@@ -67,8 +67,6 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"SegmenterInstance",
 		"Segmenter",
 		"SegmenterMarkupContext",
-		"SentenceAnalyzerInstance",
-		"SentenceLexerContext",
 		"SentenceLexerInstance",
 		"StatisticsBuilder",
 		"StatisticsIterator",
@@ -417,21 +415,9 @@ const char* SegmenterMarkupContextConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* SentenceAnalyzerInstanceConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "defineWordType", "analyzeSentence"};
-	return ar[mid];
-}
-
-const char* SentenceLexerContextConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "fetchFirstSplit", "fetchNextSplit", "nofTokens", "featureValue", "featureTypes", "rankSentences"};
-	return ar[mid];
-}
-
 const char* SentenceLexerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addSeparator", "addSpace", "addLink", "defineGroupSimilarityDistance", "createContext"};
+	static const char* ar[] = { "Destructor", "call"};
 	return ar[mid];
 }
 
@@ -503,7 +489,7 @@ const char* StorageMetaDataTableUpdateConst::methodName( MethodId mid)
 
 const char* StorageObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "getVectorStorage", "createQueryEval", "createSentenceAnalyzer"};
+	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "getVectorStorage", "createQueryEval"};
 	return ar[mid];
 }
 

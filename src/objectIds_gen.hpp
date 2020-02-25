@@ -66,39 +66,37 @@ enum ClassId
 	ClassId_SegmenterInstance=50,
 	ClassId_Segmenter=51,
 	ClassId_SegmenterMarkupContext=52,
-	ClassId_SentenceAnalyzerInstance=53,
-	ClassId_SentenceLexerContext=54,
-	ClassId_SentenceLexerInstance=55,
-	ClassId_StatisticsBuilder=56,
-	ClassId_StatisticsIterator=57,
-	ClassId_StatisticsMap=58,
-	ClassId_StatisticsProcessor=59,
-	ClassId_StatisticsViewer=60,
-	ClassId_StorageClient=61,
-	ClassId_StorageDocument=62,
-	ClassId_StorageDocumentUpdate=63,
-	ClassId_StorageDump=64,
-	ClassId_Storage=65,
-	ClassId_StorageMetaDataTableUpdate=66,
-	ClassId_StorageObjectBuilder=67,
-	ClassId_StorageTransaction=68,
-	ClassId_StructureIterator=69,
-	ClassId_SummarizerFunctionContext=70,
-	ClassId_SummarizerFunctionInstance=71,
-	ClassId_SummarizerFunction=72,
-	ClassId_TextProcessor=73,
-	ClassId_TokenizerFunctionInstance=74,
-	ClassId_TokenizerFunction=75,
-	ClassId_TokenMarkupContext=76,
-	ClassId_TokenMarkupInstance=77,
-	ClassId_ValueIterator=78,
-	ClassId_VectorStorageClient=79,
-	ClassId_VectorStorageDump=80,
-	ClassId_VectorStorage=81,
-	ClassId_VectorStorageTransaction=82,
-	ClassId_WeightingFunctionContext=83,
-	ClassId_WeightingFunctionInstance=84,
-	ClassId_WeightingFunction=85
+	ClassId_SentenceLexerInstance=53,
+	ClassId_StatisticsBuilder=54,
+	ClassId_StatisticsIterator=55,
+	ClassId_StatisticsMap=56,
+	ClassId_StatisticsProcessor=57,
+	ClassId_StatisticsViewer=58,
+	ClassId_StorageClient=59,
+	ClassId_StorageDocument=60,
+	ClassId_StorageDocumentUpdate=61,
+	ClassId_StorageDump=62,
+	ClassId_Storage=63,
+	ClassId_StorageMetaDataTableUpdate=64,
+	ClassId_StorageObjectBuilder=65,
+	ClassId_StorageTransaction=66,
+	ClassId_StructureIterator=67,
+	ClassId_SummarizerFunctionContext=68,
+	ClassId_SummarizerFunctionInstance=69,
+	ClassId_SummarizerFunction=70,
+	ClassId_TextProcessor=71,
+	ClassId_TokenizerFunctionInstance=72,
+	ClassId_TokenizerFunction=73,
+	ClassId_TokenMarkupContext=74,
+	ClassId_TokenMarkupInstance=75,
+	ClassId_ValueIterator=76,
+	ClassId_VectorStorageClient=77,
+	ClassId_VectorStorageDump=78,
+	ClassId_VectorStorage=79,
+	ClassId_VectorStorageTransaction=80,
+	ClassId_WeightingFunctionContext=81,
+	ClassId_WeightingFunctionInstance=82,
+	ClassId_WeightingFunction=83
 };
 
 struct TraceClassNameMap
@@ -882,45 +880,13 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class SentenceAnalyzerInstanceConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_defineWordType=1,
-		Method_analyzeSentence=2
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class SentenceLexerContextConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_fetchFirstSplit=1,
-		Method_fetchNextSplit=2,
-		Method_nofTokens=3,
-		Method_featureValue=4,
-		Method_featureTypes=5,
-		Method_rankSentences=6
-	};
-	static const char* methodName( MethodId mid);
-};
-
 class SentenceLexerInstanceConst
 {
 public:
 	enum MethodId
 	{
 		Method_Destructor=0,
-		Method_addSeparator=1,
-		Method_addSpace=2,
-		Method_addLink=3,
-		Method_defineGroupSimilarityDistance=4,
-		Method_createContext=5
+		Method_call=1
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1140,8 +1106,7 @@ public:
 		Method_getQueryProcessor=3,
 		Method_getStatisticsProcessor=4,
 		Method_getVectorStorage=5,
-		Method_createQueryEval=6,
-		Method_createSentenceAnalyzer=7
+		Method_createQueryEval=6
 	};
 	static const char* methodName( MethodId mid);
 };

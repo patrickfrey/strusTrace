@@ -1404,7 +1404,8 @@ public:
 	virtual ~SentenceLexerInstanceImpl();
 	virtual std::vector<SentenceGuess> call(
 			const std::string& p1, 
-			int p2) const;
+			int p2, 
+			double p3) const;
 };
 
 class StatisticsBuilderImpl

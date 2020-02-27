@@ -11008,6 +11008,25 @@ void VectorStorageTransactionImpl::defineVector(
 	}
 }
 
+void VectorStorageTransactionImpl::defineFeatureType(
+			const std::string& p1)
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageTransaction), VectorStorageTransactionConst::methodName( Method_defineFeatureType), objid());
+	obj()->defineFeatureType(p1);
+	TraceSerializer parambuf;
+	parambuf.packVoid();
+	parambuf.packString(p1);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+}
+
 void VectorStorageTransactionImpl::defineFeature(
 			const std::string& p1, 
 			const std::string& p2)

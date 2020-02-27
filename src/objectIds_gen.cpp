@@ -579,7 +579,7 @@ const char* VectorStorageConst::methodName( MethodId mid)
 
 const char* VectorStorageTransactionConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "defineVector", "defineFeature", "clear", "commit", "rollback"};
+	static const char* ar[] = { "Destructor", "defineVector", "defineFeatureType", "defineFeature", "clear", "commit", "rollback"};
 	return ar[mid];
 }
 

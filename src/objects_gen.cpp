@@ -6278,7 +6278,7 @@ SentenceLexerInstanceImpl::~SentenceLexerInstanceImpl()
 }
 
 std::vector<SentenceGuess> SentenceLexerInstanceImpl::call(
-			const std::string& p1, 
+			const std::vector<std::string>& p1, 
 			int p2, 
 			double p3) const
 {
@@ -6286,7 +6286,7 @@ std::vector<SentenceGuess> SentenceLexerInstanceImpl::call(
 	std::vector<SentenceGuess> p0 = obj()->call(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packSentenceGuessVector(p0);
-	parambuf.packString(p1);
+	parambuf.packStringVector(p1);
 	parambuf.packInt(p2);
 	parambuf.packDouble(p3);
 	if (parambuf.hasError())

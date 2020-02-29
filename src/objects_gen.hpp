@@ -1403,7 +1403,7 @@ public:
 
 	virtual ~SentenceLexerInstanceImpl();
 	virtual std::vector<SentenceGuess> call(
-			const std::string& p1, 
+			const std::vector<std::string>& p1, 
 			int p2, 
 			double p3) const;
 };

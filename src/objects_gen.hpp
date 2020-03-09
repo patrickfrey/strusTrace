@@ -1406,6 +1406,12 @@ public:
 			const std::vector<std::string>& p1, 
 			int p2, 
 			double p3) const;
+	virtual std::vector<SentenceTerm> similarTerms(
+			const std::string& p1, 
+			const std::vector<SentenceTerm>& p2, 
+			double p3, 
+			int p4, 
+			double p5) const;
 };
 
 class StatisticsBuilderImpl

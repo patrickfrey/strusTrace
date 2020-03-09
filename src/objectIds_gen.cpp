@@ -417,7 +417,7 @@ const char* SegmenterMarkupContextConst::methodName( MethodId mid)
 
 const char* SentenceLexerInstanceConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "call"};
+	static const char* ar[] = { "Destructor", "call", "similarTerms"};
 	return ar[mid];
 }
 

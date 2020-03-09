@@ -6301,6 +6301,34 @@ std::vector<SentenceGuess> SentenceLexerInstanceImpl::call(
 	return p0;
 }
 
+std::vector<SentenceTerm> SentenceLexerInstanceImpl::similarTerms(
+			const std::string& p1, 
+			const std::vector<SentenceTerm>& p2, 
+			double p3, 
+			int p4, 
+			double p5) const
+{
+	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceLexerInstance), SentenceLexerInstanceConst::methodName( Method_similarTerms), objid());
+	std::vector<SentenceTerm> p0 = obj()->similarTerms(p1, p2, p3, p4, p5);
+	TraceSerializer parambuf;
+	parambuf.packSentenceTermVector(p0);
+	parambuf.packString(p1);
+	parambuf.packSentenceTermVector(p2);
+	parambuf.packDouble(p3);
+	parambuf.packInt(p4);
+	parambuf.packDouble(p5);
+	if (parambuf.hasError())
+	{
+		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
+		traceContext()->logger()->logMethodTermination( callhnd, std::vector<TraceElement>());
+	}
+	else
+	{
+		traceContext()->logger()->logMethodTermination( callhnd, parambuf.content());
+	}
+	return p0;
+}
+
 StatisticsBuilderImpl::~StatisticsBuilderImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsBuilder), StatisticsBuilderConst::methodName( Method_Destructor), objid());

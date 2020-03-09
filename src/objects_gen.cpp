@@ -10476,7 +10476,7 @@ VectorStorageClientImpl::~VectorStorageClientImpl()
 }
 
 void VectorStorageClientImpl::prepareSearch(
-			const std::string& p1)
+			const std::string& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorageClient), VectorStorageClientConst::methodName( Method_prepareSearch), objid());
 	obj()->prepareSearch(p1);

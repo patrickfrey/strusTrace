@@ -2089,7 +2089,7 @@ public:
 
 	virtual ~VectorStorageClientImpl();
 	virtual void prepareSearch(
-			const std::string& p1);
+			const std::string& p1) const;
 	virtual std::vector<VectorQueryResult> findSimilar(
 			const std::string& p1, 
 			const WordVector& p2, 

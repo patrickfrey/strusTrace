@@ -546,7 +546,7 @@ public:
 			const Index& p1);
 	virtual bool nextTerm(
 			Term& p1);
-	virtual unsigned int termDocumentFrequency(
+	virtual int termDocumentFrequency(
 			const Index& p1) const;
 	virtual std::string termValue(
 			const Index& p1) const;
@@ -1012,7 +1012,7 @@ public:
 	virtual Index skipPos(
 			const Index& p1);
 	virtual const char* featureid() const;
-	virtual Index documentFrequency() const;
+	virtual GlobalCounter documentFrequency() const;
 	virtual int frequency();
 	virtual Index docno() const;
 	virtual Index posno() const;
@@ -1546,10 +1546,12 @@ public:
 	virtual PostingIteratorInterface* createTermPostingIterator(
 			const std::string& p1, 
 			const std::string& p2, 
-			const Index& p3) const;
+			const Index& p3, 
+			const TermStatistics& p4) const;
 	virtual PostingIteratorInterface* createFrequencyPostingIterator(
 			const std::string& p1, 
-			const std::string& p2) const;
+			const std::string& p2, 
+			const TermStatistics& p3) const;
 	virtual StructureIteratorInterface* createStructureIterator() const;
 	virtual PostingIteratorInterface* createBrowsePostingIterator(
 			const MetaDataRestrictionInterface* p1, 
@@ -1858,8 +1860,7 @@ public:
 			const std::string& p1, 
 			PostingIteratorInterface* p2, 
 			const std::vector<SummarizationVariable>&  p3, 
-			double p4, 
-			const TermStatistics& p5);
+			double p4);
 	virtual void setVariableValue(
 			const std::string& p1, 
 			double p2);
@@ -2204,8 +2205,7 @@ public:
 	virtual void addWeightingFeature(
 			const std::string& p1, 
 			PostingIteratorInterface* p2, 
-			double p3, 
-			const TermStatistics& p4);
+			double p3);
 	virtual void setVariableValue(
 			const std::string& p1, 
 			double p2);

@@ -2194,13 +2194,13 @@ bool DocumentTermIteratorImpl::nextTerm(
 	return p0;
 }
 
-unsigned int DocumentTermIteratorImpl::termDocumentFrequency(
+int DocumentTermIteratorImpl::termDocumentFrequency(
 			const Index& p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_DocumentTermIterator), DocumentTermIteratorConst::methodName( Method_termDocumentFrequency), objid());
-	unsigned int p0 = obj()->termDocumentFrequency(p1);
+	int p0 = obj()->termDocumentFrequency(p1);
 	TraceSerializer parambuf;
-	parambuf.packUInt(p0);
+	parambuf.packInt(p0);
 	parambuf.packIndex(p1);
 	if (parambuf.hasError())
 	{
@@ -4232,12 +4232,12 @@ const char* PostingIteratorImpl::featureid() const
 	return p0;
 }
 
-Index PostingIteratorImpl::documentFrequency() const
+GlobalCounter PostingIteratorImpl::documentFrequency() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_PostingIterator), PostingIteratorConst::methodName( Method_documentFrequency), objid());
-	Index p0 = obj()->documentFrequency();
+	GlobalCounter p0 = obj()->documentFrequency();
 	TraceSerializer parambuf;
-	parambuf.packIndex(p0);
+	parambuf.packGlobalCounter(p0);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -6916,10 +6916,11 @@ std::string StorageClientImpl::config() const
 PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 			const std::string& p1, 
 			const std::string& p2, 
-			const Index& p3) const
+			const Index& p3, 
+			const TermStatistics& p4) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createTermPostingIterator), objid());
-	PostingIteratorInterface* p0 = obj()->createTermPostingIterator(p1, p2, p3);
+	PostingIteratorInterface* p0 = obj()->createTermPostingIterator(p1, p2, p3, p4);
 	p0 = traceContext()->createInterfaceImpl<PostingIteratorInterface,PostingIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -6935,6 +6936,7 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 		parambuf.packString(p1);
 		parambuf.packString(p2);
 		parambuf.packIndex(p3);
+		parambuf.packTermStatistics(p4);
 	}
 	if (parambuf.hasError())
 	{
@@ -6951,10 +6953,11 @@ PostingIteratorInterface* StorageClientImpl::createTermPostingIterator(
 
 PostingIteratorInterface* StorageClientImpl::createFrequencyPostingIterator(
 			const std::string& p1, 
-			const std::string& p2) const
+			const std::string& p2, 
+			const TermStatistics& p3) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_createFrequencyPostingIterator), objid());
-	PostingIteratorInterface* p0 = obj()->createFrequencyPostingIterator(p1, p2);
+	PostingIteratorInterface* p0 = obj()->createFrequencyPostingIterator(p1, p2, p3);
 	p0 = traceContext()->createInterfaceImpl<PostingIteratorInterface,PostingIteratorImpl>( p0);
 	TraceSerializer parambuf;
 	if (p0 == 0)
@@ -6969,6 +6972,7 @@ PostingIteratorInterface* StorageClientImpl::createFrequencyPostingIterator(
 		if (!objbase_p0) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p0->objid());
 		parambuf.packString(p1);
 		parambuf.packString(p2);
+		parambuf.packTermStatistics(p3);
 	}
 	if (parambuf.hasError())
 	{
@@ -9172,11 +9176,10 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 			const std::string& p1, 
 			PostingIteratorInterface* p2, 
 			const std::vector<SummarizationVariable>&  p3, 
-			double p4, 
-			const TermStatistics& p5)
+			double p4)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SummarizerFunctionContext), SummarizerFunctionContextConst::methodName( Method_addSummarizationFeature), objid());
-	obj()->addSummarizationFeature(p1, p2, p3, p4, p5);
+	obj()->addSummarizationFeature(p1, p2, p3, p4);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
@@ -9184,7 +9187,6 @@ void SummarizerFunctionContextImpl::addSummarizationFeature(
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p2->objid());
 	parambuf.packSummarizationVariableVector(p3);
 	parambuf.packDouble(p4);
-	parambuf.packTermStatistics(p5);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));
@@ -11137,18 +11139,16 @@ WeightingFunctionContextImpl::~WeightingFunctionContextImpl()
 void WeightingFunctionContextImpl::addWeightingFeature(
 			const std::string& p1, 
 			PostingIteratorInterface* p2, 
-			double p3, 
-			const TermStatistics& p4)
+			double p3)
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_WeightingFunctionContext), WeightingFunctionContextConst::methodName( Method_addWeightingFeature), objid());
-	obj()->addWeightingFeature(p1, p2, p3, p4);
+	obj()->addWeightingFeature(p1, p2, p3);
 	TraceSerializer parambuf;
 	parambuf.packVoid();
 	parambuf.packString(p1);
 	TraceObjectBase* objbase_p2 = dynamic_cast<TraceObjectBase*>( p2);
 	if (!objbase_p2) parambuf.packVoid(); else parambuf.packObject( TraceClassNameMap::className( ClassId_PostingIterator), objbase_p2->objid());
 	parambuf.packDouble(p3);
-	parambuf.packTermStatistics(p4);
 	if (parambuf.hasError())
 	{
 		traceContext()->errorbuf()->report( ErrorCodeOutOfMem, _TXT("memory allocation error when logging trace"));

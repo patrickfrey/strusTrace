@@ -122,6 +122,18 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const std::vector<SentenceTerm>&")
 		("pack_msg", "parambuf.packSentenceTermVector($name);")
 	;
+	typesystem.defineType( "WeightedSentenceTerm")
+		("pack_msg", "parambuf.packWeightedSentenceTerm($name);")
+	;
+	typesystem.defineType( "const WeightedSentenceTerm&")
+		("pack_msg", "parambuf.packWeightedSentenceTerm($name);")
+	;
+	typesystem.defineType( "std::vector<WeightedSentenceTerm>")
+		("pack_msg", "parambuf.packWeightedSentenceTermVector($name);")
+	;
+	typesystem.defineType( "const std::vector<WeightedSentenceTerm>&")
+		("pack_msg", "parambuf.packWeightedSentenceTermVector($name);")
+	;
 	typesystem.defineType( "SentenceTermList")
 		("pack_msg", "parambuf.packSentenceTermVector($name);")
 	;

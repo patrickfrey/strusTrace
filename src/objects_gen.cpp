@@ -6301,19 +6301,19 @@ std::vector<SentenceGuess> SentenceLexerInstanceImpl::call(
 	return p0;
 }
 
-std::vector<SentenceTerm> SentenceLexerInstanceImpl::similarTerms(
+std::vector<WeightedSentenceTerm> SentenceLexerInstanceImpl::similarTerms(
 			const std::string& p1, 
-			const std::vector<SentenceTerm>& p2, 
+			const std::vector<WeightedSentenceTerm>& p2, 
 			double p3, 
 			int p4, 
 			double p5) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_SentenceLexerInstance), SentenceLexerInstanceConst::methodName( Method_similarTerms), objid());
-	std::vector<SentenceTerm> p0 = obj()->similarTerms(p1, p2, p3, p4, p5);
+	std::vector<WeightedSentenceTerm> p0 = obj()->similarTerms(p1, p2, p3, p4, p5);
 	TraceSerializer parambuf;
-	parambuf.packSentenceTermVector(p0);
+	parambuf.packWeightedSentenceTermVector(p0);
 	parambuf.packString(p1);
-	parambuf.packSentenceTermVector(p2);
+	parambuf.packWeightedSentenceTermVector(p2);
 	parambuf.packDouble(p3);
 	parambuf.packInt(p4);
 	parambuf.packDouble(p5);

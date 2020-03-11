@@ -181,6 +181,8 @@ public:
 	void packSentenceTerm( const SentenceTerm& val);
 	void packSentenceTermVector( const SentenceTermList& val);
 	void packSentenceTermListVector( const std::vector<SentenceTermList>& val);
+	void packWeightedSentenceTerm( const WeightedSentenceTerm& val);
+	void packWeightedSentenceTermVector( const std::vector<WeightedSentenceTerm>& val);
 	void packSentenceGuess( const SentenceGuess& val);
 	void packSentenceGuessVector( const std::vector<SentenceGuess>& val);
 	void packAnalyzerContentStatisticsItem( const analyzer::ContentStatisticsItem& val);

@@ -1291,24 +1291,51 @@ void TraceSerializer::packSentenceTerm( const SentenceTerm& val)
 
 void TraceSerializer::packSentenceTermVector( const SentenceTermList& val)
 {
-	std::vector<SentenceTerm>::const_iterator ti = val.begin(), te = val.end();
-	for (std::size_t tidx=0; ti != te; ++ti,++tidx)
-	{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, tidx));
-		packSentenceTerm( *ti);
+	try{
+		std::vector<SentenceTerm>::const_iterator ti = val.begin(), te = val.end();
+		for (std::size_t tidx=0; ti != te; ++ti,++tidx)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, tidx));
+			packSentenceTerm( *ti);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packWeightedSentenceTerm( const WeightedSentenceTerm& val)
+{
+	try{
+		packSentenceTerm( val);
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "weight"));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeDouble, val.weight()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	}
+	}CATCH_ERROR
+}
+
+void TraceSerializer::packWeightedSentenceTermVector( const std::vector<WeightedSentenceTerm>& val)
+{
+	try{
+		std::vector<WeightedSentenceTerm>::const_iterator ti = val.begin(), te = val.end();
+		for (std::size_t tidx=0; ti != te; ++ti,++tidx)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, tidx));
+			packWeightedSentenceTerm( *ti);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+	}CATCH_ERROR
 }
 
 void TraceSerializer::packSentenceTermListVector( const std::vector<SentenceTermList>& val)
 {
-	std::vector<SentenceTermList>::const_iterator ti = val.begin(), te = val.end();
-	for (std::size_t tidx=0; ti != te; ++ti,++tidx)
-	{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, tidx));
-		packSentenceTermVector( *ti);
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-	}
+	try{
+		std::vector<SentenceTermList>::const_iterator ti = val.begin(), te = val.end();
+		for (std::size_t tidx=0; ti != te; ++ti,++tidx)
+		{
+			m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, tidx));
+			packSentenceTermVector( *ti);
+			m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		}
+	}CATCH_ERROR
 }
 
 void TraceSerializer::packSentenceGuess( const SentenceGuess& val)

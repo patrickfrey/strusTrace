@@ -99,6 +99,7 @@
 #include <vector>
 
 namespace strus {
+namespace trace {
 
 class AclReaderImpl
 		:public TraceObject<AclReaderInterface>
@@ -2258,6 +2259,6 @@ public:
 };
 
 
-}//namespace
+}}//namespace
 #endif
 

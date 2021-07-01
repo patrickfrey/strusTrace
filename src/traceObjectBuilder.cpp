@@ -18,6 +18,7 @@
 #include <stdexcept>
 
 using namespace strus;
+using namespace strus::trace;
 
 TraceObjectBuilder::TraceObjectBuilder(
 		TraceLoggerInterface* tracelog_,
@@ -35,7 +36,7 @@ AnalyzerObjectBuilderInterface*
 	}
 	CATCH_ERROR_MAP_RETURN( _TXT("failed to create analyzer object builder builder proxy for generating call traces: %s"), *m_errorhnd, 0)
 }
-	
+
 StorageObjectBuilderInterface*
 	TraceObjectBuilder::createStorageObjectBuilder(
 		StorageObjectBuilderInterface* builder)

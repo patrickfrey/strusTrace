@@ -13,6 +13,7 @@
 #include "traceSerializer.hpp"
 
 using namespace strus;
+using namespace strus::trace;
 AclReaderImpl::~AclReaderImpl()
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_AclReader), AclReaderConst::methodName( Method_Destructor), objid());

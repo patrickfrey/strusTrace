@@ -116,7 +116,7 @@ static void print_ObjectIdsCpp( std::ostream& out, const strus::InterfacesDef& i
 {
 	strus::printCppFrameHeader( out, "objectIds_gen", "Identifiers for objects and methods for serialization");
 	out << "#include \"objectIds_gen.hpp\"" << std::endl << std::endl;
-	out << "using namespace strus;" << std::endl << std::endl;
+	out << "using namespace strus;" << std::endl;
 
 	std::vector<strus::ClassDef>::const_iterator
 		ci = interfaceDef.classDefs().begin(),
@@ -171,6 +171,7 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 	out
 		<< std::endl
 		<< "namespace strus {" << std::endl
+		<< "namespace trace {" << std::endl
 		<< std::endl;
 
 	std::vector<strus::ClassDef>::const_iterator
@@ -178,7 +179,7 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 		ce = interfaceDef.classDefs().end();
 	for (; ci != ce; ++ci)
 	{
-		out 
+		out
 			<< "class " << ci->name() << "Impl" << std::endl
 			<< "\t\t:public TraceObject<" << ci->name() << "Interface>" << std::endl
 			<< "\t\t,public "  << ci->name() << "Interface" << std::endl
@@ -197,7 +198,7 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 			me = ci->methodDefs().end();
 		for (; mi != me; ++mi)
 		{
-			out 
+			out
 			<< "\tvirtual " << mi->returnValue().expand("type") << ' ' << mi->name() << "(";
 			std::vector<strus::VariableValue>::const_iterator
 				pi = mi->parameters().begin(),
@@ -214,7 +215,7 @@ static void print_ObjectsHpp( std::ostream& out, const strus::InterfacesDef& int
 	}
 	out
 		<< std::endl
-		<< "}//namespace" << std::endl;
+		<< "}}//namespace" << std::endl;
 	strus::printHppFrameTail( out);
 }
 
@@ -228,7 +229,8 @@ static void print_ObjectsCpp( std::ostream& out, const strus::InterfacesDef& int
 
 	out
 		<< std::endl
-		<< "using namespace strus;" << std::endl;
+		<< "using namespace strus;" << std::endl
+		<< "using namespace strus::trace;" << std::endl;
 
 	std::vector<strus::ClassDef>::const_iterator
 		ci = interfaceDef.classDefs().begin(),

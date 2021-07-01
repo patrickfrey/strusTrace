@@ -11,7 +11,6 @@
 #include "objectIds_gen.hpp"
 
 using namespace strus;
-
 const char* TraceClassNameMap::className( unsigned int classId)
 {
 	static const char* ar[] = {

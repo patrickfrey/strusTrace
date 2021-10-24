@@ -572,13 +572,7 @@ void TraceSerializer::packSlice( const DatabaseCursorInterface::Slice& val)
 void TraceSerializer::packTimeStamp( const TimeStamp& val)
 {
 	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "unixtime"));
-		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.unixtime()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-
-		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "counter"));
-		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.counter()));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val));
 	}CATCH_ERROR
 }
 
@@ -646,10 +640,10 @@ void TraceSerializer::packAnalyzerQueryTermExpression( const analyzer::QueryTerm
 				case analyzer::QueryTermExpression::Instruction::Operator:
 					m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "op"));
 					m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "id"));
-					m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->idx())); 
+					m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->idx()));
 					m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 					m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "nofargs"));
-					m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->nofOperands())); 
+					m_elembuf.push_back( TraceElement( (TraceElement::UIntType) ii->nofOperands()));
 					m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 					break;
 			}
@@ -666,21 +660,21 @@ void TraceSerializer::packAnalyzerDocumentStructure( const analyzer::DocumentStr
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "source"));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "from"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.source().start())); 
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.source().start()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "to"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.source().end())); 
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.source().end()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "sink"));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "from"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.sink().start())); 
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.sink().start()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "to"));
-		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.sink().end())); 
+		m_elembuf.push_back( TraceElement( (TraceElement::UIntType) val.sink().end()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
-			
+
 	}CATCH_ERROR
 }
 
@@ -1213,7 +1207,7 @@ void TraceSerializer::packStructView( const StructView& val)
 	try{
 		switch (val.type())
 		{
-			case StructView::Null: 
+			case StructView::Null:
 				break;
 			case StructView::String:
 			{

@@ -255,12 +255,6 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const DatabaseOptions&")
 		("pack_msg", "parambuf.packDatabaseOptions($name);")
 	;
-	typesystem.defineType( "const ConfigType&", "Database")
-		("pack_msg", "parambuf.packDatabaseConfigType($name);")
-	;
-	typesystem.defineType( "const ConfigType&", "Storage")
-		("pack_msg", "parambuf.packStorageConfigType($name);")
-	;
 	typesystem.defineType( "const ConfigType&", "VectorStorage")
 		("pack_msg", "parambuf.packVectorStorageConfigType($name);")
 	;
@@ -295,6 +289,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const TimeStamp&")
 		("pack_msg", "parambuf.packTimeStamp($name);")
 	;
+	typesystem.defineType( "const TimeStamp")
+		("pack_msg", "parambuf.packTimeStamp($name);")
+	;
+	typesystem.defineType( "TimeStamp")
+		("pack_msg", "parambuf.packTimeStamp($name);")
+	;
 	typesystem.defineType( "const std::vector<TimeStamp>&")
 		("pack_msg", "parambuf.packTimeStampVector($name);")
 	;
@@ -303,6 +303,12 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	;
 	typesystem.defineType( "StatisticsMessage")
 		("pack_msg", "parambuf.packStatisticsMessage($name);")
+	;
+	typesystem.defineType( "const StatisticsMessage&")
+		("pack_msg", "parambuf.packStatisticsMessage($name);")
+	;
+	typesystem.defineType( "std::vector<StatisticsMessage>")
+		("pack_msg", "parambuf.packStatisticsMessageVector($name);")
 	;
 	typesystem.defineType( "const analyzer::QueryTermExpression&")
 		("pack_msg", "parambuf.packAnalyzerQueryTermExpression($name);")

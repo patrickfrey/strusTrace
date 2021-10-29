@@ -427,36 +427,10 @@ void TraceSerializer::packDatabaseOptions( const DatabaseOptions& val)
 	}CATCH_ERROR
 }
 
-static const char* databaseConfigTypeName( DatabaseInterface::ConfigType tp)
-{
-	static const char* ar[] = {"CreateClient", "CmdCreate", "CmdDestroy"};
-	return ar[ tp];
-}
-
-void TraceSerializer::packDatabaseConfigType( const DatabaseInterface::ConfigType& val)
-{
-	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, databaseConfigTypeName( val)));
-	}CATCH_ERROR
-}
-
-static const char* storageConfigTypeName( StorageInterface::ConfigType tp)
-{
-	static const char* ar[] = {"CreateClient", "CmdCreate"};
-	return ar[ tp];
-}
-
 static const char* vectorStorageConfigTypeName( VectorStorageInterface::ConfigType tp)
 {
 	static const char* ar[] = {"CreateClient", "CmdCreate"};
 	return ar[ tp];
-}
-
-void TraceSerializer::packStorageConfigType( const StorageInterface::ConfigType& val)
-{
-	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, storageConfigTypeName( val)));
-	}CATCH_ERROR
 }
 
 void TraceSerializer::packVectorStorageConfigType( const VectorStorageInterface::ConfigType& val)
@@ -600,6 +574,19 @@ void TraceSerializer::packStatisticsMessage( const StatisticsMessage& val)
 		m_elembuf.push_back( TraceElement( (TraceElement::IntType)val.size()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 	} CATCH_ERROR
+}
+
+void TraceSerializer::packStatisticsMessageVector( const std::vector<StatisticsMessage>& val)
+{
+	try{
+	std::vector<StatisticsMessage>::const_iterator ti = val.begin(), te = val.end();
+	for (; ti != te; ++ti)
+	{
+		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenIndex, ti-val.begin()));
+		packStatisticsMessage( *ti);
+		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
+	}
+	}CATCH_ERROR
 }
 
 void TraceSerializer::packAnalyzerQueryTerm( const analyzer::QueryTerm& val)
@@ -1163,11 +1150,11 @@ void TraceSerializer::packTermStatisticsChange( const TermStatisticsChange& val)
 {
 	try{
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "type"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.type().c_str()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "value"));
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value()));
+		m_elembuf.push_back( TraceElement( TraceElement::TypeString, val.value().c_str()));
 		m_elembuf.push_back( TraceElement( TraceElement::TypeClose));
 
 		m_elembuf.push_back( TraceElement( TraceElement::TypeOpenTag, "increment"));

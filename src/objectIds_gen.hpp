@@ -68,35 +68,36 @@ enum ClassId
 	ClassId_SegmenterMarkupContext=52,
 	ClassId_SentenceLexerInstance=53,
 	ClassId_StatisticsBuilder=54,
-	ClassId_StatisticsIterator=55,
-	ClassId_StatisticsMap=56,
-	ClassId_StatisticsProcessor=57,
-	ClassId_StatisticsViewer=58,
-	ClassId_StorageClient=59,
-	ClassId_StorageDocument=60,
-	ClassId_StorageDocumentUpdate=61,
-	ClassId_StorageDump=62,
-	ClassId_Storage=63,
-	ClassId_StorageMetaDataTableUpdate=64,
-	ClassId_StorageObjectBuilder=65,
-	ClassId_StorageTransaction=66,
-	ClassId_StructureIterator=67,
-	ClassId_SummarizerFunctionContext=68,
-	ClassId_SummarizerFunctionInstance=69,
-	ClassId_SummarizerFunction=70,
-	ClassId_TextProcessor=71,
-	ClassId_TokenizerFunctionInstance=72,
-	ClassId_TokenizerFunction=73,
-	ClassId_TokenMarkupContext=74,
-	ClassId_TokenMarkupInstance=75,
-	ClassId_ValueIterator=76,
-	ClassId_VectorStorageClient=77,
-	ClassId_VectorStorageDump=78,
-	ClassId_VectorStorage=79,
-	ClassId_VectorStorageTransaction=80,
-	ClassId_WeightingFunctionContext=81,
-	ClassId_WeightingFunctionInstance=82,
-	ClassId_WeightingFunction=83
+	ClassId_StatisticsMap=55,
+	ClassId_StatisticsProcessor=56,
+	ClassId_StatisticsStorageClient=57,
+	ClassId_StatisticsStorage=58,
+	ClassId_StatisticsViewer=59,
+	ClassId_StorageClient=60,
+	ClassId_StorageDocument=61,
+	ClassId_StorageDocumentUpdate=62,
+	ClassId_StorageDump=63,
+	ClassId_Storage=64,
+	ClassId_StorageMetaDataTableUpdate=65,
+	ClassId_StorageObjectBuilder=66,
+	ClassId_StorageTransaction=67,
+	ClassId_StructureIterator=68,
+	ClassId_SummarizerFunctionContext=69,
+	ClassId_SummarizerFunctionInstance=70,
+	ClassId_SummarizerFunction=71,
+	ClassId_TextProcessor=72,
+	ClassId_TokenizerFunctionInstance=73,
+	ClassId_TokenizerFunction=74,
+	ClassId_TokenMarkupContext=75,
+	ClassId_TokenMarkupInstance=76,
+	ClassId_ValueIterator=77,
+	ClassId_VectorStorageClient=78,
+	ClassId_VectorStorageDump=79,
+	ClassId_VectorStorage=80,
+	ClassId_VectorStorageTransaction=81,
+	ClassId_WeightingFunctionContext=82,
+	ClassId_WeightingFunctionInstance=83,
+	ClassId_WeightingFunction=84
 };
 
 struct TraceClassNameMap
@@ -900,21 +901,9 @@ public:
 		Method_Destructor=0,
 		Method_addNofDocumentsInsertedChange=1,
 		Method_addDfChange=2,
-		Method_createIteratorAndRollback=3,
+		Method_getMessages=3,
 		Method_commit=4,
-		Method_rollback=5,
-		Method_releaseStatistics=6
-	};
-	static const char* methodName( MethodId mid);
-};
-
-class StatisticsIteratorConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_getNext=1
+		Method_rollback=5
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -942,11 +931,46 @@ public:
 	{
 		Method_Destructor=0,
 		Method_createViewer=1,
-		Method_createIterator=2,
-		Method_getChangeTimeStamps=3,
-		Method_loadChangeMessage=4,
-		Method_createBuilder=5,
-		Method_createMap=6
+		Method_getUpperBoundTimeStamp=2,
+		Method_loadChangeMessage=3,
+		Method_createBuilder=4,
+		Method_createMap=5,
+		Method_releaseStatistics=6
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class StatisticsStorageClientConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_reload=1,
+		Method_diskUsage=2,
+		Method_getConfigParameters=3,
+		Method_config=4,
+		Method_nofDocuments=5,
+		Method_documentFrequency=6,
+		Method_storageTimeStamp=7,
+		Method_putStatisticsMessage=8,
+		Method_getStatisticsProcessor=9,
+		Method_close=10,
+		Method_compaction=11
+	};
+	static const char* methodName( MethodId mid);
+};
+
+class StatisticsStorageConst
+{
+public:
+	enum MethodId
+	{
+		Method_Destructor=0,
+		Method_createClient=1,
+		Method_createStorage=2,
+		Method_getConfigDescription=3,
+		Method_getConfigParameters=4
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -999,17 +1023,16 @@ public:
 		Method_createMetaDataRestriction=28,
 		Method_createAttributeReader=29,
 		Method_createTransaction=30,
-		Method_createAllStatisticsIterator=31,
-		Method_createChangeStatisticsIterator=32,
-		Method_getChangeStatisticTimeStamps=33,
-		Method_loadChangeStatisticsMessage=34,
-		Method_getStatisticsProcessor=35,
-		Method_createDocumentChecker=36,
-		Method_createDump=37,
-		Method_getConfigParameters=38,
-		Method_checkStorage=39,
-		Method_close=40,
-		Method_compaction=41
+		Method_getNextChangeStatisticsTimeStamp=31,
+		Method_loadChangeStatisticsMessage=32,
+		Method_loadInitStatisticsMessages=33,
+		Method_getStatisticsProcessor=34,
+		Method_createDocumentChecker=35,
+		Method_createDump=36,
+		Method_getConfigParameters=37,
+		Method_checkStorage=38,
+		Method_close=39,
+		Method_compaction=40
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1073,8 +1096,9 @@ public:
 		Method_Destructor=0,
 		Method_createClient=1,
 		Method_createStorage=2,
-		Method_getConfigDescription=3,
-		Method_getConfigParameters=4
+		Method_destroyStorage=3,
+		Method_getConfigDescription=4,
+		Method_getConfigParameters=5
 	};
 	static const char* methodName( MethodId mid);
 };

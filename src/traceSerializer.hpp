@@ -130,8 +130,6 @@ public:
 	void packMetaDataRestrictionCompareOperator( MetaDataRestrictionInterface::CompareOperator val);
 
 	void packDatabaseOptions( const DatabaseOptions& val);
-	void packDatabaseConfigType( const DatabaseInterface::ConfigType& val);
-	void packStorageConfigType( const StorageInterface::ConfigType& val);
 	void packVectorStorageConfigType( const VectorStorageInterface::ConfigType& val);
 	void packFeatureOptions( const analyzer::FeatureOptions& val);
 	void packSummaryElement( const SummaryElement& val);
@@ -143,6 +141,7 @@ public:
 	void packTimeStamp( const TimeStamp& val);
 	void packTimeStampVector( const std::vector<TimeStamp>& val);
 	void packStatisticsMessage( const StatisticsMessage& val);
+	void packStatisticsMessageVector( const std::vector<StatisticsMessage>& val);
 	void packAnalyzerQueryTerm( const analyzer::QueryTerm& val);
 	void packAnalyzerQueryTermExpression( const analyzer::QueryTermExpression& val);
 	void packAnalyzerDocumentStructure( const analyzer::DocumentStructure& val);

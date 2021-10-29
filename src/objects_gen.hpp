@@ -66,9 +66,10 @@
 #include "strus/segmenterMarkupContextInterface.hpp"
 #include "strus/sentenceLexerInstanceInterface.hpp"
 #include "strus/statisticsBuilderInterface.hpp"
-#include "strus/statisticsIteratorInterface.hpp"
 #include "strus/statisticsMapInterface.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
+#include "strus/statisticsStorageClientInterface.hpp"
+#include "strus/statisticsStorageInterface.hpp"
 #include "strus/statisticsViewerInterface.hpp"
 #include "strus/storageClientInterface.hpp"
 #include "strus/storageDocumentInterface.hpp"
@@ -364,10 +365,8 @@ public:
 			DatabaseBackupCursorInterface* p2) const;
 	virtual bool destroyDatabase(
 			const std::string& p1) const;
-	virtual const char* getConfigDescription(
-			const ConfigType& p1) const;
-	virtual const char** getConfigParameters(
-			const ConfigType& p1) const;
+	virtual const char* getConfigDescription() const;
+	virtual const char** getConfigParameters() const;
 };
 
 class DatabaseTransactionImpl
@@ -1433,26 +1432,9 @@ public:
 			const char* p1, 
 			const char* p2, 
 			int p3);
-	virtual StatisticsIteratorInterface* createIteratorAndRollback();
+	virtual std::vector<StatisticsMessage> getMessages() const;
 	virtual bool commit();
 	virtual void rollback();
-	virtual void releaseStatistics(
-			const TimeStamp& p1);
-};
-
-class StatisticsIteratorImpl
-		:public TraceObject<StatisticsIteratorInterface>
-		,public StatisticsIteratorInterface
-		,public StatisticsIteratorConst
-{
-public:
-	StatisticsIteratorImpl( StatisticsIteratorInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StatisticsIteratorInterface>(obj_,ctx_){}
-	StatisticsIteratorImpl( const StatisticsIteratorInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StatisticsIteratorInterface>(obj_,ctx_){}
-
-	virtual ~StatisticsIteratorImpl();
-	virtual StatisticsMessage getNext();
 };
 
 class StatisticsMapImpl
@@ -1496,11 +1478,9 @@ public:
 	virtual ~StatisticsProcessorImpl();
 	virtual StatisticsViewerInterface* createViewer(
 			const void* msgptr, std::size_t p1) const;
-	virtual StatisticsIteratorInterface* createIterator(
+	virtual TimeStamp getUpperBoundTimeStamp(
 			const std::string& p1, 
-			const TimeStamp& p2) const;
-	virtual std::vector<TimeStamp> getChangeTimeStamps(
-			const std::string& p1) const;
+			const TimeStamp p2) const;
 	virtual StatisticsMessage loadChangeMessage(
 			const std::string& p1, 
 			const TimeStamp& p2) const;
@@ -1508,6 +1488,63 @@ public:
 			const std::string& p1) const;
 	virtual StatisticsMapInterface* createMap(
 			const std::string& p1) const;
+	virtual void releaseStatistics(
+			const std::string& p1, 
+			const TimeStamp& p2) const;
+};
+
+class StatisticsStorageClientImpl
+		:public TraceObject<StatisticsStorageClientInterface>
+		,public StatisticsStorageClientInterface
+		,public StatisticsStorageClientConst
+{
+public:
+	StatisticsStorageClientImpl( StatisticsStorageClientInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsStorageClientInterface>(obj_,ctx_){}
+	StatisticsStorageClientImpl( const StatisticsStorageClientInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsStorageClientInterface>(obj_,ctx_){}
+
+	virtual ~StatisticsStorageClientImpl();
+	virtual bool reload(
+			const std::string& p1);
+	virtual long diskUsage() const;
+	virtual const char** getConfigParameters() const;
+	virtual std::string config() const;
+	virtual GlobalCounter nofDocuments() const;
+	virtual GlobalCounter documentFrequency(
+			const std::string& p1, 
+			const std::string& p2) const;
+	virtual TimeStamp storageTimeStamp(
+			const std::string& p1) const;
+	virtual bool putStatisticsMessage(
+			const StatisticsMessage& p1, 
+			const std::string& p2);
+	virtual const StatisticsProcessorInterface* getStatisticsProcessor() const;
+	virtual void close();
+	virtual void compaction();
+};
+
+class StatisticsStorageImpl
+		:public TraceObject<StatisticsStorageInterface>
+		,public StatisticsStorageInterface
+		,public StatisticsStorageConst
+{
+public:
+	StatisticsStorageImpl( StatisticsStorageInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsStorageInterface>(obj_,ctx_){}
+	StatisticsStorageImpl( const StatisticsStorageInterface* obj_, TraceGlobalContext* ctx_)
+		:TraceObject<StatisticsStorageInterface>(obj_,ctx_){}
+
+	virtual ~StatisticsStorageImpl();
+	virtual StatisticsStorageClientInterface* createClient(
+			const std::string& p1, 
+			const DatabaseInterface* p2, 
+			const StatisticsProcessorInterface* p3) const;
+	virtual bool createStorage(
+			const std::string& p1, 
+			const DatabaseInterface* p2) const;
+	virtual const char* getConfigDescription() const;
+	virtual const char** getConfigParameters() const;
 };
 
 class StatisticsViewerImpl
@@ -1592,12 +1629,11 @@ public:
 	virtual MetaDataRestrictionInterface* createMetaDataRestriction() const;
 	virtual AttributeReaderInterface* createAttributeReader() const;
 	virtual StorageTransactionInterface* createTransaction();
-	virtual StatisticsIteratorInterface* createAllStatisticsIterator() const;
-	virtual StatisticsIteratorInterface* createChangeStatisticsIterator(
+	virtual TimeStamp getNextChangeStatisticsTimeStamp(
 			const TimeStamp& p1) const;
-	virtual std::vector<TimeStamp> getChangeStatisticTimeStamps() const;
 	virtual StatisticsMessage loadChangeStatisticsMessage(
 			const TimeStamp& p1) const;
+	virtual std::vector<StatisticsMessage> loadInitStatisticsMessages() const;
 	virtual const StatisticsProcessorInterface* getStatisticsProcessor() const;
 	virtual StorageDocumentInterface* createDocumentChecker(
 			const std::string& p1, 
@@ -1726,10 +1762,11 @@ public:
 	virtual bool createStorage(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
-	virtual const char* getConfigDescription(
-			const ConfigType& p1) const;
-	virtual const char** getConfigParameters(
-			const ConfigType& p1) const;
+	virtual bool destroyStorage(
+			const std::string& p1, 
+			const DatabaseInterface* p2) const;
+	virtual const char* getConfigDescription() const;
+	virtual const char** getConfigParameters() const;
 };
 
 class StorageMetaDataTableUpdateImpl

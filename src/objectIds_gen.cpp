@@ -68,9 +68,10 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"SegmenterMarkupContext",
 		"SentenceLexerInstance",
 		"StatisticsBuilder",
-		"StatisticsIterator",
 		"StatisticsMap",
 		"StatisticsProcessor",
+		"StatisticsStorageClient",
+		"StatisticsStorage",
 		"StatisticsViewer",
 		"StorageClient",
 		"StorageDocument",
@@ -422,13 +423,7 @@ const char* SentenceLexerInstanceConst::methodName( MethodId mid)
 
 const char* StatisticsBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "addNofDocumentsInsertedChange", "addDfChange", "createIteratorAndRollback", "commit", "rollback", "releaseStatistics"};
-	return ar[mid];
-}
-
-const char* StatisticsIteratorConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "getNext"};
+	static const char* ar[] = { "Destructor", "addNofDocumentsInsertedChange", "addDfChange", "getMessages", "commit", "rollback"};
 	return ar[mid];
 }
 
@@ -440,7 +435,19 @@ const char* StatisticsMapConst::methodName( MethodId mid)
 
 const char* StatisticsProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createViewer", "createIterator", "getChangeTimeStamps", "loadChangeMessage", "createBuilder", "createMap"};
+	static const char* ar[] = { "Destructor", "createViewer", "getUpperBoundTimeStamp", "loadChangeMessage", "createBuilder", "createMap", "releaseStatistics"};
+	return ar[mid];
+}
+
+const char* StatisticsStorageClientConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "reload", "diskUsage", "getConfigParameters", "config", "nofDocuments", "documentFrequency", "storageTimeStamp", "putStatisticsMessage", "getStatisticsProcessor", "close", "compaction"};
+	return ar[mid];
+}
+
+const char* StatisticsStorageConst::methodName( MethodId mid)
+{
+	static const char* ar[] = { "Destructor", "createClient", "createStorage", "getConfigDescription", "getConfigParameters"};
 	return ar[mid];
 }
 
@@ -452,7 +459,7 @@ const char* StatisticsViewerConst::methodName( MethodId mid)
 
 const char* StorageClientConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "reload", "diskUsage", "blockStatistics", "config", "createTermPostingIterator", "createFrequencyPostingIterator", "createStructureIterator", "createBrowsePostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "structTypeNumber", "termTypeNumber", "termValueNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "createAllStatisticsIterator", "createChangeStatisticsIterator", "getChangeStatisticTimeStamps", "loadChangeStatisticsMessage", "getStatisticsProcessor", "createDocumentChecker", "createDump", "getConfigParameters", "checkStorage", "close", "compaction"};
+	static const char* ar[] = { "Destructor", "reload", "diskUsage", "blockStatistics", "config", "createTermPostingIterator", "createFrequencyPostingIterator", "createStructureIterator", "createBrowsePostingIterator", "createForwardIterator", "createDocumentTermIterator", "createInvAclIterator", "createAclReader", "nofDocumentsInserted", "documentFrequency", "maxDocumentNumber", "documentNumber", "structTypeNumber", "termTypeNumber", "termValueNumber", "isForwardIndexTerm", "createTermTypeIterator", "createStructTypeIterator", "createTermValueIterator", "createDocIdIterator", "createUserNameIterator", "documentStatistics", "createMetaDataReader", "createMetaDataRestriction", "createAttributeReader", "createTransaction", "getNextChangeStatisticsTimeStamp", "loadChangeStatisticsMessage", "loadInitStatisticsMessages", "getStatisticsProcessor", "createDocumentChecker", "createDump", "getConfigParameters", "checkStorage", "close", "compaction"};
 	return ar[mid];
 }
 
@@ -476,7 +483,7 @@ const char* StorageDumpConst::methodName( MethodId mid)
 
 const char* StorageConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createClient", "createStorage", "getConfigDescription", "getConfigParameters"};
+	static const char* ar[] = { "Destructor", "createClient", "createStorage", "destroyStorage", "getConfigDescription", "getConfigParameters"};
 	return ar[mid];
 }
 

@@ -1480,17 +1480,17 @@ public:
 			const void* msgptr, std::size_t p1) const;
 	virtual TimeStamp getUpperBoundTimeStamp(
 			const std::string& p1, 
-			const TimeStamp p2) const;
+			TimeStamp p2) const;
 	virtual StatisticsMessage loadChangeMessage(
 			const std::string& p1, 
-			const TimeStamp& p2) const;
+			TimeStamp p2) const;
 	virtual StatisticsBuilderInterface* createBuilder(
 			const std::string& p1) const;
 	virtual StatisticsMapInterface* createMap(
 			const std::string& p1) const;
 	virtual void releaseStatistics(
 			const std::string& p1, 
-			const TimeStamp& p2) const;
+			TimeStamp p2) const;
 };
 
 class StatisticsStorageClientImpl
@@ -1630,9 +1630,9 @@ public:
 	virtual AttributeReaderInterface* createAttributeReader() const;
 	virtual StorageTransactionInterface* createTransaction();
 	virtual TimeStamp getNextChangeStatisticsTimeStamp(
-			const TimeStamp& p1) const;
+			TimeStamp p1) const;
 	virtual StatisticsMessage loadChangeStatisticsMessage(
-			const TimeStamp& p1) const;
+			TimeStamp p1) const;
 	virtual std::vector<StatisticsMessage> loadInitStatisticsMessages() const;
 	virtual const StatisticsProcessorInterface* getStatisticsProcessor() const;
 	virtual StorageDocumentInterface* createDocumentChecker(

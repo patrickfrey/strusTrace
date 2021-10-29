@@ -6593,7 +6593,7 @@ StatisticsViewerInterface* StatisticsProcessorImpl::createViewer(
 
 TimeStamp StatisticsProcessorImpl::getUpperBoundTimeStamp(
 			const std::string& p1, 
-			const TimeStamp p2) const
+			TimeStamp p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_getUpperBoundTimeStamp), objid());
 	TimeStamp p0 = obj()->getUpperBoundTimeStamp(p1, p2);
@@ -6615,7 +6615,7 @@ TimeStamp StatisticsProcessorImpl::getUpperBoundTimeStamp(
 
 StatisticsMessage StatisticsProcessorImpl::loadChangeMessage(
 			const std::string& p1, 
-			const TimeStamp& p2) const
+			TimeStamp p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_loadChangeMessage), objid());
 	StatisticsMessage p0 = obj()->loadChangeMessage(p1, p2);
@@ -6701,7 +6701,7 @@ StatisticsMapInterface* StatisticsProcessorImpl::createMap(
 
 void StatisticsProcessorImpl::releaseStatistics(
 			const std::string& p1, 
-			const TimeStamp& p2) const
+			TimeStamp p2) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StatisticsProcessor), StatisticsProcessorConst::methodName( Method_releaseStatistics), objid());
 	obj()->releaseStatistics(p1, p2);
@@ -7917,7 +7917,7 @@ StorageTransactionInterface* StorageClientImpl::createTransaction()
 }
 
 TimeStamp StorageClientImpl::getNextChangeStatisticsTimeStamp(
-			const TimeStamp& p1) const
+			TimeStamp p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_getNextChangeStatisticsTimeStamp), objid());
 	TimeStamp p0 = obj()->getNextChangeStatisticsTimeStamp(p1);
@@ -7937,7 +7937,7 @@ TimeStamp StorageClientImpl::getNextChangeStatisticsTimeStamp(
 }
 
 StatisticsMessage StorageClientImpl::loadChangeStatisticsMessage(
-			const TimeStamp& p1) const
+			TimeStamp p1) const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_StorageClient), StorageClientConst::methodName( Method_loadChangeStatisticsMessage), objid());
 	StatisticsMessage p0 = obj()->loadChangeStatisticsMessage(p1);

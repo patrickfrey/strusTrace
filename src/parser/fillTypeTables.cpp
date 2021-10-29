@@ -255,9 +255,6 @@ void strus::fillTypeTables( TypeSystem& typesystem)
 	typesystem.defineType( "const DatabaseOptions&")
 		("pack_msg", "parambuf.packDatabaseOptions($name);")
 	;
-	typesystem.defineType( "const ConfigType&", "VectorStorage")
-		("pack_msg", "parambuf.packVectorStorageConfigType($name);")
-	;
 	typesystem.defineType( "const analyzer::FeatureOptions&")
 		("pack_msg", "parambuf.packFeatureOptions($name);")
 	;

@@ -130,7 +130,6 @@ public:
 	void packMetaDataRestrictionCompareOperator( MetaDataRestrictionInterface::CompareOperator val);
 
 	void packDatabaseOptions( const DatabaseOptions& val);
-	void packVectorStorageConfigType( const VectorStorageInterface::ConfigType& val);
 	void packFeatureOptions( const analyzer::FeatureOptions& val);
 	void packSummaryElement( const SummaryElement& val);
 	void packSummaryElementVector( const std::vector<SummaryElement>& val);

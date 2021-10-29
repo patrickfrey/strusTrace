@@ -427,19 +427,6 @@ void TraceSerializer::packDatabaseOptions( const DatabaseOptions& val)
 	}CATCH_ERROR
 }
 
-static const char* vectorStorageConfigTypeName( VectorStorageInterface::ConfigType tp)
-{
-	static const char* ar[] = {"CreateClient", "CmdCreate"};
-	return ar[ tp];
-}
-
-void TraceSerializer::packVectorStorageConfigType( const VectorStorageInterface::ConfigType& val)
-{
-	try{
-		m_elembuf.push_back( TraceElement( TraceElement::TypeString, vectorStorageConfigTypeName( val)));
-	}CATCH_ERROR
-}
-
 void TraceSerializer::packFeatureOptions( const analyzer::FeatureOptions& val)
 {
 	try{

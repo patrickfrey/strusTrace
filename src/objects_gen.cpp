@@ -11214,11 +11214,10 @@ VectorStorageDumpInterface* VectorStorageImpl::createDump(
 	return p0;
 }
 
-const char* VectorStorageImpl::getConfigDescription(
-			const ConfigType& p1) const
+const char* VectorStorageImpl::getConfigDescription() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_getConfigDescription), objid());
-	const char* p0 = obj()->getConfigDescription(p1);
+	const char* p0 = obj()->getConfigDescription();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -11229,7 +11228,6 @@ const char* VectorStorageImpl::getConfigDescription(
 	else
 	{
 		parambuf.packCharp(p0);
-		parambuf.packVectorStorageConfigType(p1);
 	}
 	if (parambuf.hasError())
 	{
@@ -11243,11 +11241,10 @@ const char* VectorStorageImpl::getConfigDescription(
 	return p0;
 }
 
-const char** VectorStorageImpl::getConfigParameters(
-			const ConfigType& p1) const
+const char** VectorStorageImpl::getConfigParameters() const
 {
 	TraceLogRecordHandle callhnd = traceContext()->logger()->logMethodCall( TraceClassNameMap::className( ClassId_VectorStorage), VectorStorageConst::methodName( Method_getConfigParameters), objid());
-	const char** p0 = obj()->getConfigParameters(p1);
+	const char** p0 = obj()->getConfigParameters();
 	TraceSerializer parambuf;
 	if (p0 == 0)
 	{
@@ -11258,7 +11255,6 @@ const char** VectorStorageImpl::getConfigParameters(
 	else
 	{
 		parambuf.packCharpp(p0);
-		parambuf.packVectorStorageConfigType(p1);
 	}
 	if (parambuf.hasError())
 	{

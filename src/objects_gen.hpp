@@ -1762,9 +1762,6 @@ public:
 	virtual bool createStorage(
 			const std::string& p1, 
 			const DatabaseInterface* p2) const;
-	virtual bool destroyStorage(
-			const std::string& p1, 
-			const DatabaseInterface* p2) const;
 	virtual const char* getConfigDescription() const;
 	virtual const char** getConfigParameters() const;
 };

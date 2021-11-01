@@ -483,7 +483,7 @@ const char* StorageDumpConst::methodName( MethodId mid)
 
 const char* StorageConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createClient", "createStorage", "destroyStorage", "getConfigDescription", "getConfigParameters"};
+	static const char* ar[] = { "Destructor", "createClient", "createStorage", "getConfigDescription", "getConfigParameters"};
 	return ar[mid];
 }
 

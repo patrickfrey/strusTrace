@@ -66,7 +66,6 @@
 #include "strus/segmenterMarkupContextInterface.hpp"
 #include "strus/sentenceLexerInstanceInterface.hpp"
 #include "strus/statisticsBuilderInterface.hpp"
-#include "strus/statisticsMapInterface.hpp"
 #include "strus/statisticsProcessorInterface.hpp"
 #include "strus/statisticsStorageClientInterface.hpp"
 #include "strus/statisticsStorageInterface.hpp"
@@ -1437,33 +1436,6 @@ public:
 	virtual void rollback();
 };
 
-class StatisticsMapImpl
-		:public TraceObject<StatisticsMapInterface>
-		,public StatisticsMapInterface
-		,public StatisticsMapConst
-{
-public:
-	StatisticsMapImpl( StatisticsMapInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StatisticsMapInterface>(obj_,ctx_){}
-	StatisticsMapImpl( const StatisticsMapInterface* obj_, TraceGlobalContext* ctx_)
-		:TraceObject<StatisticsMapInterface>(obj_,ctx_){}
-
-	virtual ~StatisticsMapImpl();
-	virtual void addNofDocumentsInsertedChange(
-			int p1);
-	virtual void addDfChange(
-			const char* p1, 
-			const char* p2, 
-			int p3);
-	virtual bool processStatisticsMessage(
-			const void* msgptr, std::size_t p1);
-	virtual GlobalCounter nofDocuments() const;
-	virtual GlobalCounter df(
-			const std::string& p1, 
-			const std::string& p2) const;
-	virtual std::vector<std::string> types() const;
-};
-
 class StatisticsProcessorImpl
 		:public TraceObject<StatisticsProcessorInterface>
 		,public StatisticsProcessorInterface
@@ -1485,8 +1457,6 @@ public:
 			const std::string& p1, 
 			TimeStamp p2) const;
 	virtual StatisticsBuilderInterface* createBuilder(
-			const std::string& p1) const;
-	virtual StatisticsMapInterface* createMap(
 			const std::string& p1) const;
 	virtual void releaseStatistics(
 			const std::string& p1, 
@@ -1811,6 +1781,7 @@ public:
 	virtual const StorageInterface* getStorage() const;
 	virtual const DatabaseInterface* getDatabase(
 			const std::string& p1) const;
+	virtual const StatisticsStorageInterface* getStatisticsStorage() const;
 	virtual const QueryProcessorInterface* getQueryProcessor() const;
 	virtual const StatisticsProcessorInterface* getStatisticsProcessor(
 			const std::string& p1) const;

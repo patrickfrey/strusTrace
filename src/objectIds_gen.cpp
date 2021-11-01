@@ -68,7 +68,6 @@ const char* TraceClassNameMap::className( unsigned int classId)
 		"SegmenterMarkupContext",
 		"SentenceLexerInstance",
 		"StatisticsBuilder",
-		"StatisticsMap",
 		"StatisticsProcessor",
 		"StatisticsStorageClient",
 		"StatisticsStorage",
@@ -427,15 +426,9 @@ const char* StatisticsBuilderConst::methodName( MethodId mid)
 	return ar[mid];
 }
 
-const char* StatisticsMapConst::methodName( MethodId mid)
-{
-	static const char* ar[] = { "Destructor", "addNofDocumentsInsertedChange", "addDfChange", "processStatisticsMessage", "nofDocuments", "df", "types"};
-	return ar[mid];
-}
-
 const char* StatisticsProcessorConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "createViewer", "getUpperBoundTimeStamp", "loadChangeMessage", "createBuilder", "createMap", "releaseStatistics"};
+	static const char* ar[] = { "Destructor", "createViewer", "getUpperBoundTimeStamp", "loadChangeMessage", "createBuilder", "releaseStatistics"};
 	return ar[mid];
 }
 
@@ -495,7 +488,7 @@ const char* StorageMetaDataTableUpdateConst::methodName( MethodId mid)
 
 const char* StorageObjectBuilderConst::methodName( MethodId mid)
 {
-	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getQueryProcessor", "getStatisticsProcessor", "getVectorStorage", "createQueryEval"};
+	static const char* ar[] = { "Destructor", "getStorage", "getDatabase", "getStatisticsStorage", "getQueryProcessor", "getStatisticsProcessor", "getVectorStorage", "createQueryEval"};
 	return ar[mid];
 }
 

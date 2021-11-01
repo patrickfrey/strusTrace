@@ -68,36 +68,35 @@ enum ClassId
 	ClassId_SegmenterMarkupContext=52,
 	ClassId_SentenceLexerInstance=53,
 	ClassId_StatisticsBuilder=54,
-	ClassId_StatisticsMap=55,
-	ClassId_StatisticsProcessor=56,
-	ClassId_StatisticsStorageClient=57,
-	ClassId_StatisticsStorage=58,
-	ClassId_StatisticsViewer=59,
-	ClassId_StorageClient=60,
-	ClassId_StorageDocument=61,
-	ClassId_StorageDocumentUpdate=62,
-	ClassId_StorageDump=63,
-	ClassId_Storage=64,
-	ClassId_StorageMetaDataTableUpdate=65,
-	ClassId_StorageObjectBuilder=66,
-	ClassId_StorageTransaction=67,
-	ClassId_StructureIterator=68,
-	ClassId_SummarizerFunctionContext=69,
-	ClassId_SummarizerFunctionInstance=70,
-	ClassId_SummarizerFunction=71,
-	ClassId_TextProcessor=72,
-	ClassId_TokenizerFunctionInstance=73,
-	ClassId_TokenizerFunction=74,
-	ClassId_TokenMarkupContext=75,
-	ClassId_TokenMarkupInstance=76,
-	ClassId_ValueIterator=77,
-	ClassId_VectorStorageClient=78,
-	ClassId_VectorStorageDump=79,
-	ClassId_VectorStorage=80,
-	ClassId_VectorStorageTransaction=81,
-	ClassId_WeightingFunctionContext=82,
-	ClassId_WeightingFunctionInstance=83,
-	ClassId_WeightingFunction=84
+	ClassId_StatisticsProcessor=55,
+	ClassId_StatisticsStorageClient=56,
+	ClassId_StatisticsStorage=57,
+	ClassId_StatisticsViewer=58,
+	ClassId_StorageClient=59,
+	ClassId_StorageDocument=60,
+	ClassId_StorageDocumentUpdate=61,
+	ClassId_StorageDump=62,
+	ClassId_Storage=63,
+	ClassId_StorageMetaDataTableUpdate=64,
+	ClassId_StorageObjectBuilder=65,
+	ClassId_StorageTransaction=66,
+	ClassId_StructureIterator=67,
+	ClassId_SummarizerFunctionContext=68,
+	ClassId_SummarizerFunctionInstance=69,
+	ClassId_SummarizerFunction=70,
+	ClassId_TextProcessor=71,
+	ClassId_TokenizerFunctionInstance=72,
+	ClassId_TokenizerFunction=73,
+	ClassId_TokenMarkupContext=74,
+	ClassId_TokenMarkupInstance=75,
+	ClassId_ValueIterator=76,
+	ClassId_VectorStorageClient=77,
+	ClassId_VectorStorageDump=78,
+	ClassId_VectorStorage=79,
+	ClassId_VectorStorageTransaction=80,
+	ClassId_WeightingFunctionContext=81,
+	ClassId_WeightingFunctionInstance=82,
+	ClassId_WeightingFunction=83
 };
 
 struct TraceClassNameMap
@@ -908,22 +907,6 @@ public:
 	static const char* methodName( MethodId mid);
 };
 
-class StatisticsMapConst
-{
-public:
-	enum MethodId
-	{
-		Method_Destructor=0,
-		Method_addNofDocumentsInsertedChange=1,
-		Method_addDfChange=2,
-		Method_processStatisticsMessage=3,
-		Method_nofDocuments=4,
-		Method_df=5,
-		Method_types=6
-	};
-	static const char* methodName( MethodId mid);
-};
-
 class StatisticsProcessorConst
 {
 public:
@@ -934,8 +917,7 @@ public:
 		Method_getUpperBoundTimeStamp=2,
 		Method_loadChangeMessage=3,
 		Method_createBuilder=4,
-		Method_createMap=5,
-		Method_releaseStatistics=6
+		Method_releaseStatistics=5
 	};
 	static const char* methodName( MethodId mid);
 };
@@ -1127,10 +1109,11 @@ public:
 		Method_Destructor=0,
 		Method_getStorage=1,
 		Method_getDatabase=2,
-		Method_getQueryProcessor=3,
-		Method_getStatisticsProcessor=4,
-		Method_getVectorStorage=5,
-		Method_createQueryEval=6
+		Method_getStatisticsStorage=3,
+		Method_getQueryProcessor=4,
+		Method_getStatisticsProcessor=5,
+		Method_getVectorStorage=6,
+		Method_createQueryEval=7
 	};
 	static const char* methodName( MethodId mid);
 };
